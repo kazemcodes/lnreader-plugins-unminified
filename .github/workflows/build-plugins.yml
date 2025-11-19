@@ -67,19 +67,53 @@ jobs:
             cp -r lnreader-source/.js/plugins/* plugins/ 2>/dev/null || true
           fi
           
-          # Copy and update JSON manifest files with correct URLs
-          if [ -f "lnreader-source/.dist/plugins.json" ]; then
-            # Replace URLs to point to this repo
-            sed 's|https://raw.githubusercontent.com/LNReader/lnreader-plugins/[^/]*/|https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/|g' \
-              lnreader-source/.dist/plugins.json > plugins/plugins.json
-            echo "✅ Copied and updated plugins.json"
-          fi
-          if [ -f "lnreader-source/.dist/plugins.min.json" ]; then
-            # Replace URLs to point to this repo
-            sed 's|https://raw.githubusercontent.com/LNReader/lnreader-plugins/[^/]*/|https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/|g' \
-              lnreader-source/.dist/plugins.min.json > plugins/plugins.min.json
-            echo "✅ Copied and updated plugins.min.json"
-          fi
+          # Update JSON manifest files with correct URLs using Node.js
+          node << 'SCRIPT'
+          const fs = require('fs');
+          const path = require('path');
+          
+          const updateUrls = (filePath, outputPath) => {
+            if (!fs.existsSync(filePath)) return;
+            
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const data = JSON.parse(content);
+            
+            // Update URLs in each plugin entry
+            data.forEach(plugin => {
+              if (plugin.url) {
+                plugin.url = plugin.url.replace(
+                  /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
+                  'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
+                );
+              }
+              if (plugin.iconUrl) {
+                plugin.iconUrl = plugin.iconUrl.replace(
+                  /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
+                  'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
+                );
+              }
+              if (plugin.customJS) {
+                plugin.customJS = plugin.customJS.replace(
+                  /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
+                  'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
+                );
+              }
+              if (plugin.customCSS) {
+                plugin.customCSS = plugin.customCSS.replace(
+                  /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
+                  'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
+                );
+              }
+            });
+            
+            // Write formatted JSON
+            fs.writeFileSync(outputPath, JSON.stringify(data, null, '\t'));
+            console.log(`✅ Updated ${path.basename(outputPath)}`);
+          };
+          
+          updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json');
+          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json');
+          SCRIPT
           
           # Count total plugins
           total=$(find plugins -name "*.js" -type f | wc -l)
