@@ -72,7 +72,7 @@ jobs:
           const fs = require('fs');
           const path = require('path');
           
-          const updateUrls = (filePath, outputPath) => {
+          const updateUrls = (filePath, outputPath, minified = false) => {
             if (!fs.existsSync(filePath)) return;
             
             const content = fs.readFileSync(filePath, 'utf-8');
@@ -106,13 +106,14 @@ jobs:
               }
             });
             
-            // Write formatted JSON
-            fs.writeFileSync(outputPath, JSON.stringify(data, null, '\t'));
+            // Write JSON - minified or formatted
+            const output = minified ? JSON.stringify(data) : JSON.stringify(data, null, '\t');
+            fs.writeFileSync(outputPath, output);
             console.log(`✅ Updated ${path.basename(outputPath)}`);
           };
           
-          updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json');
-          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json');
+          updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', false);
+          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', true);
           SCRIPT
           
           # Count total plugins
