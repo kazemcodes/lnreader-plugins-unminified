@@ -79,6 +79,7 @@ jobs:
             const data = JSON.parse(content);
             
             // Update URLs in each plugin entry
+            // Only update plugin URLs, keep icons/assets pointing to original repo
             data.forEach(plugin => {
               if (plugin.url) {
                 plugin.url = plugin.url.replace(
@@ -86,24 +87,8 @@ jobs:
                   'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
                 );
               }
-              if (plugin.iconUrl) {
-                plugin.iconUrl = plugin.iconUrl.replace(
-                  /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
-                  'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
-                );
-              }
-              if (plugin.customJS) {
-                plugin.customJS = plugin.customJS.replace(
-                  /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
-                  'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
-                );
-              }
-              if (plugin.customCSS) {
-                plugin.customCSS = plugin.customCSS.replace(
-                  /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
-                  'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
-                );
-              }
+              // Keep iconUrl, customJS, and customCSS pointing to original LNReader repo
+              // No changes needed for these fields
             });
             
             // Write JSON - minified or formatted
