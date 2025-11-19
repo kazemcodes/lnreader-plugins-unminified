@@ -6,7 +6,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.10",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/ArNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/arnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/arnovel/icon.png"
 	},
 	{
 		"id": "azora",
@@ -15,7 +15,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/Azora[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/azora/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/azora/icon.png"
 	},
 	{
 		"id": "dilartube",
@@ -24,7 +24,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/dilartube.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ar/dilartube/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/dilartube/icon.png"
 	},
 	{
 		"id": "freekolnovel",
@@ -33,7 +33,7 @@
 		"lang": "‎العربية",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/FreeKolNovel[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/freekolnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/freekolnovel/icon.png"
 	},
 	{
 		"id": "hizomanga",
@@ -42,7 +42,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.10",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/HizoManga[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/hizomanga/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/hizomanga/icon.png"
 	},
 	{
 		"id": "kolnovel",
@@ -51,7 +51,7 @@
 		"lang": "‎العربية",
 		"version": "1.1.19",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/KolNovel[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/kolnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/kolnovel/icon.png"
 	},
 	{
 		"id": "novel4up",
@@ -60,7 +60,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/Novel4Up[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/novel4up/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novel4up/icon.png"
 	},
 	{
 		"id": "novelsparadise",
@@ -69,7 +69,7 @@
 		"lang": "‎العربية",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/NovelsParadise[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/novelsparadise/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/novelsparadise/icon.png"
 	},
 	{
 		"id": "olaoe",
@@ -78,7 +78,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/Olaoecyou[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/olaoe/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/olaoe/icon.png"
 	},
 	{
 		"id": "rewayatclub",
@@ -87,7 +87,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/rewayatclub.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ar/rewayatclub/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/rewayatclub/icon.png"
 	},
 	{
 		"id": "riwyat",
@@ -96,7 +96,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.13",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/Riwyat[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/riwyat/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/riwyat/icon.png"
 	},
 	{
 		"id": "sunovels",
@@ -105,7 +105,7 @@
 		"lang": "‎العربية",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/arabic/sunovels.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ar/sunovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/sunovels/icon.png"
 	},
 	{
 		"id": "69shu",
@@ -114,7 +114,7 @@
 		"lang": "中文, 汉语, 漢語",
 		"version": "0.2.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/chinese/69shu.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/cn/69shu/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/69shu/icon.png"
 	},
 	{
 		"id": "ixdzs8",
@@ -123,7 +123,7 @@
 		"lang": "中文, 汉语, 漢語",
 		"version": "2.2.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/chinese/ixdzs8.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/cn/ixdzs8/favicon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/ixdzs8/favicon.png"
 	},
 	{
 		"id": "linovel",
@@ -132,7 +132,7 @@
 		"lang": "中文, 汉语, 漢語",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/chinese/linovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/cn/linovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/linovel/icon.png"
 	},
 	{
 		"id": "linovelib",
@@ -141,7 +141,7 @@
 		"lang": "中文, 汉语, 漢語",
 		"version": "1.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/chinese/linovelib.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/cn/linovelib/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/linovelib/icon.png"
 	},
 	{
 		"id": "linovelib_tw",
@@ -150,7 +150,7 @@
 		"lang": "中文, 汉语, 漢語",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/chinese/linovelib_tw.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/cn/linovelib/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/linovelib/icon.png"
 	},
 	{
 		"id": "novel543",
@@ -159,7 +159,7 @@
 		"lang": "中文, 汉语, 漢語",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/chinese/novel543.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/cn/novel543/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/novel543/icon.png"
 	},
 	{
 		"id": "quanben",
@@ -168,7 +168,7 @@
 		"lang": "中文, 汉语, 漢語",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/chinese/Quanben.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/cn/quanben/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/quanben/icon.png"
 	},
 	{
 		"id": "1stkissnovel",
@@ -177,7 +177,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/FirstKissNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/1stkissnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/1stkissnovel/icon.png"
 	},
 	{
 		"id": "allnovel",
@@ -186,7 +186,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/AllNovel[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/allnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/allnovel/icon.png"
 	},
 	{
 		"id": "anf.net",
@@ -195,7 +195,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/AllNovelFull[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/anf.net/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/anf.net/icon.png"
 	},
 	{
 		"id": "arcane",
@@ -204,7 +204,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/ArcaneTranslations[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/arcane/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/arcane/icon.png"
 	},
 	{
 		"id": "archiveofourown",
@@ -213,7 +213,7 @@
 		"lang": "English",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/ao3.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/ao3/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/ao3/icon.png"
 	},
 	{
 		"id": "asuralightnovel",
@@ -222,7 +222,7 @@
 		"lang": "English",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/SrankManga[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/asuralightnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/asuralightnovel/icon.png"
 	},
 	{
 		"id": "bellereservoir",
@@ -231,7 +231,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/BelleReservoir[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/bellereservoir/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/bellereservoir/icon.png"
 	},
 	{
 		"id": "BLN",
@@ -240,7 +240,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/bestlightnovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/bestlightnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/bestlightnovel/icon.png"
 	},
 	{
 		"id": "boxnovel",
@@ -249,7 +249,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/BoxNovel[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/boxnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/boxnovel/icon.png"
 	},
 	{
 		"id": "chrysanthemumgarden",
@@ -258,7 +258,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/chrysanthemumgarden.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/chrysanthemumgarden/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/chrysanthemumgarden/icon.png"
 	},
 	{
 		"id": "citrusaurora",
@@ -267,7 +267,7 @@
 		"lang": "English",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/CitrusAurora[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/citrusaurora/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/citrusaurora/icon.png"
 	},
 	{
 		"id": "coralboutique",
@@ -276,7 +276,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/CoralBoutique[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/coralboutique/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/coralboutique/icon.png"
 	},
 	{
 		"id": "cpunovel",
@@ -285,7 +285,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/CPUnovel[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/cpunovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/cpunovel/icon.png"
 	},
 	{
 		"id": "daoistquest",
@@ -294,7 +294,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/DaoistQuest[fictioneer].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/fictioneer/daoistquest/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/daoistquest/icon.png"
 	},
 	{
 		"id": "daonovel",
@@ -303,7 +303,7 @@
 		"lang": "English",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/DaoNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/daonovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/daonovel/icon.png"
 	},
 	{
 		"id": "daotranslate",
@@ -312,7 +312,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/DaoTranslate[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/daotranslate/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/daotranslate/icon.png"
 	},
 	{
 		"id": "DDL.com",
@@ -321,7 +321,7 @@
 		"lang": "English",
 		"version": "1.1.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/divinedaolibrary.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/divinedaolibrary/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/divinedaolibrary/icon.png"
 	},
 	{
 		"id": "dearestrosalie",
@@ -330,7 +330,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/DearestRosalie[fictioneer].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/fictioneer/dearestrosalie/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/dearestrosalie/icon.png"
 	},
 	{
 		"id": "dragonholic",
@@ -339,7 +339,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Dragonholic[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/dragonholic/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/dragonholic/icon.png"
 	},
 	{
 		"id": "dragontea",
@@ -348,7 +348,7 @@
 		"lang": "English",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/DragonTea[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/dragontea/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/dragontea/icon.png"
 	},
 	{
 		"id": "dreambigtl",
@@ -357,7 +357,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/dreambigtl.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/dreambigtl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/dreambigtl/icon.png"
 	},
 	{
 		"id": "duskblossoms",
@@ -366,7 +366,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/DuskBlossoms[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/duskblossoms/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/duskblossoms/icon.png"
 	},
 	{
 		"id": "earlynovel",
@@ -375,7 +375,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/earlynovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/earlynovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/earlynovel/icon.png"
 	},
 	{
 		"id": "ellotl",
@@ -384,7 +384,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/ElloTL[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/ellotl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/ellotl/icon.png"
 	},
 	{
 		"id": "eternalune",
@@ -393,7 +393,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Eternalune[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/eternalune/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/eternalune/icon.png"
 	},
 	{
 		"id": "etudetranslations",
@@ -402,7 +402,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/EtudeTranslations[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/etudetranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/etudetranslations/icon.png"
 	},
 	{
 		"id": "fannovel",
@@ -411,7 +411,7 @@
 		"lang": "English",
 		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/FanNovel[readwn].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readwn/fannovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/fannovel/icon.png"
 	},
 	{
 		"id": "fanstranslations",
@@ -420,7 +420,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/FansTranslations[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/fanstranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/fanstranslations/icon.png"
 	},
 	{
 		"id": "fenrir",
@@ -429,7 +429,7 @@
 		"lang": "English",
 		"version": "1.0.12",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/fenrirrealm.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/fenrirrealm/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/fenrirrealm/icon.png"
 	},
 	{
 		"id": "fictionzone",
@@ -438,7 +438,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/fictionzone.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/fictionzone/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/fictionzone/icon.png"
 	},
 	{
 		"id": "foxaholic",
@@ -447,7 +447,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Foxaholic[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/foxaholic/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/foxaholic/icon.png"
 	},
 	{
 		"id": "foxteller",
@@ -456,7 +456,7 @@
 		"lang": "English",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/foxteller.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/foxteller/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/foxteller/icon.png"
 	},
 	{
 		"id": "FWK.US",
@@ -465,7 +465,7 @@
 		"lang": "English",
 		"version": "2.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/faqwikius.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/faqwikius/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/faqwikius/icon.png"
 	},
 	{
 		"id": "FWN.com",
@@ -474,7 +474,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/FreeWebNovel[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/fwn.com/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/fwn.com/icon.png"
 	},
 	{
 		"id": "galaxytranslations",
@@ -483,7 +483,7 @@
 		"lang": "English",
 		"version": "1.0.11",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/GalaxyTranslations[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/galaxytranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/galaxytranslations/icon.png"
 	},
 	{
 		"id": "genesistudio",
@@ -492,8 +492,8 @@
 		"lang": "English",
 		"version": "1.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/genesis.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/genesis/icon.png",
-		"customCSS": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/genesis/customCSS.css"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/genesis/icon.png",
+		"customCSS": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/genesis/customCSS.css"
 	},
 	{
 		"id": "guavaread",
@@ -502,7 +502,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Guavaread[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/guavaread/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/guavaread/icon.png"
 	},
 	{
 		"id": "hiraethtranslation",
@@ -511,7 +511,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/HiraethTranslation[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/hiraethtranslation/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/hiraethtranslation/icon.png"
 	},
 	{
 		"id": "hotnovelpub",
@@ -520,7 +520,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/HotNovelPub[hotnovelpub].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/hotnovelpub/hotnovelpub/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/hotnovelpub/hotnovelpub/icon.png"
 	},
 	{
 		"id": "inkitt",
@@ -529,7 +529,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/inkitt.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/inkitt/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/inkitt/icon.png"
 	},
 	{
 		"id": "ippotranslations",
@@ -538,7 +538,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Ippotranslations[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/ippotranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/ippotranslations/icon.png"
 	},
 	{
 		"id": "kdtnovels",
@@ -547,7 +547,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/kdtnovels.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/kdtnovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/kdtnovels/icon.png"
 	},
 	{
 		"id": "keopi",
@@ -556,7 +556,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/KeopiTranslations[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/keopi/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/keopi/icon.png"
 	},
 	{
 		"id": "knoxt",
@@ -565,7 +565,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/KnoxT[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/knoxt/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/knoxt/icon.png"
 	},
 	{
 		"id": "lazygirltranslations",
@@ -574,7 +574,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LazyGirlTranslations[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/lazygirltranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/lazygirltranslations/icon.png"
 	},
 	{
 		"id": "libread",
@@ -583,7 +583,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LibRead[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/libread/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/libread/icon.png"
 	},
 	{
 		"id": "lightnovelcave",
@@ -592,7 +592,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LightNovelCave[lightnovelworld].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelworld/lightnovelcave/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelworld/lightnovelcave/icon.png"
 	},
 	{
 		"id": "lightnovelplus",
@@ -601,7 +601,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LightNovelPlus[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/lightnovelplus/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/lightnovelplus/icon.png"
 	},
 	{
 		"id": "lightnovelpub",
@@ -610,7 +610,7 @@
 		"lang": "English",
 		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/lightnovelpub.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/lightnovelpub/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lightnovelpub/icon.png"
 	},
 	{
 		"id": "lightnovelpubvip",
@@ -619,7 +619,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LightNovelPubVip[lightnovelworld].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelworld/lightnovelpubvip/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelworld/lightnovelpubvip/icon.png"
 	},
 	{
 		"id": "lightnoveltranslations",
@@ -628,7 +628,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/lightnoveltranslation.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/lightnoveltranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lightnoveltranslations/icon.png"
 	},
 	{
 		"id": "LightNovelUpdates",
@@ -637,7 +637,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LightNovelUpdates[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/lightnovelupdates/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/lightnovelupdates/icon.png"
 	},
 	{
 		"id": "lightnovelworld",
@@ -646,7 +646,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LightNovelWord[lightnovelworld].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelworld/lightnovelworld/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelworld/lightnovelworld/icon.png"
 	},
 	{
 		"id": "lilyonthevalley",
@@ -655,7 +655,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LilyontheValley[fictioneer].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/fictioneer/lilyonthevalley/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/lilyonthevalley/icon.png"
 	},
 	{
 		"id": "lnheaven",
@@ -664,7 +664,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LightNovelHeaven[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/lnheaven/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/lnheaven/icon.png"
 	},
 	{
 		"id": "lnmtl",
@@ -673,7 +673,7 @@
 		"lang": "English",
 		"version": "2.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/lnmtl.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/lnmtl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lnmtl/icon.png"
 	},
 	{
 		"id": "ltnovel",
@@ -682,7 +682,7 @@
 		"lang": "English",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Ltnovel[readwn].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readwn/ltnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/ltnovel/icon.png"
 	},
 	{
 		"id": "lunarletters",
@@ -691,7 +691,7 @@
 		"lang": "English",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/LunarLetters[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/lunarletters/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/lunarletters/icon.png"
 	},
 	{
 		"id": "meownovel",
@@ -700,7 +700,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Meownovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/meownovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/meownovel/icon.png"
 	},
 	{
 		"id": "moonlightnovel",
@@ -709,7 +709,7 @@
 		"lang": "English",
 		"version": "1.1.10",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/MoonlightNovels[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/moonlightnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/moonlightnovel/icon.png"
 	},
 	{
 		"id": "mostnovel",
@@ -718,7 +718,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/MostNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/mostnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/mostnovel/icon.png"
 	},
 	{
 		"id": "mtl-novel",
@@ -727,7 +727,7 @@
 		"lang": "English",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/MTLNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/mtl-novel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/mtl-novel/icon.png"
 	},
 	{
 		"id": "mtlnovel",
@@ -736,7 +736,7 @@
 		"lang": "English",
 		"version": "1.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/MTLNovel[mtlnovel].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
 	},
 	{
 		"id": "mtlreader",
@@ -745,7 +745,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/mtlreader.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/mtlreader/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/mtlreader/icon.png"
 	},
 	{
 		"id": "mvlempyr.com",
@@ -754,7 +754,7 @@
 		"lang": "English",
 		"version": "1.0.10",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/mvlempyr.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/mvlempyr/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/mvlempyr/icon.png"
 	},
 	{
 		"id": "mysticalmerries",
@@ -763,7 +763,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/MysticalSeries[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/mysticalmerries/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/mysticalmerries/icon.png"
 	},
 	{
 		"id": "neosekaiTLS",
@@ -772,7 +772,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NeoSekaiTranslations[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/neosekaitls/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/neosekaitls/icon.png"
 	},
 	{
 		"id": "nitromanga",
@@ -781,7 +781,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NitroManga[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/nitromanga/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/nitromanga/icon.png"
 	},
 	{
 		"id": "NO.net",
@@ -790,7 +790,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelOnline.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/novelsonline/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelsonline/icon.png"
 	},
 	{
 		"id": "noblemtl",
@@ -799,7 +799,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NobleMTL[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/noblemtl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/noblemtl/icon.png"
 	},
 	{
 		"id": "noicetranslations",
@@ -808,7 +808,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NoiceTranslations[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/noicetranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/noicetranslations/icon.png"
 	},
 	{
 		"id": "novelbin",
@@ -817,7 +817,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelBin[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/novelbin/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/novelbin/icon.png"
 	},
 	{
 		"id": "novelbuddy",
@@ -826,7 +826,7 @@
 		"lang": "English",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/novelbuddy.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/novelbuddy/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelbuddy/icon.png"
 	},
 	{
 		"id": "novelcool",
@@ -835,7 +835,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelCool[novelcool].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/novelcool/novelcool/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/novelcool/novelcool/icon.png"
 	},
 	{
 		"id": "novelfire",
@@ -844,7 +844,7 @@
 		"lang": "English",
 		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/novelfire.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/novelfire/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelfire/icon.png"
 	},
 	{
 		"id": "novelfull",
@@ -853,7 +853,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelFull[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/novelfull/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/novelfull/icon.png"
 	},
 	{
 		"id": "novelhall",
@@ -862,7 +862,7 @@
 		"lang": "English",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/novelhall.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/novelhall/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelhall/icon.png"
 	},
 	{
 		"id": "novelib",
@@ -871,7 +871,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelLib[fictioneer].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/fictioneer/novelib/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/novelib/icon.png"
 	},
 	{
 		"id": "novelight",
@@ -880,7 +880,7 @@
 		"lang": "English",
 		"version": "1.1.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/novelight.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/novelight/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelight/icon.png"
 	},
 	{
 		"id": "novelmultiverse",
@@ -889,7 +889,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelMultiverse[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/novelmultiverse/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelmultiverse/icon.png"
 	},
 	{
 		"id": "novelsknight",
@@ -898,7 +898,7 @@
 		"lang": "English",
 		"version": "1.1.11",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelsKnight[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/novelsknight/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/novelsknight/icon.png"
 	},
 	{
 		"id": "novelTL",
@@ -907,7 +907,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/NovelTranslate[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/noveltl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/noveltl/icon.png"
 	},
 	{
 		"id": "novelupdates",
@@ -916,8 +916,8 @@
 		"lang": "English",
 		"version": "0.9.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/novelupdates.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/novelupdates/icon.png",
-		"customCSS": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/novelupdates/customCSS.css"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelupdates/icon.png",
+		"customCSS": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelupdates/customCSS.css"
 	},
 	{
 		"id": "pandamtl",
@@ -926,7 +926,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/PandaMachineTranslations[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/pandamtl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/pandamtl/icon.png"
 	},
 	{
 		"id": "pasteltales",
@@ -935,7 +935,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/PastelTales[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/pasteltales/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/pasteltales/icon.png"
 	},
 	{
 		"id": "pawread",
@@ -944,7 +944,7 @@
 		"lang": "English",
 		"version": "2.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/pawread.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/pawread/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/pawread/icon.png"
 	},
 	{
 		"id": "penguinsquad",
@@ -953,7 +953,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/PenguinSquad[fictioneer].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/fictioneer/penguinsquad/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/penguinsquad/icon.png"
 	},
 	{
 		"id": "prizmatranslation",
@@ -962,7 +962,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Prizma[fictioneer].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/fictioneer/prizmatranslation/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/prizmatranslation/icon.png"
 	},
 	{
 		"id": "rainofsnow",
@@ -971,7 +971,7 @@
 		"lang": "English",
 		"version": "1.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/rainofsnow.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/rainofsnow/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/rainofsnow/icon.png"
 	},
 	{
 		"id": "ranobes",
@@ -980,7 +980,7 @@
 		"lang": "English",
 		"version": "2.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Ranobes[ranobes].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/ranobes/ranobes/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/ranobes/ranobes/icon.png"
 	},
 	{
 		"id": "ranovel",
@@ -989,7 +989,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Ranovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/ranovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/ranovel/icon.png"
 	},
 	{
 		"id": "readfanfic",
@@ -998,7 +998,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/ReadFanfic[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/readfanfic/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/readfanfic/icon.png"
 	},
 	{
 		"id": "readfrom",
@@ -1007,7 +1007,7 @@
 		"lang": "English",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/readfrom.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/readfrom/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/readfrom/icon.png"
 	},
 	{
 		"id": "readnovelfull",
@@ -1016,7 +1016,7 @@
 		"lang": "English",
 		"version": "2.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/ReadNovelFull[readnovelfull].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readnovelfull/readnovelfull/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/readnovelfull/icon.png"
 	},
 	{
 		"id": "reaperscans.com",
@@ -1025,7 +1025,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/reaperscans.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/reaperscans/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/reaperscans/icon.png"
 	},
 	{
 		"id": "ReLib",
@@ -1034,7 +1034,7 @@
 		"lang": "English",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/relibrary.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/relibrary/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/relibrary/icon.png"
 	},
 	{
 		"id": "requiemtls",
@@ -1043,7 +1043,7 @@
 		"lang": "English",
 		"version": "1.1.13",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/RequiemTranslations[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/requiemtls/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/requiemtls/icon.png"
 	},
 	{
 		"id": "rln.app",
@@ -1052,7 +1052,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/readlitenovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/readlitenovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/readlitenovel/icon.png"
 	},
 	{
 		"id": "royalroad",
@@ -1061,7 +1061,7 @@
 		"lang": "English",
 		"version": "2.2.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/royalroad.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/royalroad/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/royalroad/icon.png"
 	},
 	{
 		"id": "salmonlatte",
@@ -1070,7 +1070,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/SalmonLatte[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/salmonlatte/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/salmonlatte/icon.png"
 	},
 	{
 		"id": "scribblehub",
@@ -1079,7 +1079,7 @@
 		"lang": "English",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/scribblehub.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/scribblehub/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/scribblehub/icon.png"
 	},
 	{
 		"id": "sleeptTLS",
@@ -1088,7 +1088,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/SleepyTranslations[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/sleepttls/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/sleepttls/icon.png"
 	},
 	{
 		"id": "sonicmtl",
@@ -1097,7 +1097,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/SonicMTL[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/sonicmtl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/sonicmtl/icon.png"
 	},
 	{
 		"id": "storyseedling",
@@ -1106,7 +1106,7 @@
 		"lang": "English",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/StorySeedling.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/storyseedling/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/storyseedling/icon.png"
 	},
 	{
 		"id": "sweetescape",
@@ -1115,7 +1115,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/SweetEscape[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/sweetescape/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/sweetescape/icon.png"
 	},
 	{
 		"id": "systemtranslation",
@@ -1124,7 +1124,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/SystemTranslation[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/systemtranslation/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/systemtranslation/icon.png"
 	},
 	{
 		"id": "translatinotaku",
@@ -1133,7 +1133,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/TranslatinOtaku[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/translatinotaku/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/translatinotaku/icon.png"
 	},
 	{
 		"id": "transweaver",
@@ -1142,7 +1142,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/TranslationWeaver[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/transweaver/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/transweaver/icon.png"
 	},
 	{
 		"id": "universalnovel",
@@ -1151,7 +1151,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/UniversalNovel[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/universalnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/universalnovel/icon.png"
 	},
 	{
 		"id": "vandytranslate",
@@ -1160,7 +1160,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/VandyTranslate[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/vandytranslate/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/vandytranslate/icon.png"
 	},
 	{
 		"id": "violetlily",
@@ -1169,7 +1169,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/VioletLily[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/violetlily/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/violetlily/icon.png"
 	},
 	{
 		"id": "vynovel",
@@ -1178,7 +1178,7 @@
 		"lang": "English",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/vynovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/vynovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/vynovel/icon.png"
 	},
 	{
 		"id": "webnovel",
@@ -1187,7 +1187,7 @@
 		"lang": "English",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/webnovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/webnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/webnovel/icon.png"
 	},
 	{
 		"id": "webnovelover",
@@ -1196,7 +1196,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WebNovelLover[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/webnovelover/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/webnovelover/icon.png"
 	},
 	{
 		"id": "WebNovelTraslation",
@@ -1205,7 +1205,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WebNovelTranslation[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/webnoveltraslation/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/webnoveltraslation/icon.png"
 	},
 	{
 		"id": "webnovelworld",
@@ -1214,7 +1214,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WebNovelPub[lightnovelworld].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelworld/webnovelworld/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelworld/webnovelworld/icon.png"
 	},
 	{
 		"id": "whitemoonlightnovels",
@@ -1223,7 +1223,7 @@
 		"lang": "English",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WhiteMoonlightNovels[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/whitemoonlightnovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/whitemoonlightnovels/icon.png"
 	},
 	{
 		"id": "wooksteahouse",
@@ -1232,7 +1232,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WooksTeahouse[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/wooksteahouse/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/wooksteahouse/icon.png"
 	},
 	{
 		"id": "wordexcerpt",
@@ -1241,7 +1241,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WordExcerpt[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/wordexcerpt/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/wordexcerpt/icon.png"
 	},
 	{
 		"id": "WTRLAB",
@@ -1250,7 +1250,7 @@
 		"lang": "English",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/wtrlab.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/wtrlab/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/wtrlab/icon.png"
 	},
 	{
 		"id": "wuxiacity",
@@ -1259,7 +1259,7 @@
 		"lang": "English",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Wuxiafox[readwn].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readwn/wuxiacity/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/wuxiacity/icon.png"
 	},
 	{
 		"id": "wuxiamtl",
@@ -1268,7 +1268,7 @@
 		"lang": "English",
 		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/FansMTL[readwn].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readwn/wuxiamtl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/wuxiamtl/icon.png"
 	},
 	{
 		"id": "wuxiap",
@@ -1277,7 +1277,7 @@
 		"lang": "English",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/Wuxiabox[readwn].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readwn/wuxiap/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/wuxiap/icon.png"
 	},
 	{
 		"id": "wuxiaspace",
@@ -1286,7 +1286,7 @@
 		"lang": "English",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WuxiaSpace[readwn].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readwn/wuxiaspace/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/wuxiaspace/icon.png"
 	},
 	{
 		"id": "wuxiav",
@@ -1295,7 +1295,7 @@
 		"lang": "English",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WuxiaV[readwn].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/readwn/wuxiav/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/wuxiav/icon.png"
 	},
 	{
 		"id": "wuxiaworld",
@@ -1304,7 +1304,7 @@
 		"lang": "English",
 		"version": "0.5.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/wuxiaworld.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/en/wuxiaworld/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/wuxiaworld/icon.png"
 	},
 	{
 		"id": "wuxiaworld.site",
@@ -1313,7 +1313,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/WuxiaWorldSite[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/wuxiaworld.site/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/wuxiaworld.site/icon.png"
 	},
 	{
 		"id": "zetroTL",
@@ -1322,7 +1322,7 @@
 		"lang": "English",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/english/ZetroTranslation[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/zetrotl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/zetrotl/icon.png"
 	},
 	{
 		"id": "chireads",
@@ -1331,7 +1331,7 @@
 		"lang": "Français",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/chireads.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/chireads/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/chireads/icon.png"
 	},
 	{
 		"id": "harkeneliwood",
@@ -1340,7 +1340,7 @@
 		"lang": "Français",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/harkeneliwood.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/harkeneliwood/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/harkeneliwood/icon.png"
 	},
 	{
 		"id": "kisswood",
@@ -1349,7 +1349,7 @@
 		"lang": "Français",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/kisswood.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/kisswood/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/kisswood/icon.png"
 	},
 	{
 		"id": "lightnovelfr",
@@ -1358,7 +1358,7 @@
 		"lang": "Français",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/LighNovelFR[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/lightnovelfr/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/lightnovelfr/icon.png"
 	},
 	{
 		"id": "massnovel",
@@ -1367,7 +1367,7 @@
 		"lang": "Français",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/MassNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/massnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/massnovel/icon.png"
 	},
 	{
 		"id": "mtlnovel-fr",
@@ -1376,7 +1376,7 @@
 		"lang": "Français",
 		"version": "1.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/MTLNovel(FR)[mtlnovel].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
 	},
 	{
 		"id": "noveldeglace",
@@ -1385,7 +1385,7 @@
 		"lang": "Français",
 		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/noveldeglace.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/noveldeglace/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/noveldeglace/icon.png"
 	},
 	{
 		"id": "novhell",
@@ -1394,7 +1394,7 @@
 		"lang": "Français",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/novhell.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/novhell/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/novhell/icon.png"
 	},
 	{
 		"id": "phenixscans",
@@ -1403,7 +1403,7 @@
 		"lang": "Français",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/phenixscans.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/phenixscans/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/phenixscans/icon.png"
 	},
 	{
 		"id": "warriorlegendtrad",
@@ -1412,7 +1412,7 @@
 		"lang": "Français",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/warriorlegendtrad.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/warriorlegendtrad/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/warriorlegendtrad/icon.png"
 	},
 	{
 		"id": "worldnovel",
@@ -1421,7 +1421,7 @@
 		"lang": "Français",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/WorldNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/worldnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/worldnovel/icon.png"
 	},
 	{
 		"id": "wuxialnscantrad",
@@ -1430,7 +1430,7 @@
 		"lang": "Français",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/wuxialnscantrad.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/wuxialnscantrad/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/wuxialnscantrad/icon.png"
 	},
 	{
 		"id": "xiaowaz",
@@ -1439,7 +1439,7 @@
 		"lang": "Français",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/french/xiaowaz.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/fr/xiaowaz/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/xiaowaz/icon.png"
 	},
 	{
 		"id": "bacalightnovel",
@@ -1448,7 +1448,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/BacaLightNovel[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/bacalightnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/bacalightnovel/icon.png"
 	},
 	{
 		"id": "IDWN.id",
@@ -1457,7 +1457,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.2.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/indowebnovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/id/indowebnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/id/indowebnovel/icon.png"
 	},
 	{
 		"id": "meionovel",
@@ -1466,7 +1466,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/MeioNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/meionovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/meionovel/icon.png"
 	},
 	{
 		"id": "morenovel",
@@ -1475,7 +1475,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/Risenovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/morenovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/morenovel/icon.png"
 	},
 	{
 		"id": "mtlnovel-id",
@@ -1484,7 +1484,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/MTLNovel(ID)[mtlnovel].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
 	},
 	{
 		"id": "novelbookid",
@@ -1493,7 +1493,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/NovelBookID[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/novelbookid/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelbookid/icon.png"
 	},
 	{
 		"id": "novelringan.com",
@@ -1502,7 +1502,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/novelringan.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/id/novelringan/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/id/novelringan/icon.png"
 	},
 	{
 		"id": "sakura.id",
@@ -1511,7 +1511,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/sakuranovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/id/sakuranovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/id/sakuranovel/icon.png"
 	},
 	{
 		"id": "sektenovel",
@@ -1520,7 +1520,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/SekteNovel[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/sektenovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/sektenovel/icon.png"
 	},
 	{
 		"id": "wbnovel",
@@ -1529,7 +1529,7 @@
 		"lang": "Bahasa Indonesia",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/indonesian/WBNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/wbnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/wbnovel/icon.png"
 	},
 	{
 		"id": "kakuyomu",
@@ -1538,7 +1538,7 @@
 		"lang": "日本語",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/japanese/kakuyomu.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/jp/kakuyomu/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/jp/kakuyomu/icon.png"
 	},
 	{
 		"id": "yomou.syosetu",
@@ -1547,7 +1547,7 @@
 		"lang": "日本語",
 		"version": "1.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/japanese/Syosetu.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/jp/syosetu/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/jp/syosetu/icon.png"
 	},
 	{
 		"id": "agit.xyz",
@@ -1556,7 +1556,7 @@
 		"lang": "조선말, 한국어",
 		"version": "3.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/korean/Agitoon.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/kr/agitoon/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/kr/agitoon/icon.png"
 	},
 	{
 		"id": "fortuneeternal",
@@ -1565,7 +1565,7 @@
 		"lang": "조선말, 한국어",
 		"version": "1.0.10",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/korean/FortuneEternal[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/fortuneeternal/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/fortuneeternal/icon.png"
 	},
 	{
 		"id": "novelki.pl",
@@ -1574,7 +1574,7 @@
 		"lang": "Polski",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/polish/novelki.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/pl/novelki/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/pl/novelki/icon.png"
 	},
 	{
 		"id": "betternovels",
@@ -1583,7 +1583,7 @@
 		"lang": "Português",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/BetterNovels[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/betternovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/betternovels/icon.png"
 	},
 	{
 		"id": "blogdoamonnovels",
@@ -1592,7 +1592,7 @@
 		"lang": "Português",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/blogdoamonnovels.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/pt-br/blogdoamonnovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/pt-br/blogdoamonnovels/icon.png"
 	},
 	{
 		"id": "centralnovel",
@@ -1601,7 +1601,7 @@
 		"lang": "Português",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/CentralNovel[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/centralnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/centralnovel/icon.png"
 	},
 	{
 		"id": "kiniga",
@@ -1610,7 +1610,7 @@
 		"lang": "Português",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/Kiniga[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/kiniga/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/kiniga/icon.png"
 	},
 	{
 		"id": "lanovels",
@@ -1619,7 +1619,7 @@
 		"lang": "Português",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/LaNovels[hotnovelpub].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/hotnovelpub/lanovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/hotnovelpub/lanovels/icon.png"
 	},
 	{
 		"id": "lightnovelbrasil",
@@ -1628,7 +1628,7 @@
 		"lang": "Português",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/LightNovelBrasil[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/lightnovelbrasil/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/lightnovelbrasil/icon.png"
 	},
 	{
 		"id": "mtlnovel-pt",
@@ -1637,7 +1637,7 @@
 		"lang": "Português",
 		"version": "1.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/MTLNovel(PT)[mtlnovel].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
 	},
 	{
 		"id": "novelmania.com.br",
@@ -1646,7 +1646,7 @@
 		"lang": "Português",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/novelmania.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/pt-br/novelmania/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/pt-br/novelmania/icon.png"
 	},
 	{
 		"id": "tsundoku",
@@ -1655,7 +1655,7 @@
 		"lang": "Português",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/portuguese/tsundoku.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/pt-br/tsundoku/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/pt-br/tsundoku/icon.png"
 	},
 	{
 		"id": "AT",
@@ -1664,7 +1664,7 @@
 		"lang": "Русский",
 		"version": "1.2.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/authortoday.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/authortoday/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/authortoday/icon.png"
 	},
 	{
 		"id": "bookhamster",
@@ -1673,7 +1673,7 @@
 		"lang": "Русский",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/Bookhamster[ifreedom].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/ifreedom/bookhamster/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/ifreedom/bookhamster/icon.png"
 	},
 	{
 		"id": "bookriver",
@@ -1682,7 +1682,7 @@
 		"lang": "Русский",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/bookriver.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/bookriver/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/bookriver/icon.png"
 	},
 	{
 		"id": "erolate",
@@ -1691,7 +1691,7 @@
 		"lang": "Русский",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/Erolate[rulate].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/rulate/erolate/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/rulate/erolate/icon.png"
 	},
 	{
 		"id": "eznovels",
@@ -1700,7 +1700,7 @@
 		"lang": "Русский",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/EzNovels[hotnovelpub].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/hotnovelpub/eznovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/hotnovelpub/eznovels/icon.png"
 	},
 	{
 		"id": "ficbook",
@@ -1709,7 +1709,7 @@
 		"lang": "Русский",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/ficbook.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/ficbook/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ficbook/icon.png"
 	},
 	{
 		"id": "freedlit.space",
@@ -1718,7 +1718,7 @@
 		"lang": "Русский",
 		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/LitSpace.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/freedlit/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/freedlit/icon.png"
 	},
 	{
 		"id": "ifreedom",
@@ -1727,7 +1727,7 @@
 		"lang": "Русский",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/СвободныйМирРанобэ[ifreedom].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/ifreedom/ifreedom/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/ifreedom/ifreedom/icon.png"
 	},
 	{
 		"id": "jaomix.ru",
@@ -1736,7 +1736,7 @@
 		"lang": "Русский",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/jaomix.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/jaomix/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/jaomix/icon.png"
 	},
 	{
 		"id": "mtlnovel-ru",
@@ -1745,7 +1745,7 @@
 		"lang": "Русский",
 		"version": "1.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/MTLNovel(RU)[mtlnovel].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
 	},
 	{
 		"id": "neobook",
@@ -1754,7 +1754,7 @@
 		"lang": "Русский",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/neobook.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/neobook/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/neobook/icon.png"
 	},
 	{
 		"id": "novelcool-ru",
@@ -1763,7 +1763,7 @@
 		"lang": "Русский",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/NovelCool(RU)[novelcool].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/novelcool/novelcool/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/novelcool/novelcool/icon.png"
 	},
 	{
 		"id": "novelovh",
@@ -1772,7 +1772,7 @@
 		"lang": "Русский",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/novelOvh.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/novelovh/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/novelovh/icon.png"
 	},
 	{
 		"id": "ranobes-ru",
@@ -1781,7 +1781,7 @@
 		"lang": "Русский",
 		"version": "2.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/Ranobes(RU)[ranobes].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/ranobes/ranobes/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/ranobes/ranobes/icon.png"
 	},
 	{
 		"id": "ReN",
@@ -1790,7 +1790,7 @@
 		"lang": "Русский",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/renovels.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/renovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/renovels/icon.png"
 	},
 	{
 		"id": "RLIB",
@@ -1799,7 +1799,7 @@
 		"lang": "Русский",
 		"version": "2.2.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/ranobelib.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/ranobelib/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ranobelib/icon.png"
 	},
 	{
 		"id": "RNBH.org",
@@ -1808,7 +1808,7 @@
 		"lang": "Русский",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/ranobehub.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/ranobehub/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ranobehub/icon.png"
 	},
 	{
 		"id": "RNRF",
@@ -1817,7 +1817,7 @@
 		"lang": "Русский",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/ranoberf.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/ranoberf/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ranoberf/icon.png"
 	},
 	{
 		"id": "rulate",
@@ -1826,7 +1826,7 @@
 		"lang": "Русский",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/Rulate[rulate].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/rulate/rulate/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/rulate/rulate/icon.png"
 	},
 	{
 		"id": "RV",
@@ -1835,7 +1835,7 @@
 		"lang": "Русский",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/ruvers.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/ruvers/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ruvers/icon.png"
 	},
 	{
 		"id": "TL",
@@ -1844,7 +1844,7 @@
 		"lang": "Русский",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/novelTL.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/noveltl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/noveltl/icon.png"
 	},
 	{
 		"id": "TopLiba",
@@ -1853,7 +1853,7 @@
 		"lang": "Русский",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/topliba.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/topliba/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/topliba/icon.png"
 	},
 	{
 		"id": "zelluloza",
@@ -1862,7 +1862,7 @@
 		"lang": "Русский",
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/russian/zelluloza.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/ru/zelluloza/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/zelluloza/icon.png"
 	},
 	{
 		"id": "allnovelread",
@@ -1871,7 +1871,7 @@
 		"lang": "Español",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/AllNovelRead[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/allnovelread/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/allnovelread/icon.png"
 	},
 	{
 		"id": "AnimesHoy12",
@@ -1880,7 +1880,7 @@
 		"lang": "Español",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/AnimesHoy12[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/animeshoy12/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/animeshoy12/icon.png"
 	},
 	{
 		"id": "HasuTL",
@@ -1889,7 +1889,7 @@
 		"lang": "Español",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/hasutl.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/es/hasutl/icon.jpg"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/hasutl/icon.jpg"
 	},
 	{
 		"id": "lightnoveldaily",
@@ -1898,7 +1898,7 @@
 		"lang": "Español",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/LightNovelDaily[hotnovelpub].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/hotnovelpub/lightnoveldaily/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/hotnovelpub/lightnoveldaily/icon.png"
 	},
 	{
 		"id": "mtlnovel-es",
@@ -1907,7 +1907,7 @@
 		"lang": "Español",
 		"version": "1.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/MTLNovel(ES)[mtlnovel].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
 	},
 	{
 		"id": "novelasligera",
@@ -1916,7 +1916,7 @@
 		"lang": "Español",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/novelasligera.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/es/novelasligera/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/novelasligera/icon.png"
 	},
 	{
 		"id": "oasistranslations",
@@ -1925,7 +1925,7 @@
 		"lang": "Español",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/oasistranslations.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/es/oasistranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/oasistranslations/icon.png"
 	},
 	{
 		"id": "panchotranslations",
@@ -1934,7 +1934,7 @@
 		"lang": "Español",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/PanchoTranslations[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/panchotranslations/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/panchotranslations/icon.png"
 	},
 	{
 		"id": "reinowuxia",
@@ -1943,7 +1943,7 @@
 		"lang": "Español",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/novelawuxia.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/es/reinowuxia/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/reinowuxia/icon.png"
 	},
 	{
 		"id": "skynovels",
@@ -1952,7 +1952,7 @@
 		"lang": "Español",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/skynovels.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/es/skynovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/skynovels/icon.png"
 	},
 	{
 		"id": "TCSega",
@@ -1961,7 +1961,7 @@
 		"lang": "Español",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/TC&Sega[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/tcsega/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/tcsega/icon.png"
 	},
 	{
 		"id": "traducciones",
@@ -1970,7 +1970,7 @@
 		"lang": "Español",
 		"version": "1.0.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/TraduccionesAmistosas[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/traducciones/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/traducciones/icon.png"
 	},
 	{
 		"id": "tunovelaligera",
@@ -1979,7 +1979,7 @@
 		"lang": "Español",
 		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/tunovelaligera.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/es/tunovelaligera/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/tunovelaligera/icon.png"
 	},
 	{
 		"id": "yuukitls",
@@ -1988,7 +1988,7 @@
 		"lang": "Español",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/spanish/yukitls.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/es/yuukitls/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/yuukitls/icon.png"
 	},
 	{
 		"id": "novel-lucky",
@@ -1997,7 +1997,7 @@
 		"lang": "ไทย",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/thai/NovelLucky[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/novel-lucky/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novel-lucky/icon.png"
 	},
 	{
 		"id": "novelpdf",
@@ -2006,7 +2006,7 @@
 		"lang": "ไทย",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/thai/NovelPDF[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/novelpdf/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelpdf/icon.png"
 	},
 	{
 		"id": "azraznovel",
@@ -2015,7 +2015,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/ArazNovel[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/azraznovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/azraznovel/icon.png"
 	},
 	{
 		"id": "ekitaplar",
@@ -2024,7 +2024,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/EKTAPLAR[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/ekitaplar/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/ekitaplar/icon.png"
 	},
 	{
 		"id": "epiknovel",
@@ -2033,7 +2033,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/epiknovel.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/tr/epiknovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/tr/epiknovel/icon.png"
 	},
 	{
 		"id": "Kakikata",
@@ -2042,7 +2042,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/kakikata[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/kakikata/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/kakikata/icon.png"
 	},
 	{
 		"id": "kodekslibrary",
@@ -2051,7 +2051,7 @@
 		"lang": "Türkçe",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/KodeksLibrary[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/kodekslibrary/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/kodekslibrary/icon.png"
 	},
 	{
 		"id": "mangatr",
@@ -2060,7 +2060,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/MangaTR.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/tr/mangatr/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/tr/mangatr/icon.png"
 	},
 	{
 		"id": "nabiscans",
@@ -2069,7 +2069,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/NABSCANS[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/nabiscans/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/nabiscans/icon.png"
 	},
 	{
 		"id": "namevt",
@@ -2078,7 +2078,7 @@
 		"lang": "Türkçe",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/Namevt[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/namevt/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/namevt/icon.png"
 	},
 	{
 		"id": "noveloku",
@@ -2087,7 +2087,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/Noveloku[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/noveloku/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/noveloku/icon.png"
 	},
 	{
 		"id": "noveltr",
@@ -2096,7 +2096,7 @@
 		"lang": "Türkçe",
 		"version": "1.1.9",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/NovelTR[lightnovelwp].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/lightnovelwp/noveltr/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/noveltr/icon.png"
 	},
 	{
 		"id": "ragnarscans",
@@ -2105,7 +2105,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/RagnarScans[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/ragnarscans/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/ragnarscans/icon.png"
 	},
 	{
 		"id": "thnovels",
@@ -2114,7 +2114,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/ThNovels[hotnovelpub].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/hotnovelpub/thnovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/hotnovelpub/thnovels/icon.png"
 	},
 	{
 		"id": "turkcelightnovels",
@@ -2123,7 +2123,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/TurkceLightNovels[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/turkcelightnovels/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/turkcelightnovels/icon.png"
 	},
 	{
 		"id": "webnoveloku",
@@ -2132,7 +2132,7 @@
 		"lang": "Türkçe",
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/turkish/WebNovelOku[madara].js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/multisrc/madara/webnoveloku/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/webnoveloku/icon.png"
 	},
 	{
 		"id": "bakainua",
@@ -2141,7 +2141,7 @@
 		"lang": "Українська",
 		"version": "2.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/ukrainian/bakainua.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/uk/bakainua/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/uk/bakainua/icon.png"
 	},
 	{
 		"id": "smakolykytl",
@@ -2150,7 +2150,7 @@
 		"lang": "Українська",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/ukrainian/smakolykytl.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/uk/smakolykytl/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/uk/smakolykytl/icon.png"
 	},
 	{
 		"id": "uaranobeclub",
@@ -2159,7 +2159,7 @@
 		"lang": "Українська",
 		"version": "1.1.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/ukrainian/uaranobeclub.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/uk/uaranobeclub/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/uk/uaranobeclub/icon.png"
 	},
 	{
 		"id": "lightnovel.vn",
@@ -2168,7 +2168,7 @@
 		"lang": "Tiếng Việt",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/vietnamese/lightnovelvn.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/vi/lightnovelvn/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/lightnovelvn/icon.png"
 	},
 	{
 		"id": "ln.hako",
@@ -2177,7 +2177,7 @@
 		"lang": "Tiếng Việt",
 		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/vietnamese/LNHako.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/vi/hakolightnovel/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/hakolightnovel/icon.png"
 	},
 	{
 		"id": "nettruyen",
@@ -2186,7 +2186,7 @@
 		"lang": "Tiếng Việt",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/vietnamese/nettruyen.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/vi/nettruyen/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/nettruyen/icon.png"
 	},
 	{
 		"id": "truyenchu",
@@ -2195,7 +2195,7 @@
 		"lang": "Tiếng Việt",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/vietnamese/truyenchu.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/vi/truyenchu/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/truyenchu/icon.png"
 	},
 	{
 		"id": "truyenconect",
@@ -2204,8 +2204,8 @@
 		"lang": "Tiếng Việt",
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/vietnamese/Truyenconect.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/vi/truyenconect/icon.png",
-		"customJS": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/vi/truyenconect/test.js"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/truyenconect/icon.png",
+		"customJS": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/truyenconect/test.js"
 	},
 	{
 		"id": "truyenfull",
@@ -2214,7 +2214,7 @@
 		"lang": "Tiếng Việt",
 		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/vietnamese/truyenfull.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/vi/truyenfull/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/truyenfull/icon.png"
 	},
 	{
 		"id": "komga",
@@ -2223,6 +2223,6 @@
 		"lang": "Multi",
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/.js/src/plugins/multi/komga.js",
-		"iconUrl": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/public/static/src/multi/komga/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/multi/komga/icon.png"
 	}
 ]
