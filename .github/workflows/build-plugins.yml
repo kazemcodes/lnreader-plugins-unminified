@@ -67,14 +67,18 @@ jobs:
             cp -r lnreader-source/.js/plugins/* plugins/ 2>/dev/null || true
           fi
           
-          # Copy JSON manifest files
+          # Copy and update JSON manifest files with correct URLs
           if [ -f "lnreader-source/.dist/plugins.json" ]; then
-            cp lnreader-source/.dist/plugins.json plugins/
-            echo "✅ Copied plugins.json"
+            # Replace URLs to point to this repo
+            sed 's|https://raw.githubusercontent.com/LNReader/lnreader-plugins/[^/]*/|https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/|g' \
+              lnreader-source/.dist/plugins.json > plugins/plugins.json
+            echo "✅ Copied and updated plugins.json"
           fi
           if [ -f "lnreader-source/.dist/plugins.min.json" ]; then
-            cp lnreader-source/.dist/plugins.min.json plugins/
-            echo "✅ Copied plugins.min.json"
+            # Replace URLs to point to this repo
+            sed 's|https://raw.githubusercontent.com/LNReader/lnreader-plugins/[^/]*/|https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/|g' \
+              lnreader-source/.dist/plugins.min.json > plugins/plugins.min.json
+            echo "✅ Copied and updated plugins.min.json"
           fi
           
           # Count total plugins
