@@ -82,10 +82,13 @@ jobs:
             // Only update plugin URLs, keep icons/assets pointing to original repo
             data.forEach(plugin => {
               if (plugin.url) {
+                // Replace the base URL
                 plugin.url = plugin.url.replace(
                   /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\//g,
                   'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/'
                 );
+                // Fix the path: remove .js/src/ prefix since we copy to plugins/ directly
+                plugin.url = plugin.url.replace('/.js/src/plugins/', '/plugins/');
               }
               // Keep iconUrl, customJS, and customCSS pointing to original LNReader repo
               // No changes needed for these fields
