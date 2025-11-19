@@ -1,12 +1,9 @@
 name: Build Unminified Plugins
 
 on:
-  schedule:
-    # Run daily at midnight UTC
-    - cron: '0 0 * * *'
   workflow_dispatch:
-  push:
-    branches: [ master ]
+  repository_dispatch:
+    types: [lnreader-release]
 
 jobs:
   build:
@@ -28,83 +25,84 @@ jobs:
           git clone --depth 1 https://github.com/LNReader/lnreader-plugins lnreader-source
           cd lnreader-source
           echo "Cloned LNReader plugins repo"
-          ls -la
       
-      - name: Disable minification
+      - name: Disable minification in terser script
         run: |
           cd lnreader-source
+          cat > scripts/terser.js << 'EOF'
+          import fs from 'fs';
           
-          # Backup original configs
-          cp rollup.config.js rollup.config.js.bak || true
-          cp webpack.config.js webpack.config.js.bak || true
+          // No-op minify function - just copies the file as-is
+          const minify = function (path) {
+            console.log('Skipping minification for:', path);
+            // File is already there, no need to do anything
+          };
           
-          # Modify rollup config to disable minification
-          if [ -f "rollup.config.js" ]; then
-            echo "Modifying rollup.config.js"
-            # Comment out terser plugin
-            sed -i 's/terser(/\/\/ terser(/g' rollup.config.js
-            sed -i 's/import terser/\/\/ import terser/g' rollup.config.js
-            # Disable minification options
-            sed -i 's/minimize: true/minimize: false/g' rollup.config.js
-            sed -i 's/minify: true/minify: false/g' rollup.config.js
-          fi
-          
-          # Modify webpack config if it exists
-          if [ -f "webpack.config.js" ]; then
-            echo "Modifying webpack.config.js"
-            sed -i 's/minimize: true/minimize: false/g' webpack.config.js
-            sed -i 's/minify: true/minify: false/g' webpack.config.js
-          fi
-          
-          # Modify package.json build scripts to add --no-minify flags
-          if [ -f "package.json" ]; then
-            echo "Modifying package.json"
-            sed -i 's/"build": "rollup -c"/"build": "rollup -c --no-minify"/g' package.json || true
-          fi
-          
-          echo "Build configuration modified"
+          export { minify };
+          EOF
+          echo "✅ Disabled minification"
       
       - name: Install dependencies
         run: |
           cd lnreader-source
-          npm install
+          npm ci
       
-      - name: Build plugins
+      - name: Build plugins (unminified)
         run: |
           cd lnreader-source
-          npm run build || npm run build:all || echo "Build completed with warnings"
+          npm run clean:multisrc
+          npm run build:multisrc
+          npm run build:compile
+          npm run build:manifest
       
       - name: Copy built plugins
         run: |
-          # Create plugins directory
           mkdir -p plugins
           
-          # Find and copy all built .js files
-          find lnreader-source -name "*.js" -type f \
-            ! -path "*/node_modules/*" \
-            ! -path "*/.git/*" \
-            ! -path "*/rollup.config.js" \
-            ! -path "*/webpack.config.js" \
-            -exec cp {} plugins/ \;
+          # Copy from the correct location (.js/src/plugins or .js/plugins)
+          if [ -d "lnreader-source/.js/src/plugins" ]; then
+            cp -r lnreader-source/.js/src/plugins/* plugins/ 2>/dev/null || true
+          fi
+          if [ -d "lnreader-source/.js/plugins" ]; then
+            cp -r lnreader-source/.js/plugins/* plugins/ 2>/dev/null || true
+          fi
           
-          echo "Copied $(ls -1 plugins/*.js 2>/dev/null | wc -l) plugin files"
+          # Count total plugins
+          total=$(find plugins -name "*.js" -type f | wc -l)
+          echo "✅ Copied $total plugin files"
+          
+          # Show structure
+          echo "Plugin structure:"
           ls -lh plugins/ | head -20
       
       - name: Generate plugin list
         run: |
-          echo "# Available Plugins" > plugins/README.md
+          echo "# Unminified LNReader Plugins" > plugins/README.md
           echo "" >> plugins/README.md
-          echo "Total plugins: $(ls -1 plugins/*.js 2>/dev/null | wc -l)" >> plugins/README.md
+          echo "Built from: https://github.com/LNReader/lnreader-plugins" >> plugins/README.md
           echo "" >> plugins/README.md
-          echo "## Plugin Files" >> plugins/README.md
-          echo "" >> plugins/README.md
-          for file in plugins/*.js; do
-            if [ -f "$file" ]; then
-              filename=$(basename "$file")
-              size=$(du -h "$file" | cut -f1)
-              echo "- \`$filename\` ($size)" >> plugins/README.md
+          
+          # Count plugins by language
+          for lang_dir in plugins/*/; do
+            if [ -d "$lang_dir" ]; then
+              lang=$(basename "$lang_dir")
+              count=$(find "$lang_dir" -name "*.js" -type f | wc -l)
+              echo "## $lang ($count plugins)" >> plugins/README.md
+              echo "" >> plugins/README.md
+              for file in "$lang_dir"*.js; do
+                if [ -f "$file" ]; then
+                  filename=$(basename "$file")
+                  size=$(du -h "$file" | cut -f1)
+                  echo "- \`$filename\` ($size)" >> plugins/README.md
+                fi
+              done
+              echo "" >> plugins/README.md
             fi
           done
+          
+          total=$(find plugins -name "*.js" -type f | wc -l)
+          echo "---" >> plugins/README.md
+          echo "**Total: $total plugins**" >> plugins/README.md
       
       - name: Commit and push changes
         run: |
@@ -121,25 +119,29 @@ jobs:
           fi
       
       - name: Create Release
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
-          name: Plugins Build ${{ github.run_number }}
+          name: Unminified Plugins v${{ github.run_number }}
           body: |
-            Unminified LNReader plugins built on $(date +'%Y-%m-%d %H:%M:%S')
+            # Unminified LNReader Plugins
             
-            ## Download
-            Download individual plugins from the assets below, or download all plugins as a zip.
-            
-            ## Usage
-            1. Download the plugin `.js` file
-            2. Copy to your IReader plugins directory
-            3. Restart IReader
-            
-            ## Source
             Built from: https://github.com/LNReader/lnreader-plugins
-          files: plugins/*.js
+            Build date: $(date +'%Y-%m-%d %H:%M:%S UTC')
+            
+            ## 📥 Download
+            Download the complete plugin archive or individual language folders from the assets below.
+            
+            ## 📖 Usage
+            1. Download the plugin `.js` file for your language
+            2. Copy to your LNReader plugins directory
+            3. Restart LNReader
+            
+            ## 🔍 Why Unminified?
+            These plugins are built without minification, making them easier to read and debug.
+          files: |
+            plugins/**/*.js
+            plugins/README.md
           draft: false
           prerelease: false
         env:
