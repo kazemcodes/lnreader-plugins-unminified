@@ -55,16 +55,26 @@ jobs:
           npm run build:compile
           npm run build:manifest
       
-      - name: Copy built plugins
+      - name: Copy built plugins and manifest
         run: |
           mkdir -p plugins
           
-          # Copy from the correct location (.js/src/plugins or .js/plugins)
+          # Copy plugins from the correct location
           if [ -d "lnreader-source/.js/src/plugins" ]; then
             cp -r lnreader-source/.js/src/plugins/* plugins/ 2>/dev/null || true
           fi
           if [ -d "lnreader-source/.js/plugins" ]; then
             cp -r lnreader-source/.js/plugins/* plugins/ 2>/dev/null || true
+          fi
+          
+          # Copy JSON manifest files
+          if [ -f "lnreader-source/.dist/plugins.json" ]; then
+            cp lnreader-source/.dist/plugins.json plugins/
+            echo "✅ Copied plugins.json"
+          fi
+          if [ -f "lnreader-source/.dist/plugins.min.json" ]; then
+            cp lnreader-source/.dist/plugins.min.json plugins/
+            echo "✅ Copied plugins.min.json"
           fi
           
           # Count total plugins
@@ -153,6 +163,8 @@ jobs:
             ## 📥 Download
             - **all-plugins.tar.gz** - All plugins in one archive
             - **[language]-plugins.tar.gz** - Individual language archives
+            - **plugins.json** - Plugin manifest with metadata
+            - **plugins.min.json** - Minified plugin manifest
             
             ## 📖 Usage
             1. Download and extract the archive for your language
@@ -161,9 +173,19 @@ jobs:
             
             ## 🔍 Why Unminified?
             These plugins are built without minification, making them easier to read and debug.
+            
+            ## 📋 Plugin Manifest
+            The JSON files contain metadata for all plugins including:
+            - Plugin ID, name, and version
+            - Source site URL
+            - Language
+            - Download URLs
+            - Icon URLs
           files: |
             *.tar.gz
             plugins/README.md
+            plugins/plugins.json
+            plugins/plugins.min.json
           draft: false
           prerelease: false
         env:
