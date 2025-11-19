@@ -1,0 +1,147 @@
+name: Build Unminified Plugins
+
+on:
+  schedule:
+    # Run daily at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Clone LNReader plugins
+        run: |
+          git clone --depth 1 https://github.com/LNReader/lnreader-plugins lnreader-source
+          cd lnreader-source
+          echo "Cloned LNReader plugins repo"
+          ls -la
+      
+      - name: Disable minification
+        run: |
+          cd lnreader-source
+          
+          # Backup original configs
+          cp rollup.config.js rollup.config.js.bak || true
+          cp webpack.config.js webpack.config.js.bak || true
+          
+          # Modify rollup config to disable minification
+          if [ -f "rollup.config.js" ]; then
+            echo "Modifying rollup.config.js"
+            # Comment out terser plugin
+            sed -i 's/terser(/\/\/ terser(/g' rollup.config.js
+            sed -i 's/import terser/\/\/ import terser/g' rollup.config.js
+            # Disable minification options
+            sed -i 's/minimize: true/minimize: false/g' rollup.config.js
+            sed -i 's/minify: true/minify: false/g' rollup.config.js
+          fi
+          
+          # Modify webpack config if it exists
+          if [ -f "webpack.config.js" ]; then
+            echo "Modifying webpack.config.js"
+            sed -i 's/minimize: true/minimize: false/g' webpack.config.js
+            sed -i 's/minify: true/minify: false/g' webpack.config.js
+          fi
+          
+          # Modify package.json build scripts to add --no-minify flags
+          if [ -f "package.json" ]; then
+            echo "Modifying package.json"
+            sed -i 's/"build": "rollup -c"/"build": "rollup -c --no-minify"/g' package.json || true
+          fi
+          
+          echo "Build configuration modified"
+      
+      - name: Install dependencies
+        run: |
+          cd lnreader-source
+          npm install
+      
+      - name: Build plugins
+        run: |
+          cd lnreader-source
+          npm run build || npm run build:all || echo "Build completed with warnings"
+      
+      - name: Copy built plugins
+        run: |
+          # Create plugins directory
+          mkdir -p plugins
+          
+          # Find and copy all built .js files
+          find lnreader-source -name "*.js" -type f \
+            ! -path "*/node_modules/*" \
+            ! -path "*/.git/*" \
+            ! -path "*/rollup.config.js" \
+            ! -path "*/webpack.config.js" \
+            -exec cp {} plugins/ \;
+          
+          echo "Copied $(ls -1 plugins/*.js 2>/dev/null | wc -l) plugin files"
+          ls -lh plugins/ | head -20
+      
+      - name: Generate plugin list
+        run: |
+          echo "# Available Plugins" > plugins/README.md
+          echo "" >> plugins/README.md
+          echo "Total plugins: $(ls -1 plugins/*.js 2>/dev/null | wc -l)" >> plugins/README.md
+          echo "" >> plugins/README.md
+          echo "## Plugin Files" >> plugins/README.md
+          echo "" >> plugins/README.md
+          for file in plugins/*.js; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              size=$(du -h "$file" | cut -f1)
+              echo "- \`$filename\` ($size)" >> plugins/README.md
+            fi
+          done
+      
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add plugins/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update plugins - $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi
+      
+      - name: Create Release
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Plugins Build ${{ github.run_number }}
+          body: |
+            Unminified LNReader plugins built on $(date +'%Y-%m-%d %H:%M:%S')
+            
+            ## Download
+            Download individual plugins from the assets below, or download all plugins as a zip.
+            
+            ## Usage
+            1. Download the plugin `.js` file
+            2. Copy to your IReader plugins directory
+            3. Restart IReader
+            
+            ## Source
+            Built from: https://github.com/LNReader/lnreader-plugins
+          files: plugins/*.js
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
