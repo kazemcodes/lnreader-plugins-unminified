@@ -104,6 +104,27 @@ jobs:
           echo "---" >> plugins/README.md
           echo "**Total: $total plugins**" >> plugins/README.md
       
+      - name: Package plugins by language
+        run: |
+          cd plugins
+          # Create archives for each language
+          for lang_dir in */; do
+            if [ -d "$lang_dir" ]; then
+              lang=$(basename "$lang_dir")
+              if [ -n "$(ls -A "$lang_dir"*.js 2>/dev/null)" ]; then
+                echo "Packaging $lang..."
+                tar -czf "../${lang}-plugins.tar.gz" "$lang_dir"
+              fi
+            fi
+          done
+          cd ..
+          
+          # Create a complete archive
+          tar -czf all-plugins.tar.gz plugins/
+          
+          echo "✅ Created plugin archives"
+          ls -lh *.tar.gz
+      
       - name: Commit and push changes
         run: |
           git config user.name "GitHub Actions Bot"
@@ -130,17 +151,18 @@ jobs:
             Build date: $(date +'%Y-%m-%d %H:%M:%S UTC')
             
             ## 📥 Download
-            Download the complete plugin archive or individual language folders from the assets below.
+            - **all-plugins.tar.gz** - All plugins in one archive
+            - **[language]-plugins.tar.gz** - Individual language archives
             
             ## 📖 Usage
-            1. Download the plugin `.js` file for your language
-            2. Copy to your LNReader plugins directory
+            1. Download and extract the archive for your language
+            2. Copy the `.js` files to your LNReader plugins directory
             3. Restart LNReader
             
             ## 🔍 Why Unminified?
             These plugins are built without minification, making them easier to read and debug.
           files: |
-            plugins/**/*.js
+            *.tar.gz
             plugins/README.md
           draft: false
           prerelease: false
