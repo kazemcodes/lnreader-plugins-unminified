@@ -131,6 +131,20 @@ jobs:
           }
           
           async function bundleAllPlugins() {
+            // Files to skip (build scripts, not actual plugins)
+            const skipPatterns = [
+              'generator.js',
+              'generate-multisrc-plugins.js',
+              'get_filters.js',
+              'filter_refresh.js',
+              'template.js'
+            ];
+            
+            const shouldSkip = (filePath) => {
+              const fileName = path.basename(filePath);
+              return skipPatterns.some(pattern => fileName === pattern);
+            };
+            
             // Walk through all plugin files
             const walkDir = (dir, callback) => {
               const files = fs.readdirSync(dir);
@@ -139,7 +153,7 @@ jobs:
                 const stat = fs.statSync(filePath);
                 if (stat.isDirectory()) {
                   walkDir(filePath, callback);
-                } else if (file.endsWith('.js')) {
+                } else if (file.endsWith('.js') && !shouldSkip(filePath)) {
                   callback(filePath);
                 }
               });
@@ -150,6 +164,9 @@ jobs:
           
             console.log(`Found ${pluginFiles.length} plugin files to bundle`);
           
+            let successCount = 0;
+            let failCount = 0;
+            
             // Bundle each plugin
             for (const inputFile of pluginFiles) {
               const relativePath = path.relative(pluginsDir, inputFile);
@@ -158,10 +175,18 @@ jobs:
               // Create output directory
               fs.mkdirSync(path.dirname(outputFile), { recursive: true });
               
-              await bundlePlugin(inputFile, outputFile);
+              try {
+                await bundlePlugin(inputFile, outputFile);
+                successCount++;
+              } catch (error) {
+                failCount++;
+              }
             }
           
-            console.log(`\n✅ Bundled ${pluginFiles.length} plugins`);
+            console.log(`\n✅ Successfully bundled ${successCount} plugins`);
+            if (failCount > 0) {
+              console.log(`⚠️  Failed to bundle ${failCount} files`);
+            }
           }
           
           bundleAllPlugins().catch(console.error);
