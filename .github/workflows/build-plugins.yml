@@ -98,21 +98,21 @@ jobs:
           
           const outputDir = path.join(__dirname, '../.bundled/plugins');
           
-          async function bundlePlugin(inputFile, outputFile) {
+          async function bundlePlugin(inputFile, outputFile, targetES = 'es2017') {
             try {
               await build({
                 entryPoints: [inputFile],
                 bundle: true,
                 format: 'iife',
                 platform: 'browser',
-                target: 'es2017',
+                target: targetES,
                 outfile: outputFile,
                 minify: false,
                 sourcemap: false,
                 treeShaking: false,
                 legalComments: 'inline',
                 banner: {
-                  js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android\n'
+                  js: `// Bundled plugin with all dependencies included\n// Built for LNReader (${targetES})\n`
                 },
                 footer: {
                   js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
@@ -123,9 +123,10 @@ jobs:
                 conditions: ['import', 'require', 'default'],
                 logLevel: 'error'
               });
-              console.log(`✅ Bundled: ${path.basename(inputFile)}`);
+              return true;
             } catch (error) {
-              console.error(`❌ Failed to bundle ${inputFile}:`, error.message);
+              console.error(`❌ Failed to bundle ${path.basename(inputFile)}: ${error.message}`);
+              return false;
             }
           }
           
@@ -162,27 +163,37 @@ jobs:
             walkDir(pluginsDir, (file) => pluginFiles.push(file));
           
             console.log(`Found ${pluginFiles.length} plugin files to bundle`);
+            console.log('Building both ES5 (Android) and ES2017 (Desktop) versions...\n');
           
+            const outputDirES5 = path.join(__dirname, '../.bundled-es5/plugins');
             let successCount = 0;
             let failCount = 0;
             
-            // Bundle each plugin
+            // Bundle each plugin for both targets
             for (const inputFile of pluginFiles) {
               const relativePath = path.relative(pluginsDir, inputFile);
-              const outputFile = path.join(outputDir, relativePath);
+              const outputFileModern = path.join(outputDir, relativePath);
+              const outputFileES5 = path.join(outputDirES5, relativePath);
               
-              // Create output directory
-              fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+              // Create output directories
+              fs.mkdirSync(path.dirname(outputFileModern), { recursive: true });
+              fs.mkdirSync(path.dirname(outputFileES5), { recursive: true });
               
-              try {
-                await bundlePlugin(inputFile, outputFile);
+              // Bundle modern version (ES2017)
+              const modernSuccess = await bundlePlugin(inputFile, outputFileModern, 'es2017');
+              
+              // Bundle ES5 version for Android
+              const es5Success = await bundlePlugin(inputFile, outputFileES5, 'es5');
+              
+              if (modernSuccess && es5Success) {
                 successCount++;
-              } catch (error) {
+                console.log(`✅ ${relativePath}`);
+              } else {
                 failCount++;
               }
             }
           
-            console.log(`\n✅ Successfully bundled ${successCount} plugins`);
+            console.log(`\n✅ Successfully bundled ${successCount} plugins (both versions)`);
             if (failCount > 0) {
               console.log(`⚠️  Failed to bundle ${failCount} files`);
             }
@@ -191,102 +202,10 @@ jobs:
           bundleAllPlugins().catch(console.error);
           EOF
           
-          # Run the bundling script
+          # Run the bundling script (creates both ES5 and ES2017 versions)
           node scripts/bundle-plugins.js
           
-          echo "✅ All plugins bundled with dependencies"
-      
-      - name: Transpile to ES5 for Android compatibility (Fast)
-        run: |
-          cd lnreader-source
-          
-          echo "Transpiling bundled plugins to ES5 using esbuild (fast)..."
-          
-          # Create fast transpilation script using esbuild
-          cat > scripts/fast-transpile.js << 'EOF'
-          import { build } from 'esbuild';
-          import fs from 'fs';
-          import path from 'path';
-          import { fileURLToPath } from 'url';
-          
-          const __filename = fileURLToPath(import.meta.url);
-          const __dirname = path.dirname(__filename);
-          
-          const inputDir = path.join(__dirname, '../.bundled/plugins');
-          const outputDir = path.join(__dirname, '../.bundled-es5/plugins');
-          
-          // Get all JS files
-          function getAllFiles(dir, fileList = []) {
-            const files = fs.readdirSync(dir);
-            files.forEach(file => {
-              const filePath = path.join(dir, file);
-              if (fs.statSync(filePath).isDirectory()) {
-                getAllFiles(filePath, fileList);
-              } else if (file.endsWith('.js')) {
-                fileList.push(filePath);
-              }
-            });
-            return fileList;
-          }
-          
-          // Transpile using esbuild (much faster than Babel)
-          async function transpileFile(inputFile) {
-            const relativePath = path.relative(inputDir, inputFile);
-            const outputFile = path.join(outputDir, relativePath);
-            
-            fs.mkdirSync(path.dirname(outputFile), { recursive: true });
-            
-            try {
-              await build({
-                entryPoints: [inputFile],
-                outfile: outputFile,
-                target: 'es5',
-                format: 'iife',
-                bundle: false,
-                minify: false,
-                legalComments: 'inline',
-                logLevel: 'error'
-              });
-              return { success: true, file: relativePath };
-            } catch (error) {
-              fs.copyFileSync(inputFile, outputFile);
-              return { success: false, file: relativePath };
-            }
-          }
-          
-          // Process all files in parallel
-          async function processAll(files) {
-            console.log(`Processing ${files.length} files in parallel...\n`);
-            const startTime = Date.now();
-            
-            // Process ALL files at once (esbuild is fast enough)
-            const promises = files.map(file => transpileFile(file));
-            const results = await Promise.all(promises);
-            
-            const success = results.filter(r => r.success).length;
-            const failed = results.filter(r => !r.success).length;
-            const duration = ((Date.now() - startTime) / 1000).toFixed(2);
-            
-            console.log(`✅ Transpilation complete in ${duration}s`);
-            console.log(`   Success: ${success}`);
-            if (failed > 0) {
-              console.log(`   Failed: ${failed} (copied originals)`);
-            }
-          }
-          
-          // Main execution
-          async function main() {
-            const files = getAllFiles(inputDir);
-            console.log(`Found ${files.length} files to transpile`);
-            await processAll(files);
-          }
-          
-          main().catch(console.error);
-          EOF
-          
-          node scripts/fast-transpile.js
-          
-          echo "✅ ES5 transpilation complete"
+          echo "✅ All plugins bundled with dependencies (both ES5 and ES2017)"
       
       - name: Copy built plugins and manifest
         run: |
