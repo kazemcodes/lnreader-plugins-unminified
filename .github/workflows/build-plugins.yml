@@ -26,28 +26,14 @@ jobs:
           cd lnreader-source
           echo "Cloned LNReader plugins repo"
       
-      - name: Disable minification in terser script
-        run: |
-          cd lnreader-source
-          cat > scripts/terser.js << 'EOF'
-          import fs from 'fs';
-          
-          // No-op minify function - just copies the file as-is
-          const minify = function (path) {
-            console.log('Skipping minification for:', path);
-            // File is already there, no need to do anything
-          };
-          
-          export { minify };
-          EOF
-          echo "✅ Disabled minification"
-      
       - name: Install dependencies
         run: |
           cd lnreader-source
           npm ci
+          # Install esbuild for bundling
+          npm install --save-dev esbuild
       
-      - name: Build plugins (unminified)
+      - name: Build plugins (TypeScript compilation)
         run: |
           cd lnreader-source
           npm run clean:multisrc
@@ -55,16 +41,112 @@ jobs:
           npm run build:compile
           npm run build:manifest
       
+      - name: Bundle plugins with dependencies (non-minified)
+        run: |
+          cd lnreader-source
+          
+          # Create bundling script
+          cat > scripts/bundle-plugins.js << 'EOF'
+          import { build } from 'esbuild';
+          import fs from 'fs';
+          import path from 'path';
+          import { fileURLToPath } from 'url';
+          
+          const __filename = fileURLToPath(import.meta.url);
+          const __dirname = path.dirname(__filename);
+          
+          const pluginsDir = path.join(__dirname, '../.js/src/plugins');
+          const outputDir = path.join(__dirname, '../.bundled/plugins');
+          
+          async function bundlePlugin(inputFile, outputFile) {
+            try {
+              await build({
+                entryPoints: [inputFile],
+                bundle: true,
+                format: 'iife',
+                platform: 'browser',
+                target: 'es2020',
+                outfile: outputFile,
+                minify: false,
+                keepNames: true,
+                sourcemap: false,
+                treeShaking: false,
+                legalComments: 'inline',
+                banner: {
+                  js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android\n'
+                },
+                external: [],
+                logLevel: 'warning'
+              });
+              console.log(`✅ Bundled: ${path.basename(inputFile)}`);
+            } catch (error) {
+              console.error(`❌ Failed to bundle ${inputFile}:`, error.message);
+            }
+          }
+          
+          async function bundleAllPlugins() {
+            if (!fs.existsSync(pluginsDir)) {
+              console.error('Plugins directory not found:', pluginsDir);
+              process.exit(1);
+            }
+          
+            // Walk through all plugin files
+            const walkDir = (dir, callback) => {
+              const files = fs.readdirSync(dir);
+              files.forEach(file => {
+                const filePath = path.join(dir, file);
+                const stat = fs.statSync(filePath);
+                if (stat.isDirectory()) {
+                  walkDir(filePath, callback);
+                } else if (file.endsWith('.js')) {
+                  callback(filePath);
+                }
+              });
+            };
+          
+            const pluginFiles = [];
+            walkDir(pluginsDir, (file) => pluginFiles.push(file));
+          
+            console.log(`Found ${pluginFiles.length} plugin files to bundle`);
+          
+            // Bundle each plugin
+            for (const inputFile of pluginFiles) {
+              const relativePath = path.relative(pluginsDir, inputFile);
+              const outputFile = path.join(outputDir, relativePath);
+              
+              // Create output directory
+              fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+              
+              await bundlePlugin(inputFile, outputFile);
+            }
+          
+            console.log(`\n✅ Bundled ${pluginFiles.length} plugins`);
+          }
+          
+          bundleAllPlugins().catch(console.error);
+          EOF
+          
+          # Run the bundling script
+          node scripts/bundle-plugins.js
+          
+          echo "✅ All plugins bundled with dependencies"
+      
       - name: Copy built plugins and manifest
         run: |
           mkdir -p plugins
           
-          # Copy plugins from the correct location
-          if [ -d "lnreader-source/.js/src/plugins" ]; then
-            cp -r lnreader-source/.js/src/plugins/* plugins/ 2>/dev/null || true
-          fi
-          if [ -d "lnreader-source/.js/plugins" ]; then
-            cp -r lnreader-source/.js/plugins/* plugins/ 2>/dev/null || true
+          # Copy bundled plugins (with all dependencies included)
+          if [ -d "lnreader-source/.bundled/plugins" ]; then
+            cp -r lnreader-source/.bundled/plugins/* plugins/ 2>/dev/null || true
+            echo "✅ Copied bundled plugins"
+          else
+            echo "⚠️ Bundled plugins directory not found, falling back to compiled plugins"
+            if [ -d "lnreader-source/.js/src/plugins" ]; then
+              cp -r lnreader-source/.js/src/plugins/* plugins/ 2>/dev/null || true
+            fi
+            if [ -d "lnreader-source/.js/plugins" ]; then
+              cp -r lnreader-source/.js/plugins/* plugins/ 2>/dev/null || true
+            fi
           fi
           
           # Update JSON manifest files with correct URLs using Node.js
