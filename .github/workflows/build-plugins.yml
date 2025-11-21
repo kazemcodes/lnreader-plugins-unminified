@@ -111,6 +111,37 @@ jobs:
           npm run build:compile
           npm run build:manifest
       
+      - name: Check build output structure
+        run: |
+          cd lnreader-source
+          echo "=== Checking build output directories ==="
+          echo "Root contents:"
+          ls -la | head -20
+          echo ""
+          echo "Looking for .js directory:"
+          if [ -d ".js" ]; then
+            echo "Found .js directory"
+            ls -la .js/
+            if [ -d ".js/src" ]; then
+              echo "Found .js/src directory"
+              ls -la .js/src/
+            fi
+            if [ -d ".js/plugins" ]; then
+              echo "Found .js/plugins directory"
+              ls -la .js/plugins/ | head -10
+            fi
+          fi
+          echo ""
+          echo "Looking for src directory:"
+          if [ -d "src" ]; then
+            ls -la src/ | head -10
+          fi
+          echo ""
+          echo "Looking for plugins directory:"
+          if [ -d "plugins" ]; then
+            ls -la plugins/ | head -10
+          fi
+      
       - name: Bundle plugins with dependencies (non-minified)
         run: |
           cd lnreader-source
