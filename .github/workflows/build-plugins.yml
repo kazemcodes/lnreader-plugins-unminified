@@ -295,13 +295,16 @@ jobs:
               chunkResults.forEach(result => {
                 if (result.success) {
                   results.success++;
+                  console.log(`✅ ${result.file}`);
                 } else {
                   results.failed++;
                   console.log(`⚠️  ${result.file}: ${result.error}`);
                 }
               });
               
-              console.log(`Progress: ${Math.min(i + chunkSize, files.length)}/${files.length} files`);
+              const progress = Math.min(i + chunkSize, files.length);
+              const percent = ((progress / files.length) * 100).toFixed(1);
+              console.log(`\n📊 Progress: ${progress}/${files.length} (${percent}%)\n`);
             }
             
             return results;
