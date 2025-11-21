@@ -485,6 +485,7 @@ jobs:
   collect:
     needs: [prepare, bundle]
     runs-on: ubuntu-latest
+    if: always() && needs.prepare.result == 'success'
     
     steps:
       - name: Checkout repo branch
@@ -503,6 +504,27 @@ jobs:
         with:
           name: manifest
           path: .dist/
+        continue-on-error: true
+      
+      - name: Generate manifest if missing
+        run: |
+          if [ ! -f ".dist/plugins.json" ]; then
+            echo "⚠️  Manifest not found, regenerating..."
+            git clone --depth 1 https://github.com/LNReader/lnreader-plugins lnreader-source
+            cd lnreader-source
+            npm ci
+            npm run clean:multisrc
+            npm run build:multisrc
+            npm run build:compile
+            npm run build:manifest
+            cd ..
+            mkdir -p .dist
+            cp lnreader-source/.dist/* .dist/ 2>/dev/null || true
+            rm -rf lnreader-source
+            echo "✅ Manifest regenerated"
+          else
+            echo "✅ Manifest found"
+          fi
       
       - name: Download all bundled plugins
         uses: actions/download-artifact@v4
