@@ -1,5 +1,5 @@
 // Bundled plugin with all dependencies included
-// Built for LNReader Android
+// Built for LNReader (es2017)
 
 "use strict";
 var LNReaderPlugin = (() => {
