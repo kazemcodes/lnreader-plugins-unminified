@@ -221,7 +221,15 @@ jobs:
       
       - name: Install bundling tools
         run: |
-          npm install --no-save esbuild @babel/core @babel/cli @babel/preset-env
+          npm install --no-save esbuild @babel/core @babel/cli @babel/preset-env \
+            @babel/plugin-transform-arrow-functions \
+            @babel/plugin-transform-block-scoping \
+            @babel/plugin-transform-classes \
+            @babel/plugin-transform-destructuring \
+            @babel/plugin-transform-parameters \
+            @babel/plugin-transform-shorthand-properties \
+            @babel/plugin-transform-spread \
+            @babel/plugin-transform-template-literals
       
       - name: Bundle plugins - ${{ matrix.language }} (chunk ${{ matrix.chunk }}/${{ matrix.totalChunks }})
         run: |
@@ -283,14 +291,15 @@ jobs:
               bundle: true,
               format: 'iife',
               platform: 'browser',
-              target: 'es5',
+              target: 'es2015',
               outfile: outputFile,
               minify: false,
+              keepNames: true,
               sourcemap: false,
               treeShaking: false,
               legalComments: 'inline',
               banner: {
-                js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android (ES5 compatible)\n'
+                js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android\n'
               },
               footer: {
                 js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
@@ -299,15 +308,7 @@ jobs:
               external: [],
               mainFields: ['module', 'main'],
               conditions: ['import', 'require', 'default'],
-              logLevel: 'warning',
-              supported: {
-                'arrow': false,
-                'const-and-let': false,
-                'destructuring': false,
-                'for-of': false,
-                'generator': false,
-                'template-literal': false
-              }
+              logLevel: 'warning'
             };
             
             try {
@@ -389,15 +390,25 @@ jobs:
                 "@babel/preset-env",
                 {
                   "targets": {
-                    "ie": "9"
+                    "ie": "8"
                   },
                   "modules": false,
                   "loose": true,
-                  "bugfixes": false,
                   "spec": false,
-                  "forceAllTransforms": true
+                  "forceAllTransforms": true,
+                  "exclude": []
                 }
               ]
+            ],
+            "plugins": [
+              "@babel/plugin-transform-arrow-functions",
+              "@babel/plugin-transform-block-scoping",
+              "@babel/plugin-transform-classes",
+              "@babel/plugin-transform-destructuring",
+              "@babel/plugin-transform-parameters",
+              "@babel/plugin-transform-shorthand-properties",
+              "@babel/plugin-transform-spread",
+              "@babel/plugin-transform-template-literals"
             ],
             "comments": true,
             "minified": false,
