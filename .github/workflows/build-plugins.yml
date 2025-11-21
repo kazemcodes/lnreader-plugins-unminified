@@ -89,6 +89,26 @@ jobs:
           fs.writeFileSync(process.env.GITHUB_OUTPUT || '/dev/stdout', `matrix=${output}\n`, { flag: 'a' });
           SCRIPT
       
+      - name: Verify build output
+        run: |
+          cd lnreader-source
+          echo "Checking for compiled plugins..."
+          if [ ! -d ".js" ]; then
+            echo "❌ .js directory not found!"
+            echo "Available directories:"
+            ls -la
+            exit 1
+          fi
+          
+          echo "✅ Found .js directory"
+          ls -la .js/
+          
+          if [ -d ".js/src/plugins" ]; then
+            echo "✅ Found .js/src/plugins"
+            plugin_count=$(find .js/src/plugins -name "*.js" -type f | wc -l)
+            echo "Total plugins: $plugin_count"
+          fi
+      
       - name: Upload compiled plugins
         uses: actions/upload-artifact@v4
         with:
@@ -123,6 +143,27 @@ jobs:
         with:
           name: compiled-plugins
           path: .js/
+      
+      - name: Verify downloaded plugins
+        run: |
+          echo "Checking downloaded artifacts..."
+          ls -la
+          if [ -d ".js" ]; then
+            echo "✅ .js directory exists"
+            ls -la .js/
+            if [ -d ".js/src/plugins/${{ matrix.language }}" ]; then
+              echo "✅ Found language directory: ${{ matrix.language }}"
+              ls -la .js/src/plugins/${{ matrix.language }}/ | head -10
+            else
+              echo "❌ Language directory not found: ${{ matrix.language }}"
+              echo "Available directories:"
+              ls -la .js/src/plugins/ 2>/dev/null || echo "No plugins directory"
+              exit 1
+            fi
+          else
+            echo "❌ .js directory not found!"
+            exit 1
+          fi
       
       - name: Install bundling tools
         run: |
