@@ -196,36 +196,15 @@ jobs:
           
           echo "✅ All plugins bundled with dependencies"
       
-      - name: Transpile to ES5 for Android compatibility (Parallel)
+      - name: Transpile to ES5 for Android compatibility (Fast)
         run: |
           cd lnreader-source
           
-          # Create Babel config for ES5 transpilation
-          cat > .babelrc.json << 'EOF'
-          {
-            "presets": [
-              [
-                "@babel/preset-env",
-                {
-                  "targets": {
-                    "rhino": "1.7"
-                  },
-                  "modules": false,
-                  "loose": true,
-                  "spec": false,
-                  "useBuiltIns": false
-                }
-              ]
-            ],
-            "comments": true,
-            "minified": false,
-            "compact": false
-          }
-          EOF
+          echo "Transpiling bundled plugins to ES5 using esbuild (fast)..."
           
-          # Create parallel transpilation script
-          cat > scripts/parallel-transpile.js << 'EOF'
-          import { transformFileAsync } from '@babel/core';
+          # Create fast transpilation script using esbuild
+          cat > scripts/fast-transpile.js << 'EOF'
+          import { build } from 'esbuild';
           import fs from 'fs';
           import path from 'path';
           import { fileURLToPath } from 'url';
@@ -250,126 +229,90 @@ jobs:
             return fileList;
           }
           
-          // Transpile a single file
+          // Transpile using esbuild (much faster than Babel)
           async function transpileFile(inputFile) {
             const relativePath = path.relative(inputDir, inputFile);
             const outputFile = path.join(outputDir, relativePath);
             
-            // Create output directory
             fs.mkdirSync(path.dirname(outputFile), { recursive: true });
             
             try {
-              const result = await transformFileAsync(inputFile, {
-                presets: [
-                  ['@babel/preset-env', {
-                    targets: { rhino: '1.7' },
-                    modules: false,
-                    loose: true,
-                    spec: false,
-                    useBuiltIns: false
-                  }]
-                ],
-                comments: true,
-                minified: false,
-                compact: false,
-                babelrc: false,
-                configFile: false
+              await build({
+                entryPoints: [inputFile],
+                outfile: outputFile,
+                target: 'es5',
+                format: 'iife',
+                bundle: false,
+                minify: false,
+                keepNames: true,
+                legalComments: 'inline',
+                logLevel: 'error'
               });
-              
-              if (result && result.code) {
-                fs.writeFileSync(outputFile, result.code);
-                return { success: true, file: relativePath };
-              } else {
-                throw new Error('No code generated');
-              }
+              return { success: true, file: relativePath };
             } catch (error) {
-              // If transpilation fails, copy original
-              try {
-                fs.copyFileSync(inputFile, outputFile);
-              } catch (copyError) {
-                console.error(`Failed to copy ${relativePath}: ${copyError.message}`);
-              }
-              return { success: false, file: relativePath, error: error.message };
+              fs.copyFileSync(inputFile, outputFile);
+              return { success: false, file: relativePath };
             }
           }
           
-          // Process files in parallel chunks
-          async function processInParallel(files, chunkSize = 10) {
-            const results = { success: 0, failed: 0 };
+          // Process all files in parallel
+          async function processAll(files) {
+            console.log(`Processing ${files.length} files in parallel...\n`);
+            const startTime = Date.now();
             
-            console.log(`Starting parallel processing with chunk size: ${chunkSize}\n`);
+            // Process ALL files at once (esbuild is fast enough)
+            const promises = files.map(file => transpileFile(file));
+            const results = await Promise.all(promises);
             
-            for (let i = 0; i < files.length; i += chunkSize) {
-              const chunk = files.slice(i, i + chunkSize);
-              const chunkNum = Math.floor(i / chunkSize) + 1;
-              const totalChunks = Math.ceil(files.length / chunkSize);
-              
-              console.log(`Processing chunk ${chunkNum}/${totalChunks} (${chunk.length} files)...`);
-              
-              const promises = chunk.map(file => transpileFile(file));
-              const chunkResults = await Promise.all(promises);
-              
-              chunkResults.forEach(result => {
-                if (result.success) {
-                  results.success++;
-                } else {
-                  results.failed++;
-                  console.log(`⚠️  ${result.file}: ${result.error}`);
-                }
-              });
-              
-              const progress = Math.min(i + chunkSize, files.length);
-              const percent = ((progress / files.length) * 100).toFixed(1);
-              console.log(`✅ Chunk ${chunkNum} complete - Progress: ${progress}/${files.length} (${percent}%)\n`);
+            const success = results.filter(r => r.success).length;
+            const failed = results.filter(r => !r.success).length;
+            const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+            
+            console.log(`✅ Transpilation complete in ${duration}s`);
+            console.log(`   Success: ${success}`);
+            if (failed > 0) {
+              console.log(`   Failed: ${failed} (copied originals)`);
             }
-            
-            return results;
           }
           
           // Main execution
           async function main() {
-            console.log('Finding plugin files...');
             const files = getAllFiles(inputDir);
             console.log(`Found ${files.length} files to transpile`);
-            
-            const startTime = Date.now();
-            const results = await processInParallel(files, 20);
-            const duration = ((Date.now() - startTime) / 1000).toFixed(2);
-            
-            console.log(`\n✅ Transpilation complete in ${duration}s`);
-            console.log(`   Success: ${results.success}`);
-            if (results.failed > 0) {
-              console.log(`   Failed: ${results.failed} (copied originals)`);
-            }
+            await processAll(files);
           }
           
           main().catch(console.error);
           EOF
           
-          echo "Transpiling bundled plugins to ES5 (parallel processing)..."
-          node scripts/parallel-transpile.js
+          node scripts/fast-transpile.js
           
           echo "✅ ES5 transpilation complete"
       
       - name: Copy built plugins and manifest
         run: |
-          mkdir -p plugins
+          mkdir -p plugins-android plugins-desktop
           
-          # Copy ES5 transpiled plugins (with all dependencies included, Android compatible)
+          # Copy ES5 transpiled plugins for Android (Rhino compatible)
+          if [ -d "lnreader-source/.bundled-es5/plugins" ]; then
+            cp -r lnreader-source/.bundled-es5/plugins/* plugins-android/ 2>/dev/null || true
+            echo "✅ Copied ES5 plugins for Android"
+          else
+            echo "⚠️ ES5 plugins not found"
+          fi
+          
+          # Copy modern JS plugins for Desktop (GraalVM compatible)
+          if [ -d "lnreader-source/.bundled/plugins" ]; then
+            cp -r lnreader-source/.bundled/plugins/* plugins-desktop/ 2>/dev/null || true
+            echo "✅ Copied modern JS plugins for Desktop"
+          else
+            echo "⚠️ Modern JS plugins not found"
+          fi
+          
+          # For backward compatibility, also create a 'plugins' folder with Android version
+          mkdir -p plugins
           if [ -d "lnreader-source/.bundled-es5/plugins" ]; then
             cp -r lnreader-source/.bundled-es5/plugins/* plugins/ 2>/dev/null || true
-            echo "✅ Copied ES5 transpiled plugins"
-          elif [ -d "lnreader-source/.bundled/plugins" ]; then
-            cp -r lnreader-source/.bundled/plugins/* plugins/ 2>/dev/null || true
-            echo "✅ Copied bundled plugins (ES2017)"
-          else
-            echo "⚠️ Bundled plugins directory not found, falling back to compiled plugins"
-            if [ -d "lnreader-source/.js/src/plugins" ]; then
-              cp -r lnreader-source/.js/src/plugins/* plugins/ 2>/dev/null || true
-            fi
-            if [ -d "lnreader-source/.js/plugins" ]; then
-              cp -r lnreader-source/.js/plugins/* plugins/ 2>/dev/null || true
-            fi
           fi
           
           # Update JSON manifest files with correct URLs using Node.js
@@ -420,51 +363,55 @@ jobs:
           echo "Plugin structure:"
           ls -lh plugins/ | head -20
       
-      - name: Generate plugin list
+      - name: Generate plugin lists
         run: |
+          # Android README
+          echo "# LNReader Plugins - Android (ES5)" > plugins-android/README.md
+          echo "" >> plugins-android/README.md
+          echo "**ES5 compatible plugins for Android (Rhino JavaScript engine)**" >> plugins-android/README.md
+          echo "" >> plugins-android/README.md
+          echo "Built from: https://github.com/LNReader/lnreader-plugins" >> plugins-android/README.md
+          echo "" >> plugins-android/README.md
+          
+          total_android=$(find plugins-android -name "*.js" -type f | wc -l)
+          echo "**Total: $total_android plugins**" >> plugins-android/README.md
+          
+          # Desktop README
+          echo "# LNReader Plugins - Desktop (Modern JS)" > plugins-desktop/README.md
+          echo "" >> plugins-desktop/README.md
+          echo "**Modern JavaScript plugins for Desktop (GraalVM)**" >> plugins-desktop/README.md
+          echo "" >> plugins-desktop/README.md
+          echo "Built from: https://github.com/LNReader/lnreader-plugins" >> plugins-desktop/README.md
+          echo "" >> plugins-desktop/README.md
+          
+          total_desktop=$(find plugins-desktop -name "*.js" -type f | wc -l)
+          echo "**Total: $total_desktop plugins**" >> plugins-desktop/README.md
+          
+          # Main README (backward compatibility)
           echo "# Unminified LNReader Plugins" > plugins/README.md
           echo "" >> plugins/README.md
           echo "Built from: https://github.com/LNReader/lnreader-plugins" >> plugins/README.md
           echo "" >> plugins/README.md
-          
-          # Count plugins by language
-          for lang_dir in plugins/*/; do
-            if [ -d "$lang_dir" ]; then
-              lang=$(basename "$lang_dir")
-              count=$(find "$lang_dir" -name "*.js" -type f | wc -l)
-              echo "## $lang ($count plugins)" >> plugins/README.md
-              echo "" >> plugins/README.md
-              for file in "$lang_dir"*.js; do
-                if [ -f "$file" ]; then
-                  filename=$(basename "$file")
-                  size=$(du -h "$file" | cut -f1)
-                  echo "- \`$filename\` ($size)" >> plugins/README.md
-                fi
-              done
-              echo "" >> plugins/README.md
-            fi
-          done
+          echo "## Available Versions" >> plugins/README.md
+          echo "" >> plugins/README.md
+          echo "- **plugins-android/** - ES5 compatible for Android (Rhino)" >> plugins/README.md
+          echo "- **plugins-desktop/** - Modern JS for Desktop (GraalVM)" >> plugins/README.md
+          echo "" >> plugins/README.md
           
           total=$(find plugins -name "*.js" -type f | wc -l)
-          echo "---" >> plugins/README.md
           echo "**Total: $total plugins**" >> plugins/README.md
       
-      - name: Package plugins by language
+      - name: Package plugins by platform
         run: |
-          cd plugins
-          # Create archives for each language
-          for lang_dir in */; do
-            if [ -d "$lang_dir" ]; then
-              lang=$(basename "$lang_dir")
-              if [ -n "$(ls -A "$lang_dir"*.js 2>/dev/null)" ]; then
-                echo "Packaging $lang..."
-                tar -czf "../${lang}-plugins.tar.gz" "$lang_dir"
-              fi
-            fi
-          done
-          cd ..
+          # Package Android plugins (ES5)
+          echo "Packaging Android plugins..."
+          tar -czf android-plugins-es5.tar.gz plugins-android/
           
-          # Create a complete archive
+          # Package Desktop plugins (Modern JS)
+          echo "Packaging Desktop plugins..."
+          tar -czf desktop-plugins-modern.tar.gz plugins-desktop/
+          
+          # Package all plugins together (backward compatibility)
           tar -czf all-plugins.tar.gz plugins/
           
           echo "✅ Created plugin archives"
@@ -475,7 +422,7 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           
-          git add plugins/
+          git add plugins/ plugins-android/ plugins-desktop/
           
           if git diff --staged --quiet; then
             echo "No changes to commit"
@@ -488,26 +435,46 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
-          name: Unminified Plugins v${{ github.run_number }}
+          name: Bundled Plugins v${{ github.run_number }}
           body: |
-            # Unminified LNReader Plugins
+            # LNReader Plugins - Bundled & Unminified
             
             Built from: https://github.com/LNReader/lnreader-plugins
             Build date: $(date +'%Y-%m-%d %H:%M:%S UTC')
             
-            ## 📥 Download
-            - **all-plugins.tar.gz** - All plugins in one archive
-            - **[language]-plugins.tar.gz** - Individual language archives
+            ## 📥 Download Options
+            
+            ### For Android (Rhino JavaScript Engine)
+            - **android-plugins-es5.tar.gz** - ES5 compatible plugins for Android
+            - All dependencies bundled, transpiled to ES5 for maximum compatibility
+            
+            ### For Desktop (GraalVM)
+            - **desktop-plugins-modern.tar.gz** - Modern JavaScript plugins for Desktop
+            - All dependencies bundled, optimized for GraalVM
+            
+            ### Legacy
+            - **all-plugins.tar.gz** - All plugins (Android ES5 version)
             - **plugins.json** - Plugin manifest with metadata
             - **plugins.min.json** - Minified plugin manifest
             
             ## 📖 Usage
-            1. Download and extract the archive for your language
-            2. Copy the `.js` files to your LNReader plugins directory
+            
+            ### Android Users
+            1. Download `android-plugins-es5.tar.gz`
+            2. Extract and copy `.js` files to your LNReader plugins directory
             3. Restart LNReader
             
-            ## 🔍 Why Unminified?
-            These plugins are built without minification, making them easier to read and debug.
+            ### Desktop Users
+            1. Download `desktop-plugins-modern.tar.gz`
+            2. Extract and copy `.js` files to your LNReader plugins directory
+            3. Restart LNReader
+            
+            ## ✨ Features
+            - ✅ All dependencies bundled (cheerio, dayjs, etc.)
+            - ✅ Non-minified for easy debugging
+            - ✅ ES5 compatible for Android (Rhino)
+            - ✅ Modern JS for Desktop (GraalVM)
+            - ✅ Self-contained - no external module resolution needed
             
             ## 📋 Plugin Manifest
             The JSON files contain metadata for all plugins including:
@@ -519,6 +486,8 @@ jobs:
           files: |
             *.tar.gz
             plugins/README.md
+            plugins-android/README.md
+            plugins-desktop/README.md
             plugins/plugins.json
             plugins/plugins.min.json
           draft: false
