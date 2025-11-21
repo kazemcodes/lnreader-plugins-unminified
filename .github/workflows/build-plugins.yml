@@ -30,8 +30,8 @@ jobs:
         run: |
           cd lnreader-source
           npm ci
-          # Install esbuild for bundling
-          npm install --save-dev esbuild
+          # Install esbuild for bundling and Babel for ES5 transpilation
+          npm install --save-dev esbuild @babel/core @babel/cli @babel/preset-env
       
       - name: Build plugins (TypeScript compilation)
         run: |
@@ -196,14 +196,71 @@ jobs:
           
           echo "✅ All plugins bundled with dependencies"
       
+      - name: Transpile to ES5 for Android compatibility
+        run: |
+          cd lnreader-source
+          
+          # Create Babel config for ES5 transpilation
+          cat > .babelrc.json << 'EOF'
+          {
+            "presets": [
+              [
+                "@babel/preset-env",
+                {
+                  "targets": {
+                    "rhino": "1.7"
+                  },
+                  "modules": false,
+                  "loose": true,
+                  "spec": false,
+                  "useBuiltIns": false
+                }
+              ]
+            ],
+            "comments": true,
+            "minified": false,
+            "compact": false
+          }
+          EOF
+          
+          echo "Transpiling bundled plugins to ES5..."
+          
+          # Create ES5 output directory
+          mkdir -p .bundled-es5/plugins
+          
+          # Transpile all bundled plugins to ES5
+          find .bundled/plugins -name "*.js" -type f | while read file; do
+            # Get relative path
+            relpath="${file#.bundled/plugins/}"
+            outfile=".bundled-es5/plugins/$relpath"
+            
+            # Create output directory
+            mkdir -p "$(dirname "$outfile")"
+            
+            # Transpile with Babel
+            npx babel "$file" --out-file "$outfile" --config-file ./.babelrc.json 2>/dev/null
+            
+            if [ $? -eq 0 ]; then
+              echo "✅ Transpiled: $relpath"
+            else
+              echo "⚠️  Failed to transpile: $relpath (copying original)"
+              cp "$file" "$outfile"
+            fi
+          done
+          
+          echo "✅ ES5 transpilation complete"
+      
       - name: Copy built plugins and manifest
         run: |
           mkdir -p plugins
           
-          # Copy bundled plugins (with all dependencies included)
-          if [ -d "lnreader-source/.bundled/plugins" ]; then
+          # Copy ES5 transpiled plugins (with all dependencies included, Android compatible)
+          if [ -d "lnreader-source/.bundled-es5/plugins" ]; then
+            cp -r lnreader-source/.bundled-es5/plugins/* plugins/ 2>/dev/null || true
+            echo "✅ Copied ES5 transpiled plugins"
+          elif [ -d "lnreader-source/.bundled/plugins" ]; then
             cp -r lnreader-source/.bundled/plugins/* plugins/ 2>/dev/null || true
-            echo "✅ Copied bundled plugins"
+            echo "✅ Copied bundled plugins (ES2017)"
           else
             echo "⚠️ Bundled plugins directory not found, falling back to compiled plugins"
             if [ -d "lnreader-source/.js/src/plugins" ]; then
