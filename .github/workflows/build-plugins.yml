@@ -180,13 +180,43 @@ jobs:
             process.exit(1);
           }
           
-          const pluginsDir = path.join('.js', 'src', 'plugins', language);
-          const outputDir = path.join('.bundled', 'plugins', language);
+          // Try multiple possible locations
+          const possibleDirs = [
+            path.join('.js', 'src', 'plugins', language),
+            path.join('.js', 'plugins', language),
+            path.join('src', 'plugins', language),
+            path.join('plugins', language)
+          ];
           
-          if (!fs.existsSync(pluginsDir)) {
-            console.error(`Plugins directory not found: ${pluginsDir}`);
+          let pluginsDir = null;
+          for (const dir of possibleDirs) {
+            if (fs.existsSync(dir)) {
+              pluginsDir = dir;
+              console.log(`Found plugins directory: ${dir}`);
+              break;
+            }
+          }
+          
+          if (!pluginsDir) {
+            console.error(`Plugins directory not found for language: ${language}`);
+            console.error('Tried locations:');
+            possibleDirs.forEach(dir => console.error(`  - ${dir}`));
+            
+            // Show what actually exists
+            console.log('\nActual structure:');
+            if (fs.existsSync('.js')) {
+              console.log('.js contents:', fs.readdirSync('.js').join(', '));
+              if (fs.existsSync('.js/src')) {
+                console.log('.js/src contents:', fs.readdirSync('.js/src').join(', '));
+                if (fs.existsSync('.js/src/plugins')) {
+                  console.log('.js/src/plugins contents:', fs.readdirSync('.js/src/plugins').join(', '));
+                }
+              }
+            }
             process.exit(1);
           }
+          
+          const outputDir = path.join('.bundled', 'plugins', language);
           
           async function bundlePlugin(inputFile, outputFile) {
             const config = {
