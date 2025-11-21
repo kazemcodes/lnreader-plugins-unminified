@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -5517,3 +5517,7 @@
   })())({ id: "hotnovelpub", sourceSite: "https://hotnovelpub.com", sourceName: "HotNovelPub", filters: { sort: { type: n.FilterTypes.Picker, label: "Order", value: "hot", options: [{ label: "Hot story", value: "hot" }, { label: "New story", value: "new" }, { label: "Full story", value: "full" }] }, category: { type: n.FilterTypes.Picker, label: "Category", value: "", options: [{ label: "NONE", value: "" }, { label: "Adult Romance", value: "adult-romance" }, { label: "Fantasy", value: "fantasy" }, { label: "LGBTQ+", value: "lgbtq" }, { label: "Mystery", value: "mystery" }, { label: "New Adult", value: "new-adult" }, { label: "Paranormal", value: "paranormal" }, { label: "Romance", value: "romance" }, { label: "Steamy Stories", value: "steamy-stories" }, { label: "Urban", value: "urban" }, { label: "Werewolf/Vampire", value: "werewolfvampire" }] } } });
   exports.default = o;
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+

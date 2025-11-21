@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -5517,3 +5517,7 @@
   })())({ id: "lanovels", sourceSite: "https://lanovels.com", sourceName: "LaNovels", filters: { sort: { type: n.FilterTypes.Picker, label: "Order", value: "hot", options: [{ label: "Hist\xF3ria quente", value: "hot" }, { label: "Nova est\xF3ria", value: "new" }, { label: "Hist\xF3ria completa", value: "full" }] }, category: { type: n.FilterTypes.Picker, label: "Categoria", value: "", options: [{ label: "NONE", value: "" }, { label: "Aventura", value: "aventura" }, { label: "Er\xF3tico", value: "erotico" }, { label: "Fantasia", value: "fantasia" }, { label: "Fic\xE7\xE3o adolescente", value: "ficcao-adolescente" }, { label: "Fic\xE7\xE3o cient\xEDfica", value: "ficcao-cientifica" }, { label: "Lobisomens/Vampiros", value: "lobisomens-vampiros" }, { label: "Mist\xE9rio", value: "misterio" }, { label: "Paranormal", value: "paranormal" }, { label: "Romance", value: "romance" }, { label: "Suspense/Terror", value: "suspense-terror" }] } }, options: { lang: "pt" } });
   exports.default = i;
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+

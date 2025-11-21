@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -203,16 +203,16 @@
         BinTrieFlags2[BinTrieFlags2["BRANCH_LENGTH"] = 16256] = "BRANCH_LENGTH";
         BinTrieFlags2[BinTrieFlags2["JUMP_TABLE"] = 127] = "JUMP_TABLE";
       })(BinTrieFlags = exports2.BinTrieFlags || (exports2.BinTrieFlags = {}));
-      function isNumber2(code) {
+      function isNumber(code) {
         return code >= CharCodes.ZERO && code <= CharCodes.NINE;
       }
-      __name(isNumber2, "isNumber");
+      __name(isNumber, "isNumber");
       function isHexadecimalCharacter(code) {
         return code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_F || code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_F;
       }
       __name(isHexadecimalCharacter, "isHexadecimalCharacter");
       function isAsciiAlphaNumeric(code) {
-        return code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_Z || code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_Z || isNumber2(code);
+        return code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_Z || code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_Z || isNumber(code);
       }
       __name(isAsciiAlphaNumeric, "isAsciiAlphaNumeric");
       function isEntityInAttributeInvalidEnd(code) {
@@ -304,7 +304,7 @@
             var startIdx = offset;
             while (offset < str.length) {
               var char = str.charCodeAt(offset);
-              if (isNumber2(char) || isHexadecimalCharacter(char)) {
+              if (isNumber(char) || isHexadecimalCharacter(char)) {
                 offset += 1;
               } else {
                 this.addToNumericResult(str, startIdx, offset, 16);
@@ -318,7 +318,7 @@
             var startIdx = offset;
             while (offset < str.length) {
               var char = str.charCodeAt(offset);
-              if (isNumber2(char)) {
+              if (isNumber(char)) {
                 offset += 1;
               } else {
                 this.addToNumericResult(str, startIdx, offset, 10);
@@ -4377,7 +4377,7 @@
         {}
       );
       util.isInteger = Number.isInteger || /* istanbul ignore next */
-      /* @__PURE__ */ __name(function isInteger2(value) {
+      /* @__PURE__ */ __name(function isInteger(value) {
         return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
       }, "isInteger");
       util.isString = /* @__PURE__ */ __name(function isString(value) {
@@ -9064,55 +9064,15 @@
     }
   });
 
-  // node_modules/tailwind-merge/dist/bundle-mjs.mjs
-  function twJoin() {
-    let index = 0;
-    let argument;
-    let resolvedValue;
-    let string = "";
-    while (index < arguments.length) {
-      if (argument = arguments[index++]) {
-        if (resolvedValue = toValue(argument)) {
-          string && (string += " ");
-          string += resolvedValue;
-        }
-      }
-    }
-    return string;
-  }
-  function createTailwindMerge(createConfigFirst, ...createConfigRest) {
-    let configUtils;
-    let cacheGet;
-    let cacheSet;
-    let functionToCall = initTailwindMerge;
-    function initTailwindMerge(classList) {
-      const config = createConfigRest.reduce((previousConfig, createConfigCurrent) => createConfigCurrent(previousConfig), createConfigFirst());
-      configUtils = createConfigUtils(config);
-      cacheGet = configUtils.cache.get;
-      cacheSet = configUtils.cache.set;
-      functionToCall = tailwindMerge;
-      return tailwindMerge(classList);
-    }
-    __name(initTailwindMerge, "initTailwindMerge");
-    function tailwindMerge(classList) {
-      const cachedResult = cacheGet(classList);
-      if (cachedResult) {
-        return cachedResult;
-      }
-      const result = mergeClassList(classList, configUtils);
-      cacheSet(classList, result);
-      return result;
-    }
-    __name(tailwindMerge, "tailwindMerge");
-    return /* @__PURE__ */ __name(function callTailwindMerge() {
-      return functionToCall(twJoin.apply(null, arguments));
-    }, "callTailwindMerge");
-  }
-  var CLASS_PART_SEPARATOR, createClassGroupUtils, getGroupRecursive, arbitraryPropertyRegex, getGroupIdForArbitraryProperty, createClassMap, processClassesRecursively, getPart, isThemeGetter, createLruCache, IMPORTANT_MODIFIER, MODIFIER_SEPARATOR, MODIFIER_SEPARATOR_LENGTH, createParseClassName, stripImportantModifier, createSortModifiers, createConfigUtils, SPLIT_CLASSES_REGEX, mergeClassList, toValue, fromTheme, arbitraryValueRegex, arbitraryVariableRegex, fractionRegex, tshirtUnitRegex, lengthUnitRegex, colorFunctionRegex, shadowRegex, imageRegex, isFraction, isNumber, isInteger, isPercent, isTshirtSize, isAny, isLengthOnly, isNever, isShadow, isImage, isAnyNonArbitrary, isArbitrarySize, isArbitraryValue, isArbitraryLength, isArbitraryNumber, isArbitraryPosition, isArbitraryImage, isArbitraryShadow, isArbitraryVariable, isArbitraryVariableLength, isArbitraryVariableFamilyName, isArbitraryVariablePosition, isArbitraryVariableSize, isArbitraryVariableImage, isArbitraryVariableShadow, getIsArbitraryValue, getIsArbitraryVariable, isLabelPosition, isLabelImage, isLabelSize, isLabelLength, isLabelNumber, isLabelFamilyName, isLabelShadow, validators, getDefaultConfig, mergeConfigs, overrideProperty, overrideConfigProperties, mergeConfigProperties, mergeArrayProperties, extendTailwindMerge, twMerge;
-  var init_bundle_mjs = __esm({
-    "node_modules/tailwind-merge/dist/bundle-mjs.mjs"() {
-      CLASS_PART_SEPARATOR = "-";
-      createClassGroupUtils = /* @__PURE__ */ __name((config) => {
+  // node_modules/tailwind-merge/dist/bundle-cjs.js
+  var require_bundle_cjs = __commonJS({
+    "node_modules/tailwind-merge/dist/bundle-cjs.js"(exports2) {
+      "use strict";
+      Object.defineProperty(exports2, Symbol.toStringTag, {
+        value: "Module"
+      });
+      var CLASS_PART_SEPARATOR = "-";
+      var createClassGroupUtils = /* @__PURE__ */ __name((config) => {
         const classMap = createClassMap(config);
         const {
           conflictingClassGroups,
@@ -9137,7 +9097,7 @@
           getConflictingClassGroupIds
         };
       }, "createClassGroupUtils");
-      getGroupRecursive = /* @__PURE__ */ __name((classParts, classPartObject) => {
+      var getGroupRecursive = /* @__PURE__ */ __name((classParts, classPartObject) => {
         if (classParts.length === 0) {
           return classPartObject.classGroupId;
         }
@@ -9155,8 +9115,8 @@
           validator
         }) => validator(classRest))?.classGroupId;
       }, "getGroupRecursive");
-      arbitraryPropertyRegex = /^\[(.+)\]$/;
-      getGroupIdForArbitraryProperty = /* @__PURE__ */ __name((className) => {
+      var arbitraryPropertyRegex = /^\[(.+)\]$/;
+      var getGroupIdForArbitraryProperty = /* @__PURE__ */ __name((className) => {
         if (arbitraryPropertyRegex.test(className)) {
           const arbitraryPropertyClassName = arbitraryPropertyRegex.exec(className)[1];
           const property = arbitraryPropertyClassName?.substring(0, arbitraryPropertyClassName.indexOf(":"));
@@ -9165,7 +9125,7 @@
           }
         }
       }, "getGroupIdForArbitraryProperty");
-      createClassMap = /* @__PURE__ */ __name((config) => {
+      var createClassMap = /* @__PURE__ */ __name((config) => {
         const {
           theme,
           classGroups
@@ -9179,7 +9139,7 @@
         }
         return classMap;
       }, "createClassMap");
-      processClassesRecursively = /* @__PURE__ */ __name((classGroup, classPartObject, classGroupId, theme) => {
+      var processClassesRecursively = /* @__PURE__ */ __name((classGroup, classPartObject, classGroupId, theme) => {
         classGroup.forEach((classDefinition) => {
           if (typeof classDefinition === "string") {
             const classPartObjectToEdit = classDefinition === "" ? classPartObject : getPart(classPartObject, classDefinition);
@@ -9202,7 +9162,7 @@
           });
         });
       }, "processClassesRecursively");
-      getPart = /* @__PURE__ */ __name((classPartObject, path) => {
+      var getPart = /* @__PURE__ */ __name((classPartObject, path) => {
         let currentClassPartObject = classPartObject;
         path.split(CLASS_PART_SEPARATOR).forEach((pathPart) => {
           if (!currentClassPartObject.nextPart.has(pathPart)) {
@@ -9215,8 +9175,8 @@
         });
         return currentClassPartObject;
       }, "getPart");
-      isThemeGetter = /* @__PURE__ */ __name((func) => func.isThemeGetter, "isThemeGetter");
-      createLruCache = /* @__PURE__ */ __name((maxCacheSize) => {
+      var isThemeGetter = /* @__PURE__ */ __name((func) => func.isThemeGetter, "isThemeGetter");
+      var createLruCache = /* @__PURE__ */ __name((maxCacheSize) => {
         if (maxCacheSize < 1) {
           return {
             get: /* @__PURE__ */ __name(() => void 0, "get"),
@@ -9256,10 +9216,10 @@
           }
         };
       }, "createLruCache");
-      IMPORTANT_MODIFIER = "!";
-      MODIFIER_SEPARATOR = ":";
-      MODIFIER_SEPARATOR_LENGTH = MODIFIER_SEPARATOR.length;
-      createParseClassName = /* @__PURE__ */ __name((config) => {
+      var IMPORTANT_MODIFIER = "!";
+      var MODIFIER_SEPARATOR = ":";
+      var MODIFIER_SEPARATOR_LENGTH = MODIFIER_SEPARATOR.length;
+      var createParseClassName = /* @__PURE__ */ __name((config) => {
         const {
           prefix,
           experimentalParseClassName
@@ -9324,7 +9284,7 @@
         }
         return parseClassName;
       }, "createParseClassName");
-      stripImportantModifier = /* @__PURE__ */ __name((baseClassName) => {
+      var stripImportantModifier = /* @__PURE__ */ __name((baseClassName) => {
         if (baseClassName.endsWith(IMPORTANT_MODIFIER)) {
           return baseClassName.substring(0, baseClassName.length - 1);
         }
@@ -9333,7 +9293,7 @@
         }
         return baseClassName;
       }, "stripImportantModifier");
-      createSortModifiers = /* @__PURE__ */ __name((config) => {
+      var createSortModifiers = /* @__PURE__ */ __name((config) => {
         const orderSensitiveModifiers = Object.fromEntries(config.orderSensitiveModifiers.map((modifier) => [modifier, true]));
         const sortModifiers = /* @__PURE__ */ __name((modifiers) => {
           if (modifiers.length <= 1) {
@@ -9355,14 +9315,14 @@
         }, "sortModifiers");
         return sortModifiers;
       }, "createSortModifiers");
-      createConfigUtils = /* @__PURE__ */ __name((config) => ({
+      var createConfigUtils = /* @__PURE__ */ __name((config) => ({
         cache: createLruCache(config.cacheSize),
         parseClassName: createParseClassName(config),
         sortModifiers: createSortModifiers(config),
         ...createClassGroupUtils(config)
       }), "createConfigUtils");
-      SPLIT_CLASSES_REGEX = /\s+/;
-      mergeClassList = /* @__PURE__ */ __name((classList, configUtils) => {
+      var SPLIT_CLASSES_REGEX = /\s+/;
+      var mergeClassList = /* @__PURE__ */ __name((classList, configUtils) => {
         const {
           parseClassName,
           getClassGroupId,
@@ -9415,8 +9375,23 @@
         }
         return result;
       }, "mergeClassList");
+      function twJoin() {
+        let index = 0;
+        let argument;
+        let resolvedValue;
+        let string = "";
+        while (index < arguments.length) {
+          if (argument = arguments[index++]) {
+            if (resolvedValue = toValue(argument)) {
+              string && (string += " ");
+              string += resolvedValue;
+            }
+          }
+        }
+        return string;
+      }
       __name(twJoin, "twJoin");
-      toValue = /* @__PURE__ */ __name((mix) => {
+      var toValue = /* @__PURE__ */ __name((mix) => {
         if (typeof mix === "string") {
           return mix;
         }
@@ -9432,51 +9407,79 @@
         }
         return string;
       }, "toValue");
+      function createTailwindMerge(createConfigFirst, ...createConfigRest) {
+        let configUtils;
+        let cacheGet;
+        let cacheSet;
+        let functionToCall = initTailwindMerge;
+        function initTailwindMerge(classList) {
+          const config = createConfigRest.reduce((previousConfig, createConfigCurrent) => createConfigCurrent(previousConfig), createConfigFirst());
+          configUtils = createConfigUtils(config);
+          cacheGet = configUtils.cache.get;
+          cacheSet = configUtils.cache.set;
+          functionToCall = tailwindMerge;
+          return tailwindMerge(classList);
+        }
+        __name(initTailwindMerge, "initTailwindMerge");
+        function tailwindMerge(classList) {
+          const cachedResult = cacheGet(classList);
+          if (cachedResult) {
+            return cachedResult;
+          }
+          const result = mergeClassList(classList, configUtils);
+          cacheSet(classList, result);
+          return result;
+        }
+        __name(tailwindMerge, "tailwindMerge");
+        return /* @__PURE__ */ __name(function callTailwindMerge() {
+          return functionToCall(twJoin.apply(null, arguments));
+        }, "callTailwindMerge");
+      }
       __name(createTailwindMerge, "createTailwindMerge");
-      fromTheme = /* @__PURE__ */ __name((key) => {
+      var fromTheme = /* @__PURE__ */ __name((key) => {
         const themeGetter = /* @__PURE__ */ __name((theme) => theme[key] || [], "themeGetter");
         themeGetter.isThemeGetter = true;
         return themeGetter;
       }, "fromTheme");
-      arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
-      arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
-      fractionRegex = /^\d+\/\d+$/;
-      tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
-      lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
-      colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
-      shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
-      imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
-      isFraction = /* @__PURE__ */ __name((value) => fractionRegex.test(value), "isFraction");
-      isNumber = /* @__PURE__ */ __name((value) => !!value && !Number.isNaN(Number(value)), "isNumber");
-      isInteger = /* @__PURE__ */ __name((value) => !!value && Number.isInteger(Number(value)), "isInteger");
-      isPercent = /* @__PURE__ */ __name((value) => value.endsWith("%") && isNumber(value.slice(0, -1)), "isPercent");
-      isTshirtSize = /* @__PURE__ */ __name((value) => tshirtUnitRegex.test(value), "isTshirtSize");
-      isAny = /* @__PURE__ */ __name(() => true, "isAny");
-      isLengthOnly = /* @__PURE__ */ __name((value) => (
+      var arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
+      var arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
+      var fractionRegex = /^\d+\/\d+$/;
+      var tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+      var lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+      var colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
+      var shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+      var imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+      var isFraction = /* @__PURE__ */ __name((value) => fractionRegex.test(value), "isFraction");
+      var isNumber = /* @__PURE__ */ __name((value) => !!value && !Number.isNaN(Number(value)), "isNumber");
+      var isInteger = /* @__PURE__ */ __name((value) => !!value && Number.isInteger(Number(value)), "isInteger");
+      var isPercent = /* @__PURE__ */ __name((value) => value.endsWith("%") && isNumber(value.slice(0, -1)), "isPercent");
+      var isTshirtSize = /* @__PURE__ */ __name((value) => tshirtUnitRegex.test(value), "isTshirtSize");
+      var isAny = /* @__PURE__ */ __name(() => true, "isAny");
+      var isLengthOnly = /* @__PURE__ */ __name((value) => (
         // `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
         // For example, `hsl(0 0% 0%)` would be classified as a length without this check.
         // I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
         lengthUnitRegex.test(value) && !colorFunctionRegex.test(value)
       ), "isLengthOnly");
-      isNever = /* @__PURE__ */ __name(() => false, "isNever");
-      isShadow = /* @__PURE__ */ __name((value) => shadowRegex.test(value), "isShadow");
-      isImage = /* @__PURE__ */ __name((value) => imageRegex.test(value), "isImage");
-      isAnyNonArbitrary = /* @__PURE__ */ __name((value) => !isArbitraryValue(value) && !isArbitraryVariable(value), "isAnyNonArbitrary");
-      isArbitrarySize = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelSize, isNever), "isArbitrarySize");
-      isArbitraryValue = /* @__PURE__ */ __name((value) => arbitraryValueRegex.test(value), "isArbitraryValue");
-      isArbitraryLength = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelLength, isLengthOnly), "isArbitraryLength");
-      isArbitraryNumber = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelNumber, isNumber), "isArbitraryNumber");
-      isArbitraryPosition = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelPosition, isNever), "isArbitraryPosition");
-      isArbitraryImage = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelImage, isImage), "isArbitraryImage");
-      isArbitraryShadow = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelShadow, isShadow), "isArbitraryShadow");
-      isArbitraryVariable = /* @__PURE__ */ __name((value) => arbitraryVariableRegex.test(value), "isArbitraryVariable");
-      isArbitraryVariableLength = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelLength), "isArbitraryVariableLength");
-      isArbitraryVariableFamilyName = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelFamilyName), "isArbitraryVariableFamilyName");
-      isArbitraryVariablePosition = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelPosition), "isArbitraryVariablePosition");
-      isArbitraryVariableSize = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelSize), "isArbitraryVariableSize");
-      isArbitraryVariableImage = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelImage), "isArbitraryVariableImage");
-      isArbitraryVariableShadow = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelShadow, true), "isArbitraryVariableShadow");
-      getIsArbitraryValue = /* @__PURE__ */ __name((value, testLabel, testValue) => {
+      var isNever = /* @__PURE__ */ __name(() => false, "isNever");
+      var isShadow = /* @__PURE__ */ __name((value) => shadowRegex.test(value), "isShadow");
+      var isImage = /* @__PURE__ */ __name((value) => imageRegex.test(value), "isImage");
+      var isAnyNonArbitrary = /* @__PURE__ */ __name((value) => !isArbitraryValue(value) && !isArbitraryVariable(value), "isAnyNonArbitrary");
+      var isArbitrarySize = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelSize, isNever), "isArbitrarySize");
+      var isArbitraryValue = /* @__PURE__ */ __name((value) => arbitraryValueRegex.test(value), "isArbitraryValue");
+      var isArbitraryLength = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelLength, isLengthOnly), "isArbitraryLength");
+      var isArbitraryNumber = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelNumber, isNumber), "isArbitraryNumber");
+      var isArbitraryPosition = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelPosition, isNever), "isArbitraryPosition");
+      var isArbitraryImage = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelImage, isImage), "isArbitraryImage");
+      var isArbitraryShadow = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelShadow, isShadow), "isArbitraryShadow");
+      var isArbitraryVariable = /* @__PURE__ */ __name((value) => arbitraryVariableRegex.test(value), "isArbitraryVariable");
+      var isArbitraryVariableLength = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelLength), "isArbitraryVariableLength");
+      var isArbitraryVariableFamilyName = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelFamilyName), "isArbitraryVariableFamilyName");
+      var isArbitraryVariablePosition = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelPosition), "isArbitraryVariablePosition");
+      var isArbitraryVariableSize = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelSize), "isArbitraryVariableSize");
+      var isArbitraryVariableImage = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelImage), "isArbitraryVariableImage");
+      var isArbitraryVariableShadow = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelShadow, true), "isArbitraryVariableShadow");
+      var getIsArbitraryValue = /* @__PURE__ */ __name((value, testLabel, testValue) => {
         const result = arbitraryValueRegex.exec(value);
         if (result) {
           if (result[1]) {
@@ -9486,7 +9489,7 @@
         }
         return false;
       }, "getIsArbitraryValue");
-      getIsArbitraryVariable = /* @__PURE__ */ __name((value, testLabel, shouldMatchNoLabel = false) => {
+      var getIsArbitraryVariable = /* @__PURE__ */ __name((value, testLabel, shouldMatchNoLabel = false) => {
         const result = arbitraryVariableRegex.exec(value);
         if (result) {
           if (result[1]) {
@@ -9496,14 +9499,14 @@
         }
         return false;
       }, "getIsArbitraryVariable");
-      isLabelPosition = /* @__PURE__ */ __name((label) => label === "position" || label === "percentage", "isLabelPosition");
-      isLabelImage = /* @__PURE__ */ __name((label) => label === "image" || label === "url", "isLabelImage");
-      isLabelSize = /* @__PURE__ */ __name((label) => label === "length" || label === "size" || label === "bg-size", "isLabelSize");
-      isLabelLength = /* @__PURE__ */ __name((label) => label === "length", "isLabelLength");
-      isLabelNumber = /* @__PURE__ */ __name((label) => label === "number", "isLabelNumber");
-      isLabelFamilyName = /* @__PURE__ */ __name((label) => label === "family-name", "isLabelFamilyName");
-      isLabelShadow = /* @__PURE__ */ __name((label) => label === "shadow", "isLabelShadow");
-      validators = /* @__PURE__ */ Object.defineProperty({
+      var isLabelPosition = /* @__PURE__ */ __name((label) => label === "position" || label === "percentage", "isLabelPosition");
+      var isLabelImage = /* @__PURE__ */ __name((label) => label === "image" || label === "url", "isLabelImage");
+      var isLabelSize = /* @__PURE__ */ __name((label) => label === "length" || label === "size" || label === "bg-size", "isLabelSize");
+      var isLabelLength = /* @__PURE__ */ __name((label) => label === "length", "isLabelLength");
+      var isLabelNumber = /* @__PURE__ */ __name((label) => label === "number", "isLabelNumber");
+      var isLabelFamilyName = /* @__PURE__ */ __name((label) => label === "family-name", "isLabelFamilyName");
+      var isLabelShadow = /* @__PURE__ */ __name((label) => label === "shadow", "isLabelShadow");
+      var validators = /* @__PURE__ */ Object.defineProperty({
         __proto__: null,
         isAny,
         isAnyNonArbitrary,
@@ -9529,7 +9532,7 @@
       }, Symbol.toStringTag, {
         value: "Module"
       });
-      getDefaultConfig = /* @__PURE__ */ __name(() => {
+      var getDefaultConfig = /* @__PURE__ */ __name(() => {
         const themeColor = fromTheme("color");
         const themeFont = fromTheme("font");
         const themeText = fromTheme("text");
@@ -12048,7 +12051,7 @@
           orderSensitiveModifiers: ["*", "**", "after", "backdrop", "before", "details-content", "file", "first-letter", "first-line", "marker", "placeholder", "selection"]
         };
       }, "getDefaultConfig");
-      mergeConfigs = /* @__PURE__ */ __name((baseConfig, {
+      var mergeConfigs = /* @__PURE__ */ __name((baseConfig, {
         cacheSize,
         prefix,
         experimentalParseClassName,
@@ -12070,46 +12073,54 @@
         mergeArrayProperties(baseConfig, extend, "orderSensitiveModifiers");
         return baseConfig;
       }, "mergeConfigs");
-      overrideProperty = /* @__PURE__ */ __name((baseObject, overrideKey, overrideValue) => {
+      var overrideProperty = /* @__PURE__ */ __name((baseObject, overrideKey, overrideValue) => {
         if (overrideValue !== void 0) {
           baseObject[overrideKey] = overrideValue;
         }
       }, "overrideProperty");
-      overrideConfigProperties = /* @__PURE__ */ __name((baseObject, overrideObject) => {
+      var overrideConfigProperties = /* @__PURE__ */ __name((baseObject, overrideObject) => {
         if (overrideObject) {
           for (const key in overrideObject) {
             overrideProperty(baseObject, key, overrideObject[key]);
           }
         }
       }, "overrideConfigProperties");
-      mergeConfigProperties = /* @__PURE__ */ __name((baseObject, mergeObject) => {
+      var mergeConfigProperties = /* @__PURE__ */ __name((baseObject, mergeObject) => {
         if (mergeObject) {
           for (const key in mergeObject) {
             mergeArrayProperties(baseObject, mergeObject, key);
           }
         }
       }, "mergeConfigProperties");
-      mergeArrayProperties = /* @__PURE__ */ __name((baseObject, mergeObject, key) => {
+      var mergeArrayProperties = /* @__PURE__ */ __name((baseObject, mergeObject, key) => {
         const mergeValue = mergeObject[key];
         if (mergeValue !== void 0) {
           baseObject[key] = baseObject[key] ? baseObject[key].concat(mergeValue) : mergeValue;
         }
       }, "mergeArrayProperties");
-      extendTailwindMerge = /* @__PURE__ */ __name((configExtension, ...createConfig) => typeof configExtension === "function" ? createTailwindMerge(getDefaultConfig, configExtension, ...createConfig) : createTailwindMerge(() => mergeConfigs(getDefaultConfig(), configExtension), ...createConfig), "extendTailwindMerge");
-      twMerge = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
+      var extendTailwindMerge = /* @__PURE__ */ __name((configExtension, ...createConfig) => typeof configExtension === "function" ? createTailwindMerge(getDefaultConfig, configExtension, ...createConfig) : createTailwindMerge(() => mergeConfigs(getDefaultConfig(), configExtension), ...createConfig), "extendTailwindMerge");
+      var twMerge2 = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
+      exports2.createTailwindMerge = createTailwindMerge;
+      exports2.extendTailwindMerge = extendTailwindMerge;
+      exports2.fromTheme = fromTheme;
+      exports2.getDefaultConfig = getDefaultConfig;
+      exports2.mergeConfigs = mergeConfigs;
+      exports2.twJoin = twJoin;
+      exports2.twMerge = twMerge2;
+      exports2.validators = validators;
     }
   });
 
   // src/lib/utils.ts
   function cn(...inputs) {
-    return twMerge(clsx(inputs));
+    return (0, import_tailwind_merge.twMerge)(clsx(inputs));
   }
-  var isUrlAbsolute;
+  var import_tailwind_merge, isUrlAbsolute;
   var init_utils = __esm({
     "src/lib/utils.ts"() {
       "use strict";
       init_clsx();
-      init_bundle_mjs();
+      import_tailwind_merge = __toESM(require_bundle_cjs(), 1);
       __name(cn, "cn");
       isUrlAbsolute = /* @__PURE__ */ __name((url) => {
         if (url) {
@@ -12461,3 +12472,7 @@
     e2[e2.Idle = 0] = "Idle", e2[e2.InTitle = 1] = "InTitle", e2[e2.InAuthor = 2] = "InAuthor", e2[e2.InDescription = 3] = "InDescription", e2[e2.InTags = 4] = "InTags", e2[e2.InTagLink = 5] = "InTagLink", e2[e2.InStatusSpan = 6] = "InStatusSpan", e2[e2.InScript = 7] = "InScript", e2[e2.InNote = 8] = "InNote", e2[e2.InChapter = 9] = "InChapter", e2[e2.InHidden = 10] = "InHidden", e2[e2.Novel = 11] = "Novel";
   })(l || (l = {}));
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+

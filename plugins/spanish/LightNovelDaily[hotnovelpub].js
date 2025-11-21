@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -5517,3 +5517,7 @@
   })())({ id: "lightnoveldaily", sourceSite: "https://lightnoveldaily.com", sourceName: "LightNovelDaily", filters: { sort: { type: n.FilterTypes.Picker, label: "Order", value: "hot", options: [{ label: "Historia caliente", value: "hot" }, { label: "Nuevas cuentos", value: "new" }, { label: "Historia completa", value: "full" }] }, category: { type: n.FilterTypes.Picker, label: "Categor\xEDa", value: "", options: [{ label: "NONE", value: "" }, { label: "Acci\xF3n/Aventura", value: "accinaventura" }, { label: "Fantas\xEDa", value: "fantasa" }, { label: "Ficci\xF3n adolescente", value: "ficcin-adolescente" }, { label: "Hombre lobo/Vampiro", value: "hombre-lobovampiro" }, { label: "LGBTQ+", value: "lgbtq" }, { label: "Mafia", value: "mafia" }, { label: "Nuevo Adulto", value: "nuevo-adulto" }, { label: "Pornograf\xEDa", value: "pornografa" }, { label: "Rom\xE1ntico", value: "romntico" }, { label: "Urbano", value: "urbano" }] } }, options: { lang: "es" } });
   exports.default = i;
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+

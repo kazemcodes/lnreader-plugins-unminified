@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -5796,3 +5796,7 @@
   })())({ id: "novelcool-ru", sourceName: "NovelCool (RU)", sourceSite: "https://ru.novelcool.com", options: { lang: "Russian", langCode: "ru", app: { userAgent: "Android/Package:com.zuoyou.novel - Version Name:2.3 - Phone Info:sdk_gphone_x86_64(Android Version:13)", package_name: "com.zuoyou.novel", appId: "202201290625004", secret: "c73a8590641781f203660afca1d37ada" } } });
   exports.default = s;
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+

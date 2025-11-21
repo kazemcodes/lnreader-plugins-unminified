@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -9280,3 +9280,7 @@
   })())({ id: "ranobes-ru", sourceSite: "https://ranobes.com", sourceName: "Ranobes (RU)", options: { lang: "Russian", path: "ranobe" } });
   exports.default = i;
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+

@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -5517,3 +5517,7 @@
   })())({ id: "eznovels", sourceSite: "https://eznovels.com", sourceName: "EzNovels", filters: { sort: { type: a.FilterTypes.Picker, label: "Order", value: "hot", options: [{ label: "\u0413\u043E\u0440\u044F\u0447\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F", value: "hot" }, { label: "\u041D\u043E\u0432\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F", value: "new" }, { label: "\u041F\u043E\u043B\u043D\u044B\u0439 \u0440\u0430\u0441\u0441\u043A\u0430\u0437", value: "full" }] }, category: { type: a.FilterTypes.Picker, label: "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F", value: "", options: [{ label: "NONE", value: "" }, { label: "\u0412\u0435\u0434\u044C\u043C\u044B", value: "vedmy" }, { label: "\u0413\u043E\u0440\u043E\u0434\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "gorodskoe-fentezi" }, { label: "\u0413\u043E\u0440\u043E\u0434\u0441\u043A\u043E\u0439 \u0440\u043E\u043C\u0430\u043D", value: "gorodskoj-roman" }, { label: "\u041B\u044E\u0431\u043E\u0432\u043D\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "lyubovnoe-fentezi" }, { label: "\u041E\u0431\u043E\u0440\u043E\u0442\u043D\u0438", value: "oborotni" }, { label: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "sverhuestestvennoe" }, { label: "\u0421\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0439 \u043B\u044E\u0431\u043E\u0432\u043D\u044B\u0439 \u0440\u043E\u043C\u0430\u043D", value: "sovremennyj-lyubovnyj-roman" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440\u044B", value: "trillery" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "fentezi" }, { label: "\u042D\u0440\u043E\u0442\u0438\u043A\u0430", value: "erotika" }] } }, options: { lang: "ru" } });
   exports.default = r;
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+

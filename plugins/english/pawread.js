@@ -2,7 +2,7 @@
 // Built for LNReader Android
 
 "use strict";
-(() => {
+var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -9287,3 +9287,7 @@
     e2[e2.Idle = 0] = "Idle", e2[e2.Cover = 1] = "Cover", e2[e2.Genres = 2] = "Genres", e2[e2.Author = 3] = "Author", e2[e2.Status = 4] = "Status", e2[e2.Hidden = 5] = "Hidden", e2[e2.Summary = 6] = "Summary", e2[e2.Stopped = 7] = "Stopped", e2[e2.Chapter = 8] = "Chapter", e2[e2.ChapterName = 9] = "ChapterName", e2[e2.ChapterTime = 10] = "ChapterTime", e2[e2.NovelName = 11] = "NovelName", e2[e2.Novel = 12] = "Novel";
   })(t || (t = {}));
 })();
+
+// Export for compatibility
+if (typeof module !== "undefined" && module.exports) { module.exports = this; }
+
