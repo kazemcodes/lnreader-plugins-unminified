@@ -105,15 +105,14 @@ jobs:
                 bundle: true,
                 format: 'iife',
                 platform: 'browser',
-                target: 'es5',
+                target: 'es2017',
                 outfile: outputFile,
                 minify: false,
-                keepNames: true,
                 sourcemap: false,
                 treeShaking: false,
                 legalComments: 'inline',
                 banner: {
-                  js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android - ES5 compatible\n'
+                  js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android\n'
                 },
                 footer: {
                   js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
@@ -122,31 +121,6 @@ jobs:
                 external: [],
                 mainFields: ['module', 'main'],
                 conditions: ['import', 'require', 'default'],
-                supported: {
-                  'arrow': false,
-                  'const-and-let': false,
-                  'destructuring': false,
-                  'for-of': false,
-                  'generator': false,
-                  'template-literal': false,
-                  'async-await': false,
-                  'class': false,
-                  'default-argument': false,
-                  'rest-argument': false,
-                  'spread': false,
-                  'object-extensions': false,
-                  'exponent-operator': false,
-                  'async-generator': false,
-                  'bigint': false,
-                  'dynamic-import': false,
-                  'import-meta': false,
-                  'nullish-coalescing': false,
-                  'optional-catch-binding': false,
-                  'optional-chain': false,
-                  'top-level-await': false,
-                  'object-rest-spread': false,
-                  'new-target': false
-                },
                 logLevel: 'error'
               });
               console.log(`✅ Bundled: ${path.basename(inputFile)}`);
