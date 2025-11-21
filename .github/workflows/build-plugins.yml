@@ -297,7 +297,6 @@ jobs:
               target: 'es5',
               outfile: outputFile,
               minify: false,
-              keepNames: true,
               sourcemap: false,
               treeShaking: false,
               legalComments: 'inline',
