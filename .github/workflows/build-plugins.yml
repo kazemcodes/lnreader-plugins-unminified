@@ -225,28 +225,8 @@ jobs:
           
           echo "Transpiling bundled plugins to ES5..."
           
-          # Create ES5 output directory
-          mkdir -p .bundled-es5/plugins
-          
-          # Transpile all bundled plugins to ES5
-          find .bundled/plugins -name "*.js" -type f | while read file; do
-            # Get relative path
-            relpath="${file#.bundled/plugins/}"
-            outfile=".bundled-es5/plugins/$relpath"
-            
-            # Create output directory
-            mkdir -p "$(dirname "$outfile")"
-            
-            # Transpile with Babel
-            npx babel "$file" --out-file "$outfile" --config-file ./.babelrc.json 2>/dev/null
-            
-            if [ $? -eq 0 ]; then
-              echo "✅ Transpiled: $relpath"
-            else
-              echo "⚠️  Failed to transpile: $relpath (copying original)"
-              cp "$file" "$outfile"
-            fi
-          done
+          # Use Babel to transpile entire directory at once (much faster)
+          npx babel .bundled/plugins --out-dir .bundled-es5/plugins --config-file ./.babelrc.json --no-babelrc
           
           echo "✅ ES5 transpilation complete"
       
