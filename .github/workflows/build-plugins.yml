@@ -99,33 +99,41 @@ jobs:
           const outputDir = path.join(__dirname, '../.bundled/plugins');
           
           async function bundlePlugin(inputFile, outputFile) {
+            const config = {
+              entryPoints: [inputFile],
+              bundle: true,
+              format: 'iife',
+              platform: 'browser',
+              target: 'es2017',
+              outfile: outputFile,
+              minify: false,
+              sourcemap: false,
+              treeShaking: false,
+              legalComments: 'inline',
+              banner: {
+                js: '// Bundled plugin with all dependencies included\n// Built for LNReader (ES2017 - will be transpiled to ES5)\n'
+              },
+              footer: {
+                js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
+              },
+              globalName: 'LNReaderPlugin',
+              external: [],
+              mainFields: ['module', 'main'],
+              conditions: ['import', 'require', 'default'],
+              logLevel: 'warning'
+            };
+            
             try {
-              await build({
-                entryPoints: [inputFile],
-                bundle: true,
-                format: 'iife',
-                platform: 'browser',
-                target: 'es2017',
-                outfile: outputFile,
-                minify: false,
-                sourcemap: false,
-                treeShaking: false,
-                legalComments: 'inline',
-                banner: {
-                  js: '// Bundled plugin with all dependencies included\n// Built for LNReader (ES2017 - will be transpiled to ES5)\n'
-                },
-                footer: {
-                  js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
-                },
-                globalName: 'LNReaderPlugin',
-                external: [],
-                mainFields: ['module', 'main'],
-                conditions: ['import', 'require', 'default'],
-                logLevel: 'error'
-              });
+              await build(config);
               return true;
             } catch (error) {
-              console.error(`❌ Failed to bundle ${path.basename(inputFile)}: ${error.message}`);
+              console.error(`❌ Failed to bundle ${path.basename(inputFile)}:`);
+              console.error(`   Error: ${error.message}`);
+              if (error.errors && error.errors.length > 0) {
+                error.errors.slice(0, 3).forEach(err => {
+                  console.error(`   ${err.text}`);
+                });
+              }
               return false;
             }
           }
@@ -442,9 +450,6 @@ jobs:
             - Icon URLs
           files: |
             *.tar.gz
-            plugins/README.md
-            plugins-android/README.md
-            plugins-desktop/README.md
             plugins/plugins.json
             plugins/plugins.min.json
           draft: false
