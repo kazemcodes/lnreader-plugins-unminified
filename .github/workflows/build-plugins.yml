@@ -283,14 +283,14 @@ jobs:
               bundle: true,
               format: 'iife',
               platform: 'browser',
-              target: 'es2017',
+              target: 'es5',
               outfile: outputFile,
               minify: false,
               sourcemap: false,
               treeShaking: false,
               legalComments: 'inline',
               banner: {
-                js: '// Bundled plugin with all dependencies included\n// Built for LNReader (ES2017 - will be transpiled to ES5)\n'
+                js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android (ES5 compatible)\n'
               },
               footer: {
                 js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
@@ -299,7 +299,15 @@ jobs:
               external: [],
               mainFields: ['module', 'main'],
               conditions: ['import', 'require', 'default'],
-              logLevel: 'warning'
+              logLevel: 'warning',
+              supported: {
+                'arrow': false,
+                'const-and-let': false,
+                'destructuring': false,
+                'for-of': false,
+                'generator': false,
+                'template-literal': false
+              }
             };
             
             try {
@@ -373,18 +381,21 @@ jobs:
           file_count=$(find .bundled/plugins/${{ matrix.language }} -name "*.js" -type f 2>/dev/null | wc -l)
           echo "Files to transpile: $file_count"
           
-          # Create Babel config
+          # Create Babel config for aggressive ES5 transpilation
           cat > babel.config.json << 'EOF'
           {
             "presets": [
               [
                 "@babel/preset-env",
                 {
-                  "targets": { "android": "4.4" },
+                  "targets": {
+                    "ie": "9"
+                  },
                   "modules": false,
                   "loose": true,
-                  "bugfixes": true,
-                  "spec": false
+                  "bugfixes": false,
+                  "spec": false,
+                  "forceAllTransforms": true
                 }
               ]
             ],
