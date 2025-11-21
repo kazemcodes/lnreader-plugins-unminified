@@ -271,14 +271,24 @@ jobs:
                 ],
                 comments: true,
                 minified: false,
-                compact: false
+                compact: false,
+                babelrc: false,
+                configFile: false
               });
               
-              fs.writeFileSync(outputFile, result.code);
-              return { success: true, file: relativePath };
+              if (result && result.code) {
+                fs.writeFileSync(outputFile, result.code);
+                return { success: true, file: relativePath };
+              } else {
+                throw new Error('No code generated');
+              }
             } catch (error) {
               // If transpilation fails, copy original
-              fs.copyFileSync(inputFile, outputFile);
+              try {
+                fs.copyFileSync(inputFile, outputFile);
+              } catch (copyError) {
+                console.error(`Failed to copy ${relativePath}: ${copyError.message}`);
+              }
               return { success: false, file: relativePath, error: error.message };
             }
           }
@@ -287,15 +297,21 @@ jobs:
           async function processInParallel(files, chunkSize = 10) {
             const results = { success: 0, failed: 0 };
             
+            console.log(`Starting parallel processing with chunk size: ${chunkSize}\n`);
+            
             for (let i = 0; i < files.length; i += chunkSize) {
               const chunk = files.slice(i, i + chunkSize);
+              const chunkNum = Math.floor(i / chunkSize) + 1;
+              const totalChunks = Math.ceil(files.length / chunkSize);
+              
+              console.log(`Processing chunk ${chunkNum}/${totalChunks} (${chunk.length} files)...`);
+              
               const promises = chunk.map(file => transpileFile(file));
               const chunkResults = await Promise.all(promises);
               
               chunkResults.forEach(result => {
                 if (result.success) {
                   results.success++;
-                  console.log(`✅ ${result.file}`);
                 } else {
                   results.failed++;
                   console.log(`⚠️  ${result.file}: ${result.error}`);
@@ -304,7 +320,7 @@ jobs:
               
               const progress = Math.min(i + chunkSize, files.length);
               const percent = ((progress / files.length) * 100).toFixed(1);
-              console.log(`\n📊 Progress: ${progress}/${files.length} (${percent}%)\n`);
+              console.log(`✅ Chunk ${chunkNum} complete - Progress: ${progress}/${files.length} (${percent}%)\n`);
             }
             
             return results;
