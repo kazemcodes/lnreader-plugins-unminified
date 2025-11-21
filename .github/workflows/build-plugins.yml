@@ -229,7 +229,8 @@ jobs:
             @babel/plugin-transform-parameters \
             @babel/plugin-transform-shorthand-properties \
             @babel/plugin-transform-spread \
-            @babel/plugin-transform-template-literals
+            @babel/plugin-transform-template-literals \
+            @babel/plugin-transform-object-rest-spread
       
       - name: Bundle plugins - ${{ matrix.language }} (chunk ${{ matrix.chunk }}/${{ matrix.totalChunks }})
         run: |
@@ -290,8 +291,8 @@ jobs:
               entryPoints: [inputFile],
               bundle: true,
               format: 'iife',
-              platform: 'browser',
-              target: 'es2015',
+              platform: 'neutral',
+              target: 'es2017',
               outfile: outputFile,
               minify: false,
               keepNames: true,
@@ -382,33 +383,39 @@ jobs:
           file_count=$(find .bundled/plugins/${{ matrix.language }} -name "*.js" -type f 2>/dev/null | wc -l)
           echo "Files to transpile: $file_count"
           
+          if [ "$file_count" -eq 0 ]; then
+            echo "⚠️  No files to transpile, skipping..."
+            exit 0
+          fi
+          
           # Create Babel config for aggressive ES5 transpilation
-          cat > babel.config.json << 'EOF'
+          cat > .babelrc << 'EOF'
           {
             "presets": [
               [
                 "@babel/preset-env",
                 {
                   "targets": {
-                    "ie": "8"
+                    "ie": "9"
                   },
-                  "modules": false,
+                  "modules": "commonjs",
                   "loose": true,
                   "spec": false,
                   "forceAllTransforms": true,
-                  "exclude": []
+                  "useBuiltIns": false
                 }
               ]
             ],
             "plugins": [
-              "@babel/plugin-transform-arrow-functions",
-              "@babel/plugin-transform-block-scoping",
+              ["@babel/plugin-transform-arrow-functions", { "spec": false }],
+              ["@babel/plugin-transform-block-scoping", { "throwIfClosureRequired": false }],
               "@babel/plugin-transform-classes",
-              "@babel/plugin-transform-destructuring",
+              ["@babel/plugin-transform-destructuring", { "loose": true }],
               "@babel/plugin-transform-parameters",
               "@babel/plugin-transform-shorthand-properties",
-              "@babel/plugin-transform-spread",
-              "@babel/plugin-transform-template-literals"
+              ["@babel/plugin-transform-spread", { "loose": true }],
+              "@babel/plugin-transform-template-literals",
+              ["@babel/plugin-transform-object-rest-spread", { "loose": true, "useBuiltIns": true }]
             ],
             "comments": true,
             "minified": false,
@@ -416,23 +423,27 @@ jobs:
           }
           EOF
           
-          # Transpile this language's plugins with verbose output
+          # Transpile this language's plugins
           mkdir -p .bundled-es5/plugins/${{ matrix.language }}
           
           echo "Starting Babel transpilation..."
           npx babel .bundled/plugins/${{ matrix.language }} \
             --out-dir .bundled-es5/plugins/${{ matrix.language }} \
-            --config-file ./babel.config.json \
-            --verbose 2>&1 | while IFS= read -r line; do
-              echo "$line"
-              # Show progress every 5 files
-              if echo "$line" | grep -q "Successfully compiled"; then
-                compiled=$(find .bundled-es5/plugins/${{ matrix.language }} -name "*.js" -type f 2>/dev/null | wc -l)
-                if [ $((compiled % 5)) -eq 0 ]; then
-                  echo "Progress: $compiled/$file_count files transpiled..."
-                fi
-              fi
-            done
+            --no-babelrc \
+            --config-file ./.babelrc
+          
+          # Verify transpilation - check for arrow functions
+          echo ""
+          echo "Verifying ES5 compatibility..."
+          if grep -r "=>" .bundled-es5/plugins/${{ matrix.language }}/*.js 2>/dev/null | head -5; then
+            echo "⚠️  WARNING: Arrow functions still found in output!"
+            echo "Checking first file for issues..."
+            first_file=$(find .bundled-es5/plugins/${{ matrix.language }} -name "*.js" -type f | head -1)
+            echo "First 30 lines of $first_file:"
+            head -30 "$first_file"
+          else
+            echo "✅ No arrow functions found - ES5 compatible!"
+          fi
           
           # Final count
           final_count=$(find .bundled-es5/plugins/${{ matrix.language }} -name "*.js" -type f 2>/dev/null | wc -l)
