@@ -294,7 +294,7 @@ jobs:
               bundle: true,
               format: 'iife',
               platform: 'browser',
-              target: 'es2017',
+              target: 'es5',
               outfile: outputFile,
               minify: false,
               keepNames: true,
