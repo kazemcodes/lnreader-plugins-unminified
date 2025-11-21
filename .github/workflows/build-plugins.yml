@@ -230,7 +230,8 @@ jobs:
             @babel/plugin-transform-shorthand-properties \
             @babel/plugin-transform-spread \
             @babel/plugin-transform-template-literals \
-            @babel/plugin-transform-object-rest-spread
+            @babel/plugin-transform-object-rest-spread \
+            esbuild-plugin-polyfill-node
       
       - name: Bundle plugins - ${{ matrix.language }} (chunk ${{ matrix.chunk }}/${{ matrix.totalChunks }})
         run: |
@@ -239,6 +240,7 @@ jobs:
           # Create bundling script
           cat > bundle-language.js << 'EOF'
           import { build } from 'esbuild';
+          import { polyfillNode } from 'esbuild-plugin-polyfill-node';
           import fs from 'fs';
           import path from 'path';
           
@@ -291,7 +293,7 @@ jobs:
               entryPoints: [inputFile],
               bundle: true,
               format: 'iife',
-              platform: 'neutral',
+              platform: 'browser',
               target: 'es2017',
               outfile: outputFile,
               minify: false,
@@ -306,6 +308,19 @@ jobs:
                 js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
               },
               globalName: 'LNReaderPlugin',
+              plugins: [
+                polyfillNode({
+                  polyfills: {
+                    stream: true,
+                    buffer: true,
+                    process: true,
+                    util: true,
+                    events: true,
+                    fs: false,
+                    path: false
+                  }
+                })
+              ],
               external: [],
               mainFields: ['module', 'main'],
               conditions: ['import', 'require', 'default'],
