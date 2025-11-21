@@ -110,6 +110,16 @@ jobs:
           npm run build:multisrc
           npm run build:compile
           npm run build:manifest
+          
+          # Debug: Show what was actually created
+          echo "=== Directory structure after build ==="
+          ls -la
+          echo ""
+          echo "=== Looking for .js directories ==="
+          find . -type d -name ".js" -o -type d -name "dist" -o -type d -name "build" | head -20
+          echo ""
+          echo "=== Looking for compiled JS files ==="
+          find . -name "*.js" -path "*/plugins/*" | head -20
       
       - name: Check build output structure
         run: |
