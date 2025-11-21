@@ -1,5 +1,5 @@
 // Bundled plugin with all dependencies included
-// Built for LNReader (es2017)
+// Built for LNReader (ES2017 - will be transpiled to ES5)
 
 "use strict";
 var LNReaderPlugin = (() => {
