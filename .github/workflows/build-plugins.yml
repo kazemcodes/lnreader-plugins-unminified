@@ -196,7 +196,7 @@ jobs:
           
           echo "✅ All plugins bundled with dependencies"
       
-      - name: Transpile to ES5 for Android compatibility
+      - name: Transpile to ES5 for Android compatibility (Parallel)
         run: |
           cd lnreader-source
           
@@ -223,10 +223,112 @@ jobs:
           }
           EOF
           
-          echo "Transpiling bundled plugins to ES5..."
+          # Create parallel transpilation script
+          cat > scripts/parallel-transpile.js << 'EOF'
+          import { transformFileAsync } from '@babel/core';
+          import fs from 'fs';
+          import path from 'path';
+          import { fileURLToPath } from 'url';
           
-          # Use Babel to transpile entire directory at once (much faster)
-          npx babel .bundled/plugins --out-dir .bundled-es5/plugins --config-file ./.babelrc.json --no-babelrc
+          const __filename = fileURLToPath(import.meta.url);
+          const __dirname = path.dirname(__filename);
+          
+          const inputDir = path.join(__dirname, '../.bundled/plugins');
+          const outputDir = path.join(__dirname, '../.bundled-es5/plugins');
+          
+          // Get all JS files
+          function getAllFiles(dir, fileList = []) {
+            const files = fs.readdirSync(dir);
+            files.forEach(file => {
+              const filePath = path.join(dir, file);
+              if (fs.statSync(filePath).isDirectory()) {
+                getAllFiles(filePath, fileList);
+              } else if (file.endsWith('.js')) {
+                fileList.push(filePath);
+              }
+            });
+            return fileList;
+          }
+          
+          // Transpile a single file
+          async function transpileFile(inputFile) {
+            const relativePath = path.relative(inputDir, inputFile);
+            const outputFile = path.join(outputDir, relativePath);
+            
+            // Create output directory
+            fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+            
+            try {
+              const result = await transformFileAsync(inputFile, {
+                presets: [
+                  ['@babel/preset-env', {
+                    targets: { rhino: '1.7' },
+                    modules: false,
+                    loose: true,
+                    spec: false,
+                    useBuiltIns: false
+                  }]
+                ],
+                comments: true,
+                minified: false,
+                compact: false
+              });
+              
+              fs.writeFileSync(outputFile, result.code);
+              return { success: true, file: relativePath };
+            } catch (error) {
+              // If transpilation fails, copy original
+              fs.copyFileSync(inputFile, outputFile);
+              return { success: false, file: relativePath, error: error.message };
+            }
+          }
+          
+          // Process files in parallel chunks
+          async function processInParallel(files, chunkSize = 10) {
+            const results = { success: 0, failed: 0 };
+            
+            for (let i = 0; i < files.length; i += chunkSize) {
+              const chunk = files.slice(i, i + chunkSize);
+              const promises = chunk.map(file => transpileFile(file));
+              const chunkResults = await Promise.all(promises);
+              
+              chunkResults.forEach(result => {
+                if (result.success) {
+                  results.success++;
+                } else {
+                  results.failed++;
+                  console.log(`⚠️  ${result.file}: ${result.error}`);
+                }
+              });
+              
+              console.log(`Progress: ${Math.min(i + chunkSize, files.length)}/${files.length} files`);
+            }
+            
+            return results;
+          }
+          
+          // Main execution
+          async function main() {
+            console.log('Finding plugin files...');
+            const files = getAllFiles(inputDir);
+            console.log(`Found ${files.length} files to transpile`);
+            
+            const startTime = Date.now();
+            const results = await processInParallel(files, 20);
+            const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+            
+            console.log(`\n✅ Transpilation complete in ${duration}s`);
+            console.log(`   Success: ${results.success}`);
+            if (results.failed > 0) {
+              console.log(`   Failed: ${results.failed} (copied originals)`);
+            }
+          }
+          
+          main().catch(console.error);
+          EOF
+          
+          echo "Transpiling bundled plugins to ES5 (parallel processing)..."
+          node scripts/parallel-transpile.js
           
           echo "✅ ES5 transpilation complete"
       
