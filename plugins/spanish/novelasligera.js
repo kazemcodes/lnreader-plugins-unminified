@@ -5,11 +5,27 @@
 var LNReaderPlugin = (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
+  var __defProps = Object.defineProperties;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop2 in b || (b = {}))
+      if (__hasOwnProp.call(b, prop2))
+        __defNormalProp(a, prop2, b[prop2]);
+    if (__getOwnPropSymbols)
+      for (var prop2 of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop2))
+          __defNormalProp(a, prop2, b[prop2]);
+      }
+    return a;
+  };
+  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var __esm = (fn, res) => function __init() {
     return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
   };
@@ -59,7 +75,6 @@ var LNReaderPlugin = (() => {
       function isTag7(elem) {
         return elem.type === ElementType.Tag || elem.type === ElementType.Script || elem.type === ElementType.Style;
       }
-      __name(isTag7, "isTag");
       exports2.isTag = isTag7;
       exports2.Root = ElementType.Root;
       exports2.Text = ElementType.Text;
@@ -78,14 +93,14 @@ var LNReaderPlugin = (() => {
     "node_modules/domhandler/lib/node.js"(exports2) {
       "use strict";
       var __extends = exports2 && exports2.__extends || /* @__PURE__ */ (function() {
-        var extendStatics = /* @__PURE__ */ __name(function(d, b) {
+        var extendStatics = function(d, b) {
           extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
             d2.__proto__ = b2;
           } || function(d2, b2) {
             for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
           };
           return extendStatics(d, b);
-        }, "extendStatics");
+        };
         return function(d, b) {
           if (typeof b !== "function" && b !== null)
             throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
@@ -93,7 +108,6 @@ var LNReaderPlugin = (() => {
           function __() {
             this.constructor = d;
           }
-          __name(__, "__");
           d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
       })();
@@ -121,19 +135,18 @@ var LNReaderPlugin = (() => {
             this.startIndex = null;
             this.endIndex = null;
           }
-          __name(Node2, "Node");
           Object.defineProperty(Node2.prototype, "parentNode", {
             // Read-write aliases for properties
             /**
              * Same as {@link parent}.
              * [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
              */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return this.parent;
-            }, "get"),
-            set: /* @__PURE__ */ __name(function(parent2) {
+            },
+            set: function(parent2) {
               this.parent = parent2;
-            }, "set"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -142,12 +155,12 @@ var LNReaderPlugin = (() => {
              * Same as {@link prev}.
              * [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
              */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return this.prev;
-            }, "get"),
-            set: /* @__PURE__ */ __name(function(prev2) {
+            },
+            set: function(prev2) {
               this.prev = prev2;
-            }, "set"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -156,12 +169,12 @@ var LNReaderPlugin = (() => {
              * Same as {@link next}.
              * [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
              */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return this.next;
-            }, "get"),
-            set: /* @__PURE__ */ __name(function(next2) {
+            },
+            set: function(next2) {
               this.next = next2;
-            }, "set"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -184,18 +197,17 @@ var LNReaderPlugin = (() => {
             _this.data = data2;
             return _this;
           }
-          __name(DataNode2, "DataNode");
           Object.defineProperty(DataNode2.prototype, "nodeValue", {
             /**
              * Same as {@link data}.
              * [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
              */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return this.data;
-            }, "get"),
-            set: /* @__PURE__ */ __name(function(data2) {
+            },
+            set: function(data2) {
               this.data = data2;
-            }, "set"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -212,11 +224,10 @@ var LNReaderPlugin = (() => {
             _this.type = domelementtype_1.ElementType.Text;
             return _this;
           }
-          __name(Text4, "Text");
           Object.defineProperty(Text4.prototype, "nodeType", {
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return 3;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -233,11 +244,10 @@ var LNReaderPlugin = (() => {
             _this.type = domelementtype_1.ElementType.Comment;
             return _this;
           }
-          __name(Comment3, "Comment");
           Object.defineProperty(Comment3.prototype, "nodeType", {
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return 8;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -255,11 +265,10 @@ var LNReaderPlugin = (() => {
             _this.type = domelementtype_1.ElementType.Directive;
             return _this;
           }
-          __name(ProcessingInstruction3, "ProcessingInstruction");
           Object.defineProperty(ProcessingInstruction3.prototype, "nodeType", {
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return 1;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -276,22 +285,21 @@ var LNReaderPlugin = (() => {
             _this.children = children2;
             return _this;
           }
-          __name(NodeWithChildren2, "NodeWithChildren");
           Object.defineProperty(NodeWithChildren2.prototype, "firstChild", {
             // Aliases
             /** First child of the node. */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               var _a;
               return (_a = this.children[0]) !== null && _a !== void 0 ? _a : null;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
           Object.defineProperty(NodeWithChildren2.prototype, "lastChild", {
             /** Last child of the node. */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return this.children.length > 0 ? this.children[this.children.length - 1] : null;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -300,12 +308,12 @@ var LNReaderPlugin = (() => {
              * Same as {@link children}.
              * [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
              */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return this.children;
-            }, "get"),
-            set: /* @__PURE__ */ __name(function(children2) {
+            },
+            set: function(children2) {
               this.children = children2;
-            }, "set"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -322,11 +330,10 @@ var LNReaderPlugin = (() => {
             _this.type = domelementtype_1.ElementType.CDATA;
             return _this;
           }
-          __name(CDATA2, "CDATA");
           Object.defineProperty(CDATA2.prototype, "nodeType", {
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return 4;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -343,11 +350,10 @@ var LNReaderPlugin = (() => {
             _this.type = domelementtype_1.ElementType.Root;
             return _this;
           }
-          __name(Document5, "Document");
           Object.defineProperty(Document5.prototype, "nodeType", {
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return 9;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -372,11 +378,10 @@ var LNReaderPlugin = (() => {
             _this.type = type;
             return _this;
           }
-          __name(Element3, "Element");
           Object.defineProperty(Element3.prototype, "nodeType", {
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return 1;
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -386,17 +391,17 @@ var LNReaderPlugin = (() => {
              * Same as {@link name}.
              * [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
              */
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               return this.name;
-            }, "get"),
-            set: /* @__PURE__ */ __name(function(name) {
+            },
+            set: function(name) {
               this.name = name;
-            }, "set"),
+            },
             enumerable: false,
             configurable: true
           });
           Object.defineProperty(Element3.prototype, "attributes", {
-            get: /* @__PURE__ */ __name(function() {
+            get: function() {
               var _this = this;
               return Object.keys(this.attribs).map(function(name) {
                 var _a, _b;
@@ -407,7 +412,7 @@ var LNReaderPlugin = (() => {
                   prefix: (_b = _this["x-attribsPrefix"]) === null || _b === void 0 ? void 0 : _b[name]
                 };
               });
-            }, "get"),
+            },
             enumerable: false,
             configurable: true
           });
@@ -418,37 +423,30 @@ var LNReaderPlugin = (() => {
       function isTag7(node) {
         return (0, domelementtype_1.isTag)(node);
       }
-      __name(isTag7, "isTag");
       exports2.isTag = isTag7;
       function isCDATA(node) {
         return node.type === domelementtype_1.ElementType.CDATA;
       }
-      __name(isCDATA, "isCDATA");
       exports2.isCDATA = isCDATA;
       function isText2(node) {
         return node.type === domelementtype_1.ElementType.Text;
       }
-      __name(isText2, "isText");
       exports2.isText = isText2;
       function isComment2(node) {
         return node.type === domelementtype_1.ElementType.Comment;
       }
-      __name(isComment2, "isComment");
       exports2.isComment = isComment2;
       function isDirective2(node) {
         return node.type === domelementtype_1.ElementType.Directive;
       }
-      __name(isDirective2, "isDirective");
       exports2.isDirective = isDirective2;
       function isDocument3(node) {
         return node.type === domelementtype_1.ElementType.Root;
       }
-      __name(isDocument3, "isDocument");
       exports2.isDocument = isDocument3;
       function hasChildren3(node) {
         return Object.prototype.hasOwnProperty.call(node, "children");
       }
-      __name(hasChildren3, "hasChildren");
       exports2.hasChildren = hasChildren3;
       function cloneNode2(node, recursive) {
         if (recursive === void 0) {
@@ -510,7 +508,6 @@ var LNReaderPlugin = (() => {
         }
         return result;
       }
-      __name(cloneNode2, "cloneNode");
       exports2.cloneNode = cloneNode2;
       function cloneChildren(childs) {
         var children2 = childs.map(function(child) {
@@ -522,7 +519,6 @@ var LNReaderPlugin = (() => {
         }
         return children2;
       }
-      __name(cloneChildren, "cloneChildren");
     }
   });
 
@@ -534,9 +530,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -578,7 +574,6 @@ var LNReaderPlugin = (() => {
             this.options = options !== null && options !== void 0 ? options : defaultOpts3;
             this.elementCB = elementCB !== null && elementCB !== void 0 ? elementCB : null;
           }
-          __name(DomHandler2, "DomHandler");
           DomHandler2.prototype.onparserinit = function(parser) {
             this.parser = parser;
           };
@@ -770,12 +765,10 @@ var LNReaderPlugin = (() => {
         }
         return (_a2 = decodeMap.get(codePoint)) !== null && _a2 !== void 0 ? _a2 : codePoint;
       }
-      __name(replaceCodePoint, "replaceCodePoint");
       exports2.replaceCodePoint = replaceCodePoint;
       function decodeCodePoint(codePoint) {
         return (0, exports2.fromCodePoint)(replaceCodePoint(codePoint));
       }
-      __name(decodeCodePoint, "decodeCodePoint");
       exports2.default = decodeCodePoint;
     }
   });
@@ -788,9 +781,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -823,12 +816,12 @@ var LNReaderPlugin = (() => {
       var decode_codepoint_js_1 = __importStar(require_decode_codepoint());
       exports2.decodeCodePoint = decode_codepoint_js_1.default;
       var decode_codepoint_js_2 = require_decode_codepoint();
-      Object.defineProperty(exports2, "replaceCodePoint", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "replaceCodePoint", { enumerable: true, get: function() {
         return decode_codepoint_js_2.replaceCodePoint;
-      }, "get") });
-      Object.defineProperty(exports2, "fromCodePoint", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "fromCodePoint", { enumerable: true, get: function() {
         return decode_codepoint_js_2.fromCodePoint;
-      }, "get") });
+      } });
       var CharCodes;
       (function(CharCodes2) {
         CharCodes2[CharCodes2["NUM"] = 35] = "NUM";
@@ -854,19 +847,15 @@ var LNReaderPlugin = (() => {
       function isNumber(code) {
         return code >= CharCodes.ZERO && code <= CharCodes.NINE;
       }
-      __name(isNumber, "isNumber");
       function isHexadecimalCharacter(code) {
         return code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_F || code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_F;
       }
-      __name(isHexadecimalCharacter, "isHexadecimalCharacter");
       function isAsciiAlphaNumeric2(code) {
         return code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_Z || code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_Z || isNumber(code);
       }
-      __name(isAsciiAlphaNumeric2, "isAsciiAlphaNumeric");
       function isEntityInAttributeInvalidEnd(code) {
         return code === CharCodes.EQUALS || isAsciiAlphaNumeric2(code);
       }
-      __name(isEntityInAttributeInvalidEnd, "isEntityInAttributeInvalidEnd");
       var EntityDecoderState;
       (function(EntityDecoderState2) {
         EntityDecoderState2[EntityDecoderState2["EntityStart"] = 0] = "EntityStart";
@@ -895,7 +884,6 @@ var LNReaderPlugin = (() => {
             this.excess = 1;
             this.decodeMode = DecodingMode2.Strict;
           }
-          __name(EntityDecoder3, "EntityDecoder");
           EntityDecoder3.prototype.startEntity = function(decodeMode) {
             this.decodeMode = decodeMode;
             this.state = EntityDecoderState.EntityStart;
@@ -1071,7 +1059,7 @@ var LNReaderPlugin = (() => {
         var decoder = new EntityDecoder2(decodeTree, function(str) {
           return ret += (0, decode_codepoint_js_1.fromCodePoint)(str);
         });
-        return /* @__PURE__ */ __name(function decodeWithTrie(str, decodeMode) {
+        return function decodeWithTrie(str, decodeMode) {
           var lastIndex = 0;
           var offset = 0;
           while ((offset = str.indexOf("&", offset)) >= 0) {
@@ -1092,9 +1080,8 @@ var LNReaderPlugin = (() => {
           var result = ret + str.slice(lastIndex);
           ret = "";
           return result;
-        }, "decodeWithTrie");
+        };
       }
-      __name(getDecoder, "getDecoder");
       function determineBranch(decodeTree, current, nodeIdx, char) {
         var branchCount = (current & BinTrieFlags.BRANCH_LENGTH) >> 7;
         var jumpOffset = current & BinTrieFlags.JUMP_TABLE;
@@ -1120,7 +1107,6 @@ var LNReaderPlugin = (() => {
         }
         return -1;
       }
-      __name(determineBranch, "determineBranch");
       exports2.determineBranch = determineBranch;
       var htmlDecoder = getDecoder(decode_data_html_js_1.default);
       var xmlDecoder = getDecoder(decode_data_xml_js_1.default);
@@ -1130,22 +1116,18 @@ var LNReaderPlugin = (() => {
         }
         return htmlDecoder(str, mode);
       }
-      __name(decodeHTML, "decodeHTML");
       exports2.decodeHTML = decodeHTML;
       function decodeHTMLAttribute(str) {
         return htmlDecoder(str, DecodingMode2.Attribute);
       }
-      __name(decodeHTMLAttribute, "decodeHTMLAttribute");
       exports2.decodeHTMLAttribute = decodeHTMLAttribute;
       function decodeHTMLStrict(str) {
         return htmlDecoder(str, DecodingMode2.Strict);
       }
-      __name(decodeHTMLStrict, "decodeHTMLStrict");
       exports2.decodeHTMLStrict = decodeHTMLStrict;
       function decodeXML(str) {
         return xmlDecoder(str, DecodingMode2.Strict);
       }
-      __name(decodeXML, "decodeXML");
       exports2.decodeXML = decodeXML;
     }
   });
@@ -1161,7 +1143,6 @@ var LNReaderPlugin = (() => {
         }
         return arr;
       }
-      __name(restoreDiff, "restoreDiff");
       exports2.default = new Map(/* @__PURE__ */ restoreDiff([[9, "&Tab;"], [0, "&NewLine;"], [22, "&excl;"], [0, "&quot;"], [0, "&num;"], [0, "&dollar;"], [0, "&percnt;"], [0, "&amp;"], [0, "&apos;"], [0, "&lpar;"], [0, "&rpar;"], [0, "&ast;"], [0, "&plus;"], [0, "&comma;"], [1, "&period;"], [0, "&sol;"], [10, "&colon;"], [0, "&semi;"], [0, { v: "&lt;", n: 8402, o: "&nvlt;" }], [0, { v: "&equals;", n: 8421, o: "&bne;" }], [0, { v: "&gt;", n: 8402, o: "&nvgt;" }], [0, "&quest;"], [0, "&commat;"], [26, "&lbrack;"], [0, "&bsol;"], [0, "&rbrack;"], [0, "&Hat;"], [0, "&lowbar;"], [0, "&DiacriticalGrave;"], [5, { n: 106, o: "&fjlig;" }], [20, "&lbrace;"], [0, "&verbar;"], [0, "&rbrace;"], [34, "&nbsp;"], [0, "&iexcl;"], [0, "&cent;"], [0, "&pound;"], [0, "&curren;"], [0, "&yen;"], [0, "&brvbar;"], [0, "&sect;"], [0, "&die;"], [0, "&copy;"], [0, "&ordf;"], [0, "&laquo;"], [0, "&not;"], [0, "&shy;"], [0, "&circledR;"], [0, "&macr;"], [0, "&deg;"], [0, "&PlusMinus;"], [0, "&sup2;"], [0, "&sup3;"], [0, "&acute;"], [0, "&micro;"], [0, "&para;"], [0, "&centerdot;"], [0, "&cedil;"], [0, "&sup1;"], [0, "&ordm;"], [0, "&raquo;"], [0, "&frac14;"], [0, "&frac12;"], [0, "&frac34;"], [0, "&iquest;"], [0, "&Agrave;"], [0, "&Aacute;"], [0, "&Acirc;"], [0, "&Atilde;"], [0, "&Auml;"], [0, "&angst;"], [0, "&AElig;"], [0, "&Ccedil;"], [0, "&Egrave;"], [0, "&Eacute;"], [0, "&Ecirc;"], [0, "&Euml;"], [0, "&Igrave;"], [0, "&Iacute;"], [0, "&Icirc;"], [0, "&Iuml;"], [0, "&ETH;"], [0, "&Ntilde;"], [0, "&Ograve;"], [0, "&Oacute;"], [0, "&Ocirc;"], [0, "&Otilde;"], [0, "&Ouml;"], [0, "&times;"], [0, "&Oslash;"], [0, "&Ugrave;"], [0, "&Uacute;"], [0, "&Ucirc;"], [0, "&Uuml;"], [0, "&Yacute;"], [0, "&THORN;"], [0, "&szlig;"], [0, "&agrave;"], [0, "&aacute;"], [0, "&acirc;"], [0, "&atilde;"], [0, "&auml;"], [0, "&aring;"], [0, "&aelig;"], [0, "&ccedil;"], [0, "&egrave;"], [0, "&eacute;"], [0, "&ecirc;"], [0, "&euml;"], [0, "&igrave;"], [0, "&iacute;"], [0, "&icirc;"], [0, "&iuml;"], [0, "&eth;"], [0, "&ntilde;"], [0, "&ograve;"], [0, "&oacute;"], [0, "&ocirc;"], [0, "&otilde;"], [0, "&ouml;"], [0, "&div;"], [0, "&oslash;"], [0, "&ugrave;"], [0, "&uacute;"], [0, "&ucirc;"], [0, "&uuml;"], [0, "&yacute;"], [0, "&thorn;"], [0, "&yuml;"], [0, "&Amacr;"], [0, "&amacr;"], [0, "&Abreve;"], [0, "&abreve;"], [0, "&Aogon;"], [0, "&aogon;"], [0, "&Cacute;"], [0, "&cacute;"], [0, "&Ccirc;"], [0, "&ccirc;"], [0, "&Cdot;"], [0, "&cdot;"], [0, "&Ccaron;"], [0, "&ccaron;"], [0, "&Dcaron;"], [0, "&dcaron;"], [0, "&Dstrok;"], [0, "&dstrok;"], [0, "&Emacr;"], [0, "&emacr;"], [2, "&Edot;"], [0, "&edot;"], [0, "&Eogon;"], [0, "&eogon;"], [0, "&Ecaron;"], [0, "&ecaron;"], [0, "&Gcirc;"], [0, "&gcirc;"], [0, "&Gbreve;"], [0, "&gbreve;"], [0, "&Gdot;"], [0, "&gdot;"], [0, "&Gcedil;"], [1, "&Hcirc;"], [0, "&hcirc;"], [0, "&Hstrok;"], [0, "&hstrok;"], [0, "&Itilde;"], [0, "&itilde;"], [0, "&Imacr;"], [0, "&imacr;"], [2, "&Iogon;"], [0, "&iogon;"], [0, "&Idot;"], [0, "&imath;"], [0, "&IJlig;"], [0, "&ijlig;"], [0, "&Jcirc;"], [0, "&jcirc;"], [0, "&Kcedil;"], [0, "&kcedil;"], [0, "&kgreen;"], [0, "&Lacute;"], [0, "&lacute;"], [0, "&Lcedil;"], [0, "&lcedil;"], [0, "&Lcaron;"], [0, "&lcaron;"], [0, "&Lmidot;"], [0, "&lmidot;"], [0, "&Lstrok;"], [0, "&lstrok;"], [0, "&Nacute;"], [0, "&nacute;"], [0, "&Ncedil;"], [0, "&ncedil;"], [0, "&Ncaron;"], [0, "&ncaron;"], [0, "&napos;"], [0, "&ENG;"], [0, "&eng;"], [0, "&Omacr;"], [0, "&omacr;"], [2, "&Odblac;"], [0, "&odblac;"], [0, "&OElig;"], [0, "&oelig;"], [0, "&Racute;"], [0, "&racute;"], [0, "&Rcedil;"], [0, "&rcedil;"], [0, "&Rcaron;"], [0, "&rcaron;"], [0, "&Sacute;"], [0, "&sacute;"], [0, "&Scirc;"], [0, "&scirc;"], [0, "&Scedil;"], [0, "&scedil;"], [0, "&Scaron;"], [0, "&scaron;"], [0, "&Tcedil;"], [0, "&tcedil;"], [0, "&Tcaron;"], [0, "&tcaron;"], [0, "&Tstrok;"], [0, "&tstrok;"], [0, "&Utilde;"], [0, "&utilde;"], [0, "&Umacr;"], [0, "&umacr;"], [0, "&Ubreve;"], [0, "&ubreve;"], [0, "&Uring;"], [0, "&uring;"], [0, "&Udblac;"], [0, "&udblac;"], [0, "&Uogon;"], [0, "&uogon;"], [0, "&Wcirc;"], [0, "&wcirc;"], [0, "&Ycirc;"], [0, "&ycirc;"], [0, "&Yuml;"], [0, "&Zacute;"], [0, "&zacute;"], [0, "&Zdot;"], [0, "&zdot;"], [0, "&Zcaron;"], [0, "&zcaron;"], [19, "&fnof;"], [34, "&imped;"], [63, "&gacute;"], [65, "&jmath;"], [142, "&circ;"], [0, "&caron;"], [16, "&breve;"], [0, "&DiacriticalDot;"], [0, "&ring;"], [0, "&ogon;"], [0, "&DiacriticalTilde;"], [0, "&dblac;"], [51, "&DownBreve;"], [127, "&Alpha;"], [0, "&Beta;"], [0, "&Gamma;"], [0, "&Delta;"], [0, "&Epsilon;"], [0, "&Zeta;"], [0, "&Eta;"], [0, "&Theta;"], [0, "&Iota;"], [0, "&Kappa;"], [0, "&Lambda;"], [0, "&Mu;"], [0, "&Nu;"], [0, "&Xi;"], [0, "&Omicron;"], [0, "&Pi;"], [0, "&Rho;"], [1, "&Sigma;"], [0, "&Tau;"], [0, "&Upsilon;"], [0, "&Phi;"], [0, "&Chi;"], [0, "&Psi;"], [0, "&ohm;"], [7, "&alpha;"], [0, "&beta;"], [0, "&gamma;"], [0, "&delta;"], [0, "&epsi;"], [0, "&zeta;"], [0, "&eta;"], [0, "&theta;"], [0, "&iota;"], [0, "&kappa;"], [0, "&lambda;"], [0, "&mu;"], [0, "&nu;"], [0, "&xi;"], [0, "&omicron;"], [0, "&pi;"], [0, "&rho;"], [0, "&sigmaf;"], [0, "&sigma;"], [0, "&tau;"], [0, "&upsi;"], [0, "&phi;"], [0, "&chi;"], [0, "&psi;"], [0, "&omega;"], [7, "&thetasym;"], [0, "&Upsi;"], [2, "&phiv;"], [0, "&piv;"], [5, "&Gammad;"], [0, "&digamma;"], [18, "&kappav;"], [0, "&rhov;"], [3, "&epsiv;"], [0, "&backepsilon;"], [10, "&IOcy;"], [0, "&DJcy;"], [0, "&GJcy;"], [0, "&Jukcy;"], [0, "&DScy;"], [0, "&Iukcy;"], [0, "&YIcy;"], [0, "&Jsercy;"], [0, "&LJcy;"], [0, "&NJcy;"], [0, "&TSHcy;"], [0, "&KJcy;"], [1, "&Ubrcy;"], [0, "&DZcy;"], [0, "&Acy;"], [0, "&Bcy;"], [0, "&Vcy;"], [0, "&Gcy;"], [0, "&Dcy;"], [0, "&IEcy;"], [0, "&ZHcy;"], [0, "&Zcy;"], [0, "&Icy;"], [0, "&Jcy;"], [0, "&Kcy;"], [0, "&Lcy;"], [0, "&Mcy;"], [0, "&Ncy;"], [0, "&Ocy;"], [0, "&Pcy;"], [0, "&Rcy;"], [0, "&Scy;"], [0, "&Tcy;"], [0, "&Ucy;"], [0, "&Fcy;"], [0, "&KHcy;"], [0, "&TScy;"], [0, "&CHcy;"], [0, "&SHcy;"], [0, "&SHCHcy;"], [0, "&HARDcy;"], [0, "&Ycy;"], [0, "&SOFTcy;"], [0, "&Ecy;"], [0, "&YUcy;"], [0, "&YAcy;"], [0, "&acy;"], [0, "&bcy;"], [0, "&vcy;"], [0, "&gcy;"], [0, "&dcy;"], [0, "&iecy;"], [0, "&zhcy;"], [0, "&zcy;"], [0, "&icy;"], [0, "&jcy;"], [0, "&kcy;"], [0, "&lcy;"], [0, "&mcy;"], [0, "&ncy;"], [0, "&ocy;"], [0, "&pcy;"], [0, "&rcy;"], [0, "&scy;"], [0, "&tcy;"], [0, "&ucy;"], [0, "&fcy;"], [0, "&khcy;"], [0, "&tscy;"], [0, "&chcy;"], [0, "&shcy;"], [0, "&shchcy;"], [0, "&hardcy;"], [0, "&ycy;"], [0, "&softcy;"], [0, "&ecy;"], [0, "&yucy;"], [0, "&yacy;"], [1, "&iocy;"], [0, "&djcy;"], [0, "&gjcy;"], [0, "&jukcy;"], [0, "&dscy;"], [0, "&iukcy;"], [0, "&yicy;"], [0, "&jsercy;"], [0, "&ljcy;"], [0, "&njcy;"], [0, "&tshcy;"], [0, "&kjcy;"], [1, "&ubrcy;"], [0, "&dzcy;"], [7074, "&ensp;"], [0, "&emsp;"], [0, "&emsp13;"], [0, "&emsp14;"], [1, "&numsp;"], [0, "&puncsp;"], [0, "&ThinSpace;"], [0, "&hairsp;"], [0, "&NegativeMediumSpace;"], [0, "&zwnj;"], [0, "&zwj;"], [0, "&lrm;"], [0, "&rlm;"], [0, "&dash;"], [2, "&ndash;"], [0, "&mdash;"], [0, "&horbar;"], [0, "&Verbar;"], [1, "&lsquo;"], [0, "&CloseCurlyQuote;"], [0, "&lsquor;"], [1, "&ldquo;"], [0, "&CloseCurlyDoubleQuote;"], [0, "&bdquo;"], [1, "&dagger;"], [0, "&Dagger;"], [0, "&bull;"], [2, "&nldr;"], [0, "&hellip;"], [9, "&permil;"], [0, "&pertenk;"], [0, "&prime;"], [0, "&Prime;"], [0, "&tprime;"], [0, "&backprime;"], [3, "&lsaquo;"], [0, "&rsaquo;"], [3, "&oline;"], [2, "&caret;"], [1, "&hybull;"], [0, "&frasl;"], [10, "&bsemi;"], [7, "&qprime;"], [7, { v: "&MediumSpace;", n: 8202, o: "&ThickSpace;" }], [0, "&NoBreak;"], [0, "&af;"], [0, "&InvisibleTimes;"], [0, "&ic;"], [72, "&euro;"], [46, "&tdot;"], [0, "&DotDot;"], [37, "&complexes;"], [2, "&incare;"], [4, "&gscr;"], [0, "&hamilt;"], [0, "&Hfr;"], [0, "&Hopf;"], [0, "&planckh;"], [0, "&hbar;"], [0, "&imagline;"], [0, "&Ifr;"], [0, "&lagran;"], [0, "&ell;"], [1, "&naturals;"], [0, "&numero;"], [0, "&copysr;"], [0, "&weierp;"], [0, "&Popf;"], [0, "&Qopf;"], [0, "&realine;"], [0, "&real;"], [0, "&reals;"], [0, "&rx;"], [3, "&trade;"], [1, "&integers;"], [2, "&mho;"], [0, "&zeetrf;"], [0, "&iiota;"], [2, "&bernou;"], [0, "&Cayleys;"], [1, "&escr;"], [0, "&Escr;"], [0, "&Fouriertrf;"], [1, "&Mellintrf;"], [0, "&order;"], [0, "&alefsym;"], [0, "&beth;"], [0, "&gimel;"], [0, "&daleth;"], [12, "&CapitalDifferentialD;"], [0, "&dd;"], [0, "&ee;"], [0, "&ii;"], [10, "&frac13;"], [0, "&frac23;"], [0, "&frac15;"], [0, "&frac25;"], [0, "&frac35;"], [0, "&frac45;"], [0, "&frac16;"], [0, "&frac56;"], [0, "&frac18;"], [0, "&frac38;"], [0, "&frac58;"], [0, "&frac78;"], [49, "&larr;"], [0, "&ShortUpArrow;"], [0, "&rarr;"], [0, "&darr;"], [0, "&harr;"], [0, "&updownarrow;"], [0, "&nwarr;"], [0, "&nearr;"], [0, "&LowerRightArrow;"], [0, "&LowerLeftArrow;"], [0, "&nlarr;"], [0, "&nrarr;"], [1, { v: "&rarrw;", n: 824, o: "&nrarrw;" }], [0, "&Larr;"], [0, "&Uarr;"], [0, "&Rarr;"], [0, "&Darr;"], [0, "&larrtl;"], [0, "&rarrtl;"], [0, "&LeftTeeArrow;"], [0, "&mapstoup;"], [0, "&map;"], [0, "&DownTeeArrow;"], [1, "&hookleftarrow;"], [0, "&hookrightarrow;"], [0, "&larrlp;"], [0, "&looparrowright;"], [0, "&harrw;"], [0, "&nharr;"], [1, "&lsh;"], [0, "&rsh;"], [0, "&ldsh;"], [0, "&rdsh;"], [1, "&crarr;"], [0, "&cularr;"], [0, "&curarr;"], [2, "&circlearrowleft;"], [0, "&circlearrowright;"], [0, "&leftharpoonup;"], [0, "&DownLeftVector;"], [0, "&RightUpVector;"], [0, "&LeftUpVector;"], [0, "&rharu;"], [0, "&DownRightVector;"], [0, "&dharr;"], [0, "&dharl;"], [0, "&RightArrowLeftArrow;"], [0, "&udarr;"], [0, "&LeftArrowRightArrow;"], [0, "&leftleftarrows;"], [0, "&upuparrows;"], [0, "&rightrightarrows;"], [0, "&ddarr;"], [0, "&leftrightharpoons;"], [0, "&Equilibrium;"], [0, "&nlArr;"], [0, "&nhArr;"], [0, "&nrArr;"], [0, "&DoubleLeftArrow;"], [0, "&DoubleUpArrow;"], [0, "&DoubleRightArrow;"], [0, "&dArr;"], [0, "&DoubleLeftRightArrow;"], [0, "&DoubleUpDownArrow;"], [0, "&nwArr;"], [0, "&neArr;"], [0, "&seArr;"], [0, "&swArr;"], [0, "&lAarr;"], [0, "&rAarr;"], [1, "&zigrarr;"], [6, "&larrb;"], [0, "&rarrb;"], [15, "&DownArrowUpArrow;"], [7, "&loarr;"], [0, "&roarr;"], [0, "&hoarr;"], [0, "&forall;"], [0, "&comp;"], [0, { v: "&part;", n: 824, o: "&npart;" }], [0, "&exist;"], [0, "&nexist;"], [0, "&empty;"], [1, "&Del;"], [0, "&Element;"], [0, "&NotElement;"], [1, "&ni;"], [0, "&notni;"], [2, "&prod;"], [0, "&coprod;"], [0, "&sum;"], [0, "&minus;"], [0, "&MinusPlus;"], [0, "&dotplus;"], [1, "&Backslash;"], [0, "&lowast;"], [0, "&compfn;"], [1, "&radic;"], [2, "&prop;"], [0, "&infin;"], [0, "&angrt;"], [0, { v: "&ang;", n: 8402, o: "&nang;" }], [0, "&angmsd;"], [0, "&angsph;"], [0, "&mid;"], [0, "&nmid;"], [0, "&DoubleVerticalBar;"], [0, "&NotDoubleVerticalBar;"], [0, "&and;"], [0, "&or;"], [0, { v: "&cap;", n: 65024, o: "&caps;" }], [0, { v: "&cup;", n: 65024, o: "&cups;" }], [0, "&int;"], [0, "&Int;"], [0, "&iiint;"], [0, "&conint;"], [0, "&Conint;"], [0, "&Cconint;"], [0, "&cwint;"], [0, "&ClockwiseContourIntegral;"], [0, "&awconint;"], [0, "&there4;"], [0, "&becaus;"], [0, "&ratio;"], [0, "&Colon;"], [0, "&dotminus;"], [1, "&mDDot;"], [0, "&homtht;"], [0, { v: "&sim;", n: 8402, o: "&nvsim;" }], [0, { v: "&backsim;", n: 817, o: "&race;" }], [0, { v: "&ac;", n: 819, o: "&acE;" }], [0, "&acd;"], [0, "&VerticalTilde;"], [0, "&NotTilde;"], [0, { v: "&eqsim;", n: 824, o: "&nesim;" }], [0, "&sime;"], [0, "&NotTildeEqual;"], [0, "&cong;"], [0, "&simne;"], [0, "&ncong;"], [0, "&ap;"], [0, "&nap;"], [0, "&ape;"], [0, { v: "&apid;", n: 824, o: "&napid;" }], [0, "&backcong;"], [0, { v: "&asympeq;", n: 8402, o: "&nvap;" }], [0, { v: "&bump;", n: 824, o: "&nbump;" }], [0, { v: "&bumpe;", n: 824, o: "&nbumpe;" }], [0, { v: "&doteq;", n: 824, o: "&nedot;" }], [0, "&doteqdot;"], [0, "&efDot;"], [0, "&erDot;"], [0, "&Assign;"], [0, "&ecolon;"], [0, "&ecir;"], [0, "&circeq;"], [1, "&wedgeq;"], [0, "&veeeq;"], [1, "&triangleq;"], [2, "&equest;"], [0, "&ne;"], [0, { v: "&Congruent;", n: 8421, o: "&bnequiv;" }], [0, "&nequiv;"], [1, { v: "&le;", n: 8402, o: "&nvle;" }], [0, { v: "&ge;", n: 8402, o: "&nvge;" }], [0, { v: "&lE;", n: 824, o: "&nlE;" }], [0, { v: "&gE;", n: 824, o: "&ngE;" }], [0, { v: "&lnE;", n: 65024, o: "&lvertneqq;" }], [0, { v: "&gnE;", n: 65024, o: "&gvertneqq;" }], [0, { v: "&ll;", n: new Map(/* @__PURE__ */ restoreDiff([[824, "&nLtv;"], [7577, "&nLt;"]])) }], [0, { v: "&gg;", n: new Map(/* @__PURE__ */ restoreDiff([[824, "&nGtv;"], [7577, "&nGt;"]])) }], [0, "&between;"], [0, "&NotCupCap;"], [0, "&nless;"], [0, "&ngt;"], [0, "&nle;"], [0, "&nge;"], [0, "&lesssim;"], [0, "&GreaterTilde;"], [0, "&nlsim;"], [0, "&ngsim;"], [0, "&LessGreater;"], [0, "&gl;"], [0, "&NotLessGreater;"], [0, "&NotGreaterLess;"], [0, "&pr;"], [0, "&sc;"], [0, "&prcue;"], [0, "&sccue;"], [0, "&PrecedesTilde;"], [0, { v: "&scsim;", n: 824, o: "&NotSucceedsTilde;" }], [0, "&NotPrecedes;"], [0, "&NotSucceeds;"], [0, { v: "&sub;", n: 8402, o: "&NotSubset;" }], [0, { v: "&sup;", n: 8402, o: "&NotSuperset;" }], [0, "&nsub;"], [0, "&nsup;"], [0, "&sube;"], [0, "&supe;"], [0, "&NotSubsetEqual;"], [0, "&NotSupersetEqual;"], [0, { v: "&subne;", n: 65024, o: "&varsubsetneq;" }], [0, { v: "&supne;", n: 65024, o: "&varsupsetneq;" }], [1, "&cupdot;"], [0, "&UnionPlus;"], [0, { v: "&sqsub;", n: 824, o: "&NotSquareSubset;" }], [0, { v: "&sqsup;", n: 824, o: "&NotSquareSuperset;" }], [0, "&sqsube;"], [0, "&sqsupe;"], [0, { v: "&sqcap;", n: 65024, o: "&sqcaps;" }], [0, { v: "&sqcup;", n: 65024, o: "&sqcups;" }], [0, "&CirclePlus;"], [0, "&CircleMinus;"], [0, "&CircleTimes;"], [0, "&osol;"], [0, "&CircleDot;"], [0, "&circledcirc;"], [0, "&circledast;"], [1, "&circleddash;"], [0, "&boxplus;"], [0, "&boxminus;"], [0, "&boxtimes;"], [0, "&dotsquare;"], [0, "&RightTee;"], [0, "&dashv;"], [0, "&DownTee;"], [0, "&bot;"], [1, "&models;"], [0, "&DoubleRightTee;"], [0, "&Vdash;"], [0, "&Vvdash;"], [0, "&VDash;"], [0, "&nvdash;"], [0, "&nvDash;"], [0, "&nVdash;"], [0, "&nVDash;"], [0, "&prurel;"], [1, "&LeftTriangle;"], [0, "&RightTriangle;"], [0, { v: "&LeftTriangleEqual;", n: 8402, o: "&nvltrie;" }], [0, { v: "&RightTriangleEqual;", n: 8402, o: "&nvrtrie;" }], [0, "&origof;"], [0, "&imof;"], [0, "&multimap;"], [0, "&hercon;"], [0, "&intcal;"], [0, "&veebar;"], [1, "&barvee;"], [0, "&angrtvb;"], [0, "&lrtri;"], [0, "&bigwedge;"], [0, "&bigvee;"], [0, "&bigcap;"], [0, "&bigcup;"], [0, "&diam;"], [0, "&sdot;"], [0, "&sstarf;"], [0, "&divideontimes;"], [0, "&bowtie;"], [0, "&ltimes;"], [0, "&rtimes;"], [0, "&leftthreetimes;"], [0, "&rightthreetimes;"], [0, "&backsimeq;"], [0, "&curlyvee;"], [0, "&curlywedge;"], [0, "&Sub;"], [0, "&Sup;"], [0, "&Cap;"], [0, "&Cup;"], [0, "&fork;"], [0, "&epar;"], [0, "&lessdot;"], [0, "&gtdot;"], [0, { v: "&Ll;", n: 824, o: "&nLl;" }], [0, { v: "&Gg;", n: 824, o: "&nGg;" }], [0, { v: "&leg;", n: 65024, o: "&lesg;" }], [0, { v: "&gel;", n: 65024, o: "&gesl;" }], [2, "&cuepr;"], [0, "&cuesc;"], [0, "&NotPrecedesSlantEqual;"], [0, "&NotSucceedsSlantEqual;"], [0, "&NotSquareSubsetEqual;"], [0, "&NotSquareSupersetEqual;"], [2, "&lnsim;"], [0, "&gnsim;"], [0, "&precnsim;"], [0, "&scnsim;"], [0, "&nltri;"], [0, "&NotRightTriangle;"], [0, "&nltrie;"], [0, "&NotRightTriangleEqual;"], [0, "&vellip;"], [0, "&ctdot;"], [0, "&utdot;"], [0, "&dtdot;"], [0, "&disin;"], [0, "&isinsv;"], [0, "&isins;"], [0, { v: "&isindot;", n: 824, o: "&notindot;" }], [0, "&notinvc;"], [0, "&notinvb;"], [1, { v: "&isinE;", n: 824, o: "&notinE;" }], [0, "&nisd;"], [0, "&xnis;"], [0, "&nis;"], [0, "&notnivc;"], [0, "&notnivb;"], [6, "&barwed;"], [0, "&Barwed;"], [1, "&lceil;"], [0, "&rceil;"], [0, "&LeftFloor;"], [0, "&rfloor;"], [0, "&drcrop;"], [0, "&dlcrop;"], [0, "&urcrop;"], [0, "&ulcrop;"], [0, "&bnot;"], [1, "&profline;"], [0, "&profsurf;"], [1, "&telrec;"], [0, "&target;"], [5, "&ulcorn;"], [0, "&urcorn;"], [0, "&dlcorn;"], [0, "&drcorn;"], [2, "&frown;"], [0, "&smile;"], [9, "&cylcty;"], [0, "&profalar;"], [7, "&topbot;"], [6, "&ovbar;"], [1, "&solbar;"], [60, "&angzarr;"], [51, "&lmoustache;"], [0, "&rmoustache;"], [2, "&OverBracket;"], [0, "&bbrk;"], [0, "&bbrktbrk;"], [37, "&OverParenthesis;"], [0, "&UnderParenthesis;"], [0, "&OverBrace;"], [0, "&UnderBrace;"], [2, "&trpezium;"], [4, "&elinters;"], [59, "&blank;"], [164, "&circledS;"], [55, "&boxh;"], [1, "&boxv;"], [9, "&boxdr;"], [3, "&boxdl;"], [3, "&boxur;"], [3, "&boxul;"], [3, "&boxvr;"], [7, "&boxvl;"], [7, "&boxhd;"], [7, "&boxhu;"], [7, "&boxvh;"], [19, "&boxH;"], [0, "&boxV;"], [0, "&boxdR;"], [0, "&boxDr;"], [0, "&boxDR;"], [0, "&boxdL;"], [0, "&boxDl;"], [0, "&boxDL;"], [0, "&boxuR;"], [0, "&boxUr;"], [0, "&boxUR;"], [0, "&boxuL;"], [0, "&boxUl;"], [0, "&boxUL;"], [0, "&boxvR;"], [0, "&boxVr;"], [0, "&boxVR;"], [0, "&boxvL;"], [0, "&boxVl;"], [0, "&boxVL;"], [0, "&boxHd;"], [0, "&boxhD;"], [0, "&boxHD;"], [0, "&boxHu;"], [0, "&boxhU;"], [0, "&boxHU;"], [0, "&boxvH;"], [0, "&boxVh;"], [0, "&boxVH;"], [19, "&uhblk;"], [3, "&lhblk;"], [3, "&block;"], [8, "&blk14;"], [0, "&blk12;"], [0, "&blk34;"], [13, "&square;"], [8, "&blacksquare;"], [0, "&EmptyVerySmallSquare;"], [1, "&rect;"], [0, "&marker;"], [2, "&fltns;"], [1, "&bigtriangleup;"], [0, "&blacktriangle;"], [0, "&triangle;"], [2, "&blacktriangleright;"], [0, "&rtri;"], [3, "&bigtriangledown;"], [0, "&blacktriangledown;"], [0, "&dtri;"], [2, "&blacktriangleleft;"], [0, "&ltri;"], [6, "&loz;"], [0, "&cir;"], [32, "&tridot;"], [2, "&bigcirc;"], [8, "&ultri;"], [0, "&urtri;"], [0, "&lltri;"], [0, "&EmptySmallSquare;"], [0, "&FilledSmallSquare;"], [8, "&bigstar;"], [0, "&star;"], [7, "&phone;"], [49, "&female;"], [1, "&male;"], [29, "&spades;"], [2, "&clubs;"], [1, "&hearts;"], [0, "&diamondsuit;"], [3, "&sung;"], [2, "&flat;"], [0, "&natural;"], [0, "&sharp;"], [163, "&check;"], [3, "&cross;"], [8, "&malt;"], [21, "&sext;"], [33, "&VerticalSeparator;"], [25, "&lbbrk;"], [0, "&rbbrk;"], [84, "&bsolhsub;"], [0, "&suphsol;"], [28, "&LeftDoubleBracket;"], [0, "&RightDoubleBracket;"], [0, "&lang;"], [0, "&rang;"], [0, "&Lang;"], [0, "&Rang;"], [0, "&loang;"], [0, "&roang;"], [7, "&longleftarrow;"], [0, "&longrightarrow;"], [0, "&longleftrightarrow;"], [0, "&DoubleLongLeftArrow;"], [0, "&DoubleLongRightArrow;"], [0, "&DoubleLongLeftRightArrow;"], [1, "&longmapsto;"], [2, "&dzigrarr;"], [258, "&nvlArr;"], [0, "&nvrArr;"], [0, "&nvHarr;"], [0, "&Map;"], [6, "&lbarr;"], [0, "&bkarow;"], [0, "&lBarr;"], [0, "&dbkarow;"], [0, "&drbkarow;"], [0, "&DDotrahd;"], [0, "&UpArrowBar;"], [0, "&DownArrowBar;"], [2, "&Rarrtl;"], [2, "&latail;"], [0, "&ratail;"], [0, "&lAtail;"], [0, "&rAtail;"], [0, "&larrfs;"], [0, "&rarrfs;"], [0, "&larrbfs;"], [0, "&rarrbfs;"], [2, "&nwarhk;"], [0, "&nearhk;"], [0, "&hksearow;"], [0, "&hkswarow;"], [0, "&nwnear;"], [0, "&nesear;"], [0, "&seswar;"], [0, "&swnwar;"], [8, { v: "&rarrc;", n: 824, o: "&nrarrc;" }], [1, "&cudarrr;"], [0, "&ldca;"], [0, "&rdca;"], [0, "&cudarrl;"], [0, "&larrpl;"], [2, "&curarrm;"], [0, "&cularrp;"], [7, "&rarrpl;"], [2, "&harrcir;"], [0, "&Uarrocir;"], [0, "&lurdshar;"], [0, "&ldrushar;"], [2, "&LeftRightVector;"], [0, "&RightUpDownVector;"], [0, "&DownLeftRightVector;"], [0, "&LeftUpDownVector;"], [0, "&LeftVectorBar;"], [0, "&RightVectorBar;"], [0, "&RightUpVectorBar;"], [0, "&RightDownVectorBar;"], [0, "&DownLeftVectorBar;"], [0, "&DownRightVectorBar;"], [0, "&LeftUpVectorBar;"], [0, "&LeftDownVectorBar;"], [0, "&LeftTeeVector;"], [0, "&RightTeeVector;"], [0, "&RightUpTeeVector;"], [0, "&RightDownTeeVector;"], [0, "&DownLeftTeeVector;"], [0, "&DownRightTeeVector;"], [0, "&LeftUpTeeVector;"], [0, "&LeftDownTeeVector;"], [0, "&lHar;"], [0, "&uHar;"], [0, "&rHar;"], [0, "&dHar;"], [0, "&luruhar;"], [0, "&ldrdhar;"], [0, "&ruluhar;"], [0, "&rdldhar;"], [0, "&lharul;"], [0, "&llhard;"], [0, "&rharul;"], [0, "&lrhard;"], [0, "&udhar;"], [0, "&duhar;"], [0, "&RoundImplies;"], [0, "&erarr;"], [0, "&simrarr;"], [0, "&larrsim;"], [0, "&rarrsim;"], [0, "&rarrap;"], [0, "&ltlarr;"], [1, "&gtrarr;"], [0, "&subrarr;"], [1, "&suplarr;"], [0, "&lfisht;"], [0, "&rfisht;"], [0, "&ufisht;"], [0, "&dfisht;"], [5, "&lopar;"], [0, "&ropar;"], [4, "&lbrke;"], [0, "&rbrke;"], [0, "&lbrkslu;"], [0, "&rbrksld;"], [0, "&lbrksld;"], [0, "&rbrkslu;"], [0, "&langd;"], [0, "&rangd;"], [0, "&lparlt;"], [0, "&rpargt;"], [0, "&gtlPar;"], [0, "&ltrPar;"], [3, "&vzigzag;"], [1, "&vangrt;"], [0, "&angrtvbd;"], [6, "&ange;"], [0, "&range;"], [0, "&dwangle;"], [0, "&uwangle;"], [0, "&angmsdaa;"], [0, "&angmsdab;"], [0, "&angmsdac;"], [0, "&angmsdad;"], [0, "&angmsdae;"], [0, "&angmsdaf;"], [0, "&angmsdag;"], [0, "&angmsdah;"], [0, "&bemptyv;"], [0, "&demptyv;"], [0, "&cemptyv;"], [0, "&raemptyv;"], [0, "&laemptyv;"], [0, "&ohbar;"], [0, "&omid;"], [0, "&opar;"], [1, "&operp;"], [1, "&olcross;"], [0, "&odsold;"], [1, "&olcir;"], [0, "&ofcir;"], [0, "&olt;"], [0, "&ogt;"], [0, "&cirscir;"], [0, "&cirE;"], [0, "&solb;"], [0, "&bsolb;"], [3, "&boxbox;"], [3, "&trisb;"], [0, "&rtriltri;"], [0, { v: "&LeftTriangleBar;", n: 824, o: "&NotLeftTriangleBar;" }], [0, { v: "&RightTriangleBar;", n: 824, o: "&NotRightTriangleBar;" }], [11, "&iinfin;"], [0, "&infintie;"], [0, "&nvinfin;"], [4, "&eparsl;"], [0, "&smeparsl;"], [0, "&eqvparsl;"], [5, "&blacklozenge;"], [8, "&RuleDelayed;"], [1, "&dsol;"], [9, "&bigodot;"], [0, "&bigoplus;"], [0, "&bigotimes;"], [1, "&biguplus;"], [1, "&bigsqcup;"], [5, "&iiiint;"], [0, "&fpartint;"], [2, "&cirfnint;"], [0, "&awint;"], [0, "&rppolint;"], [0, "&scpolint;"], [0, "&npolint;"], [0, "&pointint;"], [0, "&quatint;"], [0, "&intlarhk;"], [10, "&pluscir;"], [0, "&plusacir;"], [0, "&simplus;"], [0, "&plusdu;"], [0, "&plussim;"], [0, "&plustwo;"], [1, "&mcomma;"], [0, "&minusdu;"], [2, "&loplus;"], [0, "&roplus;"], [0, "&Cross;"], [0, "&timesd;"], [0, "&timesbar;"], [1, "&smashp;"], [0, "&lotimes;"], [0, "&rotimes;"], [0, "&otimesas;"], [0, "&Otimes;"], [0, "&odiv;"], [0, "&triplus;"], [0, "&triminus;"], [0, "&tritime;"], [0, "&intprod;"], [2, "&amalg;"], [0, "&capdot;"], [1, "&ncup;"], [0, "&ncap;"], [0, "&capand;"], [0, "&cupor;"], [0, "&cupcap;"], [0, "&capcup;"], [0, "&cupbrcap;"], [0, "&capbrcup;"], [0, "&cupcup;"], [0, "&capcap;"], [0, "&ccups;"], [0, "&ccaps;"], [2, "&ccupssm;"], [2, "&And;"], [0, "&Or;"], [0, "&andand;"], [0, "&oror;"], [0, "&orslope;"], [0, "&andslope;"], [1, "&andv;"], [0, "&orv;"], [0, "&andd;"], [0, "&ord;"], [1, "&wedbar;"], [6, "&sdote;"], [3, "&simdot;"], [2, { v: "&congdot;", n: 824, o: "&ncongdot;" }], [0, "&easter;"], [0, "&apacir;"], [0, { v: "&apE;", n: 824, o: "&napE;" }], [0, "&eplus;"], [0, "&pluse;"], [0, "&Esim;"], [0, "&Colone;"], [0, "&Equal;"], [1, "&ddotseq;"], [0, "&equivDD;"], [0, "&ltcir;"], [0, "&gtcir;"], [0, "&ltquest;"], [0, "&gtquest;"], [0, { v: "&leqslant;", n: 824, o: "&nleqslant;" }], [0, { v: "&geqslant;", n: 824, o: "&ngeqslant;" }], [0, "&lesdot;"], [0, "&gesdot;"], [0, "&lesdoto;"], [0, "&gesdoto;"], [0, "&lesdotor;"], [0, "&gesdotol;"], [0, "&lap;"], [0, "&gap;"], [0, "&lne;"], [0, "&gne;"], [0, "&lnap;"], [0, "&gnap;"], [0, "&lEg;"], [0, "&gEl;"], [0, "&lsime;"], [0, "&gsime;"], [0, "&lsimg;"], [0, "&gsiml;"], [0, "&lgE;"], [0, "&glE;"], [0, "&lesges;"], [0, "&gesles;"], [0, "&els;"], [0, "&egs;"], [0, "&elsdot;"], [0, "&egsdot;"], [0, "&el;"], [0, "&eg;"], [2, "&siml;"], [0, "&simg;"], [0, "&simlE;"], [0, "&simgE;"], [0, { v: "&LessLess;", n: 824, o: "&NotNestedLessLess;" }], [0, { v: "&GreaterGreater;", n: 824, o: "&NotNestedGreaterGreater;" }], [1, "&glj;"], [0, "&gla;"], [0, "&ltcc;"], [0, "&gtcc;"], [0, "&lescc;"], [0, "&gescc;"], [0, "&smt;"], [0, "&lat;"], [0, { v: "&smte;", n: 65024, o: "&smtes;" }], [0, { v: "&late;", n: 65024, o: "&lates;" }], [0, "&bumpE;"], [0, { v: "&PrecedesEqual;", n: 824, o: "&NotPrecedesEqual;" }], [0, { v: "&sce;", n: 824, o: "&NotSucceedsEqual;" }], [2, "&prE;"], [0, "&scE;"], [0, "&precneqq;"], [0, "&scnE;"], [0, "&prap;"], [0, "&scap;"], [0, "&precnapprox;"], [0, "&scnap;"], [0, "&Pr;"], [0, "&Sc;"], [0, "&subdot;"], [0, "&supdot;"], [0, "&subplus;"], [0, "&supplus;"], [0, "&submult;"], [0, "&supmult;"], [0, "&subedot;"], [0, "&supedot;"], [0, { v: "&subE;", n: 824, o: "&nsubE;" }], [0, { v: "&supE;", n: 824, o: "&nsupE;" }], [0, "&subsim;"], [0, "&supsim;"], [2, { v: "&subnE;", n: 65024, o: "&varsubsetneqq;" }], [0, { v: "&supnE;", n: 65024, o: "&varsupsetneqq;" }], [2, "&csub;"], [0, "&csup;"], [0, "&csube;"], [0, "&csupe;"], [0, "&subsup;"], [0, "&supsub;"], [0, "&subsub;"], [0, "&supsup;"], [0, "&suphsub;"], [0, "&supdsub;"], [0, "&forkv;"], [0, "&topfork;"], [0, "&mlcp;"], [8, "&Dashv;"], [1, "&Vdashl;"], [0, "&Barv;"], [0, "&vBar;"], [0, "&vBarv;"], [1, "&Vbar;"], [0, "&Not;"], [0, "&bNot;"], [0, "&rnmid;"], [0, "&cirmid;"], [0, "&midcir;"], [0, "&topcir;"], [0, "&nhpar;"], [0, "&parsim;"], [9, { v: "&parsl;", n: 8421, o: "&nparsl;" }], [44343, { n: new Map(/* @__PURE__ */ restoreDiff([[56476, "&Ascr;"], [1, "&Cscr;"], [0, "&Dscr;"], [2, "&Gscr;"], [2, "&Jscr;"], [0, "&Kscr;"], [2, "&Nscr;"], [0, "&Oscr;"], [0, "&Pscr;"], [0, "&Qscr;"], [1, "&Sscr;"], [0, "&Tscr;"], [0, "&Uscr;"], [0, "&Vscr;"], [0, "&Wscr;"], [0, "&Xscr;"], [0, "&Yscr;"], [0, "&Zscr;"], [0, "&ascr;"], [0, "&bscr;"], [0, "&cscr;"], [0, "&dscr;"], [1, "&fscr;"], [1, "&hscr;"], [0, "&iscr;"], [0, "&jscr;"], [0, "&kscr;"], [0, "&lscr;"], [0, "&mscr;"], [0, "&nscr;"], [1, "&pscr;"], [0, "&qscr;"], [0, "&rscr;"], [0, "&sscr;"], [0, "&tscr;"], [0, "&uscr;"], [0, "&vscr;"], [0, "&wscr;"], [0, "&xscr;"], [0, "&yscr;"], [0, "&zscr;"], [52, "&Afr;"], [0, "&Bfr;"], [1, "&Dfr;"], [0, "&Efr;"], [0, "&Ffr;"], [0, "&Gfr;"], [2, "&Jfr;"], [0, "&Kfr;"], [0, "&Lfr;"], [0, "&Mfr;"], [0, "&Nfr;"], [0, "&Ofr;"], [0, "&Pfr;"], [0, "&Qfr;"], [1, "&Sfr;"], [0, "&Tfr;"], [0, "&Ufr;"], [0, "&Vfr;"], [0, "&Wfr;"], [0, "&Xfr;"], [0, "&Yfr;"], [1, "&afr;"], [0, "&bfr;"], [0, "&cfr;"], [0, "&dfr;"], [0, "&efr;"], [0, "&ffr;"], [0, "&gfr;"], [0, "&hfr;"], [0, "&ifr;"], [0, "&jfr;"], [0, "&kfr;"], [0, "&lfr;"], [0, "&mfr;"], [0, "&nfr;"], [0, "&ofr;"], [0, "&pfr;"], [0, "&qfr;"], [0, "&rfr;"], [0, "&sfr;"], [0, "&tfr;"], [0, "&ufr;"], [0, "&vfr;"], [0, "&wfr;"], [0, "&xfr;"], [0, "&yfr;"], [0, "&zfr;"], [0, "&Aopf;"], [0, "&Bopf;"], [1, "&Dopf;"], [0, "&Eopf;"], [0, "&Fopf;"], [0, "&Gopf;"], [1, "&Iopf;"], [0, "&Jopf;"], [0, "&Kopf;"], [0, "&Lopf;"], [0, "&Mopf;"], [1, "&Oopf;"], [3, "&Sopf;"], [0, "&Topf;"], [0, "&Uopf;"], [0, "&Vopf;"], [0, "&Wopf;"], [0, "&Xopf;"], [0, "&Yopf;"], [1, "&aopf;"], [0, "&bopf;"], [0, "&copf;"], [0, "&dopf;"], [0, "&eopf;"], [0, "&fopf;"], [0, "&gopf;"], [0, "&hopf;"], [0, "&iopf;"], [0, "&jopf;"], [0, "&kopf;"], [0, "&lopf;"], [0, "&mopf;"], [0, "&nopf;"], [0, "&oopf;"], [0, "&popf;"], [0, "&qopf;"], [0, "&ropf;"], [0, "&sopf;"], [0, "&topf;"], [0, "&uopf;"], [0, "&vopf;"], [0, "&wopf;"], [0, "&xopf;"], [0, "&yopf;"], [0, "&zopf;"]])) }], [8906, "&fflig;"], [0, "&filig;"], [0, "&fllig;"], [0, "&ffilig;"], [0, "&ffllig;"]]));
     }
   });
@@ -1207,11 +1188,10 @@ var LNReaderPlugin = (() => {
         }
         return ret + str.substr(lastIdx);
       }
-      __name(encodeXML, "encodeXML");
       exports2.encodeXML = encodeXML;
       exports2.escape = encodeXML;
       function getEscaper(regex, map2) {
-        return /* @__PURE__ */ __name(function escape(data2) {
+        return function escape(data2) {
           var match;
           var lastIdx = 0;
           var result = "";
@@ -1223,9 +1203,8 @@ var LNReaderPlugin = (() => {
             lastIdx = match.index + 1;
           }
           return result + data2.substring(lastIdx);
-        }, "escape");
+        };
       }
-      __name(getEscaper, "getEscaper");
       exports2.escapeUTF8 = getEscaper(/[&<>'"]/g, xmlCodeMap);
       exports2.escapeAttribute = getEscaper(/["&\u00A0]/g, /* @__PURE__ */ new Map([
         [34, "&quot;"],
@@ -1256,12 +1235,10 @@ var LNReaderPlugin = (() => {
       function encodeHTML(data2) {
         return encodeHTMLTrieRe(htmlReplacer, data2);
       }
-      __name(encodeHTML, "encodeHTML");
       exports2.encodeHTML = encodeHTML;
       function encodeNonAsciiHTML(data2) {
         return encodeHTMLTrieRe(escape_js_1.xmlReplacer, data2);
       }
-      __name(encodeNonAsciiHTML, "encodeNonAsciiHTML");
       exports2.encodeNonAsciiHTML = encodeNonAsciiHTML;
       function encodeHTMLTrieRe(regExp, str) {
         var ret = "";
@@ -1295,7 +1272,6 @@ var LNReaderPlugin = (() => {
         }
         return ret + str.substr(lastIdx);
       }
-      __name(encodeHTMLTrieRe, "encodeHTMLTrieRe");
     }
   });
 
@@ -1332,7 +1308,6 @@ var LNReaderPlugin = (() => {
         }
         return (0, decode_js_1.decodeXML)(data2);
       }
-      __name(decode, "decode");
       exports2.decode = decode;
       function decodeStrict(data2, options) {
         var _a;
@@ -1343,7 +1318,6 @@ var LNReaderPlugin = (() => {
         (_a = opts.mode) !== null && _a !== void 0 ? _a : opts.mode = decode_js_1.DecodingMode.Strict;
         return decode(data2, opts);
       }
-      __name(decodeStrict, "decodeStrict");
       exports2.decodeStrict = decodeStrict;
       function encode(data2, options) {
         if (options === void 0) {
@@ -1364,71 +1338,70 @@ var LNReaderPlugin = (() => {
         }
         return (0, escape_js_1.encodeXML)(data2);
       }
-      __name(encode, "encode");
       exports2.encode = encode;
       var escape_js_2 = require_escape();
-      Object.defineProperty(exports2, "encodeXML", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "encodeXML", { enumerable: true, get: function() {
         return escape_js_2.encodeXML;
-      }, "get") });
-      Object.defineProperty(exports2, "escape", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "escape", { enumerable: true, get: function() {
         return escape_js_2.escape;
-      }, "get") });
-      Object.defineProperty(exports2, "escapeUTF8", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "escapeUTF8", { enumerable: true, get: function() {
         return escape_js_2.escapeUTF8;
-      }, "get") });
-      Object.defineProperty(exports2, "escapeAttribute", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "escapeAttribute", { enumerable: true, get: function() {
         return escape_js_2.escapeAttribute;
-      }, "get") });
-      Object.defineProperty(exports2, "escapeText", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "escapeText", { enumerable: true, get: function() {
         return escape_js_2.escapeText;
-      }, "get") });
+      } });
       var encode_js_2 = require_encode();
-      Object.defineProperty(exports2, "encodeHTML", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "encodeHTML", { enumerable: true, get: function() {
         return encode_js_2.encodeHTML;
-      }, "get") });
-      Object.defineProperty(exports2, "encodeNonAsciiHTML", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "encodeNonAsciiHTML", { enumerable: true, get: function() {
         return encode_js_2.encodeNonAsciiHTML;
-      }, "get") });
-      Object.defineProperty(exports2, "encodeHTML4", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "encodeHTML4", { enumerable: true, get: function() {
         return encode_js_2.encodeHTML;
-      }, "get") });
-      Object.defineProperty(exports2, "encodeHTML5", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "encodeHTML5", { enumerable: true, get: function() {
         return encode_js_2.encodeHTML;
-      }, "get") });
+      } });
       var decode_js_2 = require_decode();
-      Object.defineProperty(exports2, "EntityDecoder", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "EntityDecoder", { enumerable: true, get: function() {
         return decode_js_2.EntityDecoder;
-      }, "get") });
-      Object.defineProperty(exports2, "DecodingMode", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "DecodingMode", { enumerable: true, get: function() {
         return decode_js_2.DecodingMode;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeXML", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeXML", { enumerable: true, get: function() {
         return decode_js_2.decodeXML;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeHTML", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeHTML", { enumerable: true, get: function() {
         return decode_js_2.decodeHTML;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeHTMLStrict", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeHTMLStrict", { enumerable: true, get: function() {
         return decode_js_2.decodeHTMLStrict;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeHTMLAttribute", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeHTMLAttribute", { enumerable: true, get: function() {
         return decode_js_2.decodeHTMLAttribute;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeHTML4", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeHTML4", { enumerable: true, get: function() {
         return decode_js_2.decodeHTML;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeHTML5", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeHTML5", { enumerable: true, get: function() {
         return decode_js_2.decodeHTML;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeHTML4Strict", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeHTML4Strict", { enumerable: true, get: function() {
         return decode_js_2.decodeHTMLStrict;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeHTML5Strict", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeHTML5Strict", { enumerable: true, get: function() {
         return decode_js_2.decodeHTMLStrict;
-      }, "get") });
-      Object.defineProperty(exports2, "decodeXMLStrict", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "decodeXMLStrict", { enumerable: true, get: function() {
         return decode_js_2.decodeXML;
-      }, "get") });
+      } });
     }
   });
 
@@ -1564,9 +1537,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -1605,7 +1578,6 @@ var LNReaderPlugin = (() => {
       function replaceQuotes(value) {
         return value.replace(/"/g, "&quot;");
       }
-      __name(replaceQuotes, "replaceQuotes");
       function formatAttributes(attributes, opts) {
         var _a;
         if (!attributes)
@@ -1623,7 +1595,6 @@ var LNReaderPlugin = (() => {
           return "".concat(key, '="').concat(encode(value), '"');
         }).join(" ");
       }
-      __name(formatAttributes, "formatAttributes");
       var singleTag = /* @__PURE__ */ new Set([
         "area",
         "base",
@@ -1656,7 +1627,6 @@ var LNReaderPlugin = (() => {
         }
         return output;
       }
-      __name(render2, "render");
       exports2.render = render2;
       exports2.default = render2;
       function renderNode(node, options) {
@@ -1679,7 +1649,6 @@ var LNReaderPlugin = (() => {
             return renderText(node, options);
         }
       }
-      __name(renderNode, "renderNode");
       var foreignModeIntegrationPoints = /* @__PURE__ */ new Set([
         "mi",
         "mo",
@@ -1729,11 +1698,9 @@ var LNReaderPlugin = (() => {
         }
         return tag;
       }
-      __name(renderTag, "renderTag");
       function renderDirective(elem) {
         return "<".concat(elem.data, ">");
       }
-      __name(renderDirective, "renderDirective");
       function renderText(elem, opts) {
         var _a;
         var data2 = elem.data || "";
@@ -1742,15 +1709,12 @@ var LNReaderPlugin = (() => {
         }
         return data2;
       }
-      __name(renderText, "renderText");
       function renderCdata(elem) {
         return "<![CDATA[".concat(elem.children[0].data, "]]>");
       }
-      __name(renderCdata, "renderCdata");
       function renderComment(elem) {
         return "<!--".concat(elem.data, "-->");
       }
-      __name(renderComment, "renderComment");
     }
   });
 
@@ -1769,14 +1733,12 @@ var LNReaderPlugin = (() => {
       function getOuterHTML(node, options) {
         return (0, dom_serializer_1.default)(node, options);
       }
-      __name(getOuterHTML, "getOuterHTML");
       exports2.getOuterHTML = getOuterHTML;
       function getInnerHTML(node, options) {
         return (0, domhandler_1.hasChildren)(node) ? node.children.map(function(node2) {
           return getOuterHTML(node2, options);
         }).join("") : "";
       }
-      __name(getInnerHTML, "getInnerHTML");
       exports2.getInnerHTML = getInnerHTML;
       function getText(node) {
         if (Array.isArray(node))
@@ -1789,7 +1751,6 @@ var LNReaderPlugin = (() => {
           return node.data;
         return "";
       }
-      __name(getText, "getText");
       exports2.getText = getText;
       function textContent3(node) {
         if (Array.isArray(node))
@@ -1801,7 +1762,6 @@ var LNReaderPlugin = (() => {
           return node.data;
         return "";
       }
-      __name(textContent3, "textContent");
       exports2.textContent = textContent3;
       function innerText2(node) {
         if (Array.isArray(node))
@@ -1813,7 +1773,6 @@ var LNReaderPlugin = (() => {
           return node.data;
         return "";
       }
-      __name(innerText2, "innerText");
       exports2.innerText = innerText2;
     }
   });
@@ -1828,12 +1787,10 @@ var LNReaderPlugin = (() => {
       function getChildren2(elem) {
         return (0, domhandler_1.hasChildren)(elem) ? elem.children : [];
       }
-      __name(getChildren2, "getChildren");
       exports2.getChildren = getChildren2;
       function getParent(elem) {
         return elem.parent || null;
       }
-      __name(getParent, "getParent");
       exports2.getParent = getParent;
       function getSiblings2(elem) {
         var _a, _b;
@@ -1852,23 +1809,19 @@ var LNReaderPlugin = (() => {
         }
         return siblings2;
       }
-      __name(getSiblings2, "getSiblings");
       exports2.getSiblings = getSiblings2;
       function getAttributeValue(elem, name) {
         var _a;
         return (_a = elem.attribs) === null || _a === void 0 ? void 0 : _a[name];
       }
-      __name(getAttributeValue, "getAttributeValue");
       exports2.getAttributeValue = getAttributeValue;
       function hasAttrib(elem, name) {
         return elem.attribs != null && Object.prototype.hasOwnProperty.call(elem.attribs, name) && elem.attribs[name] != null;
       }
-      __name(hasAttrib, "hasAttrib");
       exports2.hasAttrib = hasAttrib;
       function getName(elem) {
         return elem.name;
       }
-      __name(getName, "getName");
       exports2.getName = getName;
       function nextElementSibling2(elem) {
         var _a;
@@ -1877,7 +1830,6 @@ var LNReaderPlugin = (() => {
           _a = next2, next2 = _a.next;
         return next2;
       }
-      __name(nextElementSibling2, "nextElementSibling");
       exports2.nextElementSibling = nextElementSibling2;
       function prevElementSibling2(elem) {
         var _a;
@@ -1886,7 +1838,6 @@ var LNReaderPlugin = (() => {
           _a = prev2, prev2 = _a.prev;
         return prev2;
       }
-      __name(prevElementSibling2, "prevElementSibling");
       exports2.prevElementSibling = prevElementSibling2;
     }
   });
@@ -1913,7 +1864,6 @@ var LNReaderPlugin = (() => {
         elem.prev = null;
         elem.parent = null;
       }
-      __name(removeElement3, "removeElement");
       exports2.removeElement = removeElement3;
       function replaceElement(elem, replacement) {
         var prev2 = replacement.prev = elem.prev;
@@ -1931,7 +1881,6 @@ var LNReaderPlugin = (() => {
           elem.parent = null;
         }
       }
-      __name(replaceElement, "replaceElement");
       exports2.replaceElement = replaceElement;
       function appendChild(parent2, child) {
         removeElement3(child);
@@ -1945,7 +1894,6 @@ var LNReaderPlugin = (() => {
           child.prev = null;
         }
       }
-      __name(appendChild, "appendChild");
       exports2.appendChild = appendChild;
       function append2(elem, next2) {
         removeElement3(next2);
@@ -1965,7 +1913,6 @@ var LNReaderPlugin = (() => {
           parent2.children.push(next2);
         }
       }
-      __name(append2, "append");
       exports2.append = append2;
       function prependChild(parent2, child) {
         removeElement3(child);
@@ -1979,7 +1926,6 @@ var LNReaderPlugin = (() => {
           child.next = null;
         }
       }
-      __name(prependChild, "prependChild");
       exports2.prependChild = prependChild;
       function prepend2(elem, prev2) {
         removeElement3(prev2);
@@ -1996,7 +1942,6 @@ var LNReaderPlugin = (() => {
         prev2.next = elem;
         elem.prev = prev2;
       }
-      __name(prepend2, "prepend");
       exports2.prepend = prepend2;
     }
   });
@@ -2017,7 +1962,6 @@ var LNReaderPlugin = (() => {
         }
         return find2(test, Array.isArray(node) ? node : [node], recurse, limit);
       }
-      __name(filter3, "filter");
       exports2.filter = filter3;
       function find2(test, nodes, recurse, limit) {
         var result = [];
@@ -2044,12 +1988,10 @@ var LNReaderPlugin = (() => {
           }
         }
       }
-      __name(find2, "find");
       exports2.find = find2;
       function findOneChild(test, nodes) {
         return nodes.find(test);
       }
-      __name(findOneChild, "findOneChild");
       exports2.findOneChild = findOneChild;
       function findOne(test, nodes, recurse) {
         if (recurse === void 0) {
@@ -2068,14 +2010,12 @@ var LNReaderPlugin = (() => {
         }
         return elem;
       }
-      __name(findOne, "findOne");
       exports2.findOne = findOne;
       function existsOne(test, nodes) {
         return nodes.some(function(checked) {
           return (0, domhandler_1.isTag)(checked) && (test(checked) || existsOne(test, checked.children));
         });
       }
-      __name(existsOne, "existsOne");
       exports2.existsOne = existsOne;
       function findAll(test, nodes) {
         var result = [];
@@ -2101,7 +2041,6 @@ var LNReaderPlugin = (() => {
           }
         }
       }
-      __name(findAll, "findAll");
       exports2.findAll = findAll;
     }
   });
@@ -2115,7 +2054,7 @@ var LNReaderPlugin = (() => {
       var domhandler_1 = require_lib2();
       var querying_js_1 = require_querying();
       var Checks = {
-        tag_name: /* @__PURE__ */ __name(function(name) {
+        tag_name: function(name) {
           if (typeof name === "function") {
             return function(elem) {
               return (0, domhandler_1.isTag)(elem) && name(elem.name);
@@ -2126,8 +2065,8 @@ var LNReaderPlugin = (() => {
           return function(elem) {
             return (0, domhandler_1.isTag)(elem) && elem.name === name;
           };
-        }, "tag_name"),
-        tag_type: /* @__PURE__ */ __name(function(type) {
+        },
+        tag_type: function(type) {
           if (typeof type === "function") {
             return function(elem) {
               return type(elem.type);
@@ -2136,8 +2075,8 @@ var LNReaderPlugin = (() => {
           return function(elem) {
             return elem.type === type;
           };
-        }, "tag_type"),
-        tag_contains: /* @__PURE__ */ __name(function(data2) {
+        },
+        tag_contains: function(data2) {
           if (typeof data2 === "function") {
             return function(elem) {
               return (0, domhandler_1.isText)(elem) && data2(elem.data);
@@ -2146,7 +2085,7 @@ var LNReaderPlugin = (() => {
           return function(elem) {
             return (0, domhandler_1.isText)(elem) && elem.data === data2;
           };
-        }, "tag_contains")
+        }
       };
       function getAttribCheck(attrib, value) {
         if (typeof value === "function") {
@@ -2158,13 +2097,11 @@ var LNReaderPlugin = (() => {
           return (0, domhandler_1.isTag)(elem) && elem.attribs[attrib] === value;
         };
       }
-      __name(getAttribCheck, "getAttribCheck");
       function combineFuncs(a, b) {
         return function(elem) {
           return a(elem) || b(elem);
         };
       }
-      __name(combineFuncs, "combineFuncs");
       function compileTest(options) {
         var funcs = Object.keys(options).map(function(key) {
           var value = options[key];
@@ -2172,12 +2109,10 @@ var LNReaderPlugin = (() => {
         });
         return funcs.length === 0 ? null : funcs.reduce(combineFuncs);
       }
-      __name(compileTest, "compileTest");
       function testElement(options, node) {
         var test = compileTest(options);
         return test ? test(node) : true;
       }
-      __name(testElement, "testElement");
       exports2.testElement = testElement;
       function getElements(options, nodes, recurse, limit) {
         if (limit === void 0) {
@@ -2186,7 +2121,6 @@ var LNReaderPlugin = (() => {
         var test = compileTest(options);
         return test ? (0, querying_js_1.filter)(test, nodes, recurse, limit) : [];
       }
-      __name(getElements, "getElements");
       exports2.getElements = getElements;
       function getElementById(id, nodes, recurse) {
         if (recurse === void 0) {
@@ -2196,7 +2130,6 @@ var LNReaderPlugin = (() => {
           nodes = [nodes];
         return (0, querying_js_1.findOne)(getAttribCheck("id", id), nodes, recurse);
       }
-      __name(getElementById, "getElementById");
       exports2.getElementById = getElementById;
       function getElementsByTagName(tagName, nodes, recurse, limit) {
         if (recurse === void 0) {
@@ -2207,7 +2140,6 @@ var LNReaderPlugin = (() => {
         }
         return (0, querying_js_1.filter)(Checks["tag_name"](tagName), nodes, recurse, limit);
       }
-      __name(getElementsByTagName, "getElementsByTagName");
       exports2.getElementsByTagName = getElementsByTagName;
       function getElementsByTagType(type, nodes, recurse, limit) {
         if (recurse === void 0) {
@@ -2218,7 +2150,6 @@ var LNReaderPlugin = (() => {
         }
         return (0, querying_js_1.filter)(Checks["tag_type"](type), nodes, recurse, limit);
       }
-      __name(getElementsByTagType, "getElementsByTagType");
       exports2.getElementsByTagType = getElementsByTagType;
     }
   });
@@ -2247,7 +2178,6 @@ var LNReaderPlugin = (() => {
         }
         return nodes;
       }
-      __name(removeSubsets, "removeSubsets");
       exports2.removeSubsets = removeSubsets;
       var DocumentPosition;
       (function(DocumentPosition2) {
@@ -2296,7 +2226,6 @@ var LNReaderPlugin = (() => {
         }
         return DocumentPosition.PRECEDING;
       }
-      __name(compareDocumentPosition, "compareDocumentPosition");
       exports2.compareDocumentPosition = compareDocumentPosition;
       function uniqueSort2(nodes) {
         nodes = nodes.filter(function(node, i2, arr) {
@@ -2313,7 +2242,6 @@ var LNReaderPlugin = (() => {
         });
         return nodes;
       }
-      __name(uniqueSort2, "uniqueSort");
       exports2.uniqueSort = uniqueSort2;
     }
   });
@@ -2330,7 +2258,6 @@ var LNReaderPlugin = (() => {
         var feedRoot = getOneElement(isValidFeed, doc);
         return !feedRoot ? null : feedRoot.name === "feed" ? getAtomFeed(feedRoot) : getRssFeed(feedRoot);
       }
-      __name(getFeed, "getFeed");
       exports2.getFeed = getFeed;
       function getAtomFeed(feedRoot) {
         var _a;
@@ -2372,7 +2299,6 @@ var LNReaderPlugin = (() => {
         addConditionally(feed, "author", "email", childs, true);
         return feed;
       }
-      __name(getAtomFeed, "getAtomFeed");
       function getRssFeed(feedRoot) {
         var _a, _b;
         var childs = (_b = (_a = getOneElement("channel", feedRoot.children)) === null || _a === void 0 ? void 0 : _a.children) !== null && _b !== void 0 ? _b : [];
@@ -2402,7 +2328,6 @@ var LNReaderPlugin = (() => {
         addConditionally(feed, "author", "managingEditor", childs, true);
         return feed;
       }
-      __name(getRssFeed, "getRssFeed");
       var MEDIA_KEYS_STRING = ["url", "type", "lang"];
       var MEDIA_KEYS_INT = [
         "fileSize",
@@ -2439,18 +2364,15 @@ var LNReaderPlugin = (() => {
           return media;
         });
       }
-      __name(getMediaElements, "getMediaElements");
       function getOneElement(tagName, node) {
         return (0, legacy_js_1.getElementsByTagName)(tagName, node, true, 1)[0];
       }
-      __name(getOneElement, "getOneElement");
       function fetch2(tagName, where, recurse) {
         if (recurse === void 0) {
           recurse = false;
         }
         return (0, stringify_js_1.textContent)((0, legacy_js_1.getElementsByTagName)(tagName, where, recurse, 1)).trim();
       }
-      __name(fetch2, "fetch");
       function addConditionally(obj, prop2, tagName, where, recurse) {
         if (recurse === void 0) {
           recurse = false;
@@ -2459,11 +2381,9 @@ var LNReaderPlugin = (() => {
         if (val2)
           obj[prop2] = val2;
       }
-      __name(addConditionally, "addConditionally");
       function isValidFeed(value) {
         return value === "rss" || value === "feed" || value === "rdf:RDF";
       }
-      __name(isValidFeed, "isValidFeed");
     }
   });
 
@@ -2475,9 +2395,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -2497,24 +2417,24 @@ var LNReaderPlugin = (() => {
       __exportStar(require_helpers(), exports2);
       __exportStar(require_feeds(), exports2);
       var domhandler_1 = require_lib2();
-      Object.defineProperty(exports2, "isTag", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "isTag", { enumerable: true, get: function() {
         return domhandler_1.isTag;
-      }, "get") });
-      Object.defineProperty(exports2, "isCDATA", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "isCDATA", { enumerable: true, get: function() {
         return domhandler_1.isCDATA;
-      }, "get") });
-      Object.defineProperty(exports2, "isText", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "isText", { enumerable: true, get: function() {
         return domhandler_1.isText;
-      }, "get") });
-      Object.defineProperty(exports2, "isComment", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "isComment", { enumerable: true, get: function() {
         return domhandler_1.isComment;
-      }, "get") });
-      Object.defineProperty(exports2, "isDocument", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "isDocument", { enumerable: true, get: function() {
         return domhandler_1.isDocument;
-      }, "get") });
-      Object.defineProperty(exports2, "hasChildren", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "hasChildren", { enumerable: true, get: function() {
         return domhandler_1.hasChildren;
-      }, "get") });
+      } });
     }
   });
 
@@ -2523,11 +2443,9 @@ var LNReaderPlugin = (() => {
     if (!options) {
       return baseOptions !== null && baseOptions !== void 0 ? baseOptions : defaultOpts;
     }
-    const opts = {
-      _useHtmlParser2: !!options.xmlMode,
-      ...baseOptions,
-      ...options
-    };
+    const opts = __spreadValues(__spreadValues({
+      _useHtmlParser2: !!options.xmlMode
+    }, baseOptions), options);
     if (options.xml) {
       opts._useHtmlParser2 = true;
       opts.xmlMode = true;
@@ -2545,7 +2463,6 @@ var LNReaderPlugin = (() => {
       defaultOpts = {
         _useHtmlParser2: false
       };
-      __name(flattenOptions, "flattenOptions");
     }
   });
 
@@ -2571,14 +2488,11 @@ var LNReaderPlugin = (() => {
   }
   function html(dom, options) {
     const toRender = isOptions(dom) ? (options = dom, void 0) : dom;
-    const opts = {
-      ...this === null || this === void 0 ? void 0 : this._options,
-      ...flattenOptions(options)
-    };
+    const opts = __spreadValues(__spreadValues({}, this === null || this === void 0 ? void 0 : this._options), flattenOptions(options));
     return render(this, toRender, opts);
   }
   function xml(dom) {
-    const options = { ...this._options, xmlMode: true };
+    const options = __spreadProps(__spreadValues({}, this._options), { xmlMode: true });
     return render(this, dom, options);
   }
   function text(elements) {
@@ -2652,17 +2566,6 @@ var LNReaderPlugin = (() => {
     "node_modules/cheerio/dist/browser/static.js"() {
       import_domutils = __toESM(require_lib5(), 1);
       init_options();
-      __name(render, "render");
-      __name(isOptions, "isOptions");
-      __name(html, "html");
-      __name(xml, "xml");
-      __name(text, "text");
-      __name(parseHTML, "parseHTML");
-      __name(root, "root");
-      __name(contains, "contains");
-      __name(extract, "extract");
-      __name(merge, "merge");
-      __name(isArrayLike, "isArrayLike");
     }
   });
 
@@ -2692,10 +2595,6 @@ var LNReaderPlugin = (() => {
   var CharacterCodes;
   var init_utils = __esm({
     "node_modules/cheerio/dist/browser/utils.js"() {
-      __name(isCheerio, "isCheerio");
-      __name(camelCase, "camelCase");
-      __name(cssCase, "cssCase");
-      __name(domEach, "domEach");
       (function(CharacterCodes2) {
         CharacterCodes2[CharacterCodes2["LowerA"] = 97] = "LowerA";
         CharacterCodes2[CharacterCodes2["LowerZ"] = 122] = "LowerZ";
@@ -2703,7 +2602,6 @@ var LNReaderPlugin = (() => {
         CharacterCodes2[CharacterCodes2["UpperZ"] = 90] = "UpperZ";
         CharacterCodes2[CharacterCodes2["Exclamation"] = 33] = "Exclamation";
       })(CharacterCodes || (CharacterCodes = {}));
-      __name(isHtml, "isHtml");
     }
   });
 
@@ -2903,7 +2801,7 @@ var LNReaderPlugin = (() => {
     if (rbrace.test(value)) {
       try {
         return JSON.parse(value);
-      } catch {
+      } catch (e2) {
       }
     }
     return value;
@@ -3103,25 +3001,6 @@ var LNReaderPlugin = (() => {
       dataAttrPrefix = "data-";
       rboolean = /^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i;
       rbrace = /^{[^]*}$|^\[[^]*]$/;
-      __name(getAttr, "getAttr");
-      __name(setAttr, "setAttr");
-      __name(attr, "attr");
-      __name(getProp, "getProp");
-      __name(setProp, "setProp");
-      __name(prop, "prop");
-      __name(setData, "setData");
-      __name(readAllData, "readAllData");
-      __name(readData, "readData");
-      __name(parseDataValue, "parseDataValue");
-      __name(data, "data");
-      __name(val, "val");
-      __name(removeAttribute, "removeAttribute");
-      __name(splitNames, "splitNames");
-      __name(removeAttr, "removeAttr");
-      __name(hasClass, "hasClass");
-      __name(addClass, "addClass");
-      __name(removeClass, "removeClass");
-      __name(toggleClass, "toggleClass");
     }
   });
 
@@ -3213,14 +3092,12 @@ var LNReaderPlugin = (() => {
       selectorIndex += offset + name.length;
       return unescapeCSS(name);
     }
-    __name(getName, "getName");
     function stripWhitespace(offset) {
       selectorIndex += offset;
       while (selectorIndex < selector.length && isWhitespace(selector.charCodeAt(selectorIndex))) {
         selectorIndex++;
       }
     }
-    __name(stripWhitespace, "stripWhitespace");
     function readValueWithParenthesis() {
       selectorIndex += 1;
       const start = selectorIndex;
@@ -3237,20 +3114,17 @@ var LNReaderPlugin = (() => {
       }
       return unescapeCSS(selector.slice(start, selectorIndex - 1));
     }
-    __name(readValueWithParenthesis, "readValueWithParenthesis");
     function isEscaped(pos) {
       let slashCount = 0;
       while (selector.charCodeAt(--pos) === 92)
         slashCount++;
       return (slashCount & 1) === 1;
     }
-    __name(isEscaped, "isEscaped");
     function ensureNotTraversal() {
       if (tokens.length > 0 && isTraversal(tokens[tokens.length - 1])) {
         throw new Error("Did not expect successive traversals.");
       }
     }
-    __name(ensureNotTraversal, "ensureNotTraversal");
     function addTraversal(type) {
       if (tokens.length > 0 && tokens[tokens.length - 1].type === SelectorType.Descendant) {
         tokens[tokens.length - 1].type = type;
@@ -3259,7 +3133,6 @@ var LNReaderPlugin = (() => {
       ensureNotTraversal();
       tokens.push({ type });
     }
-    __name(addTraversal, "addTraversal");
     function addSpecialAttribute(name, action) {
       tokens.push({
         type: SelectorType.Attribute,
@@ -3270,7 +3143,6 @@ var LNReaderPlugin = (() => {
         ignoreCase: "quirks"
       });
     }
-    __name(addSpecialAttribute, "addSpecialAttribute");
     function finalizeSubselector() {
       if (tokens.length && tokens[tokens.length - 1].type === SelectorType.Descendant) {
         tokens.pop();
@@ -3280,7 +3152,6 @@ var LNReaderPlugin = (() => {
       }
       subselects.push(tokens);
     }
-    __name(finalizeSubselector, "finalizeSubselector");
     stripWhitespace(0);
     if (selector.length === selectorIndex) {
       return selectorIndex;
@@ -3516,14 +3387,7 @@ var LNReaderPlugin = (() => {
         "host",
         "host-context"
       ]);
-      __name(isTraversal, "isTraversal");
       stripQuotesFromPseudos = /* @__PURE__ */ new Set(["contains", "icontains"]);
-      __name(funescape, "funescape");
-      __name(unescapeCSS, "unescapeCSS");
-      __name(isQuote, "isQuote");
-      __name(isWhitespace, "isWhitespace");
-      __name(parse, "parse");
-      __name(parseSelector, "parseSelector");
     }
   });
 
@@ -3629,12 +3493,6 @@ var LNReaderPlugin = (() => {
         " ",
         "."
       ].map((c) => c.charCodeAt(0)));
-      __name(stringify, "stringify");
-      __name(stringifyToken, "stringifyToken");
-      __name(getActionValue, "getActionValue");
-      __name(getNamespacedName, "getNamespacedName");
-      __name(getNamespace, "getNamespace");
-      __name(escapeName, "escapeName");
     }
   });
 
@@ -3660,12 +3518,12 @@ var LNReaderPlugin = (() => {
   var require_boolbase = __commonJS({
     "node_modules/boolbase/index.js"(exports2, module2) {
       module2.exports = {
-        trueFunc: /* @__PURE__ */ __name(function trueFunc() {
+        trueFunc: function trueFunc() {
           return true;
-        }, "trueFunc"),
-        falseFunc: /* @__PURE__ */ __name(function falseFunc() {
+        },
+        falseFunc: function falseFunc() {
           return false;
-        }, "falseFunc")
+        }
       };
     }
   });
@@ -3686,7 +3544,6 @@ var LNReaderPlugin = (() => {
       function isTraversal2(token) {
         return !procedure.has(token.type);
       }
-      __name(isTraversal2, "isTraversal");
       exports2.isTraversal = isTraversal2;
       var attributes = /* @__PURE__ */ new Map([
         [css_what_1.AttributeAction.Exists, 10],
@@ -3711,7 +3568,6 @@ var LNReaderPlugin = (() => {
           }
         }
       }
-      __name(sortByProcedure, "sortByProcedure");
       exports2.default = sortByProcedure;
       function getProcedure(token) {
         var _a, _b;
@@ -3742,7 +3598,6 @@ var LNReaderPlugin = (() => {
         }
         return proc;
       }
-      __name(getProcedure, "getProcedure");
     }
   });
 
@@ -3760,7 +3615,6 @@ var LNReaderPlugin = (() => {
       function escapeRegex(value) {
         return value.replace(reChars, "\\$&");
       }
-      __name(escapeRegex, "escapeRegex");
       var caseInsensitiveAttributes = /* @__PURE__ */ new Set([
         "accept",
         "accept-charset",
@@ -3812,9 +3666,8 @@ var LNReaderPlugin = (() => {
       function shouldIgnoreCase(selector, options) {
         return typeof selector.ignoreCase === "boolean" ? selector.ignoreCase : selector.ignoreCase === "quirks" ? !!options.quirksMode : !options.xmlMode && caseInsensitiveAttributes.has(selector.name);
       }
-      __name(shouldIgnoreCase, "shouldIgnoreCase");
       exports2.attributeRules = {
-        equals: /* @__PURE__ */ __name(function(next2, data2, options) {
+        equals: function(next2, data2, options) {
           var adapter2 = options.adapter;
           var name = data2.name;
           var value = data2.value;
@@ -3828,44 +3681,44 @@ var LNReaderPlugin = (() => {
           return function(elem) {
             return adapter2.getAttributeValue(elem, name) === value && next2(elem);
           };
-        }, "equals"),
-        hyphen: /* @__PURE__ */ __name(function(next2, data2, options) {
+        },
+        hyphen: function(next2, data2, options) {
           var adapter2 = options.adapter;
           var name = data2.name;
           var value = data2.value;
           var len = value.length;
           if (shouldIgnoreCase(data2, options)) {
             value = value.toLowerCase();
-            return /* @__PURE__ */ __name(function hyphenIC(elem) {
+            return function hyphenIC(elem) {
               var attr2 = adapter2.getAttributeValue(elem, name);
               return attr2 != null && (attr2.length === len || attr2.charAt(len) === "-") && attr2.substr(0, len).toLowerCase() === value && next2(elem);
-            }, "hyphenIC");
+            };
           }
-          return /* @__PURE__ */ __name(function hyphen(elem) {
+          return function hyphen(elem) {
             var attr2 = adapter2.getAttributeValue(elem, name);
             return attr2 != null && (attr2.length === len || attr2.charAt(len) === "-") && attr2.substr(0, len) === value && next2(elem);
-          }, "hyphen");
-        }, "hyphen"),
-        element: /* @__PURE__ */ __name(function(next2, data2, options) {
+          };
+        },
+        element: function(next2, data2, options) {
           var adapter2 = options.adapter;
           var name = data2.name, value = data2.value;
           if (/\s/.test(value)) {
             return boolbase_1.default.falseFunc;
           }
           var regex = new RegExp("(?:^|\\s)".concat(escapeRegex(value), "(?:$|\\s)"), shouldIgnoreCase(data2, options) ? "i" : "");
-          return /* @__PURE__ */ __name(function element(elem) {
+          return function element(elem) {
             var attr2 = adapter2.getAttributeValue(elem, name);
             return attr2 != null && attr2.length >= value.length && regex.test(attr2) && next2(elem);
-          }, "element");
-        }, "element"),
-        exists: /* @__PURE__ */ __name(function(next2, _a, _b) {
+          };
+        },
+        exists: function(next2, _a, _b) {
           var name = _a.name;
           var adapter2 = _b.adapter;
           return function(elem) {
             return adapter2.hasAttrib(elem, name) && next2(elem);
           };
-        }, "exists"),
-        start: /* @__PURE__ */ __name(function(next2, data2, options) {
+        },
+        start: function(next2, data2, options) {
           var adapter2 = options.adapter;
           var name = data2.name;
           var value = data2.value;
@@ -3884,8 +3737,8 @@ var LNReaderPlugin = (() => {
             var _a;
             return !!((_a = adapter2.getAttributeValue(elem, name)) === null || _a === void 0 ? void 0 : _a.startsWith(value)) && next2(elem);
           };
-        }, "start"),
-        end: /* @__PURE__ */ __name(function(next2, data2, options) {
+        },
+        end: function(next2, data2, options) {
           var adapter2 = options.adapter;
           var name = data2.name;
           var value = data2.value;
@@ -3904,8 +3757,8 @@ var LNReaderPlugin = (() => {
             var _a;
             return !!((_a = adapter2.getAttributeValue(elem, name)) === null || _a === void 0 ? void 0 : _a.endsWith(value)) && next2(elem);
           };
-        }, "end"),
-        any: /* @__PURE__ */ __name(function(next2, data2, options) {
+        },
+        any: function(next2, data2, options) {
           var adapter2 = options.adapter;
           var name = data2.name, value = data2.value;
           if (value === "") {
@@ -3913,17 +3766,17 @@ var LNReaderPlugin = (() => {
           }
           if (shouldIgnoreCase(data2, options)) {
             var regex_1 = new RegExp(escapeRegex(value), "i");
-            return /* @__PURE__ */ __name(function anyIC(elem) {
+            return function anyIC(elem) {
               var attr2 = adapter2.getAttributeValue(elem, name);
               return attr2 != null && attr2.length >= value.length && regex_1.test(attr2) && next2(elem);
-            }, "anyIC");
+            };
           }
           return function(elem) {
             var _a;
             return !!((_a = adapter2.getAttributeValue(elem, name)) === null || _a === void 0 ? void 0 : _a.includes(value)) && next2(elem);
           };
-        }, "any"),
-        not: /* @__PURE__ */ __name(function(next2, data2, options) {
+        },
+        not: function(next2, data2, options) {
           var adapter2 = options.adapter;
           var name = data2.name;
           var value = data2.value;
@@ -3941,7 +3794,7 @@ var LNReaderPlugin = (() => {
           return function(elem) {
             return adapter2.getAttributeValue(elem, name) !== value && next2(elem);
           };
-        }, "not")
+        }
       };
     }
   });
@@ -3992,7 +3845,6 @@ var LNReaderPlugin = (() => {
           }
           return 1;
         }
-        __name(readSign, "readSign");
         function readNumber() {
           var start = idx;
           var value = 0;
@@ -4002,15 +3854,12 @@ var LNReaderPlugin = (() => {
           }
           return idx === start ? null : value;
         }
-        __name(readNumber, "readNumber");
         function skipWhitespace() {
           while (idx < formula.length && whitespace.has(formula.charCodeAt(idx))) {
             idx++;
           }
         }
-        __name(skipWhitespace, "skipWhitespace");
       }
-      __name(parse5, "parse");
       exports2.parse = parse5;
     }
   });
@@ -4050,7 +3899,6 @@ var LNReaderPlugin = (() => {
           return index2 <= b && index2 % absA === bMod;
         };
       }
-      __name(compile, "compile");
       exports2.compile = compile;
       function generate(parsed) {
         var a = parsed[0];
@@ -4083,7 +3931,6 @@ var LNReaderPlugin = (() => {
           return a * n2++ + b;
         };
       }
-      __name(generate, "generate");
       exports2.generate = generate;
     }
   });
@@ -4095,25 +3942,23 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports2, "__esModule", { value: true });
       exports2.sequence = exports2.generate = exports2.compile = exports2.parse = void 0;
       var parse_js_1 = require_parse();
-      Object.defineProperty(exports2, "parse", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "parse", { enumerable: true, get: function() {
         return parse_js_1.parse;
-      }, "get") });
+      } });
       var compile_js_1 = require_compile();
-      Object.defineProperty(exports2, "compile", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "compile", { enumerable: true, get: function() {
         return compile_js_1.compile;
-      }, "get") });
-      Object.defineProperty(exports2, "generate", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "generate", { enumerable: true, get: function() {
         return compile_js_1.generate;
-      }, "get") });
+      } });
       function nthCheck(formula) {
         return (0, compile_js_1.compile)((0, parse_js_1.parse)(formula));
       }
-      __name(nthCheck, "nthCheck");
       exports2.default = nthCheck;
       function sequence(formula) {
         return (0, compile_js_1.generate)((0, parse_js_1.parse)(formula));
       }
-      __name(sequence, "sequence");
       exports2.sequence = sequence;
     }
   });
@@ -4135,30 +3980,29 @@ var LNReaderPlugin = (() => {
           return parent2 != null && adapter2.isTag(parent2) && next2(elem);
         };
       }
-      __name(getChildFunc, "getChildFunc");
       exports2.filters = {
-        contains: /* @__PURE__ */ __name(function(next2, text3, _a) {
+        contains: function(next2, text3, _a) {
           var adapter2 = _a.adapter;
-          return /* @__PURE__ */ __name(function contains2(elem) {
+          return function contains2(elem) {
             return next2(elem) && adapter2.getText(elem).includes(text3);
-          }, "contains");
-        }, "contains"),
-        icontains: /* @__PURE__ */ __name(function(next2, text3, _a) {
+          };
+        },
+        icontains: function(next2, text3, _a) {
           var adapter2 = _a.adapter;
           var itext = text3.toLowerCase();
-          return /* @__PURE__ */ __name(function icontains(elem) {
+          return function icontains(elem) {
             return next2(elem) && adapter2.getText(elem).toLowerCase().includes(itext);
-          }, "icontains");
-        }, "icontains"),
+          };
+        },
         // Location specific methods
-        "nth-child": /* @__PURE__ */ __name(function(next2, rule, _a) {
+        "nth-child": function(next2, rule, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
           if (func === boolbase_1.default.trueFunc)
             return getChildFunc(next2, adapter2);
-          return /* @__PURE__ */ __name(function nthChild(elem) {
+          return function nthChild(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
             for (var i2 = 0; i2 < siblings2.length; i2++) {
@@ -4169,16 +4013,16 @@ var LNReaderPlugin = (() => {
               }
             }
             return func(pos) && next2(elem);
-          }, "nthChild");
-        }, "nth-child"),
-        "nth-last-child": /* @__PURE__ */ __name(function(next2, rule, _a) {
+          };
+        },
+        "nth-last-child": function(next2, rule, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
           if (func === boolbase_1.default.trueFunc)
             return getChildFunc(next2, adapter2);
-          return /* @__PURE__ */ __name(function nthLastChild(elem) {
+          return function nthLastChild(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
             for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
@@ -4189,16 +4033,16 @@ var LNReaderPlugin = (() => {
               }
             }
             return func(pos) && next2(elem);
-          }, "nthLastChild");
-        }, "nth-last-child"),
-        "nth-of-type": /* @__PURE__ */ __name(function(next2, rule, _a) {
+          };
+        },
+        "nth-of-type": function(next2, rule, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
           if (func === boolbase_1.default.trueFunc)
             return getChildFunc(next2, adapter2);
-          return /* @__PURE__ */ __name(function nthOfType(elem) {
+          return function nthOfType(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
             for (var i2 = 0; i2 < siblings2.length; i2++) {
@@ -4210,16 +4054,16 @@ var LNReaderPlugin = (() => {
               }
             }
             return func(pos) && next2(elem);
-          }, "nthOfType");
-        }, "nth-of-type"),
-        "nth-last-of-type": /* @__PURE__ */ __name(function(next2, rule, _a) {
+          };
+        },
+        "nth-last-of-type": function(next2, rule, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
           if (func === boolbase_1.default.trueFunc)
             return getChildFunc(next2, adapter2);
-          return /* @__PURE__ */ __name(function nthLastOfType(elem) {
+          return function nthLastOfType(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
             for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
@@ -4231,17 +4075,17 @@ var LNReaderPlugin = (() => {
               }
             }
             return func(pos) && next2(elem);
-          }, "nthLastOfType");
-        }, "nth-last-of-type"),
+          };
+        },
         // TODO determine the actual root element
-        root: /* @__PURE__ */ __name(function(next2, _rule, _a) {
+        root: function(next2, _rule, _a) {
           var adapter2 = _a.adapter;
           return function(elem) {
             var parent2 = adapter2.getParent(elem);
             return (parent2 == null || !adapter2.isTag(parent2)) && next2(elem);
           };
-        }, "root"),
-        scope: /* @__PURE__ */ __name(function(next2, rule, options, context) {
+        },
+        scope: function(next2, rule, options, context) {
           var equals = options.equals;
           if (!context || context.length === 0) {
             return exports2.filters["root"](next2, rule, options);
@@ -4254,24 +4098,23 @@ var LNReaderPlugin = (() => {
           return function(elem) {
             return context.includes(elem) && next2(elem);
           };
-        }, "scope"),
+        },
         hover: dynamicStatePseudo("isHovered"),
         visited: dynamicStatePseudo("isVisited"),
         active: dynamicStatePseudo("isActive")
       };
       function dynamicStatePseudo(name) {
-        return /* @__PURE__ */ __name(function dynamicPseudo(next2, _rule, _a) {
+        return function dynamicPseudo(next2, _rule, _a) {
           var adapter2 = _a.adapter;
           var func = adapter2[name];
           if (typeof func !== "function") {
             return boolbase_1.default.falseFunc;
           }
-          return /* @__PURE__ */ __name(function active(elem) {
+          return function active(elem) {
             return func(elem) && next2(elem);
-          }, "active");
-        }, "dynamicPseudo");
+          };
+        };
       }
-      __name(dynamicStatePseudo, "dynamicStatePseudo");
     }
   });
 
@@ -4282,13 +4125,13 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports2, "__esModule", { value: true });
       exports2.verifyPseudoArgs = exports2.pseudos = void 0;
       exports2.pseudos = {
-        empty: /* @__PURE__ */ __name(function(elem, _a) {
+        empty: function(elem, _a) {
           var adapter2 = _a.adapter;
           return !adapter2.getChildren(elem).some(function(elem2) {
             return adapter2.isTag(elem2) || adapter2.getText(elem2) !== "";
           });
-        }, "empty"),
-        "first-child": /* @__PURE__ */ __name(function(elem, _a) {
+        },
+        "first-child": function(elem, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           if (adapter2.prevElementSibling) {
             return adapter2.prevElementSibling(elem) == null;
@@ -4297,8 +4140,8 @@ var LNReaderPlugin = (() => {
             return adapter2.isTag(elem2);
           });
           return firstChild != null && equals(elem, firstChild);
-        }, "first-child"),
-        "last-child": /* @__PURE__ */ __name(function(elem, _a) {
+        },
+        "last-child": function(elem, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
@@ -4308,8 +4151,8 @@ var LNReaderPlugin = (() => {
               break;
           }
           return false;
-        }, "last-child"),
-        "first-of-type": /* @__PURE__ */ __name(function(elem, _a) {
+        },
+        "first-of-type": function(elem, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           var elemName = adapter2.getName(elem);
@@ -4322,8 +4165,8 @@ var LNReaderPlugin = (() => {
             }
           }
           return false;
-        }, "first-of-type"),
-        "last-of-type": /* @__PURE__ */ __name(function(elem, _a) {
+        },
+        "last-of-type": function(elem, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           var elemName = adapter2.getName(elem);
@@ -4336,20 +4179,20 @@ var LNReaderPlugin = (() => {
             }
           }
           return false;
-        }, "last-of-type"),
-        "only-of-type": /* @__PURE__ */ __name(function(elem, _a) {
+        },
+        "only-of-type": function(elem, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           var elemName = adapter2.getName(elem);
           return adapter2.getSiblings(elem).every(function(sibling) {
             return equals(elem, sibling) || !adapter2.isTag(sibling) || adapter2.getName(sibling) !== elemName;
           });
-        }, "only-of-type"),
-        "only-child": /* @__PURE__ */ __name(function(elem, _a) {
+        },
+        "only-child": function(elem, _a) {
           var adapter2 = _a.adapter, equals = _a.equals;
           return adapter2.getSiblings(elem).every(function(sibling) {
             return equals(elem, sibling) || !adapter2.isTag(sibling);
           });
-        }, "only-child")
+        }
       };
       function verifyPseudoArgs(func, name, subselect, argIndex) {
         if (subselect === null) {
@@ -4360,7 +4203,6 @@ var LNReaderPlugin = (() => {
           throw new Error("Pseudo-class :".concat(name, " doesn't have any arguments"));
         }
       }
-      __name(verifyPseudoArgs, "verifyPseudoArgs");
       exports2.verifyPseudoArgs = verifyPseudoArgs;
     }
   });
@@ -4429,7 +4271,6 @@ var LNReaderPlugin = (() => {
           return adapter2.isTag(elem) && next2(elem);
         };
       }
-      __name(ensureIsTag, "ensureIsTag");
       exports2.ensureIsTag = ensureIsTag;
       function getNextSiblings(elem, adapter2) {
         var siblings2 = adapter2.getSiblings(elem);
@@ -4440,7 +4281,6 @@ var LNReaderPlugin = (() => {
           return [];
         return siblings2.slice(elemIndex + 1).filter(adapter2.isTag);
       }
-      __name(getNextSiblings, "getNextSiblings");
       exports2.getNextSiblings = getNextSiblings;
       function copyOptions(options) {
         return {
@@ -4454,13 +4294,12 @@ var LNReaderPlugin = (() => {
           equals: options.equals
         };
       }
-      __name(copyOptions, "copyOptions");
-      var is3 = /* @__PURE__ */ __name(function(next2, token, options, context, compileToken) {
+      var is3 = function(next2, token, options, context, compileToken) {
         var func = compileToken(token, copyOptions(options), context);
         return func === boolbase_1.default.trueFunc ? next2 : func === boolbase_1.default.falseFunc ? boolbase_1.default.falseFunc : function(elem) {
           return func(elem) && next2(elem);
         };
-      }, "is");
+      };
       exports2.subselects = {
         is: is3,
         /**
@@ -4468,13 +4307,13 @@ var LNReaderPlugin = (() => {
          */
         matches: is3,
         where: is3,
-        not: /* @__PURE__ */ __name(function(next2, token, options, context, compileToken) {
+        not: function(next2, token, options, context, compileToken) {
           var func = compileToken(token, copyOptions(options), context);
           return func === boolbase_1.default.falseFunc ? next2 : func === boolbase_1.default.trueFunc ? boolbase_1.default.falseFunc : function(elem) {
             return !func(elem) && next2(elem);
           };
-        }, "not"),
-        has: /* @__PURE__ */ __name(function(next2, subselect, options, _context, compileToken) {
+        },
+        has: function(next2, subselect, options, _context, compileToken) {
           var adapter2 = options.adapter;
           var opts = copyOptions(options);
           opts.relativeSelector = true;
@@ -4502,7 +4341,7 @@ var LNReaderPlugin = (() => {
           return function(elem) {
             return next2(elem) && adapter2.existsOne(hasElement, adapter2.getChildren(elem));
           };
-        }, "has")
+        }
       };
     }
   });
@@ -4515,17 +4354,17 @@ var LNReaderPlugin = (() => {
       exports2.compilePseudoSelector = exports2.aliases = exports2.pseudos = exports2.filters = void 0;
       var css_what_1 = (init_es(), __toCommonJS(es_exports));
       var filters_js_1 = require_filters();
-      Object.defineProperty(exports2, "filters", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "filters", { enumerable: true, get: function() {
         return filters_js_1.filters;
-      }, "get") });
+      } });
       var pseudos_js_1 = require_pseudos();
-      Object.defineProperty(exports2, "pseudos", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "pseudos", { enumerable: true, get: function() {
         return pseudos_js_1.pseudos;
-      }, "get") });
+      } });
       var aliases_js_1 = require_aliases();
-      Object.defineProperty(exports2, "aliases", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "aliases", { enumerable: true, get: function() {
         return aliases_js_1.aliases;
-      }, "get") });
+      } });
       var subselects_js_1 = require_subselects();
       function compilePseudoSelector(next2, selector, options, context, compileToken) {
         var _a;
@@ -4563,7 +4402,6 @@ var LNReaderPlugin = (() => {
         }
         throw new Error("Unknown pseudo-class :".concat(name));
       }
-      __name(compilePseudoSelector, "compilePseudoSelector");
       exports2.compilePseudoSelector = compilePseudoSelector;
     }
   });
@@ -4584,7 +4422,6 @@ var LNReaderPlugin = (() => {
         }
         return null;
       }
-      __name(getElementParent, "getElementParent");
       function compileGeneralSelector(next2, selector, options, context, compileToken) {
         var adapter2 = options.adapter, equals = options.equals;
         switch (selector.type) {
@@ -4615,14 +4452,14 @@ var LNReaderPlugin = (() => {
             if (!options.xmlMode || options.lowerCaseTags) {
               name_1 = name_1.toLowerCase();
             }
-            return /* @__PURE__ */ __name(function tag(elem) {
+            return function tag(elem) {
               return adapter2.getName(elem) === name_1 && next2(elem);
-            }, "tag");
+            };
           }
           // Traversal
           case css_what_1.SelectorType.Descendant: {
             if (options.cacheResults === false || typeof WeakSet === "undefined") {
-              return /* @__PURE__ */ __name(function descendant(elem) {
+              return function descendant(elem) {
                 var current = elem;
                 while (current = getElementParent(current, adapter2)) {
                   if (next2(current)) {
@@ -4630,10 +4467,10 @@ var LNReaderPlugin = (() => {
                   }
                 }
                 return false;
-              }, "descendant");
+              };
             }
             var isFalseCache_1 = /* @__PURE__ */ new WeakSet();
-            return /* @__PURE__ */ __name(function cachedDescendant(elem) {
+            return function cachedDescendant(elem) {
               var current = elem;
               while (current = getElementParent(current, adapter2)) {
                 if (!isFalseCache_1.has(current)) {
@@ -4644,33 +4481,33 @@ var LNReaderPlugin = (() => {
                 }
               }
               return false;
-            }, "cachedDescendant");
+            };
           }
           case "_flexibleDescendant": {
-            return /* @__PURE__ */ __name(function flexibleDescendant(elem) {
+            return function flexibleDescendant(elem) {
               var current = elem;
               do {
                 if (next2(current))
                   return true;
               } while (current = getElementParent(current, adapter2));
               return false;
-            }, "flexibleDescendant");
+            };
           }
           case css_what_1.SelectorType.Parent: {
-            return /* @__PURE__ */ __name(function parent2(elem) {
+            return function parent2(elem) {
               return adapter2.getChildren(elem).some(function(elem2) {
                 return adapter2.isTag(elem2) && next2(elem2);
               });
-            }, "parent");
+            };
           }
           case css_what_1.SelectorType.Child: {
-            return /* @__PURE__ */ __name(function child(elem) {
+            return function child(elem) {
               var parent2 = adapter2.getParent(elem);
               return parent2 != null && adapter2.isTag(parent2) && next2(parent2);
-            }, "child");
+            };
           }
           case css_what_1.SelectorType.Sibling: {
-            return /* @__PURE__ */ __name(function sibling(elem) {
+            return function sibling(elem) {
               var siblings2 = adapter2.getSiblings(elem);
               for (var i2 = 0; i2 < siblings2.length; i2++) {
                 var currentSibling = siblings2[i2];
@@ -4681,16 +4518,16 @@ var LNReaderPlugin = (() => {
                 }
               }
               return false;
-            }, "sibling");
+            };
           }
           case css_what_1.SelectorType.Adjacent: {
             if (adapter2.prevElementSibling) {
-              return /* @__PURE__ */ __name(function adjacent(elem) {
+              return function adjacent(elem) {
                 var previous = adapter2.prevElementSibling(elem);
                 return previous != null && next2(previous);
-              }, "adjacent");
+              };
             }
-            return /* @__PURE__ */ __name(function adjacent(elem) {
+            return function adjacent(elem) {
               var siblings2 = adapter2.getSiblings(elem);
               var lastElement;
               for (var i2 = 0; i2 < siblings2.length; i2++) {
@@ -4702,7 +4539,7 @@ var LNReaderPlugin = (() => {
                 }
               }
               return !!lastElement && next2(lastElement);
-            }, "adjacent");
+            };
           }
           case css_what_1.SelectorType.Universal: {
             if (selector.namespace != null && selector.namespace !== "*") {
@@ -4712,7 +4549,6 @@ var LNReaderPlugin = (() => {
           }
         }
       }
-      __name(compileGeneralSelector, "compileGeneralSelector");
       exports2.compileGeneralSelector = compileGeneralSelector;
     }
   });
@@ -4725,9 +4561,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -4762,20 +4598,17 @@ var LNReaderPlugin = (() => {
         var next2 = compileUnsafe(selector, options, context);
         return (0, subselects_js_1.ensureIsTag)(next2, options.adapter);
       }
-      __name(compile, "compile");
       exports2.compile = compile;
       function compileUnsafe(selector, options, context) {
         var token = typeof selector === "string" ? (0, css_what_1.parse)(selector) : selector;
         return compileToken(token, options, context);
       }
-      __name(compileUnsafe, "compileUnsafe");
       exports2.compileUnsafe = compileUnsafe;
       function includesScopePseudo(t2) {
         return t2.type === css_what_1.SelectorType.Pseudo && (t2.name === "scope" || Array.isArray(t2.data) && t2.data.some(function(data2) {
           return data2.some(includesScopePseudo);
         }));
       }
-      __name(includesScopePseudo, "includesScopePseudo");
       var DESCENDANT_TOKEN = { type: css_what_1.SelectorType.Descendant };
       var FLEXIBLE_DESCENDANT_TOKEN = {
         type: "_flexibleDescendant"
@@ -4802,7 +4635,6 @@ var LNReaderPlugin = (() => {
           t2.unshift(SCOPE_TOKEN);
         }
       }
-      __name(absolutize, "absolutize");
       function compileToken(token, options, context) {
         var _a;
         token.forEach(sort_js_1.default);
@@ -4832,7 +4664,6 @@ var LNReaderPlugin = (() => {
         query.shouldTestNextSiblings = shouldTestNextSiblings;
         return query;
       }
-      __name(compileToken, "compileToken");
       exports2.compileToken = compileToken;
       function compileRules(rules, options, context) {
         var _a;
@@ -4840,7 +4671,6 @@ var LNReaderPlugin = (() => {
           return previous === boolbase_1.default.falseFunc ? boolbase_1.default.falseFunc : (0, general_js_1.compileGeneralSelector)(previous, rule, options, context, compileToken);
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
-      __name(compileRules, "compileRules");
       function reduceRules(a, b) {
         if (b === boolbase_1.default.falseFunc || a === boolbase_1.default.trueFunc) {
           return a;
@@ -4848,11 +4678,10 @@ var LNReaderPlugin = (() => {
         if (a === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
           return b;
         }
-        return /* @__PURE__ */ __name(function combine(elem) {
+        return function combine(elem) {
           return a(elem) || b(elem);
-        }, "combine");
+        };
       }
-      __name(reduceRules, "reduceRules");
     }
   });
 
@@ -4864,9 +4693,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -4896,9 +4725,9 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a, b) {
+      var defaultEquals = function(a, b) {
         return a === b;
-      }, "defaultEquals");
+      };
       var defaultOptions = {
         adapter: DomUtils,
         equals: defaultEquals
@@ -4910,28 +4739,25 @@ var LNReaderPlugin = (() => {
         (_b = opts.equals) !== null && _b !== void 0 ? _b : opts.equals = (_d = (_c = opts.adapter) === null || _c === void 0 ? void 0 : _c.equals) !== null && _d !== void 0 ? _d : defaultEquals;
         return opts;
       }
-      __name(convertOptionFormats, "convertOptionFormats");
       function wrapCompile(func) {
-        return /* @__PURE__ */ __name(function addAdapter(selector, options, context) {
+        return function addAdapter(selector, options, context) {
           var opts = convertOptionFormats(options);
           return func(selector, opts, context);
-        }, "addAdapter");
+        };
       }
-      __name(wrapCompile, "wrapCompile");
       exports2.compile = wrapCompile(compile_js_1.compile);
       exports2._compileUnsafe = wrapCompile(compile_js_1.compileUnsafe);
       exports2._compileToken = wrapCompile(compile_js_1.compileToken);
       function getSelectorFunc(searchFunc) {
-        return /* @__PURE__ */ __name(function select3(query, elements, options) {
+        return function select3(query, elements, options) {
           var opts = convertOptionFormats(options);
           if (typeof query !== "function") {
             query = (0, compile_js_1.compileUnsafe)(query, opts, elements);
           }
           var filteredElements = prepareContext(elements, opts.adapter, query.shouldTestNextSiblings);
           return searchFunc(query, filteredElements, opts);
-        }, "select");
+        };
       }
-      __name(getSelectorFunc, "getSelectorFunc");
       function prepareContext(elems, adapter2, shouldTestNextSiblings) {
         if (shouldTestNextSiblings === void 0) {
           shouldTestNextSiblings = false;
@@ -4941,7 +4767,6 @@ var LNReaderPlugin = (() => {
         }
         return Array.isArray(elems) ? adapter2.removeSubsets(elems) : adapter2.getChildren(elems);
       }
-      __name(prepareContext, "prepareContext");
       exports2.prepareContext = prepareContext;
       function appendNextSiblings(elem, adapter2) {
         var elems = Array.isArray(elem) ? elem.slice(0) : [elem];
@@ -4952,7 +4777,6 @@ var LNReaderPlugin = (() => {
         }
         return elems;
       }
-      __name(appendNextSiblings, "appendNextSiblings");
       exports2.selectAll = getSelectorFunc(function(query, elems, options) {
         return query === boolbase_1.default.falseFunc || !elems || elems.length === 0 ? [] : options.adapter.findAll(query, elems);
       });
@@ -4963,19 +4787,18 @@ var LNReaderPlugin = (() => {
         var opts = convertOptionFormats(options);
         return (typeof query === "function" ? query : (0, compile_js_1.compile)(query, opts))(elem);
       }
-      __name(is3, "is");
       exports2.is = is3;
       exports2.default = exports2.selectAll;
       var index_js_1 = require_pseudo_selectors();
-      Object.defineProperty(exports2, "filters", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "filters", { enumerable: true, get: function() {
         return index_js_1.filters;
-      }, "get") });
-      Object.defineProperty(exports2, "pseudos", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "pseudos", { enumerable: true, get: function() {
         return index_js_1.pseudos;
-      }, "get") });
-      Object.defineProperty(exports2, "aliases", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "aliases", { enumerable: true, get: function() {
         return index_js_1.aliases;
-      }, "get") });
+      } });
     }
   });
 
@@ -5007,7 +4830,6 @@ var LNReaderPlugin = (() => {
         }
         return false;
       }
-      __name(isFilter, "isFilter");
       exports2.isFilter = isFilter;
       function getLimit(filter3, data2, partLimit) {
         var num = data2 != null ? parseInt(data2, 10) : NaN;
@@ -5030,7 +4852,6 @@ var LNReaderPlugin = (() => {
             return Infinity;
         }
       }
-      __name(getLimit, "getLimit");
       exports2.getLimit = getLimit;
     }
   });
@@ -5047,7 +4868,6 @@ var LNReaderPlugin = (() => {
           node = node.parent;
         return node;
       }
-      __name(getDocumentRoot, "getDocumentRoot");
       exports2.getDocumentRoot = getDocumentRoot;
       function groupSelectors(selectors) {
         var filteredSelectors = [];
@@ -5062,7 +4882,6 @@ var LNReaderPlugin = (() => {
         }
         return [plainSelectors, filteredSelectors];
       }
-      __name(groupSelectors, "groupSelectors");
       exports2.groupSelectors = groupSelectors;
     }
   });
@@ -5086,9 +4905,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -5127,15 +4946,15 @@ var LNReaderPlugin = (() => {
       var helpers_js_1 = require_helpers2();
       var positionals_js_1 = require_positionals();
       var css_select_2 = require_lib7();
-      Object.defineProperty(exports2, "filters", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "filters", { enumerable: true, get: function() {
         return css_select_2.filters;
-      }, "get") });
-      Object.defineProperty(exports2, "pseudos", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "pseudos", { enumerable: true, get: function() {
         return css_select_2.pseudos;
-      }, "get") });
-      Object.defineProperty(exports2, "aliases", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "aliases", { enumerable: true, get: function() {
         return css_select_2.aliases;
-      }, "get") });
+      } });
       var UNIVERSAL_SELECTOR = {
         type: css_what_1.SelectorType.Universal,
         namespace: null
@@ -5151,7 +4970,6 @@ var LNReaderPlugin = (() => {
         }
         return some2([element], selector, options);
       }
-      __name(is3, "is");
       exports2.is = is3;
       function some2(elements, selector, options) {
         if (options === void 0) {
@@ -5164,7 +4982,6 @@ var LNReaderPlugin = (() => {
           return filterBySelector(sel, elements, options).length > 0;
         });
       }
-      __name(some2, "some");
       exports2.some = some2;
       function filterByPosition(filter4, elems, data2, options) {
         var num = typeof data2 === "string" ? parseInt(data2, 10) : NaN;
@@ -5195,14 +5012,12 @@ var LNReaderPlugin = (() => {
           }
         }
       }
-      __name(filterByPosition, "filterByPosition");
       function filter3(selector, elements, options) {
         if (options === void 0) {
           options = {};
         }
         return filterParsed((0, css_what_1.parse)(selector), elements, options);
       }
-      __name(filter3, "filter");
       exports2.filter = filter3;
       function filterParsed(selector, elements, options) {
         if (elements.length === 0)
@@ -5246,7 +5061,6 @@ var LNReaderPlugin = (() => {
           })
         ) : [];
       }
-      __name(filterParsed, "filterParsed");
       function filterBySelector(selector, elements, options) {
         var _a;
         if (selector.some(css_what_1.isTraversal)) {
@@ -5257,7 +5071,6 @@ var LNReaderPlugin = (() => {
         }
         return findFilterElements(elements, selector, options, false, elements.length);
       }
-      __name(filterBySelector, "filterBySelector");
       function select3(selector, root2, options, limit) {
         if (options === void 0) {
           options = {};
@@ -5285,7 +5098,6 @@ var LNReaderPlugin = (() => {
           return __spreadArray(__spreadArray([], a, true), b, true);
         }));
       }
-      __name(select3, "select");
       exports2.select = select3;
       function findFilterElements(root2, selector, options, queryForSelector, totalLimit) {
         var filterIndex = selector.findIndex(positionals_js_1.isFilter);
@@ -5318,9 +5130,9 @@ var LNReaderPlugin = (() => {
              * Add a custom root func, to make sure traversals don't match elements
              * that aren't a part of the considered tree.
              */
-            rootFunc: /* @__PURE__ */ __name(function(el) {
+            rootFunc: function(el) {
               return result.includes(el);
-            }, "rootFunc")
+            }
           });
         } else if (options.rootFunc && options.rootFunc !== boolbase.trueFunc) {
           options = __assign(__assign({}, options), { rootFunc: boolbase.trueFunc });
@@ -5333,12 +5145,10 @@ var LNReaderPlugin = (() => {
           filterElements(result, [remainingSelector], options)
         );
       }
-      __name(findFilterElements, "findFilterElements");
       function findElements(root2, sel, options, limit) {
         var query = (0, css_select_1._compileToken)(sel, options, root2);
         return find2(root2, query, limit);
       }
-      __name(findElements, "findElements");
       function find2(root2, query, limit) {
         if (limit === void 0) {
           limit = Infinity;
@@ -5348,7 +5158,6 @@ var LNReaderPlugin = (() => {
           return DomUtils.isTag(node) && query(node);
         }, elems, true, limit);
       }
-      __name(find2, "find");
       function filterElements(elements, sel, options) {
         var els = (Array.isArray(elements) ? elements : [elements]).filter(DomUtils.isTag);
         if (els.length === 0)
@@ -5356,7 +5165,6 @@ var LNReaderPlugin = (() => {
         var query = (0, css_select_1._compileToken)(sel, options);
         return query === boolbase.trueFunc ? els : els.filter(query);
       }
-      __name(filterElements, "filterElements");
     }
   });
 
@@ -5612,9 +5420,6 @@ var LNReaderPlugin = (() => {
       init_static();
       import_domutils3 = __toESM(require_lib5(), 1);
       reSiblingSelector = /^\s*[+~]/;
-      __name(find, "find");
-      __name(_findBySelector, "_findBySelector");
-      __name(_getMatcher, "_getMatcher");
       _matcher = _getMatcher((fn, elems) => {
         let ret = [];
         for (let i2 = 0; i2 < elems.length; i2++) {
@@ -5634,8 +5439,6 @@ var LNReaderPlugin = (() => {
         }
         return ret;
       });
-      __name(_matchUntil, "_matchUntil");
-      __name(_removeDuplicates, "_removeDuplicates");
       parent = _singleMatcher(({ parent: parent2 }) => parent2 && !(0, import_domhandler2.isDocument)(parent2) ? parent2 : null, _removeDuplicates);
       parents = _matcher((elem) => {
         const matched = [];
@@ -5646,7 +5449,6 @@ var LNReaderPlugin = (() => {
         return matched;
       }, import_domutils3.uniqueSort, (elems) => elems.reverse());
       parentsUntil = _matchUntil(({ parent: parent2 }) => parent2 && !(0, import_domhandler2.isDocument)(parent2) ? parent2 : null, import_domutils3.uniqueSort, (elems) => elems.reverse());
-      __name(closest, "closest");
       next = _singleMatcher((elem) => (0, import_domutils3.nextElementSibling)(elem));
       nextAll = _matcher((elem) => {
         const matched = [];
@@ -5671,31 +5473,12 @@ var LNReaderPlugin = (() => {
       prevUntil = _matchUntil((el) => (0, import_domutils3.prevElementSibling)(el), _removeDuplicates);
       siblings = _matcher((elem) => (0, import_domutils3.getSiblings)(elem).filter((el) => (0, import_domhandler2.isTag)(el) && el !== elem), import_domutils3.uniqueSort);
       children = _matcher((elem) => (0, import_domutils3.getChildren)(elem).filter(import_domhandler2.isTag), _removeDuplicates);
-      __name(contents, "contents");
-      __name(each, "each");
-      __name(map, "map");
-      __name(getFilterFn, "getFilterFn");
-      __name(filter, "filter");
-      __name(filterArray, "filterArray");
-      __name(is, "is");
-      __name(not, "not");
-      __name(has, "has");
-      __name(first, "first");
-      __name(last, "last");
-      __name(eq, "eq");
-      __name(get, "get");
-      __name(toArray, "toArray");
-      __name(index, "index");
-      __name(slice, "slice");
-      __name(end, "end");
-      __name(add, "add");
-      __name(addBack, "addBack");
     }
   });
 
   // node_modules/cheerio/dist/browser/parse.js
   function getParse(parser) {
-    return /* @__PURE__ */ __name(function parse5(content, options, isDocument3, context) {
+    return function parse5(content, options, isDocument3, context) {
       if (typeof Buffer !== "undefined" && Buffer.isBuffer(content)) {
         content = content.toString();
       }
@@ -5709,7 +5492,7 @@ var LNReaderPlugin = (() => {
       const root2 = new import_domhandler3.Document([]);
       update(doc, root2);
       return root2;
-    }, "parse");
+    };
   }
   function update(newChilds, parent2) {
     const arr = Array.isArray(newChilds) ? newChilds : [newChilds];
@@ -5738,8 +5521,6 @@ var LNReaderPlugin = (() => {
     "node_modules/cheerio/dist/browser/parse.js"() {
       import_domutils4 = __toESM(require_lib5(), 1);
       import_domhandler3 = __toESM(require_lib2(), 1);
-      __name(getParse, "getParse");
-      __name(update, "update");
     }
   });
 
@@ -6072,18 +5853,12 @@ var LNReaderPlugin = (() => {
       init_static();
       init_utils();
       import_domutils5 = __toESM(require_lib5(), 1);
-      __name(_makeDomArray, "_makeDomArray");
-      __name(_insert, "_insert");
-      __name(uniqueSplice, "uniqueSplice");
-      __name(appendTo, "appendTo");
-      __name(prependTo, "prependTo");
       append = _insert((dom, children2, parent2) => {
         uniqueSplice(children2, children2.length, 0, dom, parent2);
       });
       prepend = _insert((dom, children2, parent2) => {
         uniqueSplice(children2, 0, 0, dom, parent2);
       });
-      __name(_wrap, "_wrap");
       wrap = _wrap((el, elInsertLocation, wrapperDom) => {
         const { parent: parent2 } = el;
         if (!parent2)
@@ -6099,19 +5874,6 @@ var LNReaderPlugin = (() => {
         update(el.children, elInsertLocation);
         update(wrapperDom, el);
       });
-      __name(unwrap, "unwrap");
-      __name(wrapAll, "wrapAll");
-      __name(after, "after");
-      __name(insertAfter, "insertAfter");
-      __name(before, "before");
-      __name(insertBefore, "insertBefore");
-      __name(remove, "remove");
-      __name(replaceWith, "replaceWith");
-      __name(empty, "empty");
-      __name(html2, "html");
-      __name(toString, "toString");
-      __name(text2, "text");
-      __name(clone, "clone");
     }
   });
 
@@ -6198,11 +5960,6 @@ var LNReaderPlugin = (() => {
     "node_modules/cheerio/dist/browser/api/css.js"() {
       init_utils();
       import_domhandler5 = __toESM(require_lib2(), 1);
-      __name(css, "css");
-      __name(setCss, "setCss");
-      __name(getCss, "getCss");
-      __name(stringify2, "stringify");
-      __name(parse2, "parse");
     }
   });
 
@@ -6251,8 +6008,6 @@ var LNReaderPlugin = (() => {
       submittableSelector = "input,select,textarea,keygen";
       r20 = /%20/g;
       rCRLF = /\r?\n/g;
-      __name(serialize, "serialize");
-      __name(serializeArray, "serializeArray");
     }
   });
 
@@ -6289,13 +6044,11 @@ var LNReaderPlugin = (() => {
   }
   var init_extract = __esm({
     "node_modules/cheerio/dist/browser/api/extract.js"() {
-      __name(getExtractDescr, "getExtractDescr");
-      __name(extract2, "extract");
     }
   });
 
   // node_modules/cheerio/dist/browser/cheerio.js
-  var _Cheerio, Cheerio;
+  var Cheerio;
   var init_cheerio = __esm({
     "node_modules/cheerio/dist/browser/cheerio.js"() {
       init_attributes();
@@ -6304,7 +6057,7 @@ var LNReaderPlugin = (() => {
       init_css();
       init_forms();
       init_extract();
-      _Cheerio = class _Cheerio {
+      Cheerio = class {
         /**
          * Instance of cheerio. Methods are specified in the modules. Usage of this
          * constructor is not recommended. Please use `$.load` instead.
@@ -6326,8 +6079,6 @@ var LNReaderPlugin = (() => {
           }
         }
       };
-      __name(_Cheerio, "Cheerio");
-      Cheerio = _Cheerio;
       Cheerio.prototype.cheerio = "[cheerio object]";
       Cheerio.prototype.splice = Array.prototype.splice;
       Cheerio.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
@@ -6337,13 +6088,13 @@ var LNReaderPlugin = (() => {
 
   // node_modules/cheerio/dist/browser/load.js
   function getLoad(parse5, render2) {
-    return /* @__PURE__ */ __name(function load2(content, options, isDocument3 = true) {
+    return function load2(content, options, isDocument3 = true) {
       if (content == null) {
         throw new Error("cheerio.load() expects a string");
       }
       const internalOpts = flattenOptions(options);
       const initialRoot = parse5(content, internalOpts, isDocument3, null);
-      const _LoadedCheerio = class _LoadedCheerio extends Cheerio {
+      class LoadedCheerio extends Cheerio {
         _make(selector, context) {
           const cheerio = initialize(selector, context);
           cheerio.prevObject = this;
@@ -6355,9 +6106,7 @@ var LNReaderPlugin = (() => {
         _render(dom) {
           return render2(dom, this.options);
         }
-      };
-      __name(_LoadedCheerio, "LoadedCheerio");
-      let LoadedCheerio = _LoadedCheerio;
+      }
       function initialize(selector, context, root2 = initialRoot, opts) {
         if (selector && isCheerio(selector))
           return selector;
@@ -6406,7 +6155,6 @@ var LNReaderPlugin = (() => {
           return instance;
         return searchContext.find(search);
       }
-      __name(initialize, "initialize");
       Object.assign(initialize, static_exports, {
         load: load2,
         // `_root` and `_options` are used in static methods.
@@ -6418,7 +6166,7 @@ var LNReaderPlugin = (() => {
         prototype: LoadedCheerio.prototype
       });
       return initialize;
-    }, "load");
+    };
   }
   function isNode(obj) {
     return !!obj.name || obj.type === "root" || obj.type === "text" || obj.type === "comment";
@@ -6429,8 +6177,6 @@ var LNReaderPlugin = (() => {
       init_static();
       init_cheerio();
       init_utils();
-      __name(getLoad, "getLoad");
-      __name(isNode, "isNode");
     }
   });
 
@@ -6526,11 +6272,6 @@ var LNReaderPlugin = (() => {
         PUBLIC: "public",
         SYSTEM: "system"
       };
-      __name(isSurrogate, "isSurrogate");
-      __name(isSurrogatePair, "isSurrogatePair");
-      __name(getSurrogatePairCodePoint, "getSurrogatePairCodePoint");
-      __name(isControlCodePoint, "isControlCodePoint");
-      __name(isUndefinedCodePoint, "isUndefinedCodePoint");
     }
   });
 
@@ -6604,13 +6345,13 @@ var LNReaderPlugin = (() => {
   });
 
   // node_modules/parse5/dist/tokenizer/preprocessor.js
-  var DEFAULT_BUFFER_WATERLINE, _Preprocessor, Preprocessor;
+  var DEFAULT_BUFFER_WATERLINE, Preprocessor;
   var init_preprocessor = __esm({
     "node_modules/parse5/dist/tokenizer/preprocessor.js"() {
       init_unicode();
       init_error_codes();
       DEFAULT_BUFFER_WATERLINE = 1 << 16;
-      _Preprocessor = class _Preprocessor {
+      Preprocessor = class {
         constructor(handler) {
           this.handler = handler;
           this.html = "";
@@ -6776,12 +6517,15 @@ var LNReaderPlugin = (() => {
           this.isEol = false;
         }
       };
-      __name(_Preprocessor, "Preprocessor");
-      Preprocessor = _Preprocessor;
     }
   });
 
   // node_modules/parse5/dist/common/token.js
+  var token_exports = {};
+  __export(token_exports, {
+    TokenType: () => TokenType,
+    getTokenAttr: () => getTokenAttr
+  });
   function getTokenAttr(token, attrName) {
     for (let i2 = token.attrs.length - 1; i2 >= 0; i2--) {
       if (token.attrs[i2].name === attrName) {
@@ -6804,7 +6548,6 @@ var LNReaderPlugin = (() => {
         TokenType2[TokenType2["EOF"] = 7] = "EOF";
         TokenType2[TokenType2["HIBERNATION"] = 8] = "HIBERNATION";
       })(TokenType || (TokenType = {}));
-      __name(getTokenAttr, "getTokenAttr");
     }
   });
 
@@ -7230,7 +6973,6 @@ var LNReaderPlugin = (() => {
         [TAG_NAMES.WBR, TAG_ID.WBR],
         [TAG_NAMES.XMP, TAG_ID.XMP]
       ]);
-      __name(getTagID, "getTagID");
       $ = TAG_ID;
       SPECIAL_ELEMENTS = {
         [NS.HTML]: /* @__PURE__ */ new Set([
@@ -7332,7 +7074,6 @@ var LNReaderPlugin = (() => {
         TAG_NAMES.NOFRAMES,
         TAG_NAMES.PLAINTEXT
       ]);
-      __name(hasUnescapedText, "hasUnescapedText");
     }
   });
 
@@ -7375,7 +7116,7 @@ var LNReaderPlugin = (() => {
     }
     return null;
   }
-  var import_decode, State, TokenizerMode, _Tokenizer, Tokenizer;
+  var import_decode, State, TokenizerMode, Tokenizer;
   var init_tokenizer = __esm({
     "node_modules/parse5/dist/tokenizer/index.js"() {
       init_preprocessor();
@@ -7467,16 +7208,7 @@ var LNReaderPlugin = (() => {
         PLAINTEXT: State.PLAINTEXT,
         CDATA_SECTION: State.CDATA_SECTION
       };
-      __name(isAsciiDigit, "isAsciiDigit");
-      __name(isAsciiUpper, "isAsciiUpper");
-      __name(isAsciiLower, "isAsciiLower");
-      __name(isAsciiLetter, "isAsciiLetter");
-      __name(isAsciiAlphaNumeric, "isAsciiAlphaNumeric");
-      __name(toAsciiLower, "toAsciiLower");
-      __name(isWhitespace2, "isWhitespace");
-      __name(isScriptDataDoubleEscapeSequenceEnd, "isScriptDataDoubleEscapeSequenceEnd");
-      __name(getErrorForNumericCharacterReference, "getErrorForNumericCharacterReference");
-      _Tokenizer = class _Tokenizer {
+      Tokenizer = class {
         constructor(options, handler) {
           this.options = options;
           this.handler = handler;
@@ -7498,17 +7230,17 @@ var LNReaderPlugin = (() => {
             this.preprocessor.pos = this.entityStartPos + consumed - 1;
             this._flushCodePointConsumedAsCharacterReference(cp);
           }, handler.onParseError ? {
-            missingSemicolonAfterCharacterReference: /* @__PURE__ */ __name(() => {
+            missingSemicolonAfterCharacterReference: () => {
               this._err(ERR.missingSemicolonAfterCharacterReference, 1);
-            }, "missingSemicolonAfterCharacterReference"),
-            absenceOfDigitsInNumericCharacterReference: /* @__PURE__ */ __name((consumed) => {
+            },
+            absenceOfDigitsInNumericCharacterReference: (consumed) => {
               this._err(ERR.absenceOfDigitsInNumericCharacterReference, this.entityStartPos - this.preprocessor.pos + consumed);
-            }, "absenceOfDigitsInNumericCharacterReference"),
-            validateNumericCharacterReference: /* @__PURE__ */ __name((code) => {
+            },
+            validateNumericCharacterReference: (code) => {
               const error = getErrorForNumericCharacterReference(code);
               if (error)
                 this._err(error, 1);
-            }, "validateNumericCharacterReference")
+            }
           } : void 0);
         }
         //Errors
@@ -9968,13 +9700,11 @@ var LNReaderPlugin = (() => {
           }
         }
       };
-      __name(_Tokenizer, "Tokenizer");
-      Tokenizer = _Tokenizer;
     }
   });
 
   // node_modules/parse5/dist/parser/open-element-stack.js
-  var IMPLICIT_END_TAG_REQUIRED, IMPLICIT_END_TAG_REQUIRED_THOROUGHLY, SCOPING_ELEMENTS_HTML, SCOPING_ELEMENTS_HTML_LIST, SCOPING_ELEMENTS_HTML_BUTTON, SCOPING_ELEMENTS_MATHML, SCOPING_ELEMENTS_SVG, TABLE_ROW_CONTEXT, TABLE_BODY_CONTEXT, TABLE_CONTEXT, TABLE_CELLS, _OpenElementStack, OpenElementStack;
+  var IMPLICIT_END_TAG_REQUIRED, IMPLICIT_END_TAG_REQUIRED_THOROUGHLY, SCOPING_ELEMENTS_HTML, SCOPING_ELEMENTS_HTML_LIST, SCOPING_ELEMENTS_HTML_BUTTON, SCOPING_ELEMENTS_MATHML, SCOPING_ELEMENTS_SVG, TABLE_ROW_CONTEXT, TABLE_BODY_CONTEXT, TABLE_CONTEXT, TABLE_CELLS, OpenElementStack;
   var init_open_element_stack = __esm({
     "node_modules/parse5/dist/parser/open-element-stack.js"() {
       init_html();
@@ -10009,7 +9739,7 @@ var LNReaderPlugin = (() => {
       TABLE_BODY_CONTEXT = /* @__PURE__ */ new Set([TAG_ID.TBODY, TAG_ID.TFOOT, TAG_ID.THEAD, TAG_ID.TEMPLATE, TAG_ID.HTML]);
       TABLE_CONTEXT = /* @__PURE__ */ new Set([TAG_ID.TABLE, TAG_ID.TEMPLATE, TAG_ID.HTML]);
       TABLE_CELLS = /* @__PURE__ */ new Set([TAG_ID.TD, TAG_ID.TH]);
-      _OpenElementStack = class _OpenElementStack {
+      OpenElementStack = class {
         get currentTmplContentOrNode() {
           return this._isInTemplate() ? this.treeAdapter.getTemplateContent(this.current) : this.current;
         }
@@ -10291,13 +10021,11 @@ var LNReaderPlugin = (() => {
           }
         }
       };
-      __name(_OpenElementStack, "OpenElementStack");
-      OpenElementStack = _OpenElementStack;
     }
   });
 
   // node_modules/parse5/dist/parser/formatting-element-list.js
-  var NOAH_ARK_CAPACITY, EntryType, MARKER, _FormattingElementList, FormattingElementList;
+  var NOAH_ARK_CAPACITY, EntryType, MARKER, FormattingElementList;
   var init_formatting_element_list = __esm({
     "node_modules/parse5/dist/parser/formatting-element-list.js"() {
       NOAH_ARK_CAPACITY = 3;
@@ -10306,7 +10034,7 @@ var LNReaderPlugin = (() => {
         EntryType2[EntryType2["Element"] = 1] = "Element";
       })(EntryType || (EntryType = {}));
       MARKER = { type: EntryType.Marker };
-      _FormattingElementList = class _FormattingElementList {
+      FormattingElementList = class {
         constructor(treeAdapter) {
           this.treeAdapter = treeAdapter;
           this.entries = [];
@@ -10402,8 +10130,6 @@ var LNReaderPlugin = (() => {
           return this.entries.find((entry) => entry.type === EntryType.Element && entry.element === element);
         }
       };
-      __name(_FormattingElementList, "FormattingElementList");
-      FormattingElementList = _FormattingElementList;
     }
   });
 
@@ -10579,7 +10305,7 @@ var LNReaderPlugin = (() => {
           return node.sourceCodeLocation;
         },
         updateNodeSourceCodeLocation(node, endLocation) {
-          node.sourceCodeLocation = { ...node.sourceCodeLocation, ...endLocation };
+          node.sourceCodeLocation = __spreadValues(__spreadValues({}, node.sourceCodeLocation), endLocation);
         }
       };
     }
@@ -10697,13 +10423,20 @@ var LNReaderPlugin = (() => {
         "-//w3c//dtd html 4.01 frameset//",
         "-//w3c//dtd html 4.01 transitional//"
       ];
-      __name(hasPrefix, "hasPrefix");
-      __name(isConforming, "isConforming");
-      __name(getDocumentMode, "getDocumentMode");
     }
   });
 
   // node_modules/parse5/dist/common/foreign-content.js
+  var foreign_content_exports = {};
+  __export(foreign_content_exports, {
+    SVG_TAG_NAMES_ADJUSTMENT_MAP: () => SVG_TAG_NAMES_ADJUSTMENT_MAP,
+    adjustTokenMathMLAttrs: () => adjustTokenMathMLAttrs,
+    adjustTokenSVGAttrs: () => adjustTokenSVGAttrs,
+    adjustTokenSVGTagName: () => adjustTokenSVGTagName,
+    adjustTokenXMLAttrs: () => adjustTokenXMLAttrs,
+    causesExit: () => causesExit,
+    isIntegrationPoint: () => isIntegrationPoint
+  });
   function causesExit(startTagToken) {
     const tn = startTagToken.tagID;
     const isFontWithAttrs = tn === TAG_ID.FONT && startTagToken.attrs.some(({ name }) => name === ATTRS.COLOR || name === ATTRS.SIZE || name === ATTRS.FACE);
@@ -10926,14 +10659,6 @@ var LNReaderPlugin = (() => {
         TAG_ID.UL,
         TAG_ID.VAR
       ]);
-      __name(causesExit, "causesExit");
-      __name(adjustTokenMathMLAttrs, "adjustTokenMathMLAttrs");
-      __name(adjustTokenSVGAttrs, "adjustTokenSVGAttrs");
-      __name(adjustTokenXMLAttrs, "adjustTokenXMLAttrs");
-      __name(adjustTokenSVGTagName, "adjustTokenSVGTagName");
-      __name(isMathMLTextIntegrationPoint, "isMathMLTextIntegrationPoint");
-      __name(isHtmlIntegrationPoint, "isHtmlIntegrationPoint");
-      __name(isIntegrationPoint, "isIntegrationPoint");
     }
   });
 
@@ -12857,7 +12582,7 @@ var LNReaderPlugin = (() => {
       }
     }
   }
-  var HIDDEN_INPUT_TYPE, AA_OUTER_LOOP_ITER, AA_INNER_LOOP_ITER, InsertionMode, BASE_LOC, TABLE_STRUCTURE_TAGS, defaultParserOptions, _Parser, Parser, TABLE_VOID_ELEMENTS;
+  var HIDDEN_INPUT_TYPE, AA_OUTER_LOOP_ITER, AA_INNER_LOOP_ITER, InsertionMode, BASE_LOC, TABLE_STRUCTURE_TAGS, defaultParserOptions, Parser, TABLE_VOID_ELEMENTS;
   var init_parser = __esm({
     "node_modules/parse5/dist/parser/index.js"() {
       init_tokenizer();
@@ -12913,7 +12638,7 @@ var LNReaderPlugin = (() => {
         treeAdapter: defaultTreeAdapter,
         onParseError: null
       };
-      _Parser = class _Parser {
+      Parser = class {
         constructor(options, document, fragmentContext = null, scriptHandler = null) {
           this.fragmentContext = fragmentContext;
           this.scriptHandler = scriptHandler;
@@ -12930,10 +12655,7 @@ var LNReaderPlugin = (() => {
           this.framesetOk = true;
           this.skipNextNewLine = false;
           this.fosterParentingEnabled = false;
-          this.options = {
-            ...defaultParserOptions,
-            ...options
-          };
+          this.options = __spreadValues(__spreadValues({}, defaultParserOptions), options);
           this.treeAdapter = this.options.treeAdapter;
           this.onParseError = this.options.onParseError;
           if (this.onParseError) {
@@ -12953,10 +12675,7 @@ var LNReaderPlugin = (() => {
           return parser.document;
         }
         static getFragmentParser(fragmentContext, options) {
-          const opts = {
-            ...defaultParserOptions,
-            ...options
-          };
+          const opts = __spreadValues(__spreadValues({}, defaultParserOptions), options);
           fragmentContext !== null && fragmentContext !== void 0 ? fragmentContext : fragmentContext = opts.treeAdapter.createElement(TAG_NAMES.TEMPLATE, NS.HTML, []);
           const documentMock = opts.treeAdapter.createElement("documentmock", NS.HTML, []);
           const parser = new this(opts, documentMock, fragmentContext);
@@ -13101,10 +12820,9 @@ var LNReaderPlugin = (() => {
         /** @protected */
         _attachElementToTree(element, location) {
           if (this.options.sourceCodeLocationInfo) {
-            const loc = location && {
-              ...location,
+            const loc = location && __spreadProps(__spreadValues({}, location), {
               startTag: location
-            };
+            });
             this.treeAdapter.setNodeSourceCodeLocation(element, loc);
           }
           if (this._shouldFosterParentOnInsertion()) {
@@ -13205,7 +12923,7 @@ var LNReaderPlugin = (() => {
               // NOTE: For cases like <p> <p> </p> - First 'p' closes without a closing
               // tag and for cases like <td> <p> </td> - 'p' closes without a closing tag.
               closingToken.type === TokenType.END_TAG && tn === closingToken.tagName ? {
-                endTag: { ...ctLoc },
+                endTag: __spreadValues({}, ctLoc),
                 endLine: ctLoc.endLine,
                 endCol: ctLoc.endCol,
                 endOffset: ctLoc.endOffset
@@ -13972,137 +13690,7 @@ var LNReaderPlugin = (() => {
           }
         }
       };
-      __name(_Parser, "Parser");
-      Parser = _Parser;
-      __name(aaObtainFormattingElementEntry, "aaObtainFormattingElementEntry");
-      __name(aaObtainFurthestBlock, "aaObtainFurthestBlock");
-      __name(aaInnerLoop, "aaInnerLoop");
-      __name(aaRecreateElementFromEntry, "aaRecreateElementFromEntry");
-      __name(aaInsertLastNodeInCommonAncestor, "aaInsertLastNodeInCommonAncestor");
-      __name(aaReplaceFormattingElement, "aaReplaceFormattingElement");
-      __name(callAdoptionAgency, "callAdoptionAgency");
-      __name(appendComment, "appendComment");
-      __name(appendCommentToRootHtmlElement, "appendCommentToRootHtmlElement");
-      __name(appendCommentToDocument, "appendCommentToDocument");
-      __name(stopParsing, "stopParsing");
-      __name(doctypeInInitialMode, "doctypeInInitialMode");
-      __name(tokenInInitialMode, "tokenInInitialMode");
-      __name(startTagBeforeHtml, "startTagBeforeHtml");
-      __name(endTagBeforeHtml, "endTagBeforeHtml");
-      __name(tokenBeforeHtml, "tokenBeforeHtml");
-      __name(startTagBeforeHead, "startTagBeforeHead");
-      __name(endTagBeforeHead, "endTagBeforeHead");
-      __name(tokenBeforeHead, "tokenBeforeHead");
-      __name(startTagInHead, "startTagInHead");
-      __name(endTagInHead, "endTagInHead");
-      __name(templateEndTagInHead, "templateEndTagInHead");
-      __name(tokenInHead, "tokenInHead");
-      __name(startTagInHeadNoScript, "startTagInHeadNoScript");
-      __name(endTagInHeadNoScript, "endTagInHeadNoScript");
-      __name(tokenInHeadNoScript, "tokenInHeadNoScript");
-      __name(startTagAfterHead, "startTagAfterHead");
-      __name(endTagAfterHead, "endTagAfterHead");
-      __name(tokenAfterHead, "tokenAfterHead");
-      __name(modeInBody, "modeInBody");
-      __name(whitespaceCharacterInBody, "whitespaceCharacterInBody");
-      __name(characterInBody, "characterInBody");
-      __name(htmlStartTagInBody, "htmlStartTagInBody");
-      __name(bodyStartTagInBody, "bodyStartTagInBody");
-      __name(framesetStartTagInBody, "framesetStartTagInBody");
-      __name(addressStartTagInBody, "addressStartTagInBody");
-      __name(numberedHeaderStartTagInBody, "numberedHeaderStartTagInBody");
-      __name(preStartTagInBody, "preStartTagInBody");
-      __name(formStartTagInBody, "formStartTagInBody");
-      __name(listItemStartTagInBody, "listItemStartTagInBody");
-      __name(plaintextStartTagInBody, "plaintextStartTagInBody");
-      __name(buttonStartTagInBody, "buttonStartTagInBody");
-      __name(aStartTagInBody, "aStartTagInBody");
-      __name(bStartTagInBody, "bStartTagInBody");
-      __name(nobrStartTagInBody, "nobrStartTagInBody");
-      __name(appletStartTagInBody, "appletStartTagInBody");
-      __name(tableStartTagInBody, "tableStartTagInBody");
-      __name(areaStartTagInBody, "areaStartTagInBody");
-      __name(isHiddenInput, "isHiddenInput");
-      __name(inputStartTagInBody, "inputStartTagInBody");
-      __name(paramStartTagInBody, "paramStartTagInBody");
-      __name(hrStartTagInBody, "hrStartTagInBody");
-      __name(imageStartTagInBody, "imageStartTagInBody");
-      __name(textareaStartTagInBody, "textareaStartTagInBody");
-      __name(xmpStartTagInBody, "xmpStartTagInBody");
-      __name(iframeStartTagInBody, "iframeStartTagInBody");
-      __name(rawTextStartTagInBody, "rawTextStartTagInBody");
-      __name(selectStartTagInBody, "selectStartTagInBody");
-      __name(optgroupStartTagInBody, "optgroupStartTagInBody");
-      __name(rbStartTagInBody, "rbStartTagInBody");
-      __name(rtStartTagInBody, "rtStartTagInBody");
-      __name(mathStartTagInBody, "mathStartTagInBody");
-      __name(svgStartTagInBody, "svgStartTagInBody");
-      __name(genericStartTagInBody, "genericStartTagInBody");
-      __name(startTagInBody, "startTagInBody");
-      __name(bodyEndTagInBody, "bodyEndTagInBody");
-      __name(htmlEndTagInBody, "htmlEndTagInBody");
-      __name(addressEndTagInBody, "addressEndTagInBody");
-      __name(formEndTagInBody, "formEndTagInBody");
-      __name(pEndTagInBody, "pEndTagInBody");
-      __name(liEndTagInBody, "liEndTagInBody");
-      __name(ddEndTagInBody, "ddEndTagInBody");
-      __name(numberedHeaderEndTagInBody, "numberedHeaderEndTagInBody");
-      __name(appletEndTagInBody, "appletEndTagInBody");
-      __name(brEndTagInBody, "brEndTagInBody");
-      __name(genericEndTagInBody, "genericEndTagInBody");
-      __name(endTagInBody, "endTagInBody");
-      __name(eofInBody, "eofInBody");
-      __name(endTagInText, "endTagInText");
-      __name(eofInText, "eofInText");
-      __name(characterInTable, "characterInTable");
-      __name(captionStartTagInTable, "captionStartTagInTable");
-      __name(colgroupStartTagInTable, "colgroupStartTagInTable");
-      __name(colStartTagInTable, "colStartTagInTable");
-      __name(tbodyStartTagInTable, "tbodyStartTagInTable");
-      __name(tdStartTagInTable, "tdStartTagInTable");
-      __name(tableStartTagInTable, "tableStartTagInTable");
-      __name(inputStartTagInTable, "inputStartTagInTable");
-      __name(formStartTagInTable, "formStartTagInTable");
-      __name(startTagInTable, "startTagInTable");
-      __name(endTagInTable, "endTagInTable");
-      __name(tokenInTable, "tokenInTable");
-      __name(whitespaceCharacterInTableText, "whitespaceCharacterInTableText");
-      __name(characterInTableText, "characterInTableText");
-      __name(tokenInTableText, "tokenInTableText");
       TABLE_VOID_ELEMENTS = /* @__PURE__ */ new Set([TAG_ID.CAPTION, TAG_ID.COL, TAG_ID.COLGROUP, TAG_ID.TBODY, TAG_ID.TD, TAG_ID.TFOOT, TAG_ID.TH, TAG_ID.THEAD, TAG_ID.TR]);
-      __name(startTagInCaption, "startTagInCaption");
-      __name(endTagInCaption, "endTagInCaption");
-      __name(startTagInColumnGroup, "startTagInColumnGroup");
-      __name(endTagInColumnGroup, "endTagInColumnGroup");
-      __name(tokenInColumnGroup, "tokenInColumnGroup");
-      __name(startTagInTableBody, "startTagInTableBody");
-      __name(endTagInTableBody, "endTagInTableBody");
-      __name(startTagInRow, "startTagInRow");
-      __name(endTagInRow, "endTagInRow");
-      __name(startTagInCell, "startTagInCell");
-      __name(endTagInCell, "endTagInCell");
-      __name(startTagInSelect, "startTagInSelect");
-      __name(endTagInSelect, "endTagInSelect");
-      __name(startTagInSelectInTable, "startTagInSelectInTable");
-      __name(endTagInSelectInTable, "endTagInSelectInTable");
-      __name(startTagInTemplate, "startTagInTemplate");
-      __name(endTagInTemplate, "endTagInTemplate");
-      __name(eofInTemplate, "eofInTemplate");
-      __name(startTagAfterBody, "startTagAfterBody");
-      __name(endTagAfterBody, "endTagAfterBody");
-      __name(tokenAfterBody, "tokenAfterBody");
-      __name(startTagInFrameset, "startTagInFrameset");
-      __name(endTagInFrameset, "endTagInFrameset");
-      __name(startTagAfterFrameset, "startTagAfterFrameset");
-      __name(endTagAfterFrameset, "endTagAfterFrameset");
-      __name(startTagAfterAfterBody, "startTagAfterAfterBody");
-      __name(tokenAfterAfterBody, "tokenAfterAfterBody");
-      __name(startTagAfterAfterFrameset, "startTagAfterAfterFrameset");
-      __name(nullCharacterInForeignContent, "nullCharacterInForeignContent");
-      __name(characterInForeignContent, "characterInForeignContent");
-      __name(popUntilHtmlOrIntegrationPoint, "popUntilHtmlOrIntegrationPoint");
-      __name(startTagInForeignContent, "startTagInForeignContent");
-      __name(endTagInForeignContent, "endTagInForeignContent");
     }
   });
 
@@ -14111,14 +13699,14 @@ var LNReaderPlugin = (() => {
     return options.treeAdapter.isElementNode(node) && options.treeAdapter.getNamespaceURI(node) === NS.HTML && VOID_ELEMENTS.has(options.treeAdapter.getTagName(node));
   }
   function serialize2(node, options) {
-    const opts = { ...defaultOpts2, ...options };
+    const opts = __spreadValues(__spreadValues({}, defaultOpts2), options);
     if (isVoidElement(node, opts)) {
       return "";
     }
     return serializeChildNodes(node, opts);
   }
   function serializeOuter(node, options) {
-    const opts = { ...defaultOpts2, ...options };
+    const opts = __spreadValues(__spreadValues({}, defaultOpts2), options);
     return serializeNode(node, opts);
   }
   function serializeChildNodes(parentNode, options) {
@@ -14222,17 +13810,7 @@ var LNReaderPlugin = (() => {
         TAG_NAMES.TRACK,
         TAG_NAMES.WBR
       ]);
-      __name(isVoidElement, "isVoidElement");
       defaultOpts2 = { treeAdapter: defaultTreeAdapter, scriptingEnabled: true };
-      __name(serialize2, "serialize");
-      __name(serializeOuter, "serializeOuter");
-      __name(serializeChildNodes, "serializeChildNodes");
-      __name(serializeNode, "serializeNode");
-      __name(serializeElement, "serializeElement");
-      __name(serializeAttributes, "serializeAttributes");
-      __name(serializeTextNode, "serializeTextNode");
-      __name(serializeCommentNode, "serializeCommentNode");
-      __name(serializeDocumentTypeNode, "serializeDocumentTypeNode");
     }
   });
 
@@ -14261,8 +13839,6 @@ var LNReaderPlugin = (() => {
       init_html();
       init_token();
       init_tokenizer();
-      __name(parse3, "parse");
-      __name(parseFragment, "parseFragment");
     }
   });
 
@@ -14291,8 +13867,6 @@ var LNReaderPlugin = (() => {
     "node_modules/parse5-htmlparser2-tree-adapter/dist/index.js"() {
       init_dist();
       import_domhandler7 = __toESM(require_lib2(), 1);
-      __name(enquoteDoctypeId, "enquoteDoctypeId");
-      __name(serializeDoctypeContent, "serializeDoctypeContent");
       adapter = {
         // Re-exports from domhandler
         isCommentNode: import_domhandler7.isComment,
@@ -14474,10 +14048,7 @@ var LNReaderPlugin = (() => {
         updateNodeSourceCodeLocation(node, endLocation) {
           if (endLocation.endOffset != null)
             node.endIndex = endLocation.endOffset;
-          node.sourceCodeLocation = {
-            ...node.sourceCodeLocation,
-            ...endLocation
-          };
+          node.sourceCodeLocation = __spreadValues(__spreadValues({}, node.sourceCodeLocation), endLocation);
         }
       };
     }
@@ -14513,9 +14084,7 @@ var LNReaderPlugin = (() => {
       import_domhandler8 = __toESM(require_lib2(), 1);
       init_dist();
       init_dist2();
-      __name(parseWithParse5, "parseWithParse5");
       renderOpts = { treeAdapter: adapter };
-      __name(renderWithParse5, "renderWithParse5");
     }
   });
 
@@ -14588,15 +14157,12 @@ var LNReaderPlugin = (() => {
       function isWhitespace3(c) {
         return c === CharCodes.Space || c === CharCodes.NewLine || c === CharCodes.Tab || c === CharCodes.FormFeed || c === CharCodes.CarriageReturn;
       }
-      __name(isWhitespace3, "isWhitespace");
       function isEndOfTagSection(c) {
         return c === CharCodes.Slash || c === CharCodes.Gt || isWhitespace3(c);
       }
-      __name(isEndOfTagSection, "isEndOfTagSection");
       function isASCIIAlpha(c) {
         return c >= CharCodes.LowerA && c <= CharCodes.LowerZ || c >= CharCodes.UpperA && c <= CharCodes.UpperZ;
       }
-      __name(isASCIIAlpha, "isASCIIAlpha");
       var QuoteType;
       (function(QuoteType2) {
         QuoteType2[QuoteType2["NoValue"] = 0] = "NoValue";
@@ -14655,7 +14221,6 @@ var LNReaderPlugin = (() => {
               return _this.emitCodePoint(cp, consumed);
             });
           }
-          __name(Tokenizer3, "Tokenizer");
           Tokenizer3.prototype.reset = function() {
             this.state = State2.Text;
             this.buffer = "";
@@ -15205,9 +14770,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -15358,7 +14923,6 @@ var LNReaderPlugin = (() => {
             this.foreignContext = [!this.htmlMode];
             (_f = (_e = this.cbs).onparserinit) === null || _f === void 0 ? void 0 : _f.call(_e, this);
           }
-          __name(Parser3, "Parser");
           Parser3.prototype.ontext = function(start, endIndex) {
             var _a, _b;
             var data2 = this.getSlice(start, endIndex);
@@ -15641,9 +15205,9 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+          desc = { enumerable: true, get: function() {
             return m[k];
-          }, "get") };
+          } };
         }
         Object.defineProperty(o2, k2, desc);
       }) : (function(o2, m, k, k2) {
@@ -15671,28 +15235,26 @@ var LNReaderPlugin = (() => {
       exports2.DomUtils = exports2.parseFeed = exports2.getFeed = exports2.ElementType = exports2.QuoteType = exports2.Tokenizer = exports2.createDomStream = exports2.createDocumentStream = exports2.parseDOM = exports2.parseDocument = exports2.DefaultHandler = exports2.DomHandler = exports2.Parser = void 0;
       var Parser_js_1 = require_Parser();
       var Parser_js_2 = require_Parser();
-      Object.defineProperty(exports2, "Parser", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "Parser", { enumerable: true, get: function() {
         return Parser_js_2.Parser;
-      }, "get") });
+      } });
       var domhandler_1 = require_lib2();
       var domhandler_2 = require_lib2();
-      Object.defineProperty(exports2, "DomHandler", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "DomHandler", { enumerable: true, get: function() {
         return domhandler_2.DomHandler;
-      }, "get") });
-      Object.defineProperty(exports2, "DefaultHandler", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "DefaultHandler", { enumerable: true, get: function() {
         return domhandler_2.DomHandler;
-      }, "get") });
+      } });
       function parseDocument(data2, options) {
         var handler = new domhandler_1.DomHandler(void 0, options);
         new Parser_js_1.Parser(handler, options).end(data2);
         return handler.root;
       }
-      __name(parseDocument, "parseDocument");
       exports2.parseDocument = parseDocument;
       function parseDOM(data2, options) {
         return parseDocument(data2, options).children;
       }
-      __name(parseDOM, "parseDOM");
       exports2.parseDOM = parseDOM;
       function createDocumentStream(callback, options, elementCallback) {
         var handler = new domhandler_1.DomHandler(function(error) {
@@ -15700,27 +15262,25 @@ var LNReaderPlugin = (() => {
         }, options, elementCallback);
         return new Parser_js_1.Parser(handler, options);
       }
-      __name(createDocumentStream, "createDocumentStream");
       exports2.createDocumentStream = createDocumentStream;
       function createDomStream(callback, options, elementCallback) {
         var handler = new domhandler_1.DomHandler(callback, options, elementCallback);
         return new Parser_js_1.Parser(handler, options);
       }
-      __name(createDomStream, "createDomStream");
       exports2.createDomStream = createDomStream;
       var Tokenizer_js_1 = require_Tokenizer();
-      Object.defineProperty(exports2, "Tokenizer", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "Tokenizer", { enumerable: true, get: function() {
         return __importDefault(Tokenizer_js_1).default;
-      }, "get") });
-      Object.defineProperty(exports2, "QuoteType", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      } });
+      Object.defineProperty(exports2, "QuoteType", { enumerable: true, get: function() {
         return Tokenizer_js_1.QuoteType;
-      }, "get") });
+      } });
       exports2.ElementType = __importStar(require_lib());
       var domutils_1 = require_lib5();
       var domutils_2 = require_lib5();
-      Object.defineProperty(exports2, "getFeed", { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      Object.defineProperty(exports2, "getFeed", { enumerable: true, get: function() {
         return domutils_2.getFeed;
-      }, "get") });
+      } });
       var parseFeedDefaultOptions = { xmlMode: true };
       function parseFeed(feed, options) {
         if (options === void 0) {
@@ -15728,7 +15288,6 @@ var LNReaderPlugin = (() => {
         }
         return (0, domutils_1.getFeed)(parseDOM(feed, options));
       }
-      __name(parseFeed, "parseFeed");
       exports2.parseFeed = parseFeed;
       exports2.DomUtils = __importStar(require_lib5());
     }
@@ -15771,8 +15330,8 @@ var LNReaderPlugin = (() => {
         var params = new Array(arguments.length - 1), offset = 0, index2 = 2, pending = true;
         while (index2 < arguments.length)
           params[offset++] = arguments[index2++];
-        return new Promise(/* @__PURE__ */ __name(function executor(resolve, reject) {
-          params[offset] = /* @__PURE__ */ __name(function callback(err) {
+        return new Promise(function executor(resolve, reject) {
+          params[offset] = function callback(err) {
             if (pending) {
               pending = false;
               if (err)
@@ -15784,7 +15343,7 @@ var LNReaderPlugin = (() => {
                 resolve.apply(null, params2);
               }
             }
-          }, "callback");
+          };
           try {
             fn.apply(ctx || null, params);
           } catch (err) {
@@ -15793,9 +15352,8 @@ var LNReaderPlugin = (() => {
               reject(err);
             }
           }
-        }, "executor"));
+        });
       }
-      __name(asPromise, "asPromise");
     }
   });
 
@@ -15804,7 +15362,7 @@ var LNReaderPlugin = (() => {
     "node_modules/@protobufjs/base64/index.js"(exports2) {
       "use strict";
       var base64 = exports2;
-      base64.length = /* @__PURE__ */ __name(function length(string) {
+      base64.length = function length(string) {
         var p = string.length;
         if (!p)
           return 0;
@@ -15812,12 +15370,12 @@ var LNReaderPlugin = (() => {
         while (--p % 4 > 1 && string.charAt(p) === "=")
           ++n2;
         return Math.ceil(string.length * 3) / 4 - n2;
-      }, "length");
+      };
       var b64 = new Array(64);
       var s64 = new Array(123);
       for (i2 = 0; i2 < 64; )
         s64[b64[i2] = i2 < 26 ? i2 + 65 : i2 < 52 ? i2 + 71 : i2 < 62 ? i2 - 4 : i2 - 59 | 43] = i2++;
-      base64.encode = /* @__PURE__ */ __name(function encode(buffer, start, end2) {
+      base64.encode = function encode(buffer, start, end2) {
         var parts = null, chunk = [];
         var i3 = 0, j = 0, t2;
         while (start < end2) {
@@ -15856,9 +15414,9 @@ var LNReaderPlugin = (() => {
           return parts.join("");
         }
         return String.fromCharCode.apply(String, chunk.slice(0, i3));
-      }, "encode");
+      };
       var invalidEncoding = "invalid encoding";
-      base64.decode = /* @__PURE__ */ __name(function decode(string, buffer, offset) {
+      base64.decode = function decode(string, buffer, offset) {
         var start = offset;
         var j = 0, t2;
         for (var i3 = 0; i3 < string.length; ) {
@@ -15891,10 +15449,10 @@ var LNReaderPlugin = (() => {
         if (j === 1)
           throw Error(invalidEncoding);
         return offset - start;
-      }, "decode");
-      base64.test = /* @__PURE__ */ __name(function test(string) {
+      };
+      base64.test = function test(string) {
         return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(string);
-      }, "test");
+      };
       var i2;
     }
   });
@@ -15907,15 +15465,14 @@ var LNReaderPlugin = (() => {
       function EventEmitter() {
         this._listeners = {};
       }
-      __name(EventEmitter, "EventEmitter");
-      EventEmitter.prototype.on = /* @__PURE__ */ __name(function on(evt, fn, ctx) {
+      EventEmitter.prototype.on = function on(evt, fn, ctx) {
         (this._listeners[evt] || (this._listeners[evt] = [])).push({
           fn,
           ctx: ctx || this
         });
         return this;
-      }, "on");
-      EventEmitter.prototype.off = /* @__PURE__ */ __name(function off(evt, fn) {
+      };
+      EventEmitter.prototype.off = function off(evt, fn) {
         if (evt === void 0)
           this._listeners = {};
         else {
@@ -15931,8 +15488,8 @@ var LNReaderPlugin = (() => {
           }
         }
         return this;
-      }, "off");
-      EventEmitter.prototype.emit = /* @__PURE__ */ __name(function emit(evt) {
+      };
+      EventEmitter.prototype.emit = function emit(evt) {
         var listeners = this._listeners[evt];
         if (listeners) {
           var args = [], i2 = 1;
@@ -15942,7 +15499,7 @@ var LNReaderPlugin = (() => {
             listeners[i2].fn.apply(listeners[i2++].ctx, args);
         }
         return this;
-      }, "emit");
+      };
     }
   });
 
@@ -15961,7 +15518,6 @@ var LNReaderPlugin = (() => {
             buf[pos + 2] = f8b[2];
             buf[pos + 3] = f8b[3];
           }
-          __name(writeFloat_f32_cpy, "writeFloat_f32_cpy");
           function writeFloat_f32_rev(val2, buf, pos) {
             f32[0] = val2;
             buf[pos] = f8b[3];
@@ -15969,7 +15525,6 @@ var LNReaderPlugin = (() => {
             buf[pos + 2] = f8b[1];
             buf[pos + 3] = f8b[0];
           }
-          __name(writeFloat_f32_rev, "writeFloat_f32_rev");
           exports3.writeFloatLE = le ? writeFloat_f32_cpy : writeFloat_f32_rev;
           exports3.writeFloatBE = le ? writeFloat_f32_rev : writeFloat_f32_cpy;
           function readFloat_f32_cpy(buf, pos) {
@@ -15979,7 +15534,6 @@ var LNReaderPlugin = (() => {
             f8b[3] = buf[pos + 3];
             return f32[0];
           }
-          __name(readFloat_f32_cpy, "readFloat_f32_cpy");
           function readFloat_f32_rev(buf, pos) {
             f8b[3] = buf[pos];
             f8b[2] = buf[pos + 1];
@@ -15987,7 +15541,6 @@ var LNReaderPlugin = (() => {
             f8b[0] = buf[pos + 3];
             return f32[0];
           }
-          __name(readFloat_f32_rev, "readFloat_f32_rev");
           exports3.readFloatLE = le ? readFloat_f32_cpy : readFloat_f32_rev;
           exports3.readFloatBE = le ? readFloat_f32_rev : readFloat_f32_cpy;
         })();
@@ -16015,14 +15568,12 @@ var LNReaderPlugin = (() => {
               writeUint((sign << 31 | exponent + 127 << 23 | mantissa) >>> 0, buf, pos);
             }
           }
-          __name(writeFloat_ieee754, "writeFloat_ieee754");
           exports3.writeFloatLE = writeFloat_ieee754.bind(null, writeUintLE);
           exports3.writeFloatBE = writeFloat_ieee754.bind(null, writeUintBE);
           function readFloat_ieee754(readUint, buf, pos) {
             var uint = readUint(buf, pos), sign = (uint >> 31) * 2 + 1, exponent = uint >>> 23 & 255, mantissa = uint & 8388607;
             return exponent === 255 ? mantissa ? NaN : sign * Infinity : exponent === 0 ? sign * 1401298464324817e-60 * mantissa : sign * Math.pow(2, exponent - 150) * (mantissa + 8388608);
           }
-          __name(readFloat_ieee754, "readFloat_ieee754");
           exports3.readFloatLE = readFloat_ieee754.bind(null, readUintLE);
           exports3.readFloatBE = readFloat_ieee754.bind(null, readUintBE);
         })();
@@ -16039,7 +15590,6 @@ var LNReaderPlugin = (() => {
             buf[pos + 6] = f8b[6];
             buf[pos + 7] = f8b[7];
           }
-          __name(writeDouble_f64_cpy, "writeDouble_f64_cpy");
           function writeDouble_f64_rev(val2, buf, pos) {
             f64[0] = val2;
             buf[pos] = f8b[7];
@@ -16051,7 +15601,6 @@ var LNReaderPlugin = (() => {
             buf[pos + 6] = f8b[1];
             buf[pos + 7] = f8b[0];
           }
-          __name(writeDouble_f64_rev, "writeDouble_f64_rev");
           exports3.writeDoubleLE = le ? writeDouble_f64_cpy : writeDouble_f64_rev;
           exports3.writeDoubleBE = le ? writeDouble_f64_rev : writeDouble_f64_cpy;
           function readDouble_f64_cpy(buf, pos) {
@@ -16065,7 +15614,6 @@ var LNReaderPlugin = (() => {
             f8b[7] = buf[pos + 7];
             return f64[0];
           }
-          __name(readDouble_f64_cpy, "readDouble_f64_cpy");
           function readDouble_f64_rev(buf, pos) {
             f8b[7] = buf[pos];
             f8b[6] = buf[pos + 1];
@@ -16077,7 +15625,6 @@ var LNReaderPlugin = (() => {
             f8b[0] = buf[pos + 7];
             return f64[0];
           }
-          __name(readDouble_f64_rev, "readDouble_f64_rev");
           exports3.readDoubleLE = le ? readDouble_f64_cpy : readDouble_f64_rev;
           exports3.readDoubleBE = le ? readDouble_f64_rev : readDouble_f64_cpy;
         })();
@@ -16117,7 +15664,6 @@ var LNReaderPlugin = (() => {
               }
             }
           }
-          __name(writeDouble_ieee754, "writeDouble_ieee754");
           exports3.writeDoubleLE = writeDouble_ieee754.bind(null, writeUintLE, 0, 4);
           exports3.writeDoubleBE = writeDouble_ieee754.bind(null, writeUintBE, 4, 0);
           function readDouble_ieee754(readUint, off0, off1, buf, pos) {
@@ -16125,35 +15671,29 @@ var LNReaderPlugin = (() => {
             var sign = (hi >> 31) * 2 + 1, exponent = hi >>> 20 & 2047, mantissa = 4294967296 * (hi & 1048575) + lo;
             return exponent === 2047 ? mantissa ? NaN : sign * Infinity : exponent === 0 ? sign * 5e-324 * mantissa : sign * Math.pow(2, exponent - 1075) * (mantissa + 4503599627370496);
           }
-          __name(readDouble_ieee754, "readDouble_ieee754");
           exports3.readDoubleLE = readDouble_ieee754.bind(null, readUintLE, 0, 4);
           exports3.readDoubleBE = readDouble_ieee754.bind(null, readUintBE, 4, 0);
         })();
         return exports3;
       }
-      __name(factory, "factory");
       function writeUintLE(val2, buf, pos) {
         buf[pos] = val2 & 255;
         buf[pos + 1] = val2 >>> 8 & 255;
         buf[pos + 2] = val2 >>> 16 & 255;
         buf[pos + 3] = val2 >>> 24;
       }
-      __name(writeUintLE, "writeUintLE");
       function writeUintBE(val2, buf, pos) {
         buf[pos] = val2 >>> 24;
         buf[pos + 1] = val2 >>> 16 & 255;
         buf[pos + 2] = val2 >>> 8 & 255;
         buf[pos + 3] = val2 & 255;
       }
-      __name(writeUintBE, "writeUintBE");
       function readUintLE(buf, pos) {
         return (buf[pos] | buf[pos + 1] << 8 | buf[pos + 2] << 16 | buf[pos + 3] << 24) >>> 0;
       }
-      __name(readUintLE, "readUintLE");
       function readUintBE(buf, pos) {
         return (buf[pos] << 24 | buf[pos + 1] << 16 | buf[pos + 2] << 8 | buf[pos + 3]) >>> 0;
       }
-      __name(readUintBE, "readUintBE");
     }
   });
 
@@ -16171,7 +15711,6 @@ var LNReaderPlugin = (() => {
         }
         return null;
       }
-      __name(inquire, "inquire");
     }
   });
 
@@ -16180,7 +15719,7 @@ var LNReaderPlugin = (() => {
     "node_modules/@protobufjs/utf8/index.js"(exports2) {
       "use strict";
       var utf8 = exports2;
-      utf8.length = /* @__PURE__ */ __name(function utf8_length(string) {
+      utf8.length = function utf8_length(string) {
         var len = 0, c = 0;
         for (var i2 = 0; i2 < string.length; ++i2) {
           c = string.charCodeAt(i2);
@@ -16195,8 +15734,8 @@ var LNReaderPlugin = (() => {
             len += 3;
         }
         return len;
-      }, "utf8_length");
-      utf8.read = /* @__PURE__ */ __name(function utf8_read(buffer, start, end2) {
+      };
+      utf8.read = function utf8_read(buffer, start, end2) {
         var len = end2 - start;
         if (len < 1)
           return "";
@@ -16224,8 +15763,8 @@ var LNReaderPlugin = (() => {
           return parts.join("");
         }
         return String.fromCharCode.apply(String, chunk.slice(0, i2));
-      }, "utf8_read");
-      utf8.write = /* @__PURE__ */ __name(function utf8_write(string, buffer, offset) {
+      };
+      utf8.write = function utf8_write(string, buffer, offset) {
         var start = offset, c1, c2;
         for (var i2 = 0; i2 < string.length; ++i2) {
           c1 = string.charCodeAt(i2);
@@ -16248,7 +15787,7 @@ var LNReaderPlugin = (() => {
           }
         }
         return offset - start;
-      }, "utf8_write");
+      };
     }
   });
 
@@ -16262,7 +15801,7 @@ var LNReaderPlugin = (() => {
         var MAX = SIZE >>> 1;
         var slab = null;
         var offset = SIZE;
-        return /* @__PURE__ */ __name(function pool_alloc(size2) {
+        return function pool_alloc(size2) {
           if (size2 < 1 || size2 > MAX)
             return alloc(size2);
           if (offset + size2 > SIZE) {
@@ -16273,9 +15812,8 @@ var LNReaderPlugin = (() => {
           if (offset & 7)
             offset = (offset | 7) + 1;
           return buf;
-        }, "pool_alloc");
+        };
       }
-      __name(pool, "pool");
     }
   });
 
@@ -16289,7 +15827,6 @@ var LNReaderPlugin = (() => {
         this.lo = lo >>> 0;
         this.hi = hi >>> 0;
       }
-      __name(LongBits, "LongBits");
       var zero = LongBits.zero = new LongBits(0, 0);
       zero.toNumber = function() {
         return 0;
@@ -16301,7 +15838,7 @@ var LNReaderPlugin = (() => {
         return 1;
       };
       var zeroHash = LongBits.zeroHash = "\0\0\0\0\0\0\0\0";
-      LongBits.fromNumber = /* @__PURE__ */ __name(function fromNumber(value) {
+      LongBits.fromNumber = function fromNumber(value) {
         if (value === 0)
           return zero;
         var sign = value < 0;
@@ -16318,8 +15855,8 @@ var LNReaderPlugin = (() => {
           }
         }
         return new LongBits(lo, hi);
-      }, "fromNumber");
-      LongBits.from = /* @__PURE__ */ __name(function from(value) {
+      };
+      LongBits.from = function from(value) {
         if (typeof value === "number")
           return LongBits.fromNumber(value);
         if (util.isString(value)) {
@@ -16329,8 +15866,8 @@ var LNReaderPlugin = (() => {
             return LongBits.fromNumber(parseInt(value, 10));
         }
         return value.low || value.high ? new LongBits(value.low >>> 0, value.high >>> 0) : zero;
-      }, "from");
-      LongBits.prototype.toNumber = /* @__PURE__ */ __name(function toNumber(unsigned) {
+      };
+      LongBits.prototype.toNumber = function toNumber(unsigned) {
         if (!unsigned && this.hi >>> 31) {
           var lo = ~this.lo + 1 >>> 0, hi = ~this.hi >>> 0;
           if (!lo)
@@ -16338,20 +15875,20 @@ var LNReaderPlugin = (() => {
           return -(lo + hi * 4294967296);
         }
         return this.lo + this.hi * 4294967296;
-      }, "toNumber");
-      LongBits.prototype.toLong = /* @__PURE__ */ __name(function toLong(unsigned) {
+      };
+      LongBits.prototype.toLong = function toLong(unsigned) {
         return util.Long ? new util.Long(this.lo | 0, this.hi | 0, Boolean(unsigned)) : { low: this.lo | 0, high: this.hi | 0, unsigned: Boolean(unsigned) };
-      }, "toLong");
+      };
       var charCodeAt = String.prototype.charCodeAt;
-      LongBits.fromHash = /* @__PURE__ */ __name(function fromHash(hash) {
+      LongBits.fromHash = function fromHash(hash) {
         if (hash === zeroHash)
           return zero;
         return new LongBits(
           (charCodeAt.call(hash, 0) | charCodeAt.call(hash, 1) << 8 | charCodeAt.call(hash, 2) << 16 | charCodeAt.call(hash, 3) << 24) >>> 0,
           (charCodeAt.call(hash, 4) | charCodeAt.call(hash, 5) << 8 | charCodeAt.call(hash, 6) << 16 | charCodeAt.call(hash, 7) << 24) >>> 0
         );
-      }, "fromHash");
-      LongBits.prototype.toHash = /* @__PURE__ */ __name(function toHash() {
+      };
+      LongBits.prototype.toHash = function toHash() {
         return String.fromCharCode(
           this.lo & 255,
           this.lo >>> 8 & 255,
@@ -16362,23 +15899,23 @@ var LNReaderPlugin = (() => {
           this.hi >>> 16 & 255,
           this.hi >>> 24
         );
-      }, "toHash");
-      LongBits.prototype.zzEncode = /* @__PURE__ */ __name(function zzEncode() {
+      };
+      LongBits.prototype.zzEncode = function zzEncode() {
         var mask = this.hi >> 31;
         this.hi = ((this.hi << 1 | this.lo >>> 31) ^ mask) >>> 0;
         this.lo = (this.lo << 1 ^ mask) >>> 0;
         return this;
-      }, "zzEncode");
-      LongBits.prototype.zzDecode = /* @__PURE__ */ __name(function zzDecode() {
+      };
+      LongBits.prototype.zzDecode = function zzDecode() {
         var mask = -(this.lo & 1);
         this.lo = ((this.lo >>> 1 | this.hi << 31) ^ mask) >>> 0;
         this.hi = (this.hi >>> 1 ^ mask) >>> 0;
         return this;
-      }, "zzDecode");
-      LongBits.prototype.length = /* @__PURE__ */ __name(function length() {
+      };
+      LongBits.prototype.length = function length() {
         var part0 = this.lo, part1 = (this.lo >>> 28 | this.hi << 4) >>> 0, part2 = this.hi >>> 24;
         return part2 === 0 ? part1 === 0 ? part0 < 16384 ? part0 < 128 ? 1 : 2 : part0 < 2097152 ? 3 : 4 : part1 < 16384 ? part1 < 128 ? 5 : 6 : part1 < 2097152 ? 7 : 8 : part2 < 128 ? 9 : 10;
-      }, "length");
+      };
     }
   });
 
@@ -16406,27 +15943,27 @@ var LNReaderPlugin = (() => {
         {}
       );
       util.isInteger = Number.isInteger || /* istanbul ignore next */
-      /* @__PURE__ */ __name(function isInteger(value) {
+      function isInteger(value) {
         return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
-      }, "isInteger");
-      util.isString = /* @__PURE__ */ __name(function isString(value) {
+      };
+      util.isString = function isString(value) {
         return typeof value === "string" || value instanceof String;
-      }, "isString");
-      util.isObject = /* @__PURE__ */ __name(function isObject(value) {
+      };
+      util.isObject = function isObject(value) {
         return value && typeof value === "object";
-      }, "isObject");
+      };
       util.isset = /**
        * Checks if a property on a message is considered to be present.
        * @param {Object} obj Plain object or message instance
        * @param {string} prop Property name
        * @returns {boolean} `true` if considered to be present, otherwise `false`
        */
-      util.isSet = /* @__PURE__ */ __name(function isSet(obj, prop2) {
+      util.isSet = function isSet(obj, prop2) {
         var value = obj[prop2];
         if (value != null && obj.hasOwnProperty(prop2))
           return typeof value !== "object" || (Array.isArray(value) ? value.length : Object.keys(value).length) > 0;
         return false;
-      }, "isSet");
+      };
       util.Buffer = (function() {
         try {
           var Buffer2 = util.inquire("buffer").Buffer;
@@ -16440,9 +15977,9 @@ var LNReaderPlugin = (() => {
       })();
       util._Buffer_from = null;
       util._Buffer_allocUnsafe = null;
-      util.newBuffer = /* @__PURE__ */ __name(function newBuffer(sizeOrArray) {
+      util.newBuffer = function newBuffer(sizeOrArray) {
         return typeof sizeOrArray === "number" ? util.Buffer ? util._Buffer_allocUnsafe(sizeOrArray) : new util.Array(sizeOrArray) : util.Buffer ? util._Buffer_from(sizeOrArray) : typeof Uint8Array === "undefined" ? sizeOrArray : new Uint8Array(sizeOrArray);
-      }, "newBuffer");
+      };
       util.Array = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
       util.Long = /* istanbul ignore next */
       util.global.dcodeIO && /* istanbul ignore next */
@@ -16451,33 +15988,32 @@ var LNReaderPlugin = (() => {
       util.key2Re = /^true|false|0|1$/;
       util.key32Re = /^-?(?:0|[1-9][0-9]*)$/;
       util.key64Re = /^(?:[\\x00-\\xff]{8}|-?(?:0|[1-9][0-9]*))$/;
-      util.longToHash = /* @__PURE__ */ __name(function longToHash(value) {
+      util.longToHash = function longToHash(value) {
         return value ? util.LongBits.from(value).toHash() : util.LongBits.zeroHash;
-      }, "longToHash");
-      util.longFromHash = /* @__PURE__ */ __name(function longFromHash(hash, unsigned) {
+      };
+      util.longFromHash = function longFromHash(hash, unsigned) {
         var bits = util.LongBits.fromHash(hash);
         if (util.Long)
           return util.Long.fromBits(bits.lo, bits.hi, unsigned);
         return bits.toNumber(Boolean(unsigned));
-      }, "longFromHash");
+      };
       function merge2(dst, src, ifNotSet) {
         for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
           if (dst[keys[i2]] === void 0 || !ifNotSet)
             dst[keys[i2]] = src[keys[i2]];
         return dst;
       }
-      __name(merge2, "merge");
       util.merge = merge2;
-      util.lcFirst = /* @__PURE__ */ __name(function lcFirst(str) {
+      util.lcFirst = function lcFirst(str) {
         return str.charAt(0).toLowerCase() + str.substring(1);
-      }, "lcFirst");
+      };
       function newError(name) {
         function CustomError(message, properties) {
           if (!(this instanceof CustomError))
             return new CustomError(message, properties);
-          Object.defineProperty(this, "message", { get: /* @__PURE__ */ __name(function() {
+          Object.defineProperty(this, "message", { get: function() {
             return message;
-          }, "get") });
+          } });
           if (Error.captureStackTrace)
             Error.captureStackTrace(this, CustomError);
           else
@@ -16485,7 +16021,6 @@ var LNReaderPlugin = (() => {
           if (properties)
             merge2(this, properties);
         }
-        __name(CustomError, "CustomError");
         CustomError.prototype = Object.create(Error.prototype, {
           constructor: {
             value: CustomError,
@@ -16494,9 +16029,9 @@ var LNReaderPlugin = (() => {
             configurable: true
           },
           name: {
-            get: /* @__PURE__ */ __name(function get2() {
+            get: function get2() {
               return name;
-            }, "get"),
+            },
             set: void 0,
             enumerable: false,
             // configurable: false would accurately preserve the behavior of
@@ -16506,9 +16041,9 @@ var LNReaderPlugin = (() => {
             configurable: true
           },
           toString: {
-            value: /* @__PURE__ */ __name(function value() {
+            value: function value() {
               return this.name + ": " + this.message;
-            }, "value"),
+            },
             writable: true,
             enumerable: false,
             configurable: true
@@ -16516,10 +16051,9 @@ var LNReaderPlugin = (() => {
         });
         return CustomError;
       }
-      __name(newError, "newError");
       util.newError = newError;
       util.ProtocolError = newError("ProtocolError");
-      util.oneOfGetter = /* @__PURE__ */ __name(function getOneOf(fieldNames) {
+      util.oneOfGetter = function getOneOf(fieldNames) {
         var fieldMap = {};
         for (var i2 = 0; i2 < fieldNames.length; ++i2)
           fieldMap[fieldNames[i2]] = 1;
@@ -16528,14 +16062,14 @@ var LNReaderPlugin = (() => {
             if (fieldMap[keys[i3]] === 1 && this[keys[i3]] !== void 0 && this[keys[i3]] !== null)
               return keys[i3];
         };
-      }, "getOneOf");
-      util.oneOfSetter = /* @__PURE__ */ __name(function setOneOf(fieldNames) {
+      };
+      util.oneOfSetter = function setOneOf(fieldNames) {
         return function(name) {
           for (var i2 = 0; i2 < fieldNames.length; ++i2)
             if (fieldNames[i2] !== name)
               delete this[fieldNames[i2]];
         };
-      }, "setOneOf");
+      };
       util.toJSONOptions = {
         longs: String,
         enums: String,
@@ -16549,13 +16083,13 @@ var LNReaderPlugin = (() => {
           return;
         }
         util._Buffer_from = Buffer2.from !== Uint8Array.from && Buffer2.from || /* istanbul ignore next */
-        /* @__PURE__ */ __name(function Buffer_from(value, encoding) {
+        function Buffer_from(value, encoding) {
           return new Buffer2(value, encoding);
-        }, "Buffer_from");
+        };
         util._Buffer_allocUnsafe = Buffer2.allocUnsafe || /* istanbul ignore next */
-        /* @__PURE__ */ __name(function Buffer_allocUnsafe(size) {
+        function Buffer_allocUnsafe(size) {
           return new Buffer2(size);
-        }, "Buffer_allocUnsafe");
+        };
       };
     }
   });
@@ -16574,48 +16108,43 @@ var LNReaderPlugin = (() => {
         this.next = void 0;
         this.val = val2;
       }
-      __name(Op, "Op");
       function noop() {
       }
-      __name(noop, "noop");
       function State2(writer) {
         this.head = writer.head;
         this.tail = writer.tail;
         this.len = writer.len;
         this.next = writer.states;
       }
-      __name(State2, "State");
       function Writer() {
         this.len = 0;
         this.head = new Op(noop, 0, 0);
         this.tail = this.head;
         this.states = null;
       }
-      __name(Writer, "Writer");
-      var create = /* @__PURE__ */ __name(function create2() {
-        return util.Buffer ? /* @__PURE__ */ __name(function create_buffer_setup() {
-          return (Writer.create = /* @__PURE__ */ __name(function create_buffer() {
+      var create = function create2() {
+        return util.Buffer ? function create_buffer_setup() {
+          return (Writer.create = function create_buffer() {
             return new BufferWriter();
-          }, "create_buffer"))();
-        }, "create_buffer_setup") : /* @__PURE__ */ __name(function create_array() {
+          })();
+        } : function create_array() {
           return new Writer();
-        }, "create_array");
-      }, "create");
+        };
+      };
       Writer.create = create();
-      Writer.alloc = /* @__PURE__ */ __name(function alloc(size) {
+      Writer.alloc = function alloc(size) {
         return new util.Array(size);
-      }, "alloc");
+      };
       if (util.Array !== Array)
         Writer.alloc = util.pool(Writer.alloc, util.Array.prototype.subarray);
-      Writer.prototype._push = /* @__PURE__ */ __name(function push(fn, len, val2) {
+      Writer.prototype._push = function push(fn, len, val2) {
         this.tail = this.tail.next = new Op(fn, len, val2);
         this.len += len;
         return this;
-      }, "push");
+      };
       function writeByte(val2, buf, pos) {
         buf[pos] = val2 & 255;
       }
-      __name(writeByte, "writeByte");
       function writeVarint32(val2, buf, pos) {
         while (val2 > 127) {
           buf[pos++] = val2 & 127 | 128;
@@ -16623,28 +16152,26 @@ var LNReaderPlugin = (() => {
         }
         buf[pos] = val2;
       }
-      __name(writeVarint32, "writeVarint32");
       function VarintOp(len, val2) {
         this.len = len;
         this.next = void 0;
         this.val = val2;
       }
-      __name(VarintOp, "VarintOp");
       VarintOp.prototype = Object.create(Op.prototype);
       VarintOp.prototype.fn = writeVarint32;
-      Writer.prototype.uint32 = /* @__PURE__ */ __name(function write_uint32(value) {
+      Writer.prototype.uint32 = function write_uint32(value) {
         this.len += (this.tail = this.tail.next = new VarintOp(
           (value = value >>> 0) < 128 ? 1 : value < 16384 ? 2 : value < 2097152 ? 3 : value < 268435456 ? 4 : 5,
           value
         )).len;
         return this;
-      }, "write_uint32");
-      Writer.prototype.int32 = /* @__PURE__ */ __name(function write_int32(value) {
+      };
+      Writer.prototype.int32 = function write_int32(value) {
         return value < 0 ? this._push(writeVarint64, 10, LongBits.fromNumber(value)) : this.uint32(value);
-      }, "write_int32");
-      Writer.prototype.sint32 = /* @__PURE__ */ __name(function write_sint32(value) {
+      };
+      Writer.prototype.sint32 = function write_sint32(value) {
         return this.uint32((value << 1 ^ value >> 31) >>> 0);
-      }, "write_sint32");
+      };
       function writeVarint64(val2, buf, pos) {
         while (val2.hi) {
           buf[pos++] = val2.lo & 127 | 128;
@@ -16657,48 +16184,46 @@ var LNReaderPlugin = (() => {
         }
         buf[pos++] = val2.lo;
       }
-      __name(writeVarint64, "writeVarint64");
-      Writer.prototype.uint64 = /* @__PURE__ */ __name(function write_uint64(value) {
+      Writer.prototype.uint64 = function write_uint64(value) {
         var bits = LongBits.from(value);
         return this._push(writeVarint64, bits.length(), bits);
-      }, "write_uint64");
+      };
       Writer.prototype.int64 = Writer.prototype.uint64;
-      Writer.prototype.sint64 = /* @__PURE__ */ __name(function write_sint64(value) {
+      Writer.prototype.sint64 = function write_sint64(value) {
         var bits = LongBits.from(value).zzEncode();
         return this._push(writeVarint64, bits.length(), bits);
-      }, "write_sint64");
-      Writer.prototype.bool = /* @__PURE__ */ __name(function write_bool(value) {
+      };
+      Writer.prototype.bool = function write_bool(value) {
         return this._push(writeByte, 1, value ? 1 : 0);
-      }, "write_bool");
+      };
       function writeFixed32(val2, buf, pos) {
         buf[pos] = val2 & 255;
         buf[pos + 1] = val2 >>> 8 & 255;
         buf[pos + 2] = val2 >>> 16 & 255;
         buf[pos + 3] = val2 >>> 24;
       }
-      __name(writeFixed32, "writeFixed32");
-      Writer.prototype.fixed32 = /* @__PURE__ */ __name(function write_fixed32(value) {
+      Writer.prototype.fixed32 = function write_fixed32(value) {
         return this._push(writeFixed32, 4, value >>> 0);
-      }, "write_fixed32");
+      };
       Writer.prototype.sfixed32 = Writer.prototype.fixed32;
-      Writer.prototype.fixed64 = /* @__PURE__ */ __name(function write_fixed64(value) {
+      Writer.prototype.fixed64 = function write_fixed64(value) {
         var bits = LongBits.from(value);
         return this._push(writeFixed32, 4, bits.lo)._push(writeFixed32, 4, bits.hi);
-      }, "write_fixed64");
+      };
       Writer.prototype.sfixed64 = Writer.prototype.fixed64;
-      Writer.prototype.float = /* @__PURE__ */ __name(function write_float(value) {
+      Writer.prototype.float = function write_float(value) {
         return this._push(util.float.writeFloatLE, 4, value);
-      }, "write_float");
-      Writer.prototype.double = /* @__PURE__ */ __name(function write_double(value) {
+      };
+      Writer.prototype.double = function write_double(value) {
         return this._push(util.float.writeDoubleLE, 8, value);
-      }, "write_double");
-      var writeBytes = util.Array.prototype.set ? /* @__PURE__ */ __name(function writeBytes_set(val2, buf, pos) {
+      };
+      var writeBytes = util.Array.prototype.set ? function writeBytes_set(val2, buf, pos) {
         buf.set(val2, pos);
-      }, "writeBytes_set") : /* @__PURE__ */ __name(function writeBytes_for(val2, buf, pos) {
+      } : function writeBytes_for(val2, buf, pos) {
         for (var i2 = 0; i2 < val2.length; ++i2)
           buf[pos + i2] = val2[i2];
-      }, "writeBytes_for");
-      Writer.prototype.bytes = /* @__PURE__ */ __name(function write_bytes(value) {
+      };
+      Writer.prototype.bytes = function write_bytes(value) {
         var len = value.length >>> 0;
         if (!len)
           return this._push(writeByte, 1, 0);
@@ -16708,18 +16233,18 @@ var LNReaderPlugin = (() => {
           value = buf;
         }
         return this.uint32(len)._push(writeBytes, len, value);
-      }, "write_bytes");
-      Writer.prototype.string = /* @__PURE__ */ __name(function write_string(value) {
+      };
+      Writer.prototype.string = function write_string(value) {
         var len = utf8.length(value);
         return len ? this.uint32(len)._push(utf8.write, len, value) : this._push(writeByte, 1, 0);
-      }, "write_string");
-      Writer.prototype.fork = /* @__PURE__ */ __name(function fork() {
+      };
+      Writer.prototype.fork = function fork() {
         this.states = new State2(this);
         this.head = this.tail = new Op(noop, 0, 0);
         this.len = 0;
         return this;
-      }, "fork");
-      Writer.prototype.reset = /* @__PURE__ */ __name(function reset() {
+      };
+      Writer.prototype.reset = function reset() {
         if (this.states) {
           this.head = this.states.head;
           this.tail = this.states.tail;
@@ -16730,8 +16255,8 @@ var LNReaderPlugin = (() => {
           this.len = 0;
         }
         return this;
-      }, "reset");
-      Writer.prototype.ldelim = /* @__PURE__ */ __name(function ldelim() {
+      };
+      Writer.prototype.ldelim = function ldelim() {
         var head = this.head, tail = this.tail, len = this.len;
         this.reset().uint32(len);
         if (len) {
@@ -16740,8 +16265,8 @@ var LNReaderPlugin = (() => {
           this.len += len;
         }
         return this;
-      }, "ldelim");
-      Writer.prototype.finish = /* @__PURE__ */ __name(function finish() {
+      };
+      Writer.prototype.finish = function finish() {
         var head = this.head.next, buf = this.constructor.alloc(this.len), pos = 0;
         while (head) {
           head.fn(head.val, buf, pos);
@@ -16749,7 +16274,7 @@ var LNReaderPlugin = (() => {
           head = head.next;
         }
         return buf;
-      }, "finish");
+      };
       Writer._configure = function(BufferWriter_) {
         BufferWriter = BufferWriter_;
         Writer.create = create();
@@ -16769,19 +16294,18 @@ var LNReaderPlugin = (() => {
       function BufferWriter() {
         Writer.call(this);
       }
-      __name(BufferWriter, "BufferWriter");
       BufferWriter._configure = function() {
         BufferWriter.alloc = util._Buffer_allocUnsafe;
-        BufferWriter.writeBytesBuffer = util.Buffer && util.Buffer.prototype instanceof Uint8Array && util.Buffer.prototype.set.name === "set" ? /* @__PURE__ */ __name(function writeBytesBuffer_set(val2, buf, pos) {
+        BufferWriter.writeBytesBuffer = util.Buffer && util.Buffer.prototype instanceof Uint8Array && util.Buffer.prototype.set.name === "set" ? function writeBytesBuffer_set(val2, buf, pos) {
           buf.set(val2, pos);
-        }, "writeBytesBuffer_set") : /* @__PURE__ */ __name(function writeBytesBuffer_copy(val2, buf, pos) {
+        } : function writeBytesBuffer_copy(val2, buf, pos) {
           if (val2.copy)
             val2.copy(buf, pos, 0, val2.length);
           else for (var i2 = 0; i2 < val2.length; )
             buf[pos++] = val2[i2++];
-        }, "writeBytesBuffer_copy");
+        };
       };
-      BufferWriter.prototype.bytes = /* @__PURE__ */ __name(function write_bytes_buffer(value) {
+      BufferWriter.prototype.bytes = function write_bytes_buffer(value) {
         if (util.isString(value))
           value = util._Buffer_from(value, "base64");
         var len = value.length >>> 0;
@@ -16789,7 +16313,7 @@ var LNReaderPlugin = (() => {
         if (len)
           this._push(BufferWriter.writeBytesBuffer, len, value);
         return this;
-      }, "write_bytes_buffer");
+      };
       function writeStringBuffer(val2, buf, pos) {
         if (val2.length < 40)
           util.utf8.write(val2, buf, pos);
@@ -16798,14 +16322,13 @@ var LNReaderPlugin = (() => {
         else
           buf.write(val2, pos);
       }
-      __name(writeStringBuffer, "writeStringBuffer");
-      BufferWriter.prototype.string = /* @__PURE__ */ __name(function write_string_buffer(value) {
+      BufferWriter.prototype.string = function write_string_buffer(value) {
         var len = util.Buffer.byteLength(value);
         this.uint32(len);
         if (len)
           this._push(writeStringBuffer, len, value);
         return this;
-      }, "write_string_buffer");
+      };
       BufferWriter._configure();
     }
   });
@@ -16821,35 +16344,33 @@ var LNReaderPlugin = (() => {
       function indexOutOfRange(reader, writeLength) {
         return RangeError("index out of range: " + reader.pos + " + " + (writeLength || 1) + " > " + reader.len);
       }
-      __name(indexOutOfRange, "indexOutOfRange");
       function Reader(buffer) {
         this.buf = buffer;
         this.pos = 0;
         this.len = buffer.length;
       }
-      __name(Reader, "Reader");
-      var create_array = typeof Uint8Array !== "undefined" ? /* @__PURE__ */ __name(function create_typed_array(buffer) {
+      var create_array = typeof Uint8Array !== "undefined" ? function create_typed_array(buffer) {
         if (buffer instanceof Uint8Array || Array.isArray(buffer))
           return new Reader(buffer);
         throw Error("illegal buffer");
-      }, "create_typed_array") : /* @__PURE__ */ __name(function create_array2(buffer) {
+      } : function create_array2(buffer) {
         if (Array.isArray(buffer))
           return new Reader(buffer);
         throw Error("illegal buffer");
-      }, "create_array");
-      var create = /* @__PURE__ */ __name(function create2() {
-        return util.Buffer ? /* @__PURE__ */ __name(function create_buffer_setup(buffer) {
-          return (Reader.create = /* @__PURE__ */ __name(function create_buffer(buffer2) {
+      };
+      var create = function create2() {
+        return util.Buffer ? function create_buffer_setup(buffer) {
+          return (Reader.create = function create_buffer(buffer2) {
             return util.Buffer.isBuffer(buffer2) ? new BufferReader(buffer2) : create_array(buffer2);
-          }, "create_buffer"))(buffer);
-        }, "create_buffer_setup") : create_array;
-      }, "create");
+          })(buffer);
+        } : create_array;
+      };
       Reader.create = create();
       Reader.prototype._slice = util.Array.prototype.subarray || /* istanbul ignore next */
       util.Array.prototype.slice;
-      Reader.prototype.uint32 = (/* @__PURE__ */ __name((function read_uint32_setup() {
+      Reader.prototype.uint32 = /* @__PURE__ */ (function read_uint32_setup() {
         var value = 4294967295;
-        return /* @__PURE__ */ __name(function read_uint32() {
+        return function read_uint32() {
           value = (this.buf[this.pos] & 127) >>> 0;
           if (this.buf[this.pos++] < 128) return value;
           value = (value | (this.buf[this.pos] & 127) << 7) >>> 0;
@@ -16865,15 +16386,15 @@ var LNReaderPlugin = (() => {
             throw indexOutOfRange(this, 10);
           }
           return value;
-        }, "read_uint32");
-      }), "read_uint32_setup"))();
-      Reader.prototype.int32 = /* @__PURE__ */ __name(function read_int32() {
+        };
+      })();
+      Reader.prototype.int32 = function read_int32() {
         return this.uint32() | 0;
-      }, "read_int32");
-      Reader.prototype.sint32 = /* @__PURE__ */ __name(function read_sint32() {
+      };
+      Reader.prototype.sint32 = function read_sint32() {
         var value = this.uint32();
         return value >>> 1 ^ -(value & 1) | 0;
-      }, "read_sint32");
+      };
       function readLongVarint() {
         var bits = new LongBits(0, 0);
         var i2 = 0;
@@ -16916,45 +16437,42 @@ var LNReaderPlugin = (() => {
         }
         throw Error("invalid varint encoding");
       }
-      __name(readLongVarint, "readLongVarint");
-      Reader.prototype.bool = /* @__PURE__ */ __name(function read_bool() {
+      Reader.prototype.bool = function read_bool() {
         return this.uint32() !== 0;
-      }, "read_bool");
+      };
       function readFixed32_end(buf, end2) {
         return (buf[end2 - 4] | buf[end2 - 3] << 8 | buf[end2 - 2] << 16 | buf[end2 - 1] << 24) >>> 0;
       }
-      __name(readFixed32_end, "readFixed32_end");
-      Reader.prototype.fixed32 = /* @__PURE__ */ __name(function read_fixed32() {
+      Reader.prototype.fixed32 = function read_fixed32() {
         if (this.pos + 4 > this.len)
           throw indexOutOfRange(this, 4);
         return readFixed32_end(this.buf, this.pos += 4);
-      }, "read_fixed32");
-      Reader.prototype.sfixed32 = /* @__PURE__ */ __name(function read_sfixed32() {
+      };
+      Reader.prototype.sfixed32 = function read_sfixed32() {
         if (this.pos + 4 > this.len)
           throw indexOutOfRange(this, 4);
         return readFixed32_end(this.buf, this.pos += 4) | 0;
-      }, "read_sfixed32");
+      };
       function readFixed64() {
         if (this.pos + 8 > this.len)
           throw indexOutOfRange(this, 8);
         return new LongBits(readFixed32_end(this.buf, this.pos += 4), readFixed32_end(this.buf, this.pos += 4));
       }
-      __name(readFixed64, "readFixed64");
-      Reader.prototype.float = /* @__PURE__ */ __name(function read_float() {
+      Reader.prototype.float = function read_float() {
         if (this.pos + 4 > this.len)
           throw indexOutOfRange(this, 4);
         var value = util.float.readFloatLE(this.buf, this.pos);
         this.pos += 4;
         return value;
-      }, "read_float");
-      Reader.prototype.double = /* @__PURE__ */ __name(function read_double() {
+      };
+      Reader.prototype.double = function read_double() {
         if (this.pos + 8 > this.len)
           throw indexOutOfRange(this, 4);
         var value = util.float.readDoubleLE(this.buf, this.pos);
         this.pos += 8;
         return value;
-      }, "read_double");
-      Reader.prototype.bytes = /* @__PURE__ */ __name(function read_bytes() {
+      };
+      Reader.prototype.bytes = function read_bytes() {
         var length = this.uint32(), start = this.pos, end2 = this.pos + length;
         if (end2 > this.len)
           throw indexOutOfRange(this, length);
@@ -16966,12 +16484,12 @@ var LNReaderPlugin = (() => {
           return nativeBuffer ? nativeBuffer.alloc(0) : new this.buf.constructor(0);
         }
         return this._slice.call(this.buf, start, end2);
-      }, "read_bytes");
-      Reader.prototype.string = /* @__PURE__ */ __name(function read_string() {
+      };
+      Reader.prototype.string = function read_string() {
         var bytes = this.bytes();
         return utf8.read(bytes, 0, bytes.length);
-      }, "read_string");
-      Reader.prototype.skip = /* @__PURE__ */ __name(function skip(length) {
+      };
+      Reader.prototype.skip = function skip(length) {
         if (typeof length === "number") {
           if (this.pos + length > this.len)
             throw indexOutOfRange(this, length);
@@ -16983,7 +16501,7 @@ var LNReaderPlugin = (() => {
           } while (this.buf[this.pos++] & 128);
         }
         return this;
-      }, "skip");
+      };
       Reader.prototype.skipType = function(wireType) {
         switch (wireType) {
           case 0:
@@ -17018,21 +16536,21 @@ var LNReaderPlugin = (() => {
           "toNumber"
         );
         util.merge(Reader.prototype, {
-          int64: /* @__PURE__ */ __name(function read_int64() {
+          int64: function read_int64() {
             return readLongVarint.call(this)[fn](false);
-          }, "read_int64"),
-          uint64: /* @__PURE__ */ __name(function read_uint64() {
+          },
+          uint64: function read_uint64() {
             return readLongVarint.call(this)[fn](true);
-          }, "read_uint64"),
-          sint64: /* @__PURE__ */ __name(function read_sint64() {
+          },
+          sint64: function read_sint64() {
             return readLongVarint.call(this).zzDecode()[fn](false);
-          }, "read_sint64"),
-          fixed64: /* @__PURE__ */ __name(function read_fixed64() {
+          },
+          fixed64: function read_fixed64() {
             return readFixed64.call(this)[fn](true);
-          }, "read_fixed64"),
-          sfixed64: /* @__PURE__ */ __name(function read_sfixed64() {
+          },
+          sfixed64: function read_sfixed64() {
             return readFixed64.call(this)[fn](false);
-          }, "read_sfixed64")
+          }
         });
       };
     }
@@ -17049,15 +16567,14 @@ var LNReaderPlugin = (() => {
       function BufferReader(buffer) {
         Reader.call(this, buffer);
       }
-      __name(BufferReader, "BufferReader");
       BufferReader._configure = function() {
         if (util.Buffer)
           BufferReader.prototype._slice = util.Buffer.prototype.slice;
       };
-      BufferReader.prototype.string = /* @__PURE__ */ __name(function read_string_buffer() {
+      BufferReader.prototype.string = function read_string_buffer() {
         var len = this.uint32();
         return this.buf.utf8Slice ? this.buf.utf8Slice(this.pos, this.pos = Math.min(this.pos + len, this.len)) : this.buf.toString("utf-8", this.pos, this.pos = Math.min(this.pos + len, this.len));
-      }, "read_string_buffer");
+      };
       BufferReader._configure();
     }
   });
@@ -17077,8 +16594,7 @@ var LNReaderPlugin = (() => {
         this.requestDelimited = Boolean(requestDelimited);
         this.responseDelimited = Boolean(responseDelimited);
       }
-      __name(Service, "Service");
-      Service.prototype.rpcCall = /* @__PURE__ */ __name(function rpcCall(method, requestCtor, responseCtor, request, callback) {
+      Service.prototype.rpcCall = function rpcCall(method, requestCtor, responseCtor, request, callback) {
         if (!request)
           throw TypeError("request must be specified");
         var self2 = this;
@@ -17094,7 +16610,7 @@ var LNReaderPlugin = (() => {
           return self2.rpcImpl(
             method,
             requestCtor[self2.requestDelimited ? "encodeDelimited" : "encode"](request).finish(),
-            /* @__PURE__ */ __name(function rpcCallback(err, response) {
+            function rpcCallback(err, response) {
               if (err) {
                 self2.emit("error", err, method);
                 return callback(err);
@@ -17116,7 +16632,7 @@ var LNReaderPlugin = (() => {
               }
               self2.emit("data", response, method);
               return callback(null, response);
-            }, "rpcCallback")
+            }
           );
         } catch (err) {
           self2.emit("error", err, method);
@@ -17125,8 +16641,8 @@ var LNReaderPlugin = (() => {
           }, 0);
           return void 0;
         }
-      }, "rpcCall");
-      Service.prototype.end = /* @__PURE__ */ __name(function end2(endedByRPC) {
+      };
+      Service.prototype.end = function end2(endedByRPC) {
         if (this.rpcImpl) {
           if (!endedByRPC)
             this.rpcImpl(null, null, null);
@@ -17134,7 +16650,7 @@ var LNReaderPlugin = (() => {
           this.emit("end").off();
         }
         return this;
-      }, "end");
+      };
     }
   });
 
@@ -17174,7 +16690,6 @@ var LNReaderPlugin = (() => {
         protobuf.Writer._configure(protobuf.BufferWriter);
         protobuf.Reader._configure(protobuf.BufferReader);
       }
-      __name(configure, "configure");
       configure();
     }
   });
@@ -17211,7 +16726,7 @@ var LNReaderPlugin = (() => {
           while (formatOffset < formatParams.length)
             formatParams[formatOffset] = arguments[++formatOffset];
           formatOffset = 0;
-          formatStringOrScope = formatStringOrScope.replace(/%([%dfijs])/g, /* @__PURE__ */ __name(function replace($0, $1) {
+          formatStringOrScope = formatStringOrScope.replace(/%([%dfijs])/g, function replace($0, $1) {
             var value = formatParams[formatOffset++];
             switch ($1) {
               case "d":
@@ -17225,21 +16740,18 @@ var LNReaderPlugin = (() => {
                 return String(value);
             }
             return "%";
-          }, "replace"));
+          });
           if (formatOffset !== formatParams.length)
             throw Error("parameter count mismatch");
           body.push(formatStringOrScope);
           return Codegen;
         }
-        __name(Codegen, "Codegen");
         function toString2(functionNameOverride) {
           return "function " + (functionNameOverride || functionName || "") + "(" + (functionParams && functionParams.join(",") || "") + "){\n  " + body.join("\n  ") + "\n}";
         }
-        __name(toString2, "toString");
         Codegen.toString = toString2;
         return Codegen;
       }
-      __name(codegen, "codegen");
       codegen.verbose = false;
     }
   });
@@ -17260,15 +16772,14 @@ var LNReaderPlugin = (() => {
         if (!callback)
           return asPromise(fetch2, this, filename, options);
         if (!options.xhr && fs && fs.readFile)
-          return fs.readFile(filename, /* @__PURE__ */ __name(function fetchReadFileCallback(err, contents2) {
+          return fs.readFile(filename, function fetchReadFileCallback(err, contents2) {
             return err && typeof XMLHttpRequest !== "undefined" ? fetch2.xhr(filename, options, callback) : err ? callback(err) : callback(null, options.binary ? contents2 : contents2.toString("utf8"));
-          }, "fetchReadFileCallback"));
+          });
         return fetch2.xhr(filename, options, callback);
       }
-      __name(fetch2, "fetch");
-      fetch2.xhr = /* @__PURE__ */ __name(function fetch_xhr(filename, options, callback) {
+      fetch2.xhr = function fetch_xhr(filename, options, callback) {
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = /* @__PURE__ */ __name(function fetchOnReadyStateChange() {
+        xhr.onreadystatechange = function fetchOnReadyStateChange() {
           if (xhr.readyState !== 4)
             return void 0;
           if (xhr.status !== 0 && xhr.status !== 200)
@@ -17283,7 +16794,7 @@ var LNReaderPlugin = (() => {
             return callback(null, typeof Uint8Array !== "undefined" ? new Uint8Array(buffer) : buffer);
           }
           return callback(null, xhr.responseText);
-        }, "fetchOnReadyStateChange");
+        };
         if (options.binary) {
           if ("overrideMimeType" in xhr)
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
@@ -17291,7 +16802,7 @@ var LNReaderPlugin = (() => {
         }
         xhr.open("GET", filename);
         xhr.send();
-      }, "fetch_xhr");
+      };
     }
   });
 
@@ -17306,9 +16817,9 @@ var LNReaderPlugin = (() => {
          * @param {string} path Path to test
          * @returns {boolean} `true` if path is absolute
          */
-        path.isAbsolute = /* @__PURE__ */ __name(function isAbsolute2(path2) {
+        path.isAbsolute = function isAbsolute2(path2) {
           return /^(?:\/|\w+:)/.test(path2);
-        }, "isAbsolute")
+        }
       );
       var normalize = (
         /**
@@ -17316,7 +16827,7 @@ var LNReaderPlugin = (() => {
          * @param {string} path Path to normalize
          * @returns {string} Normalized path
          */
-        path.normalize = /* @__PURE__ */ __name(function normalize2(path2) {
+        path.normalize = function normalize2(path2) {
           path2 = path2.replace(/\\/g, "/").replace(/\/{2,}/g, "/");
           var parts = path2.split("/"), absolute = isAbsolute(path2), prefix = "";
           if (absolute)
@@ -17335,9 +16846,9 @@ var LNReaderPlugin = (() => {
               ++i2;
           }
           return prefix + parts.join("/");
-        }, "normalize")
+        }
       );
-      path.resolve = /* @__PURE__ */ __name(function resolve(originPath, includePath, alreadyNormalized) {
+      path.resolve = function resolve(originPath, includePath, alreadyNormalized) {
         if (!alreadyNormalized)
           includePath = normalize(includePath);
         if (isAbsolute(includePath))
@@ -17345,7 +16856,7 @@ var LNReaderPlugin = (() => {
         if (!alreadyNormalized)
           originPath = normalize(originPath);
         return (originPath = originPath.replace(/(?:\/|^)[^/]+$/, "")).length ? normalize(originPath + "/" + includePath) : includePath;
-      }, "resolve");
+      };
     }
   });
 
@@ -17393,7 +16904,6 @@ var LNReaderPlugin = (() => {
         while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
         return o2;
       }
-      __name(bake, "bake");
       types.basic = bake([
         /* double   */
         1,
@@ -17539,9 +17049,9 @@ var LNReaderPlugin = (() => {
       var Enum = require_enum(), types = require_types(), util = require_util();
       var Type;
       var ruleRe = /^required|optional|repeated$/;
-      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Field.fromJSON = function fromJSON(name, json) {
         return new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
-      }, "fromJSON");
+      };
       function Field(name, id, type, rule, extend, options, comment) {
         if (util.isObject(rule)) {
           comment = extend;
@@ -17587,20 +17097,19 @@ var LNReaderPlugin = (() => {
         this._packed = null;
         this.comment = comment;
       }
-      __name(Field, "Field");
       Object.defineProperty(Field.prototype, "packed", {
-        get: /* @__PURE__ */ __name(function() {
+        get: function() {
           if (this._packed === null)
             this._packed = this.getOption("packed") !== false;
           return this._packed;
-        }, "get")
+        }
       });
-      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+      Field.prototype.setOption = function setOption(name, value, ifNotSet) {
         if (name === "packed")
           this._packed = null;
         return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
-      }, "setOption");
-      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      };
+      Field.prototype.toJSON = function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
           "rule",
@@ -17616,8 +17125,8 @@ var LNReaderPlugin = (() => {
           "comment",
           keepComments ? this.comment : void 0
         ]);
-      }, "toJSON");
-      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+      };
+      Field.prototype.resolve = function resolve() {
         if (this.resolved)
           return this;
         if ((this.typeDefault = types.defaults[this.type]) === void 0) {
@@ -17661,19 +17170,19 @@ var LNReaderPlugin = (() => {
         if (this.parent instanceof Type)
           this.parent.ctor.prototype[this.name] = this.defaultValue;
         return ReflectionObject.prototype.resolve.call(this);
-      }, "resolve");
-      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
+      };
+      Field.d = function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
         if (typeof fieldType === "function")
           fieldType = util.decorateType(fieldType).name;
         else if (fieldType && typeof fieldType === "object")
           fieldType = util.decorateEnum(fieldType).name;
-        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
+        return function fieldDecorator(prototype, fieldName) {
           util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
-        }, "fieldDecorator");
-      }, "decorateField");
-      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
+        };
+      };
+      Field._configure = function configure(Type_) {
         Type = Type_;
-      }, "configure");
+      };
     }
   });
 
@@ -17697,11 +17206,10 @@ var LNReaderPlugin = (() => {
         this.fieldsArray = [];
         this.comment = comment;
       }
-      __name(OneOf, "OneOf");
-      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      OneOf.fromJSON = function fromJSON(name, json) {
         return new OneOf(name, json.oneof, json.options, json.comment);
-      }, "fromJSON");
-      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      };
+      OneOf.prototype.toJSON = function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
           "options",
@@ -17711,7 +17219,7 @@ var LNReaderPlugin = (() => {
           "comment",
           keepComments ? this.comment : void 0
         ]);
-      }, "toJSON");
+      };
       function addFieldsToParent(oneof) {
         if (oneof.parent) {
           for (var i2 = 0; i2 < oneof.fieldsArray.length; ++i2)
@@ -17719,8 +17227,7 @@ var LNReaderPlugin = (() => {
               oneof.parent.add(oneof.fieldsArray[i2]);
         }
       }
-      __name(addFieldsToParent, "addFieldsToParent");
-      OneOf.prototype.add = /* @__PURE__ */ __name(function add2(field) {
+      OneOf.prototype.add = function add2(field) {
         if (!(field instanceof Field))
           throw TypeError("field must be a Field");
         if (field.parent && field.parent !== this.parent)
@@ -17730,8 +17237,8 @@ var LNReaderPlugin = (() => {
         field.partOf = this;
         addFieldsToParent(this);
         return this;
-      }, "add");
-      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove2(field) {
+      };
+      OneOf.prototype.remove = function remove2(field) {
         if (!(field instanceof Field))
           throw TypeError("field must be a Field");
         var index2 = this.fieldsArray.indexOf(field);
@@ -17743,8 +17250,8 @@ var LNReaderPlugin = (() => {
           this.oneof.splice(index2, 1);
         field.partOf = null;
         return this;
-      }, "remove");
-      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent2) {
+      };
+      OneOf.prototype.onAdd = function onAdd(parent2) {
         ReflectionObject.prototype.onAdd.call(this, parent2);
         var self2 = this;
         for (var i2 = 0; i2 < this.oneof.length; ++i2) {
@@ -17755,25 +17262,25 @@ var LNReaderPlugin = (() => {
           }
         }
         addFieldsToParent(this);
-      }, "onAdd");
-      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent2) {
+      };
+      OneOf.prototype.onRemove = function onRemove(parent2) {
         for (var i2 = 0, field; i2 < this.fieldsArray.length; ++i2)
           if ((field = this.fieldsArray[i2]).parent)
             field.parent.remove(field);
         ReflectionObject.prototype.onRemove.call(this, parent2);
-      }, "onRemove");
-      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
+      };
+      OneOf.d = function decorateOneOf() {
         var fieldNames = new Array(arguments.length), index2 = 0;
         while (index2 < arguments.length)
           fieldNames[index2] = arguments[index2++];
-        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
+        return function oneOfDecorator(prototype, oneofName) {
           util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
           Object.defineProperty(prototype, oneofName, {
             get: util.oneOfGetter(fieldNames),
             set: util.oneOfSetter(fieldNames)
           });
-        }, "oneOfDecorator");
-      }, "decorateOneOf");
+        };
+      };
     }
   });
 
@@ -17786,9 +17293,9 @@ var LNReaderPlugin = (() => {
       ((Namespace.prototype = Object.create(ReflectionObject.prototype)).constructor = Namespace).className = "Namespace";
       var Field = require_field(), util = require_util(), OneOf = require_oneof();
       var Type, Service, Enum;
-      Namespace.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Namespace.fromJSON = function fromJSON(name, json) {
         return new Namespace(name, json.options).addJSON(json.nested);
-      }, "fromJSON");
+      };
       function arrayToJSON(array, toJSONOptions) {
         if (!(array && array.length))
           return void 0;
@@ -17797,49 +17304,46 @@ var LNReaderPlugin = (() => {
           obj[array[i2].name] = array[i2].toJSON(toJSONOptions);
         return obj;
       }
-      __name(arrayToJSON, "arrayToJSON");
       Namespace.arrayToJSON = arrayToJSON;
-      Namespace.isReservedId = /* @__PURE__ */ __name(function isReservedId(reserved, id) {
+      Namespace.isReservedId = function isReservedId(reserved, id) {
         if (reserved) {
           for (var i2 = 0; i2 < reserved.length; ++i2)
             if (typeof reserved[i2] !== "string" && reserved[i2][0] <= id && reserved[i2][1] > id)
               return true;
         }
         return false;
-      }, "isReservedId");
-      Namespace.isReservedName = /* @__PURE__ */ __name(function isReservedName(reserved, name) {
+      };
+      Namespace.isReservedName = function isReservedName(reserved, name) {
         if (reserved) {
           for (var i2 = 0; i2 < reserved.length; ++i2)
             if (reserved[i2] === name)
               return true;
         }
         return false;
-      }, "isReservedName");
+      };
       function Namespace(name, options) {
         ReflectionObject.call(this, name, options);
         this.nested = void 0;
         this._nestedArray = null;
       }
-      __name(Namespace, "Namespace");
       function clearCache(namespace) {
         namespace._nestedArray = null;
         return namespace;
       }
-      __name(clearCache, "clearCache");
       Object.defineProperty(Namespace.prototype, "nestedArray", {
-        get: /* @__PURE__ */ __name(function() {
+        get: function() {
           return this._nestedArray || (this._nestedArray = util.toArray(this.nested));
-        }, "get")
+        }
       });
-      Namespace.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      Namespace.prototype.toJSON = function toJSON(toJSONOptions) {
         return util.toObject([
           "options",
           this.options,
           "nested",
           arrayToJSON(this.nestedArray, toJSONOptions)
         ]);
-      }, "toJSON");
-      Namespace.prototype.addJSON = /* @__PURE__ */ __name(function addJSON(nestedJson) {
+      };
+      Namespace.prototype.addJSON = function addJSON(nestedJson) {
         var ns = this;
         if (nestedJson) {
           for (var names = Object.keys(nestedJson), i2 = 0, nested; i2 < names.length; ++i2) {
@@ -17851,16 +17355,16 @@ var LNReaderPlugin = (() => {
           }
         }
         return this;
-      }, "addJSON");
-      Namespace.prototype.get = /* @__PURE__ */ __name(function get2(name) {
+      };
+      Namespace.prototype.get = function get2(name) {
         return this.nested && this.nested[name] || null;
-      }, "get");
-      Namespace.prototype.getEnum = /* @__PURE__ */ __name(function getEnum(name) {
+      };
+      Namespace.prototype.getEnum = function getEnum(name) {
         if (this.nested && this.nested[name] instanceof Enum)
           return this.nested[name].values;
         throw Error("no such enum: " + name);
-      }, "getEnum");
-      Namespace.prototype.add = /* @__PURE__ */ __name(function add2(object) {
+      };
+      Namespace.prototype.add = function add2(object) {
         if (!(object instanceof Field && object.extend !== void 0 || object instanceof Type || object instanceof OneOf || object instanceof Enum || object instanceof Service || object instanceof Namespace))
           throw TypeError("object must be a valid nested object");
         if (!this.nested)
@@ -17883,8 +17387,8 @@ var LNReaderPlugin = (() => {
         this.nested[object.name] = object;
         object.onAdd(this);
         return clearCache(this);
-      }, "add");
-      Namespace.prototype.remove = /* @__PURE__ */ __name(function remove2(object) {
+      };
+      Namespace.prototype.remove = function remove2(object) {
         if (!(object instanceof ReflectionObject))
           throw TypeError("object must be a ReflectionObject");
         if (object.parent !== this)
@@ -17894,8 +17398,8 @@ var LNReaderPlugin = (() => {
           this.nested = void 0;
         object.onRemove(this);
         return clearCache(this);
-      }, "remove");
-      Namespace.prototype.define = /* @__PURE__ */ __name(function define(path, json) {
+      };
+      Namespace.prototype.define = function define(path, json) {
         if (util.isString(path))
           path = path.split(".");
         else if (!Array.isArray(path))
@@ -17915,8 +17419,8 @@ var LNReaderPlugin = (() => {
         if (json)
           ptr.addJSON(json);
         return ptr;
-      }, "define");
-      Namespace.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+      };
+      Namespace.prototype.resolveAll = function resolveAll() {
         var nested = this.nestedArray, i2 = 0;
         while (i2 < nested.length)
           if (nested[i2] instanceof Namespace)
@@ -17924,8 +17428,8 @@ var LNReaderPlugin = (() => {
           else
             nested[i2++].resolve();
         return this.resolve();
-      }, "resolveAll");
-      Namespace.prototype.lookup = /* @__PURE__ */ __name(function lookup(path, filterTypes, parentAlreadyChecked) {
+      };
+      Namespace.prototype.lookup = function lookup(path, filterTypes, parentAlreadyChecked) {
         if (typeof filterTypes === "boolean") {
           parentAlreadyChecked = filterTypes;
           filterTypes = void 0;
@@ -17953,31 +17457,31 @@ var LNReaderPlugin = (() => {
         if (this.parent === null || parentAlreadyChecked)
           return null;
         return this.parent.lookup(path, filterTypes);
-      }, "lookup");
-      Namespace.prototype.lookupType = /* @__PURE__ */ __name(function lookupType(path) {
+      };
+      Namespace.prototype.lookupType = function lookupType(path) {
         var found = this.lookup(path, [Type]);
         if (!found)
           throw Error("no such type: " + path);
         return found;
-      }, "lookupType");
-      Namespace.prototype.lookupEnum = /* @__PURE__ */ __name(function lookupEnum(path) {
+      };
+      Namespace.prototype.lookupEnum = function lookupEnum(path) {
         var found = this.lookup(path, [Enum]);
         if (!found)
           throw Error("no such Enum '" + path + "' in " + this);
         return found;
-      }, "lookupEnum");
-      Namespace.prototype.lookupTypeOrEnum = /* @__PURE__ */ __name(function lookupTypeOrEnum(path) {
+      };
+      Namespace.prototype.lookupTypeOrEnum = function lookupTypeOrEnum(path) {
         var found = this.lookup(path, [Type, Enum]);
         if (!found)
           throw Error("no such Type or Enum '" + path + "' in " + this);
         return found;
-      }, "lookupTypeOrEnum");
-      Namespace.prototype.lookupService = /* @__PURE__ */ __name(function lookupService(path) {
+      };
+      Namespace.prototype.lookupService = function lookupService(path) {
         var found = this.lookup(path, [Service]);
         if (!found)
           throw Error("no such Service '" + path + "' in " + this);
         return found;
-      }, "lookupService");
+      };
       Namespace._configure = function(Type_, Service_, Enum_) {
         Type = Type_;
         Service = Service_;
@@ -18002,11 +17506,10 @@ var LNReaderPlugin = (() => {
         this.resolvedKeyType = null;
         this.map = true;
       }
-      __name(MapField, "MapField");
-      MapField.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      MapField.fromJSON = function fromJSON(name, json) {
         return new MapField(name, json.id, json.keyType, json.type, json.options, json.comment);
-      }, "fromJSON");
-      MapField.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      };
+      MapField.prototype.toJSON = function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
           "keyType",
@@ -18022,23 +17525,23 @@ var LNReaderPlugin = (() => {
           "comment",
           keepComments ? this.comment : void 0
         ]);
-      }, "toJSON");
-      MapField.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+      };
+      MapField.prototype.resolve = function resolve() {
         if (this.resolved)
           return this;
         if (types.mapKey[this.keyType] === void 0)
           throw Error("invalid key type: " + this.keyType);
         return Field.prototype.resolve.call(this);
-      }, "resolve");
-      MapField.d = /* @__PURE__ */ __name(function decorateMapField(fieldId, fieldKeyType, fieldValueType) {
+      };
+      MapField.d = function decorateMapField(fieldId, fieldKeyType, fieldValueType) {
         if (typeof fieldValueType === "function")
           fieldValueType = util.decorateType(fieldValueType).name;
         else if (fieldValueType && typeof fieldValueType === "object")
           fieldValueType = util.decorateEnum(fieldValueType).name;
-        return /* @__PURE__ */ __name(function mapFieldDecorator(prototype, fieldName) {
+        return function mapFieldDecorator(prototype, fieldName) {
           util.decorateType(prototype.constructor).add(new MapField(fieldName, fieldId, fieldKeyType, fieldValueType));
-        }, "mapFieldDecorator");
-      }, "decorateMapField");
+        };
+      };
     }
   });
 
@@ -18075,11 +17578,10 @@ var LNReaderPlugin = (() => {
         this.comment = comment;
         this.parsedOptions = parsedOptions;
       }
-      __name(Method, "Method");
-      Method.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Method.fromJSON = function fromJSON(name, json) {
         return new Method(name, json.type, json.requestType, json.responseType, json.requestStream, json.responseStream, json.options, json.comment, json.parsedOptions);
-      }, "fromJSON");
-      Method.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      };
+      Method.prototype.toJSON = function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
           "type",
@@ -18100,14 +17602,14 @@ var LNReaderPlugin = (() => {
           "parsedOptions",
           this.parsedOptions
         ]);
-      }, "toJSON");
-      Method.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+      };
+      Method.prototype.resolve = function resolve() {
         if (this.resolved)
           return this;
         this.resolvedRequestType = this.parent.lookupType(this.requestType);
         this.resolvedResponseType = this.parent.lookupType(this.responseType);
         return ReflectionObject.prototype.resolve.call(this);
-      }, "resolve");
+      };
     }
   });
 
@@ -18124,8 +17626,7 @@ var LNReaderPlugin = (() => {
         this.methods = {};
         this._methodsArray = null;
       }
-      __name(Service, "Service");
-      Service.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Service.fromJSON = function fromJSON(name, json) {
         var service = new Service(name, json.options);
         if (json.methods)
           for (var names = Object.keys(json.methods), i2 = 0; i2 < names.length; ++i2)
@@ -18134,8 +17635,8 @@ var LNReaderPlugin = (() => {
           service.addJSON(json.nested);
         service.comment = json.comment;
         return service;
-      }, "fromJSON");
-      Service.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      };
+      Service.prototype.toJSON = function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
@@ -18149,27 +17650,26 @@ var LNReaderPlugin = (() => {
           "comment",
           keepComments ? this.comment : void 0
         ]);
-      }, "toJSON");
+      };
       Object.defineProperty(Service.prototype, "methodsArray", {
-        get: /* @__PURE__ */ __name(function() {
+        get: function() {
           return this._methodsArray || (this._methodsArray = util.toArray(this.methods));
-        }, "get")
+        }
       });
       function clearCache(service) {
         service._methodsArray = null;
         return service;
       }
-      __name(clearCache, "clearCache");
-      Service.prototype.get = /* @__PURE__ */ __name(function get2(name) {
+      Service.prototype.get = function get2(name) {
         return this.methods[name] || Namespace.prototype.get.call(this, name);
-      }, "get");
-      Service.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+      };
+      Service.prototype.resolveAll = function resolveAll() {
         var methods = this.methodsArray;
         for (var i2 = 0; i2 < methods.length; ++i2)
           methods[i2].resolve();
         return Namespace.prototype.resolve.call(this);
-      }, "resolveAll");
-      Service.prototype.add = /* @__PURE__ */ __name(function add2(object) {
+      };
+      Service.prototype.add = function add2(object) {
         if (this.get(object.name))
           throw Error("duplicate name '" + object.name + "' in " + this);
         if (object instanceof Method) {
@@ -18178,8 +17678,8 @@ var LNReaderPlugin = (() => {
           return clearCache(this);
         }
         return Namespace.prototype.add.call(this, object);
-      }, "add");
-      Service.prototype.remove = /* @__PURE__ */ __name(function remove2(object) {
+      };
+      Service.prototype.remove = function remove2(object) {
         if (object instanceof Method) {
           if (this.methods[object.name] !== object)
             throw Error(object + " is not a member of " + this);
@@ -18188,8 +17688,8 @@ var LNReaderPlugin = (() => {
           return clearCache(this);
         }
         return Namespace.prototype.remove.call(this, object);
-      }, "remove");
-      Service.prototype.create = /* @__PURE__ */ __name(function create(rpcImpl, requestDelimited, responseDelimited) {
+      };
+      Service.prototype.create = function create(rpcImpl, requestDelimited, responseDelimited) {
         var rpcService = new rpc.Service(rpcImpl, requestDelimited, responseDelimited);
         for (var i2 = 0, method; i2 < /* initializes */
         this.methodsArray.length; ++i2) {
@@ -18201,7 +17701,7 @@ var LNReaderPlugin = (() => {
           });
         }
         return rpcService;
-      }, "create");
+      };
     }
   });
 
@@ -18216,34 +17716,33 @@ var LNReaderPlugin = (() => {
           for (var keys = Object.keys(properties), i2 = 0; i2 < keys.length; ++i2)
             this[keys[i2]] = properties[keys[i2]];
       }
-      __name(Message, "Message");
-      Message.create = /* @__PURE__ */ __name(function create(properties) {
+      Message.create = function create(properties) {
         return this.$type.create(properties);
-      }, "create");
-      Message.encode = /* @__PURE__ */ __name(function encode(message, writer) {
+      };
+      Message.encode = function encode(message, writer) {
         return this.$type.encode(message, writer);
-      }, "encode");
-      Message.encodeDelimited = /* @__PURE__ */ __name(function encodeDelimited(message, writer) {
+      };
+      Message.encodeDelimited = function encodeDelimited(message, writer) {
         return this.$type.encodeDelimited(message, writer);
-      }, "encodeDelimited");
-      Message.decode = /* @__PURE__ */ __name(function decode(reader) {
+      };
+      Message.decode = function decode(reader) {
         return this.$type.decode(reader);
-      }, "decode");
-      Message.decodeDelimited = /* @__PURE__ */ __name(function decodeDelimited(reader) {
+      };
+      Message.decodeDelimited = function decodeDelimited(reader) {
         return this.$type.decodeDelimited(reader);
-      }, "decodeDelimited");
-      Message.verify = /* @__PURE__ */ __name(function verify(message) {
+      };
+      Message.verify = function verify(message) {
         return this.$type.verify(message);
-      }, "verify");
-      Message.fromObject = /* @__PURE__ */ __name(function fromObject(object) {
+      };
+      Message.fromObject = function fromObject(object) {
         return this.$type.fromObject(object);
-      }, "fromObject");
-      Message.toObject = /* @__PURE__ */ __name(function toObject(message, options) {
+      };
+      Message.toObject = function toObject(message, options) {
         return this.$type.toObject(message, options);
-      }, "toObject");
-      Message.prototype.toJSON = /* @__PURE__ */ __name(function toJSON() {
+      };
+      Message.prototype.toJSON = function toJSON() {
         return this.$type.toObject(this, util.toJSONOptions);
-      }, "toJSON");
+      };
     }
   });
 
@@ -18256,7 +17755,6 @@ var LNReaderPlugin = (() => {
       function missing(field) {
         return "missing required '" + field.name + "'";
       }
-      __name(missing, "missing");
       function decoder(mtype) {
         var gen = util.codegen(["r", "l"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
           return field2.map;
@@ -18296,7 +17794,6 @@ var LNReaderPlugin = (() => {
         }
         return gen("return m");
       }
-      __name(decoder, "decoder");
     }
   });
 
@@ -18309,7 +17806,6 @@ var LNReaderPlugin = (() => {
       function invalid(field, expected) {
         return field.name + ": " + expected + (field.repeated && expected !== "array" ? "[]" : field.map && expected !== "object" ? "{k:" + field.keyType + "}" : "") + " expected";
       }
-      __name(invalid, "invalid");
       function genVerifyValue(gen, field, fieldIndex, ref) {
         if (field.resolvedType) {
           if (field.resolvedType instanceof Enum) {
@@ -18352,7 +17848,6 @@ var LNReaderPlugin = (() => {
         }
         return gen;
       }
-      __name(genVerifyValue, "genVerifyValue");
       function genVerifyKey(gen, field, ref) {
         switch (field.keyType) {
           case "int32":
@@ -18375,7 +17870,6 @@ var LNReaderPlugin = (() => {
         }
         return gen;
       }
-      __name(genVerifyKey, "genVerifyKey");
       function verifier(mtype) {
         var gen = util.codegen(["m"], mtype.name + "$verify")('if(typeof m!=="object"||m===null)')("return%j", "object expected");
         var oneofs = mtype.oneofsArray, seenFirstField = {};
@@ -18404,7 +17898,6 @@ var LNReaderPlugin = (() => {
         }
         return gen("return null");
       }
-      __name(verifier, "verifier");
     }
   });
 
@@ -18467,8 +17960,7 @@ var LNReaderPlugin = (() => {
         }
         return gen;
       }
-      __name(genValuePartial_fromObject, "genValuePartial_fromObject");
-      converter.fromObject = /* @__PURE__ */ __name(function fromObject(mtype) {
+      converter.fromObject = function fromObject(mtype) {
         var fields = mtype.fieldsArray;
         var gen = util.codegen(["d"], mtype.name + "$fromObject")("if(d instanceof this.ctor)")("return d");
         if (!fields.length) return gen("return new this.ctor");
@@ -18506,7 +17998,7 @@ var LNReaderPlugin = (() => {
           }
         }
         return gen("return m");
-      }, "fromObject");
+      };
       function genValuePartial_toObject(gen, field, fieldIndex, prop2) {
         if (field.resolvedType) {
           if (field.resolvedType instanceof Enum) gen("d%s=o.enums===String?(types[%i].values[m%s]===undefined?m%s:types[%i].values[m%s]):m%s", prop2, fieldIndex, prop2, prop2, fieldIndex, prop2, prop2);
@@ -18537,8 +18029,7 @@ var LNReaderPlugin = (() => {
         }
         return gen;
       }
-      __name(genValuePartial_toObject, "genValuePartial_toObject");
-      converter.toObject = /* @__PURE__ */ __name(function toObject(mtype) {
+      converter.toObject = function toObject(mtype) {
         var fields = mtype.fieldsArray.slice().sort(util.compareFieldsById);
         if (!fields.length)
           return util.codegen()("return {}");
@@ -18609,7 +18100,7 @@ var LNReaderPlugin = (() => {
           gen("}");
         }
         return gen("return d");
-      }, "toObject");
+      };
     }
   });
 
@@ -18620,7 +18111,7 @@ var LNReaderPlugin = (() => {
       var wrappers = exports2;
       var Message = require_message();
       wrappers[".google.protobuf.Any"] = {
-        fromObject: /* @__PURE__ */ __name(function(object) {
+        fromObject: function(object) {
           if (object && object["@type"]) {
             var name = object["@type"].substring(object["@type"].lastIndexOf("/") + 1);
             var type = this.lookup(name);
@@ -18636,8 +18127,8 @@ var LNReaderPlugin = (() => {
             }
           }
           return this.fromObject(object);
-        }, "fromObject"),
-        toObject: /* @__PURE__ */ __name(function(message, options) {
+        },
+        toObject: function(message, options) {
           var googleApi = "type.googleapis.com/";
           var prefix = "";
           var name = "";
@@ -18659,7 +18150,7 @@ var LNReaderPlugin = (() => {
             return object;
           }
           return this.toObject(message, options);
-        }, "toObject")
+        }
       };
     }
   });
@@ -18684,7 +18175,6 @@ var LNReaderPlugin = (() => {
         this._oneofsArray = null;
         this._ctor = null;
       }
-      __name(Type, "Type");
       Object.defineProperties(Type.prototype, {
         /**
          * Message fields by id.
@@ -18693,7 +18183,7 @@ var LNReaderPlugin = (() => {
          * @readonly
          */
         fieldsById: {
-          get: /* @__PURE__ */ __name(function() {
+          get: function() {
             if (this._fieldsById)
               return this._fieldsById;
             this._fieldsById = {};
@@ -18704,7 +18194,7 @@ var LNReaderPlugin = (() => {
               this._fieldsById[id] = field;
             }
             return this._fieldsById;
-          }, "get")
+          }
         },
         /**
          * Fields of this message as an array for iteration.
@@ -18713,9 +18203,9 @@ var LNReaderPlugin = (() => {
          * @readonly
          */
         fieldsArray: {
-          get: /* @__PURE__ */ __name(function() {
+          get: function() {
             return this._fieldsArray || (this._fieldsArray = util.toArray(this.fields));
-          }, "get")
+          }
         },
         /**
          * Oneofs of this message as an array for iteration.
@@ -18724,9 +18214,9 @@ var LNReaderPlugin = (() => {
          * @readonly
          */
         oneofsArray: {
-          get: /* @__PURE__ */ __name(function() {
+          get: function() {
             return this._oneofsArray || (this._oneofsArray = util.toArray(this.oneofs));
-          }, "get")
+          }
         },
         /**
          * The registered constructor, if any registered, otherwise a generic constructor.
@@ -18735,10 +18225,10 @@ var LNReaderPlugin = (() => {
          * @type {Constructor<{}>}
          */
         ctor: {
-          get: /* @__PURE__ */ __name(function() {
+          get: function() {
             return this._ctor || (this.ctor = Type.generateConstructor(this)());
-          }, "get"),
-          set: /* @__PURE__ */ __name(function(ctor) {
+          },
+          set: function(ctor) {
             var prototype = ctor.prototype;
             if (!(prototype instanceof Message)) {
               (ctor.prototype = new Message()).constructor = ctor;
@@ -18760,16 +18250,16 @@ var LNReaderPlugin = (() => {
               };
             if (i2)
               Object.defineProperties(ctor.prototype, ctorProperties);
-          }, "set")
+          }
         }
       });
-      Type.generateConstructor = /* @__PURE__ */ __name(function generateConstructor(mtype) {
+      Type.generateConstructor = function generateConstructor(mtype) {
         var gen = util.codegen(["p"], mtype.name);
         for (var i2 = 0, field; i2 < mtype.fieldsArray.length; ++i2)
           if ((field = mtype._fieldsArray[i2]).map) gen("this%s={}", util.safeProp(field.name));
           else if (field.repeated) gen("this%s=[]", util.safeProp(field.name));
         return gen("if(p)for(var ks=Object.keys(p),i=0;i<ks.length;++i)if(p[ks[i]]!=null)")("this[ks[i]]=p[ks[i]]");
-      }, "generateConstructor");
+      };
       function clearCache(type) {
         type._fieldsById = type._fieldsArray = type._oneofsArray = null;
         delete type.encode;
@@ -18777,8 +18267,7 @@ var LNReaderPlugin = (() => {
         delete type.verify;
         return type;
       }
-      __name(clearCache, "clearCache");
-      Type.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Type.fromJSON = function fromJSON(name, json) {
         var type = new Type(name, json.options);
         type.extensions = json.extensions;
         type.reserved = json.reserved;
@@ -18807,8 +18296,8 @@ var LNReaderPlugin = (() => {
         if (json.comment)
           type.comment = json.comment;
         return type;
-      }, "fromJSON");
-      Type.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      };
+      Type.prototype.toJSON = function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
@@ -18831,8 +18320,8 @@ var LNReaderPlugin = (() => {
           "comment",
           keepComments ? this.comment : void 0
         ]);
-      }, "toJSON");
-      Type.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+      };
+      Type.prototype.resolveAll = function resolveAll() {
         var fields = this.fieldsArray, i2 = 0;
         while (i2 < fields.length)
           fields[i2++].resolve();
@@ -18841,11 +18330,11 @@ var LNReaderPlugin = (() => {
         while (i2 < oneofs.length)
           oneofs[i2++].resolve();
         return Namespace.prototype.resolveAll.call(this);
-      }, "resolveAll");
-      Type.prototype.get = /* @__PURE__ */ __name(function get2(name) {
+      };
+      Type.prototype.get = function get2(name) {
         return this.fields[name] || this.oneofs && this.oneofs[name] || this.nested && this.nested[name] || null;
-      }, "get");
-      Type.prototype.add = /* @__PURE__ */ __name(function add2(object) {
+      };
+      Type.prototype.add = function add2(object) {
         if (this.get(object.name))
           throw Error("duplicate name '" + object.name + "' in " + this);
         if (object instanceof Field && object.extend === void 0) {
@@ -18873,8 +18362,8 @@ var LNReaderPlugin = (() => {
           return clearCache(this);
         }
         return Namespace.prototype.add.call(this, object);
-      }, "add");
-      Type.prototype.remove = /* @__PURE__ */ __name(function remove2(object) {
+      };
+      Type.prototype.remove = function remove2(object) {
         if (object instanceof Field && object.extend === void 0) {
           if (!this.fields || this.fields[object.name] !== object)
             throw Error(object + " is not a member of " + this);
@@ -18892,17 +18381,17 @@ var LNReaderPlugin = (() => {
           return clearCache(this);
         }
         return Namespace.prototype.remove.call(this, object);
-      }, "remove");
-      Type.prototype.isReservedId = /* @__PURE__ */ __name(function isReservedId(id) {
+      };
+      Type.prototype.isReservedId = function isReservedId(id) {
         return Namespace.isReservedId(this.reserved, id);
-      }, "isReservedId");
-      Type.prototype.isReservedName = /* @__PURE__ */ __name(function isReservedName(name) {
+      };
+      Type.prototype.isReservedName = function isReservedName(name) {
         return Namespace.isReservedName(this.reserved, name);
-      }, "isReservedName");
-      Type.prototype.create = /* @__PURE__ */ __name(function create(properties) {
+      };
+      Type.prototype.create = function create(properties) {
         return new this.ctor(properties);
-      }, "create");
-      Type.prototype.setup = /* @__PURE__ */ __name(function setup() {
+      };
+      Type.prototype.setup = function setup() {
         var fullName = this.fullName, types = [];
         for (var i2 = 0; i2 < /* initializes */
         this.fieldsArray.length; ++i2)
@@ -18938,35 +18427,35 @@ var LNReaderPlugin = (() => {
           this.toObject = wrapper.toObject.bind(originalThis);
         }
         return this;
-      }, "setup");
-      Type.prototype.encode = /* @__PURE__ */ __name(function encode_setup(message, writer) {
+      };
+      Type.prototype.encode = function encode_setup(message, writer) {
         return this.setup().encode(message, writer);
-      }, "encode_setup");
-      Type.prototype.encodeDelimited = /* @__PURE__ */ __name(function encodeDelimited(message, writer) {
+      };
+      Type.prototype.encodeDelimited = function encodeDelimited(message, writer) {
         return this.encode(message, writer && writer.len ? writer.fork() : writer).ldelim();
-      }, "encodeDelimited");
-      Type.prototype.decode = /* @__PURE__ */ __name(function decode_setup(reader, length) {
+      };
+      Type.prototype.decode = function decode_setup(reader, length) {
         return this.setup().decode(reader, length);
-      }, "decode_setup");
-      Type.prototype.decodeDelimited = /* @__PURE__ */ __name(function decodeDelimited(reader) {
+      };
+      Type.prototype.decodeDelimited = function decodeDelimited(reader) {
         if (!(reader instanceof Reader))
           reader = Reader.create(reader);
         return this.decode(reader, reader.uint32());
-      }, "decodeDelimited");
-      Type.prototype.verify = /* @__PURE__ */ __name(function verify_setup(message) {
+      };
+      Type.prototype.verify = function verify_setup(message) {
         return this.setup().verify(message);
-      }, "verify_setup");
-      Type.prototype.fromObject = /* @__PURE__ */ __name(function fromObject(object) {
+      };
+      Type.prototype.fromObject = function fromObject(object) {
         return this.setup().fromObject(object);
-      }, "fromObject");
-      Type.prototype.toObject = /* @__PURE__ */ __name(function toObject(message, options) {
+      };
+      Type.prototype.toObject = function toObject(message, options) {
         return this.setup().toObject(message, options);
-      }, "toObject");
-      Type.d = /* @__PURE__ */ __name(function decorateType(typeName) {
-        return /* @__PURE__ */ __name(function typeDecorator(target) {
+      };
+      Type.d = function decorateType(typeName) {
+        return function typeDecorator(target) {
           util.decorateType(target, typeName);
-        }, "typeDecorator");
-      }, "decorateType");
+        };
+      };
     }
   });
 
@@ -18984,20 +18473,18 @@ var LNReaderPlugin = (() => {
         this.deferred = [];
         this.files = [];
       }
-      __name(Root, "Root");
-      Root.fromJSON = /* @__PURE__ */ __name(function fromJSON(json, root2) {
+      Root.fromJSON = function fromJSON(json, root2) {
         if (!root2)
           root2 = new Root();
         if (json.options)
           root2.setOptions(json.options);
         return root2.addJSON(json.nested);
-      }, "fromJSON");
+      };
       Root.prototype.resolvePath = util.path.resolve;
       Root.prototype.fetch = util.fetch;
       function SYNC() {
       }
-      __name(SYNC, "SYNC");
-      Root.prototype.load = /* @__PURE__ */ __name(function load2(filename, options, callback) {
+      Root.prototype.load = function load2(filename, options, callback) {
         if (typeof options === "function") {
           callback = options;
           options = void 0;
@@ -19015,7 +18502,6 @@ var LNReaderPlugin = (() => {
           callback = null;
           cb(err, root2);
         }
-        __name(finish, "finish");
         function getBundledFileName(filename2) {
           var idx = filename2.lastIndexOf("google/protobuf/");
           if (idx > -1) {
@@ -19024,7 +18510,6 @@ var LNReaderPlugin = (() => {
           }
           return null;
         }
-        __name(getBundledFileName, "getBundledFileName");
         function process(filename2, source) {
           try {
             if (util.isString(source) && source.charAt(0) === "{")
@@ -19051,7 +18536,6 @@ var LNReaderPlugin = (() => {
           if (!sync && !queued)
             finish(null, self2);
         }
-        __name(process, "process");
         function fetch2(filename2, weak) {
           filename2 = getBundledFileName(filename2) || filename2;
           if (self2.files.indexOf(filename2) > -1)
@@ -19096,7 +18580,6 @@ var LNReaderPlugin = (() => {
             });
           }
         }
-        __name(fetch2, "fetch");
         var queued = 0;
         if (util.isString(filename))
           filename = [filename];
@@ -19108,19 +18591,19 @@ var LNReaderPlugin = (() => {
         if (!queued)
           finish(null, self2);
         return void 0;
-      }, "load");
-      Root.prototype.loadSync = /* @__PURE__ */ __name(function loadSync(filename, options) {
+      };
+      Root.prototype.loadSync = function loadSync(filename, options) {
         if (!util.isNode)
           throw Error("not supported");
         return this.load(filename, options, SYNC);
-      }, "loadSync");
-      Root.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+      };
+      Root.prototype.resolveAll = function resolveAll() {
         if (this.deferred.length)
           throw Error("unresolvable extensions: " + this.deferred.map(function(field) {
             return "'extend " + field.extend + "' in " + field.parent.fullName;
           }).join(", "));
         return Namespace.prototype.resolveAll.call(this);
-      }, "resolveAll");
+      };
       var exposeRe = /^[A-Z]/;
       function tryHandleExtension(root2, field) {
         var extendedType = field.parent.lookup(field.extend);
@@ -19136,8 +18619,7 @@ var LNReaderPlugin = (() => {
         }
         return false;
       }
-      __name(tryHandleExtension, "tryHandleExtension");
-      Root.prototype._handleAdd = /* @__PURE__ */ __name(function _handleAdd(object) {
+      Root.prototype._handleAdd = function _handleAdd(object) {
         if (object instanceof Field) {
           if (
             /* an extension field (implies not part of a oneof) */
@@ -19163,8 +18645,8 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             object.parent[object.name] = object;
         }
-      }, "_handleAdd");
-      Root.prototype._handleRemove = /* @__PURE__ */ __name(function _handleRemove(object) {
+      };
+      Root.prototype._handleRemove = function _handleRemove(object) {
         if (object instanceof Field) {
           if (
             /* an extension field */
@@ -19192,7 +18674,7 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             delete object.parent[object.name];
         }
-      }, "_handleRemove");
+      };
       Root._configure = function(Type_, parse_, common_) {
         Type = Type_;
         parse5 = parse_;
@@ -19212,7 +18694,7 @@ var LNReaderPlugin = (() => {
       util.fetch = require_fetch();
       util.path = require_path();
       util.fs = util.inquire("fs");
-      util.toArray = /* @__PURE__ */ __name(function toArray2(object) {
+      util.toArray = function toArray2(object) {
         if (object) {
           var keys = Object.keys(object), array = new Array(keys.length), index2 = 0;
           while (index2 < keys.length)
@@ -19220,8 +18702,8 @@ var LNReaderPlugin = (() => {
           return array;
         }
         return [];
-      }, "toArray");
-      util.toObject = /* @__PURE__ */ __name(function toObject(array) {
+      };
+      util.toObject = function toObject(array) {
         var object = {}, index2 = 0;
         while (index2 < array.length) {
           var key = array[index2++], val2 = array[index2++];
@@ -19229,29 +18711,29 @@ var LNReaderPlugin = (() => {
             object[key] = val2;
         }
         return object;
-      }, "toObject");
+      };
       var safePropBackslashRe = /\\/g, safePropQuoteRe = /"/g;
-      util.isReserved = /* @__PURE__ */ __name(function isReserved(name) {
+      util.isReserved = function isReserved(name) {
         return /^(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$/.test(name);
-      }, "isReserved");
-      util.safeProp = /* @__PURE__ */ __name(function safeProp(prop2) {
+      };
+      util.safeProp = function safeProp(prop2) {
         if (!/^[$\w_]+$/.test(prop2) || util.isReserved(prop2))
           return '["' + prop2.replace(safePropBackslashRe, "\\\\").replace(safePropQuoteRe, '\\"') + '"]';
         return "." + prop2;
-      }, "safeProp");
-      util.ucFirst = /* @__PURE__ */ __name(function ucFirst(str) {
+      };
+      util.ucFirst = function ucFirst(str) {
         return str.charAt(0).toUpperCase() + str.substring(1);
-      }, "ucFirst");
+      };
       var camelCaseRe = /_([a-z])/g;
-      util.camelCase = /* @__PURE__ */ __name(function camelCase2(str) {
+      util.camelCase = function camelCase2(str) {
         return str.substring(0, 1) + str.substring(1).replace(camelCaseRe, function($0, $1) {
           return $1.toUpperCase();
         });
-      }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a, b) {
+      };
+      util.compareFieldsById = function compareFieldsById(a, b) {
         return a.id - b.id;
-      }, "compareFieldsById");
-      util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
+      };
+      util.decorateType = function decorateType(ctor, typeName) {
         if (ctor.$type) {
           if (typeName && ctor.$type.name !== typeName) {
             util.decorateRoot.remove(ctor.$type);
@@ -19268,9 +18750,9 @@ var LNReaderPlugin = (() => {
         Object.defineProperty(ctor, "$type", { value: type, enumerable: false });
         Object.defineProperty(ctor.prototype, "$type", { value: type, enumerable: false });
         return type;
-      }, "decorateType");
+      };
       var decorateEnumIndex = 0;
-      util.decorateEnum = /* @__PURE__ */ __name(function decorateEnum(object) {
+      util.decorateEnum = function decorateEnum(object) {
         if (object.$type)
           return object.$type;
         if (!Enum)
@@ -19279,8 +18761,8 @@ var LNReaderPlugin = (() => {
         util.decorateRoot.add(enm);
         Object.defineProperty(object, "$type", { value: enm, enumerable: false });
         return enm;
-      }, "decorateEnum");
-      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value) {
+      };
+      util.setProperty = function setProperty(dst, path, value) {
         function setProp2(dst2, path2, value2) {
           var part = path2.shift();
           if (part === "__proto__" || part === "prototype") {
@@ -19296,18 +18778,17 @@ var LNReaderPlugin = (() => {
           }
           return dst2;
         }
-        __name(setProp2, "setProp");
         if (typeof dst !== "object")
           throw TypeError("dst must be an object");
         if (!path)
           throw TypeError("path must be specified");
         path = path.split(".");
         return setProp2(dst, path, value);
-      }, "setProperty");
+      };
       Object.defineProperty(util, "decorateRoot", {
-        get: /* @__PURE__ */ __name(function() {
+        get: function() {
           return roots["decorated"] || (roots["decorated"] = new (require_root())());
-        }, "get")
+        }
       });
     }
   });
@@ -19333,7 +18814,6 @@ var LNReaderPlugin = (() => {
         this.comment = null;
         this.filename = null;
       }
-      __name(ReflectionObject, "ReflectionObject");
       Object.defineProperties(ReflectionObject.prototype, {
         /**
          * Reference to the root namespace.
@@ -19342,12 +18822,12 @@ var LNReaderPlugin = (() => {
          * @readonly
          */
         root: {
-          get: /* @__PURE__ */ __name(function() {
+          get: function() {
             var ptr = this;
             while (ptr.parent !== null)
               ptr = ptr.parent;
             return ptr;
-          }, "get")
+          }
         },
         /**
          * Full name including leading dot.
@@ -19356,21 +18836,21 @@ var LNReaderPlugin = (() => {
          * @readonly
          */
         fullName: {
-          get: /* @__PURE__ */ __name(function() {
+          get: function() {
             var path = [this.name], ptr = this.parent;
             while (ptr) {
               path.unshift(ptr.name);
               ptr = ptr.parent;
             }
             return path.join(".");
-          }, "get")
+          }
         }
       });
       ReflectionObject.prototype.toJSON = /* istanbul ignore next */
-      /* @__PURE__ */ __name(function toJSON() {
+      function toJSON() {
         throw Error();
-      }, "toJSON");
-      ReflectionObject.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent2) {
+      };
+      ReflectionObject.prototype.onAdd = function onAdd(parent2) {
         if (this.parent && this.parent !== parent2)
           this.parent.remove(this);
         this.parent = parent2;
@@ -19378,32 +18858,32 @@ var LNReaderPlugin = (() => {
         var root2 = parent2.root;
         if (root2 instanceof Root)
           root2._handleAdd(this);
-      }, "onAdd");
-      ReflectionObject.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent2) {
+      };
+      ReflectionObject.prototype.onRemove = function onRemove(parent2) {
         var root2 = parent2.root;
         if (root2 instanceof Root)
           root2._handleRemove(this);
         this.parent = null;
         this.resolved = false;
-      }, "onRemove");
-      ReflectionObject.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+      };
+      ReflectionObject.prototype.resolve = function resolve() {
         if (this.resolved)
           return this;
         if (this.root instanceof Root)
           this.resolved = true;
         return this;
-      }, "resolve");
-      ReflectionObject.prototype.getOption = /* @__PURE__ */ __name(function getOption(name) {
+      };
+      ReflectionObject.prototype.getOption = function getOption(name) {
         if (this.options)
           return this.options[name];
         return void 0;
-      }, "getOption");
-      ReflectionObject.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+      };
+      ReflectionObject.prototype.setOption = function setOption(name, value, ifNotSet) {
         if (!ifNotSet || !this.options || this.options[name] === void 0)
           (this.options || (this.options = {}))[name] = value;
         return this;
-      }, "setOption");
-      ReflectionObject.prototype.setParsedOption = /* @__PURE__ */ __name(function setParsedOption(name, value, propName) {
+      };
+      ReflectionObject.prototype.setParsedOption = function setParsedOption(name, value, propName) {
         if (!this.parsedOptions) {
           this.parsedOptions = [];
         }
@@ -19426,19 +18906,19 @@ var LNReaderPlugin = (() => {
           parsedOptions.push(newOpt);
         }
         return this;
-      }, "setParsedOption");
-      ReflectionObject.prototype.setOptions = /* @__PURE__ */ __name(function setOptions(options, ifNotSet) {
+      };
+      ReflectionObject.prototype.setOptions = function setOptions(options, ifNotSet) {
         if (options)
           for (var keys = Object.keys(options), i2 = 0; i2 < keys.length; ++i2)
             this.setOption(keys[i2], options[keys[i2]], ifNotSet);
         return this;
-      }, "setOptions");
-      ReflectionObject.prototype.toString = /* @__PURE__ */ __name(function toString2() {
+      };
+      ReflectionObject.prototype.toString = function toString2() {
         var className = this.constructor.className, fullName = this.fullName;
         if (fullName.length)
           return className + " " + fullName;
         return className;
-      }, "toString");
+      };
       ReflectionObject._configure = function(Root_) {
         Root = Root_;
       };
@@ -19469,13 +18949,12 @@ var LNReaderPlugin = (() => {
               this.valuesById[this.values[keys[i2]] = values[keys[i2]]] = keys[i2];
         }
       }
-      __name(Enum, "Enum");
-      Enum.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Enum.fromJSON = function fromJSON(name, json) {
         var enm = new Enum(name, json.values, json.options, json.comment, json.comments);
         enm.reserved = json.reserved;
         return enm;
-      }, "fromJSON");
-      Enum.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+      };
+      Enum.prototype.toJSON = function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
           "options",
@@ -19491,8 +18970,8 @@ var LNReaderPlugin = (() => {
           "comments",
           keepComments ? this.comments : void 0
         ]);
-      }, "toJSON");
-      Enum.prototype.add = /* @__PURE__ */ __name(function add2(name, id, comment, options) {
+      };
+      Enum.prototype.add = function add2(name, id, comment, options) {
         if (!util.isString(name))
           throw TypeError("name must be a string");
         if (!util.isInteger(id))
@@ -19516,8 +18995,8 @@ var LNReaderPlugin = (() => {
         }
         this.comments[name] = comment || null;
         return this;
-      }, "add");
-      Enum.prototype.remove = /* @__PURE__ */ __name(function remove2(name) {
+      };
+      Enum.prototype.remove = function remove2(name) {
         if (!util.isString(name))
           throw TypeError("name must be a string");
         var val2 = this.values[name];
@@ -19529,13 +19008,13 @@ var LNReaderPlugin = (() => {
         if (this.valuesOptions)
           delete this.valuesOptions[name];
         return this;
-      }, "remove");
-      Enum.prototype.isReservedId = /* @__PURE__ */ __name(function isReservedId(id) {
+      };
+      Enum.prototype.isReservedId = function isReservedId(id) {
         return Namespace.isReservedId(this.reserved, id);
-      }, "isReservedId");
-      Enum.prototype.isReservedName = /* @__PURE__ */ __name(function isReservedName(name) {
+      };
+      Enum.prototype.isReservedName = function isReservedName(name) {
         return Namespace.isReservedName(this.reserved, name);
-      }, "isReservedName");
+      };
     }
   });
 
@@ -19548,7 +19027,6 @@ var LNReaderPlugin = (() => {
       function genTypePartial(gen, field, fieldIndex, ref) {
         return field.resolvedType.group ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
       }
-      __name(genTypePartial, "genTypePartial");
       function encoder(mtype) {
         var gen = util.codegen(["m", "w"], mtype.name + "$encode")("if(!w)")("w=Writer.create()");
         var i2, ref;
@@ -19584,7 +19062,6 @@ var LNReaderPlugin = (() => {
         }
         return gen("return w");
       }
-      __name(encoder, "encoder");
     }
   });
 
@@ -19602,14 +19079,12 @@ var LNReaderPlugin = (() => {
           root2 = new protobuf.Root();
         return root2.load(filename, callback);
       }
-      __name(load2, "load");
       protobuf.load = load2;
       function loadSync(filename, root2) {
         if (!root2)
           root2 = new protobuf.Root();
         return root2.loadSync(filename);
       }
-      __name(loadSync, "loadSync");
       protobuf.loadSync = loadSync;
       protobuf.encoder = require_encoder();
       protobuf.decoder = require_decoder();
@@ -19660,7 +19135,6 @@ var LNReaderPlugin = (() => {
           }
         });
       }
-      __name(unescape, "unescape");
       tokenize.unescape = unescape;
       function tokenize(source, alternateCommentMode) {
         source = source.toString();
@@ -19670,7 +19144,6 @@ var LNReaderPlugin = (() => {
         function illegal(subject) {
           return Error("illegal " + subject + " (line " + line + ")");
         }
-        __name(illegal, "illegal");
         function readString() {
           var re = stringDelim === "'" ? stringSingleRe : stringDoubleRe;
           re.lastIndex = offset - 1;
@@ -19682,11 +19155,9 @@ var LNReaderPlugin = (() => {
           stringDelim = null;
           return unescape(match[1]);
         }
-        __name(readString, "readString");
         function charAt(pos) {
           return source.charAt(pos);
         }
-        __name(charAt, "charAt");
         function setComment(start, end2, isLeading) {
           var comment = {
             type: source.charAt(start++),
@@ -19713,14 +19184,12 @@ var LNReaderPlugin = (() => {
           comments[line] = comment;
           lastCommentLine = line;
         }
-        __name(setComment, "setComment");
         function isDoubleSlashCommentLine(startOffset) {
           var endOffset = findEndOfLine(startOffset);
           var lineText = source.substring(startOffset, endOffset);
           var isComment2 = /^\s*\/\//.test(lineText);
           return isComment2;
         }
-        __name(isDoubleSlashCommentLine, "isDoubleSlashCommentLine");
         function findEndOfLine(cursor) {
           var endOffset = cursor;
           while (endOffset < length && charAt(endOffset) !== "\n") {
@@ -19728,7 +19197,6 @@ var LNReaderPlugin = (() => {
           }
           return endOffset;
         }
-        __name(findEndOfLine, "findEndOfLine");
         function next2() {
           if (stack.length > 0)
             return stack.shift();
@@ -19826,11 +19294,9 @@ var LNReaderPlugin = (() => {
             stringDelim = token;
           return token;
         }
-        __name(next2, "next");
         function push(token) {
           stack.push(token);
         }
-        __name(push, "push");
         function peek() {
           if (!stack.length) {
             var token = next2();
@@ -19840,7 +19306,6 @@ var LNReaderPlugin = (() => {
           }
           return stack[0];
         }
-        __name(peek, "peek");
         function skip(expected, optional) {
           var actual = peek(), equals = actual === expected;
           if (equals) {
@@ -19851,7 +19316,6 @@ var LNReaderPlugin = (() => {
             throw illegal("token '" + actual + "', '" + expected + "' expected");
           return false;
         }
-        __name(skip, "skip");
         function cmnt(trailingLine) {
           var ret = null;
           var comment;
@@ -19873,7 +19337,6 @@ var LNReaderPlugin = (() => {
           }
           return ret;
         }
-        __name(cmnt, "cmnt");
         return Object.defineProperty({
           next: next2,
           peek,
@@ -19881,12 +19344,11 @@ var LNReaderPlugin = (() => {
           skip,
           cmnt
         }, "line", {
-          get: /* @__PURE__ */ __name(function() {
+          get: function() {
             return line;
-          }, "get")
+          }
         });
       }
-      __name(tokenize, "tokenize");
     }
   });
 
@@ -19919,7 +19381,6 @@ var LNReaderPlugin = (() => {
             parse5.filename = null;
           return Error("illegal " + (name || "token") + " '" + token2 + "' (" + (filename ? filename + ", " : "") + "line " + tn.line + ")");
         }
-        __name(illegal, "illegal");
         function readString() {
           var values = [], token2;
           do {
@@ -19931,7 +19392,6 @@ var LNReaderPlugin = (() => {
           } while (token2 === '"' || token2 === "'");
           return values.join("");
         }
-        __name(readString, "readString");
         function readValue(acceptTypeRef) {
           var token2 = next2();
           switch (token2) {
@@ -19958,7 +19418,6 @@ var LNReaderPlugin = (() => {
             throw illegal(token2, "value");
           }
         }
-        __name(readValue, "readValue");
         function readRanges(target, acceptStrings) {
           var token2, start;
           do {
@@ -19974,19 +19433,18 @@ var LNReaderPlugin = (() => {
           };
           ifBlock(
             dummy,
-            /* @__PURE__ */ __name(function parseRange_block(token3) {
+            function parseRange_block(token3) {
               if (token3 === "option") {
                 parseOption(dummy, token3);
                 skip(";");
               } else
                 throw illegal(token3);
-            }, "parseRange_block"),
-            /* @__PURE__ */ __name(function parseRange_line() {
+            },
+            function parseRange_line() {
               parseInlineOptions(dummy);
-            }, "parseRange_line")
+            }
           );
         }
-        __name(readRanges, "readRanges");
         function parseNumber(token2, insideTryCatch) {
           var sign = 1;
           if (token2.charAt(0) === "-") {
@@ -20016,7 +19474,6 @@ var LNReaderPlugin = (() => {
             return sign * parseFloat(token2);
           throw illegal(token2, "number", insideTryCatch);
         }
-        __name(parseNumber, "parseNumber");
         function parseId(token2, acceptNegative) {
           switch (token2) {
             case "max":
@@ -20036,7 +19493,6 @@ var LNReaderPlugin = (() => {
             return parseInt(token2, 8);
           throw illegal(token2, "id");
         }
-        __name(parseId, "parseId");
         function parsePackage() {
           if (pkg !== void 0)
             throw illegal("package");
@@ -20046,7 +19502,6 @@ var LNReaderPlugin = (() => {
           ptr = ptr.define(pkg);
           skip(";");
         }
-        __name(parsePackage, "parsePackage");
         function parseImport() {
           var token2 = peek();
           var whichImports;
@@ -20066,7 +19521,6 @@ var LNReaderPlugin = (() => {
           skip(";");
           whichImports.push(token2);
         }
-        __name(parseImport, "parseImport");
         function parseSyntax() {
           skip("=");
           syntax = readString();
@@ -20076,7 +19530,6 @@ var LNReaderPlugin = (() => {
           root2.setOption("syntax", syntax);
           skip(";");
         }
-        __name(parseSyntax, "parseSyntax");
         function parseCommon(parent2, token2) {
           switch (token2) {
             case "option":
@@ -20098,7 +19551,6 @@ var LNReaderPlugin = (() => {
           }
           return false;
         }
-        __name(parseCommon, "parseCommon");
         function ifBlock(obj, fnIf, fnElse) {
           var trailingLine = tn.line;
           if (obj) {
@@ -20120,12 +19572,11 @@ var LNReaderPlugin = (() => {
               obj.comment = cmnt(trailingLine) || obj.comment;
           }
         }
-        __name(ifBlock, "ifBlock");
         function parseType(parent2, token2) {
           if (!nameRe.test(token2 = next2()))
             throw illegal(token2, "type name");
           var type = new Type(token2);
-          ifBlock(type, /* @__PURE__ */ __name(function parseType_block(token3) {
+          ifBlock(type, function parseType_block(token3) {
             if (parseCommon(type, token3))
               return;
             switch (token3) {
@@ -20159,10 +19610,9 @@ var LNReaderPlugin = (() => {
                 parseField(type, "optional");
                 break;
             }
-          }, "parseType_block"));
+          });
           parent2.add(type);
         }
-        __name(parseType, "parseType");
         function parseField(parent2, rule, extend) {
           var type = next2();
           if (type === "group") {
@@ -20180,15 +19630,15 @@ var LNReaderPlugin = (() => {
           name = applyCase(name);
           skip("=");
           var field = new Field(name, parseId(next2()), type, rule, extend);
-          ifBlock(field, /* @__PURE__ */ __name(function parseField_block(token2) {
+          ifBlock(field, function parseField_block(token2) {
             if (token2 === "option") {
               parseOption(field, token2);
               skip(";");
             } else
               throw illegal(token2);
-          }, "parseField_block"), /* @__PURE__ */ __name(function parseField_line() {
+          }, function parseField_line() {
             parseInlineOptions(field);
-          }, "parseField_line"));
+          });
           if (rule === "proto3_optional") {
             var oneof = new OneOf("_" + name);
             field.setOption("proto3_optional", true);
@@ -20205,7 +19655,6 @@ var LNReaderPlugin = (() => {
               true
             );
         }
-        __name(parseField, "parseField");
         function parseGroup(parent2, rule) {
           var name = next2();
           if (!nameRe.test(name))
@@ -20219,7 +19668,7 @@ var LNReaderPlugin = (() => {
           type.group = true;
           var field = new Field(fieldName, id, name, rule);
           field.filename = parse5.filename;
-          ifBlock(type, /* @__PURE__ */ __name(function parseGroup_block(token2) {
+          ifBlock(type, function parseGroup_block(token2) {
             switch (token2) {
               case "option":
                 parseOption(type, token2);
@@ -20246,10 +19695,9 @@ var LNReaderPlugin = (() => {
               default:
                 throw illegal(token2);
             }
-          }, "parseGroup_block"));
+          });
           parent2.add(type).add(field);
         }
-        __name(parseGroup, "parseGroup");
         function parseMapField(parent2) {
           skip("<");
           var keyType = next2();
@@ -20265,23 +19713,22 @@ var LNReaderPlugin = (() => {
             throw illegal(name, "name");
           skip("=");
           var field = new MapField(applyCase(name), parseId(next2()), keyType, valueType);
-          ifBlock(field, /* @__PURE__ */ __name(function parseMapField_block(token2) {
+          ifBlock(field, function parseMapField_block(token2) {
             if (token2 === "option") {
               parseOption(field, token2);
               skip(";");
             } else
               throw illegal(token2);
-          }, "parseMapField_block"), /* @__PURE__ */ __name(function parseMapField_line() {
+          }, function parseMapField_line() {
             parseInlineOptions(field);
-          }, "parseMapField_line"));
+          });
           parent2.add(field);
         }
-        __name(parseMapField, "parseMapField");
         function parseOneOf(parent2, token2) {
           if (!nameRe.test(token2 = next2()))
             throw illegal(token2, "name");
           var oneof = new OneOf(applyCase(token2));
-          ifBlock(oneof, /* @__PURE__ */ __name(function parseOneOf_block(token3) {
+          ifBlock(oneof, function parseOneOf_block(token3) {
             if (token3 === "option") {
               parseOption(oneof, token3);
               skip(";");
@@ -20289,15 +19736,14 @@ var LNReaderPlugin = (() => {
               push(token3);
               parseField(oneof, "optional");
             }
-          }, "parseOneOf_block"));
+          });
           parent2.add(oneof);
         }
-        __name(parseOneOf, "parseOneOf");
         function parseEnum(parent2, token2) {
           if (!nameRe.test(token2 = next2()))
             throw illegal(token2, "name");
           var enm = new Enum(token2);
-          ifBlock(enm, /* @__PURE__ */ __name(function parseEnum_block(token3) {
+          ifBlock(enm, function parseEnum_block(token3) {
             switch (token3) {
               case "option":
                 parseOption(enm, token3);
@@ -20309,10 +19755,9 @@ var LNReaderPlugin = (() => {
               default:
                 parseEnumValue(enm, token3);
             }
-          }, "parseEnum_block"));
+          });
           parent2.add(enm);
         }
-        __name(parseEnum, "parseEnum");
         function parseEnumValue(parent2, token2) {
           if (!nameRe.test(token2))
             throw illegal(token2, "name");
@@ -20325,18 +19770,17 @@ var LNReaderPlugin = (() => {
               this.options = {};
             this.options[name] = value2;
           };
-          ifBlock(dummy, /* @__PURE__ */ __name(function parseEnumValue_block(token3) {
+          ifBlock(dummy, function parseEnumValue_block(token3) {
             if (token3 === "option") {
               parseOption(dummy, token3);
               skip(";");
             } else
               throw illegal(token3);
-          }, "parseEnumValue_block"), /* @__PURE__ */ __name(function parseEnumValue_line() {
+          }, function parseEnumValue_line() {
             parseInlineOptions(dummy);
-          }, "parseEnumValue_line"));
+          });
           parent2.add(token2, value, dummy.comment, dummy.options);
         }
-        __name(parseEnumValue, "parseEnumValue");
         function parseOption(parent2, token2) {
           var isCustom = skip("(", true);
           if (!typeRefRe.test(token2 = next2()))
@@ -20359,7 +19803,6 @@ var LNReaderPlugin = (() => {
           var optionValue = parseOptionValue(parent2, name);
           setParsedOption(parent2, option, optionValue, propName);
         }
-        __name(parseOption, "parseOption");
         function parseOptionValue(parent2, name) {
           if (skip("{", true)) {
             var objectResult = {};
@@ -20405,17 +19848,14 @@ var LNReaderPlugin = (() => {
           setOption(parent2, name, simpleValue);
           return simpleValue;
         }
-        __name(parseOptionValue, "parseOptionValue");
         function setOption(parent2, name, value) {
           if (parent2.setOption)
             parent2.setOption(name, value);
         }
-        __name(setOption, "setOption");
         function setParsedOption(parent2, name, value, propName) {
           if (parent2.setParsedOption)
             parent2.setParsedOption(name, value, propName);
         }
-        __name(setParsedOption, "setParsedOption");
         function parseInlineOptions(parent2) {
           if (skip("[", true)) {
             do {
@@ -20425,22 +19865,20 @@ var LNReaderPlugin = (() => {
           }
           return parent2;
         }
-        __name(parseInlineOptions, "parseInlineOptions");
         function parseService(parent2, token2) {
           if (!nameRe.test(token2 = next2()))
             throw illegal(token2, "service name");
           var service = new Service(token2);
-          ifBlock(service, /* @__PURE__ */ __name(function parseService_block(token3) {
+          ifBlock(service, function parseService_block(token3) {
             if (parseCommon(service, token3))
               return;
             if (token3 === "rpc")
               parseMethod(service, token3);
             else
               throw illegal(token3);
-          }, "parseService_block"));
+          });
           parent2.add(service);
         }
-        __name(parseService, "parseService");
         function parseMethod(parent2, token2) {
           var commentText = cmnt();
           var type = token2;
@@ -20464,21 +19902,20 @@ var LNReaderPlugin = (() => {
           skip(")");
           var method = new Method(name, type, requestType, responseType, requestStream, responseStream);
           method.comment = commentText;
-          ifBlock(method, /* @__PURE__ */ __name(function parseMethod_block(token3) {
+          ifBlock(method, function parseMethod_block(token3) {
             if (token3 === "option") {
               parseOption(method, token3);
               skip(";");
             } else
               throw illegal(token3);
-          }, "parseMethod_block"));
+          });
           parent2.add(method);
         }
-        __name(parseMethod, "parseMethod");
         function parseExtension(parent2, token2) {
           if (!typeRefRe.test(token2 = next2()))
             throw illegal(token2, "reference");
           var reference = token2;
-          ifBlock(null, /* @__PURE__ */ __name(function parseExtension_block(token3) {
+          ifBlock(null, function parseExtension_block(token3) {
             switch (token3) {
               case "required":
               case "repeated":
@@ -20498,9 +19935,8 @@ var LNReaderPlugin = (() => {
                 parseField(parent2, "optional", reference);
                 break;
             }
-          }, "parseExtension_block"));
+          });
         }
-        __name(parseExtension, "parseExtension");
         var token;
         while ((token = next2()) !== null) {
           switch (token) {
@@ -20540,7 +19976,6 @@ var LNReaderPlugin = (() => {
           root: root2
         };
       }
-      __name(parse5, "parse");
     }
   });
 
@@ -20557,7 +19992,6 @@ var LNReaderPlugin = (() => {
         }
         common[name] = json;
       }
-      __name(common, "common");
       common("any", {
         /**
          * Properties of a google.protobuf.Any message.
@@ -20871,9 +20305,9 @@ var LNReaderPlugin = (() => {
           }
         }
       });
-      common.get = /* @__PURE__ */ __name(function get2(file) {
+      common.get = function get2(file) {
         return common[file] || null;
-      }, "get");
+      };
     }
   });
 
@@ -20909,7 +20343,7 @@ var LNReaderPlugin = (() => {
     "src/lib/fetch.ts"() {
       "use strict";
       import_protobufjs = __toESM(require_protobufjs(), 1);
-      makeInit = /* @__PURE__ */ __name(async (init) => {
+      makeInit = async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
           "Accept": "*/*",
@@ -20917,27 +20351,22 @@ var LNReaderPlugin = (() => {
           "Sec-Fetch-Mode": "cors",
           "Accept-Encoding": "gzip, deflate"
         };
-        if (init?.headers) {
+        if (init == null ? void 0 : init.headers) {
           if (init.headers instanceof Headers) {
             for (const [name, value] of Object.entries(defaultHeaders)) {
               if (!init.headers.get(name)) init.headers.set(name, value);
             }
           } else {
-            init.headers = {
-              ...defaultHeaders,
-              ...init.headers
-            };
+            init.headers = __spreadValues(__spreadValues({}, defaultHeaders), init.headers);
           }
         } else {
-          init = {
-            ...init,
+          init = __spreadProps(__spreadValues({}, init), {
             headers: defaultHeaders
-          };
+          });
         }
         return init;
-      }, "makeInit");
-      __name(fetchApi, "fetchApi");
-      fetchFile = /* @__PURE__ */ __name(async function(url, init) {
+      };
+      fetchFile = async function(url, init) {
         init = await makeInit(init);
         console.log(url, init);
         try {
@@ -20948,8 +20377,8 @@ var LNReaderPlugin = (() => {
         } catch (e2) {
           return "";
         }
-      }, "fetchFile");
-      fetchText = /* @__PURE__ */ __name(async function(url, init, encoding) {
+      };
+      fetchText = async function(url, init, encoding) {
         init = await makeInit(init);
         console.log(url, init);
         try {
@@ -20961,9 +20390,9 @@ var LNReaderPlugin = (() => {
         } catch (e2) {
           return "";
         }
-      }, "fetchText");
+      };
       BYTE_MARK = BigInt((1 << 8) - 1);
-      fetchProto = /* @__PURE__ */ __name(async function(protoInit, url, init) {
+      fetchProto = async function(protoInit, url, init) {
         const protoRoot = (0, import_protobufjs.parse)(protoInit.proto).root;
         const RequestMessge = protoRoot.lookupType(protoInit.requestType);
         if (RequestMessge.verify(protoInit.requestData)) {
@@ -20981,11 +20410,11 @@ var LNReaderPlugin = (() => {
         const bodyArray = new Uint8Array(headers.length + encodedrequest.length);
         bodyArray.set(headers, 0);
         bodyArray.set(encodedrequest, headers.length);
-        return fetch(url, {
-          method: "POST",
-          ...init,
+        return fetch(url, __spreadProps(__spreadValues({
+          method: "POST"
+        }, init), {
           body: bodyArray
-        }).then((r2) => r2.arrayBuffer()).then((arr) => {
+        })).then((r2) => r2.arrayBuffer()).then((arr) => {
           const payload = new Uint8Array(arr);
           const length = Number(
             BigInt(payload[1] << 24) | BigInt(payload[2] << 16) | BigInt(payload[3] << 8) | BigInt(payload[4])
@@ -20993,7 +20422,7 @@ var LNReaderPlugin = (() => {
           const ResponseMessage = protoRoot.lookupType(protoInit.responseType);
           return ResponseMessage.decode(payload.slice(5, 5 + length));
         });
-      }, "fetchProto");
+      };
     }
   });
 
@@ -21027,7 +20456,6 @@ var LNReaderPlugin = (() => {
           o2(e4);
         }
       }
-      __name(a, "a");
       function s(e3) {
         try {
           c(n2.throw(e3));
@@ -21035,21 +20463,19 @@ var LNReaderPlugin = (() => {
           o2(e4);
         }
       }
-      __name(s, "s");
       function c(e3) {
         var t3;
         e3.done ? i2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2((function(e4) {
           e4(t3);
         }))).then(a, s);
       }
-      __name(c, "c");
       c((n2 = n2.apply(e2, t2 || [])).next());
     }));
   }, r = function(e2, t2) {
-    var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+    var r2, n2, i2, o2 = { label: 0, sent: function() {
       if (1 & i2[0]) throw i2[1];
       return i2[1];
-    }, "sent"), trys: [], ops: [] }, a = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    }, trys: [], ops: [] }, a = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
     return a.next = s(0), a.throw = s(1), a.return = s(2), "function" == typeof Symbol && (a[Symbol.iterator] = function() {
       return this;
     }), a;
@@ -21103,14 +20529,12 @@ var LNReaderPlugin = (() => {
         })([s2, c]);
       };
     }
-    __name(s, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   var n = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), o = (function() {
     function o2() {
       this.id = "novelasligera", this.name = "Novelas Ligera", this.icon = "src/es/novelasligera/icon.png", this.site = "https://novelasligera.com/", this.version = "1.0.0";
     }
-    __name(o2, "o");
     return o2.prototype.popularNovels = function() {
       return t(this, void 0, void 0, (function() {
         var e2, t2, o3, a = this;
