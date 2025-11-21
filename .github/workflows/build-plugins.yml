@@ -109,137 +109,46 @@ jobs:
     strategy:
       matrix:
         include: ${{ fromJson(needs.prepare.outputs.matrix) }}
-      max-parallel: 10
+      max-parallel: 20
+      fail-fast: false
     
     steps:
-      - name: Checkout this repo
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
       
-      - name: Clone LNReader plugins
-        run: |
-          git clone --depth 1 https://github.com/LNReader/lnreader-plugins lnreader-source
-          cd lnreader-source
-          echo "Cloned LNReader plugins repo"
+      - name: Download compiled plugins
+        uses: actions/download-artifact@v4
+        with:
+          name: compiled-plugins
+          path: .js/
       
-      - name: Install dependencies
+      - name: Install bundling tools
         run: |
-          cd lnreader-source
-          npm ci
-          # Install esbuild for bundling and Babel for ES5 transpilation
-          npm install --save-dev esbuild @babel/core @babel/cli @babel/preset-env
+          npm install --no-save esbuild @babel/core @babel/cli @babel/preset-env
       
-      - name: Build plugins (TypeScript compilation)
+      - name: Bundle plugins for language - ${{ matrix.language }}
         run: |
-          cd lnreader-source
-          npm run clean:multisrc
-          npm run build:multisrc
-          npm run build:compile
-          npm run build:manifest
-          
-          # Debug: Show what was actually created
-          echo "=== Directory structure after build ==="
-          ls -la
-          echo ""
-          echo "=== Looking for .js directories ==="
-          find . -type d -name ".js" -o -type d -name "dist" -o -type d -name "build" | head -20
-          echo ""
-          echo "=== Looking for compiled JS files ==="
-          find . -name "*.js" -path "*/plugins/*" | head -20
-      
-      - name: Check build output structure
-        run: |
-          cd lnreader-source
-          echo "=== Checking build output directories ==="
-          echo "Root contents:"
-          ls -la | head -20
-          echo ""
-          echo "Looking for .js directory:"
-          if [ -d ".js" ]; then
-            echo "Found .js directory"
-            ls -la .js/
-            if [ -d ".js/src" ]; then
-              echo "Found .js/src directory"
-              ls -la .js/src/
-            fi
-            if [ -d ".js/plugins" ]; then
-              echo "Found .js/plugins directory"
-              ls -la .js/plugins/ | head -10
-            fi
-          fi
-          echo ""
-          echo "Looking for src directory:"
-          if [ -d "src" ]; then
-            ls -la src/ | head -10
-          fi
-          echo ""
-          echo "Looking for plugins directory:"
-          if [ -d "plugins" ]; then
-            ls -la plugins/ | head -10
-          fi
-      
-      - name: Bundle plugins with dependencies (non-minified)
-        run: |
-          cd lnreader-source
-          
           # Create bundling script
-          cat > scripts/bundle-plugins.js << 'EOF'
+          cat > bundle-language.js << 'EOF'
           import { build } from 'esbuild';
           import fs from 'fs';
           import path from 'path';
-          import { fileURLToPath } from 'url';
           
-          const __filename = fileURLToPath(import.meta.url);
-          const __dirname = path.dirname(__filename);
-          
-          // Functioniple possible locations for plugins
-          const possibleDirs = [
-            path.join(__dirname, '../.js/src/plugins'),
-            path.join(__dirname, '../.js/plugins'),
-            path.join(__dirname, '../src/plugins'),
-            path.join(__dirname, '../plugins')
-          ];
-          
-          let pluginsDir = null;
-          for (const dir of possibleDirs) {
-            if (fs.existsSync(dir)) {
-              pluginsDir = dir;
-              console.log(`Found plugins directory: ${dir}`);
-              break;
-            }
-          }
-          
-          if (!pluginsDir) {
-            console.error('Plugins directory not found in any of these locations:');
-            possibleDirs.forEach(dir => console.error(`  - ${dir}`));
-            
-            // List what's actually in the project
-            console.log('\nActual directory structure:');
-            const listDir = (dir, indent = '') => {
-              try {
-                const items = fs.readdirSync(dir);
-                items.slice(0, 10).forEach(item => {
-                  const fullPath = path.join(dir, item);
-                  const stat = fs.statSync(fullPath);
-                  console.log(`${indent}${item}${stat.isDirectory() ? '/' : ''}`);
-                  if (stat.isDirectory() && indent.length < 6) {
-                    listDir(fullPath, indent + '  ');
-                  }
-                });
-              } catch (e) {}
-            };
-            listDir(path.join(__dirname, '..'));
-            
+          const language = process.argv[2];
+          if (!language) {
+            console.error('Language parameter required');
             process.exit(1);
           }
           
-          const outputDir = path.join(__dirname, '../.bundled/plugins');
+          const pluginsDir = path.join('.js', 'src', 'plugins', language);
+          const outputDir = path.join('.bundled', 'plugins', language);
+          
+          if (!fs.existsSync(pluginsDir)) {
+            console.error(`Plugins directory not found: ${pluginsDir}`);
+            process.exit(1);
+          }
           
           async function bundlePlugin(inputFile, outputFile) {
             const config = {
@@ -281,149 +190,147 @@ jobs:
             }
           }
           
-          async function bundleAllPlugins() {
-            // Files to skip (build scripts, not actual plugins)
-            const skipPatterns = [
-              'generator.js',
-              'generate-multisrc-plugins.js',
-              'get_filters.js',
-              'filter_refresh.js',
-              'template.js'
-            ];
+          async function bundleLanguagePlugins() {
+            const skipPatterns = ['generator.js', 'generate-multisrc-plugins.js', 'get_filters.js', 'filter_refresh.js', 'template.js'];
             
-            const shouldSkip = (filePath) => {
-              const fileName = path.basename(filePath);
-              return skipPatterns.some(pattern => fileName === pattern);
-            };
+            const pluginFiles = fs.readdirSync(pluginsDir)
+              .filter(file => file.endsWith('.js') && !skipPatterns.includes(file))
+              .map(file => path.join(pluginsDir, file));
+          
+            console.log(`Bundling ${pluginFiles.length} plugins for ${language}...\n`);
+          
+            fs.mkdirSync(outputDir, { recursive: true });
             
-            // Walk through all plugin files
-            const walkDir = (dir, callback) => {
-              const files = fs.readdirSync(dir);
-              files.forEach(file => {
-                const filePath = path.join(dir, file);
-                const stat = fs.statSync(filePath);
-                if (stat.isDirectory()) {
-                  walkDir(filePath, callback);
-                } else if (file.endsWith('.js') && !shouldSkip(filePath)) {
-                  callback(filePath);
-                }
-              });
-            };
-          
-            const pluginFiles = [];
-            walkDir(pluginsDir, (file) => pluginFiles.push(file));
-          
-            console.log(`Found ${pluginFiles.length} plugin files to bundle`);
-            console.log('Building modern JS version (ES2017)...\n');
-          
             let successCount = 0;
-            let failCount = 0;
             
-            // Bundle each plugin to ES2017 (modern JS)
             for (const inputFile of pluginFiles) {
-              const relativePath = path.relative(pluginsDir, inputFile);
-              const outputFileModern = path.join(outputDir, relativePath);
+              const fileName = path.basename(inputFile);
+              const outputFile = path.join(outputDir, fileName);
               
-              // Create output directory
-              fs.mkdirSync(path.dirname(outputFileModern), { recursive: true });
-              
-              // Bundle modern version (ES2017)
-              const success = await bundlePlugin(inputFile, outputFileModern);
-              
+              const success = await bundlePlugin(inputFile, outputFile);
               if (success) {
                 successCount++;
-                console.log(`✅ ${relativePath}`);
-              } else {
-                failCount++;
+                console.log(`✅ ${fileName}`);
               }
             }
           
-            console.log(`\n✅ Successfully bundled ${successCount} plugins`);
-            if (failCount > 0) {
-              console.log(`⚠️  Failed to bundle ${failCount} files`);
-            }
+            console.log(`\n✅ Bundled ${successCount}/${pluginFiles.length} plugins for ${language}`);
           }
           
-          bundleAllPlugins().catch(console.error);
+          bundleLanguagePlugins().catch(console.error);
           EOF
           
-          # Run the bundling script (creates ES2017 version)
-          node scripts/bundle-plugins.js
-          
-          echo "✅ All plugins bundled with dependencies"
+          # Run the bundling script for this language
+          node bundle-language.js "${{ matrix.language }}"
       
-      - name: Transpile to ES5 using Babel
+      - name: Transpile to ES5 using Babel - ${{ matrix.language }}
         run: |
-          cd lnreader-source
+          echo "Transpiling ${{ matrix.language }} plugins to ES5..."
           
-          echo "Transpiling bundled plugins to ES5 using SWC..."
-          
-          # Create SWC config for ES5 transpilation
-          cat > .swcrc << 'EOF'
+          # Create Babel config
+          cat > babel.config.json << 'EOF'
           {
-            "jsc": {
-              "parser": {
-                "syntax": "ecmascript",
-                "dynamicImport": true
-              },
-              "target": "es5",
-              "loose": true,
-              "externalHelpers": false,
-              "keepClassNames": true,
-              "minify": {
-                "compress": false,
-                "mangle": false
-              }
-            },
-            "module": {
-              "type": "es6",
-              "strict": false,
-              "strictMode": false,
-              "lazy": false,
-              "noInterop": false
-            },
-            "minify": false,
-            "isModule": false
+            "presets": [
+              [
+                "@babel/preset-env",
+                {
+                  "targets": { "android": "4.4" },
+                  "modules": false,
+                  "loose": true,
+                  "bugfixes": true,
+                  "spec": false
+                }
+              ]
+            ],
+            "comments": true,
+            "minified": false,
+            "compact": false
           }
           EOF
           
-          # Transpile entire directory with SWC (very fast)
-          echo "Starting SWC transpilation..."
-          npx swc .bundled/plugins -d .bundled-es5/plugins --config-file .swcrc --no-swcrc
+          # Transpile this language's plugins
+          mkdir -p .bundled-es5/plugins/${{ matrix.language }}
+          npx babel .bundled/plugins/${{ matrix.language }} \
+            --out-dir .bundled-es5/plugins/${{ matrix.language }} \
+            --config-file ./babel.config.json
           
-          # Count files
-          es5_count=$(find .bundled-es5/plugins -name "*.js" -type f | wc -l)
-          echo "Transpiled $es5_count files to ES5"
-          
-          echo "✅ ES5 transpilation complete"
+          echo "✅ ES5 transpilation complete for ${{ matrix.language }}"
       
-      - name: Copy built plugins and manifest
+      - name: Upload bundled plugins (ES2017)
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundled-${{ matrix.language }}
+          path: .bundled/plugins/${{ matrix.language }}/
+          retention-days: 1
+      
+      - name: Upload ES5 plugins
+        uses: actions/upload-artifact@v4
+        with:
+          name: es5-${{ matrix.language }}
+          path: .bundled-es5/plugins/${{ matrix.language }}/
+          retention-days: 1
+  
+  collect:
+    needs: [prepare, bundle]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repo branch
+        uses: actions/checkout@v4
+        with:
+          ref: repo
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Download manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: manifest
+          path: .dist/
+      
+      - name: Download all bundled plugins
+        uses: actions/download-artifact@v4
+        with:
+          pattern: bundled-*
+          path: temp-bundled/
+          merge-multiple: true
+      
+      - name: Download all ES5 plugins
+        uses: actions/download-artifact@v4
+        with:
+          pattern: es5-*
+          path: temp-es5/
+          merge-multiple: true
+      
+      - name: Organize plugins
         run: |
-          mkdir -p plugins-android plugins-desktop
+          # Create directory structure
+          mkdir -p plugins-android plugins-desktop plugins
           
-          # Copy ES5 transpiled plugins for Android (Rhino compatible)
-          if [ -d "lnreader-source/.bundled-es5/plugins" ]; then
-            cp -r lnreader-source/.bundled-es5/plugins/* plugins-android/ 2>/dev/null || true
+          # Copy ES5 plugins for Android
+          if [ -d "temp-es5" ]; then
+            cp -r temp-es5/* plugins-android/ 2>/dev/null || true
             echo "✅ Copied ES5 plugins for Android"
-          else
-            echo "⚠️ ES5 plugins not found"
           fi
           
-          # Copy modern JS plugins for Desktop (GraalVM compatible)
-          if [ -d "lnreader-source/.bundled/plugins" ]; then
-            cp -r lnreader-source/.bundled/plugins/* plugins-desktop/ 2>/dev/null || true
+          # Copy modern JS plugins for Desktop
+          if [ -d "temp-bundled" ]; then
+            cp -r temp-bundled/* plugins-desktop/ 2>/dev/null || true
             echo "✅ Copied modern JS plugins for Desktop"
-          else
-            echo "⚠️ Modern JS plugins not found"
           fi
           
-          # For backward compatibility, also create a 'plugins' folder with Android version
-          mkdir -p plugins
-          if [ -d "lnreader-source/.bundled-es5/plugins" ]; then
-            cp -r lnreader-source/.bundled-es5/plugins/* plugins/ 2>/dev/null || true
-          fi
+          # Backward compatibility - copy Android version to plugins/
+          cp -r plugins-android/* plugins/ 2>/dev/null || true
           
-          # Update JSON manifest files with correct URLs using Node.js
+          # Clean up temp directories
+          rm -rf temp-bundled temp-es5
+      
+      - name: Update manifest URLs
+        run: |
           node << 'SCRIPT'
           const fs = require('fs');
           const path = require('path');
@@ -437,107 +344,70 @@ jobs:
             const content = fs.readFileSync(filePath, 'utf-8');
             const data = JSON.parse(content);
             
-            // Update URLs in each plugin entry
-            // Only update plugin URLs, keep icons/assets pointing to original repo
             data.forEach(plugin => {
               if (plugin.url) {
-                // Replace the entire URL structure
                 plugin.url = plugin.url
                   .replace(
                     /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/src\/plugins\//g,
-                    `https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/${targetDir}/`
+                    `https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/${targetDir}/`
                   )
                   .replace(
                     /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/plugins\//g,
-                    `https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/${targetDir}/`
+                    `https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/${targetDir}/`
                   );
               }
-              // Keep iconUrl, customJS, and customCSS pointing to original LNReader repo
-              // No changes needed for these fields
             });
             
-            // Write JSON - minified or formatted
             const output = minified ? JSON.stringify(data) : JSON.stringify(data, null, '\t');
             fs.writeFileSync(outputPath, output);
-            console.log(`✅ Updated ${path.basename(outputPath)} for ${targetDir}`);
+            console.log(`✅ Updated ${path.basename(outputPath)}`);
           };
           
-          // Create manifests for Android (ES5)
-          updateUrls('lnreader-source/.dist/plugins.json', 'plugins-android/plugins.json', 'plugins-android', false);
-          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins-android/plugins.min.json', 'plugins-android', true);
-          
-          // Create manifests for Desktop (Modern JS)
-          updateUrls('lnreader-source/.dist/plugins.json', 'plugins-desktop/plugins.json', 'plugins-desktop', false);
-          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins-desktop/plugins.min.json', 'plugins-desktop', true);
-          
-          // Create manifests for backward compatibility (points to Android version)
-          updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', 'plugins-android', false);
-          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', 'plugins-android', true);
+          updateUrls('.dist/plugins.json', 'plugins-android/plugins.json', 'plugins-android', false);
+          updateUrls('.dist/plugins.min.json', 'plugins-android/plugins.min.json', 'plugins-android', true);
+          updateUrls('.dist/plugins.json', 'plugins-desktop/plugins.json', 'plugins-desktop', false);
+          updateUrls('.dist/plugins.min.json', 'plugins-desktop/plugins.min.json', 'plugins-desktop', true);
+          updateUrls('.dist/plugins.json', 'plugins/plugins.json', 'plugins-android', false);
+          updateUrls('.dist/plugins.min.json', 'plugins/plugins.min.json', 'plugins-android', true);
           SCRIPT
-          
-          # Count total plugins
-          total=$(find plugins -name "*.js" -type f | wc -l)
-          echo "✅ Copied $total plugin files"
-          
-          # Show structure
-          echo "Plugin structure:"
-          ls -lh plugins/ | head -20
       
-      - name: Generate plugin lists
+      - name: Generate READMEs
         run: |
           # Android README
-          echo "# LNReader Plugins - Android (ES5)" > plugins-android/README.md
-          echo "" >> plugins-android/README.md
-          echo "**ES5 compatible plugins for Android (Rhino JavaScript engine)**" >> plugins-android/README.md
-          echo "" >> plugins-android/README.md
-          echo "Built from: https://github.com/LNReader/lnreader-plugins" >> plugins-android/README.md
-          echo "" >> plugins-android/README.md
+          cat > plugins-android/README.md << 'EOF'
+          # LNReader Plugins - Android (ES5)
           
-          total_android=$(find plugins-android -name "*.js" -type f | wc -l)
-          echo "**Total: $total_android plugins**" >> plugins-android/README.md
+          **ES5 compatible plugins for Android (Rhino JavaScript engine)**
+          
+          Built from: https://github.com/LNReader/lnreader-plugins
+          
+          All dependencies bundled, transpiled to ES5 for maximum compatibility.
+          EOF
           
           # Desktop README
-          echo "# LNReader Plugins - Desktop (Modern JS)" > plugins-desktop/README.md
-          echo "" >> plugins-desktop/README.md
-          echo "**Modern JavaScript plugins for Desktop (GraalVM)**" >> plugins-desktop/README.md
-          echo "" >> plugins-desktop/README.md
-          echo "Built from: https://github.com/LNReader/lnreader-plugins" >> plugins-desktop/README.md
-          echo "" >> plugins-desktop/README.md
+          cat > plugins-desktop/README.md << 'EOF'
+          # LNReader Plugins - Desktop (Modern JS)
           
-          total_desktop=$(find plugins-desktop -name "*.js" -type f | wc -l)
-          echo "**Total: $total_desktop plugins**" >> plugins-desktop/README.md
+          **Modern JavaScript plugins for Desktop (GraalVM)**
           
-          # Main README (backward compatibility)
-          echo "# Unminified LNReader Plugins" > plugins/README.md
-          echo "" >> plugins/README.md
-          echo "Built from: https://github.com/LNReader/lnreader-plugins" >> plugins/README.md
-          echo "" >> plugins/README.md
-          echo "## Available Versions" >> plugins/README.md
-          echo "" >> plugins/README.md
-          echo "- **plugins-android/** - ES5 compatible for Android (Rhino)" >> plugins/README.md
-          echo "- **plugins-desktop/** - Modern JS for Desktop (GraalVM)" >> plugins/README.md
-          echo "" >> plugins/README.md
+          Built from: https://github.com/LNReader/lnreader-plugins
           
-          total=$(find plugins -name "*.js" -type f | wc -l)
-          echo "**Total: $total plugins**" >> plugins/README.md
+          All dependencies bundled, optimized for GraalVM.
+          EOF
+          
+          # Main README
+          cat > plugins/README.md << 'EOF'
+          # Unminified LNReader Plugins
+          
+          Built from: https://github.com/LNReader/lnreader-plugins
+          
+          ## Available Versions
+          
+          - **plugins-android/** - ES5 compatible for Android (Rhino)
+          - **plugins-desktop/** - Modern JS for Desktop (GraalVM)
+          EOF
       
-      - name: Package plugins by platform
-        run: |
-          # Package Android plugins (ES5)
-          echo "Packaging Android plugins..."
-          tar -czf android-plugins-es5.tar.gz plugins-android/
-          
-          # Package Desktop plugins (Modern JS)
-          echo "Packaging Desktop plugins..."
-          tar -czf desktop-plugins-modern.tar.gz plugins-desktop/
-          
-          # Package all plugins together (backward compatibility)
-          tar -czf all-plugins.tar.gz plugins/
-          
-          echo "✅ Created plugin archives"
-          ls -lh *.tar.gz
-      
-      - name: Commit and push changes
+      - name: Commit to repo branch
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
@@ -548,8 +418,16 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update plugins - $(date +'%Y-%m-%d %H:%M:%S')"
-            git push
+            git push origin repo
+            echo "✅ Pushed to repo branch"
           fi
+      
+      - name: Package plugins
+        run: |
+          tar -czf android-plugins-es5.tar.gz plugins-android/
+          tar -czf desktop-plugins-modern.tar.gz plugins-desktop/
+          tar -czf all-plugins.tar.gz plugins/
+          echo "✅ Created plugin archives"
       
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -560,55 +438,22 @@ jobs:
             # LNReader Plugins - Bundled & Unminified
             
             Built from: https://github.com/LNReader/lnreader-plugins
-            Build date: $(date +'%Y-%m-%d %H:%M:%S UTC')
             
-            ## 📥 Download Options
+            ## 📥 Download
             
-            ### For Android (Rhino JavaScript Engine)
-            - **android-plugins-es5.tar.gz** - ES5 compatible plugins for Android
-            - All dependencies bundled, transpiled to ES5 for maximum compatibility
-            
-            ### For Desktop (GraalVM)
-            - **desktop-plugins-modern.tar.gz** - Modern JavaScript plugins for Desktop
-            - All dependencies bundled, optimized for GraalVM
-            
-            ### Legacy
-            - **all-plugins.tar.gz** - All plugins (Android ES5 version)
-            - **plugins.json** - Plugin manifest with metadata
-            - **plugins.min.json** - Minified plugin manifest
-            
-            ## 📖 Usage
-            
-            ### Android Users
-            1. Download `android-plugins-es5.tar.gz`
-            2. Extract and copy `.js` files to your LNReader plugins directory
-            3. Restart LNReader
-            
-            ### Desktop Users
-            1. Download `desktop-plugins-modern.tar.gz`
-            2. Extract and copy `.js` files to your LNReader plugins directory
-            3. Restart LNReader
+            - **android-plugins-es5.tar.gz** - ES5 for Android (Rhino)
+            - **desktop-plugins-modern.tar.gz** - Modern JS for Desktop (GraalVM)
+            - **all-plugins.tar.gz** - All plugins (Android version)
             
             ## ✨ Features
             - ✅ All dependencies bundled (cheerio, dayjs, etc.)
             - ✅ Non-minified for easy debugging
-            - ✅ ES5 compatible for Android (Rhino)
-            - ✅ Modern JS for Desktop (GraalVM)
-            - ✅ Self-contained - no external module resolution needed
-            
-            ## 📋 Plugin Manifest
-            The JSON files contain metadata for all plugins including:
-            - Plugin ID, name, and version
-            - Source site URL
-            - Language
-            - Download URLs
-            - Icon URLs
+            - ✅ ES5 compatible for Android
+            - ✅ Self-contained - no external modules needed
           files: |
             *.tar.gz
             plugins-android/plugins.json
             plugins-android/plugins.min.json
-            plugins-desktop/plugins.json
-            plugins-desktop/plugins.min.json
           draft: false
           prerelease: false
         env:
