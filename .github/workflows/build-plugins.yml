@@ -39,7 +39,39 @@ jobs:
           const fs = require('fs');
           const path = require('path');
           
-          const pluginsDir = '.js/src/plugins';
+          // Try multiple possible locations
+          const possibleDirs = [
+            '.js/src/plugins',
+            '.js/plugins',
+            'src/plugins',
+            'plugins'
+          ];
+          
+          let pluginsDir = null;
+          for (const dir of possibleDirs) {
+            if (fs.existsSync(dir)) {
+              pluginsDir = dir;
+              console.log(`Found plugins directory: ${dir}`);
+              break;
+            }
+          }
+          
+          if (!pluginsDir) {
+            console.error('Plugins directory not found. Checking structure:');
+            console.log('Current directory:', process.cwd());
+            console.log('Contents:', fs.readdirSync('.').join(', '));
+            
+            // Check if .js exists
+            if (fs.existsSync('.js')) {
+              console.log('.js contents:', fs.readdirSync('.js').join(', '));
+              if (fs.existsSync('.js/src')) {
+                console.log('.js/src contents:', fs.readdirSync('.js/src').join(', '));
+              }
+            }
+            
+            process.exit(1);
+          }
+          
           const languages = fs.readdirSync(pluginsDir).filter(item => {
             const fullPath = path.join(pluginsDir, item);
             return fs.statSync(fullPath).isDirectory();
@@ -166,7 +198,7 @@ jobs:
           const __filename = fileURLToPath(import.meta.url);
           const __dirname = path.dirname(__filename);
           
-          // Try multiple possible locations for plugins
+          // Functioniple possible locations for plugins
           const possibleDirs = [
             path.join(__dirname, '../.js/src/plugins'),
             path.join(__dirname, '../.js/plugins'),
