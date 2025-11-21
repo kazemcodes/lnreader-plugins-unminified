@@ -30,8 +30,8 @@ jobs:
         run: |
           cd lnreader-source
           npm ci
-          # Install esbuild for bundling and Babel for ES5 transpilation
-          npm install --save-dev esbuild @babel/core @babel/cli @babel/preset-env
+          # Install esbuild for bundling and SWC for fast ES5 transpilation
+          npm install --save-dev esbuild @swc/core @swc/cli
       
       - name: Build plugins (TypeScript compilation)
         run: |
@@ -163,29 +163,23 @@ jobs:
             walkDir(pluginsDir, (file) => pluginFiles.push(file));
           
             console.log(`Found ${pluginFiles.length} plugin files to bundle`);
-            console.log('Building both ES5 (Android) and ES2017 (Desktop) versions...\n');
+            console.log('Building modern JS version (ES2017)...\n');
           
-            const outputDirES5 = path.join(__dirname, '../.bundled-es5/plugins');
             let successCount = 0;
             let failCount = 0;
             
-            // Bundle each plugin for both targets
+            // Bundle each plugin to ES2017 (modern JS)
             for (const inputFile of pluginFiles) {
               const relativePath = path.relative(pluginsDir, inputFile);
               const outputFileModern = path.join(outputDir, relativePath);
-              const outputFileES5 = path.join(outputDirES5, relativePath);
               
-              // Create output directories
+              // Create output directory
               fs.mkdirSync(path.dirname(outputFileModern), { recursive: true });
-              fs.mkdirSync(path.dirname(outputFileES5), { recursive: true });
               
               // Bundle modern version (ES2017)
-              const modernSuccess = await bundlePlugin(inputFile, outputFileModern, 'es2017');
+              const success = await bundlePlugin(inputFile, outputFileModern, 'es2017');
               
-              // Bundle ES5 version for Android
-              const es5Success = await bundlePlugin(inputFile, outputFileES5, 'es5');
-              
-              if (modernSuccess && es5Success) {
+              if (success) {
                 successCount++;
                 console.log(`✅ ${relativePath}`);
               } else {
@@ -193,7 +187,7 @@ jobs:
               }
             }
           
-            console.log(`\n✅ Successfully bundled ${successCount} plugins (both versions)`);
+            console.log(`\n✅ Successfully bundled ${successCount} plugins`);
             if (failCount > 0) {
               console.log(`⚠️  Failed to bundle ${failCount} files`);
             }
@@ -202,10 +196,42 @@ jobs:
           bundleAllPlugins().catch(console.error);
           EOF
           
-          # Run the bundling script (creates both ES5 and ES2017 versions)
+          # Run the bundling script (creates ES2017 version)
           node scripts/bundle-plugins.js
           
-          echo "✅ All plugins bundled with dependencies (both ES5 and ES2017)"
+          echo "✅ All plugins bundled with dependencies"
+      
+      - name: Transpile to ES5 using SWC (Fast)
+        run: |
+          cd lnreader-source
+          
+          echo "Transpiling bundled plugins to ES5 using SWC..."
+          
+          # Create SWC config
+          cat > .swcrc << 'EOF'
+          {
+            "jsc": {
+              "parser": {
+                "syntax": "ecmascript"
+              },
+              "target": "es5",
+              "loose": true,
+              "minify": {
+                "compress": false,
+                "mangle": false
+              }
+            },
+            "module": {
+              "type": "commonjs"
+            },
+            "minify": false
+          }
+          EOF
+          
+          # Transpile entire directory with SWC (very fast)
+          npx swc .bundled/plugins -d .bundled-es5/plugins --config-file .swcrc
+          
+          echo "✅ ES5 transpilation complete"
       
       - name: Copy built plugins and manifest
         run: |
