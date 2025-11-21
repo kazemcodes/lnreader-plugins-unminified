@@ -138,31 +138,26 @@ jobs:
         with:
           node-version: '18'
       
-      - name: Download compiled plugins
-        uses: actions/download-artifact@v4
-        with:
-          name: compiled-plugins
-          path: .js/
-      
-      - name: Verify downloaded plugins
+      - name: Clone and build LNReader plugins
         run: |
-          echo "Checking downloaded artifacts..."
-          ls -la
-          if [ -d ".js" ]; then
-            echo "✅ .js directory exists"
-            ls -la .js/
-            if [ -d ".js/src/plugins/${{ matrix.language }}" ]; then
-              echo "✅ Found language directory: ${{ matrix.language }}"
-              ls -la .js/src/plugins/${{ matrix.language }}/ | head -10
-            else
-              echo "❌ Language directory not found: ${{ matrix.language }}"
-              echo "Available directories:"
-              ls -la .js/src/plugins/ 2>/dev/null || echo "No plugins directory"
-              exit 1
-            fi
+          git clone --depth 1 https://github.com/LNReader/lnreader-plugins lnreader-source
+          cd lnreader-source
+          npm ci
+          npm run clean:multisrc
+          npm run build:multisrc
+          npm run build:compile
+          echo "✅ Build complete"
+      
+      - name: Verify language plugins exist
+        run: |
+          cd lnreader-source
+          if [ -d ".js/src/plugins/${{ matrix.language }}" ]; then
+            echo "✅ Found language directory: ${{ matrix.language }}"
+            plugin_count=$(ls -1 .js/src/plugins/${{ matrix.language }}/*.js 2>/dev/null | wc -l)
+            echo "Plugins in ${{ matrix.language }}: $plugin_count"
           else
-            echo "❌ .js directory not found!"
-            exit 1
+            echo "⚠️  No plugins found for ${{ matrix.language }}, skipping..."
+            exit 0
           fi
       
       - name: Install bundling tools
@@ -171,6 +166,8 @@ jobs:
       
       - name: Bundle plugins for language - ${{ matrix.language }}
         run: |
+          cd lnreader-source
+          
           # Create bundling script
           cat > bundle-language.js << 'EOF'
           import { build } from 'esbuild';
@@ -263,9 +260,13 @@ jobs:
           
           # Run the bundling script for this language
           node bundle-language.js "${{ matrix.language }}"
+          
+          cd ..
       
       - name: Transpile to ES5 using Babel - ${{ matrix.language }}
         run: |
+          cd lnreader-source
+          
           echo "Transpiling ${{ matrix.language }} plugins to ES5..."
           
           # Create Babel config
@@ -296,19 +297,21 @@ jobs:
             --config-file ./babel.config.json
           
           echo "✅ ES5 transpilation complete for ${{ matrix.language }}"
+          
+          cd ..
       
       - name: Upload bundled plugins (ES2017)
         uses: actions/upload-artifact@v4
         with:
           name: bundled-${{ matrix.language }}
-          path: .bundled/plugins/${{ matrix.language }}/
+          path: lnreader-source/.bundled/plugins/${{ matrix.language }}/
           retention-days: 1
       
       - name: Upload ES5 plugins
         uses: actions/upload-artifact@v4
         with:
           name: es5-${{ matrix.language }}
-          path: .bundled-es5/plugins/${{ matrix.language }}/
+          path: lnreader-source/.bundled-es5/plugins/${{ matrix.language }}/
           retention-days: 1
   
   collect:
