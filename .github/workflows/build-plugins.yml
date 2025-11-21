@@ -98,21 +98,21 @@ jobs:
           
           const outputDir = path.join(__dirname, '../.bundled/plugins');
           
-          async function bundlePlugin(inputFile, outputFile, targetES = 'es2017') {
+          async function bundlePlugin(inputFile, outputFile) {
             try {
               await build({
                 entryPoints: [inputFile],
                 bundle: true,
                 format: 'iife',
                 platform: 'browser',
-                target: targetES,
+                target: 'es2017',
                 outfile: outputFile,
                 minify: false,
                 sourcemap: false,
                 treeShaking: false,
                 legalComments: 'inline',
                 banner: {
-                  js: `// Bundled plugin with all dependencies included\n// Built for LNReader (${targetES})\n`
+                  js: '// Bundled plugin with all dependencies included\n// Built for LNReader (ES2017 - will be transpiled to ES5)\n'
                 },
                 footer: {
                   js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
@@ -177,7 +177,7 @@ jobs:
               fs.mkdirSync(path.dirname(outputFileModern), { recursive: true });
               
               // Bundle modern version (ES2017)
-              const success = await bundlePlugin(inputFile, outputFileModern, 'es2017');
+              const success = await bundlePlugin(inputFile, outputFileModern);
               
               if (success) {
                 successCount++;
@@ -207,29 +207,42 @@ jobs:
           
           echo "Transpiling bundled plugins to ES5 using SWC..."
           
-          # Create SWC config
+          # Create SWC config for ES5 transpilation
           cat > .swcrc << 'EOF'
           {
             "jsc": {
               "parser": {
-                "syntax": "ecmascript"
+                "syntax": "ecmascript",
+                "dynamicImport": true
               },
               "target": "es5",
               "loose": true,
+              "externalHelpers": false,
+              "keepClassNames": true,
               "minify": {
                 "compress": false,
                 "mangle": false
               }
             },
             "module": {
-              "type": "commonjs"
+              "type": "es6",
+              "strict": false,
+              "strictMode": false,
+              "lazy": false,
+              "noInterop": false
             },
-            "minify": false
+            "minify": false,
+            "isModule": false
           }
           EOF
           
           # Transpile entire directory with SWC (very fast)
-          npx swc .bundled/plugins -d .bundled-es5/plugins --config-file .swcrc
+          echo "Starting SWC transpilation..."
+          npx swc .bundled/plugins -d .bundled-es5/plugins --config-file .swcrc --no-swcrc
+          
+          # Count files
+          es5_count=$(find .bundled-es5/plugins -name "*.js" -type f | wc -l)
+          echo "Transpiled $es5_count files to ES5"
           
           echo "✅ ES5 transpilation complete"
       
