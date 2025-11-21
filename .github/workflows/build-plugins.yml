@@ -6,8 +6,78 @@ on:
     types: [lnreader-release]
 
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Clone and build TypeScript
+        run: |
+          git clone --depth 1 https://github.com/LNReader/lnreader-plugins lnreader-source
+          cd lnreader-source
+          npm ci
+          npm run clean:multisrc
+          npm run build:multisrc
+          npm run build:compile
+          npm run build:manifest
+      
+      - name: Generate build matrix
+        id: set-matrix
+        run: |
+          cd lnreader-source
+          
+          # Find all plugin directories (language folders)
+          node << 'SCRIPT'
+          const fs = require('fs');
+          const path = require('path');
+          
+          const pluginsDir = '.js/src/plugins';
+          const languages = fs.readdirSync(pluginsDir).filter(item => {
+            const fullPath = path.join(pluginsDir, item);
+            return fs.statSync(fullPath).isDirectory();
+          });
+          
+          console.log(`Found ${languages.length} language directories`);
+          
+          // Create matrix with language chunks
+          const matrix = languages.map(lang => ({ language: lang }));
+          
+          console.log('Matrix:', JSON.stringify(matrix));
+          
+          // Output for GitHub Actions
+          const output = JSON.stringify(matrix);
+          fs.writeFileSync(process.env.GITHUB_OUTPUT || '/dev/stdout', `matrix=${output}\n`, { flag: 'a' });
+          SCRIPT
+      
+      - name: Upload compiled plugins
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-plugins
+          path: lnreader-source/.js/
+          retention-days: 1
+      
+      - name: Upload manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest
+          path: lnreader-source/.dist/
+          retention-days: 1
+  
+  bundle:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include: ${{ fromJson(needs.prepare.outputs.matrix) }}
+      max-parallel: 10
     
     steps:
       - name: Checkout this repo
@@ -30,8 +100,8 @@ jobs:
         run: |
           cd lnreader-source
           npm ci
-          # Install esbuild for bundling and SWC for fast ES5 transpilation
-          npm install --save-dev esbuild @swc/core @swc/cli
+          # Install esbuild for bundling and Babel for ES5 transpilation
+          npm install --save-dev esbuild @babel/core @babel/cli @babel/preset-env
       
       - name: Build plugins (TypeScript compilation)
         run: |
@@ -209,7 +279,7 @@ jobs:
           
           echo "✅ All plugins bundled with dependencies"
       
-      - name: Transpile to ES5 using SWC (Fast)
+      - name: Transpile to ES5 using Babel
         run: |
           cd lnreader-source
           
