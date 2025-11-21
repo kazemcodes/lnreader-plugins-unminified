@@ -80,9 +80,45 @@ jobs:
           console.log(`Found ${languages.length} language directories`);
           
           // Create matrix with language chunks
-          const matrix = languages.map(lang => ({ language: lang }));
+          const matrix = [];
           
-          console.log('Matrix:', JSON.stringify(matrix));
+          languages.forEach(lang => {
+            const langPath = path.join(pluginsDir, lang);
+            const plugins = fs.readdirSync(langPath).filter(f => f.endsWith('.js'));
+            
+            console.log(`${lang}: ${plugins.length} plugins`);
+            
+            // Split English into chunks of 20 plugins per runner
+            if (lang === 'english' && plugins.length > 20) {
+              const chunkSize = 20;
+              const chunks = Math.ceil(plugins.length / chunkSize);
+              
+              for (let i = 0; i < chunks; i++) {
+                const start = i * chunkSize;
+                const end = Math.min(start + chunkSize, plugins.length);
+                const chunkPlugins = plugins.slice(start, end);
+                
+                matrix.push({
+                  language: lang,
+                  chunk: i + 1,
+                  totalChunks: chunks,
+                  plugins: chunkPlugins.join(',')
+                });
+                
+                console.log(`  Chunk ${i + 1}/${chunks}: ${chunkPlugins.length} plugins`);
+              }
+            } else {
+              // Other languages - no chunking
+              matrix.push({
+                language: lang,
+                chunk: 1,
+                totalChunks: 1,
+                plugins: 'all'
+              });
+            }
+          });
+          
+          console.log(`\nTotal matrix jobs: ${matrix.length}`);
           
           // Output for GitHub Actions
           const output = JSON.stringify(matrix);
@@ -147,14 +183,37 @@ jobs:
           npm run build:multisrc
           npm run build:compile
           echo "✅ Build complete"
+          
+          # Debug: Show actual output structure
+          echo ""
+          echo "=== Build output structure ==="
+          echo "Root directories:"
+          ls -la | grep "^d"
+          echo ""
+          
+          # Find where plugins actually are
+          echo "Searching for compiled plugins..."
+          find . -type f -name "*.js" -path "*/plugins/*" | head -20
+          echo ""
+          
+          # Check common locations
+          for dir in ".js" "dist" "build" "lib" "out"; do
+            if [ -d "$dir" ]; then
+              echo "Found $dir directory:"
+              ls -la "$dir" | head -10
+            fi
+          done
       
       - name: Verify language plugins exist
         run: |
           cd lnreader-source
           if [ -d ".js/src/plugins/${{ matrix.language }}" ]; then
             echo "✅ Found language directory: ${{ matrix.language }}"
+            if [ "${{ matrix.chunk }}" != "1" ] || [ "${{ matrix.totalChunks }}" != "1" ]; then
+              echo "Processing chunk ${{ matrix.chunk }}/${{ matrix.totalChunks }}"
+            fi
             plugin_count=$(ls -1 .js/src/plugins/${{ matrix.language }}/*.js 2>/dev/null | wc -l)
-            echo "Plugins in ${{ matrix.language }}: $plugin_count"
+            echo "Total plugins in ${{ matrix.language }}: $plugin_count"
           else
             echo "⚠️  No plugins found for ${{ matrix.language }}, skipping..."
             exit 0
@@ -164,7 +223,7 @@ jobs:
         run: |
           npm install --no-save esbuild @babel/core @babel/cli @babel/preset-env
       
-      - name: Bundle plugins for language - ${{ matrix.language }}
+      - name: Bundle plugins - ${{ matrix.language }} (chunk ${{ matrix.chunk }}/${{ matrix.totalChunks }})
         run: |
           cd lnreader-source
           
@@ -261,11 +320,22 @@ jobs:
           async function bundleLanguagePlugins() {
             const skipPatterns = ['generator.js', 'generate-multisrc-plugins.js', 'get_filters.js', 'filter_refresh.js', 'template.js'];
             
-            const pluginFiles = fs.readdirSync(pluginsDir)
-              .filter(file => file.endsWith('.js') && !skipPatterns.includes(file))
-              .map(file => path.join(pluginsDir, file));
-          
-            console.log(`Bundling ${pluginFiles.length} plugins for ${language}...\n`);
+            // Get plugin list from arguments
+            const pluginList = process.argv[3];
+            
+            let pluginFiles;
+            if (pluginList && pluginList !== 'all') {
+              // Process specific plugins (for chunked languages)
+              const pluginNames = pluginList.split(',');
+              pluginFiles = pluginNames.map(name => path.join(pluginsDir, name));
+              console.log(`Bundling ${pluginFiles.length} plugins (chunk) for ${language}...\n`);
+            } else {
+              // Process all plugins in the language
+              pluginFiles = fs.readdirSync(pluginsDir)
+                .filter(file => file.endsWith('.js') && !skipPatterns.includes(file))
+                .map(file => path.join(pluginsDir, file));
+              console.log(`Bundling ${pluginFiles.length} plugins for ${language}...\n`);
+            }
           
             fs.mkdirSync(outputDir, { recursive: true });
             
@@ -288,8 +358,8 @@ jobs:
           bundleLanguagePlugins().catch(console.error);
           EOF
           
-          # Run the bundling script for this language
-          node bundle-language.js "${{ matrix.language }}"
+          # Run the bundling script for this language/chunk
+          node bundle-language.js "${{ matrix.language }}" "${{ matrix.plugins }}"
           
           cd ..
       
@@ -298,6 +368,10 @@ jobs:
           cd lnreader-source
           
           echo "Transpiling ${{ matrix.language }} plugins to ES5..."
+          
+          # Count files to transpile
+          file_count=$(find .bundled/plugins/${{ matrix.language }} -name "*.js" -type f 2>/dev/null | wc -l)
+          echo "Files to transpile: $file_count"
           
           # Create Babel config
           cat > babel.config.json << 'EOF'
@@ -320,27 +394,43 @@ jobs:
           }
           EOF
           
-          # Transpile this language's plugins
+          # Transpile this language's plugins with verbose output
           mkdir -p .bundled-es5/plugins/${{ matrix.language }}
+          
+          echo "Starting Babel transpilation..."
           npx babel .bundled/plugins/${{ matrix.language }} \
             --out-dir .bundled-es5/plugins/${{ matrix.language }} \
-            --config-file ./babel.config.json
+            --config-file ./babel.config.json \
+            --verbose 2>&1 | while IFS= read -r line; do
+              echo "$line"
+              # Show progress every 5 files
+              if echo "$line" | grep -q "Successfully compiled"; then
+                compiled=$(find .bundled-es5/plugins/${{ matrix.language }} -name "*.js" -type f 2>/dev/null | wc -l)
+                if [ $((compiled % 5)) -eq 0 ]; then
+                  echo "Progress: $compiled/$file_count files transpiled..."
+                fi
+              fi
+            done
           
+          # Final count
+          final_count=$(find .bundled-es5/plugins/${{ matrix.language }} -name "*.js" -type f 2>/dev/null | wc -l)
+          echo ""
           echo "✅ ES5 transpilation complete for ${{ matrix.language }}"
+          echo "   Transpiled: $final_count files"
           
           cd ..
       
       - name: Upload bundled plugins (ES2017)
         uses: actions/upload-artifact@v4
         with:
-          name: bundled-${{ matrix.language }}
+          name: bundled-${{ matrix.language }}-${{ matrix.chunk }}
           path: lnreader-source/.bundled/plugins/${{ matrix.language }}/
           retention-days: 1
       
       - name: Upload ES5 plugins
         uses: actions/upload-artifact@v4
         with:
-          name: es5-${{ matrix.language }}
+          name: es5-${{ matrix.language }}-${{ matrix.chunk }}
           path: lnreader-source/.bundled-es5/plugins/${{ matrix.language }}/
           retention-days: 1
   
