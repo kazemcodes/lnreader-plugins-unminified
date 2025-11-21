@@ -115,8 +115,14 @@ jobs:
                 banner: {
                   js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android\n'
                 },
+                footer: {
+                  js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
+                },
+                globalName: 'LNReaderPlugin',
                 external: [],
-                logLevel: 'warning'
+                mainFields: ['module', 'main'],
+                conditions: ['import', 'require', 'default'],
+                logLevel: 'error'
               });
               console.log(`✅ Bundled: ${path.basename(inputFile)}`);
             } catch (error) {
