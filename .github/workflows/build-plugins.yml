@@ -285,8 +285,11 @@ jobs:
           const fs = require('fs');
           const path = require('path');
           
-          const updateUrls = (filePath, outputPath, minified = false) => {
-            if (!fs.existsSync(filePath)) return;
+          const updateUrls = (filePath, outputPath, targetDir, minified = false) => {
+            if (!fs.existsSync(filePath)) {
+              console.log(`⚠️  Source file not found: ${filePath}`);
+              return;
+            }
             
             const content = fs.readFileSync(filePath, 'utf-8');
             const data = JSON.parse(content);
@@ -299,11 +302,11 @@ jobs:
                 plugin.url = plugin.url
                   .replace(
                     /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/src\/plugins\//g,
-                    'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/plugins/'
+                    `https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/${targetDir}/`
                   )
                   .replace(
                     /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/plugins\//g,
-                    'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/plugins/'
+                    `https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/master/${targetDir}/`
                   );
               }
               // Keep iconUrl, customJS, and customCSS pointing to original LNReader repo
@@ -313,11 +316,20 @@ jobs:
             // Write JSON - minified or formatted
             const output = minified ? JSON.stringify(data) : JSON.stringify(data, null, '\t');
             fs.writeFileSync(outputPath, output);
-            console.log(`✅ Updated ${path.basename(outputPath)}`);
+            console.log(`✅ Updated ${path.basename(outputPath)} for ${targetDir}`);
           };
           
-          updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', false);
-          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', true);
+          // Create manifests for Android (ES5)
+          updateUrls('lnreader-source/.dist/plugins.json', 'plugins-android/plugins.json', 'plugins-android', false);
+          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins-android/plugins.min.json', 'plugins-android', true);
+          
+          // Create manifests for Desktop (Modern JS)
+          updateUrls('lnreader-source/.dist/plugins.json', 'plugins-desktop/plugins.json', 'plugins-desktop', false);
+          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins-desktop/plugins.min.json', 'plugins-desktop', true);
+          
+          // Create manifests for backward compatibility (points to Android version)
+          updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', 'plugins-android', false);
+          updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', 'plugins-android', true);
           SCRIPT
           
           # Count total plugins
@@ -450,8 +462,10 @@ jobs:
             - Icon URLs
           files: |
             *.tar.gz
-            plugins/plugins.json
-            plugins/plugins.min.json
+            plugins-android/plugins.json
+            plugins-android/plugins.min.json
+            plugins-desktop/plugins.json
+            plugins-desktop/plugins.min.json
           draft: false
           prerelease: false
         env:
