@@ -1,896 +1,5808 @@
+// Bundled plugin with all dependencies included
+// Built for LNReader Android
+
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+  var __esm = (fn, res) => function __init() {
+    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+  };
+  var __commonJS = (cb, mod2) => function __require() {
+    return mod2 || (0, cb[__getOwnPropNames(cb)[0]])((mod2 = { exports: {} }).exports, mod2), mod2.exports;
+  };
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod2, isNodeMode, target) => (target = mod2 != null ? __create(__getProtoOf(mod2)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod2 || !mod2.__esModule ? __defProp(target, "default", { value: mod2, enumerable: true }) : target,
+    mod2
+  ));
+  var __toCommonJS = (mod2) => __copyProps(__defProp({}, "__esModule", { value: true }), mod2);
+
+  // src/types/filters.ts
+  var FilterTypes;
+  var init_filters = __esm({
+    "src/types/filters.ts"() {
+      "use strict";
+      FilterTypes = /* @__PURE__ */ ((FilterTypes2) => {
+        FilterTypes2["TextInput"] = "Text";
+        FilterTypes2["Picker"] = "Picker";
+        FilterTypes2["CheckboxGroup"] = "Checkbox";
+        FilterTypes2["Switch"] = "Switch";
+        FilterTypes2["ExcludableCheckboxGroup"] = "XCheckbox";
+        return FilterTypes2;
+      })(FilterTypes || {});
+    }
+  });
+
+  // src/libs/filterInputs.ts
+  var filterInputs_exports = {};
+  __export(filterInputs_exports, {
+    FilterTypes: () => FilterTypes
+  });
+  var init_filterInputs = __esm({
+    "src/libs/filterInputs.ts"() {
+      "use strict";
+      init_filters();
+    }
+  });
+
+  // src/types/constants.ts
+  var NovelStatus, defaultCover;
+  var init_constants = __esm({
+    "src/types/constants.ts"() {
+      "use strict";
+      NovelStatus = {
+        Unknown: "Unknown",
+        Ongoing: "Ongoing",
+        Completed: "Completed",
+        Licensed: "Licensed",
+        PublishingFinished: "Publishing Finished",
+        Cancelled: "Cancelled",
+        OnHiatus: "On Hiatus"
+      };
+      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
+    }
+  });
+
+  // src/libs/defaultCover.ts
+  var defaultCover_exports = {};
+  __export(defaultCover_exports, {
+    defaultCover: () => defaultCover
+  });
+  var init_defaultCover = __esm({
+    "src/libs/defaultCover.ts"() {
+      "use strict";
+      init_constants();
+    }
+  });
+
+  // node_modules/@protobufjs/aspromise/index.js
+  var require_aspromise = __commonJS({
+    "node_modules/@protobufjs/aspromise/index.js"(exports2, module2) {
+      "use strict";
+      module2.exports = asPromise;
+      function asPromise(fn, ctx) {
+        var params = new Array(arguments.length - 1), offset = 0, index = 2, pending = true;
+        while (index < arguments.length)
+          params[offset++] = arguments[index++];
+        return new Promise(/* @__PURE__ */ __name(function executor(resolve, reject) {
+          params[offset] = /* @__PURE__ */ __name(function callback(err) {
+            if (pending) {
+              pending = false;
+              if (err)
+                reject(err);
+              else {
+                var params2 = new Array(arguments.length - 1), offset2 = 0;
+                while (offset2 < params2.length)
+                  params2[offset2++] = arguments[offset2];
+                resolve.apply(null, params2);
+              }
             }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+          }, "callback");
+          try {
+            fn.apply(ctx || null, params);
+          } catch (err) {
+            if (pending) {
+              pending = false;
+              reject(err);
+            }
+          }
+        }, "executor"));
+      }
+      __name(asPromise, "asPromise");
     }
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var filterInputs_1 = require("@libs/filterInputs");
-var defaultCover_1 = require("@libs/defaultCover");
-var fetch_1 = require("@libs/fetch");
-var novelStatus_1 = require("@libs/novelStatus");
-var dayjs_1 = __importDefault(require("dayjs"));
-var statusKey = {
-    'active': novelStatus_1.NovelStatus.Ongoing,
-    'completed': novelStatus_1.NovelStatus.Completed,
-    'freezed': novelStatus_1.NovelStatus.OnHiatus,
-    'unknown': novelStatus_1.NovelStatus.Unknown,
-};
-var TL = /** @class */ (function () {
-    function TL() {
-        this.id = 'TL';
-        this.name = 'NovelTL';
-        this.site = 'https://novel.tl';
-        this.version = '1.0.1';
-        this.icon = 'src/ru/noveltl/icon.png';
-        this.popularNovels = this.fetchNovels;
-        this.resolveUrl = function (path) { return 'https://' + path; };
-        this.filters = {
-            tags: {
-                label: 'Тэги',
-                value: [],
-                options: [
-                    { label: 'Автоматы', value: '64' },
-                    { label: 'Агрессивные персонажи', value: '26' },
-                    { label: 'Ад', value: '338' },
-                    { label: 'Адаптация манги', value: '8' },
-                    { label: 'Академия', value: '5' },
-                    { label: 'Актёрское искусство', value: '7' },
-                    { label: 'Актеры озвучки', value: '746' },
-                    { label: 'Алхимия', value: '27' },
-                    { label: 'Альтернативная реальность', value: '30' },
-                    { label: 'Амнезия', value: '31' },
-                    { label: 'Анабиоз', value: '170' },
-                    { label: 'Анал', value: '33' },
-                    { label: 'Ангелы', value: '38' },
-                    { label: 'Андроиды', value: '37' },
-                    { label: 'Анти-рост персонажа', value: '25' },
-                    { label: 'Антигерой', value: '43' },
-                    { label: 'Антикварный магазин', value: '44' },
-                    { label: 'Антимагия', value: '41' },
-                    { label: 'Антиутопия', value: '225' },
-                    { label: 'Апатичный главный герой', value: '46' },
-                    { label: 'Апокалипсис', value: '47' },
-                    { label: 'Аристократия', value: '51' },
-                    { label: 'Армия', value: '53' },
-                    { label: 'Артефакты', value: '58' },
-                    { label: 'Асоциальный главный герой', value: '42' },
-                    { label: 'Ассасины', value: '61' },
-                    { label: 'Атмосфера Европы', value: '245' },
-                    { label: 'Банды', value: '302' },
-                    { label: 'БДСМ', value: '77' },
-                    { label: 'Бедный главный герой', value: '541' },
-                    { label: 'Бездушный главный герой', value: '143' },
-                    { label: 'Беззаботный герой', value: '115' },
-                    { label: 'Безответная любовь', value: '213' },
-                    { label: 'Безответная любовь', value: '740' },
-                    { label: 'Безработные', value: '377' },
-                    { label: 'Беременность', value: '551' },
-                    { label: 'Бескорыстная любовь', value: '733' },
-                    { label: 'Бессмертные', value: '359' },
-                    { label: 'Бесстрашный главный герой', value: '274' },
-                    { label: 'Библиотека', value: '393' },
-                    { label: 'Биография', value: '86' },
-                    { label: 'Близнецы', value: '729' },
-                    { label: 'Богачи', value: '753' },
-                    { label: 'Боги', value: '318' },
-                    { label: 'Богини', value: '316' },
-                    { label: 'Богоподобный протагонист', value: '314' },
-                    { label: 'Боевая академия', value: '75' },
-                    { label: 'Боевая парочка', value: '547' },
-                    { label: 'Божественная защита', value: '208' },
-                    { label: 'Божественная сила', value: '317' },
-                    { label: 'Болеющие персонажи', value: '648' },
-                    { label: 'Борьба за власть', value: '548' },
-                    { label: 'Брак по расчету', value: '55' },
-                    { label: 'Братство', value: '106' },
-                    { label: 'Братья или сёстры', value: '646' },
-                    { label: 'Брошенные дети', value: '1' },
-                    { label: 'Бывший герой', value: '290' },
-                    { label: 'Вампиры', value: '742' },
-                    { label: 'Ваншот', value: '496' },
-                    { label: 'Вдали от родителей', value: '3' },
-                    { label: 'Ведьмы', value: '756' },
-                    { label: 'Везучий главный герой', value: '411' },
-                    { label: 'Верные подданные', value: '410' },
-                    { label: 'Вероломные герои/плетение интриг', value: '424' },
-                    { label: 'Взросление персонажа', value: '24' },
-                    { label: 'Видит то, чего остальной люд не в силах', value: '617' },
-                    { label: 'Виртуальная реальность', value: '744' },
-                    { label: 'Владелец магазина', value: '677' },
-                    { label: 'Владелец уникального оружия', value: '736' },
-                    { label: 'Властные персонажи', value: '545' },
-                    { label: 'Влияние прошлого', value: '517' },
-                    { label: 'Внезапное обогащение', value: '691' },
-                    { label: 'Внезапное обретение силы', value: '690' },
-                    { label: 'Военные хроники', value: '749' },
-                    { label: 'Возвращение в родной мир', value: '587' },
-                    { label: 'Война', value: '750' },
-                    { label: 'Вокалоид', value: '745' },
-                    { label: 'Волшебные твари', value: '413' },
-                    { label: 'Воскрешение', value: '586' },
-                    { label: 'Воспитанный главный герой', value: '537' },
-                    { label: 'Воспоминания прошлого', value: '283' },
-                    { label: 'Враги становятся союзниками', value: '238' },
-                    { label: 'Врата в иной мир', value: '303' },
-                    { label: 'Временной парадокс', value: '711' },
-                    { label: 'Вторжение на Землю', value: '228' },
-                    { label: 'Второй шанс', value: '608' },
-                    { label: 'Выживание', value: '695' },
-                    { label: 'Вынужденные условия проживания', value: '287' },
-                    { label: 'Высокомерный герой', value: '56' },
-                    { label: 'Гадание', value: '207' },
-                    { label: 'Галлюцинации', value: '189' },
-                    { label: 'Гарем рабов', value: '656' },
-                    { label: 'Геймеры', value: '301' },
-                    { label: 'Генетические модификации', value: '306' },
-                    { label: 'Герои', value: '341' },
-                    { label: 'Герои непонятного пола', value: '36' },
-                    { label: 'Героиня девушка-сорванец', value: '715' },
-                    { label: 'Героиня красавица', value: '81' },
-                    { label: 'Герой влюбляется первым', value: '561' },
-                    { label: 'Герой использует щит', value: '636' },
-                    { label: 'Герой красавец', value: '329' },
-                    { label: 'Герой со множеством тел', value: '564' },
-                    { label: 'Герой-бесстыдник', value: '632' },
-                    { label: 'Герой-извращенец', value: '521' },
-                    { label: 'Герой-трудяга', value: '330' },
-                    { label: 'Герой-яндере', value: '421' },
-                    { label: 'Гетерохромия', value: '342' },
-                    { label: 'Гильдии', value: '324' },
-                    { label: 'Гиперопека', value: '509' },
-                    { label: 'Главная героиня — женщина', value: '277' },
-                    { label: 'Главный герой - гений', value: '308' },
-                    { label: 'Главный герой - Моб', value: '446' },
-                    { label: 'Главный герой — знаменитость', value: '263' },
-                    { label: 'Главный герой — мужчина', value: '419' },
-                    { label: 'Главный герой в поисках гарема', value: '331' },
-                    { label: 'Главный герой заранее готовится', value: '557' },
-                    { label: 'Главный герой не человек', value: '488' },
-                    { label: 'Главный герой приёмный', value: '20' },
-                    { label: 'Главный герой сразу силён', value: '563' },
-                    { label: 'Гладиаторы', value: '310' },
-                    { label: 'Глухой к любви герой', value: '194' },
-                    { label: 'Гоблины', value: '313' },
-                    { label: 'Големы', value: '319' },
-                    { label: 'Гомункул', value: '347' },
-                    { label: 'Горничные', value: '418' },
-                    { label: 'Государственные интриги', value: '212' },
-                    { label: 'Гринд', value: '322' },
-                    { label: 'Давняя травма', value: '518' },
-                    { label: 'Двойник', value: '97' },
-                    { label: 'Дворецкие', value: '111' },
-                    { label: 'Дворфы', value: '224' },
-                    { label: 'Дворяне', value: '487' },
-                    { label: 'Двоюродные братья или сёстры', value: '162' },
-                    { label: 'Девочки-волшебницы', value: '415' },
-                    { label: 'Демоны', value: '193' },
-                    { label: 'Депрессия', value: '196' },
-                    { label: 'Детектив', value: '198' },
-                    { label: 'Детективное расследование', value: '473' },
-                    { label: 'Детское насилие', value: '125' },
-                    { label: 'Детское обещание', value: '130' },
-                    { label: 'Дискриминация', value: '203' },
-                    { label: 'Длительный разрыв отношений', value: '400' },
-                    { label: 'Домашняя жизнь', value: '45' },
-                    { label: 'Драконы', value: '218' },
-                    { label: 'Древний Китай', value: '34' },
-                    { label: 'Дружба', value: '293' },
-                    { label: 'Друзья детства', value: '128' },
-                    { label: 'Друзья становятся врагами', value: '292' },
-                    { label: 'Духи', value: '673' },
-                    { label: 'Духовная сила', value: '665' },
-                    { label: 'Духовный наставник', value: '671' },
-                    { label: 'Душещипательная история', value: '335' },
-                    { label: 'Души', value: '666' },
-                    { label: 'Дьявольский путь культивации', value: '192' },
-                    { label: 'Ёкай', value: '763' },
-                    { label: 'Есть аниме-адаптация', value: '10' },
-                    { label: 'Есть видеоигра', value: '13' },
-                    { label: 'Есть дорама-адаптация', value: '11' },
-                    { label: 'Есть манга-адаптация', value: '14' },
-                    { label: 'Есть манхва-адаптация', value: '16' },
-                    { label: 'Есть маньхуа-адаптация', value: '15' },
-                    { label: 'Есть фильм', value: '17' },
-                    { label: 'Есть CD дорама-адаптация', value: '12' },
-                    { label: 'Жёсткий главный герой', value: '597' },
-                    { label: 'Жестокие персонажи', value: '4' },
-                    { label: 'Жёстокие персонажи', value: '169' },
-                    { label: 'Животное-спутник', value: '78' },
-                    { label: 'Жизнь в одиночку', value: '396' },
-                    { label: 'Жрецы', value: '555' },
-                    { label: 'Жрицы', value: '554' },
-                    { label: 'Забота о детях', value: '127' },
-                    { label: 'Заботливый главный герой', value: '116' },
-                    { label: 'Загадочное заболевание', value: '471' },
-                    { label: 'Загадочное прошлое родителей', value: '470' },
-                    { label: 'Заговоры', value: '154' },
-                    { label: 'Закалка тела', value: '96' },
-                    { label: 'Закон джунглей', value: '682' },
-                    { label: 'Закулисная борба', value: '603' },
-                    { label: 'Замкнутый главный герой', value: '371' },
-                    { label: 'Запечатанная сила', value: '607' },
-                    { label: 'Затворник', value: '346' },
-                    { label: 'Звери', value: '80' },
-                    { label: 'Зверолюди', value: '39' },
-                    { label: 'Звероподобные', value: '79' },
-                    { label: 'Земледелие', value: '268' },
-                    { label: 'Злобные благородные девы', value: '743' },
-                    { label: 'Зловещие организации', value: '247' },
-                    { label: 'Злой главный герой', value: '248' },
-                    { label: 'Злые боги', value: '246' },
-                    { label: 'Злые религии', value: '249' },
-                    { label: 'Знаменитости', value: '118' },
-                    { label: 'Знания из прошлой жизни', value: '553' },
-                    { label: 'Зомби', value: '767' },
-                    { label: 'Игра на выживание', value: '696' },
-                    { label: 'Игровая рейтинговая система', value: '300' },
-                    { label: 'Из грязи в князи', value: '542' },
-                    { label: 'Известные родители', value: '262' },
-                    { label: 'Изменение внешнего вида', value: '48' },
-                    { label: 'Изнасилование', value: '574' },
-                    { label: 'Инвалидность', value: '202' },
-                    { label: 'Индустриализация', value: '364' },
-                    { label: 'Инженер', value: '241' },
-                    { label: 'Инцест', value: '361' },
-                    { label: 'Искажённая личность', value: '730' },
-                    { label: 'Искусственный интеллект', value: '59' },
-                    { label: 'Исполнение желаний', value: '755' },
-                    { label: 'Каннибализм', value: '113' },
-                    { label: 'Карточные игры', value: '114' },
-                    { label: 'Кладбищенский смотритель', value: '321' },
-                    { label: 'Классика', value: '134' },
-                    { label: 'Книги', value: '99' },
-                    { label: 'Книги навыков', value: '654' },
-                    { label: 'Книжный червь', value: '100' },
-                    { label: 'Коллеги', value: '140' },
-                    { label: 'Колледж/Университет', value: '145' },
-                    { label: 'Командная работа', value: '701' },
-                    { label: 'Комедийный подтекст', value: '147' },
-                    { label: 'Комплекс брата', value: '105' },
-                    { label: 'Комплекс неполноценности', value: '365' },
-                    { label: 'Контракты', value: '155' },
-                    { label: 'Контроль разума', value: '441' },
-                    { label: 'Конфликт в семье', value: '261' },
-                    { label: 'Конфликт верности', value: '153' },
-                    { label: 'Копейщик', value: '668' },
-                    { label: 'Королевская особа', value: '596' },
-                    { label: 'Королевства', value: '382' },
-                    { label: 'Короткий рассказ', value: '638' },
-                    { label: 'Коррупция', value: '157' },
-                    { label: 'Космические Войны', value: '158' },
-                    { label: 'Космос', value: '507' },
-                    { label: 'Косплей', value: '159' },
-                    { label: 'Кража способностей', value: '2' },
-                    { label: 'Крафтинг', value: '164' },
-                    { label: 'Кризис личности', value: '357' },
-                    { label: 'Кровь', value: '320' },
-                    { label: 'Кружки, клубы', value: '138' },
-                    { label: 'Кудэрэ', value: '384' },
-                    { label: 'Кузнец', value: '90' },
-                    { label: 'Кукловоды', value: '567' },
-                    { label: 'Куклы/Марионетки', value: '211' },
-                    { label: 'Кулинария', value: '156' },
-                    { label: 'Культивация', value: '171' },
-                    { label: 'Куннилингус', value: '172' },
-                    { label: 'Легенды', value: '391' },
-                    { label: 'Легкая жизнь', value: '229' },
-                    { label: 'Лекари', value: '334' },
-                    { label: 'Ленивый главный герой', value: '389' },
-                    { label: 'Лидерство', value: '390' },
-                    { label: 'Любит персонажа младше себя', value: '765' },
-                    { label: 'Любит персонажа старше себя', value: '494' },
-                    { label: 'Любовное соперничество', value: '406' },
-                    { label: 'Любовные треугольники', value: '407' },
-                    { label: 'Любовь детства', value: '129' },
-                    { label: 'Любовь с первого взгляда', value: '404' },
-                    { label: 'Любящие родители', value: '215' },
-                    { label: 'Маги', value: '757' },
-                    { label: 'Магические технологии', value: '417' },
-                    { label: 'Магия', value: '412' },
-                    { label: 'Магия призыва', value: '694' },
-                    { label: 'Маленькие девочки', value: '397' },
-                    { label: 'Мангака', value: '423' },
-                    { label: 'Маниакальная любовь', value: '492' },
-                    { label: 'Марти Сью', value: '508' },
-                    { label: 'Мастер подземелий', value: '222' },
-                    { label: 'Мастурбация', value: '432' },
-                    { label: 'Матриархат', value: '433' },
-                    { label: 'Межпространственные путешествия', value: '370' },
-                    { label: 'Менеджмент', value: '422' },
-                    { label: 'Месть', value: '588' },
-                    { label: 'Мечи и магия', value: '697' },
-                    { label: 'Мечники', value: '698' },
-                    { label: 'Миленькие дети', value: '176' },
-                    { label: 'Милитаризм', value: '439' },
-                    { label: 'Миловидная история', value: '178' },
-                    { label: 'Милый главный герой', value: '177' },
-                    { label: 'Минет', value: '275' },
-                    { label: 'Мировое древо', value: '760' },
-                    { label: 'Миролюбивый главный герой', value: '510' },
-                    { label: 'Мифология', value: '475' },
-                    { label: 'Младшие сёстры', value: '766' },
-                    { label: 'ММОРПГ', value: '445' },
-                    { label: 'Множество временных линий', value: '463' },
-                    { label: 'Модели', value: '447' },
-                    { label: 'Молод не по годам', value: '49' },
-                    { label: 'Монстры', value: '454' },
-                    { label: 'Мрачность', value: '183' },
-                    { label: 'Музыка', value: '466' },
-                    { label: 'Музыкальные группы', value: '68' },
-                    { label: 'Мутации', value: '468' },
-                    { label: 'На волосок от смерти', value: '479' },
-                    { label: 'На все руки мастер', value: '374' },
-                    { label: 'Навыки имеют стоимость', value: '150' },
-                    { label: 'Нагота', value: '490' },
-                    { label: 'Наездники на драконах', value: '216' },
-                    { label: 'Наёмники', value: '437' },
-                    { label: 'Наивный главный герой', value: '476' },
-                    { label: 'Наследие', value: '366' },
-                    { label: 'Настоящая любовь', value: '200' },
-                    { label: 'Настоящий гарем', value: '540' },
-                    { label: 'Небесное испытание', value: '337' },
-                    { label: 'Невезучий главный герой', value: '738' },
-                    { label: 'Недоверчивый протагонист', value: '206' },
-                    { label: 'Недооцененный главный герой', value: '734' },
-                    { label: 'Недопонимание', value: '444' },
-                    { label: 'Некромант', value: '480' },
-                    { label: 'Нелинейное повествование', value: '489' },
-                    { label: 'Неловкий главный герой', value: '67' },
-                    { label: 'Нелюбимый протагонист', value: '333' },
-                    { label: 'Немой персонаж', value: '469' },
-                    { label: 'Ненадежный рассказчик', value: '739' },
-                    { label: 'Непримечательный герой', value: '65' },
-                    { label: 'Нерешительный протагонист', value: '363' },
-                    { label: 'Несгибаемый главный герой', value: '676' },
-                    { label: 'Несколько главных героев', value: '460' },
-                    { label: 'Несколько миров', value: '461' },
-                    { label: 'Несколько перерожденцев', value: '462' },
-                    { label: 'Несколько попаданцев', value: '464' },
-                    { label: 'Несравненная скорость культивации', value: '269' },
-                    { label: 'Нехватка/отсутствие здравого смысла', value: '385' },
-                    { label: 'Нечестный протагонист', value: '205' },
-                    { label: 'НИИТ', value: '481' },
-                    { label: 'Ниндзя', value: '486' },
-                    { label: 'Обмен телами', value: '95' },
-                    { label: 'Оборотни', value: '754' },
-                    { label: 'Объект любви влюбился первым', value: '405' },
-                    { label: 'Объект любви популярен', value: '543' },
-                    { label: 'Огнестрельное оружие', value: '280' },
-                    { label: 'Ограничение на время жизни', value: '394' },
-                    { label: 'Одержимость', value: '544' },
-                    { label: 'Один родитель', value: '651' },
-                    { label: 'Одинокий главный герой', value: '399' },
-                    { label: 'Одиночество', value: '398' },
-                    { label: 'Одно тело на двоих', value: '634' },
-                    { label: 'Око силы', value: '253' },
-                    { label: 'Оммёдзи', value: '498' },
-                    { label: 'Организованная преступность', value: '500' },
-                    { label: 'Оргия', value: '501' },
-                    { label: 'Орки', value: '499' },
-                    { label: 'Основано на аниме', value: '74' },
-                    { label: 'Основано на видеоигре', value: '72' },
-                    { label: 'Основано на визуальной новелле', value: '73' },
-                    { label: 'Основано на песне', value: '70' },
-                    { label: 'Основано на фильме', value: '69' },
-                    { label: 'Осторожный главный герой', value: '117' },
-                    { label: 'От ненависти до любви один шаг', value: '239' },
-                    { label: 'От сильного с сильнейшему', value: '684' },
-                    { label: 'От слабого к сильному', value: '752' },
-                    { label: 'Отаку', value: '503' },
-                    { label: 'Отзывчивая любовь', value: '380' },
-                    { label: 'Отзывчивый главный герой', value: '339' },
-                    { label: 'Отношение учитель-ученик', value: '430' },
-                    { label: 'Отношения бог-человек', value: '315' },
-                    { label: 'Отношения между учителем и учеником', value: '687' },
-                    { label: 'Отношения начальник-подчинённый', value: '101' },
-                    { label: 'Отношения против воли', value: '286' },
-                    { label: 'Отношения с нечеловеком', value: '353' },
-                    { label: 'Отношения сэмпай-кохай', value: '621' },
-                    { label: 'Отношения хозяин-слуга', value: '431' },
-                    { label: 'Отомэ-игры', value: '504' },
-                    { label: 'ОТП', value: '562' },
-                    { label: 'Отшельники', value: '505' },
-                    { label: 'Офисный работник', value: '600' },
-                    { label: 'Официанты', value: '748' },
-                    { label: 'Охотники', value: '355' },
-                    { label: 'Падшие ангелы', value: '255' },
-                    { label: 'Падшие дворяне', value: '256' },
-                    { label: 'Пайзури', value: '511' },
-                    { label: 'Паразиты', value: '513' },
-                    { label: 'Параллельные миры', value: '512' },
-                    { label: 'Парк развлечений', value: '32' },
-                    { label: 'Пародия', value: '515' },
-                    { label: 'Перемещение между мирами', value: '758' },
-                    { label: 'Переодевание', value: '167' },
-                    { label: 'Переплавка пилюль', value: '529' },
-                    { label: 'Перерождение в девушку', value: '420' },
-                    { label: 'Перерождение в другом мире', value: '580' },
-                    { label: 'Перерождение в другом мире', value: '720' },
-                    { label: 'Перерождение в игровом мире', value: '579' },
-                    { label: 'Перерождение в монстра', value: '577' },
-                    { label: 'Персонажи с мазохистскими наклонностями', value: '429' },
-                    { label: 'Персонажи с садистскими наклонностями', value: '598' },
-                    { label: 'Петля времени', value: '709' },
-                    { label: 'Петтинг', value: '328' },
-                    { label: 'Писатели', value: '761' },
-                    { label: 'Питомцы', value: '522' },
-                    { label: 'Племенное общество', value: '726' },
-                    { label: 'Повелитель демонов', value: '191' },
-                    { label: 'Повествование от нескольких лиц', value: '459' },
-                    { label: 'Поглощение навыков', value: '653' },
-                    { label: 'Подземелья', value: '223' },
-                    { label: 'Поздно начинающаяся романтическая линия', value: '387' },
-                    { label: 'Политика', value: '538' },
-                    { label: 'Полулюди', value: '190' },
-                    { label: 'Помолвка', value: '240' },
-                    { label: 'Попаданец в другой мир', value: '723' },
-                    { label: 'Попаданец в игровой мир', value: '722' },
-                    { label: 'Постапокалипсис', value: '546' },
-                    { label: 'Постижение Дао', value: '181' },
-                    { label: 'Потеря девственности', value: '282' },
-                    { label: 'Потустороннее пространство', value: '416' },
-                    { label: 'Похищения', value: '379' },
-                    { label: 'Прагматичный главный герой', value: '549' },
-                    { label: 'Предательство', value: '83' },
-                    { label: 'Предвидение', value: '550' },
-                    { label: 'Преследователи', value: '674' },
-                    { label: 'Преступление', value: '165' },
-                    { label: 'Преступность', value: '166' },
-                    { label: 'Приёмные дети', value: '19' },
-                    { label: 'Призванный герой', value: '693' },
-                    { label: 'Призраки', value: '309' },
-                    { label: 'Приключения', value: '22' },
-                    { label: 'Принуждение', value: '108' },
-                    { label: 'Приручатель', value: '453' },
-                    { label: 'Прислуга', value: '625' },
-                    { label: 'Приставучий любовник', value: '136' },
-                    { label: 'Притворная любовь', value: '552' },
-                    { label: 'Пришельцы', value: '28' },
-                    { label: 'Программист', value: '558' },
-                    { label: 'Произведение - обладатель наград', value: '66' },
-                    { label: 'Проклятия', value: '175' },
-                    { label: 'Промывка мозгов', value: '102' },
-                    { label: 'Пропуск времени', value: '712' },
-                    { label: 'Пророчества', value: '559' },
-                    { label: 'Протагонист в очках', value: '312' },
-                    { label: 'Протагонист раб', value: '657' },
-                    { label: 'Психокинез', value: '565' },
-                    { label: 'Психопаты', value: '566' },
-                    { label: 'Путешествия', value: '759' },
-                    { label: 'Путешествия во времени', value: '713' },
-                    { label: 'Пытки', value: '716' },
-                    { label: 'Рабы', value: '658' },
-                    { label: 'Развитие отношений', value: '160' },
-                    { label: 'Развитие персонажа', value: '119' },
-                    { label: 'Раздвоение личности', value: '458' },
-                    { label: 'Размеренная романтика', value: '661' },
-                    { label: 'Разница в статусе', value: '201' },
-                    { label: 'Разорванная помолвка', value: '104' },
-                    { label: 'Разумные предметы', value: '622' },
-                    { label: 'Рай', value: '336' },
-                    { label: 'Раняя романтика', value: '227' },
-                    { label: 'Расизм', value: '573' },
-                    { label: 'Расследования', value: '372' },
-                    { label: 'Ребенок — главный герой', value: '126' },
-                    { label: 'Реверс-гарем', value: '589' },
-                    { label: 'Реверс-изнасилование', value: '590' },
-                    { label: 'Резкая смена характера', value: '520' },
-                    { label: 'Реинкарнация', value: '581' },
-                    { label: 'Религии', value: '582' },
-                    { label: 'Ресторан', value: '585' },
-                    { label: 'Решительный главный герой', value: '199' },
-                    { label: 'Робкий протагонист', value: '714' },
-                    { label: 'Родительсткий комплекс', value: '514' },
-                    { label: 'Родные не связанные кровью', value: '647' },
-                    { label: 'Родословные', value: '94' },
-                    { label: 'РПГ-система', value: '392' },
-                    { label: 'Рыцари', value: '383' },
-                    { label: 'Самовлюбленный главный герой', value: '477' },
-                    { label: 'Самоубийства', value: '692' },
-                    { label: 'Самураи', value: '601' },
-                    { label: 'Сборник коротких историй', value: '144' },
-                    { label: 'Свадьба', value: '426' },
-                    { label: 'Связанные сюжетные линии', value: '369' },
-                    { label: 'Святые', value: '599' },
-                    { label: 'Секреты', value: '614' },
-                    { label: 'Секс втроём', value: '707' },
-                    { label: 'Секс-рабыня', value: '629' },
-                    { label: 'Семейная любовь', value: '257' },
-                    { label: 'Семь добродетелей', value: '627' },
-                    { label: 'Семь смертных грехов', value: '626' },
-                    { label: 'Серийные убийцы', value: '624' },
-                    { label: 'Сикигами', value: '637' },
-                    { label: 'Сильная любовь от старших', value: '214' },
-                    { label: 'Синдром восьмиклассника', value: '132' },
-                    { label: 'Синдром сестры', value: '652' },
-                    { label: 'Сироты', value: '502' },
-                    { label: 'Системный администратор', value: '699' },
-                    { label: 'Скромный главный герой', value: '409' },
-                    { label: 'Скрытые романтические отношения', value: '23' },
-                    { label: 'Скрытые способности', value: '343' },
-                    { label: 'Скряга', value: '450' },
-                    { label: 'Скульпторы', value: '606' },
-                    { label: 'Слабая романтика', value: '688' },
-                    { label: 'Слабый главный герой', value: '751' },
-                    { label: 'Сложные семейные отношения', value: '149' },
-                    { label: 'Смена расы', value: '572' },
-                    { label: 'Смертельное заболевание', value: '704' },
-                    { label: 'Смерть', value: '185' },
-                    { label: 'Смерть любимых', value: '186' },
-                    { label: 'Современность', value: '448' },
-                    { label: 'Современные знания в слаборазвитых мирах', value: '449' },
-                    { label: 'Сожительство', value: '141' },
-                    { label: 'Создание артефактов', value: '57' },
-                    { label: 'Создание клана', value: '133' },
-                    { label: 'Создание королевства', value: '381' },
-                    { label: 'Создание навыков', value: '655' },
-                    { label: 'Сокрытие истинных способностей', value: '344' },
-                    { label: 'Сокрытие личности', value: '345' },
-                    { label: 'Солдаты', value: '664' },
-                    { label: 'Сон', value: '659' },
-                    { label: 'Соседи по комнате', value: '595' },
-                    { label: 'Социальные изгои', value: '663' },
-                    { label: 'Спасение мира', value: '602' },
-                    { label: 'Спорящая пара', value: '84' },
-                    { label: 'Способность перевоплощения', value: '719' },
-                    { label: 'Средневековье', value: '436' },
-                    { label: 'Стеснительные персонажи', value: '643' },
-                    { label: 'Стокгольмский синдром', value: '575' },
-                    { label: 'Стокгольмский синдром', value: '675' },
-                    { label: 'Стратег', value: '681' },
-                    { label: 'Стратегические битвы', value: '680' },
-                    { label: 'Стрелки', value: '325' },
-                    { label: 'Стрельба из лука', value: '50' },
-                    { label: 'Студенческий совет', value: '686' },
-                    { label: 'Судьба', value: '197' },
-                    { label: 'Суккубы', value: '689' },
-                    { label: 'Суперспособности', value: '669' },
-                    { label: 'Суровая тренировка', value: '332' },
-                    { label: 'Сцены насилия', value: '195' },
-                    { label: 'Таинственное прошлое', value: '472' },
-                    { label: 'Тайная личность', value: '610' },
-                    { label: 'Тайные организации', value: '611' },
-                    { label: 'Телохранители', value: '98' },
-                    { label: 'Тентакли', value: '703' },
-                    { label: 'Террористы', value: '705' },
-                    { label: 'Технологический разрыв', value: '702' },
-                    { label: 'Тихие герои', value: '568' },
-                    { label: 'Толстый протагонист', value: '271' },
-                    { label: 'Торговцы', value: '438' },
-                    { label: 'Травник', value: '340' },
-                    { label: 'Трагичное прошлое', value: '718' },
-                    { label: 'Трап', value: '725' },
-                    { label: 'Триллер', value: '708' },
-                    { label: 'Турнир', value: '76' },
-                    { label: 'Тюрьма', value: '556' },
-                    { label: 'Убийства', value: '465' },
-                    { label: 'Уверенный в себе главный герой', value: '151' },
-                    { label: 'Умная пара', value: '662' },
-                    { label: 'Умный главный герой', value: '135' },
-                    { label: 'Уникальная техника культивации', value: '735' },
-                    { label: 'Уникальные оружия', value: '737' },
-                    { label: 'Управление бизнесом', value: '109' },
-                    { label: 'Управление временем', value: '710' },
-                    { label: 'Управление пространством', value: '667' },
-                    { label: 'Ускоренный рост', value: '6' },
-                    { label: 'Учёные', value: '605' },
-                    { label: 'Учителя', value: '700' },
-                    { label: 'Фамильяры', value: '258' },
-                    { label: 'Фанатизм', value: '264' },
-                    { label: 'Фармацевт', value: '523' },
-                    { label: 'Феи', value: '254' },
-                    { label: 'Фениксы', value: '526' },
-                    { label: 'Фетиш на грудь', value: '103' },
-                    { label: 'Фетиш на очки', value: '311' },
-                    { label: 'Философия', value: '524' },
-                    { label: 'Фобии/Страхи', value: '525' },
-                    { label: 'Фольклор', value: '285' },
-                    { label: 'Формирование армии', value: '54' },
-                    { label: 'Футанари', value: '295' },
-                    { label: 'Футуристический мир', value: '296' },
-                    { label: 'Фэнтези', value: '267' },
-                    { label: 'Фэнтезийные существа', value: '266' },
-                    { label: 'Хакеры', value: '326' },
-                    { label: 'Харизматичный протагонист', value: '120' },
-                    { label: 'Хитрый главный герой', value: '173' },
-                    { label: 'Хладнокровный главный герой', value: '112' },
-                    { label: 'Художники', value: '60' },
-                    { label: 'Хулиганы', value: '188' },
-                    { label: 'Цундере', value: '728' },
-                    { label: 'Чат', value: '122' },
-                    { label: 'Человек-оружие', value: '352' },
-                    { label: 'Человекоподобный главный герой', value: '354' },
-                    { label: 'Честный главный герой', value: '348' },
-                    { label: 'Четкие любовные убеждения', value: '683' },
-                    { label: 'Читы', value: '123' },
-                    { label: 'Чудаковатые герои', value: '569' },
-                    { label: 'Чужие воспоминания', value: '721' },
-                    { label: 'Шантаж', value: '89' },
-                    { label: 'Шеф-повар', value: '124' },
-                    { label: 'Школа для девочек', value: '29' },
-                    { label: 'Шоу-бизнес', value: '642' },
-                    { label: 'Шпионы', value: '670' },
-                    { label: 'Эволюция', value: '250' },
-                    { label: 'Эгоистичный главный герой', value: '618' },
-                    { label: 'Экзорцизм', value: '252' },
-                    { label: 'Экономика', value: '230' },
-                    { label: 'Эксгибиционизм', value: '251' },
-                    { label: 'Эксперименты на людях', value: '351' },
-                    { label: 'Элементальная магия', value: '234' },
-                    { label: 'Элементы игрового мира', value: '299' },
-                    { label: 'Элементы романтики', value: '594' },
-                    { label: 'Элементы юри', value: '640' },
-                    { label: 'Элементы яоя', value: '641' },
-                    { label: 'Эльфы', value: '235' },
-                    { label: 'Эпизодичность', value: '243' },
-                    { label: 'Язвительные персонажи', value: '635' },
-                    { label: 'Языковой барьер', value: '386' },
-                    { label: 'Яндере', value: '762' },
-                    { label: 'Яойщица', value: '294' },
-                    { label: 'Японские силы самообороны', value: '378' },
-                    { label: 'R-15', value: '570' },
-                    { label: 'R-18', value: '571' },
-                ],
-                type: filterInputs_1.FilterTypes.CheckboxGroup,
-            },
-            genres: {
-                label: 'Жанры',
-                value: [],
-                options: [
-                    { label: '16+', value: '1' },
-                    { label: '18+', value: '2' },
-                    { label: 'Боевик', value: '3' },
-                    { label: 'Боевые искусства', value: '4' },
-                    { label: 'Вампиры', value: '47' },
-                    { label: 'Военное', value: '44' },
-                    { label: 'Гарем', value: '5' },
-                    { label: 'Демоны', value: '48' },
-                    { label: 'Детектив', value: '6' },
-                    { label: 'Дзёсей', value: '50' },
-                    { label: 'Драма', value: '7' },
-                    { label: 'Игры', value: '45' },
-                    { label: 'Историческое', value: '8' },
-                    { label: 'Киберпанк', value: '9' },
-                    { label: 'Комедия', value: '10' },
-                    { label: 'Космос', value: '46' },
-                    { label: 'Магия', value: '42' },
-                    { label: 'Махо-сёдзё', value: '12' },
-                    { label: 'Меха', value: '13' },
-                    { label: 'Мистика', value: '14' },
-                    { label: 'Музыка', value: '49' },
-                    { label: 'Научная фантастика', value: '15' },
-                    { label: 'Пародия', value: '16' },
-                    { label: 'Повседневность', value: '17' },
-                    { label: 'Приключения', value: '18' },
-                    { label: 'Психологическое', value: '19' },
-                    { label: 'Романтика', value: '20' },
-                    { label: 'Сверхъестественное', value: '21' },
-                    { label: 'Сёдзё', value: '22' },
-                    { label: 'Сёдзё-ай', value: '23' },
-                    { label: 'Сёнэн', value: '24' },
-                    { label: 'Сёнэн-ай', value: '25' },
-                    { label: 'Смена пола', value: '26' },
-                    { label: 'Современность', value: '27' },
-                    { label: 'Спорт', value: '28' },
-                    { label: 'Супер сила', value: '43' },
-                    { label: 'Сэйнэн', value: '29' },
-                    { label: 'Трагедия', value: '32' },
-                    { label: 'Триллер', value: '33' },
-                    { label: 'Ужасы', value: '34' },
-                    { label: 'Уся', value: '35' },
-                    { label: 'Фэнтези', value: '36' },
-                    { label: 'Школьная жизнь', value: '37' },
-                    { label: 'Этти', value: '38' },
-                    { label: 'Юри', value: '39' },
-                    { label: 'Яой', value: '40' },
-                    { label: 'LitRPG', value: '41' },
-                ],
-                type: filterInputs_1.FilterTypes.CheckboxGroup,
-            },
+  });
+
+  // node_modules/@protobufjs/base64/index.js
+  var require_base64 = __commonJS({
+    "node_modules/@protobufjs/base64/index.js"(exports2) {
+      "use strict";
+      var base64 = exports2;
+      base64.length = /* @__PURE__ */ __name(function length(string) {
+        var p = string.length;
+        if (!p)
+          return 0;
+        var n2 = 0;
+        while (--p % 4 > 1 && string.charAt(p) === "=")
+          ++n2;
+        return Math.ceil(string.length * 3) / 4 - n2;
+      }, "length");
+      var b64 = new Array(64);
+      var s64 = new Array(123);
+      for (i = 0; i < 64; )
+        s64[b64[i] = i < 26 ? i + 65 : i < 52 ? i + 71 : i < 62 ? i - 4 : i - 59 | 43] = i++;
+      base64.encode = /* @__PURE__ */ __name(function encode(buffer, start, end) {
+        var parts = null, chunk = [];
+        var i2 = 0, j = 0, t2;
+        while (start < end) {
+          var b2 = buffer[start++];
+          switch (j) {
+            case 0:
+              chunk[i2++] = b64[b2 >> 2];
+              t2 = (b2 & 3) << 4;
+              j = 1;
+              break;
+            case 1:
+              chunk[i2++] = b64[t2 | b2 >> 4];
+              t2 = (b2 & 15) << 2;
+              j = 2;
+              break;
+            case 2:
+              chunk[i2++] = b64[t2 | b2 >> 6];
+              chunk[i2++] = b64[b2 & 63];
+              j = 0;
+              break;
+          }
+          if (i2 > 8191) {
+            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
+            i2 = 0;
+          }
+        }
+        if (j) {
+          chunk[i2++] = b64[t2];
+          chunk[i2++] = 61;
+          if (j === 1)
+            chunk[i2++] = 61;
+        }
+        if (parts) {
+          if (i2)
+            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
+          return parts.join("");
+        }
+        return String.fromCharCode.apply(String, chunk.slice(0, i2));
+      }, "encode");
+      var invalidEncoding = "invalid encoding";
+      base64.decode = /* @__PURE__ */ __name(function decode(string, buffer, offset) {
+        var start = offset;
+        var j = 0, t2;
+        for (var i2 = 0; i2 < string.length; ) {
+          var c = string.charCodeAt(i2++);
+          if (c === 61 && j > 1)
+            break;
+          if ((c = s64[c]) === void 0)
+            throw Error(invalidEncoding);
+          switch (j) {
+            case 0:
+              t2 = c;
+              j = 1;
+              break;
+            case 1:
+              buffer[offset++] = t2 << 2 | (c & 48) >> 4;
+              t2 = c;
+              j = 2;
+              break;
+            case 2:
+              buffer[offset++] = (t2 & 15) << 4 | (c & 60) >> 2;
+              t2 = c;
+              j = 3;
+              break;
+            case 3:
+              buffer[offset++] = (t2 & 3) << 6 | c;
+              j = 0;
+              break;
+          }
+        }
+        if (j === 1)
+          throw Error(invalidEncoding);
+        return offset - start;
+      }, "decode");
+      base64.test = /* @__PURE__ */ __name(function test(string) {
+        return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(string);
+      }, "test");
+      var i;
+    }
+  });
+
+  // node_modules/@protobufjs/eventemitter/index.js
+  var require_eventemitter = __commonJS({
+    "node_modules/@protobufjs/eventemitter/index.js"(exports2, module2) {
+      "use strict";
+      module2.exports = EventEmitter;
+      function EventEmitter() {
+        this._listeners = {};
+      }
+      __name(EventEmitter, "EventEmitter");
+      EventEmitter.prototype.on = /* @__PURE__ */ __name(function on(evt, fn, ctx) {
+        (this._listeners[evt] || (this._listeners[evt] = [])).push({
+          fn,
+          ctx: ctx || this
+        });
+        return this;
+      }, "on");
+      EventEmitter.prototype.off = /* @__PURE__ */ __name(function off(evt, fn) {
+        if (evt === void 0)
+          this._listeners = {};
+        else {
+          if (fn === void 0)
+            this._listeners[evt] = [];
+          else {
+            var listeners = this._listeners[evt];
+            for (var i = 0; i < listeners.length; )
+              if (listeners[i].fn === fn)
+                listeners.splice(i, 1);
+              else
+                ++i;
+          }
+        }
+        return this;
+      }, "off");
+      EventEmitter.prototype.emit = /* @__PURE__ */ __name(function emit(evt) {
+        var listeners = this._listeners[evt];
+        if (listeners) {
+          var args = [], i = 1;
+          for (; i < arguments.length; )
+            args.push(arguments[i++]);
+          for (i = 0; i < listeners.length; )
+            listeners[i].fn.apply(listeners[i++].ctx, args);
+        }
+        return this;
+      }, "emit");
+    }
+  });
+
+  // node_modules/@protobufjs/float/index.js
+  var require_float = __commonJS({
+    "node_modules/@protobufjs/float/index.js"(exports2, module2) {
+      "use strict";
+      module2.exports = factory(factory);
+      function factory(exports3) {
+        if (typeof Float32Array !== "undefined") (function() {
+          var f32 = new Float32Array([-0]), f8b = new Uint8Array(f32.buffer), le = f8b[3] === 128;
+          function writeFloat_f32_cpy(val, buf, pos) {
+            f32[0] = val;
+            buf[pos] = f8b[0];
+            buf[pos + 1] = f8b[1];
+            buf[pos + 2] = f8b[2];
+            buf[pos + 3] = f8b[3];
+          }
+          __name(writeFloat_f32_cpy, "writeFloat_f32_cpy");
+          function writeFloat_f32_rev(val, buf, pos) {
+            f32[0] = val;
+            buf[pos] = f8b[3];
+            buf[pos + 1] = f8b[2];
+            buf[pos + 2] = f8b[1];
+            buf[pos + 3] = f8b[0];
+          }
+          __name(writeFloat_f32_rev, "writeFloat_f32_rev");
+          exports3.writeFloatLE = le ? writeFloat_f32_cpy : writeFloat_f32_rev;
+          exports3.writeFloatBE = le ? writeFloat_f32_rev : writeFloat_f32_cpy;
+          function readFloat_f32_cpy(buf, pos) {
+            f8b[0] = buf[pos];
+            f8b[1] = buf[pos + 1];
+            f8b[2] = buf[pos + 2];
+            f8b[3] = buf[pos + 3];
+            return f32[0];
+          }
+          __name(readFloat_f32_cpy, "readFloat_f32_cpy");
+          function readFloat_f32_rev(buf, pos) {
+            f8b[3] = buf[pos];
+            f8b[2] = buf[pos + 1];
+            f8b[1] = buf[pos + 2];
+            f8b[0] = buf[pos + 3];
+            return f32[0];
+          }
+          __name(readFloat_f32_rev, "readFloat_f32_rev");
+          exports3.readFloatLE = le ? readFloat_f32_cpy : readFloat_f32_rev;
+          exports3.readFloatBE = le ? readFloat_f32_rev : readFloat_f32_cpy;
+        })();
+        else (function() {
+          function writeFloat_ieee754(writeUint, val, buf, pos) {
+            var sign = val < 0 ? 1 : 0;
+            if (sign)
+              val = -val;
+            if (val === 0)
+              writeUint(1 / val > 0 ? (
+                /* positive */
+                0
+              ) : (
+                /* negative 0 */
+                2147483648
+              ), buf, pos);
+            else if (isNaN(val))
+              writeUint(2143289344, buf, pos);
+            else if (val > 34028234663852886e22)
+              writeUint((sign << 31 | 2139095040) >>> 0, buf, pos);
+            else if (val < 11754943508222875e-54)
+              writeUint((sign << 31 | Math.round(val / 1401298464324817e-60)) >>> 0, buf, pos);
+            else {
+              var exponent = Math.floor(Math.log(val) / Math.LN2), mantissa = Math.round(val * Math.pow(2, -exponent) * 8388608) & 8388607;
+              writeUint((sign << 31 | exponent + 127 << 23 | mantissa) >>> 0, buf, pos);
+            }
+          }
+          __name(writeFloat_ieee754, "writeFloat_ieee754");
+          exports3.writeFloatLE = writeFloat_ieee754.bind(null, writeUintLE);
+          exports3.writeFloatBE = writeFloat_ieee754.bind(null, writeUintBE);
+          function readFloat_ieee754(readUint, buf, pos) {
+            var uint = readUint(buf, pos), sign = (uint >> 31) * 2 + 1, exponent = uint >>> 23 & 255, mantissa = uint & 8388607;
+            return exponent === 255 ? mantissa ? NaN : sign * Infinity : exponent === 0 ? sign * 1401298464324817e-60 * mantissa : sign * Math.pow(2, exponent - 150) * (mantissa + 8388608);
+          }
+          __name(readFloat_ieee754, "readFloat_ieee754");
+          exports3.readFloatLE = readFloat_ieee754.bind(null, readUintLE);
+          exports3.readFloatBE = readFloat_ieee754.bind(null, readUintBE);
+        })();
+        if (typeof Float64Array !== "undefined") (function() {
+          var f64 = new Float64Array([-0]), f8b = new Uint8Array(f64.buffer), le = f8b[7] === 128;
+          function writeDouble_f64_cpy(val, buf, pos) {
+            f64[0] = val;
+            buf[pos] = f8b[0];
+            buf[pos + 1] = f8b[1];
+            buf[pos + 2] = f8b[2];
+            buf[pos + 3] = f8b[3];
+            buf[pos + 4] = f8b[4];
+            buf[pos + 5] = f8b[5];
+            buf[pos + 6] = f8b[6];
+            buf[pos + 7] = f8b[7];
+          }
+          __name(writeDouble_f64_cpy, "writeDouble_f64_cpy");
+          function writeDouble_f64_rev(val, buf, pos) {
+            f64[0] = val;
+            buf[pos] = f8b[7];
+            buf[pos + 1] = f8b[6];
+            buf[pos + 2] = f8b[5];
+            buf[pos + 3] = f8b[4];
+            buf[pos + 4] = f8b[3];
+            buf[pos + 5] = f8b[2];
+            buf[pos + 6] = f8b[1];
+            buf[pos + 7] = f8b[0];
+          }
+          __name(writeDouble_f64_rev, "writeDouble_f64_rev");
+          exports3.writeDoubleLE = le ? writeDouble_f64_cpy : writeDouble_f64_rev;
+          exports3.writeDoubleBE = le ? writeDouble_f64_rev : writeDouble_f64_cpy;
+          function readDouble_f64_cpy(buf, pos) {
+            f8b[0] = buf[pos];
+            f8b[1] = buf[pos + 1];
+            f8b[2] = buf[pos + 2];
+            f8b[3] = buf[pos + 3];
+            f8b[4] = buf[pos + 4];
+            f8b[5] = buf[pos + 5];
+            f8b[6] = buf[pos + 6];
+            f8b[7] = buf[pos + 7];
+            return f64[0];
+          }
+          __name(readDouble_f64_cpy, "readDouble_f64_cpy");
+          function readDouble_f64_rev(buf, pos) {
+            f8b[7] = buf[pos];
+            f8b[6] = buf[pos + 1];
+            f8b[5] = buf[pos + 2];
+            f8b[4] = buf[pos + 3];
+            f8b[3] = buf[pos + 4];
+            f8b[2] = buf[pos + 5];
+            f8b[1] = buf[pos + 6];
+            f8b[0] = buf[pos + 7];
+            return f64[0];
+          }
+          __name(readDouble_f64_rev, "readDouble_f64_rev");
+          exports3.readDoubleLE = le ? readDouble_f64_cpy : readDouble_f64_rev;
+          exports3.readDoubleBE = le ? readDouble_f64_rev : readDouble_f64_cpy;
+        })();
+        else (function() {
+          function writeDouble_ieee754(writeUint, off0, off1, val, buf, pos) {
+            var sign = val < 0 ? 1 : 0;
+            if (sign)
+              val = -val;
+            if (val === 0) {
+              writeUint(0, buf, pos + off0);
+              writeUint(1 / val > 0 ? (
+                /* positive */
+                0
+              ) : (
+                /* negative 0 */
+                2147483648
+              ), buf, pos + off1);
+            } else if (isNaN(val)) {
+              writeUint(0, buf, pos + off0);
+              writeUint(2146959360, buf, pos + off1);
+            } else if (val > 17976931348623157e292) {
+              writeUint(0, buf, pos + off0);
+              writeUint((sign << 31 | 2146435072) >>> 0, buf, pos + off1);
+            } else {
+              var mantissa;
+              if (val < 22250738585072014e-324) {
+                mantissa = val / 5e-324;
+                writeUint(mantissa >>> 0, buf, pos + off0);
+                writeUint((sign << 31 | mantissa / 4294967296) >>> 0, buf, pos + off1);
+              } else {
+                var exponent = Math.floor(Math.log(val) / Math.LN2);
+                if (exponent === 1024)
+                  exponent = 1023;
+                mantissa = val * Math.pow(2, -exponent);
+                writeUint(mantissa * 4503599627370496 >>> 0, buf, pos + off0);
+                writeUint((sign << 31 | exponent + 1023 << 20 | mantissa * 1048576 & 1048575) >>> 0, buf, pos + off1);
+              }
+            }
+          }
+          __name(writeDouble_ieee754, "writeDouble_ieee754");
+          exports3.writeDoubleLE = writeDouble_ieee754.bind(null, writeUintLE, 0, 4);
+          exports3.writeDoubleBE = writeDouble_ieee754.bind(null, writeUintBE, 4, 0);
+          function readDouble_ieee754(readUint, off0, off1, buf, pos) {
+            var lo = readUint(buf, pos + off0), hi = readUint(buf, pos + off1);
+            var sign = (hi >> 31) * 2 + 1, exponent = hi >>> 20 & 2047, mantissa = 4294967296 * (hi & 1048575) + lo;
+            return exponent === 2047 ? mantissa ? NaN : sign * Infinity : exponent === 0 ? sign * 5e-324 * mantissa : sign * Math.pow(2, exponent - 1075) * (mantissa + 4503599627370496);
+          }
+          __name(readDouble_ieee754, "readDouble_ieee754");
+          exports3.readDoubleLE = readDouble_ieee754.bind(null, readUintLE, 0, 4);
+          exports3.readDoubleBE = readDouble_ieee754.bind(null, readUintBE, 4, 0);
+        })();
+        return exports3;
+      }
+      __name(factory, "factory");
+      function writeUintLE(val, buf, pos) {
+        buf[pos] = val & 255;
+        buf[pos + 1] = val >>> 8 & 255;
+        buf[pos + 2] = val >>> 16 & 255;
+        buf[pos + 3] = val >>> 24;
+      }
+      __name(writeUintLE, "writeUintLE");
+      function writeUintBE(val, buf, pos) {
+        buf[pos] = val >>> 24;
+        buf[pos + 1] = val >>> 16 & 255;
+        buf[pos + 2] = val >>> 8 & 255;
+        buf[pos + 3] = val & 255;
+      }
+      __name(writeUintBE, "writeUintBE");
+      function readUintLE(buf, pos) {
+        return (buf[pos] | buf[pos + 1] << 8 | buf[pos + 2] << 16 | buf[pos + 3] << 24) >>> 0;
+      }
+      __name(readUintLE, "readUintLE");
+      function readUintBE(buf, pos) {
+        return (buf[pos] << 24 | buf[pos + 1] << 16 | buf[pos + 2] << 8 | buf[pos + 3]) >>> 0;
+      }
+      __name(readUintBE, "readUintBE");
+    }
+  });
+
+  // node_modules/@protobufjs/inquire/index.js
+  var require_inquire = __commonJS({
+    "node_modules/@protobufjs/inquire/index.js"(exports, module) {
+      "use strict";
+      module.exports = inquire;
+      function inquire(moduleName) {
+        try {
+          var mod = eval("quire".replace(/^/, "re"))(moduleName);
+          if (mod && (mod.length || Object.keys(mod).length))
+            return mod;
+        } catch (e2) {
+        }
+        return null;
+      }
+      __name(inquire, "inquire");
+    }
+  });
+
+  // node_modules/@protobufjs/utf8/index.js
+  var require_utf8 = __commonJS({
+    "node_modules/@protobufjs/utf8/index.js"(exports2) {
+      "use strict";
+      var utf8 = exports2;
+      utf8.length = /* @__PURE__ */ __name(function utf8_length(string) {
+        var len = 0, c = 0;
+        for (var i = 0; i < string.length; ++i) {
+          c = string.charCodeAt(i);
+          if (c < 128)
+            len += 1;
+          else if (c < 2048)
+            len += 2;
+          else if ((c & 64512) === 55296 && (string.charCodeAt(i + 1) & 64512) === 56320) {
+            ++i;
+            len += 4;
+          } else
+            len += 3;
+        }
+        return len;
+      }, "utf8_length");
+      utf8.read = /* @__PURE__ */ __name(function utf8_read(buffer, start, end) {
+        var len = end - start;
+        if (len < 1)
+          return "";
+        var parts = null, chunk = [], i = 0, t2;
+        while (start < end) {
+          t2 = buffer[start++];
+          if (t2 < 128)
+            chunk[i++] = t2;
+          else if (t2 > 191 && t2 < 224)
+            chunk[i++] = (t2 & 31) << 6 | buffer[start++] & 63;
+          else if (t2 > 239 && t2 < 365) {
+            t2 = ((t2 & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63) - 65536;
+            chunk[i++] = 55296 + (t2 >> 10);
+            chunk[i++] = 56320 + (t2 & 1023);
+          } else
+            chunk[i++] = (t2 & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
+          if (i > 8191) {
+            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
+            i = 0;
+          }
+        }
+        if (parts) {
+          if (i)
+            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i)));
+          return parts.join("");
+        }
+        return String.fromCharCode.apply(String, chunk.slice(0, i));
+      }, "utf8_read");
+      utf8.write = /* @__PURE__ */ __name(function utf8_write(string, buffer, offset) {
+        var start = offset, c1, c2;
+        for (var i = 0; i < string.length; ++i) {
+          c1 = string.charCodeAt(i);
+          if (c1 < 128) {
+            buffer[offset++] = c1;
+          } else if (c1 < 2048) {
+            buffer[offset++] = c1 >> 6 | 192;
+            buffer[offset++] = c1 & 63 | 128;
+          } else if ((c1 & 64512) === 55296 && ((c2 = string.charCodeAt(i + 1)) & 64512) === 56320) {
+            c1 = 65536 + ((c1 & 1023) << 10) + (c2 & 1023);
+            ++i;
+            buffer[offset++] = c1 >> 18 | 240;
+            buffer[offset++] = c1 >> 12 & 63 | 128;
+            buffer[offset++] = c1 >> 6 & 63 | 128;
+            buffer[offset++] = c1 & 63 | 128;
+          } else {
+            buffer[offset++] = c1 >> 12 | 224;
+            buffer[offset++] = c1 >> 6 & 63 | 128;
+            buffer[offset++] = c1 & 63 | 128;
+          }
+        }
+        return offset - start;
+      }, "utf8_write");
+    }
+  });
+
+  // node_modules/@protobufjs/pool/index.js
+  var require_pool = __commonJS({
+    "node_modules/@protobufjs/pool/index.js"(exports2, module2) {
+      "use strict";
+      module2.exports = pool;
+      function pool(alloc, slice, size) {
+        var SIZE = size || 8192;
+        var MAX = SIZE >>> 1;
+        var slab = null;
+        var offset = SIZE;
+        return /* @__PURE__ */ __name(function pool_alloc(size2) {
+          if (size2 < 1 || size2 > MAX)
+            return alloc(size2);
+          if (offset + size2 > SIZE) {
+            slab = alloc(SIZE);
+            offset = 0;
+          }
+          var buf = slice.call(slab, offset, offset += size2);
+          if (offset & 7)
+            offset = (offset | 7) + 1;
+          return buf;
+        }, "pool_alloc");
+      }
+      __name(pool, "pool");
+    }
+  });
+
+  // node_modules/protobufjs/src/util/longbits.js
+  var require_longbits = __commonJS({
+    "node_modules/protobufjs/src/util/longbits.js"(exports2, module2) {
+      "use strict";
+      module2.exports = LongBits;
+      var util = require_minimal();
+      function LongBits(lo, hi) {
+        this.lo = lo >>> 0;
+        this.hi = hi >>> 0;
+      }
+      __name(LongBits, "LongBits");
+      var zero = LongBits.zero = new LongBits(0, 0);
+      zero.toNumber = function() {
+        return 0;
+      };
+      zero.zzEncode = zero.zzDecode = function() {
+        return this;
+      };
+      zero.length = function() {
+        return 1;
+      };
+      var zeroHash = LongBits.zeroHash = "\0\0\0\0\0\0\0\0";
+      LongBits.fromNumber = /* @__PURE__ */ __name(function fromNumber(value) {
+        if (value === 0)
+          return zero;
+        var sign = value < 0;
+        if (sign)
+          value = -value;
+        var lo = value >>> 0, hi = (value - lo) / 4294967296 >>> 0;
+        if (sign) {
+          hi = ~hi >>> 0;
+          lo = ~lo >>> 0;
+          if (++lo > 4294967295) {
+            lo = 0;
+            if (++hi > 4294967295)
+              hi = 0;
+          }
+        }
+        return new LongBits(lo, hi);
+      }, "fromNumber");
+      LongBits.from = /* @__PURE__ */ __name(function from(value) {
+        if (typeof value === "number")
+          return LongBits.fromNumber(value);
+        if (util.isString(value)) {
+          if (util.Long)
+            value = util.Long.fromString(value);
+          else
+            return LongBits.fromNumber(parseInt(value, 10));
+        }
+        return value.low || value.high ? new LongBits(value.low >>> 0, value.high >>> 0) : zero;
+      }, "from");
+      LongBits.prototype.toNumber = /* @__PURE__ */ __name(function toNumber(unsigned) {
+        if (!unsigned && this.hi >>> 31) {
+          var lo = ~this.lo + 1 >>> 0, hi = ~this.hi >>> 0;
+          if (!lo)
+            hi = hi + 1 >>> 0;
+          return -(lo + hi * 4294967296);
+        }
+        return this.lo + this.hi * 4294967296;
+      }, "toNumber");
+      LongBits.prototype.toLong = /* @__PURE__ */ __name(function toLong(unsigned) {
+        return util.Long ? new util.Long(this.lo | 0, this.hi | 0, Boolean(unsigned)) : { low: this.lo | 0, high: this.hi | 0, unsigned: Boolean(unsigned) };
+      }, "toLong");
+      var charCodeAt = String.prototype.charCodeAt;
+      LongBits.fromHash = /* @__PURE__ */ __name(function fromHash(hash) {
+        if (hash === zeroHash)
+          return zero;
+        return new LongBits(
+          (charCodeAt.call(hash, 0) | charCodeAt.call(hash, 1) << 8 | charCodeAt.call(hash, 2) << 16 | charCodeAt.call(hash, 3) << 24) >>> 0,
+          (charCodeAt.call(hash, 4) | charCodeAt.call(hash, 5) << 8 | charCodeAt.call(hash, 6) << 16 | charCodeAt.call(hash, 7) << 24) >>> 0
+        );
+      }, "fromHash");
+      LongBits.prototype.toHash = /* @__PURE__ */ __name(function toHash() {
+        return String.fromCharCode(
+          this.lo & 255,
+          this.lo >>> 8 & 255,
+          this.lo >>> 16 & 255,
+          this.lo >>> 24,
+          this.hi & 255,
+          this.hi >>> 8 & 255,
+          this.hi >>> 16 & 255,
+          this.hi >>> 24
+        );
+      }, "toHash");
+      LongBits.prototype.zzEncode = /* @__PURE__ */ __name(function zzEncode() {
+        var mask = this.hi >> 31;
+        this.hi = ((this.hi << 1 | this.lo >>> 31) ^ mask) >>> 0;
+        this.lo = (this.lo << 1 ^ mask) >>> 0;
+        return this;
+      }, "zzEncode");
+      LongBits.prototype.zzDecode = /* @__PURE__ */ __name(function zzDecode() {
+        var mask = -(this.lo & 1);
+        this.lo = ((this.lo >>> 1 | this.hi << 31) ^ mask) >>> 0;
+        this.hi = (this.hi >>> 1 ^ mask) >>> 0;
+        return this;
+      }, "zzDecode");
+      LongBits.prototype.length = /* @__PURE__ */ __name(function length() {
+        var part0 = this.lo, part1 = (this.lo >>> 28 | this.hi << 4) >>> 0, part2 = this.hi >>> 24;
+        return part2 === 0 ? part1 === 0 ? part0 < 16384 ? part0 < 128 ? 1 : 2 : part0 < 2097152 ? 3 : 4 : part1 < 16384 ? part1 < 128 ? 5 : 6 : part1 < 2097152 ? 7 : 8 : part2 < 128 ? 9 : 10;
+      }, "length");
+    }
+  });
+
+  // node_modules/protobufjs/src/util/minimal.js
+  var require_minimal = __commonJS({
+    "node_modules/protobufjs/src/util/minimal.js"(exports2) {
+      "use strict";
+      var util = exports2;
+      util.asPromise = require_aspromise();
+      util.base64 = require_base64();
+      util.EventEmitter = require_eventemitter();
+      util.float = require_float();
+      util.inquire = require_inquire();
+      util.utf8 = require_utf8();
+      util.pool = require_pool();
+      util.LongBits = require_longbits();
+      util.isNode = Boolean(typeof global !== "undefined" && global && global.process && global.process.versions && global.process.versions.node);
+      util.global = util.isNode && global || typeof window !== "undefined" && window || typeof self !== "undefined" && self || exports2;
+      util.emptyArray = Object.freeze ? Object.freeze([]) : (
+        /* istanbul ignore next */
+        []
+      );
+      util.emptyObject = Object.freeze ? Object.freeze({}) : (
+        /* istanbul ignore next */
+        {}
+      );
+      util.isInteger = Number.isInteger || /* istanbul ignore next */
+      /* @__PURE__ */ __name(function isInteger(value) {
+        return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
+      }, "isInteger");
+      util.isString = /* @__PURE__ */ __name(function isString(value) {
+        return typeof value === "string" || value instanceof String;
+      }, "isString");
+      util.isObject = /* @__PURE__ */ __name(function isObject(value) {
+        return value && typeof value === "object";
+      }, "isObject");
+      util.isset = /**
+       * Checks if a property on a message is considered to be present.
+       * @param {Object} obj Plain object or message instance
+       * @param {string} prop Property name
+       * @returns {boolean} `true` if considered to be present, otherwise `false`
+       */
+      util.isSet = /* @__PURE__ */ __name(function isSet(obj, prop) {
+        var value = obj[prop];
+        if (value != null && obj.hasOwnProperty(prop))
+          return typeof value !== "object" || (Array.isArray(value) ? value.length : Object.keys(value).length) > 0;
+        return false;
+      }, "isSet");
+      util.Buffer = (function() {
+        try {
+          var Buffer2 = util.inquire("buffer").Buffer;
+          return Buffer2.prototype.utf8Write ? Buffer2 : (
+            /* istanbul ignore next */
+            null
+          );
+        } catch (e2) {
+          return null;
+        }
+      })();
+      util._Buffer_from = null;
+      util._Buffer_allocUnsafe = null;
+      util.newBuffer = /* @__PURE__ */ __name(function newBuffer(sizeOrArray) {
+        return typeof sizeOrArray === "number" ? util.Buffer ? util._Buffer_allocUnsafe(sizeOrArray) : new util.Array(sizeOrArray) : util.Buffer ? util._Buffer_from(sizeOrArray) : typeof Uint8Array === "undefined" ? sizeOrArray : new Uint8Array(sizeOrArray);
+      }, "newBuffer");
+      util.Array = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
+      util.Long = /* istanbul ignore next */
+      util.global.dcodeIO && /* istanbul ignore next */
+      util.global.dcodeIO.Long || /* istanbul ignore next */
+      util.global.Long || util.inquire("long");
+      util.key2Re = /^true|false|0|1$/;
+      util.key32Re = /^-?(?:0|[1-9][0-9]*)$/;
+      util.key64Re = /^(?:[\\x00-\\xff]{8}|-?(?:0|[1-9][0-9]*))$/;
+      util.longToHash = /* @__PURE__ */ __name(function longToHash(value) {
+        return value ? util.LongBits.from(value).toHash() : util.LongBits.zeroHash;
+      }, "longToHash");
+      util.longFromHash = /* @__PURE__ */ __name(function longFromHash(hash, unsigned) {
+        var bits = util.LongBits.fromHash(hash);
+        if (util.Long)
+          return util.Long.fromBits(bits.lo, bits.hi, unsigned);
+        return bits.toNumber(Boolean(unsigned));
+      }, "longFromHash");
+      function merge(dst, src, ifNotSet) {
+        for (var keys = Object.keys(src), i = 0; i < keys.length; ++i)
+          if (dst[keys[i]] === void 0 || !ifNotSet)
+            dst[keys[i]] = src[keys[i]];
+        return dst;
+      }
+      __name(merge, "merge");
+      util.merge = merge;
+      util.lcFirst = /* @__PURE__ */ __name(function lcFirst(str) {
+        return str.charAt(0).toLowerCase() + str.substring(1);
+      }, "lcFirst");
+      function newError(name) {
+        function CustomError(message, properties) {
+          if (!(this instanceof CustomError))
+            return new CustomError(message, properties);
+          Object.defineProperty(this, "message", { get: /* @__PURE__ */ __name(function() {
+            return message;
+          }, "get") });
+          if (Error.captureStackTrace)
+            Error.captureStackTrace(this, CustomError);
+          else
+            Object.defineProperty(this, "stack", { value: new Error().stack || "" });
+          if (properties)
+            merge(this, properties);
+        }
+        __name(CustomError, "CustomError");
+        CustomError.prototype = Object.create(Error.prototype, {
+          constructor: {
+            value: CustomError,
+            writable: true,
+            enumerable: false,
+            configurable: true
+          },
+          name: {
+            get: /* @__PURE__ */ __name(function get() {
+              return name;
+            }, "get"),
+            set: void 0,
+            enumerable: false,
+            // configurable: false would accurately preserve the behavior of
+            // the original, but I'm guessing that was not intentional.
+            // For an actual error subclass, this property would
+            // be configurable.
+            configurable: true
+          },
+          toString: {
+            value: /* @__PURE__ */ __name(function value() {
+              return this.name + ": " + this.message;
+            }, "value"),
+            writable: true,
+            enumerable: false,
+            configurable: true
+          }
+        });
+        return CustomError;
+      }
+      __name(newError, "newError");
+      util.newError = newError;
+      util.ProtocolError = newError("ProtocolError");
+      util.oneOfGetter = /* @__PURE__ */ __name(function getOneOf(fieldNames) {
+        var fieldMap = {};
+        for (var i = 0; i < fieldNames.length; ++i)
+          fieldMap[fieldNames[i]] = 1;
+        return function() {
+          for (var keys = Object.keys(this), i2 = keys.length - 1; i2 > -1; --i2)
+            if (fieldMap[keys[i2]] === 1 && this[keys[i2]] !== void 0 && this[keys[i2]] !== null)
+              return keys[i2];
         };
+      }, "getOneOf");
+      util.oneOfSetter = /* @__PURE__ */ __name(function setOneOf(fieldNames) {
+        return function(name) {
+          for (var i = 0; i < fieldNames.length; ++i)
+            if (fieldNames[i] !== name)
+              delete this[fieldNames[i]];
+        };
+      }, "setOneOf");
+      util.toJSONOptions = {
+        longs: String,
+        enums: String,
+        bytes: String,
+        json: true
+      };
+      util._configure = function() {
+        var Buffer2 = util.Buffer;
+        if (!Buffer2) {
+          util._Buffer_from = util._Buffer_allocUnsafe = null;
+          return;
+        }
+        util._Buffer_from = Buffer2.from !== Uint8Array.from && Buffer2.from || /* istanbul ignore next */
+        /* @__PURE__ */ __name(function Buffer_from(value, encoding) {
+          return new Buffer2(value, encoding);
+        }, "Buffer_from");
+        util._Buffer_allocUnsafe = Buffer2.allocUnsafe || /* istanbul ignore next */
+        /* @__PURE__ */ __name(function Buffer_allocUnsafe(size) {
+          return new Buffer2(size);
+        }, "Buffer_allocUnsafe");
+      };
     }
-    TL.prototype.fetchNovels = function (page_1, _a, searchTerm_1) {
-        return __awaiter(this, arguments, void 0, function (page, _b, searchTerm) {
-            var data, novels;
-            var _this = this;
-            var _c, _d, _e, _f, _g, _h;
-            var filters = _b.filters;
-            return __generator(this, function (_j) {
-                switch (_j.label) {
-                    case 0: return [4 /*yield*/, (0, fetch_1.fetchApi)(this.site + '/api/site/v2/graphql', {
-                            method: 'post',
-                            headers: {
-                                Accept: 'application/json, text/plain, */*',
-                                'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
-                                'Content-Type': 'application/json',
-                            },
-                            Referer: this.site,
-                            body: JSON.stringify({
-                                query: 'query Projects($hostname:String! $filter:SearchFilter $page:Int $limit:Int){projects(section:{fullUrl:$hostname}filter:$filter page:{pageSize:$limit,pageNumber:$page}){content{title fullUrl covers{url}}}}',
-                                variables: {
-                                    filter: {
-                                        query: searchTerm || undefined,
-                                        tags: ((_d = (_c = filters.tags) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.length)
-                                            ? filters.tags.value
-                                            : undefined,
-                                        genres: ((_f = (_e = filters.genres) === null || _e === void 0 ? void 0 : _e.value) === null || _f === void 0 ? void 0 : _f.length)
-                                            ? filters.genres.value
-                                            : undefined,
-                                    },
-                                    hostname: 'novel.tl',
-                                    limit: 40,
-                                    page: page,
-                                },
-                            }),
-                        }).then(function (res) { return res.json(); })];
-                    case 1:
-                        data = (_j.sent()).data;
-                        novels = [];
-                        (_h = (_g = data === null || data === void 0 ? void 0 : data.projects) === null || _g === void 0 ? void 0 : _g.content) === null || _h === void 0 ? void 0 : _h.forEach(function (novel) {
-                            var _a, _b;
-                            return novels.push({
-                                name: novel.title,
-                                path: novel.fullUrl,
-                                cover: ((_b = (_a = novel === null || novel === void 0 ? void 0 : novel.covers) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.url)
-                                    ? _this.site + novel.covers[0].url
-                                    : defaultCover_1.defaultCover,
-                            });
-                        });
-                        return [2 /*return*/, novels];
+  });
+
+  // node_modules/protobufjs/src/writer.js
+  var require_writer = __commonJS({
+    "node_modules/protobufjs/src/writer.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Writer;
+      var util = require_minimal();
+      var BufferWriter;
+      var LongBits = util.LongBits, base64 = util.base64, utf8 = util.utf8;
+      function Op(fn, len, val) {
+        this.fn = fn;
+        this.len = len;
+        this.next = void 0;
+        this.val = val;
+      }
+      __name(Op, "Op");
+      function noop() {
+      }
+      __name(noop, "noop");
+      function State(writer) {
+        this.head = writer.head;
+        this.tail = writer.tail;
+        this.len = writer.len;
+        this.next = writer.states;
+      }
+      __name(State, "State");
+      function Writer() {
+        this.len = 0;
+        this.head = new Op(noop, 0, 0);
+        this.tail = this.head;
+        this.states = null;
+      }
+      __name(Writer, "Writer");
+      var create = /* @__PURE__ */ __name(function create2() {
+        return util.Buffer ? /* @__PURE__ */ __name(function create_buffer_setup() {
+          return (Writer.create = /* @__PURE__ */ __name(function create_buffer() {
+            return new BufferWriter();
+          }, "create_buffer"))();
+        }, "create_buffer_setup") : /* @__PURE__ */ __name(function create_array() {
+          return new Writer();
+        }, "create_array");
+      }, "create");
+      Writer.create = create();
+      Writer.alloc = /* @__PURE__ */ __name(function alloc(size) {
+        return new util.Array(size);
+      }, "alloc");
+      if (util.Array !== Array)
+        Writer.alloc = util.pool(Writer.alloc, util.Array.prototype.subarray);
+      Writer.prototype._push = /* @__PURE__ */ __name(function push(fn, len, val) {
+        this.tail = this.tail.next = new Op(fn, len, val);
+        this.len += len;
+        return this;
+      }, "push");
+      function writeByte(val, buf, pos) {
+        buf[pos] = val & 255;
+      }
+      __name(writeByte, "writeByte");
+      function writeVarint32(val, buf, pos) {
+        while (val > 127) {
+          buf[pos++] = val & 127 | 128;
+          val >>>= 7;
+        }
+        buf[pos] = val;
+      }
+      __name(writeVarint32, "writeVarint32");
+      function VarintOp(len, val) {
+        this.len = len;
+        this.next = void 0;
+        this.val = val;
+      }
+      __name(VarintOp, "VarintOp");
+      VarintOp.prototype = Object.create(Op.prototype);
+      VarintOp.prototype.fn = writeVarint32;
+      Writer.prototype.uint32 = /* @__PURE__ */ __name(function write_uint32(value) {
+        this.len += (this.tail = this.tail.next = new VarintOp(
+          (value = value >>> 0) < 128 ? 1 : value < 16384 ? 2 : value < 2097152 ? 3 : value < 268435456 ? 4 : 5,
+          value
+        )).len;
+        return this;
+      }, "write_uint32");
+      Writer.prototype.int32 = /* @__PURE__ */ __name(function write_int32(value) {
+        return value < 0 ? this._push(writeVarint64, 10, LongBits.fromNumber(value)) : this.uint32(value);
+      }, "write_int32");
+      Writer.prototype.sint32 = /* @__PURE__ */ __name(function write_sint32(value) {
+        return this.uint32((value << 1 ^ value >> 31) >>> 0);
+      }, "write_sint32");
+      function writeVarint64(val, buf, pos) {
+        while (val.hi) {
+          buf[pos++] = val.lo & 127 | 128;
+          val.lo = (val.lo >>> 7 | val.hi << 25) >>> 0;
+          val.hi >>>= 7;
+        }
+        while (val.lo > 127) {
+          buf[pos++] = val.lo & 127 | 128;
+          val.lo = val.lo >>> 7;
+        }
+        buf[pos++] = val.lo;
+      }
+      __name(writeVarint64, "writeVarint64");
+      Writer.prototype.uint64 = /* @__PURE__ */ __name(function write_uint64(value) {
+        var bits = LongBits.from(value);
+        return this._push(writeVarint64, bits.length(), bits);
+      }, "write_uint64");
+      Writer.prototype.int64 = Writer.prototype.uint64;
+      Writer.prototype.sint64 = /* @__PURE__ */ __name(function write_sint64(value) {
+        var bits = LongBits.from(value).zzEncode();
+        return this._push(writeVarint64, bits.length(), bits);
+      }, "write_sint64");
+      Writer.prototype.bool = /* @__PURE__ */ __name(function write_bool(value) {
+        return this._push(writeByte, 1, value ? 1 : 0);
+      }, "write_bool");
+      function writeFixed32(val, buf, pos) {
+        buf[pos] = val & 255;
+        buf[pos + 1] = val >>> 8 & 255;
+        buf[pos + 2] = val >>> 16 & 255;
+        buf[pos + 3] = val >>> 24;
+      }
+      __name(writeFixed32, "writeFixed32");
+      Writer.prototype.fixed32 = /* @__PURE__ */ __name(function write_fixed32(value) {
+        return this._push(writeFixed32, 4, value >>> 0);
+      }, "write_fixed32");
+      Writer.prototype.sfixed32 = Writer.prototype.fixed32;
+      Writer.prototype.fixed64 = /* @__PURE__ */ __name(function write_fixed64(value) {
+        var bits = LongBits.from(value);
+        return this._push(writeFixed32, 4, bits.lo)._push(writeFixed32, 4, bits.hi);
+      }, "write_fixed64");
+      Writer.prototype.sfixed64 = Writer.prototype.fixed64;
+      Writer.prototype.float = /* @__PURE__ */ __name(function write_float(value) {
+        return this._push(util.float.writeFloatLE, 4, value);
+      }, "write_float");
+      Writer.prototype.double = /* @__PURE__ */ __name(function write_double(value) {
+        return this._push(util.float.writeDoubleLE, 8, value);
+      }, "write_double");
+      var writeBytes = util.Array.prototype.set ? /* @__PURE__ */ __name(function writeBytes_set(val, buf, pos) {
+        buf.set(val, pos);
+      }, "writeBytes_set") : /* @__PURE__ */ __name(function writeBytes_for(val, buf, pos) {
+        for (var i = 0; i < val.length; ++i)
+          buf[pos + i] = val[i];
+      }, "writeBytes_for");
+      Writer.prototype.bytes = /* @__PURE__ */ __name(function write_bytes(value) {
+        var len = value.length >>> 0;
+        if (!len)
+          return this._push(writeByte, 1, 0);
+        if (util.isString(value)) {
+          var buf = Writer.alloc(len = base64.length(value));
+          base64.decode(value, buf, 0);
+          value = buf;
+        }
+        return this.uint32(len)._push(writeBytes, len, value);
+      }, "write_bytes");
+      Writer.prototype.string = /* @__PURE__ */ __name(function write_string(value) {
+        var len = utf8.length(value);
+        return len ? this.uint32(len)._push(utf8.write, len, value) : this._push(writeByte, 1, 0);
+      }, "write_string");
+      Writer.prototype.fork = /* @__PURE__ */ __name(function fork() {
+        this.states = new State(this);
+        this.head = this.tail = new Op(noop, 0, 0);
+        this.len = 0;
+        return this;
+      }, "fork");
+      Writer.prototype.reset = /* @__PURE__ */ __name(function reset() {
+        if (this.states) {
+          this.head = this.states.head;
+          this.tail = this.states.tail;
+          this.len = this.states.len;
+          this.states = this.states.next;
+        } else {
+          this.head = this.tail = new Op(noop, 0, 0);
+          this.len = 0;
+        }
+        return this;
+      }, "reset");
+      Writer.prototype.ldelim = /* @__PURE__ */ __name(function ldelim() {
+        var head = this.head, tail = this.tail, len = this.len;
+        this.reset().uint32(len);
+        if (len) {
+          this.tail.next = head.next;
+          this.tail = tail;
+          this.len += len;
+        }
+        return this;
+      }, "ldelim");
+      Writer.prototype.finish = /* @__PURE__ */ __name(function finish() {
+        var head = this.head.next, buf = this.constructor.alloc(this.len), pos = 0;
+        while (head) {
+          head.fn(head.val, buf, pos);
+          pos += head.len;
+          head = head.next;
+        }
+        return buf;
+      }, "finish");
+      Writer._configure = function(BufferWriter_) {
+        BufferWriter = BufferWriter_;
+        Writer.create = create();
+        BufferWriter._configure();
+      };
+    }
+  });
+
+  // node_modules/protobufjs/src/writer_buffer.js
+  var require_writer_buffer = __commonJS({
+    "node_modules/protobufjs/src/writer_buffer.js"(exports2, module2) {
+      "use strict";
+      module2.exports = BufferWriter;
+      var Writer = require_writer();
+      (BufferWriter.prototype = Object.create(Writer.prototype)).constructor = BufferWriter;
+      var util = require_minimal();
+      function BufferWriter() {
+        Writer.call(this);
+      }
+      __name(BufferWriter, "BufferWriter");
+      BufferWriter._configure = function() {
+        BufferWriter.alloc = util._Buffer_allocUnsafe;
+        BufferWriter.writeBytesBuffer = util.Buffer && util.Buffer.prototype instanceof Uint8Array && util.Buffer.prototype.set.name === "set" ? /* @__PURE__ */ __name(function writeBytesBuffer_set(val, buf, pos) {
+          buf.set(val, pos);
+        }, "writeBytesBuffer_set") : /* @__PURE__ */ __name(function writeBytesBuffer_copy(val, buf, pos) {
+          if (val.copy)
+            val.copy(buf, pos, 0, val.length);
+          else for (var i = 0; i < val.length; )
+            buf[pos++] = val[i++];
+        }, "writeBytesBuffer_copy");
+      };
+      BufferWriter.prototype.bytes = /* @__PURE__ */ __name(function write_bytes_buffer(value) {
+        if (util.isString(value))
+          value = util._Buffer_from(value, "base64");
+        var len = value.length >>> 0;
+        this.uint32(len);
+        if (len)
+          this._push(BufferWriter.writeBytesBuffer, len, value);
+        return this;
+      }, "write_bytes_buffer");
+      function writeStringBuffer(val, buf, pos) {
+        if (val.length < 40)
+          util.utf8.write(val, buf, pos);
+        else if (buf.utf8Write)
+          buf.utf8Write(val, pos);
+        else
+          buf.write(val, pos);
+      }
+      __name(writeStringBuffer, "writeStringBuffer");
+      BufferWriter.prototype.string = /* @__PURE__ */ __name(function write_string_buffer(value) {
+        var len = util.Buffer.byteLength(value);
+        this.uint32(len);
+        if (len)
+          this._push(writeStringBuffer, len, value);
+        return this;
+      }, "write_string_buffer");
+      BufferWriter._configure();
+    }
+  });
+
+  // node_modules/protobufjs/src/reader.js
+  var require_reader = __commonJS({
+    "node_modules/protobufjs/src/reader.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Reader;
+      var util = require_minimal();
+      var BufferReader;
+      var LongBits = util.LongBits, utf8 = util.utf8;
+      function indexOutOfRange(reader, writeLength) {
+        return RangeError("index out of range: " + reader.pos + " + " + (writeLength || 1) + " > " + reader.len);
+      }
+      __name(indexOutOfRange, "indexOutOfRange");
+      function Reader(buffer) {
+        this.buf = buffer;
+        this.pos = 0;
+        this.len = buffer.length;
+      }
+      __name(Reader, "Reader");
+      var create_array = typeof Uint8Array !== "undefined" ? /* @__PURE__ */ __name(function create_typed_array(buffer) {
+        if (buffer instanceof Uint8Array || Array.isArray(buffer))
+          return new Reader(buffer);
+        throw Error("illegal buffer");
+      }, "create_typed_array") : /* @__PURE__ */ __name(function create_array2(buffer) {
+        if (Array.isArray(buffer))
+          return new Reader(buffer);
+        throw Error("illegal buffer");
+      }, "create_array");
+      var create = /* @__PURE__ */ __name(function create2() {
+        return util.Buffer ? /* @__PURE__ */ __name(function create_buffer_setup(buffer) {
+          return (Reader.create = /* @__PURE__ */ __name(function create_buffer(buffer2) {
+            return util.Buffer.isBuffer(buffer2) ? new BufferReader(buffer2) : create_array(buffer2);
+          }, "create_buffer"))(buffer);
+        }, "create_buffer_setup") : create_array;
+      }, "create");
+      Reader.create = create();
+      Reader.prototype._slice = util.Array.prototype.subarray || /* istanbul ignore next */
+      util.Array.prototype.slice;
+      Reader.prototype.uint32 = (/* @__PURE__ */ __name((function read_uint32_setup() {
+        var value = 4294967295;
+        return /* @__PURE__ */ __name(function read_uint32() {
+          value = (this.buf[this.pos] & 127) >>> 0;
+          if (this.buf[this.pos++] < 128) return value;
+          value = (value | (this.buf[this.pos] & 127) << 7) >>> 0;
+          if (this.buf[this.pos++] < 128) return value;
+          value = (value | (this.buf[this.pos] & 127) << 14) >>> 0;
+          if (this.buf[this.pos++] < 128) return value;
+          value = (value | (this.buf[this.pos] & 127) << 21) >>> 0;
+          if (this.buf[this.pos++] < 128) return value;
+          value = (value | (this.buf[this.pos] & 15) << 28) >>> 0;
+          if (this.buf[this.pos++] < 128) return value;
+          if ((this.pos += 5) > this.len) {
+            this.pos = this.len;
+            throw indexOutOfRange(this, 10);
+          }
+          return value;
+        }, "read_uint32");
+      }), "read_uint32_setup"))();
+      Reader.prototype.int32 = /* @__PURE__ */ __name(function read_int32() {
+        return this.uint32() | 0;
+      }, "read_int32");
+      Reader.prototype.sint32 = /* @__PURE__ */ __name(function read_sint32() {
+        var value = this.uint32();
+        return value >>> 1 ^ -(value & 1) | 0;
+      }, "read_sint32");
+      function readLongVarint() {
+        var bits = new LongBits(0, 0);
+        var i = 0;
+        if (this.len - this.pos > 4) {
+          for (; i < 4; ++i) {
+            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
+            if (this.buf[this.pos++] < 128)
+              return bits;
+          }
+          bits.lo = (bits.lo | (this.buf[this.pos] & 127) << 28) >>> 0;
+          bits.hi = (bits.hi | (this.buf[this.pos] & 127) >> 4) >>> 0;
+          if (this.buf[this.pos++] < 128)
+            return bits;
+          i = 0;
+        } else {
+          for (; i < 3; ++i) {
+            if (this.pos >= this.len)
+              throw indexOutOfRange(this);
+            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
+            if (this.buf[this.pos++] < 128)
+              return bits;
+          }
+          bits.lo = (bits.lo | (this.buf[this.pos++] & 127) << i * 7) >>> 0;
+          return bits;
+        }
+        if (this.len - this.pos > 4) {
+          for (; i < 5; ++i) {
+            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
+            if (this.buf[this.pos++] < 128)
+              return bits;
+          }
+        } else {
+          for (; i < 5; ++i) {
+            if (this.pos >= this.len)
+              throw indexOutOfRange(this);
+            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
+            if (this.buf[this.pos++] < 128)
+              return bits;
+          }
+        }
+        throw Error("invalid varint encoding");
+      }
+      __name(readLongVarint, "readLongVarint");
+      Reader.prototype.bool = /* @__PURE__ */ __name(function read_bool() {
+        return this.uint32() !== 0;
+      }, "read_bool");
+      function readFixed32_end(buf, end) {
+        return (buf[end - 4] | buf[end - 3] << 8 | buf[end - 2] << 16 | buf[end - 1] << 24) >>> 0;
+      }
+      __name(readFixed32_end, "readFixed32_end");
+      Reader.prototype.fixed32 = /* @__PURE__ */ __name(function read_fixed32() {
+        if (this.pos + 4 > this.len)
+          throw indexOutOfRange(this, 4);
+        return readFixed32_end(this.buf, this.pos += 4);
+      }, "read_fixed32");
+      Reader.prototype.sfixed32 = /* @__PURE__ */ __name(function read_sfixed32() {
+        if (this.pos + 4 > this.len)
+          throw indexOutOfRange(this, 4);
+        return readFixed32_end(this.buf, this.pos += 4) | 0;
+      }, "read_sfixed32");
+      function readFixed64() {
+        if (this.pos + 8 > this.len)
+          throw indexOutOfRange(this, 8);
+        return new LongBits(readFixed32_end(this.buf, this.pos += 4), readFixed32_end(this.buf, this.pos += 4));
+      }
+      __name(readFixed64, "readFixed64");
+      Reader.prototype.float = /* @__PURE__ */ __name(function read_float() {
+        if (this.pos + 4 > this.len)
+          throw indexOutOfRange(this, 4);
+        var value = util.float.readFloatLE(this.buf, this.pos);
+        this.pos += 4;
+        return value;
+      }, "read_float");
+      Reader.prototype.double = /* @__PURE__ */ __name(function read_double() {
+        if (this.pos + 8 > this.len)
+          throw indexOutOfRange(this, 4);
+        var value = util.float.readDoubleLE(this.buf, this.pos);
+        this.pos += 8;
+        return value;
+      }, "read_double");
+      Reader.prototype.bytes = /* @__PURE__ */ __name(function read_bytes() {
+        var length = this.uint32(), start = this.pos, end = this.pos + length;
+        if (end > this.len)
+          throw indexOutOfRange(this, length);
+        this.pos += length;
+        if (Array.isArray(this.buf))
+          return this.buf.slice(start, end);
+        if (start === end) {
+          var nativeBuffer = util.Buffer;
+          return nativeBuffer ? nativeBuffer.alloc(0) : new this.buf.constructor(0);
+        }
+        return this._slice.call(this.buf, start, end);
+      }, "read_bytes");
+      Reader.prototype.string = /* @__PURE__ */ __name(function read_string() {
+        var bytes = this.bytes();
+        return utf8.read(bytes, 0, bytes.length);
+      }, "read_string");
+      Reader.prototype.skip = /* @__PURE__ */ __name(function skip(length) {
+        if (typeof length === "number") {
+          if (this.pos + length > this.len)
+            throw indexOutOfRange(this, length);
+          this.pos += length;
+        } else {
+          do {
+            if (this.pos >= this.len)
+              throw indexOutOfRange(this);
+          } while (this.buf[this.pos++] & 128);
+        }
+        return this;
+      }, "skip");
+      Reader.prototype.skipType = function(wireType) {
+        switch (wireType) {
+          case 0:
+            this.skip();
+            break;
+          case 1:
+            this.skip(8);
+            break;
+          case 2:
+            this.skip(this.uint32());
+            break;
+          case 3:
+            while ((wireType = this.uint32() & 7) !== 4) {
+              this.skipType(wireType);
+            }
+            break;
+          case 5:
+            this.skip(4);
+            break;
+          /* istanbul ignore next */
+          default:
+            throw Error("invalid wire type " + wireType + " at offset " + this.pos);
+        }
+        return this;
+      };
+      Reader._configure = function(BufferReader_) {
+        BufferReader = BufferReader_;
+        Reader.create = create();
+        BufferReader._configure();
+        var fn = util.Long ? "toLong" : (
+          /* istanbul ignore next */
+          "toNumber"
+        );
+        util.merge(Reader.prototype, {
+          int64: /* @__PURE__ */ __name(function read_int64() {
+            return readLongVarint.call(this)[fn](false);
+          }, "read_int64"),
+          uint64: /* @__PURE__ */ __name(function read_uint64() {
+            return readLongVarint.call(this)[fn](true);
+          }, "read_uint64"),
+          sint64: /* @__PURE__ */ __name(function read_sint64() {
+            return readLongVarint.call(this).zzDecode()[fn](false);
+          }, "read_sint64"),
+          fixed64: /* @__PURE__ */ __name(function read_fixed64() {
+            return readFixed64.call(this)[fn](true);
+          }, "read_fixed64"),
+          sfixed64: /* @__PURE__ */ __name(function read_sfixed64() {
+            return readFixed64.call(this)[fn](false);
+          }, "read_sfixed64")
+        });
+      };
+    }
+  });
+
+  // node_modules/protobufjs/src/reader_buffer.js
+  var require_reader_buffer = __commonJS({
+    "node_modules/protobufjs/src/reader_buffer.js"(exports2, module2) {
+      "use strict";
+      module2.exports = BufferReader;
+      var Reader = require_reader();
+      (BufferReader.prototype = Object.create(Reader.prototype)).constructor = BufferReader;
+      var util = require_minimal();
+      function BufferReader(buffer) {
+        Reader.call(this, buffer);
+      }
+      __name(BufferReader, "BufferReader");
+      BufferReader._configure = function() {
+        if (util.Buffer)
+          BufferReader.prototype._slice = util.Buffer.prototype.slice;
+      };
+      BufferReader.prototype.string = /* @__PURE__ */ __name(function read_string_buffer() {
+        var len = this.uint32();
+        return this.buf.utf8Slice ? this.buf.utf8Slice(this.pos, this.pos = Math.min(this.pos + len, this.len)) : this.buf.toString("utf-8", this.pos, this.pos = Math.min(this.pos + len, this.len));
+      }, "read_string_buffer");
+      BufferReader._configure();
+    }
+  });
+
+  // node_modules/protobufjs/src/rpc/service.js
+  var require_service = __commonJS({
+    "node_modules/protobufjs/src/rpc/service.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Service;
+      var util = require_minimal();
+      (Service.prototype = Object.create(util.EventEmitter.prototype)).constructor = Service;
+      function Service(rpcImpl, requestDelimited, responseDelimited) {
+        if (typeof rpcImpl !== "function")
+          throw TypeError("rpcImpl must be a function");
+        util.EventEmitter.call(this);
+        this.rpcImpl = rpcImpl;
+        this.requestDelimited = Boolean(requestDelimited);
+        this.responseDelimited = Boolean(responseDelimited);
+      }
+      __name(Service, "Service");
+      Service.prototype.rpcCall = /* @__PURE__ */ __name(function rpcCall(method, requestCtor, responseCtor, request, callback) {
+        if (!request)
+          throw TypeError("request must be specified");
+        var self2 = this;
+        if (!callback)
+          return util.asPromise(rpcCall, self2, method, requestCtor, responseCtor, request);
+        if (!self2.rpcImpl) {
+          setTimeout(function() {
+            callback(Error("already ended"));
+          }, 0);
+          return void 0;
+        }
+        try {
+          return self2.rpcImpl(
+            method,
+            requestCtor[self2.requestDelimited ? "encodeDelimited" : "encode"](request).finish(),
+            /* @__PURE__ */ __name(function rpcCallback(err, response) {
+              if (err) {
+                self2.emit("error", err, method);
+                return callback(err);
+              }
+              if (response === null) {
+                self2.end(
+                  /* endedByRPC */
+                  true
+                );
+                return void 0;
+              }
+              if (!(response instanceof responseCtor)) {
+                try {
+                  response = responseCtor[self2.responseDelimited ? "decodeDelimited" : "decode"](response);
+                } catch (err2) {
+                  self2.emit("error", err2, method);
+                  return callback(err2);
                 }
-            });
+              }
+              self2.emit("data", response, method);
+              return callback(null, response);
+            }, "rpcCallback")
+          );
+        } catch (err) {
+          self2.emit("error", err, method);
+          setTimeout(function() {
+            callback(err);
+          }, 0);
+          return void 0;
+        }
+      }, "rpcCall");
+      Service.prototype.end = /* @__PURE__ */ __name(function end(endedByRPC) {
+        if (this.rpcImpl) {
+          if (!endedByRPC)
+            this.rpcImpl(null, null, null);
+          this.rpcImpl = null;
+          this.emit("end").off();
+        }
+        return this;
+      }, "end");
+    }
+  });
+
+  // node_modules/protobufjs/src/rpc.js
+  var require_rpc = __commonJS({
+    "node_modules/protobufjs/src/rpc.js"(exports2) {
+      "use strict";
+      var rpc = exports2;
+      rpc.Service = require_service();
+    }
+  });
+
+  // node_modules/protobufjs/src/roots.js
+  var require_roots = __commonJS({
+    "node_modules/protobufjs/src/roots.js"(exports2, module2) {
+      "use strict";
+      module2.exports = {};
+    }
+  });
+
+  // node_modules/protobufjs/src/index-minimal.js
+  var require_index_minimal = __commonJS({
+    "node_modules/protobufjs/src/index-minimal.js"(exports2) {
+      "use strict";
+      var protobuf = exports2;
+      protobuf.build = "minimal";
+      protobuf.Writer = require_writer();
+      protobuf.BufferWriter = require_writer_buffer();
+      protobuf.Reader = require_reader();
+      protobuf.BufferReader = require_reader_buffer();
+      protobuf.util = require_minimal();
+      protobuf.rpc = require_rpc();
+      protobuf.roots = require_roots();
+      protobuf.configure = configure;
+      function configure() {
+        protobuf.util._configure();
+        protobuf.Writer._configure(protobuf.BufferWriter);
+        protobuf.Reader._configure(protobuf.BufferReader);
+      }
+      __name(configure, "configure");
+      configure();
+    }
+  });
+
+  // node_modules/@protobufjs/codegen/index.js
+  var require_codegen = __commonJS({
+    "node_modules/@protobufjs/codegen/index.js"(exports2, module2) {
+      "use strict";
+      module2.exports = codegen;
+      function codegen(functionParams, functionName) {
+        if (typeof functionParams === "string") {
+          functionName = functionParams;
+          functionParams = void 0;
+        }
+        var body = [];
+        function Codegen(formatStringOrScope) {
+          if (typeof formatStringOrScope !== "string") {
+            var source = toString();
+            if (codegen.verbose)
+              console.log("codegen: " + source);
+            source = "return " + source;
+            if (formatStringOrScope) {
+              var scopeKeys = Object.keys(formatStringOrScope), scopeParams = new Array(scopeKeys.length + 1), scopeValues = new Array(scopeKeys.length), scopeOffset = 0;
+              while (scopeOffset < scopeKeys.length) {
+                scopeParams[scopeOffset] = scopeKeys[scopeOffset];
+                scopeValues[scopeOffset] = formatStringOrScope[scopeKeys[scopeOffset++]];
+              }
+              scopeParams[scopeOffset] = source;
+              return Function.apply(null, scopeParams).apply(null, scopeValues);
+            }
+            return Function(source)();
+          }
+          var formatParams = new Array(arguments.length - 1), formatOffset = 0;
+          while (formatOffset < formatParams.length)
+            formatParams[formatOffset] = arguments[++formatOffset];
+          formatOffset = 0;
+          formatStringOrScope = formatStringOrScope.replace(/%([%dfijs])/g, /* @__PURE__ */ __name(function replace($0, $1) {
+            var value = formatParams[formatOffset++];
+            switch ($1) {
+              case "d":
+              case "f":
+                return String(Number(value));
+              case "i":
+                return String(Math.floor(value));
+              case "j":
+                return JSON.stringify(value);
+              case "s":
+                return String(value);
+            }
+            return "%";
+          }, "replace"));
+          if (formatOffset !== formatParams.length)
+            throw Error("parameter count mismatch");
+          body.push(formatStringOrScope);
+          return Codegen;
+        }
+        __name(Codegen, "Codegen");
+        function toString(functionNameOverride) {
+          return "function " + (functionNameOverride || functionName || "") + "(" + (functionParams && functionParams.join(",") || "") + "){\n  " + body.join("\n  ") + "\n}";
+        }
+        __name(toString, "toString");
+        Codegen.toString = toString;
+        return Codegen;
+      }
+      __name(codegen, "codegen");
+      codegen.verbose = false;
+    }
+  });
+
+  // node_modules/@protobufjs/fetch/index.js
+  var require_fetch = __commonJS({
+    "node_modules/@protobufjs/fetch/index.js"(exports2, module2) {
+      "use strict";
+      module2.exports = fetch2;
+      var asPromise = require_aspromise(), inquire2 = require_inquire();
+      var fs = inquire2("fs");
+      function fetch2(filename, options, callback) {
+        if (typeof options === "function") {
+          callback = options;
+          options = {};
+        } else if (!options)
+          options = {};
+        if (!callback)
+          return asPromise(fetch2, this, filename, options);
+        if (!options.xhr && fs && fs.readFile)
+          return fs.readFile(filename, /* @__PURE__ */ __name(function fetchReadFileCallback(err, contents) {
+            return err && typeof XMLHttpRequest !== "undefined" ? fetch2.xhr(filename, options, callback) : err ? callback(err) : callback(null, options.binary ? contents : contents.toString("utf8"));
+          }, "fetchReadFileCallback"));
+        return fetch2.xhr(filename, options, callback);
+      }
+      __name(fetch2, "fetch");
+      fetch2.xhr = /* @__PURE__ */ __name(function fetch_xhr(filename, options, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = /* @__PURE__ */ __name(function fetchOnReadyStateChange() {
+          if (xhr.readyState !== 4)
+            return void 0;
+          if (xhr.status !== 0 && xhr.status !== 200)
+            return callback(Error("status " + xhr.status));
+          if (options.binary) {
+            var buffer = xhr.response;
+            if (!buffer) {
+              buffer = [];
+              for (var i = 0; i < xhr.responseText.length; ++i)
+                buffer.push(xhr.responseText.charCodeAt(i) & 255);
+            }
+            return callback(null, typeof Uint8Array !== "undefined" ? new Uint8Array(buffer) : buffer);
+          }
+          return callback(null, xhr.responseText);
+        }, "fetchOnReadyStateChange");
+        if (options.binary) {
+          if ("overrideMimeType" in xhr)
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+          xhr.responseType = "arraybuffer";
+        }
+        xhr.open("GET", filename);
+        xhr.send();
+      }, "fetch_xhr");
+    }
+  });
+
+  // node_modules/@protobufjs/path/index.js
+  var require_path = __commonJS({
+    "node_modules/@protobufjs/path/index.js"(exports2) {
+      "use strict";
+      var path = exports2;
+      var isAbsolute = (
+        /**
+         * Tests if the specified path is absolute.
+         * @param {string} path Path to test
+         * @returns {boolean} `true` if path is absolute
+         */
+        path.isAbsolute = /* @__PURE__ */ __name(function isAbsolute2(path2) {
+          return /^(?:\/|\w+:)/.test(path2);
+        }, "isAbsolute")
+      );
+      var normalize = (
+        /**
+         * Normalizes the specified path.
+         * @param {string} path Path to normalize
+         * @returns {string} Normalized path
+         */
+        path.normalize = /* @__PURE__ */ __name(function normalize2(path2) {
+          path2 = path2.replace(/\\/g, "/").replace(/\/{2,}/g, "/");
+          var parts = path2.split("/"), absolute = isAbsolute(path2), prefix = "";
+          if (absolute)
+            prefix = parts.shift() + "/";
+          for (var i = 0; i < parts.length; ) {
+            if (parts[i] === "..") {
+              if (i > 0 && parts[i - 1] !== "..")
+                parts.splice(--i, 2);
+              else if (absolute)
+                parts.splice(i, 1);
+              else
+                ++i;
+            } else if (parts[i] === ".")
+              parts.splice(i, 1);
+            else
+              ++i;
+          }
+          return prefix + parts.join("/");
+        }, "normalize")
+      );
+      path.resolve = /* @__PURE__ */ __name(function resolve(originPath, includePath, alreadyNormalized) {
+        if (!alreadyNormalized)
+          includePath = normalize(includePath);
+        if (isAbsolute(includePath))
+          return includePath;
+        if (!alreadyNormalized)
+          originPath = normalize(originPath);
+        return (originPath = originPath.replace(/(?:\/|^)[^/]+$/, "")).length ? normalize(originPath + "/" + includePath) : includePath;
+      }, "resolve");
+    }
+  });
+
+  // node_modules/protobufjs/src/types.js
+  var require_types = __commonJS({
+    "node_modules/protobufjs/src/types.js"(exports2) {
+      "use strict";
+      var types = exports2;
+      var util = require_util();
+      var s = [
+        "double",
+        // 0
+        "float",
+        // 1
+        "int32",
+        // 2
+        "uint32",
+        // 3
+        "sint32",
+        // 4
+        "fixed32",
+        // 5
+        "sfixed32",
+        // 6
+        "int64",
+        // 7
+        "uint64",
+        // 8
+        "sint64",
+        // 9
+        "fixed64",
+        // 10
+        "sfixed64",
+        // 11
+        "bool",
+        // 12
+        "string",
+        // 13
+        "bytes"
+        // 14
+      ];
+      function bake(values, offset) {
+        var i = 0, o2 = {};
+        offset |= 0;
+        while (i < values.length) o2[s[i + offset]] = values[i++];
+        return o2;
+      }
+      __name(bake, "bake");
+      types.basic = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2,
+        /* bytes    */
+        2
+      ]);
+      types.defaults = bake([
+        /* double   */
+        0,
+        /* float    */
+        0,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        0,
+        /* sfixed32 */
+        0,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        0,
+        /* sfixed64 */
+        0,
+        /* bool     */
+        false,
+        /* string   */
+        "",
+        /* bytes    */
+        util.emptyArray,
+        /* message  */
+        null
+      ]);
+      types.long = bake([
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1
+      ], 7);
+      types.mapKey = bake([
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2
+      ], 2);
+      types.packed = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0
+      ]);
+    }
+  });
+
+  // node_modules/protobufjs/src/field.js
+  var require_field = __commonJS({
+    "node_modules/protobufjs/src/field.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Field;
+      var ReflectionObject = require_object();
+      ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
+      var Enum = require_enum(), types = require_types(), util = require_util();
+      var Type;
+      var ruleRe = /^required|optional|repeated$/;
+      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
+      }, "fromJSON");
+      function Field(name, id, type, rule, extend, options, comment) {
+        if (util.isObject(rule)) {
+          comment = extend;
+          options = rule;
+          rule = extend = void 0;
+        } else if (util.isObject(extend)) {
+          comment = options;
+          options = extend;
+          extend = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!util.isInteger(id) || id < 0)
+          throw TypeError("id must be a non-negative integer");
+        if (!util.isString(type))
+          throw TypeError("type must be a string");
+        if (rule !== void 0 && !ruleRe.test(rule = rule.toString().toLowerCase()))
+          throw TypeError("rule must be a string rule");
+        if (extend !== void 0 && !util.isString(extend))
+          throw TypeError("extend must be a string");
+        if (rule === "proto3_optional") {
+          rule = "optional";
+        }
+        this.rule = rule && rule !== "optional" ? rule : void 0;
+        this.type = type;
+        this.id = id;
+        this.extend = extend || void 0;
+        this.required = rule === "required";
+        this.optional = !this.required;
+        this.repeated = rule === "repeated";
+        this.map = false;
+        this.message = null;
+        this.partOf = null;
+        this.typeDefault = null;
+        this.defaultValue = null;
+        this.long = util.Long ? types.long[type] !== void 0 : (
+          /* istanbul ignore next */
+          false
+        );
+        this.bytes = type === "bytes";
+        this.resolvedType = null;
+        this.extensionField = null;
+        this.declaringField = null;
+        this._packed = null;
+        this.comment = comment;
+      }
+      __name(Field, "Field");
+      Object.defineProperty(Field.prototype, "packed", {
+        get: /* @__PURE__ */ __name(function() {
+          if (this._packed === null)
+            this._packed = this.getOption("packed") !== false;
+          return this._packed;
+        }, "get")
+      });
+      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+        if (name === "packed")
+          this._packed = null;
+        return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
+      }, "setOption");
+      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "rule",
+          this.rule !== "optional" && this.rule || void 0,
+          "type",
+          this.type,
+          "id",
+          this.id,
+          "extend",
+          this.extend,
+          "options",
+          this.options,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+        if (this.resolved)
+          return this;
+        if ((this.typeDefault = types.defaults[this.type]) === void 0) {
+          this.resolvedType = (this.declaringField ? this.declaringField.parent : this.parent).lookupTypeOrEnum(this.type);
+          if (this.resolvedType instanceof Type)
+            this.typeDefault = null;
+          else
+            this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
+        } else if (this.options && this.options.proto3_optional) {
+          this.typeDefault = null;
+        }
+        if (this.options && this.options["default"] != null) {
+          this.typeDefault = this.options["default"];
+          if (this.resolvedType instanceof Enum && typeof this.typeDefault === "string")
+            this.typeDefault = this.resolvedType.values[this.typeDefault];
+        }
+        if (this.options) {
+          if (this.options.packed === true || this.options.packed !== void 0 && this.resolvedType && !(this.resolvedType instanceof Enum))
+            delete this.options.packed;
+          if (!Object.keys(this.options).length)
+            this.options = void 0;
+        }
+        if (this.long) {
+          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
+          if (Object.freeze)
+            Object.freeze(this.typeDefault);
+        } else if (this.bytes && typeof this.typeDefault === "string") {
+          var buf;
+          if (util.base64.test(this.typeDefault))
+            util.base64.decode(this.typeDefault, buf = util.newBuffer(util.base64.length(this.typeDefault)), 0);
+          else
+            util.utf8.write(this.typeDefault, buf = util.newBuffer(util.utf8.length(this.typeDefault)), 0);
+          this.typeDefault = buf;
+        }
+        if (this.map)
+          this.defaultValue = util.emptyObject;
+        else if (this.repeated)
+          this.defaultValue = util.emptyArray;
+        else
+          this.defaultValue = this.typeDefault;
+        if (this.parent instanceof Type)
+          this.parent.ctor.prototype[this.name] = this.defaultValue;
+        return ReflectionObject.prototype.resolve.call(this);
+      }, "resolve");
+      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
+        if (typeof fieldType === "function")
+          fieldType = util.decorateType(fieldType).name;
+        else if (fieldType && typeof fieldType === "object")
+          fieldType = util.decorateEnum(fieldType).name;
+        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
+          util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
+        }, "fieldDecorator");
+      }, "decorateField");
+      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
+        Type = Type_;
+      }, "configure");
+    }
+  });
+
+  // node_modules/protobufjs/src/oneof.js
+  var require_oneof = __commonJS({
+    "node_modules/protobufjs/src/oneof.js"(exports2, module2) {
+      "use strict";
+      module2.exports = OneOf;
+      var ReflectionObject = require_object();
+      ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
+      var Field = require_field(), util = require_util();
+      function OneOf(name, fieldNames, options, comment) {
+        if (!Array.isArray(fieldNames)) {
+          options = fieldNames;
+          fieldNames = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!(fieldNames === void 0 || Array.isArray(fieldNames)))
+          throw TypeError("fieldNames must be an Array");
+        this.oneof = fieldNames || [];
+        this.fieldsArray = [];
+        this.comment = comment;
+      }
+      __name(OneOf, "OneOf");
+      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new OneOf(name, json.oneof, json.options, json.comment);
+      }, "fromJSON");
+      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "options",
+          this.options,
+          "oneof",
+          this.oneof,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      function addFieldsToParent(oneof) {
+        if (oneof.parent) {
+          for (var i = 0; i < oneof.fieldsArray.length; ++i)
+            if (!oneof.fieldsArray[i].parent)
+              oneof.parent.add(oneof.fieldsArray[i]);
+        }
+      }
+      __name(addFieldsToParent, "addFieldsToParent");
+      OneOf.prototype.add = /* @__PURE__ */ __name(function add(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        if (field.parent && field.parent !== this.parent)
+          field.parent.remove(field);
+        this.oneof.push(field.name);
+        this.fieldsArray.push(field);
+        field.partOf = this;
+        addFieldsToParent(this);
+        return this;
+      }, "add");
+      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        var index = this.fieldsArray.indexOf(field);
+        if (index < 0)
+          throw Error(field + " is not a member of " + this);
+        this.fieldsArray.splice(index, 1);
+        index = this.oneof.indexOf(field.name);
+        if (index > -1)
+          this.oneof.splice(index, 1);
+        field.partOf = null;
+        return this;
+      }, "remove");
+      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent) {
+        ReflectionObject.prototype.onAdd.call(this, parent);
+        var self2 = this;
+        for (var i = 0; i < this.oneof.length; ++i) {
+          var field = parent.get(this.oneof[i]);
+          if (field && !field.partOf) {
+            field.partOf = self2;
+            self2.fieldsArray.push(field);
+          }
+        }
+        addFieldsToParent(this);
+      }, "onAdd");
+      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent) {
+        for (var i = 0, field; i < this.fieldsArray.length; ++i)
+          if ((field = this.fieldsArray[i]).parent)
+            field.parent.remove(field);
+        ReflectionObject.prototype.onRemove.call(this, parent);
+      }, "onRemove");
+      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
+        var fieldNames = new Array(arguments.length), index = 0;
+        while (index < arguments.length)
+          fieldNames[index] = arguments[index++];
+        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
+          util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
+          Object.defineProperty(prototype, oneofName, {
+            get: util.oneOfGetter(fieldNames),
+            set: util.oneOfSetter(fieldNames)
+          });
+        }, "oneOfDecorator");
+      }, "decorateOneOf");
+    }
+  });
+
+  // node_modules/protobufjs/src/namespace.js
+  var require_namespace = __commonJS({
+    "node_modules/protobufjs/src/namespace.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Namespace;
+      var ReflectionObject = require_object();
+      ((Namespace.prototype = Object.create(ReflectionObject.prototype)).constructor = Namespace).className = "Namespace";
+      var Field = require_field(), util = require_util(), OneOf = require_oneof();
+      var Type, Service, Enum;
+      Namespace.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new Namespace(name, json.options).addJSON(json.nested);
+      }, "fromJSON");
+      function arrayToJSON(array, toJSONOptions) {
+        if (!(array && array.length))
+          return void 0;
+        var obj = {};
+        for (var i = 0; i < array.length; ++i)
+          obj[array[i].name] = array[i].toJSON(toJSONOptions);
+        return obj;
+      }
+      __name(arrayToJSON, "arrayToJSON");
+      Namespace.arrayToJSON = arrayToJSON;
+      Namespace.isReservedId = /* @__PURE__ */ __name(function isReservedId(reserved, id) {
+        if (reserved) {
+          for (var i = 0; i < reserved.length; ++i)
+            if (typeof reserved[i] !== "string" && reserved[i][0] <= id && reserved[i][1] > id)
+              return true;
+        }
+        return false;
+      }, "isReservedId");
+      Namespace.isReservedName = /* @__PURE__ */ __name(function isReservedName(reserved, name) {
+        if (reserved) {
+          for (var i = 0; i < reserved.length; ++i)
+            if (reserved[i] === name)
+              return true;
+        }
+        return false;
+      }, "isReservedName");
+      function Namespace(name, options) {
+        ReflectionObject.call(this, name, options);
+        this.nested = void 0;
+        this._nestedArray = null;
+      }
+      __name(Namespace, "Namespace");
+      function clearCache(namespace) {
+        namespace._nestedArray = null;
+        return namespace;
+      }
+      __name(clearCache, "clearCache");
+      Object.defineProperty(Namespace.prototype, "nestedArray", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._nestedArray || (this._nestedArray = util.toArray(this.nested));
+        }, "get")
+      });
+      Namespace.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        return util.toObject([
+          "options",
+          this.options,
+          "nested",
+          arrayToJSON(this.nestedArray, toJSONOptions)
+        ]);
+      }, "toJSON");
+      Namespace.prototype.addJSON = /* @__PURE__ */ __name(function addJSON(nestedJson) {
+        var ns = this;
+        if (nestedJson) {
+          for (var names = Object.keys(nestedJson), i = 0, nested; i < names.length; ++i) {
+            nested = nestedJson[names[i]];
+            ns.add(
+              // most to least likely
+              (nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : nested.id !== void 0 ? Field.fromJSON : Namespace.fromJSON)(names[i], nested)
+            );
+          }
+        }
+        return this;
+      }, "addJSON");
+      Namespace.prototype.get = /* @__PURE__ */ __name(function get(name) {
+        return this.nested && this.nested[name] || null;
+      }, "get");
+      Namespace.prototype.getEnum = /* @__PURE__ */ __name(function getEnum(name) {
+        if (this.nested && this.nested[name] instanceof Enum)
+          return this.nested[name].values;
+        throw Error("no such enum: " + name);
+      }, "getEnum");
+      Namespace.prototype.add = /* @__PURE__ */ __name(function add(object) {
+        if (!(object instanceof Field && object.extend !== void 0 || object instanceof Type || object instanceof OneOf || object instanceof Enum || object instanceof Service || object instanceof Namespace))
+          throw TypeError("object must be a valid nested object");
+        if (!this.nested)
+          this.nested = {};
+        else {
+          var prev = this.get(object.name);
+          if (prev) {
+            if (prev instanceof Namespace && object instanceof Namespace && !(prev instanceof Type || prev instanceof Service)) {
+              var nested = prev.nestedArray;
+              for (var i = 0; i < nested.length; ++i)
+                object.add(nested[i]);
+              this.remove(prev);
+              if (!this.nested)
+                this.nested = {};
+              object.setOptions(prev.options, true);
+            } else
+              throw Error("duplicate name '" + object.name + "' in " + this);
+          }
+        }
+        this.nested[object.name] = object;
+        object.onAdd(this);
+        return clearCache(this);
+      }, "add");
+      Namespace.prototype.remove = /* @__PURE__ */ __name(function remove(object) {
+        if (!(object instanceof ReflectionObject))
+          throw TypeError("object must be a ReflectionObject");
+        if (object.parent !== this)
+          throw Error(object + " is not a member of " + this);
+        delete this.nested[object.name];
+        if (!Object.keys(this.nested).length)
+          this.nested = void 0;
+        object.onRemove(this);
+        return clearCache(this);
+      }, "remove");
+      Namespace.prototype.define = /* @__PURE__ */ __name(function define2(path, json) {
+        if (util.isString(path))
+          path = path.split(".");
+        else if (!Array.isArray(path))
+          throw TypeError("illegal path");
+        if (path && path.length && path[0] === "")
+          throw Error("path must be relative");
+        var ptr = this;
+        while (path.length > 0) {
+          var part = path.shift();
+          if (ptr.nested && ptr.nested[part]) {
+            ptr = ptr.nested[part];
+            if (!(ptr instanceof Namespace))
+              throw Error("path conflicts with non-namespace objects");
+          } else
+            ptr.add(ptr = new Namespace(part));
+        }
+        if (json)
+          ptr.addJSON(json);
+        return ptr;
+      }, "define");
+      Namespace.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        var nested = this.nestedArray, i = 0;
+        while (i < nested.length)
+          if (nested[i] instanceof Namespace)
+            nested[i++].resolveAll();
+          else
+            nested[i++].resolve();
+        return this.resolve();
+      }, "resolveAll");
+      Namespace.prototype.lookup = /* @__PURE__ */ __name(function lookup(path, filterTypes, parentAlreadyChecked) {
+        if (typeof filterTypes === "boolean") {
+          parentAlreadyChecked = filterTypes;
+          filterTypes = void 0;
+        } else if (filterTypes && !Array.isArray(filterTypes))
+          filterTypes = [filterTypes];
+        if (util.isString(path) && path.length) {
+          if (path === ".")
+            return this.root;
+          path = path.split(".");
+        } else if (!path.length)
+          return this;
+        if (path[0] === "")
+          return this.root.lookup(path.slice(1), filterTypes);
+        var found = this.get(path[0]);
+        if (found) {
+          if (path.length === 1) {
+            if (!filterTypes || filterTypes.indexOf(found.constructor) > -1)
+              return found;
+          } else if (found instanceof Namespace && (found = found.lookup(path.slice(1), filterTypes, true)))
+            return found;
+        } else
+          for (var i = 0; i < this.nestedArray.length; ++i)
+            if (this._nestedArray[i] instanceof Namespace && (found = this._nestedArray[i].lookup(path, filterTypes, true)))
+              return found;
+        if (this.parent === null || parentAlreadyChecked)
+          return null;
+        return this.parent.lookup(path, filterTypes);
+      }, "lookup");
+      Namespace.prototype.lookupType = /* @__PURE__ */ __name(function lookupType(path) {
+        var found = this.lookup(path, [Type]);
+        if (!found)
+          throw Error("no such type: " + path);
+        return found;
+      }, "lookupType");
+      Namespace.prototype.lookupEnum = /* @__PURE__ */ __name(function lookupEnum(path) {
+        var found = this.lookup(path, [Enum]);
+        if (!found)
+          throw Error("no such Enum '" + path + "' in " + this);
+        return found;
+      }, "lookupEnum");
+      Namespace.prototype.lookupTypeOrEnum = /* @__PURE__ */ __name(function lookupTypeOrEnum(path) {
+        var found = this.lookup(path, [Type, Enum]);
+        if (!found)
+          throw Error("no such Type or Enum '" + path + "' in " + this);
+        return found;
+      }, "lookupTypeOrEnum");
+      Namespace.prototype.lookupService = /* @__PURE__ */ __name(function lookupService(path) {
+        var found = this.lookup(path, [Service]);
+        if (!found)
+          throw Error("no such Service '" + path + "' in " + this);
+        return found;
+      }, "lookupService");
+      Namespace._configure = function(Type_, Service_, Enum_) {
+        Type = Type_;
+        Service = Service_;
+        Enum = Enum_;
+      };
+    }
+  });
+
+  // node_modules/protobufjs/src/mapfield.js
+  var require_mapfield = __commonJS({
+    "node_modules/protobufjs/src/mapfield.js"(exports2, module2) {
+      "use strict";
+      module2.exports = MapField;
+      var Field = require_field();
+      ((MapField.prototype = Object.create(Field.prototype)).constructor = MapField).className = "MapField";
+      var types = require_types(), util = require_util();
+      function MapField(name, id, keyType, type, options, comment) {
+        Field.call(this, name, id, type, void 0, void 0, options, comment);
+        if (!util.isString(keyType))
+          throw TypeError("keyType must be a string");
+        this.keyType = keyType;
+        this.resolvedKeyType = null;
+        this.map = true;
+      }
+      __name(MapField, "MapField");
+      MapField.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new MapField(name, json.id, json.keyType, json.type, json.options, json.comment);
+      }, "fromJSON");
+      MapField.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "keyType",
+          this.keyType,
+          "type",
+          this.type,
+          "id",
+          this.id,
+          "extend",
+          this.extend,
+          "options",
+          this.options,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      MapField.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+        if (this.resolved)
+          return this;
+        if (types.mapKey[this.keyType] === void 0)
+          throw Error("invalid key type: " + this.keyType);
+        return Field.prototype.resolve.call(this);
+      }, "resolve");
+      MapField.d = /* @__PURE__ */ __name(function decorateMapField(fieldId, fieldKeyType, fieldValueType) {
+        if (typeof fieldValueType === "function")
+          fieldValueType = util.decorateType(fieldValueType).name;
+        else if (fieldValueType && typeof fieldValueType === "object")
+          fieldValueType = util.decorateEnum(fieldValueType).name;
+        return /* @__PURE__ */ __name(function mapFieldDecorator(prototype, fieldName) {
+          util.decorateType(prototype.constructor).add(new MapField(fieldName, fieldId, fieldKeyType, fieldValueType));
+        }, "mapFieldDecorator");
+      }, "decorateMapField");
+    }
+  });
+
+  // node_modules/protobufjs/src/method.js
+  var require_method = __commonJS({
+    "node_modules/protobufjs/src/method.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Method;
+      var ReflectionObject = require_object();
+      ((Method.prototype = Object.create(ReflectionObject.prototype)).constructor = Method).className = "Method";
+      var util = require_util();
+      function Method(name, type, requestType, responseType, requestStream, responseStream, options, comment, parsedOptions) {
+        if (util.isObject(requestStream)) {
+          options = requestStream;
+          requestStream = responseStream = void 0;
+        } else if (util.isObject(responseStream)) {
+          options = responseStream;
+          responseStream = void 0;
+        }
+        if (!(type === void 0 || util.isString(type)))
+          throw TypeError("type must be a string");
+        if (!util.isString(requestType))
+          throw TypeError("requestType must be a string");
+        if (!util.isString(responseType))
+          throw TypeError("responseType must be a string");
+        ReflectionObject.call(this, name, options);
+        this.type = type || "rpc";
+        this.requestType = requestType;
+        this.requestStream = requestStream ? true : void 0;
+        this.responseType = responseType;
+        this.responseStream = responseStream ? true : void 0;
+        this.resolvedRequestType = null;
+        this.resolvedResponseType = null;
+        this.comment = comment;
+        this.parsedOptions = parsedOptions;
+      }
+      __name(Method, "Method");
+      Method.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new Method(name, json.type, json.requestType, json.responseType, json.requestStream, json.responseStream, json.options, json.comment, json.parsedOptions);
+      }, "fromJSON");
+      Method.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "type",
+          this.type !== "rpc" && /* istanbul ignore next */
+          this.type || void 0,
+          "requestType",
+          this.requestType,
+          "requestStream",
+          this.requestStream,
+          "responseType",
+          this.responseType,
+          "responseStream",
+          this.responseStream,
+          "options",
+          this.options,
+          "comment",
+          keepComments ? this.comment : void 0,
+          "parsedOptions",
+          this.parsedOptions
+        ]);
+      }, "toJSON");
+      Method.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+        if (this.resolved)
+          return this;
+        this.resolvedRequestType = this.parent.lookupType(this.requestType);
+        this.resolvedResponseType = this.parent.lookupType(this.responseType);
+        return ReflectionObject.prototype.resolve.call(this);
+      }, "resolve");
+    }
+  });
+
+  // node_modules/protobufjs/src/service.js
+  var require_service2 = __commonJS({
+    "node_modules/protobufjs/src/service.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Service;
+      var Namespace = require_namespace();
+      ((Service.prototype = Object.create(Namespace.prototype)).constructor = Service).className = "Service";
+      var Method = require_method(), util = require_util(), rpc = require_rpc();
+      function Service(name, options) {
+        Namespace.call(this, name, options);
+        this.methods = {};
+        this._methodsArray = null;
+      }
+      __name(Service, "Service");
+      Service.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        var service = new Service(name, json.options);
+        if (json.methods)
+          for (var names = Object.keys(json.methods), i = 0; i < names.length; ++i)
+            service.add(Method.fromJSON(names[i], json.methods[names[i]]));
+        if (json.nested)
+          service.addJSON(json.nested);
+        service.comment = json.comment;
+        return service;
+      }, "fromJSON");
+      Service.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "options",
+          inherited && inherited.options || void 0,
+          "methods",
+          Namespace.arrayToJSON(this.methodsArray, toJSONOptions) || /* istanbul ignore next */
+          {},
+          "nested",
+          inherited && inherited.nested || void 0,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      Object.defineProperty(Service.prototype, "methodsArray", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._methodsArray || (this._methodsArray = util.toArray(this.methods));
+        }, "get")
+      });
+      function clearCache(service) {
+        service._methodsArray = null;
+        return service;
+      }
+      __name(clearCache, "clearCache");
+      Service.prototype.get = /* @__PURE__ */ __name(function get(name) {
+        return this.methods[name] || Namespace.prototype.get.call(this, name);
+      }, "get");
+      Service.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        var methods = this.methodsArray;
+        for (var i = 0; i < methods.length; ++i)
+          methods[i].resolve();
+        return Namespace.prototype.resolve.call(this);
+      }, "resolveAll");
+      Service.prototype.add = /* @__PURE__ */ __name(function add(object) {
+        if (this.get(object.name))
+          throw Error("duplicate name '" + object.name + "' in " + this);
+        if (object instanceof Method) {
+          this.methods[object.name] = object;
+          object.parent = this;
+          return clearCache(this);
+        }
+        return Namespace.prototype.add.call(this, object);
+      }, "add");
+      Service.prototype.remove = /* @__PURE__ */ __name(function remove(object) {
+        if (object instanceof Method) {
+          if (this.methods[object.name] !== object)
+            throw Error(object + " is not a member of " + this);
+          delete this.methods[object.name];
+          object.parent = null;
+          return clearCache(this);
+        }
+        return Namespace.prototype.remove.call(this, object);
+      }, "remove");
+      Service.prototype.create = /* @__PURE__ */ __name(function create(rpcImpl, requestDelimited, responseDelimited) {
+        var rpcService = new rpc.Service(rpcImpl, requestDelimited, responseDelimited);
+        for (var i = 0, method; i < /* initializes */
+        this.methodsArray.length; ++i) {
+          var methodName = util.lcFirst((method = this._methodsArray[i]).resolve().name).replace(/[^$\w_]/g, "");
+          rpcService[methodName] = util.codegen(["r", "c"], util.isReserved(methodName) ? methodName + "_" : methodName)("return this.rpcCall(m,q,s,r,c)")({
+            m: method,
+            q: method.resolvedRequestType.ctor,
+            s: method.resolvedResponseType.ctor
+          });
+        }
+        return rpcService;
+      }, "create");
+    }
+  });
+
+  // node_modules/protobufjs/src/message.js
+  var require_message = __commonJS({
+    "node_modules/protobufjs/src/message.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Message;
+      var util = require_minimal();
+      function Message(properties) {
+        if (properties)
+          for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            this[keys[i]] = properties[keys[i]];
+      }
+      __name(Message, "Message");
+      Message.create = /* @__PURE__ */ __name(function create(properties) {
+        return this.$type.create(properties);
+      }, "create");
+      Message.encode = /* @__PURE__ */ __name(function encode(message, writer) {
+        return this.$type.encode(message, writer);
+      }, "encode");
+      Message.encodeDelimited = /* @__PURE__ */ __name(function encodeDelimited(message, writer) {
+        return this.$type.encodeDelimited(message, writer);
+      }, "encodeDelimited");
+      Message.decode = /* @__PURE__ */ __name(function decode(reader) {
+        return this.$type.decode(reader);
+      }, "decode");
+      Message.decodeDelimited = /* @__PURE__ */ __name(function decodeDelimited(reader) {
+        return this.$type.decodeDelimited(reader);
+      }, "decodeDelimited");
+      Message.verify = /* @__PURE__ */ __name(function verify(message) {
+        return this.$type.verify(message);
+      }, "verify");
+      Message.fromObject = /* @__PURE__ */ __name(function fromObject(object) {
+        return this.$type.fromObject(object);
+      }, "fromObject");
+      Message.toObject = /* @__PURE__ */ __name(function toObject(message, options) {
+        return this.$type.toObject(message, options);
+      }, "toObject");
+      Message.prototype.toJSON = /* @__PURE__ */ __name(function toJSON() {
+        return this.$type.toObject(this, util.toJSONOptions);
+      }, "toJSON");
+    }
+  });
+
+  // node_modules/protobufjs/src/decoder.js
+  var require_decoder = __commonJS({
+    "node_modules/protobufjs/src/decoder.js"(exports2, module2) {
+      "use strict";
+      module2.exports = decoder;
+      var Enum = require_enum(), types = require_types(), util = require_util();
+      function missing(field) {
+        return "missing required '" + field.name + "'";
+      }
+      __name(missing, "missing");
+      function decoder(mtype) {
+        var gen = util.codegen(["r", "l"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
+          return field2.map;
+        }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()");
+        if (mtype.group) gen("if((t&7)===4)")("break");
+        gen("switch(t>>>3){");
+        var i = 0;
+        for (; i < /* initializes */
+        mtype.fieldsArray.length; ++i) {
+          var field = mtype._fieldsArray[i].resolve(), type = field.resolvedType instanceof Enum ? "int32" : field.type, ref = "m" + util.safeProp(field.name);
+          gen("case %i: {", field.id);
+          if (field.map) {
+            gen("if(%s===util.emptyObject)", ref)("%s={}", ref)("var c2 = r.uint32()+r.pos");
+            if (types.defaults[field.keyType] !== void 0) gen("k=%j", types.defaults[field.keyType]);
+            else gen("k=null");
+            if (types.defaults[type] !== void 0) gen("value=%j", types.defaults[type]);
+            else gen("value=null");
+            gen("while(r.pos<c2){")("var tag2=r.uint32()")("switch(tag2>>>3){")("case 1: k=r.%s(); break", field.keyType)("case 2:");
+            if (types.basic[type] === void 0) gen("value=types[%i].decode(r,r.uint32())", i);
+            else gen("value=r.%s()", type);
+            gen("break")("default:")("r.skipType(tag2&7)")("break")("}")("}");
+            if (types.long[field.keyType] !== void 0) gen('%s[typeof k==="object"?util.longToHash(k):k]=value', ref);
+            else gen("%s[k]=value", ref);
+          } else if (field.repeated) {
+            gen("if(!(%s&&%s.length))", ref, ref)("%s=[]", ref);
+            if (types.packed[type] !== void 0) gen("if((t&7)===2){")("var c2=r.uint32()+r.pos")("while(r.pos<c2)")("%s.push(r.%s())", ref, type)("}else");
+            if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s.push(types[%i].decode(r))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i);
+            else gen("%s.push(r.%s())", ref, type);
+          } else if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s=types[%i].decode(r)" : "%s=types[%i].decode(r,r.uint32())", ref, i);
+          else gen("%s=r.%s()", ref, type);
+          gen("break")("}");
+        }
+        gen("default:")("r.skipType(t&7)")("break")("}")("}");
+        for (i = 0; i < mtype._fieldsArray.length; ++i) {
+          var rfield = mtype._fieldsArray[i];
+          if (rfield.required) gen("if(!m.hasOwnProperty(%j))", rfield.name)("throw util.ProtocolError(%j,{instance:m})", missing(rfield));
+        }
+        return gen("return m");
+      }
+      __name(decoder, "decoder");
+    }
+  });
+
+  // node_modules/protobufjs/src/verifier.js
+  var require_verifier = __commonJS({
+    "node_modules/protobufjs/src/verifier.js"(exports2, module2) {
+      "use strict";
+      module2.exports = verifier;
+      var Enum = require_enum(), util = require_util();
+      function invalid(field, expected) {
+        return field.name + ": " + expected + (field.repeated && expected !== "array" ? "[]" : field.map && expected !== "object" ? "{k:" + field.keyType + "}" : "") + " expected";
+      }
+      __name(invalid, "invalid");
+      function genVerifyValue(gen, field, fieldIndex, ref) {
+        if (field.resolvedType) {
+          if (field.resolvedType instanceof Enum) {
+            gen("switch(%s){", ref)("default:")("return%j", invalid(field, "enum value"));
+            for (var keys = Object.keys(field.resolvedType.values), j = 0; j < keys.length; ++j) gen("case %i:", field.resolvedType.values[keys[j]]);
+            gen("break")("}");
+          } else {
+            gen("{")("var e=types[%i].verify(%s);", fieldIndex, ref)("if(e)")("return%j+e", field.name + ".")("}");
+          }
+        } else {
+          switch (field.type) {
+            case "int32":
+            case "uint32":
+            case "sint32":
+            case "fixed32":
+            case "sfixed32":
+              gen("if(!util.isInteger(%s))", ref)("return%j", invalid(field, "integer"));
+              break;
+            case "int64":
+            case "uint64":
+            case "sint64":
+            case "fixed64":
+            case "sfixed64":
+              gen("if(!util.isInteger(%s)&&!(%s&&util.isInteger(%s.low)&&util.isInteger(%s.high)))", ref, ref, ref, ref)("return%j", invalid(field, "integer|Long"));
+              break;
+            case "float":
+            case "double":
+              gen('if(typeof %s!=="number")', ref)("return%j", invalid(field, "number"));
+              break;
+            case "bool":
+              gen('if(typeof %s!=="boolean")', ref)("return%j", invalid(field, "boolean"));
+              break;
+            case "string":
+              gen("if(!util.isString(%s))", ref)("return%j", invalid(field, "string"));
+              break;
+            case "bytes":
+              gen('if(!(%s&&typeof %s.length==="number"||util.isString(%s)))', ref, ref, ref)("return%j", invalid(field, "buffer"));
+              break;
+          }
+        }
+        return gen;
+      }
+      __name(genVerifyValue, "genVerifyValue");
+      function genVerifyKey(gen, field, ref) {
+        switch (field.keyType) {
+          case "int32":
+          case "uint32":
+          case "sint32":
+          case "fixed32":
+          case "sfixed32":
+            gen("if(!util.key32Re.test(%s))", ref)("return%j", invalid(field, "integer key"));
+            break;
+          case "int64":
+          case "uint64":
+          case "sint64":
+          case "fixed64":
+          case "sfixed64":
+            gen("if(!util.key64Re.test(%s))", ref)("return%j", invalid(field, "integer|Long key"));
+            break;
+          case "bool":
+            gen("if(!util.key2Re.test(%s))", ref)("return%j", invalid(field, "boolean key"));
+            break;
+        }
+        return gen;
+      }
+      __name(genVerifyKey, "genVerifyKey");
+      function verifier(mtype) {
+        var gen = util.codegen(["m"], mtype.name + "$verify")('if(typeof m!=="object"||m===null)')("return%j", "object expected");
+        var oneofs = mtype.oneofsArray, seenFirstField = {};
+        if (oneofs.length) gen("var p={}");
+        for (var i = 0; i < /* initializes */
+        mtype.fieldsArray.length; ++i) {
+          var field = mtype._fieldsArray[i].resolve(), ref = "m" + util.safeProp(field.name);
+          if (field.optional) gen("if(%s!=null&&m.hasOwnProperty(%j)){", ref, field.name);
+          if (field.map) {
+            gen("if(!util.isObject(%s))", ref)("return%j", invalid(field, "object"))("var k=Object.keys(%s)", ref)("for(var i=0;i<k.length;++i){");
+            genVerifyKey(gen, field, "k[i]");
+            genVerifyValue(gen, field, i, ref + "[k[i]]")("}");
+          } else if (field.repeated) {
+            gen("if(!Array.isArray(%s))", ref)("return%j", invalid(field, "array"))("for(var i=0;i<%s.length;++i){", ref);
+            genVerifyValue(gen, field, i, ref + "[i]")("}");
+          } else {
+            if (field.partOf) {
+              var oneofProp = util.safeProp(field.partOf.name);
+              if (seenFirstField[field.partOf.name] === 1) gen("if(p%s===1)", oneofProp)("return%j", field.partOf.name + ": multiple values");
+              seenFirstField[field.partOf.name] = 1;
+              gen("p%s=1", oneofProp);
+            }
+            genVerifyValue(gen, field, i, ref);
+          }
+          if (field.optional) gen("}");
+        }
+        return gen("return null");
+      }
+      __name(verifier, "verifier");
+    }
+  });
+
+  // node_modules/protobufjs/src/converter.js
+  var require_converter = __commonJS({
+    "node_modules/protobufjs/src/converter.js"(exports2) {
+      "use strict";
+      var converter = exports2;
+      var Enum = require_enum(), util = require_util();
+      function genValuePartial_fromObject(gen, field, fieldIndex, prop) {
+        var defaultAlreadyEmitted = false;
+        if (field.resolvedType) {
+          if (field.resolvedType instanceof Enum) {
+            gen("switch(d%s){", prop);
+            for (var values = field.resolvedType.values, keys = Object.keys(values), i = 0; i < keys.length; ++i) {
+              if (values[keys[i]] === field.typeDefault && !defaultAlreadyEmitted) {
+                gen("default:")('if(typeof(d%s)==="number"){m%s=d%s;break}', prop, prop, prop);
+                if (!field.repeated) gen("break");
+                defaultAlreadyEmitted = true;
+              }
+              gen("case%j:", keys[i])("case %i:", values[keys[i]])("m%s=%j", prop, values[keys[i]])("break");
+            }
+            gen("}");
+          } else gen('if(typeof d%s!=="object")', prop)("throw TypeError(%j)", field.fullName + ": object expected")("m%s=types[%i].fromObject(d%s)", prop, fieldIndex, prop);
+        } else {
+          var isUnsigned = false;
+          switch (field.type) {
+            case "double":
+            case "float":
+              gen("m%s=Number(d%s)", prop, prop);
+              break;
+            case "uint32":
+            case "fixed32":
+              gen("m%s=d%s>>>0", prop, prop);
+              break;
+            case "int32":
+            case "sint32":
+            case "sfixed32":
+              gen("m%s=d%s|0", prop, prop);
+              break;
+            case "uint64":
+              isUnsigned = true;
+            // eslint-disable-next-line no-fallthrough
+            case "int64":
+            case "sint64":
+            case "fixed64":
+            case "sfixed64":
+              gen("if(util.Long)")("(m%s=util.Long.fromValue(d%s)).unsigned=%j", prop, prop, isUnsigned)('else if(typeof d%s==="string")', prop)("m%s=parseInt(d%s,10)", prop, prop)('else if(typeof d%s==="number")', prop)("m%s=d%s", prop, prop)('else if(typeof d%s==="object")', prop)("m%s=new util.LongBits(d%s.low>>>0,d%s.high>>>0).toNumber(%s)", prop, prop, prop, isUnsigned ? "true" : "");
+              break;
+            case "bytes":
+              gen('if(typeof d%s==="string")', prop)("util.base64.decode(d%s,m%s=util.newBuffer(util.base64.length(d%s)),0)", prop, prop, prop)("else if(d%s.length >= 0)", prop)("m%s=d%s", prop, prop);
+              break;
+            case "string":
+              gen("m%s=String(d%s)", prop, prop);
+              break;
+            case "bool":
+              gen("m%s=Boolean(d%s)", prop, prop);
+              break;
+          }
+        }
+        return gen;
+      }
+      __name(genValuePartial_fromObject, "genValuePartial_fromObject");
+      converter.fromObject = /* @__PURE__ */ __name(function fromObject(mtype) {
+        var fields = mtype.fieldsArray;
+        var gen = util.codegen(["d"], mtype.name + "$fromObject")("if(d instanceof this.ctor)")("return d");
+        if (!fields.length) return gen("return new this.ctor");
+        gen("var m=new this.ctor");
+        for (var i = 0; i < fields.length; ++i) {
+          var field = fields[i].resolve(), prop = util.safeProp(field.name);
+          if (field.map) {
+            gen("if(d%s){", prop)('if(typeof d%s!=="object")', prop)("throw TypeError(%j)", field.fullName + ": object expected")("m%s={}", prop)("for(var ks=Object.keys(d%s),i=0;i<ks.length;++i){", prop);
+            genValuePartial_fromObject(
+              gen,
+              field,
+              /* not sorted */
+              i,
+              prop + "[ks[i]]"
+            )("}")("}");
+          } else if (field.repeated) {
+            gen("if(d%s){", prop)("if(!Array.isArray(d%s))", prop)("throw TypeError(%j)", field.fullName + ": array expected")("m%s=[]", prop)("for(var i=0;i<d%s.length;++i){", prop);
+            genValuePartial_fromObject(
+              gen,
+              field,
+              /* not sorted */
+              i,
+              prop + "[i]"
+            )("}")("}");
+          } else {
+            if (!(field.resolvedType instanceof Enum)) gen("if(d%s!=null){", prop);
+            genValuePartial_fromObject(
+              gen,
+              field,
+              /* not sorted */
+              i,
+              prop
+            );
+            if (!(field.resolvedType instanceof Enum)) gen("}");
+          }
+        }
+        return gen("return m");
+      }, "fromObject");
+      function genValuePartial_toObject(gen, field, fieldIndex, prop) {
+        if (field.resolvedType) {
+          if (field.resolvedType instanceof Enum) gen("d%s=o.enums===String?(types[%i].values[m%s]===undefined?m%s:types[%i].values[m%s]):m%s", prop, fieldIndex, prop, prop, fieldIndex, prop, prop);
+          else gen("d%s=types[%i].toObject(m%s,o)", prop, fieldIndex, prop);
+        } else {
+          var isUnsigned = false;
+          switch (field.type) {
+            case "double":
+            case "float":
+              gen("d%s=o.json&&!isFinite(m%s)?String(m%s):m%s", prop, prop, prop, prop);
+              break;
+            case "uint64":
+              isUnsigned = true;
+            // eslint-disable-next-line no-fallthrough
+            case "int64":
+            case "sint64":
+            case "fixed64":
+            case "sfixed64":
+              gen('if(typeof m%s==="number")', prop)("d%s=o.longs===String?String(m%s):m%s", prop, prop, prop)("else")("d%s=o.longs===String?util.Long.prototype.toString.call(m%s):o.longs===Number?new util.LongBits(m%s.low>>>0,m%s.high>>>0).toNumber(%s):m%s", prop, prop, prop, prop, isUnsigned ? "true" : "", prop);
+              break;
+            case "bytes":
+              gen("d%s=o.bytes===String?util.base64.encode(m%s,0,m%s.length):o.bytes===Array?Array.prototype.slice.call(m%s):m%s", prop, prop, prop, prop, prop);
+              break;
+            default:
+              gen("d%s=m%s", prop, prop);
+              break;
+          }
+        }
+        return gen;
+      }
+      __name(genValuePartial_toObject, "genValuePartial_toObject");
+      converter.toObject = /* @__PURE__ */ __name(function toObject(mtype) {
+        var fields = mtype.fieldsArray.slice().sort(util.compareFieldsById);
+        if (!fields.length)
+          return util.codegen()("return {}");
+        var gen = util.codegen(["m", "o"], mtype.name + "$toObject")("if(!o)")("o={}")("var d={}");
+        var repeatedFields = [], mapFields = [], normalFields = [], i = 0;
+        for (; i < fields.length; ++i)
+          if (!fields[i].partOf)
+            (fields[i].resolve().repeated ? repeatedFields : fields[i].map ? mapFields : normalFields).push(fields[i]);
+        if (repeatedFields.length) {
+          gen("if(o.arrays||o.defaults){");
+          for (i = 0; i < repeatedFields.length; ++i) gen("d%s=[]", util.safeProp(repeatedFields[i].name));
+          gen("}");
+        }
+        if (mapFields.length) {
+          gen("if(o.objects||o.defaults){");
+          for (i = 0; i < mapFields.length; ++i) gen("d%s={}", util.safeProp(mapFields[i].name));
+          gen("}");
+        }
+        if (normalFields.length) {
+          gen("if(o.defaults){");
+          for (i = 0; i < normalFields.length; ++i) {
+            var field = normalFields[i], prop = util.safeProp(field.name);
+            if (field.resolvedType instanceof Enum) gen("d%s=o.enums===String?%j:%j", prop, field.resolvedType.valuesById[field.typeDefault], field.typeDefault);
+            else if (field.long) gen("if(util.Long){")("var n=new util.Long(%i,%i,%j)", field.typeDefault.low, field.typeDefault.high, field.typeDefault.unsigned)("d%s=o.longs===String?n.toString():o.longs===Number?n.toNumber():n", prop)("}else")("d%s=o.longs===String?%j:%i", prop, field.typeDefault.toString(), field.typeDefault.toNumber());
+            else if (field.bytes) {
+              var arrayDefault = "[" + Array.prototype.slice.call(field.typeDefault).join(",") + "]";
+              gen("if(o.bytes===String)d%s=%j", prop, String.fromCharCode.apply(String, field.typeDefault))("else{")("d%s=%s", prop, arrayDefault)("if(o.bytes!==Array)d%s=util.newBuffer(d%s)", prop, prop)("}");
+            } else gen("d%s=%j", prop, field.typeDefault);
+          }
+          gen("}");
+        }
+        var hasKs2 = false;
+        for (i = 0; i < fields.length; ++i) {
+          var field = fields[i], index = mtype._fieldsArray.indexOf(field), prop = util.safeProp(field.name);
+          if (field.map) {
+            if (!hasKs2) {
+              hasKs2 = true;
+              gen("var ks2");
+            }
+            gen("if(m%s&&(ks2=Object.keys(m%s)).length){", prop, prop)("d%s={}", prop)("for(var j=0;j<ks2.length;++j){");
+            genValuePartial_toObject(
+              gen,
+              field,
+              /* sorted */
+              index,
+              prop + "[ks2[j]]"
+            )("}");
+          } else if (field.repeated) {
+            gen("if(m%s&&m%s.length){", prop, prop)("d%s=[]", prop)("for(var j=0;j<m%s.length;++j){", prop);
+            genValuePartial_toObject(
+              gen,
+              field,
+              /* sorted */
+              index,
+              prop + "[j]"
+            )("}");
+          } else {
+            gen("if(m%s!=null&&m.hasOwnProperty(%j)){", prop, field.name);
+            genValuePartial_toObject(
+              gen,
+              field,
+              /* sorted */
+              index,
+              prop
+            );
+            if (field.partOf) gen("if(o.oneofs)")("d%s=%j", util.safeProp(field.partOf.name), field.name);
+          }
+          gen("}");
+        }
+        return gen("return d");
+      }, "toObject");
+    }
+  });
+
+  // node_modules/protobufjs/src/wrappers.js
+  var require_wrappers = __commonJS({
+    "node_modules/protobufjs/src/wrappers.js"(exports2) {
+      "use strict";
+      var wrappers = exports2;
+      var Message = require_message();
+      wrappers[".google.protobuf.Any"] = {
+        fromObject: /* @__PURE__ */ __name(function(object) {
+          if (object && object["@type"]) {
+            var name = object["@type"].substring(object["@type"].lastIndexOf("/") + 1);
+            var type = this.lookup(name);
+            if (type) {
+              var type_url = object["@type"].charAt(0) === "." ? object["@type"].slice(1) : object["@type"];
+              if (type_url.indexOf("/") === -1) {
+                type_url = "/" + type_url;
+              }
+              return this.create({
+                type_url,
+                value: type.encode(type.fromObject(object)).finish()
+              });
+            }
+          }
+          return this.fromObject(object);
+        }, "fromObject"),
+        toObject: /* @__PURE__ */ __name(function(message, options) {
+          var googleApi = "type.googleapis.com/";
+          var prefix = "";
+          var name = "";
+          if (options && options.json && message.type_url && message.value) {
+            name = message.type_url.substring(message.type_url.lastIndexOf("/") + 1);
+            prefix = message.type_url.substring(0, message.type_url.lastIndexOf("/") + 1);
+            var type = this.lookup(name);
+            if (type)
+              message = type.decode(message.value);
+          }
+          if (!(message instanceof this.ctor) && message instanceof Message) {
+            var object = message.$type.toObject(message, options);
+            var messageName = message.$type.fullName[0] === "." ? message.$type.fullName.slice(1) : message.$type.fullName;
+            if (prefix === "") {
+              prefix = googleApi;
+            }
+            name = prefix + messageName;
+            object["@type"] = name;
+            return object;
+          }
+          return this.toObject(message, options);
+        }, "toObject")
+      };
+    }
+  });
+
+  // node_modules/protobufjs/src/type.js
+  var require_type = __commonJS({
+    "node_modules/protobufjs/src/type.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Type;
+      var Namespace = require_namespace();
+      ((Type.prototype = Object.create(Namespace.prototype)).constructor = Type).className = "Type";
+      var Enum = require_enum(), OneOf = require_oneof(), Field = require_field(), MapField = require_mapfield(), Service = require_service2(), Message = require_message(), Reader = require_reader(), Writer = require_writer(), util = require_util(), encoder = require_encoder(), decoder = require_decoder(), verifier = require_verifier(), converter = require_converter(), wrappers = require_wrappers();
+      function Type(name, options) {
+        Namespace.call(this, name, options);
+        this.fields = {};
+        this.oneofs = void 0;
+        this.extensions = void 0;
+        this.reserved = void 0;
+        this.group = void 0;
+        this._fieldsById = null;
+        this._fieldsArray = null;
+        this._oneofsArray = null;
+        this._ctor = null;
+      }
+      __name(Type, "Type");
+      Object.defineProperties(Type.prototype, {
+        /**
+         * Message fields by id.
+         * @name Type#fieldsById
+         * @type {Object.<number,Field>}
+         * @readonly
+         */
+        fieldsById: {
+          get: /* @__PURE__ */ __name(function() {
+            if (this._fieldsById)
+              return this._fieldsById;
+            this._fieldsById = {};
+            for (var names = Object.keys(this.fields), i = 0; i < names.length; ++i) {
+              var field = this.fields[names[i]], id = field.id;
+              if (this._fieldsById[id])
+                throw Error("duplicate id " + id + " in " + this);
+              this._fieldsById[id] = field;
+            }
+            return this._fieldsById;
+          }, "get")
+        },
+        /**
+         * Fields of this message as an array for iteration.
+         * @name Type#fieldsArray
+         * @type {Field[]}
+         * @readonly
+         */
+        fieldsArray: {
+          get: /* @__PURE__ */ __name(function() {
+            return this._fieldsArray || (this._fieldsArray = util.toArray(this.fields));
+          }, "get")
+        },
+        /**
+         * Oneofs of this message as an array for iteration.
+         * @name Type#oneofsArray
+         * @type {OneOf[]}
+         * @readonly
+         */
+        oneofsArray: {
+          get: /* @__PURE__ */ __name(function() {
+            return this._oneofsArray || (this._oneofsArray = util.toArray(this.oneofs));
+          }, "get")
+        },
+        /**
+         * The registered constructor, if any registered, otherwise a generic constructor.
+         * Assigning a function replaces the internal constructor. If the function does not extend {@link Message} yet, its prototype will be setup accordingly and static methods will be populated. If it already extends {@link Message}, it will just replace the internal constructor.
+         * @name Type#ctor
+         * @type {Constructor<{}>}
+         */
+        ctor: {
+          get: /* @__PURE__ */ __name(function() {
+            return this._ctor || (this.ctor = Type.generateConstructor(this)());
+          }, "get"),
+          set: /* @__PURE__ */ __name(function(ctor) {
+            var prototype = ctor.prototype;
+            if (!(prototype instanceof Message)) {
+              (ctor.prototype = new Message()).constructor = ctor;
+              util.merge(ctor.prototype, prototype);
+            }
+            ctor.$type = ctor.prototype.$type = this;
+            util.merge(ctor, Message, true);
+            this._ctor = ctor;
+            var i = 0;
+            for (; i < /* initializes */
+            this.fieldsArray.length; ++i)
+              this._fieldsArray[i].resolve();
+            var ctorProperties = {};
+            for (i = 0; i < /* initializes */
+            this.oneofsArray.length; ++i)
+              ctorProperties[this._oneofsArray[i].resolve().name] = {
+                get: util.oneOfGetter(this._oneofsArray[i].oneof),
+                set: util.oneOfSetter(this._oneofsArray[i].oneof)
+              };
+            if (i)
+              Object.defineProperties(ctor.prototype, ctorProperties);
+          }, "set")
+        }
+      });
+      Type.generateConstructor = /* @__PURE__ */ __name(function generateConstructor(mtype) {
+        var gen = util.codegen(["p"], mtype.name);
+        for (var i = 0, field; i < mtype.fieldsArray.length; ++i)
+          if ((field = mtype._fieldsArray[i]).map) gen("this%s={}", util.safeProp(field.name));
+          else if (field.repeated) gen("this%s=[]", util.safeProp(field.name));
+        return gen("if(p)for(var ks=Object.keys(p),i=0;i<ks.length;++i)if(p[ks[i]]!=null)")("this[ks[i]]=p[ks[i]]");
+      }, "generateConstructor");
+      function clearCache(type) {
+        type._fieldsById = type._fieldsArray = type._oneofsArray = null;
+        delete type.encode;
+        delete type.decode;
+        delete type.verify;
+        return type;
+      }
+      __name(clearCache, "clearCache");
+      Type.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        var type = new Type(name, json.options);
+        type.extensions = json.extensions;
+        type.reserved = json.reserved;
+        var names = Object.keys(json.fields), i = 0;
+        for (; i < names.length; ++i)
+          type.add(
+            (typeof json.fields[names[i]].keyType !== "undefined" ? MapField.fromJSON : Field.fromJSON)(names[i], json.fields[names[i]])
+          );
+        if (json.oneofs)
+          for (names = Object.keys(json.oneofs), i = 0; i < names.length; ++i)
+            type.add(OneOf.fromJSON(names[i], json.oneofs[names[i]]));
+        if (json.nested)
+          for (names = Object.keys(json.nested), i = 0; i < names.length; ++i) {
+            var nested = json.nested[names[i]];
+            type.add(
+              // most to least likely
+              (nested.id !== void 0 ? Field.fromJSON : nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : Namespace.fromJSON)(names[i], nested)
+            );
+          }
+        if (json.extensions && json.extensions.length)
+          type.extensions = json.extensions;
+        if (json.reserved && json.reserved.length)
+          type.reserved = json.reserved;
+        if (json.group)
+          type.group = true;
+        if (json.comment)
+          type.comment = json.comment;
+        return type;
+      }, "fromJSON");
+      Type.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "options",
+          inherited && inherited.options || void 0,
+          "oneofs",
+          Namespace.arrayToJSON(this.oneofsArray, toJSONOptions),
+          "fields",
+          Namespace.arrayToJSON(this.fieldsArray.filter(function(obj) {
+            return !obj.declaringField;
+          }), toJSONOptions) || {},
+          "extensions",
+          this.extensions && this.extensions.length ? this.extensions : void 0,
+          "reserved",
+          this.reserved && this.reserved.length ? this.reserved : void 0,
+          "group",
+          this.group || void 0,
+          "nested",
+          inherited && inherited.nested || void 0,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      Type.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        var fields = this.fieldsArray, i = 0;
+        while (i < fields.length)
+          fields[i++].resolve();
+        var oneofs = this.oneofsArray;
+        i = 0;
+        while (i < oneofs.length)
+          oneofs[i++].resolve();
+        return Namespace.prototype.resolveAll.call(this);
+      }, "resolveAll");
+      Type.prototype.get = /* @__PURE__ */ __name(function get(name) {
+        return this.fields[name] || this.oneofs && this.oneofs[name] || this.nested && this.nested[name] || null;
+      }, "get");
+      Type.prototype.add = /* @__PURE__ */ __name(function add(object) {
+        if (this.get(object.name))
+          throw Error("duplicate name '" + object.name + "' in " + this);
+        if (object instanceof Field && object.extend === void 0) {
+          if (this._fieldsById ? (
+            /* istanbul ignore next */
+            this._fieldsById[object.id]
+          ) : this.fieldsById[object.id])
+            throw Error("duplicate id " + object.id + " in " + this);
+          if (this.isReservedId(object.id))
+            throw Error("id " + object.id + " is reserved in " + this);
+          if (this.isReservedName(object.name))
+            throw Error("name '" + object.name + "' is reserved in " + this);
+          if (object.parent)
+            object.parent.remove(object);
+          this.fields[object.name] = object;
+          object.message = this;
+          object.onAdd(this);
+          return clearCache(this);
+        }
+        if (object instanceof OneOf) {
+          if (!this.oneofs)
+            this.oneofs = {};
+          this.oneofs[object.name] = object;
+          object.onAdd(this);
+          return clearCache(this);
+        }
+        return Namespace.prototype.add.call(this, object);
+      }, "add");
+      Type.prototype.remove = /* @__PURE__ */ __name(function remove(object) {
+        if (object instanceof Field && object.extend === void 0) {
+          if (!this.fields || this.fields[object.name] !== object)
+            throw Error(object + " is not a member of " + this);
+          delete this.fields[object.name];
+          object.parent = null;
+          object.onRemove(this);
+          return clearCache(this);
+        }
+        if (object instanceof OneOf) {
+          if (!this.oneofs || this.oneofs[object.name] !== object)
+            throw Error(object + " is not a member of " + this);
+          delete this.oneofs[object.name];
+          object.parent = null;
+          object.onRemove(this);
+          return clearCache(this);
+        }
+        return Namespace.prototype.remove.call(this, object);
+      }, "remove");
+      Type.prototype.isReservedId = /* @__PURE__ */ __name(function isReservedId(id) {
+        return Namespace.isReservedId(this.reserved, id);
+      }, "isReservedId");
+      Type.prototype.isReservedName = /* @__PURE__ */ __name(function isReservedName(name) {
+        return Namespace.isReservedName(this.reserved, name);
+      }, "isReservedName");
+      Type.prototype.create = /* @__PURE__ */ __name(function create(properties) {
+        return new this.ctor(properties);
+      }, "create");
+      Type.prototype.setup = /* @__PURE__ */ __name(function setup() {
+        var fullName = this.fullName, types = [];
+        for (var i = 0; i < /* initializes */
+        this.fieldsArray.length; ++i)
+          types.push(this._fieldsArray[i].resolve().resolvedType);
+        this.encode = encoder(this)({
+          Writer,
+          types,
+          util
         });
-    };
-    TL.prototype.searchNovels = function (searchTerm, page) {
-        return __awaiter(this, void 0, void 0, function () {
-            var defaultOptions;
-            return __generator(this, function (_a) {
-                defaultOptions = {
-                    filters: {},
-                };
-                return [2 /*return*/, this.fetchNovels(page, defaultOptions, searchTerm)];
-            });
+        this.decode = decoder(this)({
+          Reader,
+          types,
+          util
         });
-    };
-    TL.prototype.parseNovel = function (novelPath) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, novel, genres, chapters;
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
-            return __generator(this, function (_q) {
-                switch (_q.label) {
-                    case 0: return [4 /*yield*/, (0, fetch_1.fetchApi)(this.site + '/api/site/v2/graphql', {
-                            method: 'post',
-                            headers: {
-                                Accept: 'application/json, text/plain, */*',
-                                'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
-                                'Content-Type': 'application/json',
-                            },
-                            Referer: this.site,
-                            body: JSON.stringify({
-                                query: 'query Book($url:String){project(project:{fullUrl:$url}){title translationStatus fullUrl covers{url}persons(langs:["ru","en","*"],roles:["author","illustrator"]){role name{firstName lastName}}genres{nameRu nameEng}tags{nameRu nameEng}annotation{text}subprojects{content{title volumes{content{shortName chapters{title publishDate fullUrl published}}}}}}}',
-                                variables: {
-                                    url: novelPath,
-                                },
-                            }),
-                        }).then(function (res) { return res.json(); })];
-                    case 1:
-                        data = (_q.sent()).data;
-                        novel = {
-                            path: novelPath,
-                            name: ((_a = data.project) === null || _a === void 0 ? void 0 : _a.title) || '',
-                            cover: ((_d = (_c = (_b = data.project) === null || _b === void 0 ? void 0 : _b.covers) === null || _c === void 0 ? void 0 : _c[0]) === null || _d === void 0 ? void 0 : _d.url)
-                                ? this.site + data.project.covers[0].url
-                                : defaultCover_1.defaultCover,
-                            summary: (_f = (_e = data.project) === null || _e === void 0 ? void 0 : _e.annotation) === null || _f === void 0 ? void 0 : _f.text,
-                            status: statusKey[((_g = data.project) === null || _g === void 0 ? void 0 : _g.translationStatus) || 'unknown'] ||
-                                novelStatus_1.NovelStatus.Unknown,
-                        };
-                        genres = [(_h = data.project) === null || _h === void 0 ? void 0 : _h.tags, (_j = data.project) === null || _j === void 0 ? void 0 : _j.genres]
-                            .flat()
-                            .map(function (item) { return (item === null || item === void 0 ? void 0 : item.nameRu) || (item === null || item === void 0 ? void 0 : item.nameEng); })
-                            .filter(function (item) { return item; });
-                        if (genres === null || genres === void 0 ? void 0 : genres.length) {
-                            novel.genres = genres.join(', ');
-                        }
-                        (_l = (_k = data.project) === null || _k === void 0 ? void 0 : _k.persons) === null || _l === void 0 ? void 0 : _l.forEach(function (person) {
-                            var _a, _b;
-                            if (person.role == 'author' && person.name.firstName) {
-                                novel.author =
-                                    person.name.firstName + ' ' + (((_a = person.name) === null || _a === void 0 ? void 0 : _a.lastName) || '');
-                            }
-                            if (person.role == 'illustrator' && person.name.firstName) {
-                                novel.artist =
-                                    person.name.firstName + ' ' + (((_b = person.name) === null || _b === void 0 ? void 0 : _b.lastName) || '');
-                            }
-                        });
-                        chapters = [];
-                        (_p = (_o = (_m = data.project) === null || _m === void 0 ? void 0 : _m.subprojects) === null || _o === void 0 ? void 0 : _o.content) === null || _p === void 0 ? void 0 : _p.forEach(function (work) {
-                            return work.volumes.content.forEach(function (volume, volumeIndex) {
-                                return volume.chapters.forEach(function (chapter, chapterIndex) {
-                                    if (chapter.published) {
-                                        chapters.push({
-                                            name: (volume.shortName || 'Том ' + (volumeIndex + 1)) +
-                                                ' ' +
-                                                (chapter.title || 'Глава ' + (chapterIndex + 1)),
-                                            path: chapter.fullUrl,
-                                            releaseTime: (0, dayjs_1.default)(chapter.publishDate).format('LLL'),
-                                            chapterNumber: chapters.length + 1,
-                                            page: work.title || 'Основная серия',
-                                        });
-                                    }
-                                });
-                            });
-                        });
-                        novel.chapters = chapters;
-                        return [2 /*return*/, novel];
+        this.verify = verifier(this)({
+          types,
+          util
+        });
+        this.fromObject = converter.fromObject(this)({
+          types,
+          util
+        });
+        this.toObject = converter.toObject(this)({
+          types,
+          util
+        });
+        var wrapper = wrappers[fullName];
+        if (wrapper) {
+          var originalThis = Object.create(this);
+          originalThis.fromObject = this.fromObject;
+          this.fromObject = wrapper.fromObject.bind(originalThis);
+          originalThis.toObject = this.toObject;
+          this.toObject = wrapper.toObject.bind(originalThis);
+        }
+        return this;
+      }, "setup");
+      Type.prototype.encode = /* @__PURE__ */ __name(function encode_setup(message, writer) {
+        return this.setup().encode(message, writer);
+      }, "encode_setup");
+      Type.prototype.encodeDelimited = /* @__PURE__ */ __name(function encodeDelimited(message, writer) {
+        return this.encode(message, writer && writer.len ? writer.fork() : writer).ldelim();
+      }, "encodeDelimited");
+      Type.prototype.decode = /* @__PURE__ */ __name(function decode_setup(reader, length) {
+        return this.setup().decode(reader, length);
+      }, "decode_setup");
+      Type.prototype.decodeDelimited = /* @__PURE__ */ __name(function decodeDelimited(reader) {
+        if (!(reader instanceof Reader))
+          reader = Reader.create(reader);
+        return this.decode(reader, reader.uint32());
+      }, "decodeDelimited");
+      Type.prototype.verify = /* @__PURE__ */ __name(function verify_setup(message) {
+        return this.setup().verify(message);
+      }, "verify_setup");
+      Type.prototype.fromObject = /* @__PURE__ */ __name(function fromObject(object) {
+        return this.setup().fromObject(object);
+      }, "fromObject");
+      Type.prototype.toObject = /* @__PURE__ */ __name(function toObject(message, options) {
+        return this.setup().toObject(message, options);
+      }, "toObject");
+      Type.d = /* @__PURE__ */ __name(function decorateType(typeName) {
+        return /* @__PURE__ */ __name(function typeDecorator(target) {
+          util.decorateType(target, typeName);
+        }, "typeDecorator");
+      }, "decorateType");
+    }
+  });
+
+  // node_modules/protobufjs/src/root.js
+  var require_root = __commonJS({
+    "node_modules/protobufjs/src/root.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Root;
+      var Namespace = require_namespace();
+      ((Root.prototype = Object.create(Namespace.prototype)).constructor = Root).className = "Root";
+      var Field = require_field(), Enum = require_enum(), OneOf = require_oneof(), util = require_util();
+      var Type, parse, common;
+      function Root(options) {
+        Namespace.call(this, "", options);
+        this.deferred = [];
+        this.files = [];
+      }
+      __name(Root, "Root");
+      Root.fromJSON = /* @__PURE__ */ __name(function fromJSON(json, root) {
+        if (!root)
+          root = new Root();
+        if (json.options)
+          root.setOptions(json.options);
+        return root.addJSON(json.nested);
+      }, "fromJSON");
+      Root.prototype.resolvePath = util.path.resolve;
+      Root.prototype.fetch = util.fetch;
+      function SYNC() {
+      }
+      __name(SYNC, "SYNC");
+      Root.prototype.load = /* @__PURE__ */ __name(function load(filename, options, callback) {
+        if (typeof options === "function") {
+          callback = options;
+          options = void 0;
+        }
+        var self2 = this;
+        if (!callback)
+          return util.asPromise(load, self2, filename, options);
+        var sync = callback === SYNC;
+        function finish(err, root) {
+          if (!callback)
+            return;
+          if (sync)
+            throw err;
+          var cb = callback;
+          callback = null;
+          cb(err, root);
+        }
+        __name(finish, "finish");
+        function getBundledFileName(filename2) {
+          var idx = filename2.lastIndexOf("google/protobuf/");
+          if (idx > -1) {
+            var altname = filename2.substring(idx);
+            if (altname in common) return altname;
+          }
+          return null;
+        }
+        __name(getBundledFileName, "getBundledFileName");
+        function process(filename2, source) {
+          try {
+            if (util.isString(source) && source.charAt(0) === "{")
+              source = JSON.parse(source);
+            if (!util.isString(source))
+              self2.setOptions(source.options).addJSON(source.nested);
+            else {
+              parse.filename = filename2;
+              var parsed = parse(source, self2, options), resolved2, i2 = 0;
+              if (parsed.imports) {
+                for (; i2 < parsed.imports.length; ++i2)
+                  if (resolved2 = getBundledFileName(parsed.imports[i2]) || self2.resolvePath(filename2, parsed.imports[i2]))
+                    fetch2(resolved2);
+              }
+              if (parsed.weakImports) {
+                for (i2 = 0; i2 < parsed.weakImports.length; ++i2)
+                  if (resolved2 = getBundledFileName(parsed.weakImports[i2]) || self2.resolvePath(filename2, parsed.weakImports[i2]))
+                    fetch2(resolved2, true);
+              }
+            }
+          } catch (err) {
+            finish(err);
+          }
+          if (!sync && !queued)
+            finish(null, self2);
+        }
+        __name(process, "process");
+        function fetch2(filename2, weak) {
+          filename2 = getBundledFileName(filename2) || filename2;
+          if (self2.files.indexOf(filename2) > -1)
+            return;
+          self2.files.push(filename2);
+          if (filename2 in common) {
+            if (sync)
+              process(filename2, common[filename2]);
+            else {
+              ++queued;
+              setTimeout(function() {
+                --queued;
+                process(filename2, common[filename2]);
+              });
+            }
+            return;
+          }
+          if (sync) {
+            var source;
+            try {
+              source = util.fs.readFileSync(filename2).toString("utf8");
+            } catch (err) {
+              if (!weak)
+                finish(err);
+              return;
+            }
+            process(filename2, source);
+          } else {
+            ++queued;
+            self2.fetch(filename2, function(err, source2) {
+              --queued;
+              if (!callback)
+                return;
+              if (err) {
+                if (!weak)
+                  finish(err);
+                else if (!queued)
+                  finish(null, self2);
+                return;
+              }
+              process(filename2, source2);
+            });
+          }
+        }
+        __name(fetch2, "fetch");
+        var queued = 0;
+        if (util.isString(filename))
+          filename = [filename];
+        for (var i = 0, resolved; i < filename.length; ++i)
+          if (resolved = self2.resolvePath("", filename[i]))
+            fetch2(resolved);
+        if (sync)
+          return self2;
+        if (!queued)
+          finish(null, self2);
+        return void 0;
+      }, "load");
+      Root.prototype.loadSync = /* @__PURE__ */ __name(function loadSync(filename, options) {
+        if (!util.isNode)
+          throw Error("not supported");
+        return this.load(filename, options, SYNC);
+      }, "loadSync");
+      Root.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (this.deferred.length)
+          throw Error("unresolvable extensions: " + this.deferred.map(function(field) {
+            return "'extend " + field.extend + "' in " + field.parent.fullName;
+          }).join(", "));
+        return Namespace.prototype.resolveAll.call(this);
+      }, "resolveAll");
+      var exposeRe = /^[A-Z]/;
+      function tryHandleExtension(root, field) {
+        var extendedType = field.parent.lookup(field.extend);
+        if (extendedType) {
+          var sisterField = new Field(field.fullName, field.id, field.type, field.rule, void 0, field.options);
+          if (extendedType.get(sisterField.name)) {
+            return true;
+          }
+          sisterField.declaringField = field;
+          field.extensionField = sisterField;
+          extendedType.add(sisterField);
+          return true;
+        }
+        return false;
+      }
+      __name(tryHandleExtension, "tryHandleExtension");
+      Root.prototype._handleAdd = /* @__PURE__ */ __name(function _handleAdd(object) {
+        if (object instanceof Field) {
+          if (
+            /* an extension field (implies not part of a oneof) */
+            object.extend !== void 0 && /* not already handled */
+            !object.extensionField
+          ) {
+            if (!tryHandleExtension(this, object))
+              this.deferred.push(object);
+          }
+        } else if (object instanceof Enum) {
+          if (exposeRe.test(object.name))
+            object.parent[object.name] = object.values;
+        } else if (!(object instanceof OneOf)) {
+          if (object instanceof Type)
+            for (var i = 0; i < this.deferred.length; )
+              if (tryHandleExtension(this, this.deferred[i]))
+                this.deferred.splice(i, 1);
+              else
+                ++i;
+          for (var j = 0; j < /* initializes */
+          object.nestedArray.length; ++j)
+            this._handleAdd(object._nestedArray[j]);
+          if (exposeRe.test(object.name))
+            object.parent[object.name] = object;
+        }
+      }, "_handleAdd");
+      Root.prototype._handleRemove = /* @__PURE__ */ __name(function _handleRemove(object) {
+        if (object instanceof Field) {
+          if (
+            /* an extension field */
+            object.extend !== void 0
+          ) {
+            if (
+              /* already handled */
+              object.extensionField
+            ) {
+              object.extensionField.parent.remove(object.extensionField);
+              object.extensionField = null;
+            } else {
+              var index = this.deferred.indexOf(object);
+              if (index > -1)
+                this.deferred.splice(index, 1);
+            }
+          }
+        } else if (object instanceof Enum) {
+          if (exposeRe.test(object.name))
+            delete object.parent[object.name];
+        } else if (object instanceof Namespace) {
+          for (var i = 0; i < /* initializes */
+          object.nestedArray.length; ++i)
+            this._handleRemove(object._nestedArray[i]);
+          if (exposeRe.test(object.name))
+            delete object.parent[object.name];
+        }
+      }, "_handleRemove");
+      Root._configure = function(Type_, parse_, common_) {
+        Type = Type_;
+        parse = parse_;
+        common = common_;
+      };
+    }
+  });
+
+  // node_modules/protobufjs/src/util.js
+  var require_util = __commonJS({
+    "node_modules/protobufjs/src/util.js"(exports2, module2) {
+      "use strict";
+      var util = module2.exports = require_minimal();
+      var roots = require_roots();
+      var Type, Enum;
+      util.codegen = require_codegen();
+      util.fetch = require_fetch();
+      util.path = require_path();
+      util.fs = util.inquire("fs");
+      util.toArray = /* @__PURE__ */ __name(function toArray(object) {
+        if (object) {
+          var keys = Object.keys(object), array = new Array(keys.length), index = 0;
+          while (index < keys.length)
+            array[index] = object[keys[index++]];
+          return array;
+        }
+        return [];
+      }, "toArray");
+      util.toObject = /* @__PURE__ */ __name(function toObject(array) {
+        var object = {}, index = 0;
+        while (index < array.length) {
+          var key = array[index++], val = array[index++];
+          if (val !== void 0)
+            object[key] = val;
+        }
+        return object;
+      }, "toObject");
+      var safePropBackslashRe = /\\/g, safePropQuoteRe = /"/g;
+      util.isReserved = /* @__PURE__ */ __name(function isReserved(name) {
+        return /^(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$/.test(name);
+      }, "isReserved");
+      util.safeProp = /* @__PURE__ */ __name(function safeProp(prop) {
+        if (!/^[$\w_]+$/.test(prop) || util.isReserved(prop))
+          return '["' + prop.replace(safePropBackslashRe, "\\\\").replace(safePropQuoteRe, '\\"') + '"]';
+        return "." + prop;
+      }, "safeProp");
+      util.ucFirst = /* @__PURE__ */ __name(function ucFirst(str) {
+        return str.charAt(0).toUpperCase() + str.substring(1);
+      }, "ucFirst");
+      var camelCaseRe = /_([a-z])/g;
+      util.camelCase = /* @__PURE__ */ __name(function camelCase(str) {
+        return str.substring(0, 1) + str.substring(1).replace(camelCaseRe, function($0, $1) {
+          return $1.toUpperCase();
+        });
+      }, "camelCase");
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b2) {
+        return a2.id - b2.id;
+      }, "compareFieldsById");
+      util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
+        if (ctor.$type) {
+          if (typeName && ctor.$type.name !== typeName) {
+            util.decorateRoot.remove(ctor.$type);
+            ctor.$type.name = typeName;
+            util.decorateRoot.add(ctor.$type);
+          }
+          return ctor.$type;
+        }
+        if (!Type)
+          Type = require_type();
+        var type = new Type(typeName || ctor.name);
+        util.decorateRoot.add(type);
+        type.ctor = ctor;
+        Object.defineProperty(ctor, "$type", { value: type, enumerable: false });
+        Object.defineProperty(ctor.prototype, "$type", { value: type, enumerable: false });
+        return type;
+      }, "decorateType");
+      var decorateEnumIndex = 0;
+      util.decorateEnum = /* @__PURE__ */ __name(function decorateEnum(object) {
+        if (object.$type)
+          return object.$type;
+        if (!Enum)
+          Enum = require_enum();
+        var enm = new Enum("Enum" + decorateEnumIndex++, object);
+        util.decorateRoot.add(enm);
+        Object.defineProperty(object, "$type", { value: enm, enumerable: false });
+        return enm;
+      }, "decorateEnum");
+      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value) {
+        function setProp(dst2, path2, value2) {
+          var part = path2.shift();
+          if (part === "__proto__" || part === "prototype") {
+            return dst2;
+          }
+          if (path2.length > 0) {
+            dst2[part] = setProp(dst2[part] || {}, path2, value2);
+          } else {
+            var prevValue = dst2[part];
+            if (prevValue)
+              value2 = [].concat(prevValue).concat(value2);
+            dst2[part] = value2;
+          }
+          return dst2;
+        }
+        __name(setProp, "setProp");
+        if (typeof dst !== "object")
+          throw TypeError("dst must be an object");
+        if (!path)
+          throw TypeError("path must be specified");
+        path = path.split(".");
+        return setProp(dst, path, value);
+      }, "setProperty");
+      Object.defineProperty(util, "decorateRoot", {
+        get: /* @__PURE__ */ __name(function() {
+          return roots["decorated"] || (roots["decorated"] = new (require_root())());
+        }, "get")
+      });
+    }
+  });
+
+  // node_modules/protobufjs/src/object.js
+  var require_object = __commonJS({
+    "node_modules/protobufjs/src/object.js"(exports2, module2) {
+      "use strict";
+      module2.exports = ReflectionObject;
+      ReflectionObject.className = "ReflectionObject";
+      var util = require_util();
+      var Root;
+      function ReflectionObject(name, options) {
+        if (!util.isString(name))
+          throw TypeError("name must be a string");
+        if (options && !util.isObject(options))
+          throw TypeError("options must be an object");
+        this.options = options;
+        this.parsedOptions = null;
+        this.name = name;
+        this.parent = null;
+        this.resolved = false;
+        this.comment = null;
+        this.filename = null;
+      }
+      __name(ReflectionObject, "ReflectionObject");
+      Object.defineProperties(ReflectionObject.prototype, {
+        /**
+         * Reference to the root namespace.
+         * @name ReflectionObject#root
+         * @type {Root}
+         * @readonly
+         */
+        root: {
+          get: /* @__PURE__ */ __name(function() {
+            var ptr = this;
+            while (ptr.parent !== null)
+              ptr = ptr.parent;
+            return ptr;
+          }, "get")
+        },
+        /**
+         * Full name including leading dot.
+         * @name ReflectionObject#fullName
+         * @type {string}
+         * @readonly
+         */
+        fullName: {
+          get: /* @__PURE__ */ __name(function() {
+            var path = [this.name], ptr = this.parent;
+            while (ptr) {
+              path.unshift(ptr.name);
+              ptr = ptr.parent;
+            }
+            return path.join(".");
+          }, "get")
+        }
+      });
+      ReflectionObject.prototype.toJSON = /* istanbul ignore next */
+      /* @__PURE__ */ __name(function toJSON() {
+        throw Error();
+      }, "toJSON");
+      ReflectionObject.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent) {
+        if (this.parent && this.parent !== parent)
+          this.parent.remove(this);
+        this.parent = parent;
+        this.resolved = false;
+        var root = parent.root;
+        if (root instanceof Root)
+          root._handleAdd(this);
+      }, "onAdd");
+      ReflectionObject.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent) {
+        var root = parent.root;
+        if (root instanceof Root)
+          root._handleRemove(this);
+        this.parent = null;
+        this.resolved = false;
+      }, "onRemove");
+      ReflectionObject.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+        if (this.resolved)
+          return this;
+        if (this.root instanceof Root)
+          this.resolved = true;
+        return this;
+      }, "resolve");
+      ReflectionObject.prototype.getOption = /* @__PURE__ */ __name(function getOption(name) {
+        if (this.options)
+          return this.options[name];
+        return void 0;
+      }, "getOption");
+      ReflectionObject.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+        if (!ifNotSet || !this.options || this.options[name] === void 0)
+          (this.options || (this.options = {}))[name] = value;
+        return this;
+      }, "setOption");
+      ReflectionObject.prototype.setParsedOption = /* @__PURE__ */ __name(function setParsedOption(name, value, propName) {
+        if (!this.parsedOptions) {
+          this.parsedOptions = [];
+        }
+        var parsedOptions = this.parsedOptions;
+        if (propName) {
+          var opt = parsedOptions.find(function(opt2) {
+            return Object.prototype.hasOwnProperty.call(opt2, name);
+          });
+          if (opt) {
+            var newValue = opt[name];
+            util.setProperty(newValue, propName, value);
+          } else {
+            opt = {};
+            opt[name] = util.setProperty({}, propName, value);
+            parsedOptions.push(opt);
+          }
+        } else {
+          var newOpt = {};
+          newOpt[name] = value;
+          parsedOptions.push(newOpt);
+        }
+        return this;
+      }, "setParsedOption");
+      ReflectionObject.prototype.setOptions = /* @__PURE__ */ __name(function setOptions(options, ifNotSet) {
+        if (options)
+          for (var keys = Object.keys(options), i = 0; i < keys.length; ++i)
+            this.setOption(keys[i], options[keys[i]], ifNotSet);
+        return this;
+      }, "setOptions");
+      ReflectionObject.prototype.toString = /* @__PURE__ */ __name(function toString() {
+        var className = this.constructor.className, fullName = this.fullName;
+        if (fullName.length)
+          return className + " " + fullName;
+        return className;
+      }, "toString");
+      ReflectionObject._configure = function(Root_) {
+        Root = Root_;
+      };
+    }
+  });
+
+  // node_modules/protobufjs/src/enum.js
+  var require_enum = __commonJS({
+    "node_modules/protobufjs/src/enum.js"(exports2, module2) {
+      "use strict";
+      module2.exports = Enum;
+      var ReflectionObject = require_object();
+      ((Enum.prototype = Object.create(ReflectionObject.prototype)).constructor = Enum).className = "Enum";
+      var Namespace = require_namespace(), util = require_util();
+      function Enum(name, values, options, comment, comments, valuesOptions) {
+        ReflectionObject.call(this, name, options);
+        if (values && typeof values !== "object")
+          throw TypeError("values must be an object");
+        this.valuesById = {};
+        this.values = Object.create(this.valuesById);
+        this.comment = comment;
+        this.comments = comments || {};
+        this.valuesOptions = valuesOptions;
+        this.reserved = void 0;
+        if (values) {
+          for (var keys = Object.keys(values), i = 0; i < keys.length; ++i)
+            if (typeof values[keys[i]] === "number")
+              this.valuesById[this.values[keys[i]] = values[keys[i]]] = keys[i];
+        }
+      }
+      __name(Enum, "Enum");
+      Enum.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        var enm = new Enum(name, json.values, json.options, json.comment, json.comments);
+        enm.reserved = json.reserved;
+        return enm;
+      }, "fromJSON");
+      Enum.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "options",
+          this.options,
+          "valuesOptions",
+          this.valuesOptions,
+          "values",
+          this.values,
+          "reserved",
+          this.reserved && this.reserved.length ? this.reserved : void 0,
+          "comment",
+          keepComments ? this.comment : void 0,
+          "comments",
+          keepComments ? this.comments : void 0
+        ]);
+      }, "toJSON");
+      Enum.prototype.add = /* @__PURE__ */ __name(function add(name, id, comment, options) {
+        if (!util.isString(name))
+          throw TypeError("name must be a string");
+        if (!util.isInteger(id))
+          throw TypeError("id must be an integer");
+        if (this.values[name] !== void 0)
+          throw Error("duplicate name '" + name + "' in " + this);
+        if (this.isReservedId(id))
+          throw Error("id " + id + " is reserved in " + this);
+        if (this.isReservedName(name))
+          throw Error("name '" + name + "' is reserved in " + this);
+        if (this.valuesById[id] !== void 0) {
+          if (!(this.options && this.options.allow_alias))
+            throw Error("duplicate id " + id + " in " + this);
+          this.values[name] = id;
+        } else
+          this.valuesById[this.values[name] = id] = name;
+        if (options) {
+          if (this.valuesOptions === void 0)
+            this.valuesOptions = {};
+          this.valuesOptions[name] = options || null;
+        }
+        this.comments[name] = comment || null;
+        return this;
+      }, "add");
+      Enum.prototype.remove = /* @__PURE__ */ __name(function remove(name) {
+        if (!util.isString(name))
+          throw TypeError("name must be a string");
+        var val = this.values[name];
+        if (val == null)
+          throw Error("name '" + name + "' does not exist in " + this);
+        delete this.valuesById[val];
+        delete this.values[name];
+        delete this.comments[name];
+        if (this.valuesOptions)
+          delete this.valuesOptions[name];
+        return this;
+      }, "remove");
+      Enum.prototype.isReservedId = /* @__PURE__ */ __name(function isReservedId(id) {
+        return Namespace.isReservedId(this.reserved, id);
+      }, "isReservedId");
+      Enum.prototype.isReservedName = /* @__PURE__ */ __name(function isReservedName(name) {
+        return Namespace.isReservedName(this.reserved, name);
+      }, "isReservedName");
+    }
+  });
+
+  // node_modules/protobufjs/src/encoder.js
+  var require_encoder = __commonJS({
+    "node_modules/protobufjs/src/encoder.js"(exports2, module2) {
+      "use strict";
+      module2.exports = encoder;
+      var Enum = require_enum(), types = require_types(), util = require_util();
+      function genTypePartial(gen, field, fieldIndex, ref) {
+        return field.resolvedType.group ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
+      }
+      __name(genTypePartial, "genTypePartial");
+      function encoder(mtype) {
+        var gen = util.codegen(["m", "w"], mtype.name + "$encode")("if(!w)")("w=Writer.create()");
+        var i, ref;
+        var fields = (
+          /* initializes */
+          mtype.fieldsArray.slice().sort(util.compareFieldsById)
+        );
+        for (var i = 0; i < fields.length; ++i) {
+          var field = fields[i].resolve(), index = mtype._fieldsArray.indexOf(field), type = field.resolvedType instanceof Enum ? "int32" : field.type, wireType = types.basic[type];
+          ref = "m" + util.safeProp(field.name);
+          if (field.map) {
+            gen("if(%s!=null&&Object.hasOwnProperty.call(m,%j)){", ref, field.name)("for(var ks=Object.keys(%s),i=0;i<ks.length;++i){", ref)("w.uint32(%i).fork().uint32(%i).%s(ks[i])", (field.id << 3 | 2) >>> 0, 8 | types.mapKey[field.keyType], field.keyType);
+            if (wireType === void 0) gen("types[%i].encode(%s[ks[i]],w.uint32(18).fork()).ldelim().ldelim()", index, ref);
+            else gen(".uint32(%i).%s(%s[ks[i]]).ldelim()", 16 | wireType, type, ref);
+            gen("}")("}");
+          } else if (field.repeated) {
+            gen("if(%s!=null&&%s.length){", ref, ref);
+            if (field.packed && types.packed[type] !== void 0) {
+              gen("w.uint32(%i).fork()", (field.id << 3 | 2) >>> 0)("for(var i=0;i<%s.length;++i)", ref)("w.%s(%s[i])", type, ref)("w.ldelim()");
+            } else {
+              gen("for(var i=0;i<%s.length;++i)", ref);
+              if (wireType === void 0)
+                genTypePartial(gen, field, index, ref + "[i]");
+              else gen("w.uint32(%i).%s(%s[i])", (field.id << 3 | wireType) >>> 0, type, ref);
+            }
+            gen("}");
+          } else {
+            if (field.optional) gen("if(%s!=null&&Object.hasOwnProperty.call(m,%j))", ref, field.name);
+            if (wireType === void 0)
+              genTypePartial(gen, field, index, ref);
+            else gen("w.uint32(%i).%s(%s)", (field.id << 3 | wireType) >>> 0, type, ref);
+          }
+        }
+        return gen("return w");
+      }
+      __name(encoder, "encoder");
+    }
+  });
+
+  // node_modules/protobufjs/src/index-light.js
+  var require_index_light = __commonJS({
+    "node_modules/protobufjs/src/index-light.js"(exports2, module2) {
+      "use strict";
+      var protobuf = module2.exports = require_index_minimal();
+      protobuf.build = "light";
+      function load(filename, root, callback) {
+        if (typeof root === "function") {
+          callback = root;
+          root = new protobuf.Root();
+        } else if (!root)
+          root = new protobuf.Root();
+        return root.load(filename, callback);
+      }
+      __name(load, "load");
+      protobuf.load = load;
+      function loadSync(filename, root) {
+        if (!root)
+          root = new protobuf.Root();
+        return root.loadSync(filename);
+      }
+      __name(loadSync, "loadSync");
+      protobuf.loadSync = loadSync;
+      protobuf.encoder = require_encoder();
+      protobuf.decoder = require_decoder();
+      protobuf.verifier = require_verifier();
+      protobuf.converter = require_converter();
+      protobuf.ReflectionObject = require_object();
+      protobuf.Namespace = require_namespace();
+      protobuf.Root = require_root();
+      protobuf.Enum = require_enum();
+      protobuf.Type = require_type();
+      protobuf.Field = require_field();
+      protobuf.OneOf = require_oneof();
+      protobuf.MapField = require_mapfield();
+      protobuf.Service = require_service2();
+      protobuf.Method = require_method();
+      protobuf.Message = require_message();
+      protobuf.wrappers = require_wrappers();
+      protobuf.types = require_types();
+      protobuf.util = require_util();
+      protobuf.ReflectionObject._configure(protobuf.Root);
+      protobuf.Namespace._configure(protobuf.Type, protobuf.Service, protobuf.Enum);
+      protobuf.Root._configure(protobuf.Type);
+      protobuf.Field._configure(protobuf.Type);
+    }
+  });
+
+  // node_modules/protobufjs/src/tokenize.js
+  var require_tokenize = __commonJS({
+    "node_modules/protobufjs/src/tokenize.js"(exports2, module2) {
+      "use strict";
+      module2.exports = tokenize;
+      var delimRe = /[\s{}=;:[\],'"()<>]/g, stringDoubleRe = /(?:"([^"\\]*(?:\\.[^"\\]*)*)")/g, stringSingleRe = /(?:'([^'\\]*(?:\\.[^'\\]*)*)')/g;
+      var setCommentRe = /^ *[*/]+ */, setCommentAltRe = /^\s*\*?\/*/, setCommentSplitRe = /\n/g, whitespaceRe = /\s/, unescapeRe = /\\(.?)/g;
+      var unescapeMap = {
+        "0": "\0",
+        "r": "\r",
+        "n": "\n",
+        "t": "	"
+      };
+      function unescape(str) {
+        return str.replace(unescapeRe, function($0, $1) {
+          switch ($1) {
+            case "\\":
+            case "":
+              return $1;
+            default:
+              return unescapeMap[$1] || "";
+          }
+        });
+      }
+      __name(unescape, "unescape");
+      tokenize.unescape = unescape;
+      function tokenize(source, alternateCommentMode) {
+        source = source.toString();
+        var offset = 0, length = source.length, line = 1, lastCommentLine = 0, comments = {};
+        var stack = [];
+        var stringDelim = null;
+        function illegal(subject) {
+          return Error("illegal " + subject + " (line " + line + ")");
+        }
+        __name(illegal, "illegal");
+        function readString() {
+          var re = stringDelim === "'" ? stringSingleRe : stringDoubleRe;
+          re.lastIndex = offset - 1;
+          var match = re.exec(source);
+          if (!match)
+            throw illegal("string");
+          offset = re.lastIndex;
+          push(stringDelim);
+          stringDelim = null;
+          return unescape(match[1]);
+        }
+        __name(readString, "readString");
+        function charAt(pos) {
+          return source.charAt(pos);
+        }
+        __name(charAt, "charAt");
+        function setComment(start, end, isLeading) {
+          var comment = {
+            type: source.charAt(start++),
+            lineEmpty: false,
+            leading: isLeading
+          };
+          var lookback;
+          if (alternateCommentMode) {
+            lookback = 2;
+          } else {
+            lookback = 3;
+          }
+          var commentOffset = start - lookback, c;
+          do {
+            if (--commentOffset < 0 || (c = source.charAt(commentOffset)) === "\n") {
+              comment.lineEmpty = true;
+              break;
+            }
+          } while (c === " " || c === "	");
+          var lines = source.substring(start, end).split(setCommentSplitRe);
+          for (var i = 0; i < lines.length; ++i)
+            lines[i] = lines[i].replace(alternateCommentMode ? setCommentAltRe : setCommentRe, "").trim();
+          comment.text = lines.join("\n").trim();
+          comments[line] = comment;
+          lastCommentLine = line;
+        }
+        __name(setComment, "setComment");
+        function isDoubleSlashCommentLine(startOffset) {
+          var endOffset = findEndOfLine(startOffset);
+          var lineText = source.substring(startOffset, endOffset);
+          var isComment = /^\s*\/\//.test(lineText);
+          return isComment;
+        }
+        __name(isDoubleSlashCommentLine, "isDoubleSlashCommentLine");
+        function findEndOfLine(cursor) {
+          var endOffset = cursor;
+          while (endOffset < length && charAt(endOffset) !== "\n") {
+            endOffset++;
+          }
+          return endOffset;
+        }
+        __name(findEndOfLine, "findEndOfLine");
+        function next() {
+          if (stack.length > 0)
+            return stack.shift();
+          if (stringDelim)
+            return readString();
+          var repeat, prev, curr, start, isDoc, isLeadingComment = offset === 0;
+          do {
+            if (offset === length)
+              return null;
+            repeat = false;
+            while (whitespaceRe.test(curr = charAt(offset))) {
+              if (curr === "\n") {
+                isLeadingComment = true;
+                ++line;
+              }
+              if (++offset === length)
+                return null;
+            }
+            if (charAt(offset) === "/") {
+              if (++offset === length) {
+                throw illegal("comment");
+              }
+              if (charAt(offset) === "/") {
+                if (!alternateCommentMode) {
+                  isDoc = charAt(start = offset + 1) === "/";
+                  while (charAt(++offset) !== "\n") {
+                    if (offset === length) {
+                      return null;
+                    }
+                  }
+                  ++offset;
+                  if (isDoc) {
+                    setComment(start, offset - 1, isLeadingComment);
+                    isLeadingComment = true;
+                  }
+                  ++line;
+                  repeat = true;
+                } else {
+                  start = offset;
+                  isDoc = false;
+                  if (isDoubleSlashCommentLine(offset - 1)) {
+                    isDoc = true;
+                    do {
+                      offset = findEndOfLine(offset);
+                      if (offset === length) {
+                        break;
+                      }
+                      offset++;
+                      if (!isLeadingComment) {
+                        break;
+                      }
+                    } while (isDoubleSlashCommentLine(offset));
+                  } else {
+                    offset = Math.min(length, findEndOfLine(offset) + 1);
+                  }
+                  if (isDoc) {
+                    setComment(start, offset, isLeadingComment);
+                    isLeadingComment = true;
+                  }
+                  line++;
+                  repeat = true;
                 }
-            });
-        });
-    };
-    TL.prototype.parseChapter = function (chapterPath) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, chapterText;
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0: return [4 /*yield*/, (0, fetch_1.fetchApi)(this.site + '/api/site/v2/graphql', {
-                            method: 'post',
-                            headers: {
-                                Accept: 'application/json, text/plain, */*',
-                                'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
-                                'Content-Type': 'application/json',
-                            },
-                            Referer: this.site,
-                            body: JSON.stringify({
-                                query: 'query($url:String){chapter(chapter:{fullUrl:$url}){text{text}}}',
-                                variables: {
-                                    url: decodeURI(chapterPath),
-                                },
-                            }),
-                        }).then(function (res) { return res.json(); })];
-                    case 1:
-                        data = (_c.sent()).data;
-                        chapterText = ((_b = (_a = data.chapter) === null || _a === void 0 ? void 0 : _a.text) === null || _b === void 0 ? void 0 : _b.text) || '';
-                        return [2 /*return*/, chapterText];
+              } else if ((curr = charAt(offset)) === "*") {
+                start = offset + 1;
+                isDoc = alternateCommentMode || charAt(start) === "*";
+                do {
+                  if (curr === "\n") {
+                    ++line;
+                  }
+                  if (++offset === length) {
+                    throw illegal("comment");
+                  }
+                  prev = curr;
+                  curr = charAt(offset);
+                } while (prev !== "*" || curr !== "/");
+                ++offset;
+                if (isDoc) {
+                  setComment(start, offset - 2, isLeadingComment);
+                  isLeadingComment = true;
                 }
-            });
+                repeat = true;
+              } else {
+                return "/";
+              }
+            }
+          } while (repeat);
+          var end = offset;
+          delimRe.lastIndex = 0;
+          var delim = delimRe.test(charAt(end++));
+          if (!delim)
+            while (end < length && !delimRe.test(charAt(end)))
+              ++end;
+          var token = source.substring(offset, offset = end);
+          if (token === '"' || token === "'")
+            stringDelim = token;
+          return token;
+        }
+        __name(next, "next");
+        function push(token) {
+          stack.push(token);
+        }
+        __name(push, "push");
+        function peek() {
+          if (!stack.length) {
+            var token = next();
+            if (token === null)
+              return null;
+            push(token);
+          }
+          return stack[0];
+        }
+        __name(peek, "peek");
+        function skip(expected, optional) {
+          var actual = peek(), equals = actual === expected;
+          if (equals) {
+            next();
+            return true;
+          }
+          if (!optional)
+            throw illegal("token '" + actual + "', '" + expected + "' expected");
+          return false;
+        }
+        __name(skip, "skip");
+        function cmnt(trailingLine) {
+          var ret = null;
+          var comment;
+          if (trailingLine === void 0) {
+            comment = comments[line - 1];
+            delete comments[line - 1];
+            if (comment && (alternateCommentMode || comment.type === "*" || comment.lineEmpty)) {
+              ret = comment.leading ? comment.text : null;
+            }
+          } else {
+            if (lastCommentLine < trailingLine) {
+              peek();
+            }
+            comment = comments[trailingLine];
+            delete comments[trailingLine];
+            if (comment && !comment.lineEmpty && (alternateCommentMode || comment.type === "/")) {
+              ret = comment.leading ? null : comment.text;
+            }
+          }
+          return ret;
+        }
+        __name(cmnt, "cmnt");
+        return Object.defineProperty({
+          next,
+          peek,
+          push,
+          skip,
+          cmnt
+        }, "line", {
+          get: /* @__PURE__ */ __name(function() {
+            return line;
+          }, "get")
         });
-    };
-    return TL;
-}());
-exports.default = new TL();
+      }
+      __name(tokenize, "tokenize");
+    }
+  });
+
+  // node_modules/protobufjs/src/parse.js
+  var require_parse = __commonJS({
+    "node_modules/protobufjs/src/parse.js"(exports2, module2) {
+      "use strict";
+      module2.exports = parse;
+      parse.filename = null;
+      parse.defaults = { keepCase: false };
+      var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), types = require_types(), util = require_util();
+      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/, fqTypeRefRe = /^(?:\.[a-zA-Z_][a-zA-Z_0-9]*)+$/;
+      function parse(source, root, options) {
+        if (!(root instanceof Root)) {
+          options = root;
+          root = new Root();
+        }
+        if (!options)
+          options = parse.defaults;
+        var preferTrailingComment = options.preferTrailingComment || false;
+        var tn = tokenize(source, options.alternateCommentMode || false), next = tn.next, push = tn.push, peek = tn.peek, skip = tn.skip, cmnt = tn.cmnt;
+        var head = true, pkg, imports, weakImports, syntax, isProto3 = false;
+        var ptr = root;
+        var applyCase = options.keepCase ? function(name) {
+          return name;
+        } : util.camelCase;
+        function illegal(token2, name, insideTryCatch) {
+          var filename = parse.filename;
+          if (!insideTryCatch)
+            parse.filename = null;
+          return Error("illegal " + (name || "token") + " '" + token2 + "' (" + (filename ? filename + ", " : "") + "line " + tn.line + ")");
+        }
+        __name(illegal, "illegal");
+        function readString() {
+          var values = [], token2;
+          do {
+            if ((token2 = next()) !== '"' && token2 !== "'")
+              throw illegal(token2);
+            values.push(next());
+            skip(token2);
+            token2 = peek();
+          } while (token2 === '"' || token2 === "'");
+          return values.join("");
+        }
+        __name(readString, "readString");
+        function readValue(acceptTypeRef) {
+          var token2 = next();
+          switch (token2) {
+            case "'":
+            case '"':
+              push(token2);
+              return readString();
+            case "true":
+            case "TRUE":
+              return true;
+            case "false":
+            case "FALSE":
+              return false;
+          }
+          try {
+            return parseNumber(
+              token2,
+              /* insideTryCatch */
+              true
+            );
+          } catch (e2) {
+            if (acceptTypeRef && typeRefRe.test(token2))
+              return token2;
+            throw illegal(token2, "value");
+          }
+        }
+        __name(readValue, "readValue");
+        function readRanges(target, acceptStrings) {
+          var token2, start;
+          do {
+            if (acceptStrings && ((token2 = peek()) === '"' || token2 === "'"))
+              target.push(readString());
+            else
+              target.push([start = parseId(next()), skip("to", true) ? parseId(next()) : start]);
+          } while (skip(",", true));
+          var dummy = { options: void 0 };
+          dummy.setOption = function(name, value) {
+            if (this.options === void 0) this.options = {};
+            this.options[name] = value;
+          };
+          ifBlock(
+            dummy,
+            /* @__PURE__ */ __name(function parseRange_block(token3) {
+              if (token3 === "option") {
+                parseOption(dummy, token3);
+                skip(";");
+              } else
+                throw illegal(token3);
+            }, "parseRange_block"),
+            /* @__PURE__ */ __name(function parseRange_line() {
+              parseInlineOptions(dummy);
+            }, "parseRange_line")
+          );
+        }
+        __name(readRanges, "readRanges");
+        function parseNumber(token2, insideTryCatch) {
+          var sign = 1;
+          if (token2.charAt(0) === "-") {
+            sign = -1;
+            token2 = token2.substring(1);
+          }
+          switch (token2) {
+            case "inf":
+            case "INF":
+            case "Inf":
+              return sign * Infinity;
+            case "nan":
+            case "NAN":
+            case "Nan":
+            case "NaN":
+              return NaN;
+            case "0":
+              return 0;
+          }
+          if (base10Re.test(token2))
+            return sign * parseInt(token2, 10);
+          if (base16Re.test(token2))
+            return sign * parseInt(token2, 16);
+          if (base8Re.test(token2))
+            return sign * parseInt(token2, 8);
+          if (numberRe.test(token2))
+            return sign * parseFloat(token2);
+          throw illegal(token2, "number", insideTryCatch);
+        }
+        __name(parseNumber, "parseNumber");
+        function parseId(token2, acceptNegative) {
+          switch (token2) {
+            case "max":
+            case "MAX":
+            case "Max":
+              return 536870911;
+            case "0":
+              return 0;
+          }
+          if (!acceptNegative && token2.charAt(0) === "-")
+            throw illegal(token2, "id");
+          if (base10NegRe.test(token2))
+            return parseInt(token2, 10);
+          if (base16NegRe.test(token2))
+            return parseInt(token2, 16);
+          if (base8NegRe.test(token2))
+            return parseInt(token2, 8);
+          throw illegal(token2, "id");
+        }
+        __name(parseId, "parseId");
+        function parsePackage() {
+          if (pkg !== void 0)
+            throw illegal("package");
+          pkg = next();
+          if (!typeRefRe.test(pkg))
+            throw illegal(pkg, "name");
+          ptr = ptr.define(pkg);
+          skip(";");
+        }
+        __name(parsePackage, "parsePackage");
+        function parseImport() {
+          var token2 = peek();
+          var whichImports;
+          switch (token2) {
+            case "weak":
+              whichImports = weakImports || (weakImports = []);
+              next();
+              break;
+            case "public":
+              next();
+            // eslint-disable-next-line no-fallthrough
+            default:
+              whichImports = imports || (imports = []);
+              break;
+          }
+          token2 = readString();
+          skip(";");
+          whichImports.push(token2);
+        }
+        __name(parseImport, "parseImport");
+        function parseSyntax() {
+          skip("=");
+          syntax = readString();
+          isProto3 = syntax === "proto3";
+          if (!isProto3 && syntax !== "proto2")
+            throw illegal(syntax, "syntax");
+          root.setOption("syntax", syntax);
+          skip(";");
+        }
+        __name(parseSyntax, "parseSyntax");
+        function parseCommon(parent, token2) {
+          switch (token2) {
+            case "option":
+              parseOption(parent, token2);
+              skip(";");
+              return true;
+            case "message":
+              parseType(parent, token2);
+              return true;
+            case "enum":
+              parseEnum(parent, token2);
+              return true;
+            case "service":
+              parseService(parent, token2);
+              return true;
+            case "extend":
+              parseExtension(parent, token2);
+              return true;
+          }
+          return false;
+        }
+        __name(parseCommon, "parseCommon");
+        function ifBlock(obj, fnIf, fnElse) {
+          var trailingLine = tn.line;
+          if (obj) {
+            if (typeof obj.comment !== "string") {
+              obj.comment = cmnt();
+            }
+            obj.filename = parse.filename;
+          }
+          if (skip("{", true)) {
+            var token2;
+            while ((token2 = next()) !== "}")
+              fnIf(token2);
+            skip(";", true);
+          } else {
+            if (fnElse)
+              fnElse();
+            skip(";");
+            if (obj && (typeof obj.comment !== "string" || preferTrailingComment))
+              obj.comment = cmnt(trailingLine) || obj.comment;
+          }
+        }
+        __name(ifBlock, "ifBlock");
+        function parseType(parent, token2) {
+          if (!nameRe.test(token2 = next()))
+            throw illegal(token2, "type name");
+          var type = new Type(token2);
+          ifBlock(type, /* @__PURE__ */ __name(function parseType_block(token3) {
+            if (parseCommon(type, token3))
+              return;
+            switch (token3) {
+              case "map":
+                parseMapField(type, token3);
+                break;
+              case "required":
+              case "repeated":
+                parseField(type, token3);
+                break;
+              case "optional":
+                if (isProto3) {
+                  parseField(type, "proto3_optional");
+                } else {
+                  parseField(type, "optional");
+                }
+                break;
+              case "oneof":
+                parseOneOf(type, token3);
+                break;
+              case "extensions":
+                readRanges(type.extensions || (type.extensions = []));
+                break;
+              case "reserved":
+                readRanges(type.reserved || (type.reserved = []), true);
+                break;
+              default:
+                if (!isProto3 || !typeRefRe.test(token3))
+                  throw illegal(token3);
+                push(token3);
+                parseField(type, "optional");
+                break;
+            }
+          }, "parseType_block"));
+          parent.add(type);
+        }
+        __name(parseType, "parseType");
+        function parseField(parent, rule, extend) {
+          var type = next();
+          if (type === "group") {
+            parseGroup(parent, rule);
+            return;
+          }
+          while (type.endsWith(".") || peek().startsWith(".")) {
+            type += next();
+          }
+          if (!typeRefRe.test(type))
+            throw illegal(type, "type");
+          var name = next();
+          if (!nameRe.test(name))
+            throw illegal(name, "name");
+          name = applyCase(name);
+          skip("=");
+          var field = new Field(name, parseId(next()), type, rule, extend);
+          ifBlock(field, /* @__PURE__ */ __name(function parseField_block(token2) {
+            if (token2 === "option") {
+              parseOption(field, token2);
+              skip(";");
+            } else
+              throw illegal(token2);
+          }, "parseField_block"), /* @__PURE__ */ __name(function parseField_line() {
+            parseInlineOptions(field);
+          }, "parseField_line"));
+          if (rule === "proto3_optional") {
+            var oneof = new OneOf("_" + name);
+            field.setOption("proto3_optional", true);
+            oneof.add(field);
+            parent.add(oneof);
+          } else {
+            parent.add(field);
+          }
+          if (!isProto3 && field.repeated && (types.packed[type] !== void 0 || types.basic[type] === void 0))
+            field.setOption(
+              "packed",
+              false,
+              /* ifNotSet */
+              true
+            );
+        }
+        __name(parseField, "parseField");
+        function parseGroup(parent, rule) {
+          var name = next();
+          if (!nameRe.test(name))
+            throw illegal(name, "name");
+          var fieldName = util.lcFirst(name);
+          if (name === fieldName)
+            name = util.ucFirst(name);
+          skip("=");
+          var id = parseId(next());
+          var type = new Type(name);
+          type.group = true;
+          var field = new Field(fieldName, id, name, rule);
+          field.filename = parse.filename;
+          ifBlock(type, /* @__PURE__ */ __name(function parseGroup_block(token2) {
+            switch (token2) {
+              case "option":
+                parseOption(type, token2);
+                skip(";");
+                break;
+              case "required":
+              case "repeated":
+                parseField(type, token2);
+                break;
+              case "optional":
+                if (isProto3) {
+                  parseField(type, "proto3_optional");
+                } else {
+                  parseField(type, "optional");
+                }
+                break;
+              case "message":
+                parseType(type, token2);
+                break;
+              case "enum":
+                parseEnum(type, token2);
+                break;
+              /* istanbul ignore next */
+              default:
+                throw illegal(token2);
+            }
+          }, "parseGroup_block"));
+          parent.add(type).add(field);
+        }
+        __name(parseGroup, "parseGroup");
+        function parseMapField(parent) {
+          skip("<");
+          var keyType = next();
+          if (types.mapKey[keyType] === void 0)
+            throw illegal(keyType, "type");
+          skip(",");
+          var valueType = next();
+          if (!typeRefRe.test(valueType))
+            throw illegal(valueType, "type");
+          skip(">");
+          var name = next();
+          if (!nameRe.test(name))
+            throw illegal(name, "name");
+          skip("=");
+          var field = new MapField(applyCase(name), parseId(next()), keyType, valueType);
+          ifBlock(field, /* @__PURE__ */ __name(function parseMapField_block(token2) {
+            if (token2 === "option") {
+              parseOption(field, token2);
+              skip(";");
+            } else
+              throw illegal(token2);
+          }, "parseMapField_block"), /* @__PURE__ */ __name(function parseMapField_line() {
+            parseInlineOptions(field);
+          }, "parseMapField_line"));
+          parent.add(field);
+        }
+        __name(parseMapField, "parseMapField");
+        function parseOneOf(parent, token2) {
+          if (!nameRe.test(token2 = next()))
+            throw illegal(token2, "name");
+          var oneof = new OneOf(applyCase(token2));
+          ifBlock(oneof, /* @__PURE__ */ __name(function parseOneOf_block(token3) {
+            if (token3 === "option") {
+              parseOption(oneof, token3);
+              skip(";");
+            } else {
+              push(token3);
+              parseField(oneof, "optional");
+            }
+          }, "parseOneOf_block"));
+          parent.add(oneof);
+        }
+        __name(parseOneOf, "parseOneOf");
+        function parseEnum(parent, token2) {
+          if (!nameRe.test(token2 = next()))
+            throw illegal(token2, "name");
+          var enm = new Enum(token2);
+          ifBlock(enm, /* @__PURE__ */ __name(function parseEnum_block(token3) {
+            switch (token3) {
+              case "option":
+                parseOption(enm, token3);
+                skip(";");
+                break;
+              case "reserved":
+                readRanges(enm.reserved || (enm.reserved = []), true);
+                break;
+              default:
+                parseEnumValue(enm, token3);
+            }
+          }, "parseEnum_block"));
+          parent.add(enm);
+        }
+        __name(parseEnum, "parseEnum");
+        function parseEnumValue(parent, token2) {
+          if (!nameRe.test(token2))
+            throw illegal(token2, "name");
+          skip("=");
+          var value = parseId(next(), true), dummy = {
+            options: void 0
+          };
+          dummy.setOption = function(name, value2) {
+            if (this.options === void 0)
+              this.options = {};
+            this.options[name] = value2;
+          };
+          ifBlock(dummy, /* @__PURE__ */ __name(function parseEnumValue_block(token3) {
+            if (token3 === "option") {
+              parseOption(dummy, token3);
+              skip(";");
+            } else
+              throw illegal(token3);
+          }, "parseEnumValue_block"), /* @__PURE__ */ __name(function parseEnumValue_line() {
+            parseInlineOptions(dummy);
+          }, "parseEnumValue_line"));
+          parent.add(token2, value, dummy.comment, dummy.options);
+        }
+        __name(parseEnumValue, "parseEnumValue");
+        function parseOption(parent, token2) {
+          var isCustom = skip("(", true);
+          if (!typeRefRe.test(token2 = next()))
+            throw illegal(token2, "name");
+          var name = token2;
+          var option = name;
+          var propName;
+          if (isCustom) {
+            skip(")");
+            name = "(" + name + ")";
+            option = name;
+            token2 = peek();
+            if (fqTypeRefRe.test(token2)) {
+              propName = token2.slice(1);
+              name += token2;
+              next();
+            }
+          }
+          skip("=");
+          var optionValue = parseOptionValue(parent, name);
+          setParsedOption(parent, option, optionValue, propName);
+        }
+        __name(parseOption, "parseOption");
+        function parseOptionValue(parent, name) {
+          if (skip("{", true)) {
+            var objectResult = {};
+            while (!skip("}", true)) {
+              if (!nameRe.test(token = next())) {
+                throw illegal(token, "name");
+              }
+              if (token === null) {
+                throw illegal(token, "end of input");
+              }
+              var value;
+              var propName = token;
+              skip(":", true);
+              if (peek() === "{")
+                value = parseOptionValue(parent, name + "." + token);
+              else if (peek() === "[") {
+                value = [];
+                var lastValue;
+                if (skip("[", true)) {
+                  do {
+                    lastValue = readValue(true);
+                    value.push(lastValue);
+                  } while (skip(",", true));
+                  skip("]");
+                  if (typeof lastValue !== "undefined") {
+                    setOption(parent, name + "." + token, lastValue);
+                  }
+                }
+              } else {
+                value = readValue(true);
+                setOption(parent, name + "." + token, value);
+              }
+              var prevValue = objectResult[propName];
+              if (prevValue)
+                value = [].concat(prevValue).concat(value);
+              objectResult[propName] = value;
+              skip(",", true);
+              skip(";", true);
+            }
+            return objectResult;
+          }
+          var simpleValue = readValue(true);
+          setOption(parent, name, simpleValue);
+          return simpleValue;
+        }
+        __name(parseOptionValue, "parseOptionValue");
+        function setOption(parent, name, value) {
+          if (parent.setOption)
+            parent.setOption(name, value);
+        }
+        __name(setOption, "setOption");
+        function setParsedOption(parent, name, value, propName) {
+          if (parent.setParsedOption)
+            parent.setParsedOption(name, value, propName);
+        }
+        __name(setParsedOption, "setParsedOption");
+        function parseInlineOptions(parent) {
+          if (skip("[", true)) {
+            do {
+              parseOption(parent, "option");
+            } while (skip(",", true));
+            skip("]");
+          }
+          return parent;
+        }
+        __name(parseInlineOptions, "parseInlineOptions");
+        function parseService(parent, token2) {
+          if (!nameRe.test(token2 = next()))
+            throw illegal(token2, "service name");
+          var service = new Service(token2);
+          ifBlock(service, /* @__PURE__ */ __name(function parseService_block(token3) {
+            if (parseCommon(service, token3))
+              return;
+            if (token3 === "rpc")
+              parseMethod(service, token3);
+            else
+              throw illegal(token3);
+          }, "parseService_block"));
+          parent.add(service);
+        }
+        __name(parseService, "parseService");
+        function parseMethod(parent, token2) {
+          var commentText = cmnt();
+          var type = token2;
+          if (!nameRe.test(token2 = next()))
+            throw illegal(token2, "name");
+          var name = token2, requestType, requestStream, responseType, responseStream;
+          skip("(");
+          if (skip("stream", true))
+            requestStream = true;
+          if (!typeRefRe.test(token2 = next()))
+            throw illegal(token2);
+          requestType = token2;
+          skip(")");
+          skip("returns");
+          skip("(");
+          if (skip("stream", true))
+            responseStream = true;
+          if (!typeRefRe.test(token2 = next()))
+            throw illegal(token2);
+          responseType = token2;
+          skip(")");
+          var method = new Method(name, type, requestType, responseType, requestStream, responseStream);
+          method.comment = commentText;
+          ifBlock(method, /* @__PURE__ */ __name(function parseMethod_block(token3) {
+            if (token3 === "option") {
+              parseOption(method, token3);
+              skip(";");
+            } else
+              throw illegal(token3);
+          }, "parseMethod_block"));
+          parent.add(method);
+        }
+        __name(parseMethod, "parseMethod");
+        function parseExtension(parent, token2) {
+          if (!typeRefRe.test(token2 = next()))
+            throw illegal(token2, "reference");
+          var reference = token2;
+          ifBlock(null, /* @__PURE__ */ __name(function parseExtension_block(token3) {
+            switch (token3) {
+              case "required":
+              case "repeated":
+                parseField(parent, token3, reference);
+                break;
+              case "optional":
+                if (isProto3) {
+                  parseField(parent, "proto3_optional", reference);
+                } else {
+                  parseField(parent, "optional", reference);
+                }
+                break;
+              default:
+                if (!isProto3 || !typeRefRe.test(token3))
+                  throw illegal(token3);
+                push(token3);
+                parseField(parent, "optional", reference);
+                break;
+            }
+          }, "parseExtension_block"));
+        }
+        __name(parseExtension, "parseExtension");
+        var token;
+        while ((token = next()) !== null) {
+          switch (token) {
+            case "package":
+              if (!head)
+                throw illegal(token);
+              parsePackage();
+              break;
+            case "import":
+              if (!head)
+                throw illegal(token);
+              parseImport();
+              break;
+            case "syntax":
+              if (!head)
+                throw illegal(token);
+              parseSyntax();
+              break;
+            case "option":
+              parseOption(ptr, token);
+              skip(";");
+              break;
+            default:
+              if (parseCommon(ptr, token)) {
+                head = false;
+                continue;
+              }
+              throw illegal(token);
+          }
+        }
+        parse.filename = null;
+        return {
+          "package": pkg,
+          "imports": imports,
+          weakImports,
+          syntax,
+          root
+        };
+      }
+      __name(parse, "parse");
+    }
+  });
+
+  // node_modules/protobufjs/src/common.js
+  var require_common = __commonJS({
+    "node_modules/protobufjs/src/common.js"(exports2, module2) {
+      "use strict";
+      module2.exports = common;
+      var commonRe = /\/|\./;
+      function common(name, json) {
+        if (!commonRe.test(name)) {
+          name = "google/protobuf/" + name + ".proto";
+          json = { nested: { google: { nested: { protobuf: { nested: json } } } } };
+        }
+        common[name] = json;
+      }
+      __name(common, "common");
+      common("any", {
+        /**
+         * Properties of a google.protobuf.Any message.
+         * @interface IAny
+         * @type {Object}
+         * @property {string} [typeUrl]
+         * @property {Uint8Array} [bytes]
+         * @memberof common
+         */
+        Any: {
+          fields: {
+            type_url: {
+              type: "string",
+              id: 1
+            },
+            value: {
+              type: "bytes",
+              id: 2
+            }
+          }
+        }
+      });
+      var timeType;
+      common("duration", {
+        /**
+         * Properties of a google.protobuf.Duration message.
+         * @interface IDuration
+         * @type {Object}
+         * @property {number|Long} [seconds]
+         * @property {number} [nanos]
+         * @memberof common
+         */
+        Duration: timeType = {
+          fields: {
+            seconds: {
+              type: "int64",
+              id: 1
+            },
+            nanos: {
+              type: "int32",
+              id: 2
+            }
+          }
+        }
+      });
+      common("timestamp", {
+        /**
+         * Properties of a google.protobuf.Timestamp message.
+         * @interface ITimestamp
+         * @type {Object}
+         * @property {number|Long} [seconds]
+         * @property {number} [nanos]
+         * @memberof common
+         */
+        Timestamp: timeType
+      });
+      common("empty", {
+        /**
+         * Properties of a google.protobuf.Empty message.
+         * @interface IEmpty
+         * @memberof common
+         */
+        Empty: {
+          fields: {}
+        }
+      });
+      common("struct", {
+        /**
+         * Properties of a google.protobuf.Struct message.
+         * @interface IStruct
+         * @type {Object}
+         * @property {Object.<string,IValue>} [fields]
+         * @memberof common
+         */
+        Struct: {
+          fields: {
+            fields: {
+              keyType: "string",
+              type: "Value",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.Value message.
+         * @interface IValue
+         * @type {Object}
+         * @property {string} [kind]
+         * @property {0} [nullValue]
+         * @property {number} [numberValue]
+         * @property {string} [stringValue]
+         * @property {boolean} [boolValue]
+         * @property {IStruct} [structValue]
+         * @property {IListValue} [listValue]
+         * @memberof common
+         */
+        Value: {
+          oneofs: {
+            kind: {
+              oneof: [
+                "nullValue",
+                "numberValue",
+                "stringValue",
+                "boolValue",
+                "structValue",
+                "listValue"
+              ]
+            }
+          },
+          fields: {
+            nullValue: {
+              type: "NullValue",
+              id: 1
+            },
+            numberValue: {
+              type: "double",
+              id: 2
+            },
+            stringValue: {
+              type: "string",
+              id: 3
+            },
+            boolValue: {
+              type: "bool",
+              id: 4
+            },
+            structValue: {
+              type: "Struct",
+              id: 5
+            },
+            listValue: {
+              type: "ListValue",
+              id: 6
+            }
+          }
+        },
+        NullValue: {
+          values: {
+            NULL_VALUE: 0
+          }
+        },
+        /**
+         * Properties of a google.protobuf.ListValue message.
+         * @interface IListValue
+         * @type {Object}
+         * @property {Array.<IValue>} [values]
+         * @memberof common
+         */
+        ListValue: {
+          fields: {
+            values: {
+              rule: "repeated",
+              type: "Value",
+              id: 1
+            }
+          }
+        }
+      });
+      common("wrappers", {
+        /**
+         * Properties of a google.protobuf.DoubleValue message.
+         * @interface IDoubleValue
+         * @type {Object}
+         * @property {number} [value]
+         * @memberof common
+         */
+        DoubleValue: {
+          fields: {
+            value: {
+              type: "double",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.FloatValue message.
+         * @interface IFloatValue
+         * @type {Object}
+         * @property {number} [value]
+         * @memberof common
+         */
+        FloatValue: {
+          fields: {
+            value: {
+              type: "float",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.Int64Value message.
+         * @interface IInt64Value
+         * @type {Object}
+         * @property {number|Long} [value]
+         * @memberof common
+         */
+        Int64Value: {
+          fields: {
+            value: {
+              type: "int64",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.UInt64Value message.
+         * @interface IUInt64Value
+         * @type {Object}
+         * @property {number|Long} [value]
+         * @memberof common
+         */
+        UInt64Value: {
+          fields: {
+            value: {
+              type: "uint64",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.Int32Value message.
+         * @interface IInt32Value
+         * @type {Object}
+         * @property {number} [value]
+         * @memberof common
+         */
+        Int32Value: {
+          fields: {
+            value: {
+              type: "int32",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.UInt32Value message.
+         * @interface IUInt32Value
+         * @type {Object}
+         * @property {number} [value]
+         * @memberof common
+         */
+        UInt32Value: {
+          fields: {
+            value: {
+              type: "uint32",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.BoolValue message.
+         * @interface IBoolValue
+         * @type {Object}
+         * @property {boolean} [value]
+         * @memberof common
+         */
+        BoolValue: {
+          fields: {
+            value: {
+              type: "bool",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.StringValue message.
+         * @interface IStringValue
+         * @type {Object}
+         * @property {string} [value]
+         * @memberof common
+         */
+        StringValue: {
+          fields: {
+            value: {
+              type: "string",
+              id: 1
+            }
+          }
+        },
+        /**
+         * Properties of a google.protobuf.BytesValue message.
+         * @interface IBytesValue
+         * @type {Object}
+         * @property {Uint8Array} [value]
+         * @memberof common
+         */
+        BytesValue: {
+          fields: {
+            value: {
+              type: "bytes",
+              id: 1
+            }
+          }
+        }
+      });
+      common("field_mask", {
+        /**
+         * Properties of a google.protobuf.FieldMask message.
+         * @interface IDoubleValue
+         * @type {Object}
+         * @property {number} [value]
+         * @memberof common
+         */
+        FieldMask: {
+          fields: {
+            paths: {
+              rule: "repeated",
+              type: "string",
+              id: 1
+            }
+          }
+        }
+      });
+      common.get = /* @__PURE__ */ __name(function get(file) {
+        return common[file] || null;
+      }, "get");
+    }
+  });
+
+  // node_modules/protobufjs/src/index.js
+  var require_src = __commonJS({
+    "node_modules/protobufjs/src/index.js"(exports2, module2) {
+      "use strict";
+      var protobuf = module2.exports = require_index_light();
+      protobuf.build = "full";
+      protobuf.tokenize = require_tokenize();
+      protobuf.parse = require_parse();
+      protobuf.common = require_common();
+      protobuf.Root._configure(protobuf.Type, protobuf.parse, protobuf.common);
+    }
+  });
+
+  // node_modules/protobufjs/index.js
+  var require_protobufjs = __commonJS({
+    "node_modules/protobufjs/index.js"(exports2, module2) {
+      "use strict";
+      module2.exports = require_src();
+    }
+  });
+
+  // src/lib/fetch.ts
+  async function fetchApi(url, init) {
+    init = await makeInit(init);
+    console.log(url, init);
+    return await fetch(url, init);
+  }
+  var import_protobufjs, makeInit, fetchFile, fetchText, BYTE_MARK, fetchProto;
+  var init_fetch = __esm({
+    "src/lib/fetch.ts"() {
+      "use strict";
+      import_protobufjs = __toESM(require_protobufjs(), 1);
+      makeInit = /* @__PURE__ */ __name(async (init) => {
+        const defaultHeaders = {
+          "Connection": "keep-alive",
+          "Accept": "*/*",
+          "Accept-Language": "*",
+          "Sec-Fetch-Mode": "cors",
+          "Accept-Encoding": "gzip, deflate"
+        };
+        if (init?.headers) {
+          if (init.headers instanceof Headers) {
+            for (const [name, value] of Object.entries(defaultHeaders)) {
+              if (!init.headers.get(name)) init.headers.set(name, value);
+            }
+          } else {
+            init.headers = {
+              ...defaultHeaders,
+              ...init.headers
+            };
+          }
+        } else {
+          init = {
+            ...init,
+            headers: defaultHeaders
+          };
+        }
+        return init;
+      }, "makeInit");
+      __name(fetchApi, "fetchApi");
+      fetchFile = /* @__PURE__ */ __name(async function(url, init) {
+        init = await makeInit(init);
+        console.log(url, init);
+        try {
+          const res = await fetch(url, init);
+          if (!res.ok) return "";
+          const arrayBuffer = await res.arrayBuffer();
+          return Buffer.from(arrayBuffer).toString("base64");
+        } catch (e2) {
+          return "";
+        }
+      }, "fetchFile");
+      fetchText = /* @__PURE__ */ __name(async function(url, init, encoding) {
+        init = await makeInit(init);
+        console.log(url, init);
+        try {
+          const res = await fetch(url, init);
+          if (!res.ok) return "";
+          const arrayBuffer = await res.arrayBuffer();
+          const decoder = new TextDecoder(encoding);
+          return decoder.decode(arrayBuffer);
+        } catch (e2) {
+          return "";
+        }
+      }, "fetchText");
+      BYTE_MARK = BigInt((1 << 8) - 1);
+      fetchProto = /* @__PURE__ */ __name(async function(protoInit, url, init) {
+        const protoRoot = (0, import_protobufjs.parse)(protoInit.proto).root;
+        const RequestMessge = protoRoot.lookupType(protoInit.requestType);
+        if (RequestMessge.verify(protoInit.requestData)) {
+          throw new Error("Invalid Proto");
+        }
+        const encodedrequest = RequestMessge.encode(protoInit.requestData).finish();
+        const requestLength = BigInt(encodedrequest.length);
+        const headers = new Uint8Array(
+          Array(5).fill(0).map((v2, idx) => {
+            if (idx === 0) return 0;
+            return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
+          })
+        );
+        init = await makeInit(init);
+        const bodyArray = new Uint8Array(headers.length + encodedrequest.length);
+        bodyArray.set(headers, 0);
+        bodyArray.set(encodedrequest, headers.length);
+        return fetch(url, {
+          method: "POST",
+          ...init,
+          body: bodyArray
+        }).then((r2) => r2.arrayBuffer()).then((arr) => {
+          const payload = new Uint8Array(arr);
+          const length = Number(
+            BigInt(payload[1] << 24) | BigInt(payload[2] << 16) | BigInt(payload[3] << 8) | BigInt(payload[4])
+          );
+          const ResponseMessage = protoRoot.lookupType(protoInit.responseType);
+          return ResponseMessage.decode(payload.slice(5, 5 + length));
+        });
+      }, "fetchProto");
+    }
+  });
+
+  // src/libs/fetch.ts
+  var fetch_exports = {};
+  __export(fetch_exports, {
+    fetchApi: () => fetchApi,
+    fetchFile: () => fetchFile,
+    fetchProto: () => fetchProto,
+    fetchText: () => fetchText
+  });
+  var init_fetch2 = __esm({
+    "src/libs/fetch.ts"() {
+      "use strict";
+      init_fetch();
+    }
+  });
+
+  // src/libs/novelStatus.ts
+  var novelStatus_exports = {};
+  __export(novelStatus_exports, {
+    NovelStatus: () => NovelStatus
+  });
+  var init_novelStatus = __esm({
+    "src/libs/novelStatus.ts"() {
+      "use strict";
+      init_constants();
+    }
+  });
+
+  // node_modules/dayjs/dayjs.min.js
+  var require_dayjs_min = __commonJS({
+    "node_modules/dayjs/dayjs.min.js"(exports2, module2) {
+      !(function(t2, e2) {
+        "object" == typeof exports2 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
+      })(exports2, (function() {
+        "use strict";
+        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i = "second", s = "minute", u2 = "hour", a2 = "day", o2 = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $ = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
+          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
+          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
+        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
+          var r3 = String(t3);
+          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
+        }, "m"), v2 = { s: m, z: /* @__PURE__ */ __name(function(t3) {
+          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i2 = n3 % 60;
+          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i2, 2, "0");
+        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
+          if (e3.date() < n3.date()) return -t3(n3, e3);
+          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i2 = e3.clone().add(r3, c), s2 = n3 - i2 < 0, u3 = e3.clone().add(r3 + (s2 ? -1 : 1), c);
+          return +(-(r3 + (n3 - i2) / (s2 ? i2 - u3 : u3 - i2)) || 0);
+        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
+          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
+        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
+          return { M: c, y: h, w: o2, d: a2, D: d, h: u2, m: s, s: i, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
+        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
+          return void 0 === t3;
+        }, "u") }, g = "en", D = {};
+        D[g] = M;
+        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
+          return t3 instanceof _ || !(!t3 || !t3[p]);
+        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
+          var i2;
+          if (!e3) return g;
+          if ("string" == typeof e3) {
+            var s2 = e3.toLowerCase();
+            D[s2] && (i2 = s2), n3 && (D[s2] = n3, i2 = s2);
+            var u3 = e3.split("-");
+            if (!i2 && u3.length > 1) return t3(u3[0]);
+          } else {
+            var a3 = e3.name;
+            D[a3] = e3, i2 = a3;
+          }
+          return !r3 && i2 && (g = i2), i2 || !r3 && g;
+        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
+          if (S(t3)) return t3.clone();
+          var n3 = "object" == typeof e3 ? e3 : {};
+          return n3.date = t3, n3.args = arguments, new _(n3);
+        }, "O"), b2 = v2;
+        b2.l = w, b2.i = S, b2.w = function(t3, e3) {
+          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
+        };
+        var _ = (function() {
+          function M2(t3) {
+            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
+          }
+          __name(M2, "M");
+          var m2 = M2.prototype;
+          return m2.parse = function(t3) {
+            this.$d = (function(t4) {
+              var e3 = t4.date, n3 = t4.utc;
+              if (null === e3) return /* @__PURE__ */ new Date(NaN);
+              if (b2.u(e3)) return /* @__PURE__ */ new Date();
+              if (e3 instanceof Date) return new Date(e3);
+              if ("string" == typeof e3 && !/Z$/i.test(e3)) {
+                var r3 = e3.match($);
+                if (r3) {
+                  var i2 = r3[2] - 1 || 0, s2 = (r3[7] || "0").substring(0, 3);
+                  return n3 ? new Date(Date.UTC(r3[1], i2, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2)) : new Date(r3[1], i2, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2);
+                }
+              }
+              return new Date(e3);
+            })(t3), this.init();
+          }, m2.init = function() {
+            var t3 = this.$d;
+            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
+          }, m2.$utils = function() {
+            return b2;
+          }, m2.isValid = function() {
+            return !(this.$d.toString() === l2);
+          }, m2.isSame = function(t3, e3) {
+            var n3 = O(t3);
+            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
+          }, m2.isAfter = function(t3, e3) {
+            return O(t3) < this.startOf(e3);
+          }, m2.isBefore = function(t3, e3) {
+            return this.endOf(e3) < O(t3);
+          }, m2.$g = function(t3, e3, n3) {
+            return b2.u(t3) ? this[e3] : this.set(n3, t3);
+          }, m2.unix = function() {
+            return Math.floor(this.valueOf() / 1e3);
+          }, m2.valueOf = function() {
+            return this.$d.getTime();
+          }, m2.startOf = function(t3, e3) {
+            var n3 = this, r3 = !!b2.u(e3) || e3, f2 = b2.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
+              var i2 = b2.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
+              return r3 ? i2 : i2.endOf(a2);
+            }, "l"), $2 = /* @__PURE__ */ __name(function(t4, e4) {
+              return b2.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
+            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v3 = "set" + (this.$u ? "UTC" : "");
+            switch (f2) {
+              case h:
+                return r3 ? l3(1, 0) : l3(31, 11);
+              case c:
+                return r3 ? l3(1, M3) : l3(0, M3 + 1);
+              case o2:
+                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
+                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
+              case a2:
+              case d:
+                return $2(v3 + "Hours", 0);
+              case u2:
+                return $2(v3 + "Minutes", 1);
+              case s:
+                return $2(v3 + "Seconds", 2);
+              case i:
+                return $2(v3 + "Milliseconds", 3);
+              default:
+                return this.clone();
+            }
+          }, m2.endOf = function(t3) {
+            return this.startOf(t3, false);
+          }, m2.$set = function(t3, e3) {
+            var n3, o3 = b2.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s] = f2 + "Minutes", n3[i] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $2 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
+            if (o3 === c || o3 === h) {
+              var y2 = this.clone().set(d, 1);
+              y2.$d[l3]($2), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
+            } else l3 && this.$d[l3]($2);
+            return this.init(), this;
+          }, m2.set = function(t3, e3) {
+            return this.clone().$set(t3, e3);
+          }, m2.get = function(t3) {
+            return this[b2.p(t3)]();
+          }, m2.add = function(r3, f2) {
+            var d2, l3 = this;
+            r3 = Number(r3);
+            var $2 = b2.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
+              var e3 = O(l3);
+              return b2.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
+            }, "y");
+            if ($2 === c) return this.set(c, this.$M + r3);
+            if ($2 === h) return this.set(h, this.$y + r3);
+            if ($2 === a2) return y2(1);
+            if ($2 === o2) return y2(7);
+            var M3 = (d2 = {}, d2[s] = e2, d2[u2] = n2, d2[i] = t2, d2)[$2] || 1, m3 = this.$d.getTime() + r3 * M3;
+            return b2.w(m3, this);
+          }, m2.subtract = function(t3, e3) {
+            return this.add(-1 * t3, e3);
+          }, m2.format = function(t3) {
+            var e3 = this, n3 = this.$locale();
+            if (!this.isValid()) return n3.invalidDate || l2;
+            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i2 = b2.z(this), s2 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c2 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i3, s3) {
+              return t4 && (t4[n4] || t4(e3, r3)) || i3[n4].slice(0, s3);
+            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
+              return b2.s(s2 % 12 || 12, t4, "0");
+            }, "d"), $2 = f2 || function(t4, e4, n4) {
+              var r4 = t4 < 12 ? "AM" : "PM";
+              return n4 ? r4.toLowerCase() : r4;
+            };
+            return r3.replace(y, (function(t4, r4) {
+              return r4 || (function(t5) {
+                switch (t5) {
+                  case "YY":
+                    return String(e3.$y).slice(-2);
+                  case "YYYY":
+                    return b2.s(e3.$y, 4, "0");
+                  case "M":
+                    return a3 + 1;
+                  case "MM":
+                    return b2.s(a3 + 1, 2, "0");
+                  case "MMM":
+                    return h2(n3.monthsShort, a3, c2, 3);
+                  case "MMMM":
+                    return h2(c2, a3);
+                  case "D":
+                    return e3.$D;
+                  case "DD":
+                    return b2.s(e3.$D, 2, "0");
+                  case "d":
+                    return String(e3.$W);
+                  case "dd":
+                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
+                  case "ddd":
+                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
+                  case "dddd":
+                    return o3[e3.$W];
+                  case "H":
+                    return String(s2);
+                  case "HH":
+                    return b2.s(s2, 2, "0");
+                  case "h":
+                    return d2(1);
+                  case "hh":
+                    return d2(2);
+                  case "a":
+                    return $2(s2, u3, true);
+                  case "A":
+                    return $2(s2, u3, false);
+                  case "m":
+                    return String(u3);
+                  case "mm":
+                    return b2.s(u3, 2, "0");
+                  case "s":
+                    return String(e3.$s);
+                  case "ss":
+                    return b2.s(e3.$s, 2, "0");
+                  case "SSS":
+                    return b2.s(e3.$ms, 3, "0");
+                  case "Z":
+                    return i2;
+                }
+                return null;
+              })(t4) || i2.replace(":", "");
+            }));
+          }, m2.utcOffset = function() {
+            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
+          }, m2.diff = function(r3, d2, l3) {
+            var $2, y2 = this, M3 = b2.p(d2), m3 = O(r3), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
+              return b2.m(y2, m3);
+            }, "D");
+            switch (M3) {
+              case h:
+                $2 = D2() / 12;
+                break;
+              case c:
+                $2 = D2();
+                break;
+              case f:
+                $2 = D2() / 3;
+                break;
+              case o2:
+                $2 = (g2 - v3) / 6048e5;
+                break;
+              case a2:
+                $2 = (g2 - v3) / 864e5;
+                break;
+              case u2:
+                $2 = g2 / n2;
+                break;
+              case s:
+                $2 = g2 / e2;
+                break;
+              case i:
+                $2 = g2 / t2;
+                break;
+              default:
+                $2 = g2;
+            }
+            return l3 ? $2 : b2.a($2);
+          }, m2.daysInMonth = function() {
+            return this.endOf(c).$D;
+          }, m2.$locale = function() {
+            return D[this.$L];
+          }, m2.locale = function(t3, e3) {
+            if (!t3) return this.$L;
+            var n3 = this.clone(), r3 = w(t3, e3, true);
+            return r3 && (n3.$L = r3), n3;
+          }, m2.clone = function() {
+            return b2.w(this.$d, this);
+          }, m2.toDate = function() {
+            return new Date(this.valueOf());
+          }, m2.toJSON = function() {
+            return this.isValid() ? this.toISOString() : null;
+          }, m2.toISOString = function() {
+            return this.$d.toISOString();
+          }, m2.toString = function() {
+            return this.$d.toUTCString();
+          }, M2;
+        })(), k = _.prototype;
+        return O.prototype = k, [["$ms", r2], ["$s", i], ["$m", s], ["$H", u2], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach((function(t3) {
+          k[t3[1]] = function(e3) {
+            return this.$g(e3, t3[0], t3[1]);
+          };
+        })), O.extend = function(t3, e3) {
+          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
+        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
+          return O(1e3 * t3);
+        }, O.en = D[g], O.Ls = D, O.p = {}, O;
+      }));
+    }
+  });
+
+  // .js/plugins/russian/novelTL.js
+  var l = function(l2, e2, a2, u2) {
+    return new (a2 || (a2 = Promise))((function(v2, b2) {
+      function t2(l3) {
+        try {
+          r2(u2.next(l3));
+        } catch (l4) {
+          b2(l4);
+        }
+      }
+      __name(t2, "t");
+      function n2(l3) {
+        try {
+          r2(u2.throw(l3));
+        } catch (l4) {
+          b2(l4);
+        }
+      }
+      __name(n2, "n");
+      function r2(l3) {
+        var e3;
+        l3.done ? v2(l3.value) : (e3 = l3.value, e3 instanceof a2 ? e3 : new a2((function(l4) {
+          l4(e3);
+        }))).then(t2, n2);
+      }
+      __name(r2, "r");
+      r2((u2 = u2.apply(l2, e2 || [])).next());
+    }));
+  }, e = function(l2, e2) {
+    var a2, u2, v2, b2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & v2[0]) throw v2[1];
+      return v2[1];
+    }, "sent"), trys: [], ops: [] }, t2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return t2.next = n2(0), t2.throw = n2(1), t2.return = n2(2), "function" == typeof Symbol && (t2[Symbol.iterator] = function() {
+      return this;
+    }), t2;
+    function n2(n3) {
+      return function(r2) {
+        return (function(n4) {
+          if (a2) throw new TypeError("Generator is already executing.");
+          for (; t2 && (t2 = 0, n4[0] && (b2 = 0)), b2; ) try {
+            if (a2 = 1, u2 && (v2 = 2 & n4[0] ? u2.return : n4[0] ? u2.throw || ((v2 = u2.return) && v2.call(u2), 0) : u2.next) && !(v2 = v2.call(u2, n4[1])).done) return v2;
+            switch (u2 = 0, v2 && (n4 = [2 & n4[0], v2.value]), n4[0]) {
+              case 0:
+              case 1:
+                v2 = n4;
+                break;
+              case 4:
+                return b2.label++, { value: n4[1], done: false };
+              case 5:
+                b2.label++, u2 = n4[1], n4 = [0];
+                continue;
+              case 7:
+                n4 = b2.ops.pop(), b2.trys.pop();
+                continue;
+              default:
+                if (!(v2 = b2.trys, (v2 = v2.length > 0 && v2[v2.length - 1]) || 6 !== n4[0] && 2 !== n4[0])) {
+                  b2 = 0;
+                  continue;
+                }
+                if (3 === n4[0] && (!v2 || n4[1] > v2[0] && n4[1] < v2[3])) {
+                  b2.label = n4[1];
+                  break;
+                }
+                if (6 === n4[0] && b2.label < v2[1]) {
+                  b2.label = v2[1], v2 = n4;
+                  break;
+                }
+                if (v2 && b2.label < v2[2]) {
+                  b2.label = v2[2], b2.ops.push(n4);
+                  break;
+                }
+                v2[2] && b2.ops.pop(), b2.trys.pop();
+                continue;
+            }
+            n4 = e2.call(l2, b2);
+          } catch (l3) {
+            n4 = [6, l3], u2 = 0;
+          } finally {
+            a2 = v2 = 0;
+          }
+          if (5 & n4[0]) throw n4[1];
+          return { value: n4[0] ? n4[1] : void 0, done: true };
+        })([n3, r2]);
+      };
+    }
+    __name(n2, "n");
+  }, a = function(l2) {
+    return l2 && l2.__esModule ? l2 : { default: l2 };
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+  var u = (init_filterInputs(), __toCommonJS(filterInputs_exports)), v = (init_defaultCover(), __toCommonJS(defaultCover_exports)), b = (init_fetch2(), __toCommonJS(fetch_exports)), t = (init_novelStatus(), __toCommonJS(novelStatus_exports)), n = a(require_dayjs_min()), r = { active: t.NovelStatus.Ongoing, completed: t.NovelStatus.Completed, freezed: t.NovelStatus.OnHiatus, unknown: t.NovelStatus.Unknown }, o = (function() {
+    function a2() {
+      this.id = "TL", this.name = "NovelTL", this.site = "https://novel.tl", this.version = "1.0.1", this.icon = "src/ru/noveltl/icon.png", this.popularNovels = this.fetchNovels, this.resolveUrl = function(l2) {
+        return "https://" + l2;
+      }, this.filters = { tags: { label: "\u0422\u044D\u0433\u0438", value: [], options: [{ label: "\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B", value: "64" }, { label: "\u0410\u0433\u0440\u0435\u0441\u0441\u0438\u0432\u043D\u044B\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438", value: "26" }, { label: "\u0410\u0434", value: "338" }, { label: "\u0410\u0434\u0430\u043F\u0442\u0430\u0446\u0438\u044F \u043C\u0430\u043D\u0433\u0438", value: "8" }, { label: "\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F", value: "5" }, { label: "\u0410\u043A\u0442\u0451\u0440\u0441\u043A\u043E\u0435 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u043E", value: "7" }, { label: "\u0410\u043A\u0442\u0435\u0440\u044B \u043E\u0437\u0432\u0443\u0447\u043A\u0438", value: "746" }, { label: "\u0410\u043B\u0445\u0438\u043C\u0438\u044F", value: "27" }, { label: "\u0410\u043B\u044C\u0442\u0435\u0440\u043D\u0430\u0442\u0438\u0432\u043D\u0430\u044F \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C", value: "30" }, { label: "\u0410\u043C\u043D\u0435\u0437\u0438\u044F", value: "31" }, { label: "\u0410\u043D\u0430\u0431\u0438\u043E\u0437", value: "170" }, { label: "\u0410\u043D\u0430\u043B", value: "33" }, { label: "\u0410\u043D\u0433\u0435\u043B\u044B", value: "38" }, { label: "\u0410\u043D\u0434\u0440\u043E\u0438\u0434\u044B", value: "37" }, { label: "\u0410\u043D\u0442\u0438-\u0440\u043E\u0441\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430", value: "25" }, { label: "\u0410\u043D\u0442\u0438\u0433\u0435\u0440\u043E\u0439", value: "43" }, { label: "\u0410\u043D\u0442\u0438\u043A\u0432\u0430\u0440\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D", value: "44" }, { label: "\u0410\u043D\u0442\u0438\u043C\u0430\u0433\u0438\u044F", value: "41" }, { label: "\u0410\u043D\u0442\u0438\u0443\u0442\u043E\u043F\u0438\u044F", value: "225" }, { label: "\u0410\u043F\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "46" }, { label: "\u0410\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0441\u0438\u0441", value: "47" }, { label: "\u0410\u0440\u0438\u0441\u0442\u043E\u043A\u0440\u0430\u0442\u0438\u044F", value: "51" }, { label: "\u0410\u0440\u043C\u0438\u044F", value: "53" }, { label: "\u0410\u0440\u0442\u0435\u0444\u0430\u043A\u0442\u044B", value: "58" }, { label: "\u0410\u0441\u043E\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "42" }, { label: "\u0410\u0441\u0441\u0430\u0441\u0438\u043D\u044B", value: "61" }, { label: "\u0410\u0442\u043C\u043E\u0441\u0444\u0435\u0440\u0430 \u0415\u0432\u0440\u043E\u043F\u044B", value: "245" }, { label: "\u0411\u0430\u043D\u0434\u044B", value: "302" }, { label: "\u0411\u0414\u0421\u041C", value: "77" }, { label: "\u0411\u0435\u0434\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "541" }, { label: "\u0411\u0435\u0437\u0434\u0443\u0448\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "143" }, { label: "\u0411\u0435\u0437\u0437\u0430\u0431\u043E\u0442\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "115" }, { label: "\u0411\u0435\u0437\u043E\u0442\u0432\u0435\u0442\u043D\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "213" }, { label: "\u0411\u0435\u0437\u043E\u0442\u0432\u0435\u0442\u043D\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "740" }, { label: "\u0411\u0435\u0437\u0440\u0430\u0431\u043E\u0442\u043D\u044B\u0435", value: "377" }, { label: "\u0411\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0441\u0442\u044C", value: "551" }, { label: "\u0411\u0435\u0441\u043A\u043E\u0440\u044B\u0441\u0442\u043D\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "733" }, { label: "\u0411\u0435\u0441\u0441\u043C\u0435\u0440\u0442\u043D\u044B\u0435", value: "359" }, { label: "\u0411\u0435\u0441\u0441\u0442\u0440\u0430\u0448\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "274" }, { label: "\u0411\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0430", value: "393" }, { label: "\u0411\u0438\u043E\u0433\u0440\u0430\u0444\u0438\u044F", value: "86" }, { label: "\u0411\u043B\u0438\u0437\u043D\u0435\u0446\u044B", value: "729" }, { label: "\u0411\u043E\u0433\u0430\u0447\u0438", value: "753" }, { label: "\u0411\u043E\u0433\u0438", value: "318" }, { label: "\u0411\u043E\u0433\u0438\u043D\u0438", value: "316" }, { label: "\u0411\u043E\u0433\u043E\u043F\u043E\u0434\u043E\u0431\u043D\u044B\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "314" }, { label: "\u0411\u043E\u0435\u0432\u0430\u044F \u0430\u043A\u0430\u0434\u0435\u043C\u0438\u044F", value: "75" }, { label: "\u0411\u043E\u0435\u0432\u0430\u044F \u043F\u0430\u0440\u043E\u0447\u043A\u0430", value: "547" }, { label: "\u0411\u043E\u0436\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u0437\u0430\u0449\u0438\u0442\u0430", value: "208" }, { label: "\u0411\u043E\u0436\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u0441\u0438\u043B\u0430", value: "317" }, { label: "\u0411\u043E\u043B\u0435\u044E\u0449\u0438\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438", value: "648" }, { label: "\u0411\u043E\u0440\u044C\u0431\u0430 \u0437\u0430 \u0432\u043B\u0430\u0441\u0442\u044C", value: "548" }, { label: "\u0411\u0440\u0430\u043A \u043F\u043E \u0440\u0430\u0441\u0447\u0435\u0442\u0443", value: "55" }, { label: "\u0411\u0440\u0430\u0442\u0441\u0442\u0432\u043E", value: "106" }, { label: "\u0411\u0440\u0430\u0442\u044C\u044F \u0438\u043B\u0438 \u0441\u0451\u0441\u0442\u0440\u044B", value: "646" }, { label: "\u0411\u0440\u043E\u0448\u0435\u043D\u043D\u044B\u0435 \u0434\u0435\u0442\u0438", value: "1" }, { label: "\u0411\u044B\u0432\u0448\u0438\u0439 \u0433\u0435\u0440\u043E\u0439", value: "290" }, { label: "\u0412\u0430\u043C\u043F\u0438\u0440\u044B", value: "742" }, { label: "\u0412\u0430\u043D\u0448\u043E\u0442", value: "496" }, { label: "\u0412\u0434\u0430\u043B\u0438 \u043E\u0442 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439", value: "3" }, { label: "\u0412\u0435\u0434\u044C\u043C\u044B", value: "756" }, { label: "\u0412\u0435\u0437\u0443\u0447\u0438\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "411" }, { label: "\u0412\u0435\u0440\u043D\u044B\u0435 \u043F\u043E\u0434\u0434\u0430\u043D\u043D\u044B\u0435", value: "410" }, { label: "\u0412\u0435\u0440\u043E\u043B\u043E\u043C\u043D\u044B\u0435 \u0433\u0435\u0440\u043E\u0438/\u043F\u043B\u0435\u0442\u0435\u043D\u0438\u0435 \u0438\u043D\u0442\u0440\u0438\u0433", value: "424" }, { label: "\u0412\u0437\u0440\u043E\u0441\u043B\u0435\u043D\u0438\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430", value: "24" }, { label: "\u0412\u0438\u0434\u0438\u0442 \u0442\u043E, \u0447\u0435\u0433\u043E \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u043B\u044E\u0434 \u043D\u0435 \u0432 \u0441\u0438\u043B\u0430\u0445", value: "617" }, { label: "\u0412\u0438\u0440\u0442\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C", value: "744" }, { label: "\u0412\u043B\u0430\u0434\u0435\u043B\u0435\u0446 \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430", value: "677" }, { label: "\u0412\u043B\u0430\u0434\u0435\u043B\u0435\u0446 \u0443\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043E\u0440\u0443\u0436\u0438\u044F", value: "736" }, { label: "\u0412\u043B\u0430\u0441\u0442\u043D\u044B\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438", value: "545" }, { label: "\u0412\u043B\u0438\u044F\u043D\u0438\u0435 \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E", value: "517" }, { label: "\u0412\u043D\u0435\u0437\u0430\u043F\u043D\u043E\u0435 \u043E\u0431\u043E\u0433\u0430\u0449\u0435\u043D\u0438\u0435", value: "691" }, { label: "\u0412\u043D\u0435\u0437\u0430\u043F\u043D\u043E\u0435 \u043E\u0431\u0440\u0435\u0442\u0435\u043D\u0438\u0435 \u0441\u0438\u043B\u044B", value: "690" }, { label: "\u0412\u043E\u0435\u043D\u043D\u044B\u0435 \u0445\u0440\u043E\u043D\u0438\u043A\u0438", value: "749" }, { label: "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0435\u043D\u0438\u0435 \u0432 \u0440\u043E\u0434\u043D\u043E\u0439 \u043C\u0438\u0440", value: "587" }, { label: "\u0412\u043E\u0439\u043D\u0430", value: "750" }, { label: "\u0412\u043E\u043A\u0430\u043B\u043E\u0438\u0434", value: "745" }, { label: "\u0412\u043E\u043B\u0448\u0435\u0431\u043D\u044B\u0435 \u0442\u0432\u0430\u0440\u0438", value: "413" }, { label: "\u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435", value: "586" }, { label: "\u0412\u043E\u0441\u043F\u0438\u0442\u0430\u043D\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "537" }, { label: "\u0412\u043E\u0441\u043F\u043E\u043C\u0438\u043D\u0430\u043D\u0438\u044F \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E", value: "283" }, { label: "\u0412\u0440\u0430\u0433\u0438 \u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0442\u0441\u044F \u0441\u043E\u044E\u0437\u043D\u0438\u043A\u0430\u043C\u0438", value: "238" }, { label: "\u0412\u0440\u0430\u0442\u0430 \u0432 \u0438\u043D\u043E\u0439 \u043C\u0438\u0440", value: "303" }, { label: "\u0412\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439 \u043F\u0430\u0440\u0430\u0434\u043E\u043A\u0441", value: "711" }, { label: "\u0412\u0442\u043E\u0440\u0436\u0435\u043D\u0438\u0435 \u043D\u0430 \u0417\u0435\u043C\u043B\u044E", value: "228" }, { label: "\u0412\u0442\u043E\u0440\u043E\u0439 \u0448\u0430\u043D\u0441", value: "608" }, { label: "\u0412\u044B\u0436\u0438\u0432\u0430\u043D\u0438\u0435", value: "695" }, { label: "\u0412\u044B\u043D\u0443\u0436\u0434\u0435\u043D\u043D\u044B\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u044F \u043F\u0440\u043E\u0436\u0438\u0432\u0430\u043D\u0438\u044F", value: "287" }, { label: "\u0412\u044B\u0441\u043E\u043A\u043E\u043C\u0435\u0440\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "56" }, { label: "\u0413\u0430\u0434\u0430\u043D\u0438\u0435", value: "207" }, { label: "\u0413\u0430\u043B\u043B\u044E\u0446\u0438\u043D\u0430\u0446\u0438\u0438", value: "189" }, { label: "\u0413\u0430\u0440\u0435\u043C \u0440\u0430\u0431\u043E\u0432", value: "656" }, { label: "\u0413\u0435\u0439\u043C\u0435\u0440\u044B", value: "301" }, { label: "\u0413\u0435\u043D\u0435\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438", value: "306" }, { label: "\u0413\u0435\u0440\u043E\u0438", value: "341" }, { label: "\u0413\u0435\u0440\u043E\u0438 \u043D\u0435\u043F\u043E\u043D\u044F\u0442\u043D\u043E\u0433\u043E \u043F\u043E\u043B\u0430", value: "36" }, { label: "\u0413\u0435\u0440\u043E\u0438\u043D\u044F \u0434\u0435\u0432\u0443\u0448\u043A\u0430-\u0441\u043E\u0440\u0432\u0430\u043D\u0435\u0446", value: "715" }, { label: "\u0413\u0435\u0440\u043E\u0438\u043D\u044F \u043A\u0440\u0430\u0441\u0430\u0432\u0438\u0446\u0430", value: "81" }, { label: "\u0413\u0435\u0440\u043E\u0439 \u0432\u043B\u044E\u0431\u043B\u044F\u0435\u0442\u0441\u044F \u043F\u0435\u0440\u0432\u044B\u043C", value: "561" }, { label: "\u0413\u0435\u0440\u043E\u0439 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u0449\u0438\u0442", value: "636" }, { label: "\u0413\u0435\u0440\u043E\u0439 \u043A\u0440\u0430\u0441\u0430\u0432\u0435\u0446", value: "329" }, { label: "\u0413\u0435\u0440\u043E\u0439 \u0441\u043E \u043C\u043D\u043E\u0436\u0435\u0441\u0442\u0432\u043E\u043C \u0442\u0435\u043B", value: "564" }, { label: "\u0413\u0435\u0440\u043E\u0439-\u0431\u0435\u0441\u0441\u0442\u044B\u0434\u043D\u0438\u043A", value: "632" }, { label: "\u0413\u0435\u0440\u043E\u0439-\u0438\u0437\u0432\u0440\u0430\u0449\u0435\u043D\u0435\u0446", value: "521" }, { label: "\u0413\u0435\u0440\u043E\u0439-\u0442\u0440\u0443\u0434\u044F\u0433\u0430", value: "330" }, { label: "\u0413\u0435\u0440\u043E\u0439-\u044F\u043D\u0434\u0435\u0440\u0435", value: "421" }, { label: "\u0413\u0435\u0442\u0435\u0440\u043E\u0445\u0440\u043E\u043C\u0438\u044F", value: "342" }, { label: "\u0413\u0438\u043B\u044C\u0434\u0438\u0438", value: "324" }, { label: "\u0413\u0438\u043F\u0435\u0440\u043E\u043F\u0435\u043A\u0430", value: "509" }, { label: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u0433\u0435\u0440\u043E\u0438\u043D\u044F \u2014 \u0436\u0435\u043D\u0449\u0438\u043D\u0430", value: "277" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 - \u0433\u0435\u043D\u0438\u0439", value: "308" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 - \u041C\u043E\u0431", value: "446" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u2014 \u0437\u043D\u0430\u043C\u0435\u043D\u0438\u0442\u043E\u0441\u0442\u044C", value: "263" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u2014 \u043C\u0443\u0436\u0447\u0438\u043D\u0430", value: "419" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u0432 \u043F\u043E\u0438\u0441\u043A\u0430\u0445 \u0433\u0430\u0440\u0435\u043C\u0430", value: "331" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u0437\u0430\u0440\u0430\u043D\u0435\u0435 \u0433\u043E\u0442\u043E\u0432\u0438\u0442\u0441\u044F", value: "557" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u043D\u0435 \u0447\u0435\u043B\u043E\u0432\u0435\u043A", value: "488" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u043F\u0440\u0438\u0451\u043C\u043D\u044B\u0439", value: "20" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u0441\u0440\u0430\u0437\u0443 \u0441\u0438\u043B\u0451\u043D", value: "563" }, { label: "\u0413\u043B\u0430\u0434\u0438\u0430\u0442\u043E\u0440\u044B", value: "310" }, { label: "\u0413\u043B\u0443\u0445\u043E\u0439 \u043A \u043B\u044E\u0431\u0432\u0438 \u0433\u0435\u0440\u043E\u0439", value: "194" }, { label: "\u0413\u043E\u0431\u043B\u0438\u043D\u044B", value: "313" }, { label: "\u0413\u043E\u043B\u0435\u043C\u044B", value: "319" }, { label: "\u0413\u043E\u043C\u0443\u043D\u043A\u0443\u043B", value: "347" }, { label: "\u0413\u043E\u0440\u043D\u0438\u0447\u043D\u044B\u0435", value: "418" }, { label: "\u0413\u043E\u0441\u0443\u0434\u0430\u0440\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0435 \u0438\u043D\u0442\u0440\u0438\u0433\u0438", value: "212" }, { label: "\u0413\u0440\u0438\u043D\u0434", value: "322" }, { label: "\u0414\u0430\u0432\u043D\u044F\u044F \u0442\u0440\u0430\u0432\u043C\u0430", value: "518" }, { label: "\u0414\u0432\u043E\u0439\u043D\u0438\u043A", value: "97" }, { label: "\u0414\u0432\u043E\u0440\u0435\u0446\u043A\u0438\u0435", value: "111" }, { label: "\u0414\u0432\u043E\u0440\u0444\u044B", value: "224" }, { label: "\u0414\u0432\u043E\u0440\u044F\u043D\u0435", value: "487" }, { label: "\u0414\u0432\u043E\u044E\u0440\u043E\u0434\u043D\u044B\u0435 \u0431\u0440\u0430\u0442\u044C\u044F \u0438\u043B\u0438 \u0441\u0451\u0441\u0442\u0440\u044B", value: "162" }, { label: "\u0414\u0435\u0432\u043E\u0447\u043A\u0438-\u0432\u043E\u043B\u0448\u0435\u0431\u043D\u0438\u0446\u044B", value: "415" }, { label: "\u0414\u0435\u043C\u043E\u043D\u044B", value: "193" }, { label: "\u0414\u0435\u043F\u0440\u0435\u0441\u0441\u0438\u044F", value: "196" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "198" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432\u043D\u043E\u0435 \u0440\u0430\u0441\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u0435", value: "473" }, { label: "\u0414\u0435\u0442\u0441\u043A\u043E\u0435 \u043D\u0430\u0441\u0438\u043B\u0438\u0435", value: "125" }, { label: "\u0414\u0435\u0442\u0441\u043A\u043E\u0435 \u043E\u0431\u0435\u0449\u0430\u043D\u0438\u0435", value: "130" }, { label: "\u0414\u0438\u0441\u043A\u0440\u0438\u043C\u0438\u043D\u0430\u0446\u0438\u044F", value: "203" }, { label: "\u0414\u043B\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0440\u0430\u0437\u0440\u044B\u0432 \u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0439", value: "400" }, { label: "\u0414\u043E\u043C\u0430\u0448\u043D\u044F\u044F \u0436\u0438\u0437\u043D\u044C", value: "45" }, { label: "\u0414\u0440\u0430\u043A\u043E\u043D\u044B", value: "218" }, { label: "\u0414\u0440\u0435\u0432\u043D\u0438\u0439 \u041A\u0438\u0442\u0430\u0439", value: "34" }, { label: "\u0414\u0440\u0443\u0436\u0431\u0430", value: "293" }, { label: "\u0414\u0440\u0443\u0437\u044C\u044F \u0434\u0435\u0442\u0441\u0442\u0432\u0430", value: "128" }, { label: "\u0414\u0440\u0443\u0437\u044C\u044F \u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0442\u0441\u044F \u0432\u0440\u0430\u0433\u0430\u043C\u0438", value: "292" }, { label: "\u0414\u0443\u0445\u0438", value: "673" }, { label: "\u0414\u0443\u0445\u043E\u0432\u043D\u0430\u044F \u0441\u0438\u043B\u0430", value: "665" }, { label: "\u0414\u0443\u0445\u043E\u0432\u043D\u044B\u0439 \u043D\u0430\u0441\u0442\u0430\u0432\u043D\u0438\u043A", value: "671" }, { label: "\u0414\u0443\u0448\u0435\u0449\u0438\u043F\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F", value: "335" }, { label: "\u0414\u0443\u0448\u0438", value: "666" }, { label: "\u0414\u044C\u044F\u0432\u043E\u043B\u044C\u0441\u043A\u0438\u0439 \u043F\u0443\u0442\u044C \u043A\u0443\u043B\u044C\u0442\u0438\u0432\u0430\u0446\u0438\u0438", value: "192" }, { label: "\u0401\u043A\u0430\u0439", value: "763" }, { label: "\u0415\u0441\u0442\u044C \u0430\u043D\u0438\u043C\u0435-\u0430\u0434\u0430\u043F\u0442\u0430\u0446\u0438\u044F", value: "10" }, { label: "\u0415\u0441\u0442\u044C \u0432\u0438\u0434\u0435\u043E\u0438\u0433\u0440\u0430", value: "13" }, { label: "\u0415\u0441\u0442\u044C \u0434\u043E\u0440\u0430\u043C\u0430-\u0430\u0434\u0430\u043F\u0442\u0430\u0446\u0438\u044F", value: "11" }, { label: "\u0415\u0441\u0442\u044C \u043C\u0430\u043D\u0433\u0430-\u0430\u0434\u0430\u043F\u0442\u0430\u0446\u0438\u044F", value: "14" }, { label: "\u0415\u0441\u0442\u044C \u043C\u0430\u043D\u0445\u0432\u0430-\u0430\u0434\u0430\u043F\u0442\u0430\u0446\u0438\u044F", value: "16" }, { label: "\u0415\u0441\u0442\u044C \u043C\u0430\u043D\u044C\u0445\u0443\u0430-\u0430\u0434\u0430\u043F\u0442\u0430\u0446\u0438\u044F", value: "15" }, { label: "\u0415\u0441\u0442\u044C \u0444\u0438\u043B\u044C\u043C", value: "17" }, { label: "\u0415\u0441\u0442\u044C CD \u0434\u043E\u0440\u0430\u043C\u0430-\u0430\u0434\u0430\u043F\u0442\u0430\u0446\u0438\u044F", value: "12" }, { label: "\u0416\u0451\u0441\u0442\u043A\u0438\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "597" }, { label: "\u0416\u0435\u0441\u0442\u043E\u043A\u0438\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438", value: "4" }, { label: "\u0416\u0451\u0441\u0442\u043E\u043A\u0438\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438", value: "169" }, { label: "\u0416\u0438\u0432\u043E\u0442\u043D\u043E\u0435-\u0441\u043F\u0443\u0442\u043D\u0438\u043A", value: "78" }, { label: "\u0416\u0438\u0437\u043D\u044C \u0432 \u043E\u0434\u0438\u043D\u043E\u0447\u043A\u0443", value: "396" }, { label: "\u0416\u0440\u0435\u0446\u044B", value: "555" }, { label: "\u0416\u0440\u0438\u0446\u044B", value: "554" }, { label: "\u0417\u0430\u0431\u043E\u0442\u0430 \u043E \u0434\u0435\u0442\u044F\u0445", value: "127" }, { label: "\u0417\u0430\u0431\u043E\u0442\u043B\u0438\u0432\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "116" }, { label: "\u0417\u0430\u0433\u0430\u0434\u043E\u0447\u043D\u043E\u0435 \u0437\u0430\u0431\u043E\u043B\u0435\u0432\u0430\u043D\u0438\u0435", value: "471" }, { label: "\u0417\u0430\u0433\u0430\u0434\u043E\u0447\u043D\u043E\u0435 \u043F\u0440\u043E\u0448\u043B\u043E\u0435 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439", value: "470" }, { label: "\u0417\u0430\u0433\u043E\u0432\u043E\u0440\u044B", value: "154" }, { label: "\u0417\u0430\u043A\u0430\u043B\u043A\u0430 \u0442\u0435\u043B\u0430", value: "96" }, { label: "\u0417\u0430\u043A\u043E\u043D \u0434\u0436\u0443\u043D\u0433\u043B\u0435\u0439", value: "682" }, { label: "\u0417\u0430\u043A\u0443\u043B\u0438\u0441\u043D\u0430\u044F \u0431\u043E\u0440\u0431\u0430", value: "603" }, { label: "\u0417\u0430\u043C\u043A\u043D\u0443\u0442\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "371" }, { label: "\u0417\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u043D\u043D\u0430\u044F \u0441\u0438\u043B\u0430", value: "607" }, { label: "\u0417\u0430\u0442\u0432\u043E\u0440\u043D\u0438\u043A", value: "346" }, { label: "\u0417\u0432\u0435\u0440\u0438", value: "80" }, { label: "\u0417\u0432\u0435\u0440\u043E\u043B\u044E\u0434\u0438", value: "39" }, { label: "\u0417\u0432\u0435\u0440\u043E\u043F\u043E\u0434\u043E\u0431\u043D\u044B\u0435", value: "79" }, { label: "\u0417\u0435\u043C\u043B\u0435\u0434\u0435\u043B\u0438\u0435", value: "268" }, { label: "\u0417\u043B\u043E\u0431\u043D\u044B\u0435 \u0431\u043B\u0430\u0433\u043E\u0440\u043E\u0434\u043D\u044B\u0435 \u0434\u0435\u0432\u044B", value: "743" }, { label: "\u0417\u043B\u043E\u0432\u0435\u0449\u0438\u0435 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u0430\u0446\u0438\u0438", value: "247" }, { label: "\u0417\u043B\u043E\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "248" }, { label: "\u0417\u043B\u044B\u0435 \u0431\u043E\u0433\u0438", value: "246" }, { label: "\u0417\u043B\u044B\u0435 \u0440\u0435\u043B\u0438\u0433\u0438\u0438", value: "249" }, { label: "\u0417\u043D\u0430\u043C\u0435\u043D\u0438\u0442\u043E\u0441\u0442\u0438", value: "118" }, { label: "\u0417\u043D\u0430\u043D\u0438\u044F \u0438\u0437 \u043F\u0440\u043E\u0448\u043B\u043E\u0439 \u0436\u0438\u0437\u043D\u0438", value: "553" }, { label: "\u0417\u043E\u043C\u0431\u0438", value: "767" }, { label: "\u0418\u0433\u0440\u0430 \u043D\u0430 \u0432\u044B\u0436\u0438\u0432\u0430\u043D\u0438\u0435", value: "696" }, { label: "\u0418\u0433\u0440\u043E\u0432\u0430\u044F \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430", value: "300" }, { label: "\u0418\u0437 \u0433\u0440\u044F\u0437\u0438 \u0432 \u043A\u043D\u044F\u0437\u0438", value: "542" }, { label: "\u0418\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0435 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u0438", value: "262" }, { label: "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0432\u043D\u0435\u0448\u043D\u0435\u0433\u043E \u0432\u0438\u0434\u0430", value: "48" }, { label: "\u0418\u0437\u043D\u0430\u0441\u0438\u043B\u043E\u0432\u0430\u043D\u0438\u0435", value: "574" }, { label: "\u0418\u043D\u0432\u0430\u043B\u0438\u0434\u043D\u043E\u0441\u0442\u044C", value: "202" }, { label: "\u0418\u043D\u0434\u0443\u0441\u0442\u0440\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F", value: "364" }, { label: "\u0418\u043D\u0436\u0435\u043D\u0435\u0440", value: "241" }, { label: "\u0418\u043D\u0446\u0435\u0441\u0442", value: "361" }, { label: "\u0418\u0441\u043A\u0430\u0436\u0451\u043D\u043D\u0430\u044F \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u044C", value: "730" }, { label: "\u0418\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439 \u0438\u043D\u0442\u0435\u043B\u043B\u0435\u043A\u0442", value: "59" }, { label: "\u0418\u0441\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435 \u0436\u0435\u043B\u0430\u043D\u0438\u0439", value: "755" }, { label: "\u041A\u0430\u043D\u043D\u0438\u0431\u0430\u043B\u0438\u0437\u043C", value: "113" }, { label: "\u041A\u0430\u0440\u0442\u043E\u0447\u043D\u044B\u0435 \u0438\u0433\u0440\u044B", value: "114" }, { label: "\u041A\u043B\u0430\u0434\u0431\u0438\u0449\u0435\u043D\u0441\u043A\u0438\u0439 \u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435\u043B\u044C", value: "321" }, { label: "\u041A\u043B\u0430\u0441\u0441\u0438\u043A\u0430", value: "134" }, { label: "\u041A\u043D\u0438\u0433\u0438", value: "99" }, { label: "\u041A\u043D\u0438\u0433\u0438 \u043D\u0430\u0432\u044B\u043A\u043E\u0432", value: "654" }, { label: "\u041A\u043D\u0438\u0436\u043D\u044B\u0439 \u0447\u0435\u0440\u0432\u044C", value: "100" }, { label: "\u041A\u043E\u043B\u043B\u0435\u0433\u0438", value: "140" }, { label: "\u041A\u043E\u043B\u043B\u0435\u0434\u0436/\u0423\u043D\u0438\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442", value: "145" }, { label: "\u041A\u043E\u043C\u0430\u043D\u0434\u043D\u0430\u044F \u0440\u0430\u0431\u043E\u0442\u0430", value: "701" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0438\u0439\u043D\u044B\u0439 \u043F\u043E\u0434\u0442\u0435\u043A\u0441\u0442", value: "147" }, { label: "\u041A\u043E\u043C\u043F\u043B\u0435\u043A\u0441 \u0431\u0440\u0430\u0442\u0430", value: "105" }, { label: "\u041A\u043E\u043C\u043F\u043B\u0435\u043A\u0441 \u043D\u0435\u043F\u043E\u043B\u043D\u043E\u0446\u0435\u043D\u043D\u043E\u0441\u0442\u0438", value: "365" }, { label: "\u041A\u043E\u043D\u0442\u0440\u0430\u043A\u0442\u044B", value: "155" }, { label: "\u041A\u043E\u043D\u0442\u0440\u043E\u043B\u044C \u0440\u0430\u0437\u0443\u043C\u0430", value: "441" }, { label: "\u041A\u043E\u043D\u0444\u043B\u0438\u043A\u0442 \u0432 \u0441\u0435\u043C\u044C\u0435", value: "261" }, { label: "\u041A\u043E\u043D\u0444\u043B\u0438\u043A\u0442 \u0432\u0435\u0440\u043D\u043E\u0441\u0442\u0438", value: "153" }, { label: "\u041A\u043E\u043F\u0435\u0439\u0449\u0438\u043A", value: "668" }, { label: "\u041A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u043A\u0430\u044F \u043E\u0441\u043E\u0431\u0430", value: "596" }, { label: "\u041A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u0442\u0432\u0430", value: "382" }, { label: "\u041A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u0440\u0430\u0441\u0441\u043A\u0430\u0437", value: "638" }, { label: "\u041A\u043E\u0440\u0440\u0443\u043F\u0446\u0438\u044F", value: "157" }, { label: "\u041A\u043E\u0441\u043C\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0412\u043E\u0439\u043D\u044B", value: "158" }, { label: "\u041A\u043E\u0441\u043C\u043E\u0441", value: "507" }, { label: "\u041A\u043E\u0441\u043F\u043B\u0435\u0439", value: "159" }, { label: "\u041A\u0440\u0430\u0436\u0430 \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0435\u0439", value: "2" }, { label: "\u041A\u0440\u0430\u0444\u0442\u0438\u043D\u0433", value: "164" }, { label: "\u041A\u0440\u0438\u0437\u0438\u0441 \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u0438", value: "357" }, { label: "\u041A\u0440\u043E\u0432\u044C", value: "320" }, { label: "\u041A\u0440\u0443\u0436\u043A\u0438, \u043A\u043B\u0443\u0431\u044B", value: "138" }, { label: "\u041A\u0443\u0434\u044D\u0440\u044D", value: "384" }, { label: "\u041A\u0443\u0437\u043D\u0435\u0446", value: "90" }, { label: "\u041A\u0443\u043A\u043B\u043E\u0432\u043E\u0434\u044B", value: "567" }, { label: "\u041A\u0443\u043A\u043B\u044B/\u041C\u0430\u0440\u0438\u043E\u043D\u0435\u0442\u043A\u0438", value: "211" }, { label: "\u041A\u0443\u043B\u0438\u043D\u0430\u0440\u0438\u044F", value: "156" }, { label: "\u041A\u0443\u043B\u044C\u0442\u0438\u0432\u0430\u0446\u0438\u044F", value: "171" }, { label: "\u041A\u0443\u043D\u043D\u0438\u043B\u0438\u043D\u0433\u0443\u0441", value: "172" }, { label: "\u041B\u0435\u0433\u0435\u043D\u0434\u044B", value: "391" }, { label: "\u041B\u0435\u0433\u043A\u0430\u044F \u0436\u0438\u0437\u043D\u044C", value: "229" }, { label: "\u041B\u0435\u043A\u0430\u0440\u0438", value: "334" }, { label: "\u041B\u0435\u043D\u0438\u0432\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "389" }, { label: "\u041B\u0438\u0434\u0435\u0440\u0441\u0442\u0432\u043E", value: "390" }, { label: "\u041B\u044E\u0431\u0438\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430 \u043C\u043B\u0430\u0434\u0448\u0435 \u0441\u0435\u0431\u044F", value: "765" }, { label: "\u041B\u044E\u0431\u0438\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430 \u0441\u0442\u0430\u0440\u0448\u0435 \u0441\u0435\u0431\u044F", value: "494" }, { label: "\u041B\u044E\u0431\u043E\u0432\u043D\u043E\u0435 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u0447\u0435\u0441\u0442\u0432\u043E", value: "406" }, { label: "\u041B\u044E\u0431\u043E\u0432\u043D\u044B\u0435 \u0442\u0440\u0435\u0443\u0433\u043E\u043B\u044C\u043D\u0438\u043A\u0438", value: "407" }, { label: "\u041B\u044E\u0431\u043E\u0432\u044C \u0434\u0435\u0442\u0441\u0442\u0432\u0430", value: "129" }, { label: "\u041B\u044E\u0431\u043E\u0432\u044C \u0441 \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0432\u0437\u0433\u043B\u044F\u0434\u0430", value: "404" }, { label: "\u041B\u044E\u0431\u044F\u0449\u0438\u0435 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u0438", value: "215" }, { label: "\u041C\u0430\u0433\u0438", value: "757" }, { label: "\u041C\u0430\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0442\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438\u0438", value: "417" }, { label: "\u041C\u0430\u0433\u0438\u044F", value: "412" }, { label: "\u041C\u0430\u0433\u0438\u044F \u043F\u0440\u0438\u0437\u044B\u0432\u0430", value: "694" }, { label: "\u041C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0435 \u0434\u0435\u0432\u043E\u0447\u043A\u0438", value: "397" }, { label: "\u041C\u0430\u043D\u0433\u0430\u043A\u0430", value: "423" }, { label: "\u041C\u0430\u043D\u0438\u0430\u043A\u0430\u043B\u044C\u043D\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "492" }, { label: "\u041C\u0430\u0440\u0442\u0438 \u0421\u044C\u044E", value: "508" }, { label: "\u041C\u0430\u0441\u0442\u0435\u0440 \u043F\u043E\u0434\u0437\u0435\u043C\u0435\u043B\u0438\u0439", value: "222" }, { label: "\u041C\u0430\u0441\u0442\u0443\u0440\u0431\u0430\u0446\u0438\u044F", value: "432" }, { label: "\u041C\u0430\u0442\u0440\u0438\u0430\u0440\u0445\u0430\u0442", value: "433" }, { label: "\u041C\u0435\u0436\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0435 \u043F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F", value: "370" }, { label: "\u041C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442", value: "422" }, { label: "\u041C\u0435\u0441\u0442\u044C", value: "588" }, { label: "\u041C\u0435\u0447\u0438 \u0438 \u043C\u0430\u0433\u0438\u044F", value: "697" }, { label: "\u041C\u0435\u0447\u043D\u0438\u043A\u0438", value: "698" }, { label: "\u041C\u0438\u043B\u0435\u043D\u044C\u043A\u0438\u0435 \u0434\u0435\u0442\u0438", value: "176" }, { label: "\u041C\u0438\u043B\u0438\u0442\u0430\u0440\u0438\u0437\u043C", value: "439" }, { label: "\u041C\u0438\u043B\u043E\u0432\u0438\u0434\u043D\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F", value: "178" }, { label: "\u041C\u0438\u043B\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "177" }, { label: "\u041C\u0438\u043D\u0435\u0442", value: "275" }, { label: "\u041C\u0438\u0440\u043E\u0432\u043E\u0435 \u0434\u0440\u0435\u0432\u043E", value: "760" }, { label: "\u041C\u0438\u0440\u043E\u043B\u044E\u0431\u0438\u0432\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "510" }, { label: "\u041C\u0438\u0444\u043E\u043B\u043E\u0433\u0438\u044F", value: "475" }, { label: "\u041C\u043B\u0430\u0434\u0448\u0438\u0435 \u0441\u0451\u0441\u0442\u0440\u044B", value: "766" }, { label: "\u041C\u041C\u041E\u0420\u041F\u0413", value: "445" }, { label: "\u041C\u043D\u043E\u0436\u0435\u0441\u0442\u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0445 \u043B\u0438\u043D\u0438\u0439", value: "463" }, { label: "\u041C\u043E\u0434\u0435\u043B\u0438", value: "447" }, { label: "\u041C\u043E\u043B\u043E\u0434 \u043D\u0435 \u043F\u043E \u0433\u043E\u0434\u0430\u043C", value: "49" }, { label: "\u041C\u043E\u043D\u0441\u0442\u0440\u044B", value: "454" }, { label: "\u041C\u0440\u0430\u0447\u043D\u043E\u0441\u0442\u044C", value: "183" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "466" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430\u043B\u044C\u043D\u044B\u0435 \u0433\u0440\u0443\u043F\u043F\u044B", value: "68" }, { label: "\u041C\u0443\u0442\u0430\u0446\u0438\u0438", value: "468" }, { label: "\u041D\u0430 \u0432\u043E\u043B\u043E\u0441\u043E\u043A \u043E\u0442 \u0441\u043C\u0435\u0440\u0442\u0438", value: "479" }, { label: "\u041D\u0430 \u0432\u0441\u0435 \u0440\u0443\u043A\u0438 \u043C\u0430\u0441\u0442\u0435\u0440", value: "374" }, { label: "\u041D\u0430\u0432\u044B\u043A\u0438 \u0438\u043C\u0435\u044E\u0442 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C", value: "150" }, { label: "\u041D\u0430\u0433\u043E\u0442\u0430", value: "490" }, { label: "\u041D\u0430\u0435\u0437\u0434\u043D\u0438\u043A\u0438 \u043D\u0430 \u0434\u0440\u0430\u043A\u043E\u043D\u0430\u0445", value: "216" }, { label: "\u041D\u0430\u0451\u043C\u043D\u0438\u043A\u0438", value: "437" }, { label: "\u041D\u0430\u0438\u0432\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "476" }, { label: "\u041D\u0430\u0441\u043B\u0435\u0434\u0438\u0435", value: "366" }, { label: "\u041D\u0430\u0441\u0442\u043E\u044F\u0449\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "200" }, { label: "\u041D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u0439 \u0433\u0430\u0440\u0435\u043C", value: "540" }, { label: "\u041D\u0435\u0431\u0435\u0441\u043D\u043E\u0435 \u0438\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u0435", value: "337" }, { label: "\u041D\u0435\u0432\u0435\u0437\u0443\u0447\u0438\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "738" }, { label: "\u041D\u0435\u0434\u043E\u0432\u0435\u0440\u0447\u0438\u0432\u044B\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "206" }, { label: "\u041D\u0435\u0434\u043E\u043E\u0446\u0435\u043D\u0435\u043D\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "734" }, { label: "\u041D\u0435\u0434\u043E\u043F\u043E\u043D\u0438\u043C\u0430\u043D\u0438\u0435", value: "444" }, { label: "\u041D\u0435\u043A\u0440\u043E\u043C\u0430\u043D\u0442", value: "480" }, { label: "\u041D\u0435\u043B\u0438\u043D\u0435\u0439\u043D\u043E\u0435 \u043F\u043E\u0432\u0435\u0441\u0442\u0432\u043E\u0432\u0430\u043D\u0438\u0435", value: "489" }, { label: "\u041D\u0435\u043B\u043E\u0432\u043A\u0438\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "67" }, { label: "\u041D\u0435\u043B\u044E\u0431\u0438\u043C\u044B\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "333" }, { label: "\u041D\u0435\u043C\u043E\u0439 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436", value: "469" }, { label: "\u041D\u0435\u043D\u0430\u0434\u0435\u0436\u043D\u044B\u0439 \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0447\u0438\u043A", value: "739" }, { label: "\u041D\u0435\u043F\u0440\u0438\u043C\u0435\u0447\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "65" }, { label: "\u041D\u0435\u0440\u0435\u0448\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "363" }, { label: "\u041D\u0435\u0441\u0433\u0438\u0431\u0430\u0435\u043C\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "676" }, { label: "\u041D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0433\u043B\u0430\u0432\u043D\u044B\u0445 \u0433\u0435\u0440\u043E\u0435\u0432", value: "460" }, { label: "\u041D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043C\u0438\u0440\u043E\u0432", value: "461" }, { label: "\u041D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043F\u0435\u0440\u0435\u0440\u043E\u0436\u0434\u0435\u043D\u0446\u0435\u0432", value: "462" }, { label: "\u041D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043F\u043E\u043F\u0430\u0434\u0430\u043D\u0446\u0435\u0432", value: "464" }, { label: "\u041D\u0435\u0441\u0440\u0430\u0432\u043D\u0435\u043D\u043D\u0430\u044F \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u043A\u0443\u043B\u044C\u0442\u0438\u0432\u0430\u0446\u0438\u0438", value: "269" }, { label: "\u041D\u0435\u0445\u0432\u0430\u0442\u043A\u0430/\u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0438\u0435 \u0437\u0434\u0440\u0430\u0432\u043E\u0433\u043E \u0441\u043C\u044B\u0441\u043B\u0430", value: "385" }, { label: "\u041D\u0435\u0447\u0435\u0441\u0442\u043D\u044B\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "205" }, { label: "\u041D\u0418\u0418\u0422", value: "481" }, { label: "\u041D\u0438\u043D\u0434\u0437\u044F", value: "486" }, { label: "\u041E\u0431\u043C\u0435\u043D \u0442\u0435\u043B\u0430\u043C\u0438", value: "95" }, { label: "\u041E\u0431\u043E\u0440\u043E\u0442\u043D\u0438", value: "754" }, { label: "\u041E\u0431\u044A\u0435\u043A\u0442 \u043B\u044E\u0431\u0432\u0438 \u0432\u043B\u044E\u0431\u0438\u043B\u0441\u044F \u043F\u0435\u0440\u0432\u044B\u043C", value: "405" }, { label: "\u041E\u0431\u044A\u0435\u043A\u0442 \u043B\u044E\u0431\u0432\u0438 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u0435\u043D", value: "543" }, { label: "\u041E\u0433\u043D\u0435\u0441\u0442\u0440\u0435\u043B\u044C\u043D\u043E\u0435 \u043E\u0440\u0443\u0436\u0438\u0435", value: "280" }, { label: "\u041E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u0435 \u043D\u0430 \u0432\u0440\u0435\u043C\u044F \u0436\u0438\u0437\u043D\u0438", value: "394" }, { label: "\u041E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0441\u0442\u044C", value: "544" }, { label: "\u041E\u0434\u0438\u043D \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044C", value: "651" }, { label: "\u041E\u0434\u0438\u043D\u043E\u043A\u0438\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "399" }, { label: "\u041E\u0434\u0438\u043D\u043E\u0447\u0435\u0441\u0442\u0432\u043E", value: "398" }, { label: "\u041E\u0434\u043D\u043E \u0442\u0435\u043B\u043E \u043D\u0430 \u0434\u0432\u043E\u0438\u0445", value: "634" }, { label: "\u041E\u043A\u043E \u0441\u0438\u043B\u044B", value: "253" }, { label: "\u041E\u043C\u043C\u0451\u0434\u0437\u0438", value: "498" }, { label: "\u041E\u0440\u0433\u0430\u043D\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u0430\u044F \u043F\u0440\u0435\u0441\u0442\u0443\u043F\u043D\u043E\u0441\u0442\u044C", value: "500" }, { label: "\u041E\u0440\u0433\u0438\u044F", value: "501" }, { label: "\u041E\u0440\u043A\u0438", value: "499" }, { label: "\u041E\u0441\u043D\u043E\u0432\u0430\u043D\u043E \u043D\u0430 \u0430\u043D\u0438\u043C\u0435", value: "74" }, { label: "\u041E\u0441\u043D\u043E\u0432\u0430\u043D\u043E \u043D\u0430 \u0432\u0438\u0434\u0435\u043E\u0438\u0433\u0440\u0435", value: "72" }, { label: "\u041E\u0441\u043D\u043E\u0432\u0430\u043D\u043E \u043D\u0430 \u0432\u0438\u0437\u0443\u0430\u043B\u044C\u043D\u043E\u0439 \u043D\u043E\u0432\u0435\u043B\u043B\u0435", value: "73" }, { label: "\u041E\u0441\u043D\u043E\u0432\u0430\u043D\u043E \u043D\u0430 \u043F\u0435\u0441\u043D\u0435", value: "70" }, { label: "\u041E\u0441\u043D\u043E\u0432\u0430\u043D\u043E \u043D\u0430 \u0444\u0438\u043B\u044C\u043C\u0435", value: "69" }, { label: "\u041E\u0441\u0442\u043E\u0440\u043E\u0436\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "117" }, { label: "\u041E\u0442 \u043D\u0435\u043D\u0430\u0432\u0438\u0441\u0442\u0438 \u0434\u043E \u043B\u044E\u0431\u0432\u0438 \u043E\u0434\u0438\u043D \u0448\u0430\u0433", value: "239" }, { label: "\u041E\u0442 \u0441\u0438\u043B\u044C\u043D\u043E\u0433\u043E \u0441 \u0441\u0438\u043B\u044C\u043D\u0435\u0439\u0448\u0435\u043C\u0443", value: "684" }, { label: "\u041E\u0442 \u0441\u043B\u0430\u0431\u043E\u0433\u043E \u043A \u0441\u0438\u043B\u044C\u043D\u043E\u043C\u0443", value: "752" }, { label: "\u041E\u0442\u0430\u043A\u0443", value: "503" }, { label: "\u041E\u0442\u0437\u044B\u0432\u0447\u0438\u0432\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "380" }, { label: "\u041E\u0442\u0437\u044B\u0432\u0447\u0438\u0432\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "339" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0443\u0447\u0438\u0442\u0435\u043B\u044C-\u0443\u0447\u0435\u043D\u0438\u043A", value: "430" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u0431\u043E\u0433-\u0447\u0435\u043B\u043E\u0432\u0435\u043A", value: "315" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u043C\u0435\u0436\u0434\u0443 \u0443\u0447\u0438\u0442\u0435\u043B\u0435\u043C \u0438 \u0443\u0447\u0435\u043D\u0438\u043A\u043E\u043C", value: "687" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u043D\u0430\u0447\u0430\u043B\u044C\u043D\u0438\u043A-\u043F\u043E\u0434\u0447\u0438\u043D\u0451\u043D\u043D\u044B\u0439", value: "101" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u043F\u0440\u043E\u0442\u0438\u0432 \u0432\u043E\u043B\u0438", value: "286" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u0441 \u043D\u0435\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u043E\u043C", value: "353" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u0441\u044D\u043C\u043F\u0430\u0439-\u043A\u043E\u0445\u0430\u0439", value: "621" }, { label: "\u041E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u0445\u043E\u0437\u044F\u0438\u043D-\u0441\u043B\u0443\u0433\u0430", value: "431" }, { label: "\u041E\u0442\u043E\u043C\u044D-\u0438\u0433\u0440\u044B", value: "504" }, { label: "\u041E\u0422\u041F", value: "562" }, { label: "\u041E\u0442\u0448\u0435\u043B\u044C\u043D\u0438\u043A\u0438", value: "505" }, { label: "\u041E\u0444\u0438\u0441\u043D\u044B\u0439 \u0440\u0430\u0431\u043E\u0442\u043D\u0438\u043A", value: "600" }, { label: "\u041E\u0444\u0438\u0446\u0438\u0430\u043D\u0442\u044B", value: "748" }, { label: "\u041E\u0445\u043E\u0442\u043D\u0438\u043A\u0438", value: "355" }, { label: "\u041F\u0430\u0434\u0448\u0438\u0435 \u0430\u043D\u0433\u0435\u043B\u044B", value: "255" }, { label: "\u041F\u0430\u0434\u0448\u0438\u0435 \u0434\u0432\u043E\u0440\u044F\u043D\u0435", value: "256" }, { label: "\u041F\u0430\u0439\u0437\u0443\u0440\u0438", value: "511" }, { label: "\u041F\u0430\u0440\u0430\u0437\u0438\u0442\u044B", value: "513" }, { label: "\u041F\u0430\u0440\u0430\u043B\u043B\u0435\u043B\u044C\u043D\u044B\u0435 \u043C\u0438\u0440\u044B", value: "512" }, { label: "\u041F\u0430\u0440\u043A \u0440\u0430\u0437\u0432\u043B\u0435\u0447\u0435\u043D\u0438\u0439", value: "32" }, { label: "\u041F\u0430\u0440\u043E\u0434\u0438\u044F", value: "515" }, { label: "\u041F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u0435 \u043C\u0435\u0436\u0434\u0443 \u043C\u0438\u0440\u0430\u043C\u0438", value: "758" }, { label: "\u041F\u0435\u0440\u0435\u043E\u0434\u0435\u0432\u0430\u043D\u0438\u0435", value: "167" }, { label: "\u041F\u0435\u0440\u0435\u043F\u043B\u0430\u0432\u043A\u0430 \u043F\u0438\u043B\u044E\u043B\u044C", value: "529" }, { label: "\u041F\u0435\u0440\u0435\u0440\u043E\u0436\u0434\u0435\u043D\u0438\u0435 \u0432 \u0434\u0435\u0432\u0443\u0448\u043A\u0443", value: "420" }, { label: "\u041F\u0435\u0440\u0435\u0440\u043E\u0436\u0434\u0435\u043D\u0438\u0435 \u0432 \u0434\u0440\u0443\u0433\u043E\u043C \u043C\u0438\u0440\u0435", value: "580" }, { label: "\u041F\u0435\u0440\u0435\u0440\u043E\u0436\u0434\u0435\u043D\u0438\u0435 \u0432 \u0434\u0440\u0443\u0433\u043E\u043C \u043C\u0438\u0440\u0435", value: "720" }, { label: "\u041F\u0435\u0440\u0435\u0440\u043E\u0436\u0434\u0435\u043D\u0438\u0435 \u0432 \u0438\u0433\u0440\u043E\u0432\u043E\u043C \u043C\u0438\u0440\u0435", value: "579" }, { label: "\u041F\u0435\u0440\u0435\u0440\u043E\u0436\u0434\u0435\u043D\u0438\u0435 \u0432 \u043C\u043E\u043D\u0441\u0442\u0440\u0430", value: "577" }, { label: "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 \u0441 \u043C\u0430\u0437\u043E\u0445\u0438\u0441\u0442\u0441\u043A\u0438\u043C\u0438 \u043D\u0430\u043A\u043B\u043E\u043D\u043D\u043E\u0441\u0442\u044F\u043C\u0438", value: "429" }, { label: "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 \u0441 \u0441\u0430\u0434\u0438\u0441\u0442\u0441\u043A\u0438\u043C\u0438 \u043D\u0430\u043A\u043B\u043E\u043D\u043D\u043E\u0441\u0442\u044F\u043C\u0438", value: "598" }, { label: "\u041F\u0435\u0442\u043B\u044F \u0432\u0440\u0435\u043C\u0435\u043D\u0438", value: "709" }, { label: "\u041F\u0435\u0442\u0442\u0438\u043D\u0433", value: "328" }, { label: "\u041F\u0438\u0441\u0430\u0442\u0435\u043B\u0438", value: "761" }, { label: "\u041F\u0438\u0442\u043E\u043C\u0446\u044B", value: "522" }, { label: "\u041F\u043B\u0435\u043C\u0435\u043D\u043D\u043E\u0435 \u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E", value: "726" }, { label: "\u041F\u043E\u0432\u0435\u043B\u0438\u0442\u0435\u043B\u044C \u0434\u0435\u043C\u043E\u043D\u043E\u0432", value: "191" }, { label: "\u041F\u043E\u0432\u0435\u0441\u0442\u0432\u043E\u0432\u0430\u043D\u0438\u0435 \u043E\u0442 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u0438\u0445 \u043B\u0438\u0446", value: "459" }, { label: "\u041F\u043E\u0433\u043B\u043E\u0449\u0435\u043D\u0438\u0435 \u043D\u0430\u0432\u044B\u043A\u043E\u0432", value: "653" }, { label: "\u041F\u043E\u0434\u0437\u0435\u043C\u0435\u043B\u044C\u044F", value: "223" }, { label: "\u041F\u043E\u0437\u0434\u043D\u043E \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0449\u0430\u044F\u0441\u044F \u0440\u043E\u043C\u0430\u043D\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u043B\u0438\u043D\u0438\u044F", value: "387" }, { label: "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430", value: "538" }, { label: "\u041F\u043E\u043B\u0443\u043B\u044E\u0434\u0438", value: "190" }, { label: "\u041F\u043E\u043C\u043E\u043B\u0432\u043A\u0430", value: "240" }, { label: "\u041F\u043E\u043F\u0430\u0434\u0430\u043D\u0435\u0446 \u0432 \u0434\u0440\u0443\u0433\u043E\u0439 \u043C\u0438\u0440", value: "723" }, { label: "\u041F\u043E\u043F\u0430\u0434\u0430\u043D\u0435\u0446 \u0432 \u0438\u0433\u0440\u043E\u0432\u043E\u0439 \u043C\u0438\u0440", value: "722" }, { label: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0441\u0438\u0441", value: "546" }, { label: "\u041F\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u0435 \u0414\u0430\u043E", value: "181" }, { label: "\u041F\u043E\u0442\u0435\u0440\u044F \u0434\u0435\u0432\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0441\u0442\u0438", value: "282" }, { label: "\u041F\u043E\u0442\u0443\u0441\u0442\u043E\u0440\u043E\u043D\u043D\u0435\u0435 \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E", value: "416" }, { label: "\u041F\u043E\u0445\u0438\u0449\u0435\u043D\u0438\u044F", value: "379" }, { label: "\u041F\u0440\u0430\u0433\u043C\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "549" }, { label: "\u041F\u0440\u0435\u0434\u0430\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u043E", value: "83" }, { label: "\u041F\u0440\u0435\u0434\u0432\u0438\u0434\u0435\u043D\u0438\u0435", value: "550" }, { label: "\u041F\u0440\u0435\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u0435\u043B\u0438", value: "674" }, { label: "\u041F\u0440\u0435\u0441\u0442\u0443\u043F\u043B\u0435\u043D\u0438\u0435", value: "165" }, { label: "\u041F\u0440\u0435\u0441\u0442\u0443\u043F\u043D\u043E\u0441\u0442\u044C", value: "166" }, { label: "\u041F\u0440\u0438\u0451\u043C\u043D\u044B\u0435 \u0434\u0435\u0442\u0438", value: "19" }, { label: "\u041F\u0440\u0438\u0437\u0432\u0430\u043D\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "693" }, { label: "\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438", value: "309" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "22" }, { label: "\u041F\u0440\u0438\u043D\u0443\u0436\u0434\u0435\u043D\u0438\u0435", value: "108" }, { label: "\u041F\u0440\u0438\u0440\u0443\u0447\u0430\u0442\u0435\u043B\u044C", value: "453" }, { label: "\u041F\u0440\u0438\u0441\u043B\u0443\u0433\u0430", value: "625" }, { label: "\u041F\u0440\u0438\u0441\u0442\u0430\u0432\u0443\u0447\u0438\u0439 \u043B\u044E\u0431\u043E\u0432\u043D\u0438\u043A", value: "136" }, { label: "\u041F\u0440\u0438\u0442\u0432\u043E\u0440\u043D\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "552" }, { label: "\u041F\u0440\u0438\u0448\u0435\u043B\u044C\u0446\u044B", value: "28" }, { label: "\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0441\u0442", value: "558" }, { label: "\u041F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u0435 - \u043E\u0431\u043B\u0430\u0434\u0430\u0442\u0435\u043B\u044C \u043D\u0430\u0433\u0440\u0430\u0434", value: "66" }, { label: "\u041F\u0440\u043E\u043A\u043B\u044F\u0442\u0438\u044F", value: "175" }, { label: "\u041F\u0440\u043E\u043C\u044B\u0432\u043A\u0430 \u043C\u043E\u0437\u0433\u043E\u0432", value: "102" }, { label: "\u041F\u0440\u043E\u043F\u0443\u0441\u043A \u0432\u0440\u0435\u043C\u0435\u043D\u0438", value: "712" }, { label: "\u041F\u0440\u043E\u0440\u043E\u0447\u0435\u0441\u0442\u0432\u0430", value: "559" }, { label: "\u041F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442 \u0432 \u043E\u0447\u043A\u0430\u0445", value: "312" }, { label: "\u041F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442 \u0440\u0430\u0431", value: "657" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043A\u0438\u043D\u0435\u0437", value: "565" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043F\u0430\u0442\u044B", value: "566" }, { label: "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F", value: "759" }, { label: "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F \u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438", value: "713" }, { label: "\u041F\u044B\u0442\u043A\u0438", value: "716" }, { label: "\u0420\u0430\u0431\u044B", value: "658" }, { label: "\u0420\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0439", value: "160" }, { label: "\u0420\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430", value: "119" }, { label: "\u0420\u0430\u0437\u0434\u0432\u043E\u0435\u043D\u0438\u0435 \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u0438", value: "458" }, { label: "\u0420\u0430\u0437\u043C\u0435\u0440\u0435\u043D\u043D\u0430\u044F \u0440\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "661" }, { label: "\u0420\u0430\u0437\u043D\u0438\u0446\u0430 \u0432 \u0441\u0442\u0430\u0442\u0443\u0441\u0435", value: "201" }, { label: "\u0420\u0430\u0437\u043E\u0440\u0432\u0430\u043D\u043D\u0430\u044F \u043F\u043E\u043C\u043E\u043B\u0432\u043A\u0430", value: "104" }, { label: "\u0420\u0430\u0437\u0443\u043C\u043D\u044B\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B", value: "622" }, { label: "\u0420\u0430\u0439", value: "336" }, { label: "\u0420\u0430\u043D\u044F\u044F \u0440\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "227" }, { label: "\u0420\u0430\u0441\u0438\u0437\u043C", value: "573" }, { label: "\u0420\u0430\u0441\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u044F", value: "372" }, { label: "\u0420\u0435\u0431\u0435\u043D\u043E\u043A \u2014 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "126" }, { label: "\u0420\u0435\u0432\u0435\u0440\u0441-\u0433\u0430\u0440\u0435\u043C", value: "589" }, { label: "\u0420\u0435\u0432\u0435\u0440\u0441-\u0438\u0437\u043D\u0430\u0441\u0438\u043B\u043E\u0432\u0430\u043D\u0438\u0435", value: "590" }, { label: "\u0420\u0435\u0437\u043A\u0430\u044F \u0441\u043C\u0435\u043D\u0430 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0430", value: "520" }, { label: "\u0420\u0435\u0438\u043D\u043A\u0430\u0440\u043D\u0430\u0446\u0438\u044F", value: "581" }, { label: "\u0420\u0435\u043B\u0438\u0433\u0438\u0438", value: "582" }, { label: "\u0420\u0435\u0441\u0442\u043E\u0440\u0430\u043D", value: "585" }, { label: "\u0420\u0435\u0448\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "199" }, { label: "\u0420\u043E\u0431\u043A\u0438\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "714" }, { label: "\u0420\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u0441\u0442\u043A\u0438\u0439 \u043A\u043E\u043C\u043F\u043B\u0435\u043A\u0441", value: "514" }, { label: "\u0420\u043E\u0434\u043D\u044B\u0435 \u043D\u0435 \u0441\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0435 \u043A\u0440\u043E\u0432\u044C\u044E", value: "647" }, { label: "\u0420\u043E\u0434\u043E\u0441\u043B\u043E\u0432\u043D\u044B\u0435", value: "94" }, { label: "\u0420\u041F\u0413-\u0441\u0438\u0441\u0442\u0435\u043C\u0430", value: "392" }, { label: "\u0420\u044B\u0446\u0430\u0440\u0438", value: "383" }, { label: "\u0421\u0430\u043C\u043E\u0432\u043B\u044E\u0431\u043B\u0435\u043D\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "477" }, { label: "\u0421\u0430\u043C\u043E\u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430", value: "692" }, { label: "\u0421\u0430\u043C\u0443\u0440\u0430\u0438", value: "601" }, { label: "\u0421\u0431\u043E\u0440\u043D\u0438\u043A \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0445 \u0438\u0441\u0442\u043E\u0440\u0438\u0439", value: "144" }, { label: "\u0421\u0432\u0430\u0434\u044C\u0431\u0430", value: "426" }, { label: "\u0421\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0435 \u0441\u044E\u0436\u0435\u0442\u043D\u044B\u0435 \u043B\u0438\u043D\u0438\u0438", value: "369" }, { label: "\u0421\u0432\u044F\u0442\u044B\u0435", value: "599" }, { label: "\u0421\u0435\u043A\u0440\u0435\u0442\u044B", value: "614" }, { label: "\u0421\u0435\u043A\u0441 \u0432\u0442\u0440\u043E\u0451\u043C", value: "707" }, { label: "\u0421\u0435\u043A\u0441-\u0440\u0430\u0431\u044B\u043D\u044F", value: "629" }, { label: "\u0421\u0435\u043C\u0435\u0439\u043D\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C", value: "257" }, { label: "\u0421\u0435\u043C\u044C \u0434\u043E\u0431\u0440\u043E\u0434\u0435\u0442\u0435\u043B\u0435\u0439", value: "627" }, { label: "\u0421\u0435\u043C\u044C \u0441\u043C\u0435\u0440\u0442\u043D\u044B\u0445 \u0433\u0440\u0435\u0445\u043E\u0432", value: "626" }, { label: "\u0421\u0435\u0440\u0438\u0439\u043D\u044B\u0435 \u0443\u0431\u0438\u0439\u0446\u044B", value: "624" }, { label: "\u0421\u0438\u043A\u0438\u0433\u0430\u043C\u0438", value: "637" }, { label: "\u0421\u0438\u043B\u044C\u043D\u0430\u044F \u043B\u044E\u0431\u043E\u0432\u044C \u043E\u0442 \u0441\u0442\u0430\u0440\u0448\u0438\u0445", value: "214" }, { label: "\u0421\u0438\u043D\u0434\u0440\u043E\u043C \u0432\u043E\u0441\u044C\u043C\u0438\u043A\u043B\u0430\u0441\u0441\u043D\u0438\u043A\u0430", value: "132" }, { label: "\u0421\u0438\u043D\u0434\u0440\u043E\u043C \u0441\u0435\u0441\u0442\u0440\u044B", value: "652" }, { label: "\u0421\u0438\u0440\u043E\u0442\u044B", value: "502" }, { label: "\u0421\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0439 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440", value: "699" }, { label: "\u0421\u043A\u0440\u043E\u043C\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "409" }, { label: "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0440\u043E\u043C\u0430\u043D\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F", value: "23" }, { label: "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0438", value: "343" }, { label: "\u0421\u043A\u0440\u044F\u0433\u0430", value: "450" }, { label: "\u0421\u043A\u0443\u043B\u044C\u043F\u0442\u043E\u0440\u044B", value: "606" }, { label: "\u0421\u043B\u0430\u0431\u0430\u044F \u0440\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "688" }, { label: "\u0421\u043B\u0430\u0431\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "751" }, { label: "\u0421\u043B\u043E\u0436\u043D\u044B\u0435 \u0441\u0435\u043C\u0435\u0439\u043D\u044B\u0435 \u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F", value: "149" }, { label: "\u0421\u043C\u0435\u043D\u0430 \u0440\u0430\u0441\u044B", value: "572" }, { label: "\u0421\u043C\u0435\u0440\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u0437\u0430\u0431\u043E\u043B\u0435\u0432\u0430\u043D\u0438\u0435", value: "704" }, { label: "\u0421\u043C\u0435\u0440\u0442\u044C", value: "185" }, { label: "\u0421\u043C\u0435\u0440\u0442\u044C \u043B\u044E\u0431\u0438\u043C\u044B\u0445", value: "186" }, { label: "\u0421\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0441\u0442\u044C", value: "448" }, { label: "\u0421\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0435 \u0437\u043D\u0430\u043D\u0438\u044F \u0432 \u0441\u043B\u0430\u0431\u043E\u0440\u0430\u0437\u0432\u0438\u0442\u044B\u0445 \u043C\u0438\u0440\u0430\u0445", value: "449" }, { label: "\u0421\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u043E", value: "141" }, { label: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0430\u0440\u0442\u0435\u0444\u0430\u043A\u0442\u043E\u0432", value: "57" }, { label: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u043A\u043B\u0430\u043D\u0430", value: "133" }, { label: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u043A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u0442\u0432\u0430", value: "381" }, { label: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u043D\u0430\u0432\u044B\u043A\u043E\u0432", value: "655" }, { label: "\u0421\u043E\u043A\u0440\u044B\u0442\u0438\u0435 \u0438\u0441\u0442\u0438\u043D\u043D\u044B\u0445 \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0435\u0439", value: "344" }, { label: "\u0421\u043E\u043A\u0440\u044B\u0442\u0438\u0435 \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u0438", value: "345" }, { label: "\u0421\u043E\u043B\u0434\u0430\u0442\u044B", value: "664" }, { label: "\u0421\u043E\u043D", value: "659" }, { label: "\u0421\u043E\u0441\u0435\u0434\u0438 \u043F\u043E \u043A\u043E\u043C\u043D\u0430\u0442\u0435", value: "595" }, { label: "\u0421\u043E\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0435 \u0438\u0437\u0433\u043E\u0438", value: "663" }, { label: "\u0421\u043F\u0430\u0441\u0435\u043D\u0438\u0435 \u043C\u0438\u0440\u0430", value: "602" }, { label: "\u0421\u043F\u043E\u0440\u044F\u0449\u0430\u044F \u043F\u0430\u0440\u0430", value: "84" }, { label: "\u0421\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u044C \u043F\u0435\u0440\u0435\u0432\u043E\u043F\u043B\u043E\u0449\u0435\u043D\u0438\u044F", value: "719" }, { label: "\u0421\u0440\u0435\u0434\u043D\u0435\u0432\u0435\u043A\u043E\u0432\u044C\u0435", value: "436" }, { label: "\u0421\u0442\u0435\u0441\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438", value: "643" }, { label: "\u0421\u0442\u043E\u043A\u0433\u043E\u043B\u044C\u043C\u0441\u043A\u0438\u0439 \u0441\u0438\u043D\u0434\u0440\u043E\u043C", value: "575" }, { label: "\u0421\u0442\u043E\u043A\u0433\u043E\u043B\u044C\u043C\u0441\u043A\u0438\u0439 \u0441\u0438\u043D\u0434\u0440\u043E\u043C", value: "675" }, { label: "\u0421\u0442\u0440\u0430\u0442\u0435\u0433", value: "681" }, { label: "\u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0431\u0438\u0442\u0432\u044B", value: "680" }, { label: "\u0421\u0442\u0440\u0435\u043B\u043A\u0438", value: "325" }, { label: "\u0421\u0442\u0440\u0435\u043B\u044C\u0431\u0430 \u0438\u0437 \u043B\u0443\u043A\u0430", value: "50" }, { label: "\u0421\u0442\u0443\u0434\u0435\u043D\u0447\u0435\u0441\u043A\u0438\u0439 \u0441\u043E\u0432\u0435\u0442", value: "686" }, { label: "\u0421\u0443\u0434\u044C\u0431\u0430", value: "197" }, { label: "\u0421\u0443\u043A\u043A\u0443\u0431\u044B", value: "689" }, { label: "\u0421\u0443\u043F\u0435\u0440\u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0438", value: "669" }, { label: "\u0421\u0443\u0440\u043E\u0432\u0430\u044F \u0442\u0440\u0435\u043D\u0438\u0440\u043E\u0432\u043A\u0430", value: "332" }, { label: "\u0421\u0446\u0435\u043D\u044B \u043D\u0430\u0441\u0438\u043B\u0438\u044F", value: "195" }, { label: "\u0422\u0430\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435 \u043F\u0440\u043E\u0448\u043B\u043E\u0435", value: "472" }, { label: "\u0422\u0430\u0439\u043D\u0430\u044F \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u044C", value: "610" }, { label: "\u0422\u0430\u0439\u043D\u044B\u0435 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u0430\u0446\u0438\u0438", value: "611" }, { label: "\u0422\u0435\u043B\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u0438", value: "98" }, { label: "\u0422\u0435\u043D\u0442\u0430\u043A\u043B\u0438", value: "703" }, { label: "\u0422\u0435\u0440\u0440\u043E\u0440\u0438\u0441\u0442\u044B", value: "705" }, { label: "\u0422\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0440\u0430\u0437\u0440\u044B\u0432", value: "702" }, { label: "\u0422\u0438\u0445\u0438\u0435 \u0433\u0435\u0440\u043E\u0438", value: "568" }, { label: "\u0422\u043E\u043B\u0441\u0442\u044B\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "271" }, { label: "\u0422\u043E\u0440\u0433\u043E\u0432\u0446\u044B", value: "438" }, { label: "\u0422\u0440\u0430\u0432\u043D\u0438\u043A", value: "340" }, { label: "\u0422\u0440\u0430\u0433\u0438\u0447\u043D\u043E\u0435 \u043F\u0440\u043E\u0448\u043B\u043E\u0435", value: "718" }, { label: "\u0422\u0440\u0430\u043F", value: "725" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "708" }, { label: "\u0422\u0443\u0440\u043D\u0438\u0440", value: "76" }, { label: "\u0422\u044E\u0440\u044C\u043C\u0430", value: "556" }, { label: "\u0423\u0431\u0438\u0439\u0441\u0442\u0432\u0430", value: "465" }, { label: "\u0423\u0432\u0435\u0440\u0435\u043D\u043D\u044B\u0439 \u0432 \u0441\u0435\u0431\u0435 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "151" }, { label: "\u0423\u043C\u043D\u0430\u044F \u043F\u0430\u0440\u0430", value: "662" }, { label: "\u0423\u043C\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "135" }, { label: "\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u0430\u044F \u0442\u0435\u0445\u043D\u0438\u043A\u0430 \u043A\u0443\u043B\u044C\u0442\u0438\u0432\u0430\u0446\u0438\u0438", value: "735" }, { label: "\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u0435 \u043E\u0440\u0443\u0436\u0438\u044F", value: "737" }, { label: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0431\u0438\u0437\u043D\u0435\u0441\u043E\u043C", value: "109" }, { label: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u0440\u0435\u043C\u0435\u043D\u0435\u043C", value: "710" }, { label: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E\u043C", value: "667" }, { label: "\u0423\u0441\u043A\u043E\u0440\u0435\u043D\u043D\u044B\u0439 \u0440\u043E\u0441\u0442", value: "6" }, { label: "\u0423\u0447\u0451\u043D\u044B\u0435", value: "605" }, { label: "\u0423\u0447\u0438\u0442\u0435\u043B\u044F", value: "700" }, { label: "\u0424\u0430\u043C\u0438\u043B\u044C\u044F\u0440\u044B", value: "258" }, { label: "\u0424\u0430\u043D\u0430\u0442\u0438\u0437\u043C", value: "264" }, { label: "\u0424\u0430\u0440\u043C\u0430\u0446\u0435\u0432\u0442", value: "523" }, { label: "\u0424\u0435\u0438", value: "254" }, { label: "\u0424\u0435\u043D\u0438\u043A\u0441\u044B", value: "526" }, { label: "\u0424\u0435\u0442\u0438\u0448 \u043D\u0430 \u0433\u0440\u0443\u0434\u044C", value: "103" }, { label: "\u0424\u0435\u0442\u0438\u0448 \u043D\u0430 \u043E\u0447\u043A\u0438", value: "311" }, { label: "\u0424\u0438\u043B\u043E\u0441\u043E\u0444\u0438\u044F", value: "524" }, { label: "\u0424\u043E\u0431\u0438\u0438/\u0421\u0442\u0440\u0430\u0445\u0438", value: "525" }, { label: "\u0424\u043E\u043B\u044C\u043A\u043B\u043E\u0440", value: "285" }, { label: "\u0424\u043E\u0440\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0430\u0440\u043C\u0438\u0438", value: "54" }, { label: "\u0424\u0443\u0442\u0430\u043D\u0430\u0440\u0438", value: "295" }, { label: "\u0424\u0443\u0442\u0443\u0440\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043C\u0438\u0440", value: "296" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "267" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438\u0439\u043D\u044B\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0430", value: "266" }, { label: "\u0425\u0430\u043A\u0435\u0440\u044B", value: "326" }, { label: "\u0425\u0430\u0440\u0438\u0437\u043C\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u043F\u0440\u043E\u0442\u0430\u0433\u043E\u043D\u0438\u0441\u0442", value: "120" }, { label: "\u0425\u0438\u0442\u0440\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "173" }, { label: "\u0425\u043B\u0430\u0434\u043D\u043E\u043A\u0440\u043E\u0432\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "112" }, { label: "\u0425\u0443\u0434\u043E\u0436\u043D\u0438\u043A\u0438", value: "60" }, { label: "\u0425\u0443\u043B\u0438\u0433\u0430\u043D\u044B", value: "188" }, { label: "\u0426\u0443\u043D\u0434\u0435\u0440\u0435", value: "728" }, { label: "\u0427\u0430\u0442", value: "122" }, { label: "\u0427\u0435\u043B\u043E\u0432\u0435\u043A-\u043E\u0440\u0443\u0436\u0438\u0435", value: "352" }, { label: "\u0427\u0435\u043B\u043E\u0432\u0435\u043A\u043E\u043F\u043E\u0434\u043E\u0431\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "354" }, { label: "\u0427\u0435\u0441\u0442\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "348" }, { label: "\u0427\u0435\u0442\u043A\u0438\u0435 \u043B\u044E\u0431\u043E\u0432\u043D\u044B\u0435 \u0443\u0431\u0435\u0436\u0434\u0435\u043D\u0438\u044F", value: "683" }, { label: "\u0427\u0438\u0442\u044B", value: "123" }, { label: "\u0427\u0443\u0434\u0430\u043A\u043E\u0432\u0430\u0442\u044B\u0435 \u0433\u0435\u0440\u043E\u0438", value: "569" }, { label: "\u0427\u0443\u0436\u0438\u0435 \u0432\u043E\u0441\u043F\u043E\u043C\u0438\u043D\u0430\u043D\u0438\u044F", value: "721" }, { label: "\u0428\u0430\u043D\u0442\u0430\u0436", value: "89" }, { label: "\u0428\u0435\u0444-\u043F\u043E\u0432\u0430\u0440", value: "124" }, { label: "\u0428\u043A\u043E\u043B\u0430 \u0434\u043B\u044F \u0434\u0435\u0432\u043E\u0447\u0435\u043A", value: "29" }, { label: "\u0428\u043E\u0443-\u0431\u0438\u0437\u043D\u0435\u0441", value: "642" }, { label: "\u0428\u043F\u0438\u043E\u043D\u044B", value: "670" }, { label: "\u042D\u0432\u043E\u043B\u044E\u0446\u0438\u044F", value: "250" }, { label: "\u042D\u0433\u043E\u0438\u0441\u0442\u0438\u0447\u043D\u044B\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439", value: "618" }, { label: "\u042D\u043A\u0437\u043E\u0440\u0446\u0438\u0437\u043C", value: "252" }, { label: "\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u043A\u0430", value: "230" }, { label: "\u042D\u043A\u0441\u0433\u0438\u0431\u0438\u0446\u0438\u043E\u043D\u0438\u0437\u043C", value: "251" }, { label: "\u042D\u043A\u0441\u043F\u0435\u0440\u0438\u043C\u0435\u043D\u0442\u044B \u043D\u0430 \u043B\u044E\u0434\u044F\u0445", value: "351" }, { label: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C\u043D\u0430\u044F \u043C\u0430\u0433\u0438\u044F", value: "234" }, { label: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u0438\u0433\u0440\u043E\u0432\u043E\u0433\u043E \u043C\u0438\u0440\u0430", value: "299" }, { label: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u0440\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0438", value: "594" }, { label: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u044E\u0440\u0438", value: "640" }, { label: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u044F\u043E\u044F", value: "641" }, { label: "\u042D\u043B\u044C\u0444\u044B", value: "235" }, { label: "\u042D\u043F\u0438\u0437\u043E\u0434\u0438\u0447\u043D\u043E\u0441\u0442\u044C", value: "243" }, { label: "\u042F\u0437\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438", value: "635" }, { label: "\u042F\u0437\u044B\u043A\u043E\u0432\u043E\u0439 \u0431\u0430\u0440\u044C\u0435\u0440", value: "386" }, { label: "\u042F\u043D\u0434\u0435\u0440\u0435", value: "762" }, { label: "\u042F\u043E\u0439\u0449\u0438\u0446\u0430", value: "294" }, { label: "\u042F\u043F\u043E\u043D\u0441\u043A\u0438\u0435 \u0441\u0438\u043B\u044B \u0441\u0430\u043C\u043E\u043E\u0431\u043E\u0440\u043E\u043D\u044B", value: "378" }, { label: "R-15", value: "570" }, { label: "R-18", value: "571" }], type: u.FilterTypes.CheckboxGroup }, genres: { label: "\u0416\u0430\u043D\u0440\u044B", value: [], options: [{ label: "16+", value: "1" }, { label: "18+", value: "2" }, { label: "\u0411\u043E\u0435\u0432\u0438\u043A", value: "3" }, { label: "\u0411\u043E\u0435\u0432\u044B\u0435 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0430", value: "4" }, { label: "\u0412\u0430\u043C\u043F\u0438\u0440\u044B", value: "47" }, { label: "\u0412\u043E\u0435\u043D\u043D\u043E\u0435", value: "44" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "5" }, { label: "\u0414\u0435\u043C\u043E\u043D\u044B", value: "48" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "6" }, { label: "\u0414\u0437\u0451\u0441\u0435\u0439", value: "50" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "7" }, { label: "\u0418\u0433\u0440\u044B", value: "45" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u043E\u0435", value: "8" }, { label: "\u041A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A", value: "9" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0438\u044F", value: "10" }, { label: "\u041A\u043E\u0441\u043C\u043E\u0441", value: "46" }, { label: "\u041C\u0430\u0433\u0438\u044F", value: "42" }, { label: "\u041C\u0430\u0445\u043E-\u0441\u0451\u0434\u0437\u0451", value: "12" }, { label: "\u041C\u0435\u0445\u0430", value: "13" }, { label: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430", value: "14" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "49" }, { label: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "15" }, { label: "\u041F\u0430\u0440\u043E\u0434\u0438\u044F", value: "16" }, { label: "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "17" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "18" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0438\u0447\u0435\u0441\u043A\u043E\u0435", value: "19" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "20" }, { label: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "21" }, { label: "\u0421\u0451\u0434\u0437\u0451", value: "22" }, { label: "\u0421\u0451\u0434\u0437\u0451-\u0430\u0439", value: "23" }, { label: "\u0421\u0451\u043D\u044D\u043D", value: "24" }, { label: "\u0421\u0451\u043D\u044D\u043D-\u0430\u0439", value: "25" }, { label: "\u0421\u043C\u0435\u043D\u0430 \u043F\u043E\u043B\u0430", value: "26" }, { label: "\u0421\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0441\u0442\u044C", value: "27" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "28" }, { label: "\u0421\u0443\u043F\u0435\u0440 \u0441\u0438\u043B\u0430", value: "43" }, { label: "\u0421\u044D\u0439\u043D\u044D\u043D", value: "29" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "32" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "33" }, { label: "\u0423\u0436\u0430\u0441\u044B", value: "34" }, { label: "\u0423\u0441\u044F", value: "35" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "36" }, { label: "\u0428\u043A\u043E\u043B\u044C\u043D\u0430\u044F \u0436\u0438\u0437\u043D\u044C", value: "37" }, { label: "\u042D\u0442\u0442\u0438", value: "38" }, { label: "\u042E\u0440\u0438", value: "39" }, { label: "\u042F\u043E\u0439", value: "40" }, { label: "LitRPG", value: "41" }], type: u.FilterTypes.CheckboxGroup } };
+    }
+    __name(a2, "a");
+    return a2.prototype.fetchNovels = function(a3, u2, t2) {
+      return l(this, arguments, void 0, (function(l2, a4, u3) {
+        var t3, n2, r2, o2, i, s, c, p, h = this, f = a4.filters;
+        return e(this, (function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, (0, b.fetchApi)(this.site + "/api/site/v2/graphql", { method: "post", headers: { Accept: "application/json, text/plain, */*", "Accept-Language": "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3", "Content-Type": "application/json" }, Referer: this.site, body: JSON.stringify({ query: "query Projects($hostname:String! $filter:SearchFilter $page:Int $limit:Int){projects(section:{fullUrl:$hostname}filter:$filter page:{pageSize:$limit,pageNumber:$page}){content{title fullUrl covers{url}}}}", variables: { filter: { query: u3 || void 0, tags: (null === (o2 = null === (r2 = f.tags) || void 0 === r2 ? void 0 : r2.value) || void 0 === o2 ? void 0 : o2.length) ? f.tags.value : void 0, genres: (null === (s = null === (i = f.genres) || void 0 === i ? void 0 : i.value) || void 0 === s ? void 0 : s.length) ? f.genres.value : void 0 }, hostname: "novel.tl", limit: 40, page: l2 } }) }).then((function(l3) {
+                return l3.json();
+              }))];
+            case 1:
+              return t3 = e2.sent().data, n2 = [], null === (p = null === (c = null == t3 ? void 0 : t3.projects) || void 0 === c ? void 0 : c.content) || void 0 === p || p.forEach((function(l3) {
+                var e3, a5;
+                return n2.push({ name: l3.title, path: l3.fullUrl, cover: (null === (a5 = null === (e3 = null == l3 ? void 0 : l3.covers) || void 0 === e3 ? void 0 : e3[0]) || void 0 === a5 ? void 0 : a5.url) ? h.site + l3.covers[0].url : v.defaultCover });
+              })), [2, n2];
+          }
+        }));
+      }));
+    }, a2.prototype.searchNovels = function(a3, u2) {
+      return l(this, void 0, void 0, (function() {
+        var l2;
+        return e(this, (function(e2) {
+          return l2 = { filters: {} }, [2, this.fetchNovels(u2, l2, a3)];
+        }));
+      }));
+    }, a2.prototype.parseNovel = function(a3) {
+      return l(this, void 0, void 0, (function() {
+        var l2, u2, o2, i, s, c, p, h, f, d, m, g, y, j, N, q, S, w;
+        return e(this, (function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, (0, b.fetchApi)(this.site + "/api/site/v2/graphql", { method: "post", headers: { Accept: "application/json, text/plain, */*", "Accept-Language": "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3", "Content-Type": "application/json" }, Referer: this.site, body: JSON.stringify({ query: 'query Book($url:String){project(project:{fullUrl:$url}){title translationStatus fullUrl covers{url}persons(langs:["ru","en","*"],roles:["author","illustrator"]){role name{firstName lastName}}genres{nameRu nameEng}tags{nameRu nameEng}annotation{text}subprojects{content{title volumes{content{shortName chapters{title publishDate fullUrl published}}}}}}}', variables: { url: a3 } }) }).then((function(l3) {
+                return l3.json();
+              }))];
+            case 1:
+              return l2 = e2.sent().data, u2 = { path: a3, name: (null === (s = l2.project) || void 0 === s ? void 0 : s.title) || "", cover: (null === (h = null === (p = null === (c = l2.project) || void 0 === c ? void 0 : c.covers) || void 0 === p ? void 0 : p[0]) || void 0 === h ? void 0 : h.url) ? this.site + l2.project.covers[0].url : v.defaultCover, summary: null === (d = null === (f = l2.project) || void 0 === f ? void 0 : f.annotation) || void 0 === d ? void 0 : d.text, status: r[(null === (m = l2.project) || void 0 === m ? void 0 : m.translationStatus) || "unknown"] || t.NovelStatus.Unknown }, (null == (o2 = [null === (g = l2.project) || void 0 === g ? void 0 : g.tags, null === (y = l2.project) || void 0 === y ? void 0 : y.genres].flat().map((function(l3) {
+                return (null == l3 ? void 0 : l3.nameRu) || (null == l3 ? void 0 : l3.nameEng);
+              })).filter((function(l3) {
+                return l3;
+              }))) ? void 0 : o2.length) && (u2.genres = o2.join(", ")), null === (N = null === (j = l2.project) || void 0 === j ? void 0 : j.persons) || void 0 === N || N.forEach((function(l3) {
+                var e3, a4;
+                "author" == l3.role && l3.name.firstName && (u2.author = l3.name.firstName + " " + ((null === (e3 = l3.name) || void 0 === e3 ? void 0 : e3.lastName) || "")), "illustrator" == l3.role && l3.name.firstName && (u2.artist = l3.name.firstName + " " + ((null === (a4 = l3.name) || void 0 === a4 ? void 0 : a4.lastName) || ""));
+              })), i = [], null === (w = null === (S = null === (q = l2.project) || void 0 === q ? void 0 : q.subprojects) || void 0 === S ? void 0 : S.content) || void 0 === w || w.forEach((function(l3) {
+                return l3.volumes.content.forEach((function(e3, a4) {
+                  return e3.chapters.forEach((function(u3, v2) {
+                    u3.published && i.push({ name: (e3.shortName || "\u0422\u043E\u043C " + (a4 + 1)) + " " + (u3.title || "\u0413\u043B\u0430\u0432\u0430 " + (v2 + 1)), path: u3.fullUrl, releaseTime: (0, n.default)(u3.publishDate).format("LLL"), chapterNumber: i.length + 1, page: l3.title || "\u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F \u0441\u0435\u0440\u0438\u044F" });
+                  }));
+                }));
+              })), u2.chapters = i, [2, u2];
+          }
+        }));
+      }));
+    }, a2.prototype.parseChapter = function(a3) {
+      return l(this, void 0, void 0, (function() {
+        var l2, u2, v2;
+        return e(this, (function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, (0, b.fetchApi)(this.site + "/api/site/v2/graphql", { method: "post", headers: { Accept: "application/json, text/plain, */*", "Accept-Language": "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3", "Content-Type": "application/json" }, Referer: this.site, body: JSON.stringify({ query: "query($url:String){chapter(chapter:{fullUrl:$url}){text{text}}}", variables: { url: decodeURI(a3) } }) }).then((function(l3) {
+                return l3.json();
+              }))];
+            case 1:
+              return l2 = e2.sent().data, [2, (null === (v2 = null === (u2 = l2.chapter) || void 0 === u2 ? void 0 : u2.text) || void 0 === v2 ? void 0 : v2.text) || ""];
+          }
+        }));
+      }));
+    }, a2;
+  })();
+  exports.default = new o();
+})();
