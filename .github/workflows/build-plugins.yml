@@ -322,12 +322,6 @@ jobs:
           updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', false);
           updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', true);
           SCRIPT
-                }
-              ]
-            ],
-            "plugins": [
-              ["@babel/plugin-transform-arrow-functions", { "spec": false }],
-              ["@babel/plugin-transform-block-scoping", { "throwIfClosureRequired": false }],
               "@babel/plugin-transform-classes",
               ["@babel/plugin-transform-destructuring", { "loose": true }],
               "@babel/plugin-transform-parameters",
