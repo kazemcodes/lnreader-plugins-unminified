@@ -313,31 +313,7 @@ jobs:
           
           cd ..
       
-      - name: Upload bundled plugins (Modern JS for J2V8)
-        uses: actions/upload-artifact@v4
-        with:
-          name: bundled-${{ matrix.language }}-${{ matrix.chunk }}
-          path: lnreader-source/.bundled/plugins/${{ matrix.language }}/
-          retention-days: 1
-      
-      - name: Upload J2V8-ready plugins
-        uses: actions/upload-artifact@v4
-        with:
-          name: j2v8-${{ matrix.language }}-${{ matrix.chunk }}
-          path: lnreader-source/.bundled-es5/plugins/${{ matrix.language }}/
-          retention-days: 1
-  
-  collect:
-    needs: [prepare, bundle]
-    runs-on: ubuntu-latest
-    if: always() && needs.prepare.result == 'success'
-    
-    steps:
-      - name: Checkout repo branch
-        uses: actions/checkout@v4
-        with:
-          ref: repo
-          token: ${{ secrets.GITHUB_TOKEN }}
+
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
