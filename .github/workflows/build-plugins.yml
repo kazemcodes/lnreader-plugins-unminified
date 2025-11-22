@@ -46,6 +46,29 @@ jobs:
         run: |
           npm install --no-save esbuild esbuild-plugin-polyfill-node
       
+      - name: Find plugins directory
+        run: |
+          cd lnreader-source
+          
+          echo "Searching for plugins directory..."
+          echo ""
+          echo "Root structure:"
+          ls -la | head -20
+          echo ""
+          
+          # Check possible locations
+          for dir in ".js/src/plugins" ".js/plugins" "src/plugins" "plugins" "dist/plugins" ".dist/plugins"; do
+            if [ -d "$dir" ]; then
+              echo "✅ Found: $dir"
+              ls -la "$dir" | head -10
+            fi
+          done
+          
+          # Find any .js files in plugins directories
+          echo ""
+          echo "Searching for plugin files..."
+          find . -type f -name "*.js" -path "*/plugins/*" | head -20
+      
       - name: Bundle all plugins
         run: |
           cd lnreader-source
@@ -59,10 +82,46 @@ jobs:
           import fs from 'fs';
           import path from 'path';
           
-          const pluginsBaseDir = path.join('.js', 'src', 'plugins');
+          // Try multiple possible locations
+          const possibleDirs = [
+            path.join('.js', 'src', 'plugins'),
+            path.join('.js', 'plugins'),
+            path.join('src', 'plugins'),
+            path.join('plugins'),
+            path.join('dist', 'plugins'),
+            path.join('.dist', 'plugins')
+          ];
           
-          if (!fs.existsSync(pluginsBaseDir)) {
-            console.error(`Plugins directory not found: ${pluginsBaseDir}`);
+          let pluginsBaseDir = null;
+          for (const dir of possibleDirs) {
+            if (fs.existsSync(dir)) {
+              pluginsBaseDir = dir;
+              console.log(`Found plugins directory: ${dir}\n`);
+              break;
+            }
+          }
+          
+          if (!pluginsBaseDir) {
+            console.error('Plugins directory not found in any of these locations:');
+            possibleDirs.forEach(dir => console.error(`  - ${dir}`));
+            
+            console.log('\nActual directory structure:');
+            const listDir = (dir, indent = '', depth = 0) => {
+              if (depth > 2) return;
+              try {
+                const items = fs.readdirSync(dir);
+                items.slice(0, 10).forEach(item => {
+                  const fullPath = path.join(dir, item);
+                  const stat = fs.statSync(fullPath);
+                  console.log(`${indent}${item}${stat.isDirectory() ? '/' : ''}`);
+                  if (stat.isDirectory() && depth < 2) {
+                    listDir(fullPath, indent + '  ', depth + 1);
+                  }
+                });
+              } catch (e) {}
+            };
+            listDir('.');
+            
             process.exit(1);
           }
           
