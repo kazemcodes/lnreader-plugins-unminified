@@ -161,7 +161,10 @@ jobs:
               external: [],
               mainFields: ['module', 'main'],
               conditions: ['import', 'require', 'default'],
-              logLevel: 'warning'
+              logLevel: 'error',
+              logOverride: {
+                'commonjs-variable-in-esm': 'silent'
+              }
             };
             
             try {
@@ -322,66 +325,7 @@ jobs:
           updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', false);
           updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', true);
           SCRIPT
-        continue-on-error: true
-      
-      - name: Generate manifest if missing
-        run: |
-          if [ ! -f ".dist/plugins.json" ]; then
-            echo "⚠️  Manifest not found, regenerating..."
-            git clone --depth 1 https://github.com/LNReader/lnreader-plugins lnreader-source
-            cd lnreader-source
-            npm ci
-            npm run clean:multisrc
-            npm run build:multisrc
-            npm run build:compile
-            npm run build:manifest
-            cd ..
-            mkdir -p .dist
-            cp lnreader-source/.dist/* .dist/ 2>/dev/null || true
-            rm -rf lnreader-source
-            echo "✅ Manifest regenerated"
-          else
-            echo "✅ Manifest found"
-          fi
-      
-      - name: Download all bundled plugins (Modern JS)
-        uses: actions/download-artifact@v4
-        with:
-          pattern: bundled-*
-          path: temp-bundled/
-          merge-multiple: true
-      
-      - name: Download all J2V8-ready plugins
-        uses: actions/download-artifact@v4
-        with:
-          pattern: j2v8-*
-          path: temp-j2v8/
-          merge-multiple: true
-      
-      - name: Organize plugins
-        run: |
-          # Create single plugins directory
-          mkdir -p plugins
-          
-          # Copy J2V8-ready plugins
-          if [ -d "temp-j2v8" ]; then
-            cp -r temp-j2v8/* plugins/ 2>/dev/null || true
-            echo "✅ Copied plugins (Modern JS/ES2020 for J2V8)"
-          fi
-          
-          # Count plugins by language
-          echo ""
-          echo "Plugin count by language:"
-          for lang_dir in plugins/*/; do
-            if [ -d "$lang_dir" ]; then
-              lang=$(basename "$lang_dir")
-              count=$(find "$lang_dir" -name "*.js" -type f 2>/dev/null | wc -l)
-              echo "  $lang: $count plugins"
-            fi
-          done
-          
-          # Clean up temp directories
-          rm -rf temp-bundled temp-j2v8
+
       
       - name: Update manifest URLs
         run: |
