@@ -831,10 +831,10 @@ var LNReaderPlugin = (() => {
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
       var d = isLE ? -1 : 1;
-      var s = buffer[offset + i2];
+      var s2 = buffer[offset + i2];
       i2 += d;
-      e2 = s & (1 << -nBits) - 1;
-      s >>= -nBits;
+      e2 = s2 & (1 << -nBits) - 1;
+      s2 >>= -nBits;
       nBits += eLen;
       for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
@@ -846,46 +846,46 @@ var LNReaderPlugin = (() => {
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s ? -1 : 1) * Infinity;
+        return m ? NaN : (s2 ? -1 : 1) * Infinity;
       } else {
         m = m + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
-      var e2, m, c;
+      var e2, m, c2;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
       var d = isLE ? 1 : -1;
-      var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+      var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
         m = isNaN(value) ? 1 : 0;
         e2 = eMax;
       } else {
         e2 = Math.floor(Math.log(value) / Math.LN2);
-        if (value * (c = Math.pow(2, -e2)) < 1) {
+        if (value * (c2 = Math.pow(2, -e2)) < 1) {
           e2--;
-          c *= 2;
+          c2 *= 2;
         }
         if (e2 + eBias >= 1) {
-          value += rt / c;
+          value += rt / c2;
         } else {
           value += rt * Math.pow(2, 1 - eBias);
         }
-        if (value * c >= 2) {
+        if (value * c2 >= 2) {
           e2++;
-          c /= 2;
+          c2 /= 2;
         }
         if (e2 + eBias >= eMax) {
           m = 0;
           e2 = eMax;
         } else if (e2 + eBias >= 1) {
-          m = (value * c - 1) * Math.pow(2, mLen);
+          m = (value * c2 - 1) * Math.pow(2, mLen);
           e2 = e2 + eBias;
         } else {
           m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
@@ -898,7 +898,7 @@ var LNReaderPlugin = (() => {
       eLen += mLen;
       for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s * 128;
+      buffer[offset + i2 - d] |= s2 * 128;
     };
     return exports$1;
   }
@@ -990,8 +990,8 @@ var LNReaderPlugin = (() => {
       if (valueOf != null && valueOf !== value) {
         return Buffer2.from(valueOf, encodingOrOffset, length);
       }
-      const b2 = fromObject(value);
-      if (b2) return b2;
+      const b = fromObject(value);
+      if (b) return b;
       if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function") {
         return Buffer2.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
       }
@@ -1123,22 +1123,22 @@ var LNReaderPlugin = (() => {
       return Buffer2.alloc(+length);
     }
     __name(SlowBuffer, "SlowBuffer");
-    Buffer2.isBuffer = /* @__PURE__ */ __name(function isBuffer(b2) {
-      return b2 != null && b2._isBuffer === true && b2 !== Buffer2.prototype;
+    Buffer2.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
+      return b != null && b._isBuffer === true && b !== Buffer2.prototype;
     }, "isBuffer");
-    Buffer2.compare = /* @__PURE__ */ __name(function compare(a2, b2) {
+    Buffer2.compare = /* @__PURE__ */ __name(function compare(a2, b) {
       if (isInstance(a2, Uint8Array)) a2 = Buffer2.from(a2, a2.offset, a2.byteLength);
-      if (isInstance(b2, Uint8Array)) b2 = Buffer2.from(b2, b2.offset, b2.byteLength);
-      if (!Buffer2.isBuffer(a2) || !Buffer2.isBuffer(b2)) {
+      if (isInstance(b, Uint8Array)) b = Buffer2.from(b, b.offset, b.byteLength);
+      if (!Buffer2.isBuffer(a2) || !Buffer2.isBuffer(b)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b2) return 0;
+      if (a2 === b) return 0;
       let x = a2.length;
-      let y = b2.length;
+      let y = b.length;
       for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b2[i2]) {
+        if (a2[i2] !== b[i2]) {
           x = a2[i2];
-          y = b2[i2];
+          y = b[i2];
           break;
         }
       }
@@ -1289,10 +1289,10 @@ var LNReaderPlugin = (() => {
     }
     __name(slowToString, "slowToString");
     Buffer2.prototype._isBuffer = true;
-    function swap(b2, n, m) {
-      const i2 = b2[n];
-      b2[n] = b2[m];
-      b2[m] = i2;
+    function swap(b, n2, m) {
+      const i2 = b[n2];
+      b[n2] = b[m];
+      b[m] = i2;
     }
     __name(swap, "swap");
     Buffer2.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
@@ -1336,10 +1336,10 @@ var LNReaderPlugin = (() => {
       return slowToString.apply(this, arguments);
     }, "toString");
     Buffer2.prototype.toLocaleString = Buffer2.prototype.toString;
-    Buffer2.prototype.equals = /* @__PURE__ */ __name(function equals(b2) {
-      if (!Buffer2.isBuffer(b2)) throw new TypeError("Argument must be a Buffer");
-      if (this === b2) return true;
-      return Buffer2.compare(this, b2) === 0;
+    Buffer2.prototype.equals = /* @__PURE__ */ __name(function equals(b) {
+      if (!Buffer2.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
+      if (this === b) return true;
+      return Buffer2.compare(this, b) === 0;
     }, "equals");
     Buffer2.prototype.inspect = /* @__PURE__ */ __name(function inspect() {
       let str = "";
@@ -2336,13 +2336,13 @@ var LNReaderPlugin = (() => {
     __name(checkBounds, "checkBounds");
     function checkIntBI(value, min, max, buf, offset, byteLength2) {
       if (value > max || value < min) {
-        const n = typeof min === "bigint" ? "n" : "";
+        const n2 = typeof min === "bigint" ? "n" : "";
         let range;
         {
           if (min === 0 || min === BigInt(0)) {
-            range = `>= 0${n} and < 2${n} ** ${(byteLength2 + 1) * 8}${n}`;
+            range = `>= 0${n2} and < 2${n2} ** ${(byteLength2 + 1) * 8}${n2}`;
           } else {
-            range = `>= -(2${n} ** ${(byteLength2 + 1) * 8 - 1}${n}) and < 2 ** ${(byteLength2 + 1) * 8 - 1}${n}`;
+            range = `>= -(2${n2} ** ${(byteLength2 + 1) * 8 - 1}${n2}) and < 2 ** ${(byteLength2 + 1) * 8 - 1}${n2}`;
           }
         }
         throw new errors.ERR_OUT_OF_RANGE("value", range, value);
@@ -2436,13 +2436,13 @@ var LNReaderPlugin = (() => {
     }
     __name(asciiToBytes, "asciiToBytes");
     function utf16leToBytes(str, units) {
-      let c, hi, lo;
+      let c2, hi, lo;
       const byteArray = [];
       for (let i2 = 0; i2 < str.length; ++i2) {
         if ((units -= 2) < 0) break;
-        c = str.charCodeAt(i2);
-        hi = c >> 8;
-        lo = c % 256;
+        c2 = str.charCodeAt(i2);
+        hi = c2 >> 8;
+        lo = c2 % 256;
         byteArray.push(lo);
         byteArray.push(hi);
       }
@@ -2584,10 +2584,10 @@ var LNReaderPlugin = (() => {
         var p = string.length;
         if (!p)
           return 0;
-        var n = 0;
+        var n2 = 0;
         while (--p % 4 > 1 && string.charAt(p) === "=")
-          ++n;
-        return Math.ceil(string.length * 3) / 4 - n;
+          ++n2;
+        return Math.ceil(string.length * 3) / 4 - n2;
       }, "length");
       var b64 = new Array(64);
       var s64 = new Array(123);
@@ -2595,23 +2595,23 @@ var LNReaderPlugin = (() => {
         s64[b64[i2] = i2 < 26 ? i2 + 65 : i2 < 52 ? i2 + 71 : i2 < 62 ? i2 - 4 : i2 - 59 | 43] = i2++;
       base64.encode = /* @__PURE__ */ __name(function encode(buffer, start, end2) {
         var parts = null, chunk = [];
-        var i3 = 0, j = 0, t;
+        var i3 = 0, j = 0, t2;
         while (start < end2) {
-          var b2 = buffer[start++];
+          var b = buffer[start++];
           switch (j) {
             case 0:
-              chunk[i3++] = b64[b2 >> 2];
-              t = (b2 & 3) << 4;
+              chunk[i3++] = b64[b >> 2];
+              t2 = (b & 3) << 4;
               j = 1;
               break;
             case 1:
-              chunk[i3++] = b64[t | b2 >> 4];
-              t = (b2 & 15) << 2;
+              chunk[i3++] = b64[t2 | b >> 4];
+              t2 = (b & 15) << 2;
               j = 2;
               break;
             case 2:
-              chunk[i3++] = b64[t | b2 >> 6];
-              chunk[i3++] = b64[b2 & 63];
+              chunk[i3++] = b64[t2 | b >> 6];
+              chunk[i3++] = b64[b & 63];
               j = 0;
               break;
           }
@@ -2621,7 +2621,7 @@ var LNReaderPlugin = (() => {
           }
         }
         if (j) {
-          chunk[i3++] = b64[t];
+          chunk[i3++] = b64[t2];
           chunk[i3++] = 61;
           if (j === 1)
             chunk[i3++] = 61;
@@ -2636,30 +2636,30 @@ var LNReaderPlugin = (() => {
       var invalidEncoding = "invalid encoding";
       base64.decode = /* @__PURE__ */ __name(function decode(string, buffer, offset) {
         var start = offset;
-        var j = 0, t;
+        var j = 0, t2;
         for (var i3 = 0; i3 < string.length; ) {
-          var c = string.charCodeAt(i3++);
-          if (c === 61 && j > 1)
+          var c2 = string.charCodeAt(i3++);
+          if (c2 === 61 && j > 1)
             break;
-          if ((c = s64[c]) === void 0)
+          if ((c2 = s64[c2]) === void 0)
             throw Error(invalidEncoding);
           switch (j) {
             case 0:
-              t = c;
+              t2 = c2;
               j = 1;
               break;
             case 1:
-              buffer[offset++] = t << 2 | (c & 48) >> 4;
-              t = c;
+              buffer[offset++] = t2 << 2 | (c2 & 48) >> 4;
+              t2 = c2;
               j = 2;
               break;
             case 2:
-              buffer[offset++] = (t & 15) << 4 | (c & 60) >> 2;
-              t = c;
+              buffer[offset++] = (t2 & 15) << 4 | (c2 & 60) >> 2;
+              t2 = c2;
               j = 3;
               break;
             case 3:
-              buffer[offset++] = (t & 3) << 6 | c;
+              buffer[offset++] = (t2 & 3) << 6 | c2;
               j = 0;
               break;
           }
@@ -2969,14 +2969,14 @@ var LNReaderPlugin = (() => {
       init_process2();
       var utf8 = exports4;
       utf8.length = /* @__PURE__ */ __name(function utf8_length(string) {
-        var len = 0, c = 0;
+        var len = 0, c2 = 0;
         for (var i2 = 0; i2 < string.length; ++i2) {
-          c = string.charCodeAt(i2);
-          if (c < 128)
+          c2 = string.charCodeAt(i2);
+          if (c2 < 128)
             len += 1;
-          else if (c < 2048)
+          else if (c2 < 2048)
             len += 2;
-          else if ((c & 64512) === 55296 && (string.charCodeAt(i2 + 1) & 64512) === 56320) {
+          else if ((c2 & 64512) === 55296 && (string.charCodeAt(i2 + 1) & 64512) === 56320) {
             ++i2;
             len += 4;
           } else
@@ -2988,19 +2988,19 @@ var LNReaderPlugin = (() => {
         var len = end2 - start;
         if (len < 1)
           return "";
-        var parts = null, chunk = [], i2 = 0, t;
+        var parts = null, chunk = [], i2 = 0, t2;
         while (start < end2) {
-          t = buffer[start++];
-          if (t < 128)
-            chunk[i2++] = t;
-          else if (t > 191 && t < 224)
-            chunk[i2++] = (t & 31) << 6 | buffer[start++] & 63;
-          else if (t > 239 && t < 365) {
-            t = ((t & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63) - 65536;
-            chunk[i2++] = 55296 + (t >> 10);
-            chunk[i2++] = 56320 + (t & 1023);
+          t2 = buffer[start++];
+          if (t2 < 128)
+            chunk[i2++] = t2;
+          else if (t2 > 191 && t2 < 224)
+            chunk[i2++] = (t2 & 31) << 6 | buffer[start++] & 63;
+          else if (t2 > 239 && t2 < 365) {
+            t2 = ((t2 & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63) - 65536;
+            chunk[i2++] = 55296 + (t2 >> 10);
+            chunk[i2++] = 56320 + (t2 & 1023);
           } else
-            chunk[i2++] = (t & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
+            chunk[i2++] = (t2 & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
           if (i2 > 8191) {
             (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
             i2 = 0;
@@ -4188,7 +4188,7 @@ var LNReaderPlugin = (() => {
       init_process2();
       var types = exports4;
       var util = require_util();
-      var s = [
+      var s2 = [
         "double",
         // 0
         "float",
@@ -4223,7 +4223,7 @@ var LNReaderPlugin = (() => {
       function bake(values, offset) {
         var i2 = 0, o2 = {};
         offset |= 0;
-        while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
+        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
         return o2;
       }
       __name(bake, "bake");
@@ -6123,8 +6123,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b2) {
-        return a2.id - b2.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
+        return a2.id - b.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -6589,13 +6589,13 @@ var LNReaderPlugin = (() => {
           } else {
             lookback = 3;
           }
-          var commentOffset = start - lookback, c;
+          var commentOffset = start - lookback, c2;
           do {
-            if (--commentOffset < 0 || (c = source.charAt(commentOffset)) === "\n") {
+            if (--commentOffset < 0 || (c2 = source.charAt(commentOffset)) === "\n") {
               comment.lineEmpty = true;
               break;
             }
-          } while (c === " " || c === "	");
+          } while (c2 === " " || c2 === "	");
           var lines = source.substring(start, end2).split(setCommentSplitRe);
           for (var i2 = 0; i2 < lines.length; ++i2)
             lines[i2] = lines[i2].replace(alternateCommentMode ? setCommentAltRe : setCommentRe, "").trim();
@@ -7877,7 +7877,7 @@ var LNReaderPlugin = (() => {
         const encodedrequest = RequestMessge.encode(protoInit.requestData).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
-          Array(5).fill(0).map((v2, idx) => {
+          Array(5).fill(0).map((v, idx) => {
             if (idx === 0) return 0;
             return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
           })
@@ -7890,7 +7890,7 @@ var LNReaderPlugin = (() => {
           method: "POST",
           ...init,
           body: bodyArray
-        }).then((r) => r.arrayBuffer()).then((arr) => {
+        }).then((r2) => r2.arrayBuffer()).then((arr) => {
           const payload = new Uint8Array(arr);
           const length = Number(
             BigInt(payload[1] << 24) | BigInt(payload[2] << 16) | BigInt(payload[3] << 8) | BigInt(payload[4])
@@ -7917,42 +7917,6 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       init_fetch();
-    }
-  });
-
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/novelStatus.ts
-  var novelStatus_exports = {};
-  __export(novelStatus_exports, {
-    NovelStatus: () => NovelStatus
-  });
-  var init_novelStatus = __esm({
-    "src/libs/novelStatus.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -8002,33 +7966,33 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __extends = exports4 && exports4.__extends || /* @__PURE__ */ function() {
-        var extendStatics = /* @__PURE__ */ __name(function(d, b2) {
-          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b3) {
-            d2.__proto__ = b3;
-          } || function(d2, b3) {
-            for (var p in b3) if (Object.prototype.hasOwnProperty.call(b3, p)) d2[p] = b3[p];
+        var extendStatics = /* @__PURE__ */ __name(function(d, b) {
+          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
+            d2.__proto__ = b2;
+          } || function(d2, b2) {
+            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
           };
-          return extendStatics(d, b2);
+          return extendStatics(d, b);
         }, "extendStatics");
-        return function(d, b2) {
-          if (typeof b2 !== "function" && b2 !== null)
-            throw new TypeError("Class extends value " + String(b2) + " is not a constructor or null");
-          extendStatics(d, b2);
+        return function(d, b) {
+          if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+          extendStatics(d, b);
           function __() {
             this.constructor = d;
           }
           __name(__, "__");
-          d.prototype = b2 === null ? Object.create(b2) : (__.prototype = b2.prototype, new __());
+          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
       }();
       var __assign = exports4 && exports4.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
+        __assign = Object.assign || function(t2) {
+          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s2 = arguments[i2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
-          return t;
+          return t2;
         };
         return __assign.apply(this, arguments);
       };
@@ -8623,8 +8587,8 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.default = new Uint16Array(
         // prettier-ignore
-        '\u1D41<\xD5\u0131\u028A\u049D\u057B\u05D0\u0675\u06DE\u07A2\u07D6\u080F\u0A4A\u0A91\u0DA1\u0E6D\u0F09\u0F26\u10CA\u1228\u12E1\u1415\u149D\u14C3\u14DF\u1525\0\0\0\0\0\0\u156B\u16CD\u198D\u1C12\u1DDD\u1F7E\u2060\u21B0\u228D\u23C0\u23FB\u2442\u2824\u2912\u2D08\u2E48\u2FCE\u3016\u32BA\u3639\u37AC\u38FE\u3A28\u3A71\u3AE0\u3B2E\u0800EMabcfglmnoprstu\\bfms\x7F\x84\x8B\x90\x95\x98\xA6\xB3\xB9\xC8\xCFlig\u803B\xC6\u40C6P\u803B&\u4026cute\u803B\xC1\u40C1reve;\u4102\u0100iyx}rc\u803B\xC2\u40C2;\u4410r;\uC000\u{1D504}rave\u803B\xC0\u40C0pha;\u4391acr;\u4100d;\u6A53\u0100gp\x9D\xA1on;\u4104f;\uC000\u{1D538}plyFunction;\u6061ing\u803B\xC5\u40C5\u0100cs\xBE\xC3r;\uC000\u{1D49C}ign;\u6254ilde\u803B\xC3\u40C3ml\u803B\xC4\u40C4\u0400aceforsu\xE5\xFB\xFE\u0117\u011C\u0122\u0127\u012A\u0100cr\xEA\xF2kslash;\u6216\u0176\xF6\xF8;\u6AE7ed;\u6306y;\u4411\u0180crt\u0105\u010B\u0114ause;\u6235noullis;\u612Ca;\u4392r;\uC000\u{1D505}pf;\uC000\u{1D539}eve;\u42D8c\xF2\u0113mpeq;\u624E\u0700HOacdefhilorsu\u014D\u0151\u0156\u0180\u019E\u01A2\u01B5\u01B7\u01BA\u01DC\u0215\u0273\u0278\u027Ecy;\u4427PY\u803B\xA9\u40A9\u0180cpy\u015D\u0162\u017Aute;\u4106\u0100;i\u0167\u0168\u62D2talDifferentialD;\u6145leys;\u612D\u0200aeio\u0189\u018E\u0194\u0198ron;\u410Cdil\u803B\xC7\u40C7rc;\u4108nint;\u6230ot;\u410A\u0100dn\u01A7\u01ADilla;\u40B8terDot;\u40B7\xF2\u017Fi;\u43A7rcle\u0200DMPT\u01C7\u01CB\u01D1\u01D6ot;\u6299inus;\u6296lus;\u6295imes;\u6297o\u0100cs\u01E2\u01F8kwiseContourIntegral;\u6232eCurly\u0100DQ\u0203\u020FoubleQuote;\u601Duote;\u6019\u0200lnpu\u021E\u0228\u0247\u0255on\u0100;e\u0225\u0226\u6237;\u6A74\u0180git\u022F\u0236\u023Aruent;\u6261nt;\u622FourIntegral;\u622E\u0100fr\u024C\u024E;\u6102oduct;\u6210nterClockwiseContourIntegral;\u6233oss;\u6A2Fcr;\uC000\u{1D49E}p\u0100;C\u0284\u0285\u62D3ap;\u624D\u0580DJSZacefios\u02A0\u02AC\u02B0\u02B4\u02B8\u02CB\u02D7\u02E1\u02E6\u0333\u048D\u0100;o\u0179\u02A5trahd;\u6911cy;\u4402cy;\u4405cy;\u440F\u0180grs\u02BF\u02C4\u02C7ger;\u6021r;\u61A1hv;\u6AE4\u0100ay\u02D0\u02D5ron;\u410E;\u4414l\u0100;t\u02DD\u02DE\u6207a;\u4394r;\uC000\u{1D507}\u0100af\u02EB\u0327\u0100cm\u02F0\u0322ritical\u0200ADGT\u0300\u0306\u0316\u031Ccute;\u40B4o\u0174\u030B\u030D;\u42D9bleAcute;\u42DDrave;\u4060ilde;\u42DCond;\u62C4ferentialD;\u6146\u0470\u033D\0\0\0\u0342\u0354\0\u0405f;\uC000\u{1D53B}\u0180;DE\u0348\u0349\u034D\u40A8ot;\u60DCqual;\u6250ble\u0300CDLRUV\u0363\u0372\u0382\u03CF\u03E2\u03F8ontourIntegra\xEC\u0239o\u0274\u0379\0\0\u037B\xBB\u0349nArrow;\u61D3\u0100eo\u0387\u03A4ft\u0180ART\u0390\u0396\u03A1rrow;\u61D0ightArrow;\u61D4e\xE5\u02CAng\u0100LR\u03AB\u03C4eft\u0100AR\u03B3\u03B9rrow;\u67F8ightArrow;\u67FAightArrow;\u67F9ight\u0100AT\u03D8\u03DErrow;\u61D2ee;\u62A8p\u0241\u03E9\0\0\u03EFrrow;\u61D1ownArrow;\u61D5erticalBar;\u6225n\u0300ABLRTa\u0412\u042A\u0430\u045E\u047F\u037Crrow\u0180;BU\u041D\u041E\u0422\u6193ar;\u6913pArrow;\u61F5reve;\u4311eft\u02D2\u043A\0\u0446\0\u0450ightVector;\u6950eeVector;\u695Eector\u0100;B\u0459\u045A\u61BDar;\u6956ight\u01D4\u0467\0\u0471eeVector;\u695Fector\u0100;B\u047A\u047B\u61C1ar;\u6957ee\u0100;A\u0486\u0487\u62A4rrow;\u61A7\u0100ct\u0492\u0497r;\uC000\u{1D49F}rok;\u4110\u0800NTacdfglmopqstux\u04BD\u04C0\u04C4\u04CB\u04DE\u04E2\u04E7\u04EE\u04F5\u0521\u052F\u0536\u0552\u055D\u0560\u0565G;\u414AH\u803B\xD0\u40D0cute\u803B\xC9\u40C9\u0180aiy\u04D2\u04D7\u04DCron;\u411Arc\u803B\xCA\u40CA;\u442Dot;\u4116r;\uC000\u{1D508}rave\u803B\xC8\u40C8ement;\u6208\u0100ap\u04FA\u04FEcr;\u4112ty\u0253\u0506\0\0\u0512mallSquare;\u65FBerySmallSquare;\u65AB\u0100gp\u0526\u052Aon;\u4118f;\uC000\u{1D53C}silon;\u4395u\u0100ai\u053C\u0549l\u0100;T\u0542\u0543\u6A75ilde;\u6242librium;\u61CC\u0100ci\u0557\u055Ar;\u6130m;\u6A73a;\u4397ml\u803B\xCB\u40CB\u0100ip\u056A\u056Fsts;\u6203onentialE;\u6147\u0280cfios\u0585\u0588\u058D\u05B2\u05CCy;\u4424r;\uC000\u{1D509}lled\u0253\u0597\0\0\u05A3mallSquare;\u65FCerySmallSquare;\u65AA\u0370\u05BA\0\u05BF\0\0\u05C4f;\uC000\u{1D53D}All;\u6200riertrf;\u6131c\xF2\u05CB\u0600JTabcdfgorst\u05E8\u05EC\u05EF\u05FA\u0600\u0612\u0616\u061B\u061D\u0623\u066C\u0672cy;\u4403\u803B>\u403Emma\u0100;d\u05F7\u05F8\u4393;\u43DCreve;\u411E\u0180eiy\u0607\u060C\u0610dil;\u4122rc;\u411C;\u4413ot;\u4120r;\uC000\u{1D50A};\u62D9pf;\uC000\u{1D53E}eater\u0300EFGLST\u0635\u0644\u064E\u0656\u065B\u0666qual\u0100;L\u063E\u063F\u6265ess;\u62DBullEqual;\u6267reater;\u6AA2ess;\u6277lantEqual;\u6A7Eilde;\u6273cr;\uC000\u{1D4A2};\u626B\u0400Aacfiosu\u0685\u068B\u0696\u069B\u069E\u06AA\u06BE\u06CARDcy;\u442A\u0100ct\u0690\u0694ek;\u42C7;\u405Eirc;\u4124r;\u610ClbertSpace;\u610B\u01F0\u06AF\0\u06B2f;\u610DizontalLine;\u6500\u0100ct\u06C3\u06C5\xF2\u06A9rok;\u4126mp\u0144\u06D0\u06D8ownHum\xF0\u012Fqual;\u624F\u0700EJOacdfgmnostu\u06FA\u06FE\u0703\u0707\u070E\u071A\u071E\u0721\u0728\u0744\u0778\u078B\u078F\u0795cy;\u4415lig;\u4132cy;\u4401cute\u803B\xCD\u40CD\u0100iy\u0713\u0718rc\u803B\xCE\u40CE;\u4418ot;\u4130r;\u6111rave\u803B\xCC\u40CC\u0180;ap\u0720\u072F\u073F\u0100cg\u0734\u0737r;\u412AinaryI;\u6148lie\xF3\u03DD\u01F4\u0749\0\u0762\u0100;e\u074D\u074E\u622C\u0100gr\u0753\u0758ral;\u622Bsection;\u62C2isible\u0100CT\u076C\u0772omma;\u6063imes;\u6062\u0180gpt\u077F\u0783\u0788on;\u412Ef;\uC000\u{1D540}a;\u4399cr;\u6110ilde;\u4128\u01EB\u079A\0\u079Ecy;\u4406l\u803B\xCF\u40CF\u0280cfosu\u07AC\u07B7\u07BC\u07C2\u07D0\u0100iy\u07B1\u07B5rc;\u4134;\u4419r;\uC000\u{1D50D}pf;\uC000\u{1D541}\u01E3\u07C7\0\u07CCr;\uC000\u{1D4A5}rcy;\u4408kcy;\u4404\u0380HJacfos\u07E4\u07E8\u07EC\u07F1\u07FD\u0802\u0808cy;\u4425cy;\u440Cppa;\u439A\u0100ey\u07F6\u07FBdil;\u4136;\u441Ar;\uC000\u{1D50E}pf;\uC000\u{1D542}cr;\uC000\u{1D4A6}\u0580JTaceflmost\u0825\u0829\u082C\u0850\u0863\u09B3\u09B8\u09C7\u09CD\u0A37\u0A47cy;\u4409\u803B<\u403C\u0280cmnpr\u0837\u083C\u0841\u0844\u084Dute;\u4139bda;\u439Bg;\u67EAlacetrf;\u6112r;\u619E\u0180aey\u0857\u085C\u0861ron;\u413Ddil;\u413B;\u441B\u0100fs\u0868\u0970t\u0500ACDFRTUVar\u087E\u08A9\u08B1\u08E0\u08E6\u08FC\u092F\u095B\u0390\u096A\u0100nr\u0883\u088FgleBracket;\u67E8row\u0180;BR\u0899\u089A\u089E\u6190ar;\u61E4ightArrow;\u61C6eiling;\u6308o\u01F5\u08B7\0\u08C3bleBracket;\u67E6n\u01D4\u08C8\0\u08D2eeVector;\u6961ector\u0100;B\u08DB\u08DC\u61C3ar;\u6959loor;\u630Aight\u0100AV\u08EF\u08F5rrow;\u6194ector;\u694E\u0100er\u0901\u0917e\u0180;AV\u0909\u090A\u0910\u62A3rrow;\u61A4ector;\u695Aiangle\u0180;BE\u0924\u0925\u0929\u62B2ar;\u69CFqual;\u62B4p\u0180DTV\u0937\u0942\u094CownVector;\u6951eeVector;\u6960ector\u0100;B\u0956\u0957\u61BFar;\u6958ector\u0100;B\u0965\u0966\u61BCar;\u6952ight\xE1\u039Cs\u0300EFGLST\u097E\u098B\u0995\u099D\u09A2\u09ADqualGreater;\u62DAullEqual;\u6266reater;\u6276ess;\u6AA1lantEqual;\u6A7Dilde;\u6272r;\uC000\u{1D50F}\u0100;e\u09BD\u09BE\u62D8ftarrow;\u61DAidot;\u413F\u0180npw\u09D4\u0A16\u0A1Bg\u0200LRlr\u09DE\u09F7\u0A02\u0A10eft\u0100AR\u09E6\u09ECrrow;\u67F5ightArrow;\u67F7ightArrow;\u67F6eft\u0100ar\u03B3\u0A0Aight\xE1\u03BFight\xE1\u03CAf;\uC000\u{1D543}er\u0100LR\u0A22\u0A2CeftArrow;\u6199ightArrow;\u6198\u0180cht\u0A3E\u0A40\u0A42\xF2\u084C;\u61B0rok;\u4141;\u626A\u0400acefiosu\u0A5A\u0A5D\u0A60\u0A77\u0A7C\u0A85\u0A8B\u0A8Ep;\u6905y;\u441C\u0100dl\u0A65\u0A6FiumSpace;\u605Flintrf;\u6133r;\uC000\u{1D510}nusPlus;\u6213pf;\uC000\u{1D544}c\xF2\u0A76;\u439C\u0480Jacefostu\u0AA3\u0AA7\u0AAD\u0AC0\u0B14\u0B19\u0D91\u0D97\u0D9Ecy;\u440Acute;\u4143\u0180aey\u0AB4\u0AB9\u0ABEron;\u4147dil;\u4145;\u441D\u0180gsw\u0AC7\u0AF0\u0B0Eative\u0180MTV\u0AD3\u0ADF\u0AE8ediumSpace;\u600Bhi\u0100cn\u0AE6\u0AD8\xEB\u0AD9eryThi\xEE\u0AD9ted\u0100GL\u0AF8\u0B06reaterGreate\xF2\u0673essLes\xF3\u0A48Line;\u400Ar;\uC000\u{1D511}\u0200Bnpt\u0B22\u0B28\u0B37\u0B3Areak;\u6060BreakingSpace;\u40A0f;\u6115\u0680;CDEGHLNPRSTV\u0B55\u0B56\u0B6A\u0B7C\u0BA1\u0BEB\u0C04\u0C5E\u0C84\u0CA6\u0CD8\u0D61\u0D85\u6AEC\u0100ou\u0B5B\u0B64ngruent;\u6262pCap;\u626DoubleVerticalBar;\u6226\u0180lqx\u0B83\u0B8A\u0B9Bement;\u6209ual\u0100;T\u0B92\u0B93\u6260ilde;\uC000\u2242\u0338ists;\u6204reater\u0380;EFGLST\u0BB6\u0BB7\u0BBD\u0BC9\u0BD3\u0BD8\u0BE5\u626Fqual;\u6271ullEqual;\uC000\u2267\u0338reater;\uC000\u226B\u0338ess;\u6279lantEqual;\uC000\u2A7E\u0338ilde;\u6275ump\u0144\u0BF2\u0BFDownHump;\uC000\u224E\u0338qual;\uC000\u224F\u0338e\u0100fs\u0C0A\u0C27tTriangle\u0180;BE\u0C1A\u0C1B\u0C21\u62EAar;\uC000\u29CF\u0338qual;\u62ECs\u0300;EGLST\u0C35\u0C36\u0C3C\u0C44\u0C4B\u0C58\u626Equal;\u6270reater;\u6278ess;\uC000\u226A\u0338lantEqual;\uC000\u2A7D\u0338ilde;\u6274ested\u0100GL\u0C68\u0C79reaterGreater;\uC000\u2AA2\u0338essLess;\uC000\u2AA1\u0338recedes\u0180;ES\u0C92\u0C93\u0C9B\u6280qual;\uC000\u2AAF\u0338lantEqual;\u62E0\u0100ei\u0CAB\u0CB9verseElement;\u620CghtTriangle\u0180;BE\u0CCB\u0CCC\u0CD2\u62EBar;\uC000\u29D0\u0338qual;\u62ED\u0100qu\u0CDD\u0D0CuareSu\u0100bp\u0CE8\u0CF9set\u0100;E\u0CF0\u0CF3\uC000\u228F\u0338qual;\u62E2erset\u0100;E\u0D03\u0D06\uC000\u2290\u0338qual;\u62E3\u0180bcp\u0D13\u0D24\u0D4Eset\u0100;E\u0D1B\u0D1E\uC000\u2282\u20D2qual;\u6288ceeds\u0200;EST\u0D32\u0D33\u0D3B\u0D46\u6281qual;\uC000\u2AB0\u0338lantEqual;\u62E1ilde;\uC000\u227F\u0338erset\u0100;E\u0D58\u0D5B\uC000\u2283\u20D2qual;\u6289ilde\u0200;EFT\u0D6E\u0D6F\u0D75\u0D7F\u6241qual;\u6244ullEqual;\u6247ilde;\u6249erticalBar;\u6224cr;\uC000\u{1D4A9}ilde\u803B\xD1\u40D1;\u439D\u0700Eacdfgmoprstuv\u0DBD\u0DC2\u0DC9\u0DD5\u0DDB\u0DE0\u0DE7\u0DFC\u0E02\u0E20\u0E22\u0E32\u0E3F\u0E44lig;\u4152cute\u803B\xD3\u40D3\u0100iy\u0DCE\u0DD3rc\u803B\xD4\u40D4;\u441Eblac;\u4150r;\uC000\u{1D512}rave\u803B\xD2\u40D2\u0180aei\u0DEE\u0DF2\u0DF6cr;\u414Cga;\u43A9cron;\u439Fpf;\uC000\u{1D546}enCurly\u0100DQ\u0E0E\u0E1AoubleQuote;\u601Cuote;\u6018;\u6A54\u0100cl\u0E27\u0E2Cr;\uC000\u{1D4AA}ash\u803B\xD8\u40D8i\u016C\u0E37\u0E3Cde\u803B\xD5\u40D5es;\u6A37ml\u803B\xD6\u40D6er\u0100BP\u0E4B\u0E60\u0100ar\u0E50\u0E53r;\u603Eac\u0100ek\u0E5A\u0E5C;\u63DEet;\u63B4arenthesis;\u63DC\u0480acfhilors\u0E7F\u0E87\u0E8A\u0E8F\u0E92\u0E94\u0E9D\u0EB0\u0EFCrtialD;\u6202y;\u441Fr;\uC000\u{1D513}i;\u43A6;\u43A0usMinus;\u40B1\u0100ip\u0EA2\u0EADncareplan\xE5\u069Df;\u6119\u0200;eio\u0EB9\u0EBA\u0EE0\u0EE4\u6ABBcedes\u0200;EST\u0EC8\u0EC9\u0ECF\u0EDA\u627Aqual;\u6AAFlantEqual;\u627Cilde;\u627Eme;\u6033\u0100dp\u0EE9\u0EEEuct;\u620Fortion\u0100;a\u0225\u0EF9l;\u621D\u0100ci\u0F01\u0F06r;\uC000\u{1D4AB};\u43A8\u0200Ufos\u0F11\u0F16\u0F1B\u0F1FOT\u803B"\u4022r;\uC000\u{1D514}pf;\u611Acr;\uC000\u{1D4AC}\u0600BEacefhiorsu\u0F3E\u0F43\u0F47\u0F60\u0F73\u0FA7\u0FAA\u0FAD\u1096\u10A9\u10B4\u10BEarr;\u6910G\u803B\xAE\u40AE\u0180cnr\u0F4E\u0F53\u0F56ute;\u4154g;\u67EBr\u0100;t\u0F5C\u0F5D\u61A0l;\u6916\u0180aey\u0F67\u0F6C\u0F71ron;\u4158dil;\u4156;\u4420\u0100;v\u0F78\u0F79\u611Cerse\u0100EU\u0F82\u0F99\u0100lq\u0F87\u0F8Eement;\u620Builibrium;\u61CBpEquilibrium;\u696Fr\xBB\u0F79o;\u43A1ght\u0400ACDFTUVa\u0FC1\u0FEB\u0FF3\u1022\u1028\u105B\u1087\u03D8\u0100nr\u0FC6\u0FD2gleBracket;\u67E9row\u0180;BL\u0FDC\u0FDD\u0FE1\u6192ar;\u61E5eftArrow;\u61C4eiling;\u6309o\u01F5\u0FF9\0\u1005bleBracket;\u67E7n\u01D4\u100A\0\u1014eeVector;\u695Dector\u0100;B\u101D\u101E\u61C2ar;\u6955loor;\u630B\u0100er\u102D\u1043e\u0180;AV\u1035\u1036\u103C\u62A2rrow;\u61A6ector;\u695Biangle\u0180;BE\u1050\u1051\u1055\u62B3ar;\u69D0qual;\u62B5p\u0180DTV\u1063\u106E\u1078ownVector;\u694FeeVector;\u695Cector\u0100;B\u1082\u1083\u61BEar;\u6954ector\u0100;B\u1091\u1092\u61C0ar;\u6953\u0100pu\u109B\u109Ef;\u611DndImplies;\u6970ightarrow;\u61DB\u0100ch\u10B9\u10BCr;\u611B;\u61B1leDelayed;\u69F4\u0680HOacfhimoqstu\u10E4\u10F1\u10F7\u10FD\u1119\u111E\u1151\u1156\u1161\u1167\u11B5\u11BB\u11BF\u0100Cc\u10E9\u10EEHcy;\u4429y;\u4428FTcy;\u442Ccute;\u415A\u0280;aeiy\u1108\u1109\u110E\u1113\u1117\u6ABCron;\u4160dil;\u415Erc;\u415C;\u4421r;\uC000\u{1D516}ort\u0200DLRU\u112A\u1134\u113E\u1149ownArrow\xBB\u041EeftArrow\xBB\u089AightArrow\xBB\u0FDDpArrow;\u6191gma;\u43A3allCircle;\u6218pf;\uC000\u{1D54A}\u0272\u116D\0\0\u1170t;\u621Aare\u0200;ISU\u117B\u117C\u1189\u11AF\u65A1ntersection;\u6293u\u0100bp\u118F\u119Eset\u0100;E\u1197\u1198\u628Fqual;\u6291erset\u0100;E\u11A8\u11A9\u6290qual;\u6292nion;\u6294cr;\uC000\u{1D4AE}ar;\u62C6\u0200bcmp\u11C8\u11DB\u1209\u120B\u0100;s\u11CD\u11CE\u62D0et\u0100;E\u11CD\u11D5qual;\u6286\u0100ch\u11E0\u1205eeds\u0200;EST\u11ED\u11EE\u11F4\u11FF\u627Bqual;\u6AB0lantEqual;\u627Dilde;\u627FTh\xE1\u0F8C;\u6211\u0180;es\u1212\u1213\u1223\u62D1rset\u0100;E\u121C\u121D\u6283qual;\u6287et\xBB\u1213\u0580HRSacfhiors\u123E\u1244\u1249\u1255\u125E\u1271\u1276\u129F\u12C2\u12C8\u12D1ORN\u803B\xDE\u40DEADE;\u6122\u0100Hc\u124E\u1252cy;\u440By;\u4426\u0100bu\u125A\u125C;\u4009;\u43A4\u0180aey\u1265\u126A\u126Fron;\u4164dil;\u4162;\u4422r;\uC000\u{1D517}\u0100ei\u127B\u1289\u01F2\u1280\0\u1287efore;\u6234a;\u4398\u0100cn\u128E\u1298kSpace;\uC000\u205F\u200ASpace;\u6009lde\u0200;EFT\u12AB\u12AC\u12B2\u12BC\u623Cqual;\u6243ullEqual;\u6245ilde;\u6248pf;\uC000\u{1D54B}ipleDot;\u60DB\u0100ct\u12D6\u12DBr;\uC000\u{1D4AF}rok;\u4166\u0AE1\u12F7\u130E\u131A\u1326\0\u132C\u1331\0\0\0\0\0\u1338\u133D\u1377\u1385\0\u13FF\u1404\u140A\u1410\u0100cr\u12FB\u1301ute\u803B\xDA\u40DAr\u0100;o\u1307\u1308\u619Fcir;\u6949r\u01E3\u1313\0\u1316y;\u440Eve;\u416C\u0100iy\u131E\u1323rc\u803B\xDB\u40DB;\u4423blac;\u4170r;\uC000\u{1D518}rave\u803B\xD9\u40D9acr;\u416A\u0100di\u1341\u1369er\u0100BP\u1348\u135D\u0100ar\u134D\u1350r;\u405Fac\u0100ek\u1357\u1359;\u63DFet;\u63B5arenthesis;\u63DDon\u0100;P\u1370\u1371\u62C3lus;\u628E\u0100gp\u137B\u137Fon;\u4172f;\uC000\u{1D54C}\u0400ADETadps\u1395\u13AE\u13B8\u13C4\u03E8\u13D2\u13D7\u13F3rrow\u0180;BD\u1150\u13A0\u13A4ar;\u6912ownArrow;\u61C5ownArrow;\u6195quilibrium;\u696Eee\u0100;A\u13CB\u13CC\u62A5rrow;\u61A5own\xE1\u03F3er\u0100LR\u13DE\u13E8eftArrow;\u6196ightArrow;\u6197i\u0100;l\u13F9\u13FA\u43D2on;\u43A5ing;\u416Ecr;\uC000\u{1D4B0}ilde;\u4168ml\u803B\xDC\u40DC\u0480Dbcdefosv\u1427\u142C\u1430\u1433\u143E\u1485\u148A\u1490\u1496ash;\u62ABar;\u6AEBy;\u4412ash\u0100;l\u143B\u143C\u62A9;\u6AE6\u0100er\u1443\u1445;\u62C1\u0180bty\u144C\u1450\u147Aar;\u6016\u0100;i\u144F\u1455cal\u0200BLST\u1461\u1465\u146A\u1474ar;\u6223ine;\u407Ceparator;\u6758ilde;\u6240ThinSpace;\u600Ar;\uC000\u{1D519}pf;\uC000\u{1D54D}cr;\uC000\u{1D4B1}dash;\u62AA\u0280cefos\u14A7\u14AC\u14B1\u14B6\u14BCirc;\u4174dge;\u62C0r;\uC000\u{1D51A}pf;\uC000\u{1D54E}cr;\uC000\u{1D4B2}\u0200fios\u14CB\u14D0\u14D2\u14D8r;\uC000\u{1D51B};\u439Epf;\uC000\u{1D54F}cr;\uC000\u{1D4B3}\u0480AIUacfosu\u14F1\u14F5\u14F9\u14FD\u1504\u150F\u1514\u151A\u1520cy;\u442Fcy;\u4407cy;\u442Ecute\u803B\xDD\u40DD\u0100iy\u1509\u150Drc;\u4176;\u442Br;\uC000\u{1D51C}pf;\uC000\u{1D550}cr;\uC000\u{1D4B4}ml;\u4178\u0400Hacdefos\u1535\u1539\u153F\u154B\u154F\u155D\u1560\u1564cy;\u4416cute;\u4179\u0100ay\u1544\u1549ron;\u417D;\u4417ot;\u417B\u01F2\u1554\0\u155BoWidt\xE8\u0AD9a;\u4396r;\u6128pf;\u6124cr;\uC000\u{1D4B5}\u0BE1\u1583\u158A\u1590\0\u15B0\u15B6\u15BF\0\0\0\0\u15C6\u15DB\u15EB\u165F\u166D\0\u1695\u169B\u16B2\u16B9\0\u16BEcute\u803B\xE1\u40E1reve;\u4103\u0300;Ediuy\u159C\u159D\u15A1\u15A3\u15A8\u15AD\u623E;\uC000\u223E\u0333;\u623Frc\u803B\xE2\u40E2te\u80BB\xB4\u0306;\u4430lig\u803B\xE6\u40E6\u0100;r\xB2\u15BA;\uC000\u{1D51E}rave\u803B\xE0\u40E0\u0100ep\u15CA\u15D6\u0100fp\u15CF\u15D4sym;\u6135\xE8\u15D3ha;\u43B1\u0100ap\u15DFc\u0100cl\u15E4\u15E7r;\u4101g;\u6A3F\u0264\u15F0\0\0\u160A\u0280;adsv\u15FA\u15FB\u15FF\u1601\u1607\u6227nd;\u6A55;\u6A5Clope;\u6A58;\u6A5A\u0380;elmrsz\u1618\u1619\u161B\u161E\u163F\u164F\u1659\u6220;\u69A4e\xBB\u1619sd\u0100;a\u1625\u1626\u6221\u0461\u1630\u1632\u1634\u1636\u1638\u163A\u163C\u163E;\u69A8;\u69A9;\u69AA;\u69AB;\u69AC;\u69AD;\u69AE;\u69AFt\u0100;v\u1645\u1646\u621Fb\u0100;d\u164C\u164D\u62BE;\u699D\u0100pt\u1654\u1657h;\u6222\xBB\xB9arr;\u637C\u0100gp\u1663\u1667on;\u4105f;\uC000\u{1D552}\u0380;Eaeiop\u12C1\u167B\u167D\u1682\u1684\u1687\u168A;\u6A70cir;\u6A6F;\u624Ad;\u624Bs;\u4027rox\u0100;e\u12C1\u1692\xF1\u1683ing\u803B\xE5\u40E5\u0180cty\u16A1\u16A6\u16A8r;\uC000\u{1D4B6};\u402Amp\u0100;e\u12C1\u16AF\xF1\u0288ilde\u803B\xE3\u40E3ml\u803B\xE4\u40E4\u0100ci\u16C2\u16C8onin\xF4\u0272nt;\u6A11\u0800Nabcdefiklnoprsu\u16ED\u16F1\u1730\u173C\u1743\u1748\u1778\u177D\u17E0\u17E6\u1839\u1850\u170D\u193D\u1948\u1970ot;\u6AED\u0100cr\u16F6\u171Ek\u0200ceps\u1700\u1705\u170D\u1713ong;\u624Cpsilon;\u43F6rime;\u6035im\u0100;e\u171A\u171B\u623Dq;\u62CD\u0176\u1722\u1726ee;\u62BDed\u0100;g\u172C\u172D\u6305e\xBB\u172Drk\u0100;t\u135C\u1737brk;\u63B6\u0100oy\u1701\u1741;\u4431quo;\u601E\u0280cmprt\u1753\u175B\u1761\u1764\u1768aus\u0100;e\u010A\u0109ptyv;\u69B0s\xE9\u170Cno\xF5\u0113\u0180ahw\u176F\u1771\u1773;\u43B2;\u6136een;\u626Cr;\uC000\u{1D51F}g\u0380costuvw\u178D\u179D\u17B3\u17C1\u17D5\u17DB\u17DE\u0180aiu\u1794\u1796\u179A\xF0\u0760rc;\u65EFp\xBB\u1371\u0180dpt\u17A4\u17A8\u17ADot;\u6A00lus;\u6A01imes;\u6A02\u0271\u17B9\0\0\u17BEcup;\u6A06ar;\u6605riangle\u0100du\u17CD\u17D2own;\u65BDp;\u65B3plus;\u6A04e\xE5\u1444\xE5\u14ADarow;\u690D\u0180ako\u17ED\u1826\u1835\u0100cn\u17F2\u1823k\u0180lst\u17FA\u05AB\u1802ozenge;\u69EBriangle\u0200;dlr\u1812\u1813\u1818\u181D\u65B4own;\u65BEeft;\u65C2ight;\u65B8k;\u6423\u01B1\u182B\0\u1833\u01B2\u182F\0\u1831;\u6592;\u65914;\u6593ck;\u6588\u0100eo\u183E\u184D\u0100;q\u1843\u1846\uC000=\u20E5uiv;\uC000\u2261\u20E5t;\u6310\u0200ptwx\u1859\u185E\u1867\u186Cf;\uC000\u{1D553}\u0100;t\u13CB\u1863om\xBB\u13CCtie;\u62C8\u0600DHUVbdhmptuv\u1885\u1896\u18AA\u18BB\u18D7\u18DB\u18EC\u18FF\u1905\u190A\u1910\u1921\u0200LRlr\u188E\u1890\u1892\u1894;\u6557;\u6554;\u6556;\u6553\u0280;DUdu\u18A1\u18A2\u18A4\u18A6\u18A8\u6550;\u6566;\u6569;\u6564;\u6567\u0200LRlr\u18B3\u18B5\u18B7\u18B9;\u655D;\u655A;\u655C;\u6559\u0380;HLRhlr\u18CA\u18CB\u18CD\u18CF\u18D1\u18D3\u18D5\u6551;\u656C;\u6563;\u6560;\u656B;\u6562;\u655Fox;\u69C9\u0200LRlr\u18E4\u18E6\u18E8\u18EA;\u6555;\u6552;\u6510;\u650C\u0280;DUdu\u06BD\u18F7\u18F9\u18FB\u18FD;\u6565;\u6568;\u652C;\u6534inus;\u629Flus;\u629Eimes;\u62A0\u0200LRlr\u1919\u191B\u191D\u191F;\u655B;\u6558;\u6518;\u6514\u0380;HLRhlr\u1930\u1931\u1933\u1935\u1937\u1939\u193B\u6502;\u656A;\u6561;\u655E;\u653C;\u6524;\u651C\u0100ev\u0123\u1942bar\u803B\xA6\u40A6\u0200ceio\u1951\u1956\u195A\u1960r;\uC000\u{1D4B7}mi;\u604Fm\u0100;e\u171A\u171Cl\u0180;bh\u1968\u1969\u196B\u405C;\u69C5sub;\u67C8\u016C\u1974\u197El\u0100;e\u1979\u197A\u6022t\xBB\u197Ap\u0180;Ee\u012F\u1985\u1987;\u6AAE\u0100;q\u06DC\u06DB\u0CE1\u19A7\0\u19E8\u1A11\u1A15\u1A32\0\u1A37\u1A50\0\0\u1AB4\0\0\u1AC1\0\0\u1B21\u1B2E\u1B4D\u1B52\0\u1BFD\0\u1C0C\u0180cpr\u19AD\u19B2\u19DDute;\u4107\u0300;abcds\u19BF\u19C0\u19C4\u19CA\u19D5\u19D9\u6229nd;\u6A44rcup;\u6A49\u0100au\u19CF\u19D2p;\u6A4Bp;\u6A47ot;\u6A40;\uC000\u2229\uFE00\u0100eo\u19E2\u19E5t;\u6041\xEE\u0693\u0200aeiu\u19F0\u19FB\u1A01\u1A05\u01F0\u19F5\0\u19F8s;\u6A4Don;\u410Ddil\u803B\xE7\u40E7rc;\u4109ps\u0100;s\u1A0C\u1A0D\u6A4Cm;\u6A50ot;\u410B\u0180dmn\u1A1B\u1A20\u1A26il\u80BB\xB8\u01ADptyv;\u69B2t\u8100\xA2;e\u1A2D\u1A2E\u40A2r\xE4\u01B2r;\uC000\u{1D520}\u0180cei\u1A3D\u1A40\u1A4Dy;\u4447ck\u0100;m\u1A47\u1A48\u6713ark\xBB\u1A48;\u43C7r\u0380;Ecefms\u1A5F\u1A60\u1A62\u1A6B\u1AA4\u1AAA\u1AAE\u65CB;\u69C3\u0180;el\u1A69\u1A6A\u1A6D\u42C6q;\u6257e\u0261\u1A74\0\0\u1A88rrow\u0100lr\u1A7C\u1A81eft;\u61BAight;\u61BB\u0280RSacd\u1A92\u1A94\u1A96\u1A9A\u1A9F\xBB\u0F47;\u64C8st;\u629Birc;\u629Aash;\u629Dnint;\u6A10id;\u6AEFcir;\u69C2ubs\u0100;u\u1ABB\u1ABC\u6663it\xBB\u1ABC\u02EC\u1AC7\u1AD4\u1AFA\0\u1B0Aon\u0100;e\u1ACD\u1ACE\u403A\u0100;q\xC7\xC6\u026D\u1AD9\0\0\u1AE2a\u0100;t\u1ADE\u1ADF\u402C;\u4040\u0180;fl\u1AE8\u1AE9\u1AEB\u6201\xEE\u1160e\u0100mx\u1AF1\u1AF6ent\xBB\u1AE9e\xF3\u024D\u01E7\u1AFE\0\u1B07\u0100;d\u12BB\u1B02ot;\u6A6Dn\xF4\u0246\u0180fry\u1B10\u1B14\u1B17;\uC000\u{1D554}o\xE4\u0254\u8100\xA9;s\u0155\u1B1Dr;\u6117\u0100ao\u1B25\u1B29rr;\u61B5ss;\u6717\u0100cu\u1B32\u1B37r;\uC000\u{1D4B8}\u0100bp\u1B3C\u1B44\u0100;e\u1B41\u1B42\u6ACF;\u6AD1\u0100;e\u1B49\u1B4A\u6AD0;\u6AD2dot;\u62EF\u0380delprvw\u1B60\u1B6C\u1B77\u1B82\u1BAC\u1BD4\u1BF9arr\u0100lr\u1B68\u1B6A;\u6938;\u6935\u0270\u1B72\0\0\u1B75r;\u62DEc;\u62DFarr\u0100;p\u1B7F\u1B80\u61B6;\u693D\u0300;bcdos\u1B8F\u1B90\u1B96\u1BA1\u1BA5\u1BA8\u622Arcap;\u6A48\u0100au\u1B9B\u1B9Ep;\u6A46p;\u6A4Aot;\u628Dr;\u6A45;\uC000\u222A\uFE00\u0200alrv\u1BB5\u1BBF\u1BDE\u1BE3rr\u0100;m\u1BBC\u1BBD\u61B7;\u693Cy\u0180evw\u1BC7\u1BD4\u1BD8q\u0270\u1BCE\0\0\u1BD2re\xE3\u1B73u\xE3\u1B75ee;\u62CEedge;\u62CFen\u803B\xA4\u40A4earrow\u0100lr\u1BEE\u1BF3eft\xBB\u1B80ight\xBB\u1BBDe\xE4\u1BDD\u0100ci\u1C01\u1C07onin\xF4\u01F7nt;\u6231lcty;\u632D\u0980AHabcdefhijlorstuwz\u1C38\u1C3B\u1C3F\u1C5D\u1C69\u1C75\u1C8A\u1C9E\u1CAC\u1CB7\u1CFB\u1CFF\u1D0D\u1D7B\u1D91\u1DAB\u1DBB\u1DC6\u1DCDr\xF2\u0381ar;\u6965\u0200glrs\u1C48\u1C4D\u1C52\u1C54ger;\u6020eth;\u6138\xF2\u1133h\u0100;v\u1C5A\u1C5B\u6010\xBB\u090A\u016B\u1C61\u1C67arow;\u690Fa\xE3\u0315\u0100ay\u1C6E\u1C73ron;\u410F;\u4434\u0180;ao\u0332\u1C7C\u1C84\u0100gr\u02BF\u1C81r;\u61CAtseq;\u6A77\u0180glm\u1C91\u1C94\u1C98\u803B\xB0\u40B0ta;\u43B4ptyv;\u69B1\u0100ir\u1CA3\u1CA8sht;\u697F;\uC000\u{1D521}ar\u0100lr\u1CB3\u1CB5\xBB\u08DC\xBB\u101E\u0280aegsv\u1CC2\u0378\u1CD6\u1CDC\u1CE0m\u0180;os\u0326\u1CCA\u1CD4nd\u0100;s\u0326\u1CD1uit;\u6666amma;\u43DDin;\u62F2\u0180;io\u1CE7\u1CE8\u1CF8\u40F7de\u8100\xF7;o\u1CE7\u1CF0ntimes;\u62C7n\xF8\u1CF7cy;\u4452c\u026F\u1D06\0\0\u1D0Arn;\u631Eop;\u630D\u0280lptuw\u1D18\u1D1D\u1D22\u1D49\u1D55lar;\u4024f;\uC000\u{1D555}\u0280;emps\u030B\u1D2D\u1D37\u1D3D\u1D42q\u0100;d\u0352\u1D33ot;\u6251inus;\u6238lus;\u6214quare;\u62A1blebarwedg\xE5\xFAn\u0180adh\u112E\u1D5D\u1D67ownarrow\xF3\u1C83arpoon\u0100lr\u1D72\u1D76ef\xF4\u1CB4igh\xF4\u1CB6\u0162\u1D7F\u1D85karo\xF7\u0F42\u026F\u1D8A\0\0\u1D8Ern;\u631Fop;\u630C\u0180cot\u1D98\u1DA3\u1DA6\u0100ry\u1D9D\u1DA1;\uC000\u{1D4B9};\u4455l;\u69F6rok;\u4111\u0100dr\u1DB0\u1DB4ot;\u62F1i\u0100;f\u1DBA\u1816\u65BF\u0100ah\u1DC0\u1DC3r\xF2\u0429a\xF2\u0FA6angle;\u69A6\u0100ci\u1DD2\u1DD5y;\u445Fgrarr;\u67FF\u0900Dacdefglmnopqrstux\u1E01\u1E09\u1E19\u1E38\u0578\u1E3C\u1E49\u1E61\u1E7E\u1EA5\u1EAF\u1EBD\u1EE1\u1F2A\u1F37\u1F44\u1F4E\u1F5A\u0100Do\u1E06\u1D34o\xF4\u1C89\u0100cs\u1E0E\u1E14ute\u803B\xE9\u40E9ter;\u6A6E\u0200aioy\u1E22\u1E27\u1E31\u1E36ron;\u411Br\u0100;c\u1E2D\u1E2E\u6256\u803B\xEA\u40EAlon;\u6255;\u444Dot;\u4117\u0100Dr\u1E41\u1E45ot;\u6252;\uC000\u{1D522}\u0180;rs\u1E50\u1E51\u1E57\u6A9Aave\u803B\xE8\u40E8\u0100;d\u1E5C\u1E5D\u6A96ot;\u6A98\u0200;ils\u1E6A\u1E6B\u1E72\u1E74\u6A99nters;\u63E7;\u6113\u0100;d\u1E79\u1E7A\u6A95ot;\u6A97\u0180aps\u1E85\u1E89\u1E97cr;\u4113ty\u0180;sv\u1E92\u1E93\u1E95\u6205et\xBB\u1E93p\u01001;\u1E9D\u1EA4\u0133\u1EA1\u1EA3;\u6004;\u6005\u6003\u0100gs\u1EAA\u1EAC;\u414Bp;\u6002\u0100gp\u1EB4\u1EB8on;\u4119f;\uC000\u{1D556}\u0180als\u1EC4\u1ECE\u1ED2r\u0100;s\u1ECA\u1ECB\u62D5l;\u69E3us;\u6A71i\u0180;lv\u1EDA\u1EDB\u1EDF\u43B5on\xBB\u1EDB;\u43F5\u0200csuv\u1EEA\u1EF3\u1F0B\u1F23\u0100io\u1EEF\u1E31rc\xBB\u1E2E\u0269\u1EF9\0\0\u1EFB\xED\u0548ant\u0100gl\u1F02\u1F06tr\xBB\u1E5Dess\xBB\u1E7A\u0180aei\u1F12\u1F16\u1F1Als;\u403Dst;\u625Fv\u0100;D\u0235\u1F20D;\u6A78parsl;\u69E5\u0100Da\u1F2F\u1F33ot;\u6253rr;\u6971\u0180cdi\u1F3E\u1F41\u1EF8r;\u612Fo\xF4\u0352\u0100ah\u1F49\u1F4B;\u43B7\u803B\xF0\u40F0\u0100mr\u1F53\u1F57l\u803B\xEB\u40EBo;\u60AC\u0180cip\u1F61\u1F64\u1F67l;\u4021s\xF4\u056E\u0100eo\u1F6C\u1F74ctatio\xEE\u0559nential\xE5\u0579\u09E1\u1F92\0\u1F9E\0\u1FA1\u1FA7\0\0\u1FC6\u1FCC\0\u1FD3\0\u1FE6\u1FEA\u2000\0\u2008\u205Allingdotse\xF1\u1E44y;\u4444male;\u6640\u0180ilr\u1FAD\u1FB3\u1FC1lig;\u8000\uFB03\u0269\u1FB9\0\0\u1FBDg;\u8000\uFB00ig;\u8000\uFB04;\uC000\u{1D523}lig;\u8000\uFB01lig;\uC000fj\u0180alt\u1FD9\u1FDC\u1FE1t;\u666Dig;\u8000\uFB02ns;\u65B1of;\u4192\u01F0\u1FEE\0\u1FF3f;\uC000\u{1D557}\u0100ak\u05BF\u1FF7\u0100;v\u1FFC\u1FFD\u62D4;\u6AD9artint;\u6A0D\u0100ao\u200C\u2055\u0100cs\u2011\u2052\u03B1\u201A\u2030\u2038\u2045\u2048\0\u2050\u03B2\u2022\u2025\u2027\u202A\u202C\0\u202E\u803B\xBD\u40BD;\u6153\u803B\xBC\u40BC;\u6155;\u6159;\u615B\u01B3\u2034\0\u2036;\u6154;\u6156\u02B4\u203E\u2041\0\0\u2043\u803B\xBE\u40BE;\u6157;\u615C5;\u6158\u01B6\u204C\0\u204E;\u615A;\u615D8;\u615El;\u6044wn;\u6322cr;\uC000\u{1D4BB}\u0880Eabcdefgijlnorstv\u2082\u2089\u209F\u20A5\u20B0\u20B4\u20F0\u20F5\u20FA\u20FF\u2103\u2112\u2138\u0317\u213E\u2152\u219E\u0100;l\u064D\u2087;\u6A8C\u0180cmp\u2090\u2095\u209Dute;\u41F5ma\u0100;d\u209C\u1CDA\u43B3;\u6A86reve;\u411F\u0100iy\u20AA\u20AErc;\u411D;\u4433ot;\u4121\u0200;lqs\u063E\u0642\u20BD\u20C9\u0180;qs\u063E\u064C\u20C4lan\xF4\u0665\u0200;cdl\u0665\u20D2\u20D5\u20E5c;\u6AA9ot\u0100;o\u20DC\u20DD\u6A80\u0100;l\u20E2\u20E3\u6A82;\u6A84\u0100;e\u20EA\u20ED\uC000\u22DB\uFE00s;\u6A94r;\uC000\u{1D524}\u0100;g\u0673\u061Bmel;\u6137cy;\u4453\u0200;Eaj\u065A\u210C\u210E\u2110;\u6A92;\u6AA5;\u6AA4\u0200Eaes\u211B\u211D\u2129\u2134;\u6269p\u0100;p\u2123\u2124\u6A8Arox\xBB\u2124\u0100;q\u212E\u212F\u6A88\u0100;q\u212E\u211Bim;\u62E7pf;\uC000\u{1D558}\u0100ci\u2143\u2146r;\u610Am\u0180;el\u066B\u214E\u2150;\u6A8E;\u6A90\u8300>;cdlqr\u05EE\u2160\u216A\u216E\u2173\u2179\u0100ci\u2165\u2167;\u6AA7r;\u6A7Aot;\u62D7Par;\u6995uest;\u6A7C\u0280adels\u2184\u216A\u2190\u0656\u219B\u01F0\u2189\0\u218Epro\xF8\u209Er;\u6978q\u0100lq\u063F\u2196les\xF3\u2088i\xED\u066B\u0100en\u21A3\u21ADrtneqq;\uC000\u2269\uFE00\xC5\u21AA\u0500Aabcefkosy\u21C4\u21C7\u21F1\u21F5\u21FA\u2218\u221D\u222F\u2268\u227Dr\xF2\u03A0\u0200ilmr\u21D0\u21D4\u21D7\u21DBrs\xF0\u1484f\xBB\u2024il\xF4\u06A9\u0100dr\u21E0\u21E4cy;\u444A\u0180;cw\u08F4\u21EB\u21EFir;\u6948;\u61ADar;\u610Firc;\u4125\u0180alr\u2201\u220E\u2213rts\u0100;u\u2209\u220A\u6665it\xBB\u220Alip;\u6026con;\u62B9r;\uC000\u{1D525}s\u0100ew\u2223\u2229arow;\u6925arow;\u6926\u0280amopr\u223A\u223E\u2243\u225E\u2263rr;\u61FFtht;\u623Bk\u0100lr\u2249\u2253eftarrow;\u61A9ightarrow;\u61AAf;\uC000\u{1D559}bar;\u6015\u0180clt\u226F\u2274\u2278r;\uC000\u{1D4BD}as\xE8\u21F4rok;\u4127\u0100bp\u2282\u2287ull;\u6043hen\xBB\u1C5B\u0AE1\u22A3\0\u22AA\0\u22B8\u22C5\u22CE\0\u22D5\u22F3\0\0\u22F8\u2322\u2367\u2362\u237F\0\u2386\u23AA\u23B4cute\u803B\xED\u40ED\u0180;iy\u0771\u22B0\u22B5rc\u803B\xEE\u40EE;\u4438\u0100cx\u22BC\u22BFy;\u4435cl\u803B\xA1\u40A1\u0100fr\u039F\u22C9;\uC000\u{1D526}rave\u803B\xEC\u40EC\u0200;ino\u073E\u22DD\u22E9\u22EE\u0100in\u22E2\u22E6nt;\u6A0Ct;\u622Dfin;\u69DCta;\u6129lig;\u4133\u0180aop\u22FE\u231A\u231D\u0180cgt\u2305\u2308\u2317r;\u412B\u0180elp\u071F\u230F\u2313in\xE5\u078Ear\xF4\u0720h;\u4131f;\u62B7ed;\u41B5\u0280;cfot\u04F4\u232C\u2331\u233D\u2341are;\u6105in\u0100;t\u2338\u2339\u621Eie;\u69DDdo\xF4\u2319\u0280;celp\u0757\u234C\u2350\u235B\u2361al;\u62BA\u0100gr\u2355\u2359er\xF3\u1563\xE3\u234Darhk;\u6A17rod;\u6A3C\u0200cgpt\u236F\u2372\u2376\u237By;\u4451on;\u412Ff;\uC000\u{1D55A}a;\u43B9uest\u803B\xBF\u40BF\u0100ci\u238A\u238Fr;\uC000\u{1D4BE}n\u0280;Edsv\u04F4\u239B\u239D\u23A1\u04F3;\u62F9ot;\u62F5\u0100;v\u23A6\u23A7\u62F4;\u62F3\u0100;i\u0777\u23AElde;\u4129\u01EB\u23B8\0\u23BCcy;\u4456l\u803B\xEF\u40EF\u0300cfmosu\u23CC\u23D7\u23DC\u23E1\u23E7\u23F5\u0100iy\u23D1\u23D5rc;\u4135;\u4439r;\uC000\u{1D527}ath;\u4237pf;\uC000\u{1D55B}\u01E3\u23EC\0\u23F1r;\uC000\u{1D4BF}rcy;\u4458kcy;\u4454\u0400acfghjos\u240B\u2416\u2422\u2427\u242D\u2431\u2435\u243Bppa\u0100;v\u2413\u2414\u43BA;\u43F0\u0100ey\u241B\u2420dil;\u4137;\u443Ar;\uC000\u{1D528}reen;\u4138cy;\u4445cy;\u445Cpf;\uC000\u{1D55C}cr;\uC000\u{1D4C0}\u0B80ABEHabcdefghjlmnoprstuv\u2470\u2481\u2486\u248D\u2491\u250E\u253D\u255A\u2580\u264E\u265E\u2665\u2679\u267D\u269A\u26B2\u26D8\u275D\u2768\u278B\u27C0\u2801\u2812\u0180art\u2477\u247A\u247Cr\xF2\u09C6\xF2\u0395ail;\u691Barr;\u690E\u0100;g\u0994\u248B;\u6A8Bar;\u6962\u0963\u24A5\0\u24AA\0\u24B1\0\0\0\0\0\u24B5\u24BA\0\u24C6\u24C8\u24CD\0\u24F9ute;\u413Amptyv;\u69B4ra\xEE\u084Cbda;\u43BBg\u0180;dl\u088E\u24C1\u24C3;\u6991\xE5\u088E;\u6A85uo\u803B\xAB\u40ABr\u0400;bfhlpst\u0899\u24DE\u24E6\u24E9\u24EB\u24EE\u24F1\u24F5\u0100;f\u089D\u24E3s;\u691Fs;\u691D\xEB\u2252p;\u61ABl;\u6939im;\u6973l;\u61A2\u0180;ae\u24FF\u2500\u2504\u6AABil;\u6919\u0100;s\u2509\u250A\u6AAD;\uC000\u2AAD\uFE00\u0180abr\u2515\u2519\u251Drr;\u690Crk;\u6772\u0100ak\u2522\u252Cc\u0100ek\u2528\u252A;\u407B;\u405B\u0100es\u2531\u2533;\u698Bl\u0100du\u2539\u253B;\u698F;\u698D\u0200aeuy\u2546\u254B\u2556\u2558ron;\u413E\u0100di\u2550\u2554il;\u413C\xEC\u08B0\xE2\u2529;\u443B\u0200cqrs\u2563\u2566\u256D\u257Da;\u6936uo\u0100;r\u0E19\u1746\u0100du\u2572\u2577har;\u6967shar;\u694Bh;\u61B2\u0280;fgqs\u258B\u258C\u0989\u25F3\u25FF\u6264t\u0280ahlrt\u2598\u25A4\u25B7\u25C2\u25E8rrow\u0100;t\u0899\u25A1a\xE9\u24F6arpoon\u0100du\u25AF\u25B4own\xBB\u045Ap\xBB\u0966eftarrows;\u61C7ight\u0180ahs\u25CD\u25D6\u25DErrow\u0100;s\u08F4\u08A7arpoon\xF3\u0F98quigarro\xF7\u21F0hreetimes;\u62CB\u0180;qs\u258B\u0993\u25FAlan\xF4\u09AC\u0280;cdgs\u09AC\u260A\u260D\u261D\u2628c;\u6AA8ot\u0100;o\u2614\u2615\u6A7F\u0100;r\u261A\u261B\u6A81;\u6A83\u0100;e\u2622\u2625\uC000\u22DA\uFE00s;\u6A93\u0280adegs\u2633\u2639\u263D\u2649\u264Bppro\xF8\u24C6ot;\u62D6q\u0100gq\u2643\u2645\xF4\u0989gt\xF2\u248C\xF4\u099Bi\xED\u09B2\u0180ilr\u2655\u08E1\u265Asht;\u697C;\uC000\u{1D529}\u0100;E\u099C\u2663;\u6A91\u0161\u2669\u2676r\u0100du\u25B2\u266E\u0100;l\u0965\u2673;\u696Alk;\u6584cy;\u4459\u0280;acht\u0A48\u2688\u268B\u2691\u2696r\xF2\u25C1orne\xF2\u1D08ard;\u696Bri;\u65FA\u0100io\u269F\u26A4dot;\u4140ust\u0100;a\u26AC\u26AD\u63B0che\xBB\u26AD\u0200Eaes\u26BB\u26BD\u26C9\u26D4;\u6268p\u0100;p\u26C3\u26C4\u6A89rox\xBB\u26C4\u0100;q\u26CE\u26CF\u6A87\u0100;q\u26CE\u26BBim;\u62E6\u0400abnoptwz\u26E9\u26F4\u26F7\u271A\u272F\u2741\u2747\u2750\u0100nr\u26EE\u26F1g;\u67ECr;\u61FDr\xEB\u08C1g\u0180lmr\u26FF\u270D\u2714eft\u0100ar\u09E6\u2707ight\xE1\u09F2apsto;\u67FCight\xE1\u09FDparrow\u0100lr\u2725\u2729ef\xF4\u24EDight;\u61AC\u0180afl\u2736\u2739\u273Dr;\u6985;\uC000\u{1D55D}us;\u6A2Dimes;\u6A34\u0161\u274B\u274Fst;\u6217\xE1\u134E\u0180;ef\u2757\u2758\u1800\u65CAnge\xBB\u2758ar\u0100;l\u2764\u2765\u4028t;\u6993\u0280achmt\u2773\u2776\u277C\u2785\u2787r\xF2\u08A8orne\xF2\u1D8Car\u0100;d\u0F98\u2783;\u696D;\u600Eri;\u62BF\u0300achiqt\u2798\u279D\u0A40\u27A2\u27AE\u27BBquo;\u6039r;\uC000\u{1D4C1}m\u0180;eg\u09B2\u27AA\u27AC;\u6A8D;\u6A8F\u0100bu\u252A\u27B3o\u0100;r\u0E1F\u27B9;\u601Arok;\u4142\u8400<;cdhilqr\u082B\u27D2\u2639\u27DC\u27E0\u27E5\u27EA\u27F0\u0100ci\u27D7\u27D9;\u6AA6r;\u6A79re\xE5\u25F2mes;\u62C9arr;\u6976uest;\u6A7B\u0100Pi\u27F5\u27F9ar;\u6996\u0180;ef\u2800\u092D\u181B\u65C3r\u0100du\u2807\u280Dshar;\u694Ahar;\u6966\u0100en\u2817\u2821rtneqq;\uC000\u2268\uFE00\xC5\u281E\u0700Dacdefhilnopsu\u2840\u2845\u2882\u288E\u2893\u28A0\u28A5\u28A8\u28DA\u28E2\u28E4\u0A83\u28F3\u2902Dot;\u623A\u0200clpr\u284E\u2852\u2863\u287Dr\u803B\xAF\u40AF\u0100et\u2857\u2859;\u6642\u0100;e\u285E\u285F\u6720se\xBB\u285F\u0100;s\u103B\u2868to\u0200;dlu\u103B\u2873\u2877\u287Bow\xEE\u048Cef\xF4\u090F\xF0\u13D1ker;\u65AE\u0100oy\u2887\u288Cmma;\u6A29;\u443Cash;\u6014asuredangle\xBB\u1626r;\uC000\u{1D52A}o;\u6127\u0180cdn\u28AF\u28B4\u28C9ro\u803B\xB5\u40B5\u0200;acd\u1464\u28BD\u28C0\u28C4s\xF4\u16A7ir;\u6AF0ot\u80BB\xB7\u01B5us\u0180;bd\u28D2\u1903\u28D3\u6212\u0100;u\u1D3C\u28D8;\u6A2A\u0163\u28DE\u28E1p;\u6ADB\xF2\u2212\xF0\u0A81\u0100dp\u28E9\u28EEels;\u62A7f;\uC000\u{1D55E}\u0100ct\u28F8\u28FDr;\uC000\u{1D4C2}pos\xBB\u159D\u0180;lm\u2909\u290A\u290D\u43BCtimap;\u62B8\u0C00GLRVabcdefghijlmoprstuvw\u2942\u2953\u297E\u2989\u2998\u29DA\u29E9\u2A15\u2A1A\u2A58\u2A5D\u2A83\u2A95\u2AA4\u2AA8\u2B04\u2B07\u2B44\u2B7F\u2BAE\u2C34\u2C67\u2C7C\u2CE9\u0100gt\u2947\u294B;\uC000\u22D9\u0338\u0100;v\u2950\u0BCF\uC000\u226B\u20D2\u0180elt\u295A\u2972\u2976ft\u0100ar\u2961\u2967rrow;\u61CDightarrow;\u61CE;\uC000\u22D8\u0338\u0100;v\u297B\u0C47\uC000\u226A\u20D2ightarrow;\u61CF\u0100Dd\u298E\u2993ash;\u62AFash;\u62AE\u0280bcnpt\u29A3\u29A7\u29AC\u29B1\u29CCla\xBB\u02DEute;\u4144g;\uC000\u2220\u20D2\u0280;Eiop\u0D84\u29BC\u29C0\u29C5\u29C8;\uC000\u2A70\u0338d;\uC000\u224B\u0338s;\u4149ro\xF8\u0D84ur\u0100;a\u29D3\u29D4\u666El\u0100;s\u29D3\u0B38\u01F3\u29DF\0\u29E3p\u80BB\xA0\u0B37mp\u0100;e\u0BF9\u0C00\u0280aeouy\u29F4\u29FE\u2A03\u2A10\u2A13\u01F0\u29F9\0\u29FB;\u6A43on;\u4148dil;\u4146ng\u0100;d\u0D7E\u2A0Aot;\uC000\u2A6D\u0338p;\u6A42;\u443Dash;\u6013\u0380;Aadqsx\u0B92\u2A29\u2A2D\u2A3B\u2A41\u2A45\u2A50rr;\u61D7r\u0100hr\u2A33\u2A36k;\u6924\u0100;o\u13F2\u13F0ot;\uC000\u2250\u0338ui\xF6\u0B63\u0100ei\u2A4A\u2A4Ear;\u6928\xED\u0B98ist\u0100;s\u0BA0\u0B9Fr;\uC000\u{1D52B}\u0200Eest\u0BC5\u2A66\u2A79\u2A7C\u0180;qs\u0BBC\u2A6D\u0BE1\u0180;qs\u0BBC\u0BC5\u2A74lan\xF4\u0BE2i\xED\u0BEA\u0100;r\u0BB6\u2A81\xBB\u0BB7\u0180Aap\u2A8A\u2A8D\u2A91r\xF2\u2971rr;\u61AEar;\u6AF2\u0180;sv\u0F8D\u2A9C\u0F8C\u0100;d\u2AA1\u2AA2\u62FC;\u62FAcy;\u445A\u0380AEadest\u2AB7\u2ABA\u2ABE\u2AC2\u2AC5\u2AF6\u2AF9r\xF2\u2966;\uC000\u2266\u0338rr;\u619Ar;\u6025\u0200;fqs\u0C3B\u2ACE\u2AE3\u2AEFt\u0100ar\u2AD4\u2AD9rro\xF7\u2AC1ightarro\xF7\u2A90\u0180;qs\u0C3B\u2ABA\u2AEAlan\xF4\u0C55\u0100;s\u0C55\u2AF4\xBB\u0C36i\xED\u0C5D\u0100;r\u0C35\u2AFEi\u0100;e\u0C1A\u0C25i\xE4\u0D90\u0100pt\u2B0C\u2B11f;\uC000\u{1D55F}\u8180\xAC;in\u2B19\u2B1A\u2B36\u40ACn\u0200;Edv\u0B89\u2B24\u2B28\u2B2E;\uC000\u22F9\u0338ot;\uC000\u22F5\u0338\u01E1\u0B89\u2B33\u2B35;\u62F7;\u62F6i\u0100;v\u0CB8\u2B3C\u01E1\u0CB8\u2B41\u2B43;\u62FE;\u62FD\u0180aor\u2B4B\u2B63\u2B69r\u0200;ast\u0B7B\u2B55\u2B5A\u2B5Flle\xEC\u0B7Bl;\uC000\u2AFD\u20E5;\uC000\u2202\u0338lint;\u6A14\u0180;ce\u0C92\u2B70\u2B73u\xE5\u0CA5\u0100;c\u0C98\u2B78\u0100;e\u0C92\u2B7D\xF1\u0C98\u0200Aait\u2B88\u2B8B\u2B9D\u2BA7r\xF2\u2988rr\u0180;cw\u2B94\u2B95\u2B99\u619B;\uC000\u2933\u0338;\uC000\u219D\u0338ghtarrow\xBB\u2B95ri\u0100;e\u0CCB\u0CD6\u0380chimpqu\u2BBD\u2BCD\u2BD9\u2B04\u0B78\u2BE4\u2BEF\u0200;cer\u0D32\u2BC6\u0D37\u2BC9u\xE5\u0D45;\uC000\u{1D4C3}ort\u026D\u2B05\0\0\u2BD6ar\xE1\u2B56m\u0100;e\u0D6E\u2BDF\u0100;q\u0D74\u0D73su\u0100bp\u2BEB\u2BED\xE5\u0CF8\xE5\u0D0B\u0180bcp\u2BF6\u2C11\u2C19\u0200;Ees\u2BFF\u2C00\u0D22\u2C04\u6284;\uC000\u2AC5\u0338et\u0100;e\u0D1B\u2C0Bq\u0100;q\u0D23\u2C00c\u0100;e\u0D32\u2C17\xF1\u0D38\u0200;Ees\u2C22\u2C23\u0D5F\u2C27\u6285;\uC000\u2AC6\u0338et\u0100;e\u0D58\u2C2Eq\u0100;q\u0D60\u2C23\u0200gilr\u2C3D\u2C3F\u2C45\u2C47\xEC\u0BD7lde\u803B\xF1\u40F1\xE7\u0C43iangle\u0100lr\u2C52\u2C5Ceft\u0100;e\u0C1A\u2C5A\xF1\u0C26ight\u0100;e\u0CCB\u2C65\xF1\u0CD7\u0100;m\u2C6C\u2C6D\u43BD\u0180;es\u2C74\u2C75\u2C79\u4023ro;\u6116p;\u6007\u0480DHadgilrs\u2C8F\u2C94\u2C99\u2C9E\u2CA3\u2CB0\u2CB6\u2CD3\u2CE3ash;\u62ADarr;\u6904p;\uC000\u224D\u20D2ash;\u62AC\u0100et\u2CA8\u2CAC;\uC000\u2265\u20D2;\uC000>\u20D2nfin;\u69DE\u0180Aet\u2CBD\u2CC1\u2CC5rr;\u6902;\uC000\u2264\u20D2\u0100;r\u2CCA\u2CCD\uC000<\u20D2ie;\uC000\u22B4\u20D2\u0100At\u2CD8\u2CDCrr;\u6903rie;\uC000\u22B5\u20D2im;\uC000\u223C\u20D2\u0180Aan\u2CF0\u2CF4\u2D02rr;\u61D6r\u0100hr\u2CFA\u2CFDk;\u6923\u0100;o\u13E7\u13E5ear;\u6927\u1253\u1A95\0\0\0\0\0\0\0\0\0\0\0\0\0\u2D2D\0\u2D38\u2D48\u2D60\u2D65\u2D72\u2D84\u1B07\0\0\u2D8D\u2DAB\0\u2DC8\u2DCE\0\u2DDC\u2E19\u2E2B\u2E3E\u2E43\u0100cs\u2D31\u1A97ute\u803B\xF3\u40F3\u0100iy\u2D3C\u2D45r\u0100;c\u1A9E\u2D42\u803B\xF4\u40F4;\u443E\u0280abios\u1AA0\u2D52\u2D57\u01C8\u2D5Alac;\u4151v;\u6A38old;\u69BClig;\u4153\u0100cr\u2D69\u2D6Dir;\u69BF;\uC000\u{1D52C}\u036F\u2D79\0\0\u2D7C\0\u2D82n;\u42DBave\u803B\xF2\u40F2;\u69C1\u0100bm\u2D88\u0DF4ar;\u69B5\u0200acit\u2D95\u2D98\u2DA5\u2DA8r\xF2\u1A80\u0100ir\u2D9D\u2DA0r;\u69BEoss;\u69BBn\xE5\u0E52;\u69C0\u0180aei\u2DB1\u2DB5\u2DB9cr;\u414Dga;\u43C9\u0180cdn\u2DC0\u2DC5\u01CDron;\u43BF;\u69B6pf;\uC000\u{1D560}\u0180ael\u2DD4\u2DD7\u01D2r;\u69B7rp;\u69B9\u0380;adiosv\u2DEA\u2DEB\u2DEE\u2E08\u2E0D\u2E10\u2E16\u6228r\xF2\u1A86\u0200;efm\u2DF7\u2DF8\u2E02\u2E05\u6A5Dr\u0100;o\u2DFE\u2DFF\u6134f\xBB\u2DFF\u803B\xAA\u40AA\u803B\xBA\u40BAgof;\u62B6r;\u6A56lope;\u6A57;\u6A5B\u0180clo\u2E1F\u2E21\u2E27\xF2\u2E01ash\u803B\xF8\u40F8l;\u6298i\u016C\u2E2F\u2E34de\u803B\xF5\u40F5es\u0100;a\u01DB\u2E3As;\u6A36ml\u803B\xF6\u40F6bar;\u633D\u0AE1\u2E5E\0\u2E7D\0\u2E80\u2E9D\0\u2EA2\u2EB9\0\0\u2ECB\u0E9C\0\u2F13\0\0\u2F2B\u2FBC\0\u2FC8r\u0200;ast\u0403\u2E67\u2E72\u0E85\u8100\xB6;l\u2E6D\u2E6E\u40B6le\xEC\u0403\u0269\u2E78\0\0\u2E7Bm;\u6AF3;\u6AFDy;\u443Fr\u0280cimpt\u2E8B\u2E8F\u2E93\u1865\u2E97nt;\u4025od;\u402Eil;\u6030enk;\u6031r;\uC000\u{1D52D}\u0180imo\u2EA8\u2EB0\u2EB4\u0100;v\u2EAD\u2EAE\u43C6;\u43D5ma\xF4\u0A76ne;\u660E\u0180;tv\u2EBF\u2EC0\u2EC8\u43C0chfork\xBB\u1FFD;\u43D6\u0100au\u2ECF\u2EDFn\u0100ck\u2ED5\u2EDDk\u0100;h\u21F4\u2EDB;\u610E\xF6\u21F4s\u0480;abcdemst\u2EF3\u2EF4\u1908\u2EF9\u2EFD\u2F04\u2F06\u2F0A\u2F0E\u402Bcir;\u6A23ir;\u6A22\u0100ou\u1D40\u2F02;\u6A25;\u6A72n\u80BB\xB1\u0E9Dim;\u6A26wo;\u6A27\u0180ipu\u2F19\u2F20\u2F25ntint;\u6A15f;\uC000\u{1D561}nd\u803B\xA3\u40A3\u0500;Eaceinosu\u0EC8\u2F3F\u2F41\u2F44\u2F47\u2F81\u2F89\u2F92\u2F7E\u2FB6;\u6AB3p;\u6AB7u\xE5\u0ED9\u0100;c\u0ECE\u2F4C\u0300;acens\u0EC8\u2F59\u2F5F\u2F66\u2F68\u2F7Eppro\xF8\u2F43urlye\xF1\u0ED9\xF1\u0ECE\u0180aes\u2F6F\u2F76\u2F7Approx;\u6AB9qq;\u6AB5im;\u62E8i\xED\u0EDFme\u0100;s\u2F88\u0EAE\u6032\u0180Eas\u2F78\u2F90\u2F7A\xF0\u2F75\u0180dfp\u0EEC\u2F99\u2FAF\u0180als\u2FA0\u2FA5\u2FAAlar;\u632Eine;\u6312urf;\u6313\u0100;t\u0EFB\u2FB4\xEF\u0EFBrel;\u62B0\u0100ci\u2FC0\u2FC5r;\uC000\u{1D4C5};\u43C8ncsp;\u6008\u0300fiopsu\u2FDA\u22E2\u2FDF\u2FE5\u2FEB\u2FF1r;\uC000\u{1D52E}pf;\uC000\u{1D562}rime;\u6057cr;\uC000\u{1D4C6}\u0180aeo\u2FF8\u3009\u3013t\u0100ei\u2FFE\u3005rnion\xF3\u06B0nt;\u6A16st\u0100;e\u3010\u3011\u403F\xF1\u1F19\xF4\u0F14\u0A80ABHabcdefhilmnoprstux\u3040\u3051\u3055\u3059\u30E0\u310E\u312B\u3147\u3162\u3172\u318E\u3206\u3215\u3224\u3229\u3258\u326E\u3272\u3290\u32B0\u32B7\u0180art\u3047\u304A\u304Cr\xF2\u10B3\xF2\u03DDail;\u691Car\xF2\u1C65ar;\u6964\u0380cdenqrt\u3068\u3075\u3078\u307F\u308F\u3094\u30CC\u0100eu\u306D\u3071;\uC000\u223D\u0331te;\u4155i\xE3\u116Emptyv;\u69B3g\u0200;del\u0FD1\u3089\u308B\u308D;\u6992;\u69A5\xE5\u0FD1uo\u803B\xBB\u40BBr\u0580;abcfhlpstw\u0FDC\u30AC\u30AF\u30B7\u30B9\u30BC\u30BE\u30C0\u30C3\u30C7\u30CAp;\u6975\u0100;f\u0FE0\u30B4s;\u6920;\u6933s;\u691E\xEB\u225D\xF0\u272El;\u6945im;\u6974l;\u61A3;\u619D\u0100ai\u30D1\u30D5il;\u691Ao\u0100;n\u30DB\u30DC\u6236al\xF3\u0F1E\u0180abr\u30E7\u30EA\u30EEr\xF2\u17E5rk;\u6773\u0100ak\u30F3\u30FDc\u0100ek\u30F9\u30FB;\u407D;\u405D\u0100es\u3102\u3104;\u698Cl\u0100du\u310A\u310C;\u698E;\u6990\u0200aeuy\u3117\u311C\u3127\u3129ron;\u4159\u0100di\u3121\u3125il;\u4157\xEC\u0FF2\xE2\u30FA;\u4440\u0200clqs\u3134\u3137\u313D\u3144a;\u6937dhar;\u6969uo\u0100;r\u020E\u020Dh;\u61B3\u0180acg\u314E\u315F\u0F44l\u0200;ips\u0F78\u3158\u315B\u109Cn\xE5\u10BBar\xF4\u0FA9t;\u65AD\u0180ilr\u3169\u1023\u316Esht;\u697D;\uC000\u{1D52F}\u0100ao\u3177\u3186r\u0100du\u317D\u317F\xBB\u047B\u0100;l\u1091\u3184;\u696C\u0100;v\u318B\u318C\u43C1;\u43F1\u0180gns\u3195\u31F9\u31FCht\u0300ahlrst\u31A4\u31B0\u31C2\u31D8\u31E4\u31EErrow\u0100;t\u0FDC\u31ADa\xE9\u30C8arpoon\u0100du\u31BB\u31BFow\xEE\u317Ep\xBB\u1092eft\u0100ah\u31CA\u31D0rrow\xF3\u0FEAarpoon\xF3\u0551ightarrows;\u61C9quigarro\xF7\u30CBhreetimes;\u62CCg;\u42DAingdotse\xF1\u1F32\u0180ahm\u320D\u3210\u3213r\xF2\u0FEAa\xF2\u0551;\u600Foust\u0100;a\u321E\u321F\u63B1che\xBB\u321Fmid;\u6AEE\u0200abpt\u3232\u323D\u3240\u3252\u0100nr\u3237\u323Ag;\u67EDr;\u61FEr\xEB\u1003\u0180afl\u3247\u324A\u324Er;\u6986;\uC000\u{1D563}us;\u6A2Eimes;\u6A35\u0100ap\u325D\u3267r\u0100;g\u3263\u3264\u4029t;\u6994olint;\u6A12ar\xF2\u31E3\u0200achq\u327B\u3280\u10BC\u3285quo;\u603Ar;\uC000\u{1D4C7}\u0100bu\u30FB\u328Ao\u0100;r\u0214\u0213\u0180hir\u3297\u329B\u32A0re\xE5\u31F8mes;\u62CAi\u0200;efl\u32AA\u1059\u1821\u32AB\u65B9tri;\u69CEluhar;\u6968;\u611E\u0D61\u32D5\u32DB\u32DF\u332C\u3338\u3371\0\u337A\u33A4\0\0\u33EC\u33F0\0\u3428\u3448\u345A\u34AD\u34B1\u34CA\u34F1\0\u3616\0\0\u3633cute;\u415Bqu\xEF\u27BA\u0500;Eaceinpsy\u11ED\u32F3\u32F5\u32FF\u3302\u330B\u330F\u331F\u3326\u3329;\u6AB4\u01F0\u32FA\0\u32FC;\u6AB8on;\u4161u\xE5\u11FE\u0100;d\u11F3\u3307il;\u415Frc;\u415D\u0180Eas\u3316\u3318\u331B;\u6AB6p;\u6ABAim;\u62E9olint;\u6A13i\xED\u1204;\u4441ot\u0180;be\u3334\u1D47\u3335\u62C5;\u6A66\u0380Aacmstx\u3346\u334A\u3357\u335B\u335E\u3363\u336Drr;\u61D8r\u0100hr\u3350\u3352\xEB\u2228\u0100;o\u0A36\u0A34t\u803B\xA7\u40A7i;\u403Bwar;\u6929m\u0100in\u3369\xF0nu\xF3\xF1t;\u6736r\u0100;o\u3376\u2055\uC000\u{1D530}\u0200acoy\u3382\u3386\u3391\u33A0rp;\u666F\u0100hy\u338B\u338Fcy;\u4449;\u4448rt\u026D\u3399\0\0\u339Ci\xE4\u1464ara\xEC\u2E6F\u803B\xAD\u40AD\u0100gm\u33A8\u33B4ma\u0180;fv\u33B1\u33B2\u33B2\u43C3;\u43C2\u0400;deglnpr\u12AB\u33C5\u33C9\u33CE\u33D6\u33DE\u33E1\u33E6ot;\u6A6A\u0100;q\u12B1\u12B0\u0100;E\u33D3\u33D4\u6A9E;\u6AA0\u0100;E\u33DB\u33DC\u6A9D;\u6A9Fe;\u6246lus;\u6A24arr;\u6972ar\xF2\u113D\u0200aeit\u33F8\u3408\u340F\u3417\u0100ls\u33FD\u3404lsetm\xE9\u336Ahp;\u6A33parsl;\u69E4\u0100dl\u1463\u3414e;\u6323\u0100;e\u341C\u341D\u6AAA\u0100;s\u3422\u3423\u6AAC;\uC000\u2AAC\uFE00\u0180flp\u342E\u3433\u3442tcy;\u444C\u0100;b\u3438\u3439\u402F\u0100;a\u343E\u343F\u69C4r;\u633Ff;\uC000\u{1D564}a\u0100dr\u344D\u0402es\u0100;u\u3454\u3455\u6660it\xBB\u3455\u0180csu\u3460\u3479\u349F\u0100au\u3465\u346Fp\u0100;s\u1188\u346B;\uC000\u2293\uFE00p\u0100;s\u11B4\u3475;\uC000\u2294\uFE00u\u0100bp\u347F\u348F\u0180;es\u1197\u119C\u3486et\u0100;e\u1197\u348D\xF1\u119D\u0180;es\u11A8\u11AD\u3496et\u0100;e\u11A8\u349D\xF1\u11AE\u0180;af\u117B\u34A6\u05B0r\u0165\u34AB\u05B1\xBB\u117Car\xF2\u1148\u0200cemt\u34B9\u34BE\u34C2\u34C5r;\uC000\u{1D4C8}tm\xEE\xF1i\xEC\u3415ar\xE6\u11BE\u0100ar\u34CE\u34D5r\u0100;f\u34D4\u17BF\u6606\u0100an\u34DA\u34EDight\u0100ep\u34E3\u34EApsilo\xEE\u1EE0h\xE9\u2EAFs\xBB\u2852\u0280bcmnp\u34FB\u355E\u1209\u358B\u358E\u0480;Edemnprs\u350E\u350F\u3511\u3515\u351E\u3523\u352C\u3531\u3536\u6282;\u6AC5ot;\u6ABD\u0100;d\u11DA\u351Aot;\u6AC3ult;\u6AC1\u0100Ee\u3528\u352A;\u6ACB;\u628Alus;\u6ABFarr;\u6979\u0180eiu\u353D\u3552\u3555t\u0180;en\u350E\u3545\u354Bq\u0100;q\u11DA\u350Feq\u0100;q\u352B\u3528m;\u6AC7\u0100bp\u355A\u355C;\u6AD5;\u6AD3c\u0300;acens\u11ED\u356C\u3572\u3579\u357B\u3326ppro\xF8\u32FAurlye\xF1\u11FE\xF1\u11F3\u0180aes\u3582\u3588\u331Bppro\xF8\u331Aq\xF1\u3317g;\u666A\u0680123;Edehlmnps\u35A9\u35AC\u35AF\u121C\u35B2\u35B4\u35C0\u35C9\u35D5\u35DA\u35DF\u35E8\u35ED\u803B\xB9\u40B9\u803B\xB2\u40B2\u803B\xB3\u40B3;\u6AC6\u0100os\u35B9\u35BCt;\u6ABEub;\u6AD8\u0100;d\u1222\u35C5ot;\u6AC4s\u0100ou\u35CF\u35D2l;\u67C9b;\u6AD7arr;\u697Bult;\u6AC2\u0100Ee\u35E4\u35E6;\u6ACC;\u628Blus;\u6AC0\u0180eiu\u35F4\u3609\u360Ct\u0180;en\u121C\u35FC\u3602q\u0100;q\u1222\u35B2eq\u0100;q\u35E7\u35E4m;\u6AC8\u0100bp\u3611\u3613;\u6AD4;\u6AD6\u0180Aan\u361C\u3620\u362Drr;\u61D9r\u0100hr\u3626\u3628\xEB\u222E\u0100;o\u0A2B\u0A29war;\u692Alig\u803B\xDF\u40DF\u0BE1\u3651\u365D\u3660\u12CE\u3673\u3679\0\u367E\u36C2\0\0\0\0\0\u36DB\u3703\0\u3709\u376C\0\0\0\u3787\u0272\u3656\0\0\u365Bget;\u6316;\u43C4r\xEB\u0E5F\u0180aey\u3666\u366B\u3670ron;\u4165dil;\u4163;\u4442lrec;\u6315r;\uC000\u{1D531}\u0200eiko\u3686\u369D\u36B5\u36BC\u01F2\u368B\0\u3691e\u01004f\u1284\u1281a\u0180;sv\u3698\u3699\u369B\u43B8ym;\u43D1\u0100cn\u36A2\u36B2k\u0100as\u36A8\u36AEppro\xF8\u12C1im\xBB\u12ACs\xF0\u129E\u0100as\u36BA\u36AE\xF0\u12C1rn\u803B\xFE\u40FE\u01EC\u031F\u36C6\u22E7es\u8180\xD7;bd\u36CF\u36D0\u36D8\u40D7\u0100;a\u190F\u36D5r;\u6A31;\u6A30\u0180eps\u36E1\u36E3\u3700\xE1\u2A4D\u0200;bcf\u0486\u36EC\u36F0\u36F4ot;\u6336ir;\u6AF1\u0100;o\u36F9\u36FC\uC000\u{1D565}rk;\u6ADA\xE1\u3362rime;\u6034\u0180aip\u370F\u3712\u3764d\xE5\u1248\u0380adempst\u3721\u374D\u3740\u3751\u3757\u375C\u375Fngle\u0280;dlqr\u3730\u3731\u3736\u3740\u3742\u65B5own\xBB\u1DBBeft\u0100;e\u2800\u373E\xF1\u092E;\u625Cight\u0100;e\u32AA\u374B\xF1\u105Aot;\u65ECinus;\u6A3Alus;\u6A39b;\u69CDime;\u6A3Bezium;\u63E2\u0180cht\u3772\u377D\u3781\u0100ry\u3777\u377B;\uC000\u{1D4C9};\u4446cy;\u445Brok;\u4167\u0100io\u378B\u378Ex\xF4\u1777head\u0100lr\u3797\u37A0eftarro\xF7\u084Fightarrow\xBB\u0F5D\u0900AHabcdfghlmoprstuw\u37D0\u37D3\u37D7\u37E4\u37F0\u37FC\u380E\u381C\u3823\u3834\u3851\u385D\u386B\u38A9\u38CC\u38D2\u38EA\u38F6r\xF2\u03EDar;\u6963\u0100cr\u37DC\u37E2ute\u803B\xFA\u40FA\xF2\u1150r\u01E3\u37EA\0\u37EDy;\u445Eve;\u416D\u0100iy\u37F5\u37FArc\u803B\xFB\u40FB;\u4443\u0180abh\u3803\u3806\u380Br\xF2\u13ADlac;\u4171a\xF2\u13C3\u0100ir\u3813\u3818sht;\u697E;\uC000\u{1D532}rave\u803B\xF9\u40F9\u0161\u3827\u3831r\u0100lr\u382C\u382E\xBB\u0957\xBB\u1083lk;\u6580\u0100ct\u3839\u384D\u026F\u383F\0\0\u384Arn\u0100;e\u3845\u3846\u631Cr\xBB\u3846op;\u630Fri;\u65F8\u0100al\u3856\u385Acr;\u416B\u80BB\xA8\u0349\u0100gp\u3862\u3866on;\u4173f;\uC000\u{1D566}\u0300adhlsu\u114B\u3878\u387D\u1372\u3891\u38A0own\xE1\u13B3arpoon\u0100lr\u3888\u388Cef\xF4\u382Digh\xF4\u382Fi\u0180;hl\u3899\u389A\u389C\u43C5\xBB\u13FAon\xBB\u389Aparrows;\u61C8\u0180cit\u38B0\u38C4\u38C8\u026F\u38B6\0\0\u38C1rn\u0100;e\u38BC\u38BD\u631Dr\xBB\u38BDop;\u630Eng;\u416Fri;\u65F9cr;\uC000\u{1D4CA}\u0180dir\u38D9\u38DD\u38E2ot;\u62F0lde;\u4169i\u0100;f\u3730\u38E8\xBB\u1813\u0100am\u38EF\u38F2r\xF2\u38A8l\u803B\xFC\u40FCangle;\u69A7\u0780ABDacdeflnoprsz\u391C\u391F\u3929\u392D\u39B5\u39B8\u39BD\u39DF\u39E4\u39E8\u39F3\u39F9\u39FD\u3A01\u3A20r\xF2\u03F7ar\u0100;v\u3926\u3927\u6AE8;\u6AE9as\xE8\u03E1\u0100nr\u3932\u3937grt;\u699C\u0380eknprst\u34E3\u3946\u394B\u3952\u395D\u3964\u3996app\xE1\u2415othin\xE7\u1E96\u0180hir\u34EB\u2EC8\u3959op\xF4\u2FB5\u0100;h\u13B7\u3962\xEF\u318D\u0100iu\u3969\u396Dgm\xE1\u33B3\u0100bp\u3972\u3984setneq\u0100;q\u397D\u3980\uC000\u228A\uFE00;\uC000\u2ACB\uFE00setneq\u0100;q\u398F\u3992\uC000\u228B\uFE00;\uC000\u2ACC\uFE00\u0100hr\u399B\u399Fet\xE1\u369Ciangle\u0100lr\u39AA\u39AFeft\xBB\u0925ight\xBB\u1051y;\u4432ash\xBB\u1036\u0180elr\u39C4\u39D2\u39D7\u0180;be\u2DEA\u39CB\u39CFar;\u62BBq;\u625Alip;\u62EE\u0100bt\u39DC\u1468a\xF2\u1469r;\uC000\u{1D533}tr\xE9\u39AEsu\u0100bp\u39EF\u39F1\xBB\u0D1C\xBB\u0D59pf;\uC000\u{1D567}ro\xF0\u0EFBtr\xE9\u39B4\u0100cu\u3A06\u3A0Br;\uC000\u{1D4CB}\u0100bp\u3A10\u3A18n\u0100Ee\u3980\u3A16\xBB\u397En\u0100Ee\u3992\u3A1E\xBB\u3990igzag;\u699A\u0380cefoprs\u3A36\u3A3B\u3A56\u3A5B\u3A54\u3A61\u3A6Airc;\u4175\u0100di\u3A40\u3A51\u0100bg\u3A45\u3A49ar;\u6A5Fe\u0100;q\u15FA\u3A4F;\u6259erp;\u6118r;\uC000\u{1D534}pf;\uC000\u{1D568}\u0100;e\u1479\u3A66at\xE8\u1479cr;\uC000\u{1D4CC}\u0AE3\u178E\u3A87\0\u3A8B\0\u3A90\u3A9B\0\0\u3A9D\u3AA8\u3AAB\u3AAF\0\0\u3AC3\u3ACE\0\u3AD8\u17DC\u17DFtr\xE9\u17D1r;\uC000\u{1D535}\u0100Aa\u3A94\u3A97r\xF2\u03C3r\xF2\u09F6;\u43BE\u0100Aa\u3AA1\u3AA4r\xF2\u03B8r\xF2\u09EBa\xF0\u2713is;\u62FB\u0180dpt\u17A4\u3AB5\u3ABE\u0100fl\u3ABA\u17A9;\uC000\u{1D569}im\xE5\u17B2\u0100Aa\u3AC7\u3ACAr\xF2\u03CEr\xF2\u0A01\u0100cq\u3AD2\u17B8r;\uC000\u{1D4CD}\u0100pt\u17D6\u3ADCr\xE9\u17D4\u0400acefiosu\u3AF0\u3AFD\u3B08\u3B0C\u3B11\u3B15\u3B1B\u3B21c\u0100uy\u3AF6\u3AFBte\u803B\xFD\u40FD;\u444F\u0100iy\u3B02\u3B06rc;\u4177;\u444Bn\u803B\xA5\u40A5r;\uC000\u{1D536}cy;\u4457pf;\uC000\u{1D56A}cr;\uC000\u{1D4CE}\u0100cm\u3B26\u3B29y;\u444El\u803B\xFF\u40FF\u0500acdefhiosw\u3B42\u3B48\u3B54\u3B58\u3B64\u3B69\u3B6D\u3B74\u3B7A\u3B80cute;\u417A\u0100ay\u3B4D\u3B52ron;\u417E;\u4437ot;\u417C\u0100et\u3B5D\u3B61tr\xE6\u155Fa;\u43B6r;\uC000\u{1D537}cy;\u4436grarr;\u61DDpf;\uC000\u{1D56B}cr;\uC000\u{1D4CF}\u0100jn\u3B85\u3B87;\u600Dj;\u600C'.split("").map(function(c) {
-          return c.charCodeAt(0);
+        '\u1D41<\xD5\u0131\u028A\u049D\u057B\u05D0\u0675\u06DE\u07A2\u07D6\u080F\u0A4A\u0A91\u0DA1\u0E6D\u0F09\u0F26\u10CA\u1228\u12E1\u1415\u149D\u14C3\u14DF\u1525\0\0\0\0\0\0\u156B\u16CD\u198D\u1C12\u1DDD\u1F7E\u2060\u21B0\u228D\u23C0\u23FB\u2442\u2824\u2912\u2D08\u2E48\u2FCE\u3016\u32BA\u3639\u37AC\u38FE\u3A28\u3A71\u3AE0\u3B2E\u0800EMabcfglmnoprstu\\bfms\x7F\x84\x8B\x90\x95\x98\xA6\xB3\xB9\xC8\xCFlig\u803B\xC6\u40C6P\u803B&\u4026cute\u803B\xC1\u40C1reve;\u4102\u0100iyx}rc\u803B\xC2\u40C2;\u4410r;\uC000\u{1D504}rave\u803B\xC0\u40C0pha;\u4391acr;\u4100d;\u6A53\u0100gp\x9D\xA1on;\u4104f;\uC000\u{1D538}plyFunction;\u6061ing\u803B\xC5\u40C5\u0100cs\xBE\xC3r;\uC000\u{1D49C}ign;\u6254ilde\u803B\xC3\u40C3ml\u803B\xC4\u40C4\u0400aceforsu\xE5\xFB\xFE\u0117\u011C\u0122\u0127\u012A\u0100cr\xEA\xF2kslash;\u6216\u0176\xF6\xF8;\u6AE7ed;\u6306y;\u4411\u0180crt\u0105\u010B\u0114ause;\u6235noullis;\u612Ca;\u4392r;\uC000\u{1D505}pf;\uC000\u{1D539}eve;\u42D8c\xF2\u0113mpeq;\u624E\u0700HOacdefhilorsu\u014D\u0151\u0156\u0180\u019E\u01A2\u01B5\u01B7\u01BA\u01DC\u0215\u0273\u0278\u027Ecy;\u4427PY\u803B\xA9\u40A9\u0180cpy\u015D\u0162\u017Aute;\u4106\u0100;i\u0167\u0168\u62D2talDifferentialD;\u6145leys;\u612D\u0200aeio\u0189\u018E\u0194\u0198ron;\u410Cdil\u803B\xC7\u40C7rc;\u4108nint;\u6230ot;\u410A\u0100dn\u01A7\u01ADilla;\u40B8terDot;\u40B7\xF2\u017Fi;\u43A7rcle\u0200DMPT\u01C7\u01CB\u01D1\u01D6ot;\u6299inus;\u6296lus;\u6295imes;\u6297o\u0100cs\u01E2\u01F8kwiseContourIntegral;\u6232eCurly\u0100DQ\u0203\u020FoubleQuote;\u601Duote;\u6019\u0200lnpu\u021E\u0228\u0247\u0255on\u0100;e\u0225\u0226\u6237;\u6A74\u0180git\u022F\u0236\u023Aruent;\u6261nt;\u622FourIntegral;\u622E\u0100fr\u024C\u024E;\u6102oduct;\u6210nterClockwiseContourIntegral;\u6233oss;\u6A2Fcr;\uC000\u{1D49E}p\u0100;C\u0284\u0285\u62D3ap;\u624D\u0580DJSZacefios\u02A0\u02AC\u02B0\u02B4\u02B8\u02CB\u02D7\u02E1\u02E6\u0333\u048D\u0100;o\u0179\u02A5trahd;\u6911cy;\u4402cy;\u4405cy;\u440F\u0180grs\u02BF\u02C4\u02C7ger;\u6021r;\u61A1hv;\u6AE4\u0100ay\u02D0\u02D5ron;\u410E;\u4414l\u0100;t\u02DD\u02DE\u6207a;\u4394r;\uC000\u{1D507}\u0100af\u02EB\u0327\u0100cm\u02F0\u0322ritical\u0200ADGT\u0300\u0306\u0316\u031Ccute;\u40B4o\u0174\u030B\u030D;\u42D9bleAcute;\u42DDrave;\u4060ilde;\u42DCond;\u62C4ferentialD;\u6146\u0470\u033D\0\0\0\u0342\u0354\0\u0405f;\uC000\u{1D53B}\u0180;DE\u0348\u0349\u034D\u40A8ot;\u60DCqual;\u6250ble\u0300CDLRUV\u0363\u0372\u0382\u03CF\u03E2\u03F8ontourIntegra\xEC\u0239o\u0274\u0379\0\0\u037B\xBB\u0349nArrow;\u61D3\u0100eo\u0387\u03A4ft\u0180ART\u0390\u0396\u03A1rrow;\u61D0ightArrow;\u61D4e\xE5\u02CAng\u0100LR\u03AB\u03C4eft\u0100AR\u03B3\u03B9rrow;\u67F8ightArrow;\u67FAightArrow;\u67F9ight\u0100AT\u03D8\u03DErrow;\u61D2ee;\u62A8p\u0241\u03E9\0\0\u03EFrrow;\u61D1ownArrow;\u61D5erticalBar;\u6225n\u0300ABLRTa\u0412\u042A\u0430\u045E\u047F\u037Crrow\u0180;BU\u041D\u041E\u0422\u6193ar;\u6913pArrow;\u61F5reve;\u4311eft\u02D2\u043A\0\u0446\0\u0450ightVector;\u6950eeVector;\u695Eector\u0100;B\u0459\u045A\u61BDar;\u6956ight\u01D4\u0467\0\u0471eeVector;\u695Fector\u0100;B\u047A\u047B\u61C1ar;\u6957ee\u0100;A\u0486\u0487\u62A4rrow;\u61A7\u0100ct\u0492\u0497r;\uC000\u{1D49F}rok;\u4110\u0800NTacdfglmopqstux\u04BD\u04C0\u04C4\u04CB\u04DE\u04E2\u04E7\u04EE\u04F5\u0521\u052F\u0536\u0552\u055D\u0560\u0565G;\u414AH\u803B\xD0\u40D0cute\u803B\xC9\u40C9\u0180aiy\u04D2\u04D7\u04DCron;\u411Arc\u803B\xCA\u40CA;\u442Dot;\u4116r;\uC000\u{1D508}rave\u803B\xC8\u40C8ement;\u6208\u0100ap\u04FA\u04FEcr;\u4112ty\u0253\u0506\0\0\u0512mallSquare;\u65FBerySmallSquare;\u65AB\u0100gp\u0526\u052Aon;\u4118f;\uC000\u{1D53C}silon;\u4395u\u0100ai\u053C\u0549l\u0100;T\u0542\u0543\u6A75ilde;\u6242librium;\u61CC\u0100ci\u0557\u055Ar;\u6130m;\u6A73a;\u4397ml\u803B\xCB\u40CB\u0100ip\u056A\u056Fsts;\u6203onentialE;\u6147\u0280cfios\u0585\u0588\u058D\u05B2\u05CCy;\u4424r;\uC000\u{1D509}lled\u0253\u0597\0\0\u05A3mallSquare;\u65FCerySmallSquare;\u65AA\u0370\u05BA\0\u05BF\0\0\u05C4f;\uC000\u{1D53D}All;\u6200riertrf;\u6131c\xF2\u05CB\u0600JTabcdfgorst\u05E8\u05EC\u05EF\u05FA\u0600\u0612\u0616\u061B\u061D\u0623\u066C\u0672cy;\u4403\u803B>\u403Emma\u0100;d\u05F7\u05F8\u4393;\u43DCreve;\u411E\u0180eiy\u0607\u060C\u0610dil;\u4122rc;\u411C;\u4413ot;\u4120r;\uC000\u{1D50A};\u62D9pf;\uC000\u{1D53E}eater\u0300EFGLST\u0635\u0644\u064E\u0656\u065B\u0666qual\u0100;L\u063E\u063F\u6265ess;\u62DBullEqual;\u6267reater;\u6AA2ess;\u6277lantEqual;\u6A7Eilde;\u6273cr;\uC000\u{1D4A2};\u626B\u0400Aacfiosu\u0685\u068B\u0696\u069B\u069E\u06AA\u06BE\u06CARDcy;\u442A\u0100ct\u0690\u0694ek;\u42C7;\u405Eirc;\u4124r;\u610ClbertSpace;\u610B\u01F0\u06AF\0\u06B2f;\u610DizontalLine;\u6500\u0100ct\u06C3\u06C5\xF2\u06A9rok;\u4126mp\u0144\u06D0\u06D8ownHum\xF0\u012Fqual;\u624F\u0700EJOacdfgmnostu\u06FA\u06FE\u0703\u0707\u070E\u071A\u071E\u0721\u0728\u0744\u0778\u078B\u078F\u0795cy;\u4415lig;\u4132cy;\u4401cute\u803B\xCD\u40CD\u0100iy\u0713\u0718rc\u803B\xCE\u40CE;\u4418ot;\u4130r;\u6111rave\u803B\xCC\u40CC\u0180;ap\u0720\u072F\u073F\u0100cg\u0734\u0737r;\u412AinaryI;\u6148lie\xF3\u03DD\u01F4\u0749\0\u0762\u0100;e\u074D\u074E\u622C\u0100gr\u0753\u0758ral;\u622Bsection;\u62C2isible\u0100CT\u076C\u0772omma;\u6063imes;\u6062\u0180gpt\u077F\u0783\u0788on;\u412Ef;\uC000\u{1D540}a;\u4399cr;\u6110ilde;\u4128\u01EB\u079A\0\u079Ecy;\u4406l\u803B\xCF\u40CF\u0280cfosu\u07AC\u07B7\u07BC\u07C2\u07D0\u0100iy\u07B1\u07B5rc;\u4134;\u4419r;\uC000\u{1D50D}pf;\uC000\u{1D541}\u01E3\u07C7\0\u07CCr;\uC000\u{1D4A5}rcy;\u4408kcy;\u4404\u0380HJacfos\u07E4\u07E8\u07EC\u07F1\u07FD\u0802\u0808cy;\u4425cy;\u440Cppa;\u439A\u0100ey\u07F6\u07FBdil;\u4136;\u441Ar;\uC000\u{1D50E}pf;\uC000\u{1D542}cr;\uC000\u{1D4A6}\u0580JTaceflmost\u0825\u0829\u082C\u0850\u0863\u09B3\u09B8\u09C7\u09CD\u0A37\u0A47cy;\u4409\u803B<\u403C\u0280cmnpr\u0837\u083C\u0841\u0844\u084Dute;\u4139bda;\u439Bg;\u67EAlacetrf;\u6112r;\u619E\u0180aey\u0857\u085C\u0861ron;\u413Ddil;\u413B;\u441B\u0100fs\u0868\u0970t\u0500ACDFRTUVar\u087E\u08A9\u08B1\u08E0\u08E6\u08FC\u092F\u095B\u0390\u096A\u0100nr\u0883\u088FgleBracket;\u67E8row\u0180;BR\u0899\u089A\u089E\u6190ar;\u61E4ightArrow;\u61C6eiling;\u6308o\u01F5\u08B7\0\u08C3bleBracket;\u67E6n\u01D4\u08C8\0\u08D2eeVector;\u6961ector\u0100;B\u08DB\u08DC\u61C3ar;\u6959loor;\u630Aight\u0100AV\u08EF\u08F5rrow;\u6194ector;\u694E\u0100er\u0901\u0917e\u0180;AV\u0909\u090A\u0910\u62A3rrow;\u61A4ector;\u695Aiangle\u0180;BE\u0924\u0925\u0929\u62B2ar;\u69CFqual;\u62B4p\u0180DTV\u0937\u0942\u094CownVector;\u6951eeVector;\u6960ector\u0100;B\u0956\u0957\u61BFar;\u6958ector\u0100;B\u0965\u0966\u61BCar;\u6952ight\xE1\u039Cs\u0300EFGLST\u097E\u098B\u0995\u099D\u09A2\u09ADqualGreater;\u62DAullEqual;\u6266reater;\u6276ess;\u6AA1lantEqual;\u6A7Dilde;\u6272r;\uC000\u{1D50F}\u0100;e\u09BD\u09BE\u62D8ftarrow;\u61DAidot;\u413F\u0180npw\u09D4\u0A16\u0A1Bg\u0200LRlr\u09DE\u09F7\u0A02\u0A10eft\u0100AR\u09E6\u09ECrrow;\u67F5ightArrow;\u67F7ightArrow;\u67F6eft\u0100ar\u03B3\u0A0Aight\xE1\u03BFight\xE1\u03CAf;\uC000\u{1D543}er\u0100LR\u0A22\u0A2CeftArrow;\u6199ightArrow;\u6198\u0180cht\u0A3E\u0A40\u0A42\xF2\u084C;\u61B0rok;\u4141;\u626A\u0400acefiosu\u0A5A\u0A5D\u0A60\u0A77\u0A7C\u0A85\u0A8B\u0A8Ep;\u6905y;\u441C\u0100dl\u0A65\u0A6FiumSpace;\u605Flintrf;\u6133r;\uC000\u{1D510}nusPlus;\u6213pf;\uC000\u{1D544}c\xF2\u0A76;\u439C\u0480Jacefostu\u0AA3\u0AA7\u0AAD\u0AC0\u0B14\u0B19\u0D91\u0D97\u0D9Ecy;\u440Acute;\u4143\u0180aey\u0AB4\u0AB9\u0ABEron;\u4147dil;\u4145;\u441D\u0180gsw\u0AC7\u0AF0\u0B0Eative\u0180MTV\u0AD3\u0ADF\u0AE8ediumSpace;\u600Bhi\u0100cn\u0AE6\u0AD8\xEB\u0AD9eryThi\xEE\u0AD9ted\u0100GL\u0AF8\u0B06reaterGreate\xF2\u0673essLes\xF3\u0A48Line;\u400Ar;\uC000\u{1D511}\u0200Bnpt\u0B22\u0B28\u0B37\u0B3Areak;\u6060BreakingSpace;\u40A0f;\u6115\u0680;CDEGHLNPRSTV\u0B55\u0B56\u0B6A\u0B7C\u0BA1\u0BEB\u0C04\u0C5E\u0C84\u0CA6\u0CD8\u0D61\u0D85\u6AEC\u0100ou\u0B5B\u0B64ngruent;\u6262pCap;\u626DoubleVerticalBar;\u6226\u0180lqx\u0B83\u0B8A\u0B9Bement;\u6209ual\u0100;T\u0B92\u0B93\u6260ilde;\uC000\u2242\u0338ists;\u6204reater\u0380;EFGLST\u0BB6\u0BB7\u0BBD\u0BC9\u0BD3\u0BD8\u0BE5\u626Fqual;\u6271ullEqual;\uC000\u2267\u0338reater;\uC000\u226B\u0338ess;\u6279lantEqual;\uC000\u2A7E\u0338ilde;\u6275ump\u0144\u0BF2\u0BFDownHump;\uC000\u224E\u0338qual;\uC000\u224F\u0338e\u0100fs\u0C0A\u0C27tTriangle\u0180;BE\u0C1A\u0C1B\u0C21\u62EAar;\uC000\u29CF\u0338qual;\u62ECs\u0300;EGLST\u0C35\u0C36\u0C3C\u0C44\u0C4B\u0C58\u626Equal;\u6270reater;\u6278ess;\uC000\u226A\u0338lantEqual;\uC000\u2A7D\u0338ilde;\u6274ested\u0100GL\u0C68\u0C79reaterGreater;\uC000\u2AA2\u0338essLess;\uC000\u2AA1\u0338recedes\u0180;ES\u0C92\u0C93\u0C9B\u6280qual;\uC000\u2AAF\u0338lantEqual;\u62E0\u0100ei\u0CAB\u0CB9verseElement;\u620CghtTriangle\u0180;BE\u0CCB\u0CCC\u0CD2\u62EBar;\uC000\u29D0\u0338qual;\u62ED\u0100qu\u0CDD\u0D0CuareSu\u0100bp\u0CE8\u0CF9set\u0100;E\u0CF0\u0CF3\uC000\u228F\u0338qual;\u62E2erset\u0100;E\u0D03\u0D06\uC000\u2290\u0338qual;\u62E3\u0180bcp\u0D13\u0D24\u0D4Eset\u0100;E\u0D1B\u0D1E\uC000\u2282\u20D2qual;\u6288ceeds\u0200;EST\u0D32\u0D33\u0D3B\u0D46\u6281qual;\uC000\u2AB0\u0338lantEqual;\u62E1ilde;\uC000\u227F\u0338erset\u0100;E\u0D58\u0D5B\uC000\u2283\u20D2qual;\u6289ilde\u0200;EFT\u0D6E\u0D6F\u0D75\u0D7F\u6241qual;\u6244ullEqual;\u6247ilde;\u6249erticalBar;\u6224cr;\uC000\u{1D4A9}ilde\u803B\xD1\u40D1;\u439D\u0700Eacdfgmoprstuv\u0DBD\u0DC2\u0DC9\u0DD5\u0DDB\u0DE0\u0DE7\u0DFC\u0E02\u0E20\u0E22\u0E32\u0E3F\u0E44lig;\u4152cute\u803B\xD3\u40D3\u0100iy\u0DCE\u0DD3rc\u803B\xD4\u40D4;\u441Eblac;\u4150r;\uC000\u{1D512}rave\u803B\xD2\u40D2\u0180aei\u0DEE\u0DF2\u0DF6cr;\u414Cga;\u43A9cron;\u439Fpf;\uC000\u{1D546}enCurly\u0100DQ\u0E0E\u0E1AoubleQuote;\u601Cuote;\u6018;\u6A54\u0100cl\u0E27\u0E2Cr;\uC000\u{1D4AA}ash\u803B\xD8\u40D8i\u016C\u0E37\u0E3Cde\u803B\xD5\u40D5es;\u6A37ml\u803B\xD6\u40D6er\u0100BP\u0E4B\u0E60\u0100ar\u0E50\u0E53r;\u603Eac\u0100ek\u0E5A\u0E5C;\u63DEet;\u63B4arenthesis;\u63DC\u0480acfhilors\u0E7F\u0E87\u0E8A\u0E8F\u0E92\u0E94\u0E9D\u0EB0\u0EFCrtialD;\u6202y;\u441Fr;\uC000\u{1D513}i;\u43A6;\u43A0usMinus;\u40B1\u0100ip\u0EA2\u0EADncareplan\xE5\u069Df;\u6119\u0200;eio\u0EB9\u0EBA\u0EE0\u0EE4\u6ABBcedes\u0200;EST\u0EC8\u0EC9\u0ECF\u0EDA\u627Aqual;\u6AAFlantEqual;\u627Cilde;\u627Eme;\u6033\u0100dp\u0EE9\u0EEEuct;\u620Fortion\u0100;a\u0225\u0EF9l;\u621D\u0100ci\u0F01\u0F06r;\uC000\u{1D4AB};\u43A8\u0200Ufos\u0F11\u0F16\u0F1B\u0F1FOT\u803B"\u4022r;\uC000\u{1D514}pf;\u611Acr;\uC000\u{1D4AC}\u0600BEacefhiorsu\u0F3E\u0F43\u0F47\u0F60\u0F73\u0FA7\u0FAA\u0FAD\u1096\u10A9\u10B4\u10BEarr;\u6910G\u803B\xAE\u40AE\u0180cnr\u0F4E\u0F53\u0F56ute;\u4154g;\u67EBr\u0100;t\u0F5C\u0F5D\u61A0l;\u6916\u0180aey\u0F67\u0F6C\u0F71ron;\u4158dil;\u4156;\u4420\u0100;v\u0F78\u0F79\u611Cerse\u0100EU\u0F82\u0F99\u0100lq\u0F87\u0F8Eement;\u620Builibrium;\u61CBpEquilibrium;\u696Fr\xBB\u0F79o;\u43A1ght\u0400ACDFTUVa\u0FC1\u0FEB\u0FF3\u1022\u1028\u105B\u1087\u03D8\u0100nr\u0FC6\u0FD2gleBracket;\u67E9row\u0180;BL\u0FDC\u0FDD\u0FE1\u6192ar;\u61E5eftArrow;\u61C4eiling;\u6309o\u01F5\u0FF9\0\u1005bleBracket;\u67E7n\u01D4\u100A\0\u1014eeVector;\u695Dector\u0100;B\u101D\u101E\u61C2ar;\u6955loor;\u630B\u0100er\u102D\u1043e\u0180;AV\u1035\u1036\u103C\u62A2rrow;\u61A6ector;\u695Biangle\u0180;BE\u1050\u1051\u1055\u62B3ar;\u69D0qual;\u62B5p\u0180DTV\u1063\u106E\u1078ownVector;\u694FeeVector;\u695Cector\u0100;B\u1082\u1083\u61BEar;\u6954ector\u0100;B\u1091\u1092\u61C0ar;\u6953\u0100pu\u109B\u109Ef;\u611DndImplies;\u6970ightarrow;\u61DB\u0100ch\u10B9\u10BCr;\u611B;\u61B1leDelayed;\u69F4\u0680HOacfhimoqstu\u10E4\u10F1\u10F7\u10FD\u1119\u111E\u1151\u1156\u1161\u1167\u11B5\u11BB\u11BF\u0100Cc\u10E9\u10EEHcy;\u4429y;\u4428FTcy;\u442Ccute;\u415A\u0280;aeiy\u1108\u1109\u110E\u1113\u1117\u6ABCron;\u4160dil;\u415Erc;\u415C;\u4421r;\uC000\u{1D516}ort\u0200DLRU\u112A\u1134\u113E\u1149ownArrow\xBB\u041EeftArrow\xBB\u089AightArrow\xBB\u0FDDpArrow;\u6191gma;\u43A3allCircle;\u6218pf;\uC000\u{1D54A}\u0272\u116D\0\0\u1170t;\u621Aare\u0200;ISU\u117B\u117C\u1189\u11AF\u65A1ntersection;\u6293u\u0100bp\u118F\u119Eset\u0100;E\u1197\u1198\u628Fqual;\u6291erset\u0100;E\u11A8\u11A9\u6290qual;\u6292nion;\u6294cr;\uC000\u{1D4AE}ar;\u62C6\u0200bcmp\u11C8\u11DB\u1209\u120B\u0100;s\u11CD\u11CE\u62D0et\u0100;E\u11CD\u11D5qual;\u6286\u0100ch\u11E0\u1205eeds\u0200;EST\u11ED\u11EE\u11F4\u11FF\u627Bqual;\u6AB0lantEqual;\u627Dilde;\u627FTh\xE1\u0F8C;\u6211\u0180;es\u1212\u1213\u1223\u62D1rset\u0100;E\u121C\u121D\u6283qual;\u6287et\xBB\u1213\u0580HRSacfhiors\u123E\u1244\u1249\u1255\u125E\u1271\u1276\u129F\u12C2\u12C8\u12D1ORN\u803B\xDE\u40DEADE;\u6122\u0100Hc\u124E\u1252cy;\u440By;\u4426\u0100bu\u125A\u125C;\u4009;\u43A4\u0180aey\u1265\u126A\u126Fron;\u4164dil;\u4162;\u4422r;\uC000\u{1D517}\u0100ei\u127B\u1289\u01F2\u1280\0\u1287efore;\u6234a;\u4398\u0100cn\u128E\u1298kSpace;\uC000\u205F\u200ASpace;\u6009lde\u0200;EFT\u12AB\u12AC\u12B2\u12BC\u623Cqual;\u6243ullEqual;\u6245ilde;\u6248pf;\uC000\u{1D54B}ipleDot;\u60DB\u0100ct\u12D6\u12DBr;\uC000\u{1D4AF}rok;\u4166\u0AE1\u12F7\u130E\u131A\u1326\0\u132C\u1331\0\0\0\0\0\u1338\u133D\u1377\u1385\0\u13FF\u1404\u140A\u1410\u0100cr\u12FB\u1301ute\u803B\xDA\u40DAr\u0100;o\u1307\u1308\u619Fcir;\u6949r\u01E3\u1313\0\u1316y;\u440Eve;\u416C\u0100iy\u131E\u1323rc\u803B\xDB\u40DB;\u4423blac;\u4170r;\uC000\u{1D518}rave\u803B\xD9\u40D9acr;\u416A\u0100di\u1341\u1369er\u0100BP\u1348\u135D\u0100ar\u134D\u1350r;\u405Fac\u0100ek\u1357\u1359;\u63DFet;\u63B5arenthesis;\u63DDon\u0100;P\u1370\u1371\u62C3lus;\u628E\u0100gp\u137B\u137Fon;\u4172f;\uC000\u{1D54C}\u0400ADETadps\u1395\u13AE\u13B8\u13C4\u03E8\u13D2\u13D7\u13F3rrow\u0180;BD\u1150\u13A0\u13A4ar;\u6912ownArrow;\u61C5ownArrow;\u6195quilibrium;\u696Eee\u0100;A\u13CB\u13CC\u62A5rrow;\u61A5own\xE1\u03F3er\u0100LR\u13DE\u13E8eftArrow;\u6196ightArrow;\u6197i\u0100;l\u13F9\u13FA\u43D2on;\u43A5ing;\u416Ecr;\uC000\u{1D4B0}ilde;\u4168ml\u803B\xDC\u40DC\u0480Dbcdefosv\u1427\u142C\u1430\u1433\u143E\u1485\u148A\u1490\u1496ash;\u62ABar;\u6AEBy;\u4412ash\u0100;l\u143B\u143C\u62A9;\u6AE6\u0100er\u1443\u1445;\u62C1\u0180bty\u144C\u1450\u147Aar;\u6016\u0100;i\u144F\u1455cal\u0200BLST\u1461\u1465\u146A\u1474ar;\u6223ine;\u407Ceparator;\u6758ilde;\u6240ThinSpace;\u600Ar;\uC000\u{1D519}pf;\uC000\u{1D54D}cr;\uC000\u{1D4B1}dash;\u62AA\u0280cefos\u14A7\u14AC\u14B1\u14B6\u14BCirc;\u4174dge;\u62C0r;\uC000\u{1D51A}pf;\uC000\u{1D54E}cr;\uC000\u{1D4B2}\u0200fios\u14CB\u14D0\u14D2\u14D8r;\uC000\u{1D51B};\u439Epf;\uC000\u{1D54F}cr;\uC000\u{1D4B3}\u0480AIUacfosu\u14F1\u14F5\u14F9\u14FD\u1504\u150F\u1514\u151A\u1520cy;\u442Fcy;\u4407cy;\u442Ecute\u803B\xDD\u40DD\u0100iy\u1509\u150Drc;\u4176;\u442Br;\uC000\u{1D51C}pf;\uC000\u{1D550}cr;\uC000\u{1D4B4}ml;\u4178\u0400Hacdefos\u1535\u1539\u153F\u154B\u154F\u155D\u1560\u1564cy;\u4416cute;\u4179\u0100ay\u1544\u1549ron;\u417D;\u4417ot;\u417B\u01F2\u1554\0\u155BoWidt\xE8\u0AD9a;\u4396r;\u6128pf;\u6124cr;\uC000\u{1D4B5}\u0BE1\u1583\u158A\u1590\0\u15B0\u15B6\u15BF\0\0\0\0\u15C6\u15DB\u15EB\u165F\u166D\0\u1695\u169B\u16B2\u16B9\0\u16BEcute\u803B\xE1\u40E1reve;\u4103\u0300;Ediuy\u159C\u159D\u15A1\u15A3\u15A8\u15AD\u623E;\uC000\u223E\u0333;\u623Frc\u803B\xE2\u40E2te\u80BB\xB4\u0306;\u4430lig\u803B\xE6\u40E6\u0100;r\xB2\u15BA;\uC000\u{1D51E}rave\u803B\xE0\u40E0\u0100ep\u15CA\u15D6\u0100fp\u15CF\u15D4sym;\u6135\xE8\u15D3ha;\u43B1\u0100ap\u15DFc\u0100cl\u15E4\u15E7r;\u4101g;\u6A3F\u0264\u15F0\0\0\u160A\u0280;adsv\u15FA\u15FB\u15FF\u1601\u1607\u6227nd;\u6A55;\u6A5Clope;\u6A58;\u6A5A\u0380;elmrsz\u1618\u1619\u161B\u161E\u163F\u164F\u1659\u6220;\u69A4e\xBB\u1619sd\u0100;a\u1625\u1626\u6221\u0461\u1630\u1632\u1634\u1636\u1638\u163A\u163C\u163E;\u69A8;\u69A9;\u69AA;\u69AB;\u69AC;\u69AD;\u69AE;\u69AFt\u0100;v\u1645\u1646\u621Fb\u0100;d\u164C\u164D\u62BE;\u699D\u0100pt\u1654\u1657h;\u6222\xBB\xB9arr;\u637C\u0100gp\u1663\u1667on;\u4105f;\uC000\u{1D552}\u0380;Eaeiop\u12C1\u167B\u167D\u1682\u1684\u1687\u168A;\u6A70cir;\u6A6F;\u624Ad;\u624Bs;\u4027rox\u0100;e\u12C1\u1692\xF1\u1683ing\u803B\xE5\u40E5\u0180cty\u16A1\u16A6\u16A8r;\uC000\u{1D4B6};\u402Amp\u0100;e\u12C1\u16AF\xF1\u0288ilde\u803B\xE3\u40E3ml\u803B\xE4\u40E4\u0100ci\u16C2\u16C8onin\xF4\u0272nt;\u6A11\u0800Nabcdefiklnoprsu\u16ED\u16F1\u1730\u173C\u1743\u1748\u1778\u177D\u17E0\u17E6\u1839\u1850\u170D\u193D\u1948\u1970ot;\u6AED\u0100cr\u16F6\u171Ek\u0200ceps\u1700\u1705\u170D\u1713ong;\u624Cpsilon;\u43F6rime;\u6035im\u0100;e\u171A\u171B\u623Dq;\u62CD\u0176\u1722\u1726ee;\u62BDed\u0100;g\u172C\u172D\u6305e\xBB\u172Drk\u0100;t\u135C\u1737brk;\u63B6\u0100oy\u1701\u1741;\u4431quo;\u601E\u0280cmprt\u1753\u175B\u1761\u1764\u1768aus\u0100;e\u010A\u0109ptyv;\u69B0s\xE9\u170Cno\xF5\u0113\u0180ahw\u176F\u1771\u1773;\u43B2;\u6136een;\u626Cr;\uC000\u{1D51F}g\u0380costuvw\u178D\u179D\u17B3\u17C1\u17D5\u17DB\u17DE\u0180aiu\u1794\u1796\u179A\xF0\u0760rc;\u65EFp\xBB\u1371\u0180dpt\u17A4\u17A8\u17ADot;\u6A00lus;\u6A01imes;\u6A02\u0271\u17B9\0\0\u17BEcup;\u6A06ar;\u6605riangle\u0100du\u17CD\u17D2own;\u65BDp;\u65B3plus;\u6A04e\xE5\u1444\xE5\u14ADarow;\u690D\u0180ako\u17ED\u1826\u1835\u0100cn\u17F2\u1823k\u0180lst\u17FA\u05AB\u1802ozenge;\u69EBriangle\u0200;dlr\u1812\u1813\u1818\u181D\u65B4own;\u65BEeft;\u65C2ight;\u65B8k;\u6423\u01B1\u182B\0\u1833\u01B2\u182F\0\u1831;\u6592;\u65914;\u6593ck;\u6588\u0100eo\u183E\u184D\u0100;q\u1843\u1846\uC000=\u20E5uiv;\uC000\u2261\u20E5t;\u6310\u0200ptwx\u1859\u185E\u1867\u186Cf;\uC000\u{1D553}\u0100;t\u13CB\u1863om\xBB\u13CCtie;\u62C8\u0600DHUVbdhmptuv\u1885\u1896\u18AA\u18BB\u18D7\u18DB\u18EC\u18FF\u1905\u190A\u1910\u1921\u0200LRlr\u188E\u1890\u1892\u1894;\u6557;\u6554;\u6556;\u6553\u0280;DUdu\u18A1\u18A2\u18A4\u18A6\u18A8\u6550;\u6566;\u6569;\u6564;\u6567\u0200LRlr\u18B3\u18B5\u18B7\u18B9;\u655D;\u655A;\u655C;\u6559\u0380;HLRhlr\u18CA\u18CB\u18CD\u18CF\u18D1\u18D3\u18D5\u6551;\u656C;\u6563;\u6560;\u656B;\u6562;\u655Fox;\u69C9\u0200LRlr\u18E4\u18E6\u18E8\u18EA;\u6555;\u6552;\u6510;\u650C\u0280;DUdu\u06BD\u18F7\u18F9\u18FB\u18FD;\u6565;\u6568;\u652C;\u6534inus;\u629Flus;\u629Eimes;\u62A0\u0200LRlr\u1919\u191B\u191D\u191F;\u655B;\u6558;\u6518;\u6514\u0380;HLRhlr\u1930\u1931\u1933\u1935\u1937\u1939\u193B\u6502;\u656A;\u6561;\u655E;\u653C;\u6524;\u651C\u0100ev\u0123\u1942bar\u803B\xA6\u40A6\u0200ceio\u1951\u1956\u195A\u1960r;\uC000\u{1D4B7}mi;\u604Fm\u0100;e\u171A\u171Cl\u0180;bh\u1968\u1969\u196B\u405C;\u69C5sub;\u67C8\u016C\u1974\u197El\u0100;e\u1979\u197A\u6022t\xBB\u197Ap\u0180;Ee\u012F\u1985\u1987;\u6AAE\u0100;q\u06DC\u06DB\u0CE1\u19A7\0\u19E8\u1A11\u1A15\u1A32\0\u1A37\u1A50\0\0\u1AB4\0\0\u1AC1\0\0\u1B21\u1B2E\u1B4D\u1B52\0\u1BFD\0\u1C0C\u0180cpr\u19AD\u19B2\u19DDute;\u4107\u0300;abcds\u19BF\u19C0\u19C4\u19CA\u19D5\u19D9\u6229nd;\u6A44rcup;\u6A49\u0100au\u19CF\u19D2p;\u6A4Bp;\u6A47ot;\u6A40;\uC000\u2229\uFE00\u0100eo\u19E2\u19E5t;\u6041\xEE\u0693\u0200aeiu\u19F0\u19FB\u1A01\u1A05\u01F0\u19F5\0\u19F8s;\u6A4Don;\u410Ddil\u803B\xE7\u40E7rc;\u4109ps\u0100;s\u1A0C\u1A0D\u6A4Cm;\u6A50ot;\u410B\u0180dmn\u1A1B\u1A20\u1A26il\u80BB\xB8\u01ADptyv;\u69B2t\u8100\xA2;e\u1A2D\u1A2E\u40A2r\xE4\u01B2r;\uC000\u{1D520}\u0180cei\u1A3D\u1A40\u1A4Dy;\u4447ck\u0100;m\u1A47\u1A48\u6713ark\xBB\u1A48;\u43C7r\u0380;Ecefms\u1A5F\u1A60\u1A62\u1A6B\u1AA4\u1AAA\u1AAE\u65CB;\u69C3\u0180;el\u1A69\u1A6A\u1A6D\u42C6q;\u6257e\u0261\u1A74\0\0\u1A88rrow\u0100lr\u1A7C\u1A81eft;\u61BAight;\u61BB\u0280RSacd\u1A92\u1A94\u1A96\u1A9A\u1A9F\xBB\u0F47;\u64C8st;\u629Birc;\u629Aash;\u629Dnint;\u6A10id;\u6AEFcir;\u69C2ubs\u0100;u\u1ABB\u1ABC\u6663it\xBB\u1ABC\u02EC\u1AC7\u1AD4\u1AFA\0\u1B0Aon\u0100;e\u1ACD\u1ACE\u403A\u0100;q\xC7\xC6\u026D\u1AD9\0\0\u1AE2a\u0100;t\u1ADE\u1ADF\u402C;\u4040\u0180;fl\u1AE8\u1AE9\u1AEB\u6201\xEE\u1160e\u0100mx\u1AF1\u1AF6ent\xBB\u1AE9e\xF3\u024D\u01E7\u1AFE\0\u1B07\u0100;d\u12BB\u1B02ot;\u6A6Dn\xF4\u0246\u0180fry\u1B10\u1B14\u1B17;\uC000\u{1D554}o\xE4\u0254\u8100\xA9;s\u0155\u1B1Dr;\u6117\u0100ao\u1B25\u1B29rr;\u61B5ss;\u6717\u0100cu\u1B32\u1B37r;\uC000\u{1D4B8}\u0100bp\u1B3C\u1B44\u0100;e\u1B41\u1B42\u6ACF;\u6AD1\u0100;e\u1B49\u1B4A\u6AD0;\u6AD2dot;\u62EF\u0380delprvw\u1B60\u1B6C\u1B77\u1B82\u1BAC\u1BD4\u1BF9arr\u0100lr\u1B68\u1B6A;\u6938;\u6935\u0270\u1B72\0\0\u1B75r;\u62DEc;\u62DFarr\u0100;p\u1B7F\u1B80\u61B6;\u693D\u0300;bcdos\u1B8F\u1B90\u1B96\u1BA1\u1BA5\u1BA8\u622Arcap;\u6A48\u0100au\u1B9B\u1B9Ep;\u6A46p;\u6A4Aot;\u628Dr;\u6A45;\uC000\u222A\uFE00\u0200alrv\u1BB5\u1BBF\u1BDE\u1BE3rr\u0100;m\u1BBC\u1BBD\u61B7;\u693Cy\u0180evw\u1BC7\u1BD4\u1BD8q\u0270\u1BCE\0\0\u1BD2re\xE3\u1B73u\xE3\u1B75ee;\u62CEedge;\u62CFen\u803B\xA4\u40A4earrow\u0100lr\u1BEE\u1BF3eft\xBB\u1B80ight\xBB\u1BBDe\xE4\u1BDD\u0100ci\u1C01\u1C07onin\xF4\u01F7nt;\u6231lcty;\u632D\u0980AHabcdefhijlorstuwz\u1C38\u1C3B\u1C3F\u1C5D\u1C69\u1C75\u1C8A\u1C9E\u1CAC\u1CB7\u1CFB\u1CFF\u1D0D\u1D7B\u1D91\u1DAB\u1DBB\u1DC6\u1DCDr\xF2\u0381ar;\u6965\u0200glrs\u1C48\u1C4D\u1C52\u1C54ger;\u6020eth;\u6138\xF2\u1133h\u0100;v\u1C5A\u1C5B\u6010\xBB\u090A\u016B\u1C61\u1C67arow;\u690Fa\xE3\u0315\u0100ay\u1C6E\u1C73ron;\u410F;\u4434\u0180;ao\u0332\u1C7C\u1C84\u0100gr\u02BF\u1C81r;\u61CAtseq;\u6A77\u0180glm\u1C91\u1C94\u1C98\u803B\xB0\u40B0ta;\u43B4ptyv;\u69B1\u0100ir\u1CA3\u1CA8sht;\u697F;\uC000\u{1D521}ar\u0100lr\u1CB3\u1CB5\xBB\u08DC\xBB\u101E\u0280aegsv\u1CC2\u0378\u1CD6\u1CDC\u1CE0m\u0180;os\u0326\u1CCA\u1CD4nd\u0100;s\u0326\u1CD1uit;\u6666amma;\u43DDin;\u62F2\u0180;io\u1CE7\u1CE8\u1CF8\u40F7de\u8100\xF7;o\u1CE7\u1CF0ntimes;\u62C7n\xF8\u1CF7cy;\u4452c\u026F\u1D06\0\0\u1D0Arn;\u631Eop;\u630D\u0280lptuw\u1D18\u1D1D\u1D22\u1D49\u1D55lar;\u4024f;\uC000\u{1D555}\u0280;emps\u030B\u1D2D\u1D37\u1D3D\u1D42q\u0100;d\u0352\u1D33ot;\u6251inus;\u6238lus;\u6214quare;\u62A1blebarwedg\xE5\xFAn\u0180adh\u112E\u1D5D\u1D67ownarrow\xF3\u1C83arpoon\u0100lr\u1D72\u1D76ef\xF4\u1CB4igh\xF4\u1CB6\u0162\u1D7F\u1D85karo\xF7\u0F42\u026F\u1D8A\0\0\u1D8Ern;\u631Fop;\u630C\u0180cot\u1D98\u1DA3\u1DA6\u0100ry\u1D9D\u1DA1;\uC000\u{1D4B9};\u4455l;\u69F6rok;\u4111\u0100dr\u1DB0\u1DB4ot;\u62F1i\u0100;f\u1DBA\u1816\u65BF\u0100ah\u1DC0\u1DC3r\xF2\u0429a\xF2\u0FA6angle;\u69A6\u0100ci\u1DD2\u1DD5y;\u445Fgrarr;\u67FF\u0900Dacdefglmnopqrstux\u1E01\u1E09\u1E19\u1E38\u0578\u1E3C\u1E49\u1E61\u1E7E\u1EA5\u1EAF\u1EBD\u1EE1\u1F2A\u1F37\u1F44\u1F4E\u1F5A\u0100Do\u1E06\u1D34o\xF4\u1C89\u0100cs\u1E0E\u1E14ute\u803B\xE9\u40E9ter;\u6A6E\u0200aioy\u1E22\u1E27\u1E31\u1E36ron;\u411Br\u0100;c\u1E2D\u1E2E\u6256\u803B\xEA\u40EAlon;\u6255;\u444Dot;\u4117\u0100Dr\u1E41\u1E45ot;\u6252;\uC000\u{1D522}\u0180;rs\u1E50\u1E51\u1E57\u6A9Aave\u803B\xE8\u40E8\u0100;d\u1E5C\u1E5D\u6A96ot;\u6A98\u0200;ils\u1E6A\u1E6B\u1E72\u1E74\u6A99nters;\u63E7;\u6113\u0100;d\u1E79\u1E7A\u6A95ot;\u6A97\u0180aps\u1E85\u1E89\u1E97cr;\u4113ty\u0180;sv\u1E92\u1E93\u1E95\u6205et\xBB\u1E93p\u01001;\u1E9D\u1EA4\u0133\u1EA1\u1EA3;\u6004;\u6005\u6003\u0100gs\u1EAA\u1EAC;\u414Bp;\u6002\u0100gp\u1EB4\u1EB8on;\u4119f;\uC000\u{1D556}\u0180als\u1EC4\u1ECE\u1ED2r\u0100;s\u1ECA\u1ECB\u62D5l;\u69E3us;\u6A71i\u0180;lv\u1EDA\u1EDB\u1EDF\u43B5on\xBB\u1EDB;\u43F5\u0200csuv\u1EEA\u1EF3\u1F0B\u1F23\u0100io\u1EEF\u1E31rc\xBB\u1E2E\u0269\u1EF9\0\0\u1EFB\xED\u0548ant\u0100gl\u1F02\u1F06tr\xBB\u1E5Dess\xBB\u1E7A\u0180aei\u1F12\u1F16\u1F1Als;\u403Dst;\u625Fv\u0100;D\u0235\u1F20D;\u6A78parsl;\u69E5\u0100Da\u1F2F\u1F33ot;\u6253rr;\u6971\u0180cdi\u1F3E\u1F41\u1EF8r;\u612Fo\xF4\u0352\u0100ah\u1F49\u1F4B;\u43B7\u803B\xF0\u40F0\u0100mr\u1F53\u1F57l\u803B\xEB\u40EBo;\u60AC\u0180cip\u1F61\u1F64\u1F67l;\u4021s\xF4\u056E\u0100eo\u1F6C\u1F74ctatio\xEE\u0559nential\xE5\u0579\u09E1\u1F92\0\u1F9E\0\u1FA1\u1FA7\0\0\u1FC6\u1FCC\0\u1FD3\0\u1FE6\u1FEA\u2000\0\u2008\u205Allingdotse\xF1\u1E44y;\u4444male;\u6640\u0180ilr\u1FAD\u1FB3\u1FC1lig;\u8000\uFB03\u0269\u1FB9\0\0\u1FBDg;\u8000\uFB00ig;\u8000\uFB04;\uC000\u{1D523}lig;\u8000\uFB01lig;\uC000fj\u0180alt\u1FD9\u1FDC\u1FE1t;\u666Dig;\u8000\uFB02ns;\u65B1of;\u4192\u01F0\u1FEE\0\u1FF3f;\uC000\u{1D557}\u0100ak\u05BF\u1FF7\u0100;v\u1FFC\u1FFD\u62D4;\u6AD9artint;\u6A0D\u0100ao\u200C\u2055\u0100cs\u2011\u2052\u03B1\u201A\u2030\u2038\u2045\u2048\0\u2050\u03B2\u2022\u2025\u2027\u202A\u202C\0\u202E\u803B\xBD\u40BD;\u6153\u803B\xBC\u40BC;\u6155;\u6159;\u615B\u01B3\u2034\0\u2036;\u6154;\u6156\u02B4\u203E\u2041\0\0\u2043\u803B\xBE\u40BE;\u6157;\u615C5;\u6158\u01B6\u204C\0\u204E;\u615A;\u615D8;\u615El;\u6044wn;\u6322cr;\uC000\u{1D4BB}\u0880Eabcdefgijlnorstv\u2082\u2089\u209F\u20A5\u20B0\u20B4\u20F0\u20F5\u20FA\u20FF\u2103\u2112\u2138\u0317\u213E\u2152\u219E\u0100;l\u064D\u2087;\u6A8C\u0180cmp\u2090\u2095\u209Dute;\u41F5ma\u0100;d\u209C\u1CDA\u43B3;\u6A86reve;\u411F\u0100iy\u20AA\u20AErc;\u411D;\u4433ot;\u4121\u0200;lqs\u063E\u0642\u20BD\u20C9\u0180;qs\u063E\u064C\u20C4lan\xF4\u0665\u0200;cdl\u0665\u20D2\u20D5\u20E5c;\u6AA9ot\u0100;o\u20DC\u20DD\u6A80\u0100;l\u20E2\u20E3\u6A82;\u6A84\u0100;e\u20EA\u20ED\uC000\u22DB\uFE00s;\u6A94r;\uC000\u{1D524}\u0100;g\u0673\u061Bmel;\u6137cy;\u4453\u0200;Eaj\u065A\u210C\u210E\u2110;\u6A92;\u6AA5;\u6AA4\u0200Eaes\u211B\u211D\u2129\u2134;\u6269p\u0100;p\u2123\u2124\u6A8Arox\xBB\u2124\u0100;q\u212E\u212F\u6A88\u0100;q\u212E\u211Bim;\u62E7pf;\uC000\u{1D558}\u0100ci\u2143\u2146r;\u610Am\u0180;el\u066B\u214E\u2150;\u6A8E;\u6A90\u8300>;cdlqr\u05EE\u2160\u216A\u216E\u2173\u2179\u0100ci\u2165\u2167;\u6AA7r;\u6A7Aot;\u62D7Par;\u6995uest;\u6A7C\u0280adels\u2184\u216A\u2190\u0656\u219B\u01F0\u2189\0\u218Epro\xF8\u209Er;\u6978q\u0100lq\u063F\u2196les\xF3\u2088i\xED\u066B\u0100en\u21A3\u21ADrtneqq;\uC000\u2269\uFE00\xC5\u21AA\u0500Aabcefkosy\u21C4\u21C7\u21F1\u21F5\u21FA\u2218\u221D\u222F\u2268\u227Dr\xF2\u03A0\u0200ilmr\u21D0\u21D4\u21D7\u21DBrs\xF0\u1484f\xBB\u2024il\xF4\u06A9\u0100dr\u21E0\u21E4cy;\u444A\u0180;cw\u08F4\u21EB\u21EFir;\u6948;\u61ADar;\u610Firc;\u4125\u0180alr\u2201\u220E\u2213rts\u0100;u\u2209\u220A\u6665it\xBB\u220Alip;\u6026con;\u62B9r;\uC000\u{1D525}s\u0100ew\u2223\u2229arow;\u6925arow;\u6926\u0280amopr\u223A\u223E\u2243\u225E\u2263rr;\u61FFtht;\u623Bk\u0100lr\u2249\u2253eftarrow;\u61A9ightarrow;\u61AAf;\uC000\u{1D559}bar;\u6015\u0180clt\u226F\u2274\u2278r;\uC000\u{1D4BD}as\xE8\u21F4rok;\u4127\u0100bp\u2282\u2287ull;\u6043hen\xBB\u1C5B\u0AE1\u22A3\0\u22AA\0\u22B8\u22C5\u22CE\0\u22D5\u22F3\0\0\u22F8\u2322\u2367\u2362\u237F\0\u2386\u23AA\u23B4cute\u803B\xED\u40ED\u0180;iy\u0771\u22B0\u22B5rc\u803B\xEE\u40EE;\u4438\u0100cx\u22BC\u22BFy;\u4435cl\u803B\xA1\u40A1\u0100fr\u039F\u22C9;\uC000\u{1D526}rave\u803B\xEC\u40EC\u0200;ino\u073E\u22DD\u22E9\u22EE\u0100in\u22E2\u22E6nt;\u6A0Ct;\u622Dfin;\u69DCta;\u6129lig;\u4133\u0180aop\u22FE\u231A\u231D\u0180cgt\u2305\u2308\u2317r;\u412B\u0180elp\u071F\u230F\u2313in\xE5\u078Ear\xF4\u0720h;\u4131f;\u62B7ed;\u41B5\u0280;cfot\u04F4\u232C\u2331\u233D\u2341are;\u6105in\u0100;t\u2338\u2339\u621Eie;\u69DDdo\xF4\u2319\u0280;celp\u0757\u234C\u2350\u235B\u2361al;\u62BA\u0100gr\u2355\u2359er\xF3\u1563\xE3\u234Darhk;\u6A17rod;\u6A3C\u0200cgpt\u236F\u2372\u2376\u237By;\u4451on;\u412Ff;\uC000\u{1D55A}a;\u43B9uest\u803B\xBF\u40BF\u0100ci\u238A\u238Fr;\uC000\u{1D4BE}n\u0280;Edsv\u04F4\u239B\u239D\u23A1\u04F3;\u62F9ot;\u62F5\u0100;v\u23A6\u23A7\u62F4;\u62F3\u0100;i\u0777\u23AElde;\u4129\u01EB\u23B8\0\u23BCcy;\u4456l\u803B\xEF\u40EF\u0300cfmosu\u23CC\u23D7\u23DC\u23E1\u23E7\u23F5\u0100iy\u23D1\u23D5rc;\u4135;\u4439r;\uC000\u{1D527}ath;\u4237pf;\uC000\u{1D55B}\u01E3\u23EC\0\u23F1r;\uC000\u{1D4BF}rcy;\u4458kcy;\u4454\u0400acfghjos\u240B\u2416\u2422\u2427\u242D\u2431\u2435\u243Bppa\u0100;v\u2413\u2414\u43BA;\u43F0\u0100ey\u241B\u2420dil;\u4137;\u443Ar;\uC000\u{1D528}reen;\u4138cy;\u4445cy;\u445Cpf;\uC000\u{1D55C}cr;\uC000\u{1D4C0}\u0B80ABEHabcdefghjlmnoprstuv\u2470\u2481\u2486\u248D\u2491\u250E\u253D\u255A\u2580\u264E\u265E\u2665\u2679\u267D\u269A\u26B2\u26D8\u275D\u2768\u278B\u27C0\u2801\u2812\u0180art\u2477\u247A\u247Cr\xF2\u09C6\xF2\u0395ail;\u691Barr;\u690E\u0100;g\u0994\u248B;\u6A8Bar;\u6962\u0963\u24A5\0\u24AA\0\u24B1\0\0\0\0\0\u24B5\u24BA\0\u24C6\u24C8\u24CD\0\u24F9ute;\u413Amptyv;\u69B4ra\xEE\u084Cbda;\u43BBg\u0180;dl\u088E\u24C1\u24C3;\u6991\xE5\u088E;\u6A85uo\u803B\xAB\u40ABr\u0400;bfhlpst\u0899\u24DE\u24E6\u24E9\u24EB\u24EE\u24F1\u24F5\u0100;f\u089D\u24E3s;\u691Fs;\u691D\xEB\u2252p;\u61ABl;\u6939im;\u6973l;\u61A2\u0180;ae\u24FF\u2500\u2504\u6AABil;\u6919\u0100;s\u2509\u250A\u6AAD;\uC000\u2AAD\uFE00\u0180abr\u2515\u2519\u251Drr;\u690Crk;\u6772\u0100ak\u2522\u252Cc\u0100ek\u2528\u252A;\u407B;\u405B\u0100es\u2531\u2533;\u698Bl\u0100du\u2539\u253B;\u698F;\u698D\u0200aeuy\u2546\u254B\u2556\u2558ron;\u413E\u0100di\u2550\u2554il;\u413C\xEC\u08B0\xE2\u2529;\u443B\u0200cqrs\u2563\u2566\u256D\u257Da;\u6936uo\u0100;r\u0E19\u1746\u0100du\u2572\u2577har;\u6967shar;\u694Bh;\u61B2\u0280;fgqs\u258B\u258C\u0989\u25F3\u25FF\u6264t\u0280ahlrt\u2598\u25A4\u25B7\u25C2\u25E8rrow\u0100;t\u0899\u25A1a\xE9\u24F6arpoon\u0100du\u25AF\u25B4own\xBB\u045Ap\xBB\u0966eftarrows;\u61C7ight\u0180ahs\u25CD\u25D6\u25DErrow\u0100;s\u08F4\u08A7arpoon\xF3\u0F98quigarro\xF7\u21F0hreetimes;\u62CB\u0180;qs\u258B\u0993\u25FAlan\xF4\u09AC\u0280;cdgs\u09AC\u260A\u260D\u261D\u2628c;\u6AA8ot\u0100;o\u2614\u2615\u6A7F\u0100;r\u261A\u261B\u6A81;\u6A83\u0100;e\u2622\u2625\uC000\u22DA\uFE00s;\u6A93\u0280adegs\u2633\u2639\u263D\u2649\u264Bppro\xF8\u24C6ot;\u62D6q\u0100gq\u2643\u2645\xF4\u0989gt\xF2\u248C\xF4\u099Bi\xED\u09B2\u0180ilr\u2655\u08E1\u265Asht;\u697C;\uC000\u{1D529}\u0100;E\u099C\u2663;\u6A91\u0161\u2669\u2676r\u0100du\u25B2\u266E\u0100;l\u0965\u2673;\u696Alk;\u6584cy;\u4459\u0280;acht\u0A48\u2688\u268B\u2691\u2696r\xF2\u25C1orne\xF2\u1D08ard;\u696Bri;\u65FA\u0100io\u269F\u26A4dot;\u4140ust\u0100;a\u26AC\u26AD\u63B0che\xBB\u26AD\u0200Eaes\u26BB\u26BD\u26C9\u26D4;\u6268p\u0100;p\u26C3\u26C4\u6A89rox\xBB\u26C4\u0100;q\u26CE\u26CF\u6A87\u0100;q\u26CE\u26BBim;\u62E6\u0400abnoptwz\u26E9\u26F4\u26F7\u271A\u272F\u2741\u2747\u2750\u0100nr\u26EE\u26F1g;\u67ECr;\u61FDr\xEB\u08C1g\u0180lmr\u26FF\u270D\u2714eft\u0100ar\u09E6\u2707ight\xE1\u09F2apsto;\u67FCight\xE1\u09FDparrow\u0100lr\u2725\u2729ef\xF4\u24EDight;\u61AC\u0180afl\u2736\u2739\u273Dr;\u6985;\uC000\u{1D55D}us;\u6A2Dimes;\u6A34\u0161\u274B\u274Fst;\u6217\xE1\u134E\u0180;ef\u2757\u2758\u1800\u65CAnge\xBB\u2758ar\u0100;l\u2764\u2765\u4028t;\u6993\u0280achmt\u2773\u2776\u277C\u2785\u2787r\xF2\u08A8orne\xF2\u1D8Car\u0100;d\u0F98\u2783;\u696D;\u600Eri;\u62BF\u0300achiqt\u2798\u279D\u0A40\u27A2\u27AE\u27BBquo;\u6039r;\uC000\u{1D4C1}m\u0180;eg\u09B2\u27AA\u27AC;\u6A8D;\u6A8F\u0100bu\u252A\u27B3o\u0100;r\u0E1F\u27B9;\u601Arok;\u4142\u8400<;cdhilqr\u082B\u27D2\u2639\u27DC\u27E0\u27E5\u27EA\u27F0\u0100ci\u27D7\u27D9;\u6AA6r;\u6A79re\xE5\u25F2mes;\u62C9arr;\u6976uest;\u6A7B\u0100Pi\u27F5\u27F9ar;\u6996\u0180;ef\u2800\u092D\u181B\u65C3r\u0100du\u2807\u280Dshar;\u694Ahar;\u6966\u0100en\u2817\u2821rtneqq;\uC000\u2268\uFE00\xC5\u281E\u0700Dacdefhilnopsu\u2840\u2845\u2882\u288E\u2893\u28A0\u28A5\u28A8\u28DA\u28E2\u28E4\u0A83\u28F3\u2902Dot;\u623A\u0200clpr\u284E\u2852\u2863\u287Dr\u803B\xAF\u40AF\u0100et\u2857\u2859;\u6642\u0100;e\u285E\u285F\u6720se\xBB\u285F\u0100;s\u103B\u2868to\u0200;dlu\u103B\u2873\u2877\u287Bow\xEE\u048Cef\xF4\u090F\xF0\u13D1ker;\u65AE\u0100oy\u2887\u288Cmma;\u6A29;\u443Cash;\u6014asuredangle\xBB\u1626r;\uC000\u{1D52A}o;\u6127\u0180cdn\u28AF\u28B4\u28C9ro\u803B\xB5\u40B5\u0200;acd\u1464\u28BD\u28C0\u28C4s\xF4\u16A7ir;\u6AF0ot\u80BB\xB7\u01B5us\u0180;bd\u28D2\u1903\u28D3\u6212\u0100;u\u1D3C\u28D8;\u6A2A\u0163\u28DE\u28E1p;\u6ADB\xF2\u2212\xF0\u0A81\u0100dp\u28E9\u28EEels;\u62A7f;\uC000\u{1D55E}\u0100ct\u28F8\u28FDr;\uC000\u{1D4C2}pos\xBB\u159D\u0180;lm\u2909\u290A\u290D\u43BCtimap;\u62B8\u0C00GLRVabcdefghijlmoprstuvw\u2942\u2953\u297E\u2989\u2998\u29DA\u29E9\u2A15\u2A1A\u2A58\u2A5D\u2A83\u2A95\u2AA4\u2AA8\u2B04\u2B07\u2B44\u2B7F\u2BAE\u2C34\u2C67\u2C7C\u2CE9\u0100gt\u2947\u294B;\uC000\u22D9\u0338\u0100;v\u2950\u0BCF\uC000\u226B\u20D2\u0180elt\u295A\u2972\u2976ft\u0100ar\u2961\u2967rrow;\u61CDightarrow;\u61CE;\uC000\u22D8\u0338\u0100;v\u297B\u0C47\uC000\u226A\u20D2ightarrow;\u61CF\u0100Dd\u298E\u2993ash;\u62AFash;\u62AE\u0280bcnpt\u29A3\u29A7\u29AC\u29B1\u29CCla\xBB\u02DEute;\u4144g;\uC000\u2220\u20D2\u0280;Eiop\u0D84\u29BC\u29C0\u29C5\u29C8;\uC000\u2A70\u0338d;\uC000\u224B\u0338s;\u4149ro\xF8\u0D84ur\u0100;a\u29D3\u29D4\u666El\u0100;s\u29D3\u0B38\u01F3\u29DF\0\u29E3p\u80BB\xA0\u0B37mp\u0100;e\u0BF9\u0C00\u0280aeouy\u29F4\u29FE\u2A03\u2A10\u2A13\u01F0\u29F9\0\u29FB;\u6A43on;\u4148dil;\u4146ng\u0100;d\u0D7E\u2A0Aot;\uC000\u2A6D\u0338p;\u6A42;\u443Dash;\u6013\u0380;Aadqsx\u0B92\u2A29\u2A2D\u2A3B\u2A41\u2A45\u2A50rr;\u61D7r\u0100hr\u2A33\u2A36k;\u6924\u0100;o\u13F2\u13F0ot;\uC000\u2250\u0338ui\xF6\u0B63\u0100ei\u2A4A\u2A4Ear;\u6928\xED\u0B98ist\u0100;s\u0BA0\u0B9Fr;\uC000\u{1D52B}\u0200Eest\u0BC5\u2A66\u2A79\u2A7C\u0180;qs\u0BBC\u2A6D\u0BE1\u0180;qs\u0BBC\u0BC5\u2A74lan\xF4\u0BE2i\xED\u0BEA\u0100;r\u0BB6\u2A81\xBB\u0BB7\u0180Aap\u2A8A\u2A8D\u2A91r\xF2\u2971rr;\u61AEar;\u6AF2\u0180;sv\u0F8D\u2A9C\u0F8C\u0100;d\u2AA1\u2AA2\u62FC;\u62FAcy;\u445A\u0380AEadest\u2AB7\u2ABA\u2ABE\u2AC2\u2AC5\u2AF6\u2AF9r\xF2\u2966;\uC000\u2266\u0338rr;\u619Ar;\u6025\u0200;fqs\u0C3B\u2ACE\u2AE3\u2AEFt\u0100ar\u2AD4\u2AD9rro\xF7\u2AC1ightarro\xF7\u2A90\u0180;qs\u0C3B\u2ABA\u2AEAlan\xF4\u0C55\u0100;s\u0C55\u2AF4\xBB\u0C36i\xED\u0C5D\u0100;r\u0C35\u2AFEi\u0100;e\u0C1A\u0C25i\xE4\u0D90\u0100pt\u2B0C\u2B11f;\uC000\u{1D55F}\u8180\xAC;in\u2B19\u2B1A\u2B36\u40ACn\u0200;Edv\u0B89\u2B24\u2B28\u2B2E;\uC000\u22F9\u0338ot;\uC000\u22F5\u0338\u01E1\u0B89\u2B33\u2B35;\u62F7;\u62F6i\u0100;v\u0CB8\u2B3C\u01E1\u0CB8\u2B41\u2B43;\u62FE;\u62FD\u0180aor\u2B4B\u2B63\u2B69r\u0200;ast\u0B7B\u2B55\u2B5A\u2B5Flle\xEC\u0B7Bl;\uC000\u2AFD\u20E5;\uC000\u2202\u0338lint;\u6A14\u0180;ce\u0C92\u2B70\u2B73u\xE5\u0CA5\u0100;c\u0C98\u2B78\u0100;e\u0C92\u2B7D\xF1\u0C98\u0200Aait\u2B88\u2B8B\u2B9D\u2BA7r\xF2\u2988rr\u0180;cw\u2B94\u2B95\u2B99\u619B;\uC000\u2933\u0338;\uC000\u219D\u0338ghtarrow\xBB\u2B95ri\u0100;e\u0CCB\u0CD6\u0380chimpqu\u2BBD\u2BCD\u2BD9\u2B04\u0B78\u2BE4\u2BEF\u0200;cer\u0D32\u2BC6\u0D37\u2BC9u\xE5\u0D45;\uC000\u{1D4C3}ort\u026D\u2B05\0\0\u2BD6ar\xE1\u2B56m\u0100;e\u0D6E\u2BDF\u0100;q\u0D74\u0D73su\u0100bp\u2BEB\u2BED\xE5\u0CF8\xE5\u0D0B\u0180bcp\u2BF6\u2C11\u2C19\u0200;Ees\u2BFF\u2C00\u0D22\u2C04\u6284;\uC000\u2AC5\u0338et\u0100;e\u0D1B\u2C0Bq\u0100;q\u0D23\u2C00c\u0100;e\u0D32\u2C17\xF1\u0D38\u0200;Ees\u2C22\u2C23\u0D5F\u2C27\u6285;\uC000\u2AC6\u0338et\u0100;e\u0D58\u2C2Eq\u0100;q\u0D60\u2C23\u0200gilr\u2C3D\u2C3F\u2C45\u2C47\xEC\u0BD7lde\u803B\xF1\u40F1\xE7\u0C43iangle\u0100lr\u2C52\u2C5Ceft\u0100;e\u0C1A\u2C5A\xF1\u0C26ight\u0100;e\u0CCB\u2C65\xF1\u0CD7\u0100;m\u2C6C\u2C6D\u43BD\u0180;es\u2C74\u2C75\u2C79\u4023ro;\u6116p;\u6007\u0480DHadgilrs\u2C8F\u2C94\u2C99\u2C9E\u2CA3\u2CB0\u2CB6\u2CD3\u2CE3ash;\u62ADarr;\u6904p;\uC000\u224D\u20D2ash;\u62AC\u0100et\u2CA8\u2CAC;\uC000\u2265\u20D2;\uC000>\u20D2nfin;\u69DE\u0180Aet\u2CBD\u2CC1\u2CC5rr;\u6902;\uC000\u2264\u20D2\u0100;r\u2CCA\u2CCD\uC000<\u20D2ie;\uC000\u22B4\u20D2\u0100At\u2CD8\u2CDCrr;\u6903rie;\uC000\u22B5\u20D2im;\uC000\u223C\u20D2\u0180Aan\u2CF0\u2CF4\u2D02rr;\u61D6r\u0100hr\u2CFA\u2CFDk;\u6923\u0100;o\u13E7\u13E5ear;\u6927\u1253\u1A95\0\0\0\0\0\0\0\0\0\0\0\0\0\u2D2D\0\u2D38\u2D48\u2D60\u2D65\u2D72\u2D84\u1B07\0\0\u2D8D\u2DAB\0\u2DC8\u2DCE\0\u2DDC\u2E19\u2E2B\u2E3E\u2E43\u0100cs\u2D31\u1A97ute\u803B\xF3\u40F3\u0100iy\u2D3C\u2D45r\u0100;c\u1A9E\u2D42\u803B\xF4\u40F4;\u443E\u0280abios\u1AA0\u2D52\u2D57\u01C8\u2D5Alac;\u4151v;\u6A38old;\u69BClig;\u4153\u0100cr\u2D69\u2D6Dir;\u69BF;\uC000\u{1D52C}\u036F\u2D79\0\0\u2D7C\0\u2D82n;\u42DBave\u803B\xF2\u40F2;\u69C1\u0100bm\u2D88\u0DF4ar;\u69B5\u0200acit\u2D95\u2D98\u2DA5\u2DA8r\xF2\u1A80\u0100ir\u2D9D\u2DA0r;\u69BEoss;\u69BBn\xE5\u0E52;\u69C0\u0180aei\u2DB1\u2DB5\u2DB9cr;\u414Dga;\u43C9\u0180cdn\u2DC0\u2DC5\u01CDron;\u43BF;\u69B6pf;\uC000\u{1D560}\u0180ael\u2DD4\u2DD7\u01D2r;\u69B7rp;\u69B9\u0380;adiosv\u2DEA\u2DEB\u2DEE\u2E08\u2E0D\u2E10\u2E16\u6228r\xF2\u1A86\u0200;efm\u2DF7\u2DF8\u2E02\u2E05\u6A5Dr\u0100;o\u2DFE\u2DFF\u6134f\xBB\u2DFF\u803B\xAA\u40AA\u803B\xBA\u40BAgof;\u62B6r;\u6A56lope;\u6A57;\u6A5B\u0180clo\u2E1F\u2E21\u2E27\xF2\u2E01ash\u803B\xF8\u40F8l;\u6298i\u016C\u2E2F\u2E34de\u803B\xF5\u40F5es\u0100;a\u01DB\u2E3As;\u6A36ml\u803B\xF6\u40F6bar;\u633D\u0AE1\u2E5E\0\u2E7D\0\u2E80\u2E9D\0\u2EA2\u2EB9\0\0\u2ECB\u0E9C\0\u2F13\0\0\u2F2B\u2FBC\0\u2FC8r\u0200;ast\u0403\u2E67\u2E72\u0E85\u8100\xB6;l\u2E6D\u2E6E\u40B6le\xEC\u0403\u0269\u2E78\0\0\u2E7Bm;\u6AF3;\u6AFDy;\u443Fr\u0280cimpt\u2E8B\u2E8F\u2E93\u1865\u2E97nt;\u4025od;\u402Eil;\u6030enk;\u6031r;\uC000\u{1D52D}\u0180imo\u2EA8\u2EB0\u2EB4\u0100;v\u2EAD\u2EAE\u43C6;\u43D5ma\xF4\u0A76ne;\u660E\u0180;tv\u2EBF\u2EC0\u2EC8\u43C0chfork\xBB\u1FFD;\u43D6\u0100au\u2ECF\u2EDFn\u0100ck\u2ED5\u2EDDk\u0100;h\u21F4\u2EDB;\u610E\xF6\u21F4s\u0480;abcdemst\u2EF3\u2EF4\u1908\u2EF9\u2EFD\u2F04\u2F06\u2F0A\u2F0E\u402Bcir;\u6A23ir;\u6A22\u0100ou\u1D40\u2F02;\u6A25;\u6A72n\u80BB\xB1\u0E9Dim;\u6A26wo;\u6A27\u0180ipu\u2F19\u2F20\u2F25ntint;\u6A15f;\uC000\u{1D561}nd\u803B\xA3\u40A3\u0500;Eaceinosu\u0EC8\u2F3F\u2F41\u2F44\u2F47\u2F81\u2F89\u2F92\u2F7E\u2FB6;\u6AB3p;\u6AB7u\xE5\u0ED9\u0100;c\u0ECE\u2F4C\u0300;acens\u0EC8\u2F59\u2F5F\u2F66\u2F68\u2F7Eppro\xF8\u2F43urlye\xF1\u0ED9\xF1\u0ECE\u0180aes\u2F6F\u2F76\u2F7Approx;\u6AB9qq;\u6AB5im;\u62E8i\xED\u0EDFme\u0100;s\u2F88\u0EAE\u6032\u0180Eas\u2F78\u2F90\u2F7A\xF0\u2F75\u0180dfp\u0EEC\u2F99\u2FAF\u0180als\u2FA0\u2FA5\u2FAAlar;\u632Eine;\u6312urf;\u6313\u0100;t\u0EFB\u2FB4\xEF\u0EFBrel;\u62B0\u0100ci\u2FC0\u2FC5r;\uC000\u{1D4C5};\u43C8ncsp;\u6008\u0300fiopsu\u2FDA\u22E2\u2FDF\u2FE5\u2FEB\u2FF1r;\uC000\u{1D52E}pf;\uC000\u{1D562}rime;\u6057cr;\uC000\u{1D4C6}\u0180aeo\u2FF8\u3009\u3013t\u0100ei\u2FFE\u3005rnion\xF3\u06B0nt;\u6A16st\u0100;e\u3010\u3011\u403F\xF1\u1F19\xF4\u0F14\u0A80ABHabcdefhilmnoprstux\u3040\u3051\u3055\u3059\u30E0\u310E\u312B\u3147\u3162\u3172\u318E\u3206\u3215\u3224\u3229\u3258\u326E\u3272\u3290\u32B0\u32B7\u0180art\u3047\u304A\u304Cr\xF2\u10B3\xF2\u03DDail;\u691Car\xF2\u1C65ar;\u6964\u0380cdenqrt\u3068\u3075\u3078\u307F\u308F\u3094\u30CC\u0100eu\u306D\u3071;\uC000\u223D\u0331te;\u4155i\xE3\u116Emptyv;\u69B3g\u0200;del\u0FD1\u3089\u308B\u308D;\u6992;\u69A5\xE5\u0FD1uo\u803B\xBB\u40BBr\u0580;abcfhlpstw\u0FDC\u30AC\u30AF\u30B7\u30B9\u30BC\u30BE\u30C0\u30C3\u30C7\u30CAp;\u6975\u0100;f\u0FE0\u30B4s;\u6920;\u6933s;\u691E\xEB\u225D\xF0\u272El;\u6945im;\u6974l;\u61A3;\u619D\u0100ai\u30D1\u30D5il;\u691Ao\u0100;n\u30DB\u30DC\u6236al\xF3\u0F1E\u0180abr\u30E7\u30EA\u30EEr\xF2\u17E5rk;\u6773\u0100ak\u30F3\u30FDc\u0100ek\u30F9\u30FB;\u407D;\u405D\u0100es\u3102\u3104;\u698Cl\u0100du\u310A\u310C;\u698E;\u6990\u0200aeuy\u3117\u311C\u3127\u3129ron;\u4159\u0100di\u3121\u3125il;\u4157\xEC\u0FF2\xE2\u30FA;\u4440\u0200clqs\u3134\u3137\u313D\u3144a;\u6937dhar;\u6969uo\u0100;r\u020E\u020Dh;\u61B3\u0180acg\u314E\u315F\u0F44l\u0200;ips\u0F78\u3158\u315B\u109Cn\xE5\u10BBar\xF4\u0FA9t;\u65AD\u0180ilr\u3169\u1023\u316Esht;\u697D;\uC000\u{1D52F}\u0100ao\u3177\u3186r\u0100du\u317D\u317F\xBB\u047B\u0100;l\u1091\u3184;\u696C\u0100;v\u318B\u318C\u43C1;\u43F1\u0180gns\u3195\u31F9\u31FCht\u0300ahlrst\u31A4\u31B0\u31C2\u31D8\u31E4\u31EErrow\u0100;t\u0FDC\u31ADa\xE9\u30C8arpoon\u0100du\u31BB\u31BFow\xEE\u317Ep\xBB\u1092eft\u0100ah\u31CA\u31D0rrow\xF3\u0FEAarpoon\xF3\u0551ightarrows;\u61C9quigarro\xF7\u30CBhreetimes;\u62CCg;\u42DAingdotse\xF1\u1F32\u0180ahm\u320D\u3210\u3213r\xF2\u0FEAa\xF2\u0551;\u600Foust\u0100;a\u321E\u321F\u63B1che\xBB\u321Fmid;\u6AEE\u0200abpt\u3232\u323D\u3240\u3252\u0100nr\u3237\u323Ag;\u67EDr;\u61FEr\xEB\u1003\u0180afl\u3247\u324A\u324Er;\u6986;\uC000\u{1D563}us;\u6A2Eimes;\u6A35\u0100ap\u325D\u3267r\u0100;g\u3263\u3264\u4029t;\u6994olint;\u6A12ar\xF2\u31E3\u0200achq\u327B\u3280\u10BC\u3285quo;\u603Ar;\uC000\u{1D4C7}\u0100bu\u30FB\u328Ao\u0100;r\u0214\u0213\u0180hir\u3297\u329B\u32A0re\xE5\u31F8mes;\u62CAi\u0200;efl\u32AA\u1059\u1821\u32AB\u65B9tri;\u69CEluhar;\u6968;\u611E\u0D61\u32D5\u32DB\u32DF\u332C\u3338\u3371\0\u337A\u33A4\0\0\u33EC\u33F0\0\u3428\u3448\u345A\u34AD\u34B1\u34CA\u34F1\0\u3616\0\0\u3633cute;\u415Bqu\xEF\u27BA\u0500;Eaceinpsy\u11ED\u32F3\u32F5\u32FF\u3302\u330B\u330F\u331F\u3326\u3329;\u6AB4\u01F0\u32FA\0\u32FC;\u6AB8on;\u4161u\xE5\u11FE\u0100;d\u11F3\u3307il;\u415Frc;\u415D\u0180Eas\u3316\u3318\u331B;\u6AB6p;\u6ABAim;\u62E9olint;\u6A13i\xED\u1204;\u4441ot\u0180;be\u3334\u1D47\u3335\u62C5;\u6A66\u0380Aacmstx\u3346\u334A\u3357\u335B\u335E\u3363\u336Drr;\u61D8r\u0100hr\u3350\u3352\xEB\u2228\u0100;o\u0A36\u0A34t\u803B\xA7\u40A7i;\u403Bwar;\u6929m\u0100in\u3369\xF0nu\xF3\xF1t;\u6736r\u0100;o\u3376\u2055\uC000\u{1D530}\u0200acoy\u3382\u3386\u3391\u33A0rp;\u666F\u0100hy\u338B\u338Fcy;\u4449;\u4448rt\u026D\u3399\0\0\u339Ci\xE4\u1464ara\xEC\u2E6F\u803B\xAD\u40AD\u0100gm\u33A8\u33B4ma\u0180;fv\u33B1\u33B2\u33B2\u43C3;\u43C2\u0400;deglnpr\u12AB\u33C5\u33C9\u33CE\u33D6\u33DE\u33E1\u33E6ot;\u6A6A\u0100;q\u12B1\u12B0\u0100;E\u33D3\u33D4\u6A9E;\u6AA0\u0100;E\u33DB\u33DC\u6A9D;\u6A9Fe;\u6246lus;\u6A24arr;\u6972ar\xF2\u113D\u0200aeit\u33F8\u3408\u340F\u3417\u0100ls\u33FD\u3404lsetm\xE9\u336Ahp;\u6A33parsl;\u69E4\u0100dl\u1463\u3414e;\u6323\u0100;e\u341C\u341D\u6AAA\u0100;s\u3422\u3423\u6AAC;\uC000\u2AAC\uFE00\u0180flp\u342E\u3433\u3442tcy;\u444C\u0100;b\u3438\u3439\u402F\u0100;a\u343E\u343F\u69C4r;\u633Ff;\uC000\u{1D564}a\u0100dr\u344D\u0402es\u0100;u\u3454\u3455\u6660it\xBB\u3455\u0180csu\u3460\u3479\u349F\u0100au\u3465\u346Fp\u0100;s\u1188\u346B;\uC000\u2293\uFE00p\u0100;s\u11B4\u3475;\uC000\u2294\uFE00u\u0100bp\u347F\u348F\u0180;es\u1197\u119C\u3486et\u0100;e\u1197\u348D\xF1\u119D\u0180;es\u11A8\u11AD\u3496et\u0100;e\u11A8\u349D\xF1\u11AE\u0180;af\u117B\u34A6\u05B0r\u0165\u34AB\u05B1\xBB\u117Car\xF2\u1148\u0200cemt\u34B9\u34BE\u34C2\u34C5r;\uC000\u{1D4C8}tm\xEE\xF1i\xEC\u3415ar\xE6\u11BE\u0100ar\u34CE\u34D5r\u0100;f\u34D4\u17BF\u6606\u0100an\u34DA\u34EDight\u0100ep\u34E3\u34EApsilo\xEE\u1EE0h\xE9\u2EAFs\xBB\u2852\u0280bcmnp\u34FB\u355E\u1209\u358B\u358E\u0480;Edemnprs\u350E\u350F\u3511\u3515\u351E\u3523\u352C\u3531\u3536\u6282;\u6AC5ot;\u6ABD\u0100;d\u11DA\u351Aot;\u6AC3ult;\u6AC1\u0100Ee\u3528\u352A;\u6ACB;\u628Alus;\u6ABFarr;\u6979\u0180eiu\u353D\u3552\u3555t\u0180;en\u350E\u3545\u354Bq\u0100;q\u11DA\u350Feq\u0100;q\u352B\u3528m;\u6AC7\u0100bp\u355A\u355C;\u6AD5;\u6AD3c\u0300;acens\u11ED\u356C\u3572\u3579\u357B\u3326ppro\xF8\u32FAurlye\xF1\u11FE\xF1\u11F3\u0180aes\u3582\u3588\u331Bppro\xF8\u331Aq\xF1\u3317g;\u666A\u0680123;Edehlmnps\u35A9\u35AC\u35AF\u121C\u35B2\u35B4\u35C0\u35C9\u35D5\u35DA\u35DF\u35E8\u35ED\u803B\xB9\u40B9\u803B\xB2\u40B2\u803B\xB3\u40B3;\u6AC6\u0100os\u35B9\u35BCt;\u6ABEub;\u6AD8\u0100;d\u1222\u35C5ot;\u6AC4s\u0100ou\u35CF\u35D2l;\u67C9b;\u6AD7arr;\u697Bult;\u6AC2\u0100Ee\u35E4\u35E6;\u6ACC;\u628Blus;\u6AC0\u0180eiu\u35F4\u3609\u360Ct\u0180;en\u121C\u35FC\u3602q\u0100;q\u1222\u35B2eq\u0100;q\u35E7\u35E4m;\u6AC8\u0100bp\u3611\u3613;\u6AD4;\u6AD6\u0180Aan\u361C\u3620\u362Drr;\u61D9r\u0100hr\u3626\u3628\xEB\u222E\u0100;o\u0A2B\u0A29war;\u692Alig\u803B\xDF\u40DF\u0BE1\u3651\u365D\u3660\u12CE\u3673\u3679\0\u367E\u36C2\0\0\0\0\0\u36DB\u3703\0\u3709\u376C\0\0\0\u3787\u0272\u3656\0\0\u365Bget;\u6316;\u43C4r\xEB\u0E5F\u0180aey\u3666\u366B\u3670ron;\u4165dil;\u4163;\u4442lrec;\u6315r;\uC000\u{1D531}\u0200eiko\u3686\u369D\u36B5\u36BC\u01F2\u368B\0\u3691e\u01004f\u1284\u1281a\u0180;sv\u3698\u3699\u369B\u43B8ym;\u43D1\u0100cn\u36A2\u36B2k\u0100as\u36A8\u36AEppro\xF8\u12C1im\xBB\u12ACs\xF0\u129E\u0100as\u36BA\u36AE\xF0\u12C1rn\u803B\xFE\u40FE\u01EC\u031F\u36C6\u22E7es\u8180\xD7;bd\u36CF\u36D0\u36D8\u40D7\u0100;a\u190F\u36D5r;\u6A31;\u6A30\u0180eps\u36E1\u36E3\u3700\xE1\u2A4D\u0200;bcf\u0486\u36EC\u36F0\u36F4ot;\u6336ir;\u6AF1\u0100;o\u36F9\u36FC\uC000\u{1D565}rk;\u6ADA\xE1\u3362rime;\u6034\u0180aip\u370F\u3712\u3764d\xE5\u1248\u0380adempst\u3721\u374D\u3740\u3751\u3757\u375C\u375Fngle\u0280;dlqr\u3730\u3731\u3736\u3740\u3742\u65B5own\xBB\u1DBBeft\u0100;e\u2800\u373E\xF1\u092E;\u625Cight\u0100;e\u32AA\u374B\xF1\u105Aot;\u65ECinus;\u6A3Alus;\u6A39b;\u69CDime;\u6A3Bezium;\u63E2\u0180cht\u3772\u377D\u3781\u0100ry\u3777\u377B;\uC000\u{1D4C9};\u4446cy;\u445Brok;\u4167\u0100io\u378B\u378Ex\xF4\u1777head\u0100lr\u3797\u37A0eftarro\xF7\u084Fightarrow\xBB\u0F5D\u0900AHabcdfghlmoprstuw\u37D0\u37D3\u37D7\u37E4\u37F0\u37FC\u380E\u381C\u3823\u3834\u3851\u385D\u386B\u38A9\u38CC\u38D2\u38EA\u38F6r\xF2\u03EDar;\u6963\u0100cr\u37DC\u37E2ute\u803B\xFA\u40FA\xF2\u1150r\u01E3\u37EA\0\u37EDy;\u445Eve;\u416D\u0100iy\u37F5\u37FArc\u803B\xFB\u40FB;\u4443\u0180abh\u3803\u3806\u380Br\xF2\u13ADlac;\u4171a\xF2\u13C3\u0100ir\u3813\u3818sht;\u697E;\uC000\u{1D532}rave\u803B\xF9\u40F9\u0161\u3827\u3831r\u0100lr\u382C\u382E\xBB\u0957\xBB\u1083lk;\u6580\u0100ct\u3839\u384D\u026F\u383F\0\0\u384Arn\u0100;e\u3845\u3846\u631Cr\xBB\u3846op;\u630Fri;\u65F8\u0100al\u3856\u385Acr;\u416B\u80BB\xA8\u0349\u0100gp\u3862\u3866on;\u4173f;\uC000\u{1D566}\u0300adhlsu\u114B\u3878\u387D\u1372\u3891\u38A0own\xE1\u13B3arpoon\u0100lr\u3888\u388Cef\xF4\u382Digh\xF4\u382Fi\u0180;hl\u3899\u389A\u389C\u43C5\xBB\u13FAon\xBB\u389Aparrows;\u61C8\u0180cit\u38B0\u38C4\u38C8\u026F\u38B6\0\0\u38C1rn\u0100;e\u38BC\u38BD\u631Dr\xBB\u38BDop;\u630Eng;\u416Fri;\u65F9cr;\uC000\u{1D4CA}\u0180dir\u38D9\u38DD\u38E2ot;\u62F0lde;\u4169i\u0100;f\u3730\u38E8\xBB\u1813\u0100am\u38EF\u38F2r\xF2\u38A8l\u803B\xFC\u40FCangle;\u69A7\u0780ABDacdeflnoprsz\u391C\u391F\u3929\u392D\u39B5\u39B8\u39BD\u39DF\u39E4\u39E8\u39F3\u39F9\u39FD\u3A01\u3A20r\xF2\u03F7ar\u0100;v\u3926\u3927\u6AE8;\u6AE9as\xE8\u03E1\u0100nr\u3932\u3937grt;\u699C\u0380eknprst\u34E3\u3946\u394B\u3952\u395D\u3964\u3996app\xE1\u2415othin\xE7\u1E96\u0180hir\u34EB\u2EC8\u3959op\xF4\u2FB5\u0100;h\u13B7\u3962\xEF\u318D\u0100iu\u3969\u396Dgm\xE1\u33B3\u0100bp\u3972\u3984setneq\u0100;q\u397D\u3980\uC000\u228A\uFE00;\uC000\u2ACB\uFE00setneq\u0100;q\u398F\u3992\uC000\u228B\uFE00;\uC000\u2ACC\uFE00\u0100hr\u399B\u399Fet\xE1\u369Ciangle\u0100lr\u39AA\u39AFeft\xBB\u0925ight\xBB\u1051y;\u4432ash\xBB\u1036\u0180elr\u39C4\u39D2\u39D7\u0180;be\u2DEA\u39CB\u39CFar;\u62BBq;\u625Alip;\u62EE\u0100bt\u39DC\u1468a\xF2\u1469r;\uC000\u{1D533}tr\xE9\u39AEsu\u0100bp\u39EF\u39F1\xBB\u0D1C\xBB\u0D59pf;\uC000\u{1D567}ro\xF0\u0EFBtr\xE9\u39B4\u0100cu\u3A06\u3A0Br;\uC000\u{1D4CB}\u0100bp\u3A10\u3A18n\u0100Ee\u3980\u3A16\xBB\u397En\u0100Ee\u3992\u3A1E\xBB\u3990igzag;\u699A\u0380cefoprs\u3A36\u3A3B\u3A56\u3A5B\u3A54\u3A61\u3A6Airc;\u4175\u0100di\u3A40\u3A51\u0100bg\u3A45\u3A49ar;\u6A5Fe\u0100;q\u15FA\u3A4F;\u6259erp;\u6118r;\uC000\u{1D534}pf;\uC000\u{1D568}\u0100;e\u1479\u3A66at\xE8\u1479cr;\uC000\u{1D4CC}\u0AE3\u178E\u3A87\0\u3A8B\0\u3A90\u3A9B\0\0\u3A9D\u3AA8\u3AAB\u3AAF\0\0\u3AC3\u3ACE\0\u3AD8\u17DC\u17DFtr\xE9\u17D1r;\uC000\u{1D535}\u0100Aa\u3A94\u3A97r\xF2\u03C3r\xF2\u09F6;\u43BE\u0100Aa\u3AA1\u3AA4r\xF2\u03B8r\xF2\u09EBa\xF0\u2713is;\u62FB\u0180dpt\u17A4\u3AB5\u3ABE\u0100fl\u3ABA\u17A9;\uC000\u{1D569}im\xE5\u17B2\u0100Aa\u3AC7\u3ACAr\xF2\u03CEr\xF2\u0A01\u0100cq\u3AD2\u17B8r;\uC000\u{1D4CD}\u0100pt\u17D6\u3ADCr\xE9\u17D4\u0400acefiosu\u3AF0\u3AFD\u3B08\u3B0C\u3B11\u3B15\u3B1B\u3B21c\u0100uy\u3AF6\u3AFBte\u803B\xFD\u40FD;\u444F\u0100iy\u3B02\u3B06rc;\u4177;\u444Bn\u803B\xA5\u40A5r;\uC000\u{1D536}cy;\u4457pf;\uC000\u{1D56A}cr;\uC000\u{1D4CE}\u0100cm\u3B26\u3B29y;\u444El\u803B\xFF\u40FF\u0500acdefhiosw\u3B42\u3B48\u3B54\u3B58\u3B64\u3B69\u3B6D\u3B74\u3B7A\u3B80cute;\u417A\u0100ay\u3B4D\u3B52ron;\u417E;\u4437ot;\u417C\u0100et\u3B5D\u3B61tr\xE6\u155Fa;\u43B6r;\uC000\u{1D537}cy;\u4436grarr;\u61DDpf;\uC000\u{1D56B}cr;\uC000\u{1D4CF}\u0100jn\u3B85\u3B87;\u600Dj;\u600C'.split("").map(function(c2) {
+          return c2.charCodeAt(0);
         })
       );
     }
@@ -8640,8 +8604,8 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.default = new Uint16Array(
         // prettier-ignore
-        "\u0200aglq	\x1B\u026D\0\0p;\u4026os;\u4027t;\u403Et;\u403Cuot;\u4022".split("").map(function(c) {
-          return c.charCodeAt(0);
+        "\u0200aglq	\x1B\u026D\0\0p;\u4026os;\u4027t;\u403Et;\u403Cuot;\u4022".split("").map(function(c2) {
+          return c2.charCodeAt(0);
         })
       );
     }
@@ -8736,10 +8700,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod2) {
         if (mod2 && mod2.__esModule) return mod2;
@@ -9130,8 +9094,8 @@ var LNReaderPlugin = (() => {
         return str.codePointAt(index2);
       } : (
         // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-        function(c, index2) {
-          return (c.charCodeAt(index2) & 64512) === 55296 ? (c.charCodeAt(index2) - 55296) * 1024 + c.charCodeAt(index2 + 1) - 56320 + 65536 : c.charCodeAt(index2);
+        function(c2, index2) {
+          return (c2.charCodeAt(index2) & 64512) === 55296 ? (c2.charCodeAt(index2) - 55296) * 1024 + c2.charCodeAt(index2 + 1) - 56320 + 65536 : c2.charCodeAt(index2);
         }
       );
       function encodeXML(str) {
@@ -9507,13 +9471,13 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
+        __assign = Object.assign || function(t2) {
+          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s2 = arguments[i2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
-          return t;
+          return t2;
         };
         return __assign.apply(this, arguments);
       };
@@ -9530,10 +9494,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod2) {
         if (mod2 && mod2.__esModule) return mod2;
@@ -10131,9 +10095,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a2, b2) {
+      function combineFuncs(a2, b) {
         return function(elem) {
-          return a2(elem) || b2(elem);
+          return a2(elem) || b(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -10277,8 +10241,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i2, arr) {
           return !arr.includes(node, i2 + 1);
         });
-        nodes.sort(function(a2, b2) {
-          var relative = compareDocumentPosition(a2, b2);
+        nodes.sort(function(a2, b) {
+          var relative = compareDocumentPosition(a2, b);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -11184,11 +11148,11 @@ var LNReaderPlugin = (() => {
   function unescapeCSS(str) {
     return str.replace(reEscape, funescape);
   }
-  function isQuote(c) {
-    return c === 39 || c === 34;
+  function isQuote(c2) {
+    return c2 === 39 || c2 === 34;
   }
-  function isWhitespace(c) {
-    return c === 32 || c === 9 || c === 10 || c === 12 || c === 13;
+  function isWhitespace(c2) {
+    return c2 === 32 || c2 === 9 || c2 === 10 || c2 === 12 || c2 === 13;
   }
   function parse(selector) {
     const subselects = [];
@@ -11614,8 +11578,8 @@ var LNReaderPlugin = (() => {
       init_types();
       attribValChars = ["\\", '"'];
       pseudoValChars = [...attribValChars, "(", ")"];
-      charsToEscapeInAttributeValue = new Set(attribValChars.map((c) => c.charCodeAt(0)));
-      charsToEscapeInPseudoValue = new Set(pseudoValChars.map((c) => c.charCodeAt(0)));
+      charsToEscapeInAttributeValue = new Set(attribValChars.map((c2) => c2.charCodeAt(0)));
+      charsToEscapeInPseudoValue = new Set(pseudoValChars.map((c2) => c2.charCodeAt(0)));
       charsToEscapeInName = new Set([
         ...pseudoValChars,
         "~",
@@ -11630,7 +11594,7 @@ var LNReaderPlugin = (() => {
         "]",
         " ",
         "."
-      ].map((c) => c.charCodeAt(0)));
+      ].map((c2) => c2.charCodeAt(0)));
       __name(stringify, "stringify");
       __name(stringifyToken, "stringifyToken");
       __name(getActionValue, "getActionValue");
@@ -12047,45 +12011,45 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
         var a2 = parsed[0];
-        var b2 = parsed[1] - 1;
-        if (b2 < 0 && a2 <= 0)
+        var b = parsed[1] - 1;
+        if (b < 0 && a2 <= 0)
           return boolbase_1.default.falseFunc;
         if (a2 === -1)
           return function(index2) {
-            return index2 <= b2;
+            return index2 <= b;
           };
         if (a2 === 0)
           return function(index2) {
-            return index2 === b2;
+            return index2 === b;
           };
         if (a2 === 1)
-          return b2 < 0 ? boolbase_1.default.trueFunc : function(index2) {
-            return index2 >= b2;
+          return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
+            return index2 >= b;
           };
         var absA = Math.abs(a2);
-        var bMod = (b2 % absA + absA) % absA;
+        var bMod = (b % absA + absA) % absA;
         return a2 > 1 ? function(index2) {
-          return index2 >= b2 && index2 % absA === bMod;
+          return index2 >= b && index2 % absA === bMod;
         } : function(index2) {
-          return index2 <= b2 && index2 % absA === bMod;
+          return index2 <= b && index2 % absA === bMod;
         };
       }
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
         var a2 = parsed[0];
-        var b2 = parsed[1] - 1;
-        var n = 0;
+        var b = parsed[1] - 1;
+        var n2 = 0;
         if (a2 < 0) {
           var aPos_1 = -a2;
-          var minValue_1 = (b2 % aPos_1 + aPos_1) % aPos_1;
+          var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
           return function() {
-            var val2 = minValue_1 + aPos_1 * n++;
-            return val2 > b2 ? null : val2;
+            var val2 = minValue_1 + aPos_1 * n2++;
+            return val2 > b ? null : val2;
           };
         }
         if (a2 === 0)
-          return b2 < 0 ? (
+          return b < 0 ? (
             // There are no result — always return `null`
             function() {
               return null;
@@ -12093,14 +12057,14 @@ var LNReaderPlugin = (() => {
           ) : (
             // Return `b` exactly once
             function() {
-              return n++ === 0 ? b2 : null;
+              return n2++ === 0 ? b : null;
             }
           );
-        if (b2 < 0) {
-          b2 += a2 * Math.ceil(-b2 / a2);
+        if (b < 0) {
+          b += a2 * Math.ceil(-b / a2);
         }
         return function() {
-          return a2 * n++ + b2;
+          return a2 * n2++ + b;
         };
       }
       __name(generate, "generate");
@@ -12513,8 +12477,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = options.adapter;
           var opts = copyOptions(options);
           opts.relativeSelector = true;
-          var context = subselect.some(function(s) {
-            return s.some(sort_js_1.isTraversal);
+          var context = subselect.some(function(s2) {
+            return s2.some(sort_js_1.isTraversal);
           }) ? (
             // Used as a placeholder. Will be replaced with the actual element.
             [exports4.PLACEHOLDER_ELEMENT]
@@ -12778,10 +12742,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod2) {
         if (mod2 && mod2.__esModule) return mod2;
@@ -12814,8 +12778,8 @@ var LNReaderPlugin = (() => {
       }
       __name(compileUnsafe, "compileUnsafe");
       exports4.compileUnsafe = compileUnsafe;
-      function includesScopePseudo(t) {
-        return t.type === css_what_1.SelectorType.Pseudo && (t.name === "scope" || Array.isArray(t.data) && t.data.some(function(data2) {
+      function includesScopePseudo(t2) {
+        return t2.type === css_what_1.SelectorType.Pseudo && (t2.name === "scope" || Array.isArray(t2.data) && t2.data.some(function(data2) {
           return data2.some(includesScopePseudo);
         }));
       }
@@ -12836,14 +12800,14 @@ var LNReaderPlugin = (() => {
           return e2 === subselects_js_1.PLACEHOLDER_ELEMENT || parent2 && adapter2.isTag(parent2);
         }));
         for (var _i = 0, token_1 = token; _i < token_1.length; _i++) {
-          var t = token_1[_i];
-          if (t.length > 0 && (0, sort_js_1.isTraversal)(t[0]) && t[0].type !== css_what_1.SelectorType.Descendant) {
-          } else if (hasContext && !t.some(includesScopePseudo)) {
-            t.unshift(DESCENDANT_TOKEN);
+          var t2 = token_1[_i];
+          if (t2.length > 0 && (0, sort_js_1.isTraversal)(t2[0]) && t2[0].type !== css_what_1.SelectorType.Descendant) {
+          } else if (hasContext && !t2.some(includesScopePseudo)) {
+            t2.unshift(DESCENDANT_TOKEN);
           } else {
             continue;
           }
-          t.unshift(SCOPE_TOKEN);
+          t2.unshift(SCOPE_TOKEN);
         }
       }
       __name(absolutize, "absolutize");
@@ -12855,8 +12819,8 @@ var LNReaderPlugin = (() => {
         var finalContext = context && (Array.isArray(context) ? context : [context]);
         if (options.relativeSelector !== false) {
           absolutize(token, options, finalContext);
-        } else if (token.some(function(t) {
-          return t.length > 0 && (0, sort_js_1.isTraversal)(t[0]);
+        } else if (token.some(function(t2) {
+          return t2.length > 0 && (0, sort_js_1.isTraversal)(t2[0]);
         })) {
           throw new Error("Relative selectors are not allowed when the `relativeSelector` option is disabled");
         }
@@ -12885,15 +12849,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a2, b2) {
-        if (b2 === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
+      function reduceRules(a2, b) {
+        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
           return a2;
         }
-        if (a2 === boolbase_1.default.falseFunc || b2 === boolbase_1.default.trueFunc) {
-          return b2;
+        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
+          return b;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a2(elem) || b2(elem);
+          return a2(elem) || b(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -12920,10 +12884,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod2) {
         if (mod2 && mod2.__esModule) return mod2;
@@ -12943,8 +12907,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a2, b2) {
-        return a2 === b2;
+      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
+        return a2 === b;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -13045,14 +13009,14 @@ var LNReaderPlugin = (() => {
         "even",
         "odd"
       ]);
-      function isFilter(s) {
-        if (s.type !== "pseudo")
+      function isFilter(s2) {
+        if (s2.type !== "pseudo")
           return false;
-        if (exports4.filterNames.has(s.name))
+        if (exports4.filterNames.has(s2.name))
           return true;
-        if (s.name === "not" && Array.isArray(s.data)) {
-          return s.data.some(function(s2) {
-            return s2.some(isFilter);
+        if (s2.name === "not" && Array.isArray(s2.data)) {
+          return s2.data.some(function(s3) {
+            return s3.some(isFilter);
           });
         }
         return false;
@@ -13128,13 +13092,13 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
+        __assign = Object.assign || function(t2) {
+          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s2 = arguments[i2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
-          return t;
+          return t2;
         };
         return __assign.apply(this, arguments);
       };
@@ -13151,10 +13115,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod2) {
         if (mod2 && mod2.__esModule) return mod2;
@@ -13337,8 +13301,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a2, b2) {
-          return __spreadArray(__spreadArray([], a2, true), b2, true);
+        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
+          return __spreadArray(__spreadArray([], a2, true), b, true);
         }));
       }
       __name(select3, "select");
@@ -14245,15 +14209,15 @@ var LNReaderPlugin = (() => {
     const obj = {};
     let key;
     for (const str of styles.split(";")) {
-      const n = str.indexOf(":");
-      if (n < 1 || n === str.length - 1) {
+      const n2 = str.indexOf(":");
+      if (n2 < 1 || n2 === str.length - 1) {
         const trimmed = str.trimEnd();
         if (trimmed.length > 0 && key !== void 0) {
           obj[key] += `;${trimmed}`;
         }
       } else {
-        key = str.slice(0, n).trim();
-        obj[key] = str.slice(n + 1).trim();
+        key = str.slice(0, n2).trim();
+        obj[key] = str.slice(n2 + 1).trim();
       }
     }
     return obj;
@@ -14439,8 +14403,8 @@ var LNReaderPlugin = (() => {
         if (selector && isCheerio(selector))
           return selector;
         const options2 = flattenOptions(opts, internalOpts);
-        const r = typeof root2 === "string" ? [parse5(root2, options2, false, null)] : "length" in root2 ? root2 : [root2];
-        const rootInstance = isCheerio(r) ? r : new LoadedCheerio(r, null, options2);
+        const r2 = typeof root2 === "string" ? [parse5(root2, options2, false, null)] : "length" in root2 ? root2 : [root2];
+        const rootInstance = isCheerio(r2) ? r2 : new LoadedCheerio(r2, null, options2);
         rootInstance._root = rootInstance;
         if (!selector) {
           return new LoadedCheerio(void 0, rootInstance, options2);
@@ -22716,16 +22680,16 @@ var LNReaderPlugin = (() => {
         State3[State3["InSpecialTag"] = 25] = "InSpecialTag";
         State3[State3["InEntity"] = 26] = "InEntity";
       })(State2 || (State2 = {}));
-      function isWhitespace3(c) {
-        return c === CharCodes.Space || c === CharCodes.NewLine || c === CharCodes.Tab || c === CharCodes.FormFeed || c === CharCodes.CarriageReturn;
+      function isWhitespace3(c2) {
+        return c2 === CharCodes.Space || c2 === CharCodes.NewLine || c2 === CharCodes.Tab || c2 === CharCodes.FormFeed || c2 === CharCodes.CarriageReturn;
       }
       __name(isWhitespace3, "isWhitespace");
-      function isEndOfTagSection(c) {
-        return c === CharCodes.Slash || c === CharCodes.Gt || isWhitespace3(c);
+      function isEndOfTagSection(c2) {
+        return c2 === CharCodes.Slash || c2 === CharCodes.Gt || isWhitespace3(c2);
       }
       __name(isEndOfTagSection, "isEndOfTagSection");
-      function isASCIIAlpha(c) {
-        return c >= CharCodes.LowerA && c <= CharCodes.LowerZ || c >= CharCodes.UpperA && c <= CharCodes.UpperZ;
+      function isASCIIAlpha(c2) {
+        return c2 >= CharCodes.LowerA && c2 <= CharCodes.LowerZ || c2 >= CharCodes.UpperA && c2 <= CharCodes.UpperZ;
       }
       __name(isASCIIAlpha, "isASCIIAlpha");
       var QuoteType;
@@ -22815,25 +22779,25 @@ var LNReaderPlugin = (() => {
               this.parse();
             }
           };
-          Tokenizer3.prototype.stateText = function(c) {
-            if (c === CharCodes.Lt || !this.decodeEntities && this.fastForwardTo(CharCodes.Lt)) {
+          Tokenizer3.prototype.stateText = function(c2) {
+            if (c2 === CharCodes.Lt || !this.decodeEntities && this.fastForwardTo(CharCodes.Lt)) {
               if (this.index > this.sectionStart) {
                 this.cbs.ontext(this.sectionStart, this.index);
               }
               this.state = State2.BeforeTagName;
               this.sectionStart = this.index;
-            } else if (this.decodeEntities && c === CharCodes.Amp) {
+            } else if (this.decodeEntities && c2 === CharCodes.Amp) {
               this.startEntity();
             }
           };
-          Tokenizer3.prototype.stateSpecialStartSequence = function(c) {
+          Tokenizer3.prototype.stateSpecialStartSequence = function(c2) {
             var isEnd = this.sequenceIndex === this.currentSequence.length;
             var isMatch = isEnd ? (
               // If we are at the end of the sequence, make sure the tag name has ended
-              isEndOfTagSection(c)
+              isEndOfTagSection(c2)
             ) : (
               // Otherwise, do a case-insensitive comparison
-              (c | 32) === this.currentSequence[this.sequenceIndex]
+              (c2 | 32) === this.currentSequence[this.sequenceIndex]
             );
             if (!isMatch) {
               this.isSpecial = false;
@@ -22843,11 +22807,11 @@ var LNReaderPlugin = (() => {
             }
             this.sequenceIndex = 0;
             this.state = State2.InTagName;
-            this.stateInTagName(c);
+            this.stateInTagName(c2);
           };
-          Tokenizer3.prototype.stateInSpecialTag = function(c) {
+          Tokenizer3.prototype.stateInSpecialTag = function(c2) {
             if (this.sequenceIndex === this.currentSequence.length) {
-              if (c === CharCodes.Gt || isWhitespace3(c)) {
+              if (c2 === CharCodes.Gt || isWhitespace3(c2)) {
                 var endOfText = this.index - this.currentSequence.length;
                 if (this.sectionStart < endOfText) {
                   var actualIndex = this.index;
@@ -22857,27 +22821,27 @@ var LNReaderPlugin = (() => {
                 }
                 this.isSpecial = false;
                 this.sectionStart = endOfText + 2;
-                this.stateInClosingTagName(c);
+                this.stateInClosingTagName(c2);
                 return;
               }
               this.sequenceIndex = 0;
             }
-            if ((c | 32) === this.currentSequence[this.sequenceIndex]) {
+            if ((c2 | 32) === this.currentSequence[this.sequenceIndex]) {
               this.sequenceIndex += 1;
             } else if (this.sequenceIndex === 0) {
               if (this.currentSequence === Sequences.TitleEnd) {
-                if (this.decodeEntities && c === CharCodes.Amp) {
+                if (this.decodeEntities && c2 === CharCodes.Amp) {
                   this.startEntity();
                 }
               } else if (this.fastForwardTo(CharCodes.Lt)) {
                 this.sequenceIndex = 1;
               }
             } else {
-              this.sequenceIndex = Number(c === CharCodes.Lt);
+              this.sequenceIndex = Number(c2 === CharCodes.Lt);
             }
           };
-          Tokenizer3.prototype.stateCDATASequence = function(c) {
-            if (c === Sequences.Cdata[this.sequenceIndex]) {
+          Tokenizer3.prototype.stateCDATASequence = function(c2) {
+            if (c2 === Sequences.Cdata[this.sequenceIndex]) {
               if (++this.sequenceIndex === Sequences.Cdata.length) {
                 this.state = State2.InCommentLike;
                 this.currentSequence = Sequences.CdataEnd;
@@ -22887,20 +22851,20 @@ var LNReaderPlugin = (() => {
             } else {
               this.sequenceIndex = 0;
               this.state = State2.InDeclaration;
-              this.stateInDeclaration(c);
+              this.stateInDeclaration(c2);
             }
           };
-          Tokenizer3.prototype.fastForwardTo = function(c) {
+          Tokenizer3.prototype.fastForwardTo = function(c2) {
             while (++this.index < this.buffer.length + this.offset) {
-              if (this.buffer.charCodeAt(this.index - this.offset) === c) {
+              if (this.buffer.charCodeAt(this.index - this.offset) === c2) {
                 return true;
               }
             }
             this.index = this.buffer.length + this.offset - 1;
             return false;
           };
-          Tokenizer3.prototype.stateInCommentLike = function(c) {
-            if (c === this.currentSequence[this.sequenceIndex]) {
+          Tokenizer3.prototype.stateInCommentLike = function(c2) {
+            if (c2 === this.currentSequence[this.sequenceIndex]) {
               if (++this.sequenceIndex === this.currentSequence.length) {
                 if (this.currentSequence === Sequences.CdataEnd) {
                   this.cbs.oncdata(this.sectionStart, this.index, 2);
@@ -22915,12 +22879,12 @@ var LNReaderPlugin = (() => {
               if (this.fastForwardTo(this.currentSequence[0])) {
                 this.sequenceIndex = 1;
               }
-            } else if (c !== this.currentSequence[this.sequenceIndex - 1]) {
+            } else if (c2 !== this.currentSequence[this.sequenceIndex - 1]) {
               this.sequenceIndex = 0;
             }
           };
-          Tokenizer3.prototype.isTagStartChar = function(c) {
-            return this.xmlMode ? !isEndOfTagSection(c) : isASCIIAlpha(c);
+          Tokenizer3.prototype.isTagStartChar = function(c2) {
+            return this.xmlMode ? !isEndOfTagSection(c2) : isASCIIAlpha(c2);
           };
           Tokenizer3.prototype.startSpecial = function(sequence, offset) {
             this.isSpecial = true;
@@ -22928,15 +22892,15 @@ var LNReaderPlugin = (() => {
             this.sequenceIndex = offset;
             this.state = State2.SpecialStartSequence;
           };
-          Tokenizer3.prototype.stateBeforeTagName = function(c) {
-            if (c === CharCodes.ExclamationMark) {
+          Tokenizer3.prototype.stateBeforeTagName = function(c2) {
+            if (c2 === CharCodes.ExclamationMark) {
               this.state = State2.BeforeDeclaration;
               this.sectionStart = this.index + 1;
-            } else if (c === CharCodes.Questionmark) {
+            } else if (c2 === CharCodes.Questionmark) {
               this.state = State2.InProcessingInstruction;
               this.sectionStart = this.index + 1;
-            } else if (this.isTagStartChar(c)) {
-              var lower = c | 32;
+            } else if (this.isTagStartChar(c2)) {
+              var lower = c2 | 32;
               this.sectionStart = this.index;
               if (this.xmlMode) {
                 this.state = State2.InTagName;
@@ -22947,46 +22911,46 @@ var LNReaderPlugin = (() => {
               } else {
                 this.state = State2.InTagName;
               }
-            } else if (c === CharCodes.Slash) {
+            } else if (c2 === CharCodes.Slash) {
               this.state = State2.BeforeClosingTagName;
             } else {
               this.state = State2.Text;
-              this.stateText(c);
+              this.stateText(c2);
             }
           };
-          Tokenizer3.prototype.stateInTagName = function(c) {
-            if (isEndOfTagSection(c)) {
+          Tokenizer3.prototype.stateInTagName = function(c2) {
+            if (isEndOfTagSection(c2)) {
               this.cbs.onopentagname(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c);
+              this.stateBeforeAttributeName(c2);
             }
           };
-          Tokenizer3.prototype.stateBeforeClosingTagName = function(c) {
-            if (isWhitespace3(c)) {
-            } else if (c === CharCodes.Gt) {
+          Tokenizer3.prototype.stateBeforeClosingTagName = function(c2) {
+            if (isWhitespace3(c2)) {
+            } else if (c2 === CharCodes.Gt) {
               this.state = State2.Text;
             } else {
-              this.state = this.isTagStartChar(c) ? State2.InClosingTagName : State2.InSpecialComment;
+              this.state = this.isTagStartChar(c2) ? State2.InClosingTagName : State2.InSpecialComment;
               this.sectionStart = this.index;
             }
           };
-          Tokenizer3.prototype.stateInClosingTagName = function(c) {
-            if (c === CharCodes.Gt || isWhitespace3(c)) {
+          Tokenizer3.prototype.stateInClosingTagName = function(c2) {
+            if (c2 === CharCodes.Gt || isWhitespace3(c2)) {
               this.cbs.onclosetag(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.state = State2.AfterClosingTagName;
-              this.stateAfterClosingTagName(c);
+              this.stateAfterClosingTagName(c2);
             }
           };
-          Tokenizer3.prototype.stateAfterClosingTagName = function(c) {
-            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateAfterClosingTagName = function(c2) {
+            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateBeforeAttributeName = function(c) {
-            if (c === CharCodes.Gt) {
+          Tokenizer3.prototype.stateBeforeAttributeName = function(c2) {
+            if (c2 === CharCodes.Gt) {
               this.cbs.onopentagend(this.index);
               if (this.isSpecial) {
                 this.state = State2.InSpecialTag;
@@ -22995,110 +22959,110 @@ var LNReaderPlugin = (() => {
                 this.state = State2.Text;
               }
               this.sectionStart = this.index + 1;
-            } else if (c === CharCodes.Slash) {
+            } else if (c2 === CharCodes.Slash) {
               this.state = State2.InSelfClosingTag;
-            } else if (!isWhitespace3(c)) {
+            } else if (!isWhitespace3(c2)) {
               this.state = State2.InAttributeName;
               this.sectionStart = this.index;
             }
           };
-          Tokenizer3.prototype.stateInSelfClosingTag = function(c) {
-            if (c === CharCodes.Gt) {
+          Tokenizer3.prototype.stateInSelfClosingTag = function(c2) {
+            if (c2 === CharCodes.Gt) {
               this.cbs.onselfclosingtag(this.index);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
               this.isSpecial = false;
-            } else if (!isWhitespace3(c)) {
+            } else if (!isWhitespace3(c2)) {
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c);
+              this.stateBeforeAttributeName(c2);
             }
           };
-          Tokenizer3.prototype.stateInAttributeName = function(c) {
-            if (c === CharCodes.Eq || isEndOfTagSection(c)) {
+          Tokenizer3.prototype.stateInAttributeName = function(c2) {
+            if (c2 === CharCodes.Eq || isEndOfTagSection(c2)) {
               this.cbs.onattribname(this.sectionStart, this.index);
               this.sectionStart = this.index;
               this.state = State2.AfterAttributeName;
-              this.stateAfterAttributeName(c);
+              this.stateAfterAttributeName(c2);
             }
           };
-          Tokenizer3.prototype.stateAfterAttributeName = function(c) {
-            if (c === CharCodes.Eq) {
+          Tokenizer3.prototype.stateAfterAttributeName = function(c2) {
+            if (c2 === CharCodes.Eq) {
               this.state = State2.BeforeAttributeValue;
-            } else if (c === CharCodes.Slash || c === CharCodes.Gt) {
+            } else if (c2 === CharCodes.Slash || c2 === CharCodes.Gt) {
               this.cbs.onattribend(QuoteType.NoValue, this.sectionStart);
               this.sectionStart = -1;
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c);
-            } else if (!isWhitespace3(c)) {
+              this.stateBeforeAttributeName(c2);
+            } else if (!isWhitespace3(c2)) {
               this.cbs.onattribend(QuoteType.NoValue, this.sectionStart);
               this.state = State2.InAttributeName;
               this.sectionStart = this.index;
             }
           };
-          Tokenizer3.prototype.stateBeforeAttributeValue = function(c) {
-            if (c === CharCodes.DoubleQuote) {
+          Tokenizer3.prototype.stateBeforeAttributeValue = function(c2) {
+            if (c2 === CharCodes.DoubleQuote) {
               this.state = State2.InAttributeValueDq;
               this.sectionStart = this.index + 1;
-            } else if (c === CharCodes.SingleQuote) {
+            } else if (c2 === CharCodes.SingleQuote) {
               this.state = State2.InAttributeValueSq;
               this.sectionStart = this.index + 1;
-            } else if (!isWhitespace3(c)) {
+            } else if (!isWhitespace3(c2)) {
               this.sectionStart = this.index;
               this.state = State2.InAttributeValueNq;
-              this.stateInAttributeValueNoQuotes(c);
+              this.stateInAttributeValueNoQuotes(c2);
             }
           };
-          Tokenizer3.prototype.handleInAttributeValue = function(c, quote) {
-            if (c === quote || !this.decodeEntities && this.fastForwardTo(quote)) {
+          Tokenizer3.prototype.handleInAttributeValue = function(c2, quote) {
+            if (c2 === quote || !this.decodeEntities && this.fastForwardTo(quote)) {
               this.cbs.onattribdata(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.cbs.onattribend(quote === CharCodes.DoubleQuote ? QuoteType.Double : QuoteType.Single, this.index + 1);
               this.state = State2.BeforeAttributeName;
-            } else if (this.decodeEntities && c === CharCodes.Amp) {
+            } else if (this.decodeEntities && c2 === CharCodes.Amp) {
               this.startEntity();
             }
           };
-          Tokenizer3.prototype.stateInAttributeValueDoubleQuotes = function(c) {
-            this.handleInAttributeValue(c, CharCodes.DoubleQuote);
+          Tokenizer3.prototype.stateInAttributeValueDoubleQuotes = function(c2) {
+            this.handleInAttributeValue(c2, CharCodes.DoubleQuote);
           };
-          Tokenizer3.prototype.stateInAttributeValueSingleQuotes = function(c) {
-            this.handleInAttributeValue(c, CharCodes.SingleQuote);
+          Tokenizer3.prototype.stateInAttributeValueSingleQuotes = function(c2) {
+            this.handleInAttributeValue(c2, CharCodes.SingleQuote);
           };
-          Tokenizer3.prototype.stateInAttributeValueNoQuotes = function(c) {
-            if (isWhitespace3(c) || c === CharCodes.Gt) {
+          Tokenizer3.prototype.stateInAttributeValueNoQuotes = function(c2) {
+            if (isWhitespace3(c2) || c2 === CharCodes.Gt) {
               this.cbs.onattribdata(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.cbs.onattribend(QuoteType.Unquoted, this.index);
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c);
-            } else if (this.decodeEntities && c === CharCodes.Amp) {
+              this.stateBeforeAttributeName(c2);
+            } else if (this.decodeEntities && c2 === CharCodes.Amp) {
               this.startEntity();
             }
           };
-          Tokenizer3.prototype.stateBeforeDeclaration = function(c) {
-            if (c === CharCodes.OpeningSquareBracket) {
+          Tokenizer3.prototype.stateBeforeDeclaration = function(c2) {
+            if (c2 === CharCodes.OpeningSquareBracket) {
               this.state = State2.CDATASequence;
               this.sequenceIndex = 0;
             } else {
-              this.state = c === CharCodes.Dash ? State2.BeforeComment : State2.InDeclaration;
+              this.state = c2 === CharCodes.Dash ? State2.BeforeComment : State2.InDeclaration;
             }
           };
-          Tokenizer3.prototype.stateInDeclaration = function(c) {
-            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateInDeclaration = function(c2) {
+            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.cbs.ondeclaration(this.sectionStart, this.index);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateInProcessingInstruction = function(c) {
-            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateInProcessingInstruction = function(c2) {
+            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.cbs.onprocessinginstruction(this.sectionStart, this.index);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateBeforeComment = function(c) {
-            if (c === CharCodes.Dash) {
+          Tokenizer3.prototype.stateBeforeComment = function(c2) {
+            if (c2 === CharCodes.Dash) {
               this.state = State2.InCommentLike;
               this.currentSequence = Sequences.CommentEnd;
               this.sequenceIndex = 2;
@@ -23107,33 +23071,33 @@ var LNReaderPlugin = (() => {
               this.state = State2.InDeclaration;
             }
           };
-          Tokenizer3.prototype.stateInSpecialComment = function(c) {
-            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateInSpecialComment = function(c2) {
+            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.cbs.oncomment(this.sectionStart, this.index, 0);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateBeforeSpecialS = function(c) {
-            var lower = c | 32;
+          Tokenizer3.prototype.stateBeforeSpecialS = function(c2) {
+            var lower = c2 | 32;
             if (lower === Sequences.ScriptEnd[3]) {
               this.startSpecial(Sequences.ScriptEnd, 4);
             } else if (lower === Sequences.StyleEnd[3]) {
               this.startSpecial(Sequences.StyleEnd, 4);
             } else {
               this.state = State2.InTagName;
-              this.stateInTagName(c);
+              this.stateInTagName(c2);
             }
           };
-          Tokenizer3.prototype.stateBeforeSpecialT = function(c) {
-            var lower = c | 32;
+          Tokenizer3.prototype.stateBeforeSpecialT = function(c2) {
+            var lower = c2 | 32;
             if (lower === Sequences.TitleEnd[3]) {
               this.startSpecial(Sequences.TitleEnd, 4);
             } else if (lower === Sequences.TextareaEnd[3]) {
               this.startSpecial(Sequences.TextareaEnd, 4);
             } else {
               this.state = State2.InTagName;
-              this.stateInTagName(c);
+              this.stateInTagName(c2);
             }
           };
           Tokenizer3.prototype.startEntity = function() {
@@ -23169,106 +23133,106 @@ var LNReaderPlugin = (() => {
           };
           Tokenizer3.prototype.parse = function() {
             while (this.shouldContinue()) {
-              var c = this.buffer.charCodeAt(this.index - this.offset);
+              var c2 = this.buffer.charCodeAt(this.index - this.offset);
               switch (this.state) {
                 case State2.Text: {
-                  this.stateText(c);
+                  this.stateText(c2);
                   break;
                 }
                 case State2.SpecialStartSequence: {
-                  this.stateSpecialStartSequence(c);
+                  this.stateSpecialStartSequence(c2);
                   break;
                 }
                 case State2.InSpecialTag: {
-                  this.stateInSpecialTag(c);
+                  this.stateInSpecialTag(c2);
                   break;
                 }
                 case State2.CDATASequence: {
-                  this.stateCDATASequence(c);
+                  this.stateCDATASequence(c2);
                   break;
                 }
                 case State2.InAttributeValueDq: {
-                  this.stateInAttributeValueDoubleQuotes(c);
+                  this.stateInAttributeValueDoubleQuotes(c2);
                   break;
                 }
                 case State2.InAttributeName: {
-                  this.stateInAttributeName(c);
+                  this.stateInAttributeName(c2);
                   break;
                 }
                 case State2.InCommentLike: {
-                  this.stateInCommentLike(c);
+                  this.stateInCommentLike(c2);
                   break;
                 }
                 case State2.InSpecialComment: {
-                  this.stateInSpecialComment(c);
+                  this.stateInSpecialComment(c2);
                   break;
                 }
                 case State2.BeforeAttributeName: {
-                  this.stateBeforeAttributeName(c);
+                  this.stateBeforeAttributeName(c2);
                   break;
                 }
                 case State2.InTagName: {
-                  this.stateInTagName(c);
+                  this.stateInTagName(c2);
                   break;
                 }
                 case State2.InClosingTagName: {
-                  this.stateInClosingTagName(c);
+                  this.stateInClosingTagName(c2);
                   break;
                 }
                 case State2.BeforeTagName: {
-                  this.stateBeforeTagName(c);
+                  this.stateBeforeTagName(c2);
                   break;
                 }
                 case State2.AfterAttributeName: {
-                  this.stateAfterAttributeName(c);
+                  this.stateAfterAttributeName(c2);
                   break;
                 }
                 case State2.InAttributeValueSq: {
-                  this.stateInAttributeValueSingleQuotes(c);
+                  this.stateInAttributeValueSingleQuotes(c2);
                   break;
                 }
                 case State2.BeforeAttributeValue: {
-                  this.stateBeforeAttributeValue(c);
+                  this.stateBeforeAttributeValue(c2);
                   break;
                 }
                 case State2.BeforeClosingTagName: {
-                  this.stateBeforeClosingTagName(c);
+                  this.stateBeforeClosingTagName(c2);
                   break;
                 }
                 case State2.AfterClosingTagName: {
-                  this.stateAfterClosingTagName(c);
+                  this.stateAfterClosingTagName(c2);
                   break;
                 }
                 case State2.BeforeSpecialS: {
-                  this.stateBeforeSpecialS(c);
+                  this.stateBeforeSpecialS(c2);
                   break;
                 }
                 case State2.BeforeSpecialT: {
-                  this.stateBeforeSpecialT(c);
+                  this.stateBeforeSpecialT(c2);
                   break;
                 }
                 case State2.InAttributeValueNq: {
-                  this.stateInAttributeValueNoQuotes(c);
+                  this.stateInAttributeValueNoQuotes(c2);
                   break;
                 }
                 case State2.InSelfClosingTag: {
-                  this.stateInSelfClosingTag(c);
+                  this.stateInSelfClosingTag(c2);
                   break;
                 }
                 case State2.InDeclaration: {
-                  this.stateInDeclaration(c);
+                  this.stateInDeclaration(c2);
                   break;
                 }
                 case State2.BeforeDeclaration: {
-                  this.stateBeforeDeclaration(c);
+                  this.stateBeforeDeclaration(c2);
                   break;
                 }
                 case State2.BeforeComment: {
-                  this.stateBeforeComment(c);
+                  this.stateBeforeComment(c2);
                   break;
                 }
                 case State2.InProcessingInstruction: {
-                  this.stateInProcessingInstruction(c);
+                  this.stateInProcessingInstruction(c2);
                   break;
                 }
                 case State2.InEntity: {
@@ -23348,10 +23312,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod2) {
         if (mod2 && mod2.__esModule) return mod2;
@@ -23787,10 +23751,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod2) {
         if (mod2 && mod2.__esModule) return mod2;
@@ -23905,267 +23869,318 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // src/types/constants.ts
+  var NovelStatus, defaultCover;
+  var init_constants = __esm({
+    "src/types/constants.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      NovelStatus = {
+        Unknown: "Unknown",
+        Ongoing: "Ongoing",
+        Completed: "Completed",
+        Licensed: "Licensed",
+        PublishingFinished: "Publishing Finished",
+        Cancelled: "Cancelled",
+        OnHiatus: "On Hiatus"
+      };
+      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
+    }
+  });
+
+  // src/libs/defaultCover.ts
+  var defaultCover_exports = {};
+  __export(defaultCover_exports, {
+    defaultCover: () => defaultCover
+  });
+  var init_defaultCover = __esm({
+    "src/libs/defaultCover.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_constants();
+    }
+  });
+
+  // src/libs/novelStatus.ts
+  var novelStatus_exports = {};
+  __export(novelStatus_exports, {
+    NovelStatus: () => NovelStatus
+  });
+  var init_novelStatus = __esm({
+    "src/libs/novelStatus.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_constants();
+    }
+  });
+
   // node_modules/dayjs/dayjs.min.js
   var require_dayjs_min = __commonJS({
     "node_modules/dayjs/dayjs.min.js"(exports4, module2) {
       init_dirname();
       init_buffer2();
       init_process2();
-      !function(t, e2) {
-        "object" == typeof exports4 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e2();
+      !function(t2, e2) {
+        "object" == typeof exports4 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
       }(exports4, function() {
         "use strict";
-        var t = 1e3, e2 = 6e4, n = 36e5, r = "millisecond", i2 = "second", s = "minute", u2 = "hour", a2 = "day", o2 = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t2) {
-          var e3 = ["th", "st", "nd", "rd"], n2 = t2 % 100;
-          return "[" + t2 + (e3[(n2 - 20) % 10] || e3[n2] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t2, e3, n2) {
-          var r2 = String(t2);
-          return !r2 || r2.length >= e3 ? t2 : "" + Array(e3 + 1 - r2.length).join(n2) + t2;
-        }, "m"), v2 = { s: m, z: /* @__PURE__ */ __name(function(t2) {
-          var e3 = -t2.utcOffset(), n2 = Math.abs(e3), r2 = Math.floor(n2 / 60), i3 = n2 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r2, 2, "0") + ":" + m(i3, 2, "0");
-        }, "z"), m: /* @__PURE__ */ __name(function t2(e3, n2) {
-          if (e3.date() < n2.date()) return -t2(n2, e3);
-          var r2 = 12 * (n2.year() - e3.year()) + (n2.month() - e3.month()), i3 = e3.clone().add(r2, c), s2 = n2 - i3 < 0, u3 = e3.clone().add(r2 + (s2 ? -1 : 1), c);
-          return +(-(r2 + (n2 - i3) / (s2 ? i3 - u3 : u3 - i3)) || 0);
-        }, "t"), a: /* @__PURE__ */ __name(function(t2) {
-          return t2 < 0 ? Math.ceil(t2) || 0 : Math.floor(t2);
-        }, "a"), p: /* @__PURE__ */ __name(function(t2) {
-          return { M: c, y: h, w: o2, d: a2, D: d, h: u2, m: s, s: i2, ms: r, Q: f }[t2] || String(t2 || "").toLowerCase().replace(/s$/, "");
-        }, "p"), u: /* @__PURE__ */ __name(function(t2) {
-          return void 0 === t2;
+        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
+          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
+          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
+        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
+          var r3 = String(t3);
+          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
+        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
+          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
+          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
+        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
+          if (e3.date() < n3.date()) return -t3(n3, e3);
+          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c2), s3 = n3 - i3 < 0, u3 = e3.clone().add(r3 + (s3 ? -1 : 1), c2);
+          return +(-(r3 + (n3 - i3) / (s3 ? i3 - u3 : u3 - i3)) || 0);
+        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
+          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
+        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
+          return { M: c2, y: h, w: o2, d: a2, D: d, h: u2, m: s2, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
+        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
+          return void 0 === t3;
         }, "u") }, g = "en", D = {};
         D[g] = M;
-        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t2) {
-          return t2 instanceof _ || !(!t2 || !t2[p]);
-        }, "S"), w = /* @__PURE__ */ __name(function t2(e3, n2, r2) {
+        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
+          return t3 instanceof _ || !(!t3 || !t3[p]);
+        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
           var i3;
           if (!e3) return g;
           if ("string" == typeof e3) {
-            var s2 = e3.toLowerCase();
-            D[s2] && (i3 = s2), n2 && (D[s2] = n2, i3 = s2);
+            var s3 = e3.toLowerCase();
+            D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
             var u3 = e3.split("-");
-            if (!i3 && u3.length > 1) return t2(u3[0]);
+            if (!i3 && u3.length > 1) return t3(u3[0]);
           } else {
             var a3 = e3.name;
             D[a3] = e3, i3 = a3;
           }
-          return !r2 && i3 && (g = i3), i3 || !r2 && g;
-        }, "t"), O = /* @__PURE__ */ __name(function(t2, e3) {
-          if (S(t2)) return t2.clone();
-          var n2 = "object" == typeof e3 ? e3 : {};
-          return n2.date = t2, n2.args = arguments, new _(n2);
-        }, "O"), b2 = v2;
-        b2.l = w, b2.i = S, b2.w = function(t2, e3) {
-          return O(t2, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
+          return !r3 && i3 && (g = i3), i3 || !r3 && g;
+        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
+          if (S(t3)) return t3.clone();
+          var n3 = "object" == typeof e3 ? e3 : {};
+          return n3.date = t3, n3.args = arguments, new _(n3);
+        }, "O"), b = v;
+        b.l = w, b.i = S, b.w = function(t3, e3) {
+          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
         };
         var _ = function() {
-          function M2(t2) {
-            this.$L = w(t2.locale, null, true), this.parse(t2), this.$x = this.$x || t2.x || {}, this[p] = true;
+          function M2(t3) {
+            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
           }
           __name(M2, "M");
           var m2 = M2.prototype;
-          return m2.parse = function(t2) {
-            this.$d = function(t3) {
-              var e3 = t3.date, n2 = t3.utc;
+          return m2.parse = function(t3) {
+            this.$d = function(t4) {
+              var e3 = t4.date, n3 = t4.utc;
               if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b2.u(e3)) return /* @__PURE__ */ new Date();
+              if (b.u(e3)) return /* @__PURE__ */ new Date();
               if (e3 instanceof Date) return new Date(e3);
               if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r2 = e3.match($2);
-                if (r2) {
-                  var i3 = r2[2] - 1 || 0, s2 = (r2[7] || "0").substring(0, 3);
-                  return n2 ? new Date(Date.UTC(r2[1], i3, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2)) : new Date(r2[1], i3, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2);
+                var r3 = e3.match($2);
+                if (r3) {
+                  var i3 = r3[2] - 1 || 0, s3 = (r3[7] || "0").substring(0, 3);
+                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3);
                 }
               }
               return new Date(e3);
-            }(t2), this.init();
+            }(t3), this.init();
           }, m2.init = function() {
-            var t2 = this.$d;
-            this.$y = t2.getFullYear(), this.$M = t2.getMonth(), this.$D = t2.getDate(), this.$W = t2.getDay(), this.$H = t2.getHours(), this.$m = t2.getMinutes(), this.$s = t2.getSeconds(), this.$ms = t2.getMilliseconds();
+            var t3 = this.$d;
+            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
           }, m2.$utils = function() {
-            return b2;
+            return b;
           }, m2.isValid = function() {
             return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t2, e3) {
-            var n2 = O(t2);
-            return this.startOf(e3) <= n2 && n2 <= this.endOf(e3);
-          }, m2.isAfter = function(t2, e3) {
-            return O(t2) < this.startOf(e3);
-          }, m2.isBefore = function(t2, e3) {
-            return this.endOf(e3) < O(t2);
-          }, m2.$g = function(t2, e3, n2) {
-            return b2.u(t2) ? this[e3] : this.set(n2, t2);
+          }, m2.isSame = function(t3, e3) {
+            var n3 = O(t3);
+            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
+          }, m2.isAfter = function(t3, e3) {
+            return O(t3) < this.startOf(e3);
+          }, m2.isBefore = function(t3, e3) {
+            return this.endOf(e3) < O(t3);
+          }, m2.$g = function(t3, e3, n3) {
+            return b.u(t3) ? this[e3] : this.set(n3, t3);
           }, m2.unix = function() {
             return Math.floor(this.valueOf() / 1e3);
           }, m2.valueOf = function() {
             return this.$d.getTime();
-          }, m2.startOf = function(t2, e3) {
-            var n2 = this, r2 = !!b2.u(e3) || e3, f2 = b2.p(t2), l3 = /* @__PURE__ */ __name(function(t3, e4) {
-              var i3 = b2.w(n2.$u ? Date.UTC(n2.$y, e4, t3) : new Date(n2.$y, e4, t3), n2);
-              return r2 ? i3 : i3.endOf(a2);
-            }, "l"), $3 = /* @__PURE__ */ __name(function(t3, e4) {
-              return b2.w(n2.toDate()[t3].apply(n2.toDate("s"), (r2 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n2);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v3 = "set" + (this.$u ? "UTC" : "");
+          }, m2.startOf = function(t3, e3) {
+            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
+              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
+              return r3 ? i3 : i3.endOf(a2);
+            }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
+              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
+            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
             switch (f2) {
               case h:
-                return r2 ? l3(1, 0) : l3(31, 11);
-              case c:
-                return r2 ? l3(1, M3) : l3(0, M3 + 1);
+                return r3 ? l3(1, 0) : l3(31, 11);
+              case c2:
+                return r3 ? l3(1, M3) : l3(0, M3 + 1);
               case o2:
                 var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r2 ? m3 - D2 : m3 + (6 - D2), M3);
+                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
               case a2:
               case d:
-                return $3(v3 + "Hours", 0);
+                return $3(v2 + "Hours", 0);
               case u2:
-                return $3(v3 + "Minutes", 1);
-              case s:
-                return $3(v3 + "Seconds", 2);
+                return $3(v2 + "Minutes", 1);
+              case s2:
+                return $3(v2 + "Seconds", 2);
               case i2:
-                return $3(v3 + "Milliseconds", 3);
+                return $3(v2 + "Milliseconds", 3);
               default:
                 return this.clone();
             }
-          }, m2.endOf = function(t2) {
-            return this.startOf(t2, false);
-          }, m2.$set = function(t2, e3) {
-            var n2, o3 = b2.p(t2), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n2 = {}, n2[a2] = f2 + "Date", n2[d] = f2 + "Date", n2[c] = f2 + "Month", n2[h] = f2 + "FullYear", n2[u2] = f2 + "Hours", n2[s] = f2 + "Minutes", n2[i2] = f2 + "Seconds", n2[r] = f2 + "Milliseconds", n2)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
-            if (o3 === c || o3 === h) {
+          }, m2.endOf = function(t3) {
+            return this.startOf(t3, false);
+          }, m2.$set = function(t3, e3) {
+            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c2] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
+            if (o3 === c2 || o3 === h) {
               var y2 = this.clone().set(d, 1);
               y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
             } else l3 && this.$d[l3]($3);
             return this.init(), this;
-          }, m2.set = function(t2, e3) {
-            return this.clone().$set(t2, e3);
-          }, m2.get = function(t2) {
-            return this[b2.p(t2)]();
-          }, m2.add = function(r2, f2) {
+          }, m2.set = function(t3, e3) {
+            return this.clone().$set(t3, e3);
+          }, m2.get = function(t3) {
+            return this[b.p(t3)]();
+          }, m2.add = function(r3, f2) {
             var d2, l3 = this;
-            r2 = Number(r2);
-            var $3 = b2.p(f2), y2 = /* @__PURE__ */ __name(function(t2) {
+            r3 = Number(r3);
+            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
               var e3 = O(l3);
-              return b2.w(e3.date(e3.date() + Math.round(t2 * r2)), l3);
+              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
             }, "y");
-            if ($3 === c) return this.set(c, this.$M + r2);
-            if ($3 === h) return this.set(h, this.$y + r2);
+            if ($3 === c2) return this.set(c2, this.$M + r3);
+            if ($3 === h) return this.set(h, this.$y + r3);
             if ($3 === a2) return y2(1);
             if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s] = e2, d2[u2] = n, d2[i2] = t, d2)[$3] || 1, m3 = this.$d.getTime() + r2 * M3;
-            return b2.w(m3, this);
-          }, m2.subtract = function(t2, e3) {
-            return this.add(-1 * t2, e3);
-          }, m2.format = function(t2) {
-            var e3 = this, n2 = this.$locale();
-            if (!this.isValid()) return n2.invalidDate || l2;
-            var r2 = t2 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b2.z(this), s2 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n2.weekdays, c2 = n2.months, f2 = n2.meridiem, h2 = /* @__PURE__ */ __name(function(t3, n3, i4, s3) {
-              return t3 && (t3[n3] || t3(e3, r2)) || i4[n3].slice(0, s3);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t3) {
-              return b2.s(s2 % 12 || 12, t3, "0");
-            }, "d"), $3 = f2 || function(t3, e4, n3) {
-              var r3 = t3 < 12 ? "AM" : "PM";
-              return n3 ? r3.toLowerCase() : r3;
+            var M3 = (d2 = {}, d2[s2] = e2, d2[u2] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
+            return b.w(m3, this);
+          }, m2.subtract = function(t3, e3) {
+            return this.add(-1 * t3, e3);
+          }, m2.format = function(t3) {
+            var e3 = this, n3 = this.$locale();
+            if (!this.isValid()) return n3.invalidDate || l2;
+            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
+              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
+            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
+              return b.s(s3 % 12 || 12, t4, "0");
+            }, "d"), $3 = f2 || function(t4, e4, n4) {
+              var r4 = t4 < 12 ? "AM" : "PM";
+              return n4 ? r4.toLowerCase() : r4;
             };
-            return r2.replace(y, function(t3, r3) {
-              return r3 || function(t4) {
-                switch (t4) {
+            return r3.replace(y, function(t4, r4) {
+              return r4 || function(t5) {
+                switch (t5) {
                   case "YY":
                     return String(e3.$y).slice(-2);
                   case "YYYY":
-                    return b2.s(e3.$y, 4, "0");
+                    return b.s(e3.$y, 4, "0");
                   case "M":
                     return a3 + 1;
                   case "MM":
-                    return b2.s(a3 + 1, 2, "0");
+                    return b.s(a3 + 1, 2, "0");
                   case "MMM":
-                    return h2(n2.monthsShort, a3, c2, 3);
+                    return h2(n3.monthsShort, a3, c3, 3);
                   case "MMMM":
-                    return h2(c2, a3);
+                    return h2(c3, a3);
                   case "D":
                     return e3.$D;
                   case "DD":
-                    return b2.s(e3.$D, 2, "0");
+                    return b.s(e3.$D, 2, "0");
                   case "d":
                     return String(e3.$W);
                   case "dd":
-                    return h2(n2.weekdaysMin, e3.$W, o3, 2);
+                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
                   case "ddd":
-                    return h2(n2.weekdaysShort, e3.$W, o3, 3);
+                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
                   case "dddd":
                     return o3[e3.$W];
                   case "H":
-                    return String(s2);
+                    return String(s3);
                   case "HH":
-                    return b2.s(s2, 2, "0");
+                    return b.s(s3, 2, "0");
                   case "h":
                     return d2(1);
                   case "hh":
                     return d2(2);
                   case "a":
-                    return $3(s2, u3, true);
+                    return $3(s3, u3, true);
                   case "A":
-                    return $3(s2, u3, false);
+                    return $3(s3, u3, false);
                   case "m":
                     return String(u3);
                   case "mm":
-                    return b2.s(u3, 2, "0");
+                    return b.s(u3, 2, "0");
                   case "s":
                     return String(e3.$s);
                   case "ss":
-                    return b2.s(e3.$s, 2, "0");
+                    return b.s(e3.$s, 2, "0");
                   case "SSS":
-                    return b2.s(e3.$ms, 3, "0");
+                    return b.s(e3.$ms, 3, "0");
                   case "Z":
                     return i3;
                 }
                 return null;
-              }(t3) || i3.replace(":", "");
+              }(t4) || i3.replace(":", "");
             });
           }, m2.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r2, d2, l3) {
-            var $3, y2 = this, M3 = b2.p(d2), m3 = O(r2), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b2.m(y2, m3);
+          }, m2.diff = function(r3, d2, l3) {
+            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
+              return b.m(y2, m3);
             }, "D");
             switch (M3) {
               case h:
                 $3 = D2() / 12;
                 break;
-              case c:
+              case c2:
                 $3 = D2();
                 break;
               case f:
                 $3 = D2() / 3;
                 break;
               case o2:
-                $3 = (g2 - v3) / 6048e5;
+                $3 = (g2 - v2) / 6048e5;
                 break;
               case a2:
-                $3 = (g2 - v3) / 864e5;
+                $3 = (g2 - v2) / 864e5;
                 break;
               case u2:
-                $3 = g2 / n;
+                $3 = g2 / n2;
                 break;
-              case s:
+              case s2:
                 $3 = g2 / e2;
                 break;
               case i2:
-                $3 = g2 / t;
+                $3 = g2 / t2;
                 break;
               default:
                 $3 = g2;
             }
-            return l3 ? $3 : b2.a($3);
+            return l3 ? $3 : b.a($3);
           }, m2.daysInMonth = function() {
-            return this.endOf(c).$D;
+            return this.endOf(c2).$D;
           }, m2.$locale = function() {
             return D[this.$L];
-          }, m2.locale = function(t2, e3) {
-            if (!t2) return this.$L;
-            var n2 = this.clone(), r2 = w(t2, e3, true);
-            return r2 && (n2.$L = r2), n2;
+          }, m2.locale = function(t3, e3) {
+            if (!t3) return this.$L;
+            var n3 = this.clone(), r3 = w(t3, e3, true);
+            return r3 && (n3.$L = r3), n3;
           }, m2.clone = function() {
-            return b2.w(this.$d, this);
+            return b.w(this.$d, this);
           }, m2.toDate = function() {
             return new Date(this.valueOf());
           }, m2.toJSON = function() {
@@ -24176,208 +24191,391 @@ var LNReaderPlugin = (() => {
             return this.$d.toUTCString();
           }, M2;
         }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r], ["$s", i2], ["$m", s], ["$H", u2], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t2) {
-          k[t2[1]] = function(e3) {
-            return this.$g(e3, t2[0], t2[1]);
+        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s2], ["$H", u2], ["$W", a2], ["$M", c2], ["$y", h], ["$D", d]].forEach(function(t3) {
+          k[t3[1]] = function(e3) {
+            return this.$g(e3, t3[0], t3[1]);
           };
-        }), O.extend = function(t2, e3) {
-          return t2.$i || (t2(e3, _, O), t2.$i = true), O;
-        }, O.locale = w, O.isDayjs = S, O.unix = function(t2) {
-          return O(1e3 * t2);
+        }), O.extend = function(t3, e3) {
+          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
+        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
+          return O(1e3 * t3);
         }, O.en = D[g], O.Ls = D, O.p = {}, O;
       });
     }
   });
 
-  // .js/plugins/english/FansMTL[readwn].js
+  // src/lib/storage.ts
+  var _Storage, Storage, storage, _LocalStorage, LocalStorage, localStorage, sessionStorage;
+  var init_storage = __esm({
+    "src/lib/storage.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      _Storage = class _Storage {
+        /**
+         * Initializes a new instance of the Storage class.
+         */
+        constructor() {
+          this.db = {};
+        }
+        /**
+         * Sets a key-value pair in storage.
+         *
+         * @param {string} key - The key to set.
+         * @param {any} value - The value to set.
+         * @param {Date | number} [expires] - Optional expiry date or time in milliseconds.
+         */
+        set(key, value, expires) {
+          this.db[key] = {
+            created: /* @__PURE__ */ new Date(),
+            value,
+            expires: expires instanceof Date ? expires.getTime() : expires
+          };
+        }
+        /**
+         * Retrieves the value for a given key from storage.
+         *
+         * @param {string} key - The key to retrieve the value for.
+         * @param {boolean} [raw] - Optional flag to return the raw stored item.
+         * @returns {any} The stored value or undefined if key is not found.
+         */
+        get(key, raw) {
+          const item = this.db[key];
+          if (item?.expires && Date.now() > item.expires) {
+            this.delete(key);
+            return void 0;
+          }
+          return raw ? item : item?.value;
+        }
+        /**
+         * Retrieves all keys set by the `set` method.
+         *
+         * @returns {string[]} An array of keys.
+         */
+        getAllKeys() {
+          return Object.keys(this.db);
+        }
+        /**
+         * Deletes a key from the storage.
+         *
+         * @param key - The key to delete.
+         */
+        delete(key) {
+          delete this.db[key];
+        }
+        /**
+         * Clears all stored items from storage.
+         */
+        clearAll() {
+          this.db = {};
+        }
+      };
+      __name(_Storage, "Storage");
+      Storage = _Storage;
+      storage = new Storage();
+      _LocalStorage = class _LocalStorage {
+        constructor() {
+          this.db = {};
+        }
+        get() {
+          return this.db;
+        }
+      };
+      __name(_LocalStorage, "LocalStorage");
+      LocalStorage = _LocalStorage;
+      localStorage = new LocalStorage();
+      sessionStorage = new LocalStorage();
+    }
+  });
+
+  // src/libs/storage.ts
+  var storage_exports = {};
+  __export(storage_exports, {
+    localStorage: () => localStorage,
+    sessionStorage: () => sessionStorage,
+    storage: () => storage
+  });
+  var init_storage2 = __esm({
+    "src/libs/storage.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_storage();
+    }
+  });
+
+  // .js/plugins/indonesian/Vanovel[madara].js
   init_dirname();
   init_buffer2();
   init_process2();
-  var l = function(l2, e2, a2, u2) {
-    return new (a2 || (a2 = Promise))(function(v2, b2) {
-      function i2(l3) {
+  var e = function(e2, t2, a2, n2) {
+    return new (a2 || (a2 = Promise))(function(r2, i2) {
+      function o2(e3) {
         try {
-          n(u2.next(l3));
-        } catch (l4) {
-          b2(l4);
-        }
-      }
-      __name(i2, "i");
-      function o2(l3) {
-        try {
-          n(u2.throw(l3));
-        } catch (l4) {
-          b2(l4);
+          s2(n2.next(e3));
+        } catch (e4) {
+          i2(e4);
         }
       }
       __name(o2, "o");
-      function n(l3) {
-        var e3;
-        l3.done ? v2(l3.value) : (e3 = l3.value, e3 instanceof a2 ? e3 : new a2(function(l4) {
-          l4(e3);
-        })).then(i2, o2);
+      function l2(e3) {
+        try {
+          s2(n2.throw(e3));
+        } catch (e4) {
+          i2(e4);
+        }
       }
-      __name(n, "n");
-      n((u2 = u2.apply(l2, e2 || [])).next());
+      __name(l2, "l");
+      function s2(e3) {
+        var t3;
+        e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
+          e4(t3);
+        })).then(o2, l2);
+      }
+      __name(s2, "s");
+      s2((n2 = n2.apply(e2, t2 || [])).next());
     });
-  }, e = function(l2, e2) {
-    var a2, u2, v2, b2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & v2[0]) throw v2[1];
-      return v2[1];
-    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return i2.next = o2(0), i2.throw = o2(1), i2.return = o2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
+  }, t = function(e2, t2) {
+    var a2, n2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & r2[0]) throw r2[1];
+      return r2[1];
+    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return o2.next = l2(0), o2.throw = l2(1), o2.return = l2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
       return this;
-    }), i2;
-    function o2(o3) {
-      return function(n) {
-        return function(o4) {
+    }), o2;
+    function l2(l3) {
+      return function(s2) {
+        return function(l4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, o4[0] && (b2 = 0)), b2; ) try {
-            if (a2 = 1, u2 && (v2 = 2 & o4[0] ? u2.return : o4[0] ? u2.throw || ((v2 = u2.return) && v2.call(u2), 0) : u2.next) && !(v2 = v2.call(u2, o4[1])).done) return v2;
-            switch (u2 = 0, v2 && (o4 = [2 & o4[0], v2.value]), o4[0]) {
+          for (; o2 && (o2 = 0, l4[0] && (i2 = 0)), i2; ) try {
+            if (a2 = 1, n2 && (r2 = 2 & l4[0] ? n2.return : l4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, l4[1])).done) return r2;
+            switch (n2 = 0, r2 && (l4 = [2 & l4[0], r2.value]), l4[0]) {
               case 0:
               case 1:
-                v2 = o4;
+                r2 = l4;
                 break;
               case 4:
-                return b2.label++, { value: o4[1], done: false };
+                return i2.label++, { value: l4[1], done: false };
               case 5:
-                b2.label++, u2 = o4[1], o4 = [0];
+                i2.label++, n2 = l4[1], l4 = [0];
                 continue;
               case 7:
-                o4 = b2.ops.pop(), b2.trys.pop();
+                l4 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(v2 = b2.trys, (v2 = v2.length > 0 && v2[v2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
-                  b2 = 0;
+                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== l4[0] && 2 !== l4[0])) {
+                  i2 = 0;
                   continue;
                 }
-                if (3 === o4[0] && (!v2 || o4[1] > v2[0] && o4[1] < v2[3])) {
-                  b2.label = o4[1];
+                if (3 === l4[0] && (!r2 || l4[1] > r2[0] && l4[1] < r2[3])) {
+                  i2.label = l4[1];
                   break;
                 }
-                if (6 === o4[0] && b2.label < v2[1]) {
-                  b2.label = v2[1], v2 = o4;
+                if (6 === l4[0] && i2.label < r2[1]) {
+                  i2.label = r2[1], r2 = l4;
                   break;
                 }
-                if (v2 && b2.label < v2[2]) {
-                  b2.label = v2[2], b2.ops.push(o4);
+                if (r2 && i2.label < r2[2]) {
+                  i2.label = r2[2], i2.ops.push(l4);
                   break;
                 }
-                v2[2] && b2.ops.pop(), b2.trys.pop();
+                r2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
-            o4 = e2.call(l2, b2);
-          } catch (l3) {
-            o4 = [6, l3], u2 = 0;
+            l4 = t2.call(e2, i2);
+          } catch (e3) {
+            l4 = [6, e3], n2 = 0;
           } finally {
-            a2 = v2 = 0;
+            a2 = r2 = 0;
           }
-          if (5 & o4[0]) throw o4[1];
-          return { value: o4[0] ? o4[1] : void 0, done: true };
-        }([o3, n]);
+          if (5 & l4[0]) throw l4[1];
+          return { value: l4[0] ? l4[1] : void 0, done: true };
+        }([l3, s2]);
       };
     }
-    __name(o2, "o");
-  }, a = function(l2) {
-    return l2 && l2.__esModule ? l2 : { default: l2 };
+    __name(l2, "l");
+  }, a = function(e2) {
+    return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var u = (init_fetch2(), __toCommonJS(fetch_exports)), v = (init_novelStatus(), __toCommonJS(novelStatus_exports)), b = (init_browser(), __toCommonJS(browser_exports)), i = a(require_dayjs_min()), o = new (function() {
-    function a2(l2) {
-      var e2;
-      this.id = l2.id, this.name = l2.sourceName, this.icon = "multisrc/readwn/".concat(l2.id.toLowerCase(), "/icon.png"), this.site = l2.sourceSite;
-      var a3 = (null === (e2 = l2.options) || void 0 === e2 ? void 0 : e2.versionIncrements) || 0;
-      this.version = "1.0.".concat(2 + a3), this.filters = l2.filters;
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = a(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(e2, t2) {
+    return new RegExp(t2.join("|")).test(e2);
+  }, "u"), c = new (function() {
+    function a2(e2) {
+      var t2, a3;
+      this.hideLocked = s.storage.get("hideLocked"), this.parseData = function(e3) {
+        var t3, a4 = (0, l.default)(), n3 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", r2 = parseInt(n3, 10);
+        if (!n3) return e3;
+        if (u(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a4 = a4.subtract(r2, "second");
+        else if (u(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a4 = a4.subtract(r2, "minute");
+        else if (u(e3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) a4 = a4.subtract(r2, "hours");
+        else if (u(e3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) a4 = a4.subtract(r2, "days");
+        else if (u(e3, ["week", "semana"])) a4 = a4.subtract(r2, "week");
+        else if (u(e3, ["month", "mes"])) a4 = a4.subtract(r2, "month");
+        else {
+          if (!u(e3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, l.default)(e3).format("LL") ? (0, l.default)(e3).format("LL") : e3;
+          a4 = a4.subtract(r2, "year");
+        }
+        return a4.format("LL");
+      }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
+      var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
+      this.version = "1.0.".concat(8 + n2), this.options = e2.options, this.filters = e2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(a2, "a");
-    return a2.prototype.popularNovels = function(a3, v2) {
-      return l(this, arguments, void 0, function(l2, a4) {
-        var v3, i2, o2, n, t, r, s, d = this, c = a4.filters, m = a4.showLatestNovels;
-        return e(this, function(e2) {
-          switch (e2.label) {
+    return a2.prototype.translateDragontea = function(e2) {
+      var t2;
+      if ("dragontea" !== this.id) return e2;
+      var a3 = (0, r.load)((null === (t2 = e2.html()) || void 0 === t2 ? void 0 : t2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
+      return e2.html(a3.html()), e2.find("*").addBack().contents().filter(function(e3, t3) {
+        return 3 === t3.nodeType;
+      }).each(function(e3, t3) {
+        var n2 = a3(t3), r2 = n2.text().normalize("NFD").split("").map(function(e4) {
+          var t4 = e4.normalize("NFC"), a4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(t4);
+          return a4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[a4] + e4.slice(t4.length) : e4;
+        }).join("");
+        n2.replaceWith(r2.replace("\n", "<br>"));
+      }), e2;
+    }, a2.prototype.getHostname = function(e2) {
+      var t2 = (e2 = e2.split("/")[2]).split(".");
+      return t2.pop(), t2.join(".");
+    }, a2.prototype.getCheerio = function(a3, i2) {
+      return e(this, void 0, void 0, function() {
+        var e2, o2, l2, s2;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
-              return v3 = this.site + "/list/", v3 += ((null === (n = null == c ? void 0 : c.genres) || void 0 === n ? void 0 : n.value) || "all") + "/", v3 += ((null === (t = null == c ? void 0 : c.status) || void 0 === t ? void 0 : t.value) || "all") + "-", v3 += m ? "lastdotime" : (null === (r = null == c ? void 0 : c.sort) || void 0 === r ? void 0 : r.value) || "newstime", v3 += "-" + (l2 - 1) + ".html", (null === (s = null == c ? void 0 : c.tags) || void 0 === s ? void 0 : s.value) && (v3 = this.site + "/tags/" + c.tags.value + "-0.html"), [4, (0, u.fetchApi)(v3).then(function(l3) {
-                return l3.text();
-              })];
+              return [4, (0, n.fetchApi)(a3)];
             case 1:
-              return i2 = e2.sent(), o2 = (0, b.load)(i2), [2, o2("li.novel-item").map(function(l3, e3) {
-                return { name: o2(e3).find("h4").text() || "", cover: d.site + o2(e3).find(".novel-cover > img").attr("data-src"), path: o2(e3).find("a").attr("href") || "" };
-              }).get().filter(function(l3) {
-                return l3.name && l3.path;
-              })];
+              if (!(e2 = t2.sent()).ok && 1 != i2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
+              return l2 = r.load, [4, e2.text()];
+            case 2:
+              if (o2 = l2.apply(void 0, [t2.sent()]), s2 = o2("title").text().trim(), this.getHostname(a3) != this.getHostname(e2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
+              return [2, o2];
+          }
+        });
+      });
+    }, a2.prototype.parseNovels = function(e2) {
+      var t2 = [];
+      return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(a3, n2) {
+        var r2 = e2(n2).find(".post-title").text().trim(), o2 = e2(n2).find(".post-title").find("a").attr("href") || "";
+        if (r2 && o2) {
+          var l2 = e2(n2).find("img"), s2 = { name: r2, cover: l2.attr("data-src") || l2.attr("src") || l2.attr("data-lazy-srcset") || i.defaultCover, path: o2.replace(/https?:\/\/.*?\//, "/") };
+          t2.push(s2);
+        }
+      }), t2;
+    }, a2.prototype.popularNovels = function(a3, n2) {
+      return e(this, arguments, void 0, function(e2, a4) {
+        var n3, r2, i2, o2, l2, s2, u2 = a4.filters, c2 = a4.showLatestNovels;
+        return t(this, function(t2) {
+          switch (t2.label) {
+            case 0:
+              for (r2 in n3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), c2 && (n3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[r2].value) for (i2 = 0, o2 = u2[r2].value; i2 < o2.length; i2++) l2 = o2[i2], n3 += "&".concat(r2, "=").concat(l2);
+              else u2[r2].value && (n3 += "&".concat(r2, "=").concat(u2[r2].value));
+              return [4, this.getCheerio(n3, 1 != e2)];
+            case 1:
+              return s2 = t2.sent(), [2, this.parseNovels(s2)];
           }
         });
       });
     }, a2.prototype.parseNovel = function(a3) {
-      return l(this, void 0, void 0, function() {
-        var l2, o2, n, t, r, s, d, c;
-        return e(this, function(e2) {
-          switch (e2.label) {
+      return e(this, void 0, void 0, function() {
+        var e2, s2, u2, c2, h, p, d, m, v = this;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
-              return [4, (0, u.fetchApi)(this.site + a3).then(function(l3) {
-                return l3.text();
-              })];
+              return [4, this.getCheerio(this.site + a3, false)];
             case 1:
-              if (l2 = e2.sent(), o2 = (0, b.load)(l2), (n = { path: a3, name: o2("h1.novel-title").text() || "" }).author = o2("span[itemprop=author]").text(), n.cover = this.site + o2("figure.cover > img").attr("data-src"), n.summary = o2(".summary").text().replace("Summary", "").trim(), n.genres = o2("div.categories > ul > li").map(function(l3, e3) {
-                var a4;
-                return null === (a4 = o2(e3).text()) || void 0 === a4 ? void 0 : a4.trim();
-              }).get().join(","), o2("div.header-stats > span").each(function() {
-                "Status" === o2(this).find("small").text() && (n.status = "Ongoing" === o2(this).find("strong").text() ? v.NovelStatus.Ongoing : v.NovelStatus.Completed);
-              }), t = parseInt(o2(".header-stats").find("span > strong").first().text().trim()), r = o2(".chapter-list li").map(function(l3, e3) {
-                var a4, u2, v2, b2 = o2(e3).find("a .chapter-title").text().trim(), n2 = null === (a4 = o2(e3).find("a").attr("href")) || void 0 === a4 ? void 0 : a4.trim();
-                if (!b2 || !n2) return null;
-                var t2 = o2(e3).find("a .chapter-update").text().trim();
-                if (null === (u2 = null == t2 ? void 0 : t2.includes) || void 0 === u2 ? void 0 : u2.call(t2, "ago")) {
-                  var r2 = (null === (v2 = t2.match(/\d+/)) || void 0 === v2 ? void 0 : v2[0]) || "0", s2 = parseInt(r2, 10);
-                  if (s2) {
-                    var d2 = (0, i.default)();
-                    (t2.includes("hours ago") || t2.includes("hour ago")) && d2.subtract(s2, "hours"), (t2.includes("days ago") || t2.includes("day ago")) && d2.subtract(s2, "days"), (t2.includes("months ago") || t2.includes("month ago")) && d2.subtract(s2, "months"), t2 = d2.format("LL");
-                  }
+              return (e2 = t2.sent())(".manga-title-badges, #manga-title span").remove(), (s2 = { path: a3, name: e2(".post-title h1").text().trim() || e2("#manga-title h1").text().trim() || e2(".manga-title").text().trim() || "" }).cover = e2(".summary_image > a > img").attr("data-lazy-src") || e2(".summary_image > a > img").attr("data-src") || e2(".summary_image > a > img").attr("src") || i.defaultCover, e2(".post-content_item, .post-content").each(function() {
+                var t3 = e2(this).find("h5").text().trim(), a4 = e2(this).find(".summary-content") || e2(this).find(".summary_content");
+                switch (t3) {
+                  case "Genre(s)":
+                  case "Genre":
+                  case "Tags(s)":
+                  case "Tag(s)":
+                  case "Tags":
+                  case "G\xE9nero(s)":
+                  case "Kategori":
+                  case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
+                    s2.genres ? s2.genres += ", " + a4.find("a").map(function(t4, a5) {
+                      return e2(a5).text();
+                    }).get().join(", ") : s2.genres = a4.find("a").map(function(t4, a5) {
+                      return e2(a5).text();
+                    }).get().join(", ");
+                    break;
+                  case "Author(s)":
+                  case "Author":
+                  case "Autor(es)":
+                  case "\u0627\u0644\u0645\u0624\u0644\u0641":
+                  case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
+                    s2.author = a4.text().trim();
+                    break;
+                  case "Status":
+                  case "Novel":
+                  case "Estado":
+                  case "Durum":
+                    s2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
+                    break;
+                  case "Artist(s)":
+                    s2.artist = a4.text().trim();
                 }
-                return { name: b2, path: n2, releaseTime: t2, chapterNumber: l3 + 1 };
-              }).get().filter(function(l3) {
-                return l3;
-              }), t > r.length) for (s = parseInt((null === (c = r[r.length - 1].path.match(/_(\d+)\.html/)) || void 0 === c ? void 0 : c[1]) || "", 10), d = (s || r.length) + 1; d <= t; d++) r.push({ name: "Chapter " + d, path: a3.replace(".html", "_" + d + ".html"), releaseTime: null, chapterNumber: d });
-              return n.chapters = r, [2, n];
+              }), s2.genres || (s2.genres = e2(".genres-content").text().trim()), s2.status || (s2.status = e2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), s2.author || (s2.author = e2(".manga-author a").text().trim()), s2.rating || (s2.rating = parseFloat(e2(".post-rating span").text().trim())), s2.author || (s2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), s2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(t3, a4) {
+                return e2(a4).text();
+              }).get().join("\n\n").trim() || e2(".manga-summary p").map(function(t3, a4) {
+                return e2(a4).text();
+              }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
+                return e2(a4).text();
+              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (m = this.options) || void 0 === m ? void 0 : m.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+                return e3.text();
+              })] : [3, 3];
+            case 2:
+              return c2 = t2.sent(), [3, 5];
+            case 3:
+              return h = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (p = new FormData()).append("action", "manga_get_chapters"), p.append("manga", h), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: p }).then(function(e3) {
+                return e3.text();
+              })];
+            case 4:
+              c2 = t2.sent(), t2.label = 5;
+            case 5:
+              return "0" !== c2 && (e2 = (0, r.load)(c2)), d = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
+                var n2 = e2(a4).find("a").text().trim(), r2 = a4.attribs.class.includes("premium-block");
+                r2 && (n2 = "\u{1F512} " + n2);
+                var i2 = e2(a4).find("span.chapter-release-date").text().trim();
+                i2 = i2 ? v.parseData(i2) : (0, l.default)().format("LL");
+                var o2 = e2(a4).find("a").attr("href") || "";
+                !o2 || "#" == o2 || r2 && v.hideLocked || u2.push({ name: n2, path: o2.replace(/https?:\/\/.*?\//, "/"), releaseTime: i2 || null, chapterNumber: d - t3 });
+              }), s2.chapters = u2.reverse(), [2, s2];
           }
         });
       });
     }, a2.prototype.parseChapter = function(a3) {
-      return l(this, void 0, void 0, function() {
-        var l2, v2;
-        return e(this, function(e2) {
-          switch (e2.label) {
+      return e(this, void 0, void 0, function() {
+        var e2, n2, r2;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
-              return [4, (0, u.fetchApi)(this.site + a3).then(function(l3) {
-                return l3.text();
-              })];
+              return [4, this.getCheerio(this.site + a3, false)];
             case 1:
-              return l2 = e2.sent(), v2 = (0, b.load)(l2), [2, v2(".chapter-content").html() || ""];
+              return e2 = t2.sent(), n2 = e2(".text-left") || e2(".text-right") || e2(".entry-content") || e2(".c-blog-post > div > div:nth-child(2)"), null === (r2 = this.options) || void 0 === r2 || r2.customJs, [2, this.translateDragontea(n2).html() || ""];
           }
         });
       });
-    }, a2.prototype.searchNovels = function(a3) {
-      return l(this, void 0, void 0, function() {
-        var l2, v2, i2 = this;
-        return e(this, function(e2) {
-          switch (e2.label) {
+    }, a2.prototype.searchNovels = function(a3, n2) {
+      return e(this, void 0, void 0, function() {
+        var e2, r2;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
-              return [4, (0, u.fetchApi)(this.site + "/e/search/index.php", { headers: { "Content-Type": "application/x-www-form-urlencoded", Referer: this.site + "/search.html", Origin: this.site }, method: "POST", body: new URLSearchParams({ show: "title", tempid: 1, tbname: "news", keyboard: a3 }).toString() }).then(function(l3) {
-                return l3.text();
-              })];
+              return e2 = this.site + "/page/" + n2 + "/?s=" + encodeURIComponent(a3) + "&post_type=wp-manga", [4, this.getCheerio(e2, true)];
             case 1:
-              return l2 = e2.sent(), v2 = (0, b.load)(l2), [2, v2("li.novel-item").map(function(l3, e3) {
-                return { name: v2(e3).find("h4").text() || "", cover: i2.site + v2(e3).find("img").attr("data-src"), path: v2(e3).find("a").attr("href") || "" };
-              }).get().filter(function(l3) {
-                return l3.name && l3.path;
-              })];
+              return r2 = t2.sent(), [2, this.parseNovels(r2)];
           }
         });
       });
     }, a2;
-  }())({ id: "wuxiamtl", sourceSite: "https://www.fanmtl.com", sourceName: "Fans MTL", options: { versionIncrements: 2 }, filters: { sort: { type: "Picker", label: "Sort By", value: "onclick", options: [{ label: "New", value: "newstime" }, { label: "Popular", value: "onclick" }, { label: "Updates", value: "lastdotime" }] }, status: { type: "Picker", label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Completed", value: "Completed" }, { label: "Ongoing", value: "Ongoing" }] }, genres: { type: "Picker", label: "Genre / Category", value: "", options: [{ label: "All", value: "all" }, { label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Contemporary Romance", value: "contemporary-romance" }, { label: "Drama", value: "drama" }, { label: "Eastern Fantasy", value: "eastern-fantasy" }, { label: "Ecchi", value: "ecchi" }, { label: "Faloo", value: "faloo" }, { label: "Fan-Fiction", value: "fan-fiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Fantasy Romance", value: "fantasy-romance" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Korean", value: "korean" }, { label: "Lolicon", value: "lolicon" }, { label: "Magical Realism", value: "magical-realism" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Urban", value: "urban" }, { label: "Video Games", value: "video-games" }, { label: "Virtual Reality", value: "virtual-reality" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }] }, tags: { type: "Picker", label: "Tags", value: "", options: [{ label: "NONE", value: "" }, { label: "Action", value: "118" }, { label: "AncientChi", value: "145" }, { label: "Academy", value: "8" }, { label: "Adventure", value: "933" }, { label: "Apocalypse", value: "201" }, { label: "ArrogantCh", value: "62" }, { label: "AncientTim", value: "146" }, { label: "Acting", value: "52" }, { label: "Alchemy", value: "16" }, { label: "ArrangedMa", value: "163" }, { label: "ArmyBuildi", value: "107" }, { label: "AlternateW", value: "274" }, { label: "AdaptedtoM", value: "164" }, { label: "Amnesia", value: "144" }, { label: "Aliens", value: "40" }, { label: "AbusiveCha", value: "1" }, { label: "Assassins", value: "149" }, { label: "Aristocrac", value: "387" }, { label: "Artifacts", value: "89" }, { label: "AbsentPare", value: "255" }, { label: "AgeProgres", value: "333" }, { label: "antihero", value: "1399" }, { label: "AntiheroPr", value: "323" }, { label: "AdaptedtoD", value: "237" }, { label: "Army", value: "41" }, { label: "Adventurer", value: "165" }, { label: "AbilitySte", value: "97" }, { label: "Appearance", value: "61" }, { label: "Accelerate", value: "59" }, { label: "AbandonedC", value: "395" }, { label: "AdoptedPro", value: "431" }, { label: "ApatheticP", value: "393" }, { label: "AgeRegress", value: "457" }, { label: "Aggressive", value: "416" }, { label: "AdoptedChi", value: "396" }, { label: "ArtifactCr", value: "147" }, { label: "AdaptedtoD", value: "510" }, { label: "AdaptedtoM", value: "88" }, { label: "Angels", value: "353" }, { label: "AdaptedtoA", value: "367" }, { label: "Adultery", value: "292" }, { label: "Archery", value: "215" }, { label: "Artists", value: "494" }, { label: "Aristocrat", value: "724" }, { label: "ABO", value: "780" }, { label: "AnimalRear", value: "493" }, { label: "Army-build", value: "970" }, { label: "Anal", value: "60" }, { label: "Autism", value: "841" }, { label: "Advancedte", value: "3152" }, { label: "AwkwardPro", value: "568" }, { label: "Anti-HeroL", value: "621" }, { label: "Affair", value: "579" }, { label: "AdaptedtoM", value: "471" }, { label: "AnotherWor", value: "921" }, { label: "Androids", value: "598" }, { label: "AggresiveC", value: "809" }, { label: "alpha", value: "2910" }, { label: "Abandoned", value: "3037" }, { label: "ArtifactsC", value: "63" }, { label: "ArmsDealer", value: "398" }, { label: "Adult", value: "1012" }, { label: "AdaptedtoM", value: "1437" }, { label: "AdaptedtoG", value: "106" }, { label: "ApartmentL", value: "994" }, { label: "Anime", value: "1060" }, { label: "AgeGap", value: "1246" }, { label: "Azeroth", value: "1303" }, { label: "Alternativ", value: "2857" }, { label: "Assassin", value: "1161" }, { label: "AntiqueSho", value: "1386" }, { label: "Angel", value: "1190" }, { label: "Abuse", value: "1269" }, { label: "America", value: "2846" }, { label: "Anti-Magic", value: "499" }, { label: "Ability", value: "819" }, { label: "Astrologer", value: "880" }, { label: "Actors", value: "893" }, { label: "Ancient", value: "1142" }, { label: "AutomaticU", value: "1243" }, { label: "Abilities", value: "1279" }, { label: "AnimalChar", value: "334" }, { label: "AI", value: "628" }, { label: "AlternateH", value: "784" }, { label: "Adrogynous", value: "923" }, { label: "AcceptingD", value: "1096" }, { label: "Actress", value: "1118" }, { label: "Alchemist", value: "1278" }, { label: "animals", value: "1282" }, { label: "AmusementP", value: "1408" }, { label: "Automatons", value: "1419" }, { label: "AbusiveCha", value: "1475" }, { label: "Assasins", value: "1525" }, { label: "Age-gap", value: "1794" }, { label: "AmericanCo", value: "2757" }, { label: "Americas", value: "2762" }, { label: "Abusivelov", value: "3009" }, { label: "Agent", value: "3035" }, { label: "Antagonist", value: "3042" }, { label: "Ashknightw", value: "3043" }, { label: "Actingweak", value: "3141" }, { label: "ArtifactsB", value: "148" }, { label: "Artificial", value: "206" }, { label: "Appearance", value: "275" }, { label: "Anl", value: "293" }, { label: "AncientChi", value: "322" }, { label: "Average-lo", value: "378" }, { label: "Anti-socia", value: "532" }, { label: "AutomaticU", value: "655" }, { label: "AncientBus", value: "785" }, { label: "Adopted", value: "844" }, { label: "Androgynou", value: "895" }, { label: "Appraisal", value: "898" }, { label: "AI-chip", value: "902" }, { label: "Apprentice", value: "977" }, { label: "ArmsTrade", value: "1000" }, { label: "AverageLoo", value: "1001" }, { label: "ancientset", value: "1032" }, { label: "AdaptedtoV", value: "1042" }, { label: "Aggressive", value: "1053" }, { label: "AncientRea", value: "1055" }, { label: "Apocalypti", value: "1065" }, { label: "Arknights", value: "1135" }, { label: "AnotherWor", value: "1149" }, { label: "AdvancedKn", value: "1164" }, { label: "AbandonedC", value: "1198" }, { label: "Aristrocac", value: "1201" }, { label: "ACGN", value: "1252" }, { label: "Abortion", value: "1284" }, { label: "Adoption", value: "1285" }, { label: "AcasualPaw", value: "1290" }, { label: "Animator", value: "1305" }, { label: "AncientWea", value: "1338" }, { label: "artificer", value: "1373" }, { label: "assasin", value: "1387" }, { label: "Artist", value: "1468" }, { label: "Artis", value: "1500" }, { label: "Artifact", value: "1506" }, { label: "Anti-heroP", value: "1509" }, { label: "AlienInvas", value: "1526" }, { label: "ABO(AlphaB", value: "1531" }, { label: "AgeDiffere", value: "1580" }, { label: "ancienttim", value: "1586" }, { label: "AzurLane", value: "1594" }, { label: "Apocalypse", value: "1612" }, { label: "Aftertheso", value: "1668" }, { label: "atravellin", value: "1684" }, { label: "autumnautu", value: "1685" }, { label: "ahveryfish", value: "1732" }, { label: "AfricanEmi", value: "1740" }, { label: "agrass", value: "1743" }, { label: "AgeofGods", value: "1748" }, { label: "Apple", value: "1818" }, { label: "allenzhang", value: "1867" }, { label: "Authoroffa", value: "1870" }, { label: "Aaron&amp0", value: "1912" }, { label: "Ayanokoji", value: "1914" }, { label: "arayofsuns", value: "1979" }, { label: "animenewco", value: "2065" }, { label: "absolutely", value: "2112" }, { label: "anoldman", value: "2126" }, { label: "Auspicious", value: "2146" }, { label: "askTaichi", value: "2181" }, { label: "angryhouse", value: "2196" }, { label: "AllHeavens", value: "2204" }, { label: "Amagicpill", value: "2298" }, { label: "avigorous", value: "2341" }, { label: "Anautumnra", value: "2451" }, { label: "Archer", value: "2474" }, { label: "Alone", value: "2489" }, { label: "AZanpakut", value: "2512" }, { label: "Aliverday", value: "2533" }, { label: "AlmightyCo", value: "2661" }, { label: "Almightypl", value: "2663" }, { label: "AnlanInvin", value: "2721" }, { label: "AncientChi", value: "2751" }, { label: "AlterateHi", value: "2761" }, { label: "ArmsDealer", value: "2766" }, { label: "Anti-MC", value: "2775" }, { label: "Artificial", value: "2777" }, { label: "Award-winn", value: "2778" }, { label: "adventerer", value: "2811" }, { label: "armoredcit", value: "2830" }, { label: "Abyss", value: "2878" }, { label: "Animation", value: "2890" }, { label: "AnimationD", value: "2891" }, { label: "Avatar", value: "2912" }, { label: "Adventurer", value: "2913" }, { label: "A.I", value: "2941" }, { label: "Actor", value: "2990" }, { label: "ADeadBody", value: "3014" }, { label: "Androgynou", value: "3115" }, { label: "Alljobs", value: "3143" }, { label: "Adventur", value: "3163" }, { label: "Abandoning", value: "3174" }, { label: "Aesthetic", value: "3232" }, { label: "Adaptedfro", value: "3247" }, { label: "BeautifulF", value: "50" }, { label: "BusinessMa", value: "66" }, { label: "BlackBelly", value: "151" }, { label: "Betrayal", value: "150" }, { label: "BeastCompa", value: "35" }, { label: "Businessme", value: "238" }, { label: "Beasts", value: "64" }, { label: "BodyTemper", value: "90" }, { label: "Bloodlines", value: "17" }, { label: "BickeringC", value: "53" }, { label: "Basketball", value: "243" }, { label: "BrokenEnga", value: "152" }, { label: "Bullying", value: "549" }, { label: "BattleComp", value: "189" }, { label: "Beastkin", value: "476" }, { label: "BattleAcad", value: "226" }, { label: "Buddhism", value: "259" }, { label: "BrotherCom", value: "302" }, { label: "Books", value: "488" }, { label: "Brotherhoo", value: "369" }, { label: "Bodyguards", value: "261" }, { label: "Bleach", value: "659" }, { label: "Blackmail", value: "294" }, { label: "BasedonaMo", value: "382" }, { label: "Blacksmith", value: "368" }, { label: "BodySwap", value: "54" }, { label: "beautifulh", value: "65" }, { label: "Business", value: "625" }, { label: "Beasttamin", value: "2983" }, { label: "Biochip", value: "388" }, { label: "BeastTamer", value: "660" }, { label: "Beauty", value: "3021" }, { label: "BasedonaVi", value: "3245" }, { label: "BlindProta", value: "575" }, { label: "Brainwashi", value: "421" }, { label: "Bookworm", value: "450" }, { label: "BasedonaTV", value: "593" }, { label: "BL", value: "1501" }, { label: "Bloodpumpi", value: "2985" }, { label: "BDSM", value: "1082" }, { label: "Bestiality", value: "920" }, { label: "BasedonanA", value: "3243" }, { label: "BloodManip", value: "306" }, { label: "BigBroHasD", value: "612" }, { label: "BisexualPr", value: "1326" }, { label: "Badboy", value: "2999" }, { label: "BlindDates", value: "1249" }, { label: "BeautifulP", value: "871" }, { label: "Bulldozer", value: "1218" }, { label: "Butlers", value: "597" }, { label: "Beast", value: "788" }, { label: "Boxing", value: "1446" }, { label: "Baby", value: "3045" }, { label: "Bully", value: "620" }, { label: "Businessma", value: "850" }, { label: "Billionair", value: "1022" }, { label: "Beautifull", value: "1104" }, { label: "buildingki", value: "1388" }, { label: "BookTransm", value: "1575" }, { label: "blooddemon", value: "1951" }, { label: "Boss", value: "2768" }, { label: "Baseball", value: "460" }, { label: "Blind", value: "734" }, { label: "Bloodline", value: "913" }, { label: "Beastmen", value: "968" }, { label: "BeastCompa", value: "1139" }, { label: "BehindtheS", value: "1247" }, { label: "BungouStra", value: "1400" }, { label: "Businesswo", value: "3022" }, { label: "Boss-Subor", value: "34" }, { label: "bookslikeu", value: "489" }, { label: "BattleThro", value: "685" }, { label: "Babies", value: "750" }, { label: "Black-bell", value: "815" }, { label: "BTTH", value: "833" }, { label: "BookWearer", value: "861" }, { label: "Breakup", value: "931" }, { label: "BunguoStra", value: "985" }, { label: "Bussiness", value: "1015" }, { label: "Beautifulf", value: "1021" }, { label: "BritishEmp", value: "1070" }, { label: "BehindtheS", value: "1093" }, { label: "Bussinesma", value: "1102" }, { label: "BuildKingd", value: "1134" }, { label: "Bloodborne", value: "1136" }, { label: "Blackbelli", value: "1156" }, { label: "Basket", value: "1209" }, { label: "Badassprot", value: "1283" }, { label: "beastman", value: "1301" }, { label: "Biomass", value: "1307" }, { label: "Blacklight", value: "1308" }, { label: "beautifulf", value: "1361" }, { label: "BeautifulF", value: "1363" }, { label: "BusinessEm", value: "1469" }, { label: "BlackTechn", value: "1515" }, { label: "BrortherCo", value: "1523" }, { label: "Band", value: "1529" }, { label: "Banking", value: "1538" }, { label: "Biotechnol", value: "1549" }, { label: "Black-bell", value: "1573" }, { label: "businessor", value: "1577" }, { label: "BusinessDe", value: "1587" }, { label: "BlackBelly", value: "1590" }, { label: "bigpicture", value: "1648" }, { label: "BusinessRi", value: "1664" }, { label: "BloodofAni", value: "1671" }, { label: "Biscuits", value: "1690" }, { label: "Brownsugar", value: "1717" }, { label: "blackandwh", value: "1722" }, { label: "Bigplayers", value: "1733" }, { label: "bigwhitewh", value: "1762" }, { label: "Becomefamo", value: "1773" }, { label: "bloomingon", value: "1802" }, { label: "ButterflyD", value: "1830" }, { label: "Boundlessf", value: "1841" }, { label: "belovedbab", value: "1843" }, { label: "breezesilv", value: "1892" }, { label: "Bigdog", value: "1895" }, { label: "BuLofan", value: "1916" }, { label: "Brightmoon", value: "1926" }, { label: "Breeze", value: "1958" }, { label: "BraisedPai", value: "1991" }, { label: "BingtangHu", value: "1992" }, { label: "BookstoreS", value: "1994" }, { label: "blacksoil", value: "1998" }, { label: "Bearcat", value: "1999" }, { label: "BrotherChe", value: "2035" }, { label: "blueshirts", value: "2047" }, { label: "beatyourse", value: "2061" }, { label: "bluestone", value: "2063" }, { label: "bitefire", value: "2070" }, { label: "blackandim", value: "2077" }, { label: "Bearchildl", value: "2085" }, { label: "BloodMoonG", value: "2089" }, { label: "BigSkeleto", value: "2091" }, { label: "BrotherZhu", value: "2092" }, { label: "BarrenEmpe", value: "2117" }, { label: "breaktheke", value: "2123" }, { label: "beastprota", value: "2165" }, { label: "bigorangew", value: "2168" }, { label: "baldnessat", value: "2173" }, { label: "bigcitysma", value: "2220" }, { label: "baldman", value: "2248" }, { label: "BoXiaowen", value: "2252" }, { label: "Belltouche", value: "2257" }, { label: "BookDustSp", value: "2267" }, { label: "broalwaysg", value: "2353" }, { label: "Bodhicitta", value: "2382" }, { label: "beaming", value: "2384" }, { label: "Breakingth", value: "2441" }, { label: "billionpeo", value: "2444" }, { label: "Buildthewo", value: "2452" }, { label: "Bigcockcut", value: "2471" }, { label: "bigtent", value: "2483" }, { label: "boycold", value: "2499" }, { label: "Bringaknif", value: "2515" }, { label: "becausesoh", value: "2524" }, { label: "bearcocoa", value: "2529" }, { label: "bluesilksu", value: "2559" }, { label: "bighippo", value: "2567" }, { label: "beautifula", value: "2568" }, { label: "burnout", value: "2574" }, { label: "Burningmou", value: "2581" }, { label: "beggingfor", value: "2584" }, { label: "blackcatis", value: "2589" }, { label: "BlackDrago", value: "2601" }, { label: "Beansandgr", value: "2667" }, { label: "Boiled", value: "2674" }, { label: "blackandwh", value: "2677" }, { label: "BaiXiaowei", value: "2698" }, { label: "bewitching", value: "2709" }, { label: "balduncle", value: "2710" }, { label: "bluesilk", value: "2712" }, { label: "Bandit", value: "2796" }, { label: "BuddhaofNi", value: "2807" }, { label: "blackice", value: "2808" }, { label: "BearChild", value: "2821" }, { label: "BoyxBoy", value: "2885" }, { label: "BrotherInL", value: "2920" }, { label: "Blackening", value: "2926" }, { label: "bickeringl", value: "2954" }, { label: "Beatthemal", value: "2993" }, { label: "Beatthefem", value: "2994" }, { label: "Beastamer", value: "3052" }, { label: "Beautifulc", value: "3066" }, { label: "Beauties", value: "3119" }, { label: "BecomeLove", value: "3129" }, { label: "backstabbi", value: "3139" }, { label: "Betrayed", value: "3147" }, { label: "Bigshot", value: "3151" }, { label: "BeautifulH", value: "3153" }, { label: "building", value: "3216" }, { label: "Bgfellow", value: "3231" }, { label: "BasedonaVi", value: "3246" }, { label: "Cultivatio", value: "20" }, { label: "CalmProtag", value: "18" }, { label: "CleverProt", value: "9" }, { label: "Cheats", value: "36" }, { label: "Celebritie", value: "55" }, { label: "CunningPro", value: "195" }, { label: "ColdLoveIn", value: "56" }, { label: "ComedicUnd", value: "91" }, { label: "comedy", value: "829" }, { label: "Childcare", value: "44" }, { label: "ColdProtag", value: "37" }, { label: "CharacterG", value: "67" }, { label: "CuteProtag", value: "452" }, { label: "Cooking", value: "315" }, { label: "CaringProt", value: "435" }, { label: "CautiousPr", value: "108" }, { label: "CuteChildr", value: "239" }, { label: "ConfidentP", value: "346" }, { label: "CharmingPr", value: "347" }, { label: "CoupleGrow", value: "526" }, { label: "CollegeUni", value: "192" }, { label: "CarefreePr", value: "295" }, { label: "CruelChara", value: "68" }, { label: "CuteStory", value: "380" }, { label: "Cross-dres", value: "210" }, { label: "ChildhoodF", value: "370" }, { label: "ChildProta", value: "268" }, { label: "ClingyLove", value: "277" }, { label: "Cheat", value: "705" }, { label: "ChildhoodL", value: "430" }, { label: "CardGames", value: "782" }, { label: "Crime", value: "556" }, { label: "ChatRooms", value: "267" }, { label: "ChinesePre", value: "639" }, { label: "CosmicWars", value: "219" }, { label: "Crossdress", value: "756" }, { label: "Crafting", value: "327" }, { label: "ChildAbuse", value: "470" }, { label: "Ceo", value: "2976" }, { label: "ClanBuildi", value: "19" }, { label: "Contracts", value: "379" }, { label: "ClanSectDe", value: "662" }, { label: "Conquer", value: "2987" }, { label: "Chefs", value: "314" }, { label: "ClumsyLove", value: "473" }, { label: "Clones", value: "448" }, { label: "Cohabitati", value: "474" }, { label: "Campus", value: "1271" }, { label: "CharacterD", value: "119" }, { label: "ChildhoodS", value: "376" }, { label: "CowardlyPr", value: "100" }, { label: "ChatGroup", value: "673" }, { label: "ChildishPr", value: "418" }, { label: "Cannibalis", value: "472" }, { label: "Criminals", value: "290" }, { label: "CourtOffic", value: "485" }, { label: "Crossover", value: "269" }, { label: "Corruption", value: "550" }, { label: "Curses", value: "516" }, { label: "CampusLove", value: "375" }, { label: "Counteratt", value: "1225" }, { label: "ChildhoodP", value: "475" }, { label: "ComingofAg", value: "1147" }, { label: "Cousins", value: "519" }, { label: "ChoiceSele", value: "647" }, { label: "Confinemen", value: "912" }, { label: "Crossing", value: "2760" }, { label: "ciweimao", value: "3233" }, { label: "Conditiona", value: "413" }, { label: "Co-Workers", value: "454" }, { label: "Coma", value: "779" }, { label: "Celebrity", value: "979" }, { label: "CuriousPro", value: "1275" }, { label: "Cute", value: "1258" }, { label: "Chuunibyou", value: "522" }, { label: "CoolText", value: "736" }, { label: "Creation", value: "837" }, { label: "College", value: "1018" }, { label: "Clubs", value: "1126" }, { label: "Cityurban", value: "3225" }, { label: "Childbirth", value: "949" }, { label: "Chronology", value: "1014" }, { label: "Cthulhu", value: "1137" }, { label: "Creatures", value: "307" }, { label: "Cards", value: "350" }, { label: "CosmicHorr", value: "757" }, { label: "CrazyProta", value: "758" }, { label: "Conflictin", value: "796" }, { label: "CampusLife", value: "816" }, { label: "Contract", value: "891" }, { label: "CautiousMc", value: "904" }, { label: "Cultivator", value: "958" }, { label: "Card", value: "981" }, { label: "CuteChild", value: "1016" }, { label: "Capitalism", value: "1071" }, { label: "Creator", value: "1148" }, { label: "Civilizati", value: "1215" }, { label: "CommonerLi", value: "1317" }, { label: "ColdLoveIn", value: "1365" }, { label: "cunningmc", value: "1380" }, { label: "Cryostasis", value: "1447" }, { label: "Cosplay", value: "1460" }, { label: "Civilizati", value: "1550" }, { label: "ComedicUnd", value: "1568" }, { label: "CelestialC", value: "1986" }, { label: "ColdNightL", value: "2695" }, { label: "cunning", value: "2755" }, { label: "City", value: "3083" }, { label: "ComplexFam", value: "153" }, { label: "Charismati", value: "363" }, { label: "CleverProt", value: "523" }, { label: "Cluelessly", value: "667" }, { label: "cunningfem", value: "795" }, { label: "chat-room", value: "798" }, { label: "Companies", value: "824" }, { label: "Complicate", value: "836" }, { label: "ChildhoodS", value: "863" }, { label: "Collection", value: "873" }, { label: "Colonializ", value: "915" }, { label: "ChinaRefor", value: "950" }, { label: "Church", value: "954" }, { label: "Chaos", value: "957" }, { label: "CluelessPr", value: "963" }, { label: "ChuningMC", value: "1002" }, { label: "CivilServa", value: "1072" }, { label: "Conspirati", value: "1103" }, { label: "CuteProtag", value: "1105" }, { label: "CuteMaleLe", value: "1113" }, { label: "CaringMale", value: "1152" }, { label: "Comic", value: "1167" }, { label: "CunningPro", value: "1168" }, { label: "Club", value: "1184" }, { label: "Competitio", value: "1210" }, { label: "ChildhoodE", value: "1229" }, { label: "cluthullu", value: "1264" }, { label: "ChineseAnc", value: "1280" }, { label: "Celestials", value: "1294" }, { label: "Curse", value: "1299" }, { label: "ChinaNamba", value: "1306" }, { label: "ChenHegao", value: "1309" }, { label: "Contagonis", value: "1310" }, { label: "CutePet", value: "1339" }, { label: "Chinese", value: "1342" }, { label: "chat", value: "1377" }, { label: "codegeass", value: "1398" }, { label: "Cunnilingu", value: "1455" }, { label: "Commandand", value: "1472" }, { label: "Criminolog", value: "1476" }, { label: "Chef", value: "1480" }, { label: "CalmMalePr", value: "1488" }, { label: "Colonizati", value: "1494" }, { label: "Capitalist", value: "1516" }, { label: "Crimes", value: "1527" }, { label: "Casinos", value: "1539" }, { label: "ColonialEr", value: "1556" }, { label: "Colony", value: "1557" }, { label: "CubRaising", value: "1565" }, { label: "ColdMaleLe", value: "1567" }, { label: "ContractLo", value: "1581" }, { label: "ComplexFam", value: "1583" }, { label: "CareerOrie", value: "1595" }, { label: "Constructi", value: "1624" }, { label: "coffeewith", value: "1656" }, { label: "coverthesu", value: "1688" }, { label: "Chirika", value: "1696" }, { label: "ColdStar&a", value: "1724" }, { label: "chaoticwor", value: "1730" }, { label: "catdaylist", value: "1756" }, { label: "CucumberHa", value: "1765" }, { label: "cloudysky", value: "1776" }, { label: "ChocolateI", value: "1777" }, { label: "CloudTop\u4E28", value: "1799" }, { label: "CherryBlos", value: "1811" }, { label: "ChiDongdon", value: "1813" }, { label: "cuteshadow", value: "1816" }, { label: "Canolaflow", value: "1828" }, { label: "coyote", value: "1837" }, { label: "ChanelNo.1", value: "1849" }, { label: "CloudSummi", value: "1850" }, { label: "camera", value: "1856" }, { label: "canfly", value: "1864" }, { label: "catthatwan", value: "1876" }, { label: "coffeefatc", value: "1900" }, { label: "Cloudseest", value: "1904" }, { label: "chef&amp03", value: "1943" }, { label: "Cloudtopfi", value: "1944" }, { label: "coldrivers", value: "1956" }, { label: "Comeon", value: "1961" }, { label: "ChenTwelve", value: "1980" }, { label: "caviar", value: "1982" }, { label: "CloudTop\u4E28", value: "1989" }, { label: "Catchtheca", value: "1996" }, { label: "cutegrapef", value: "2004" }, { label: "cartoonwil", value: "2023" }, { label: "ChefSurviv", value: "2031" }, { label: "Cloudtop\u4E28", value: "2062" }, { label: "Canteendry", value: "2082" }, { label: "Crazyforam", value: "2083" }, { label: "Changeever", value: "2087" }, { label: "Comprehens", value: "2093" }, { label: "Catswithfi", value: "2130" }, { label: "CityGod", value: "2138" }, { label: "Cancat", value: "2147" }, { label: "catthousan", value: "2183" }, { label: "Cicadasand", value: "2195" }, { label: "ChenChangf", value: "2199" }, { label: "championge", value: "2228" }, { label: "Crazystory", value: "2260" }, { label: "Can&amp039", value: "2268" }, { label: "callthebea", value: "2278" }, { label: "catgod", value: "2318" }, { label: "coldcolddo", value: "2326" }, { label: "CokeII", value: "2329" }, { label: "coffeeinst", value: "2400" }, { label: "Chosen12", value: "2410" }, { label: "catloveson", value: "2415" }, { label: "civetcatat", value: "2437" }, { label: "catisrisin", value: "2446" }, { label: "catpowerfi", value: "2505" }, { label: "Can&amp039", value: "2506" }, { label: "Caicolorsh", value: "2516" }, { label: "CorpseFrag", value: "2543" }, { label: "codewordge", value: "2572" }, { label: "CarambolaJ", value: "2582" }, { label: "cockroache", value: "2604" }, { label: "city\u200B\u200Bya", value: "2607" }, { label: "Codeuntilt", value: "2626" }, { label: "cutepomelo", value: "2646" }, { label: "cloudmadeo", value: "2654" }, { label: "chasingthe", value: "2656" }, { label: "crookeddoo", value: "2659" }, { label: "Cantaloupe", value: "2662" }, { label: "cateatingp", value: "2669" }, { label: "Cupola", value: "2683" }, { label: "cornjuice", value: "2706" }, { label: "cutelovein", value: "2733" }, { label: "CampusRoma", value: "2738" }, { label: "ChainsawMa", value: "2747" }, { label: "Cruel", value: "2779" }, { label: "CangxueFei", value: "2786" }, { label: "Childhoodf", value: "2805" }, { label: "Cultivatio", value: "2812" }, { label: "Conspiracy", value: "2816" }, { label: "Calm", value: "2822" }, { label: "crimesolvi", value: "2841" }, { label: "curechildr", value: "2848" }, { label: "Cultivatio", value: "2849" }, { label: "child", value: "2883" }, { label: "Chinesenov", value: "2886" }, { label: "CountrySid", value: "2917" }, { label: "Calmdown", value: "2931" }, { label: "CatchaGhos", value: "3016" }, { label: "ColdMistre", value: "3036" }, { label: "Crush", value: "3047" }, { label: "Contractma", value: "3072" }, { label: "Culinary", value: "3076" }, { label: "Cultivatio", value: "3093" }, { label: "Cuteadorab", value: "3116" }, { label: "Cultivatio", value: "3117" }, { label: "Castlecult", value: "3125" }, { label: "Champions", value: "3130" }, { label: "contempora", value: "3138" }, { label: "Complete", value: "3140" }, { label: "Cultivatin", value: "3145" }, { label: "Comed", value: "3167" }, { label: "Coolguy", value: "3190" }, { label: "ClassroomO", value: "3213" }, { label: "carpenter", value: "3221" }, { label: "Demons", value: "209" }, { label: "DevotedLov", value: "155" }, { label: "DotingLove", value: "156" }, { label: "Dragons", value: "233" }, { label: "Doctors", value: "169" }, { label: "DouluoDalu", value: "85" }, { label: "Dark", value: "328" }, { label: "DenseProta", value: "10" }, { label: "DotingPare", value: "316" }, { label: "Depictions", value: "329" }, { label: "DotingOlde", value: "432" }, { label: "DeathofLov", value: "38" }, { label: "Drama", value: "723" }, { label: "Daoism", value: "93" }, { label: "Detectives", value: "557" }, { label: "DemonLord", value: "154" }, { label: "Discrimina", value: "286" }, { label: "Death", value: "542" }, { label: "Disabiliti", value: "603" }, { label: "Divorce", value: "257" }, { label: "DaoCompreh", value: "92" }, { label: "Dragon", value: "939" }, { label: "Dwarfs", value: "132" }, { label: "Dungeons", value: "469" }, { label: "Demi-Human", value: "571" }, { label: "DetectiveC", value: "927" }, { label: "DragonBall", value: "648" }, { label: "DomesticAf", value: "429" }, { label: "Destiny", value: "120" }, { label: "DaoCompani", value: "521" }, { label: "Devil", value: "3078" }, { label: "DollsPuppe", value: "196" }, { label: "Dwarves", value: "610" }, { label: "DiscipleTr", value: "664" }, { label: "DarkFantas", value: "759" }, { label: "Dreams", value: "284" }, { label: "Depression", value: "906" }, { label: "Drugs", value: "934" }, { label: "DC", value: "669" }, { label: "Doctor", value: "749" }, { label: "Divination", value: "308" }, { label: "Demon", value: "748" }, { label: "Doomsday", value: "877" }, { label: "Detective", value: "774" }, { label: "DeadProtag", value: "541" }, { label: "DemonSlaye", value: "695" }, { label: "DragonSlay", value: "586" }, { label: "Delinquent", value: "605" }, { label: "Debts", value: "524" }, { label: "Danmei", value: "580" }, { label: "Druids", value: "842" }, { label: "Disfigurem", value: "1110" }, { label: "Dramatic", value: "3069" }, { label: "DungeonMas", value: "600" }, { label: "DragonRide", value: "793" }, { label: "Director", value: "760" }, { label: "dotinglove", value: "974" }, { label: "DishonestP", value: "1405" }, { label: "Dystopia", value: "1439" }, { label: "Dancers", value: "1445" }, { label: "Dream", value: "859" }, { label: "Dinosaurs", value: "878" }, { label: "DeepLTrans", value: "969" }, { label: "DotingPare", value: "1265" }, { label: "Dynasty", value: "2817" }, { label: "DarkDeatho", value: "561" }, { label: "Devils", value: "638" }, { label: "DoupoBTTH", value: "719" }, { label: "Doupo", value: "834" }, { label: "dungeon", value: "944" }, { label: "Digimon", value: "1392" }, { label: "Delusions", value: "1422" }, { label: "DevotedLov", value: "1514" }, { label: "Douluo", value: "1553" }, { label: "Demondomai", value: "2266" }, { label: "dreamblizz", value: "2691" }, { label: "Determined", value: "227" }, { label: "DemonicCul", value: "232" }, { label: "DifferentS", value: "381" }, { label: "Depictions", value: "729" }, { label: "DoubleRebi", value: "737" }, { label: "Doujin", value: "820" }, { label: "DoubleLife", value: "905" }, { label: "DarkPower", value: "961" }, { label: "differentw", value: "965" }, { label: "dotingfami", value: "973" }, { label: "DiscipleLo", value: "978" }, { label: "Diplomats", value: "1073" }, { label: "Dominator", value: "1090" }, { label: "DestinedLo", value: "1124" }, { label: "Doomdays", value: "1125" }, { label: "Dwarf", value: "1159" }, { label: "Disobedien", value: "1237" }, { label: "DotingSibl", value: "1266" }, { label: "DisabledPr", value: "1281" }, { label: "DoingBusin", value: "1318" }, { label: "Devotedlov", value: "1346" }, { label: "Dog", value: "1364" }, { label: "Distrustfu", value: "1438" }, { label: "Divination", value: "1466" }, { label: "DivineProt", value: "1487" }, { label: "Directors", value: "1554" }, { label: "DevilPosse", value: "1555" }, { label: "DumbProtag", value: "1603" }, { label: "DemonsFami", value: "1617" }, { label: "DevotedCou", value: "1628" }, { label: "dreamleave", value: "1646" }, { label: "divinesign", value: "1653" }, { label: "darkpirate", value: "1666" }, { label: "darknight", value: "1731" }, { label: "dragracing", value: "1784" }, { label: "DatangDaqi", value: "1787" }, { label: "dancetofig", value: "1803" }, { label: "Decadeligh", value: "1812" }, { label: "deepbluese", value: "1821" }, { label: "don&amp039", value: "1823" }, { label: "DatangErwu", value: "1836" }, { label: "Datangsupe", value: "1854" }, { label: "DragonPala", value: "1857" }, { label: "digitalold", value: "1872" }, { label: "DouTuKing", value: "1908" }, { label: "don&amp039", value: "1911" }, { label: "daughterco", value: "1934" }, { label: "Dreamofthe", value: "2012" }, { label: "DamingYong", value: "2019" }, { label: "DaoyanShen", value: "2043" }, { label: "DemonInvas", value: "2081" }, { label: "DaqingXiao", value: "2095" }, { label: "Dollsister", value: "2110" }, { label: "Devilveget", value: "2148" }, { label: "DragonBall", value: "2150" }, { label: "doyoueator", value: "2153" }, { label: "Destroyerf", value: "2170" }, { label: "deadfatfas", value: "2179" }, { label: "Dahunjun", value: "2201" }, { label: "Desperatel", value: "2209" }, { label: "DatangDaqi", value: "2225" }, { label: "dragon-eat", value: "2254" }, { label: "dreamintot", value: "2272" }, { label: "Dashuaihen", value: "2279" }, { label: "Daddywants", value: "2291" }, { label: "dogeggsold", value: "2321" }, { label: "dreamcatch", value: "2348" }, { label: "DivineBook", value: "2350" }, { label: "Don&amp039", value: "2361" }, { label: "doyouwantc", value: "2364" }, { label: "dagougou", value: "2387" }, { label: "DriftwoodD", value: "2390" }, { label: "Daybyday", value: "2418" }, { label: "Dikabenka", value: "2422" }, { label: "Diga", value: "2430" }, { label: "Donotbecon", value: "2440" }, { label: "Donotforge", value: "2445" }, { label: "digthreefe", value: "2472" }, { label: "Doomsdaywa", value: "2519" }, { label: "DoctorData", value: "2538" }, { label: "DragonandL", value: "2554" }, { label: "DemonKing", value: "2565" }, { label: "dirtylittl", value: "2610" }, { label: "Drunklifed", value: "2720" }, { label: "Datangpota", value: "2728" }, { label: "dimensiona", value: "2737" }, { label: "Doraemon", value: "2748" }, { label: "Domineerin", value: "2769" }, { label: "Decisive", value: "2794" }, { label: "DemonPower", value: "2832" }, { label: "DragonPowe", value: "2833" }, { label: "DecisiveMc", value: "2905" }, { label: "disability", value: "2944" }, { label: "Diplomacy", value: "2967" }, { label: "Dystopian", value: "3002" }, { label: "Detailed", value: "3024" }, { label: "Desperate", value: "3061" }, { label: "Donaldtrum", value: "3084" }, { label: "DarkForest", value: "3090" }, { label: "Deityhero", value: "3118" }, { label: "Divineacti", value: "3121" }, { label: "Dragoncult", value: "3126" }, { label: "Diggingtos", value: "3135" }, { label: "Devouringt", value: "3142" }, { label: "Divinechoo", value: "3155" }, { label: "Dotingmale", value: "3171" }, { label: "Devourande", value: "3180" }, { label: "DualCultiv", value: "3208" }, { label: "Evolution", value: "202" }, { label: "EarlyRoman", value: "2" }, { label: "Elves", value: "133" }, { label: "Entertainm", value: "187" }, { label: "EvilGods", value: "134" }, { label: "EvilProtag", value: "336" }, { label: "EnemiesBec", value: "324" }, { label: "Episodic", value: "438" }, { label: "e-Sports", value: "513" }, { label: "ElementalM", value: "309" }, { label: "EyePowers", value: "170" }, { label: "Entertainm", value: "738" }, { label: "EuropeanAm", value: "851" }, { label: "EideticMem", value: "234" }, { label: "Empires", value: "517" }, { label: "EasyGoingL", value: "287" }, { label: "EarthInvas", value: "554" }, { label: "Economics", value: "288" }, { label: "EvilOrgani", value: "69" }, { label: "Exorcism", value: "481" }, { label: "Eunuch", value: "121" }, { label: "Engagement", value: "158" }, { label: "EnemiesBec", value: "198" }, { label: "EvilReligi", value: "495" }, { label: "Ecchi", value: "2974" }, { label: "enemiestol", value: "1397" }, { label: "easternfan", value: "534" }, { label: "Egoist", value: "3075" }, { label: "Engineer", value: "581" }, { label: "Experience", value: "686" }, { label: "Exhaustion", value: "2868" }, { label: "Enlightenm", value: "606" }, { label: "Elf", value: "838" }, { label: "Europe", value: "2916" }, { label: "EvilGod", value: "955" }, { label: "Evilmc", value: "3186" }, { label: "EconomicsE", value: "157" }, { label: "Editors", value: "946" }, { label: "EuropeanAm", value: "1052" }, { label: "EnemytoLov", value: "1230" }, { label: "Evergrande", value: "2592" }, { label: "Exploratio", value: "3131" }, { label: "Emotionall", value: "338" }, { label: "eincarnate", value: "616" }, { label: "Entertainm", value: "752" }, { label: "EvilCharac", value: "761" }, { label: "Elite", value: "817" }, { label: "EnemytoLov", value: "864" }, { label: "Entertaime", value: "892" }, { label: "Exorcist", value: "908" }, { label: "Empire", value: "916" }, { label: "eyepower", value: "987" }, { label: "EvilOrgani", value: "991" }, { label: "Evil-prota", value: "1056" }, { label: "Emperialpo", value: "1101" }, { label: "Ex-girlfri", value: "1128" }, { label: "Easygoingp", value: "1157" }, { label: "Eccentricp", value: "1196" }, { label: "Extraordin", value: "1206" }, { label: "EatingBroa", value: "1238" }, { label: "Evil", value: "1289" }, { label: "entertainm", value: "1300" }, { label: "EvilSprits", value: "1313" }, { label: "exes", value: "1368" }, { label: "electricia", value: "1394" }, { label: "EmpireBuil", value: "1495" }, { label: "Education", value: "1504" }, { label: "EldestSist", value: "1508" }, { label: "Entertainm", value: "1521" }, { label: "EunuchJinr", value: "1681" }, { label: "Elfcold", value: "1758" }, { label: "EmperorYao", value: "1789" }, { label: "Eggpie", value: "2045" }, { label: "Extremelyi", value: "2100" }, { label: "Evergrande", value: "2210" }, { label: "emptymonol", value: "2261" }, { label: "eternityor", value: "2312" }, { label: "Entertaini", value: "2313" }, { label: "EmperorCha", value: "2363" }, { label: "EndoftheWo", value: "2378" }, { label: "everydayfi", value: "2383" }, { label: "entertainm", value: "2477" }, { label: "electricmo", value: "2495" }, { label: "engageinba", value: "2545" }, { label: "everlastin", value: "2550" }, { label: "Erwazi", value: "2658" }, { label: "entertainm", value: "2664" }, { label: "Eggplantan", value: "2673" }, { label: "Eighteence", value: "2781" }, { label: "eartwarmin", value: "2834" }, { label: "Emperor", value: "2844" }, { label: "Emotional", value: "2894" }, { label: "elemental", value: "2921" }, { label: "empressfem", value: "2947" }, { label: "evenge", value: "2969" }, { label: "EvilSpirit", value: "3015" }, { label: "Ex", value: "3030" }, { label: "Excessivel", value: "3034" }, { label: "Easternmys", value: "3077" }, { label: "EvilAuthor", value: "3095" }, { label: "Encryption", value: "3102" }, { label: "Eastern", value: "3104" }, { label: "Elements", value: "3105" }, { label: "exercise", value: "3122" }, { label: "Egoism", value: "3124" }, { label: "Enemies", value: "3128" }, { label: "Esper", value: "3223" }, { label: "ElderlyPro", value: "3250" }, { label: "Faloo", value: "640" }, { label: "FemaleProt", value: "45" }, { label: "Fan-fictio", value: "115" }, { label: "Fantasy", value: "240" }, { label: "Fanfiction", value: "86" }, { label: "Farming", value: "102" }, { label: "Futuristic", value: "199" }, { label: "fanqienove", value: "2942" }, { label: "FastCultiv", value: "70" }, { label: "FantasyWor", value: "47" }, { label: "Family", value: "228" }, { label: "FamilialLo", value: "101" }, { label: "Friendship", value: "392" }, { label: "FirstLove", value: "504" }, { label: "FamousProt", value: "249" }, { label: "FamilyConf", value: "548" }, { label: "FastLearne", value: "71" }, { label: "FaceSlappi", value: "739" }, { label: "FatedLover", value: "442" }, { label: "Football", value: "266" }, { label: "FantasyMag", value: "310" }, { label: "Firearms", value: "330" }, { label: "FantasyCre", value: "374" }, { label: "FamilyBusi", value: "248" }, { label: "ForcedMarr", value: "573" }, { label: "Fellatio", value: "433" }, { label: "FairyTail", value: "646" }, { label: "FutureCivi", value: "135" }, { label: "Fastpaced", value: "3094" }, { label: "FattoFit", value: "582" }, { label: "Fanfic", value: "718" }, { label: "FemaleMast", value: "588" }, { label: "FoxSpirits", value: "712" }, { label: "First-time", value: "747" }, { label: "FoodWars!", value: "663" }, { label: "FamousPare", value: "335" }, { label: "FengShui", value: "420" }, { label: "Future", value: "1287" }, { label: "Flashbacks", value: "1079" }, { label: "Finance", value: "1540" }, { label: "FearlessPr", value: "434" }, { label: "FemaleLead", value: "678" }, { label: "FallenNobi", value: "297" }, { label: "Fairies", value: "726" }, { label: "FatProtago", value: "998" }, { label: "Faceslap", value: "1226" }, { label: "Fatedlove", value: "3006" }, { label: "FemaletoMa", value: "1329" }, { label: "Feelgood", value: "2998" }, { label: "FriendsBec", value: "562" }, { label: "Food", value: "972" }, { label: "Forbiddenl", value: "3023" }, { label: "Fujoshi", value: "72" }, { label: "FleetBattl", value: "569" }, { label: "Fusi\xF3n", value: "810" }, { label: "FallenAnge", value: "1441" }, { label: "Familiars", value: "1443" }, { label: "Folklore", value: "1417" }, { label: "futureworl", value: "2773" }, { label: "Fanaticism", value: "576" }, { label: "Femaleprot", value: "744" }, { label: "Futanari", value: "922" }, { label: "Formations", value: "926" }, { label: "Fishing", value: "1085" }, { label: "Farm", value: "1254" }, { label: "famouscoup", value: "1263" }, { label: "FormerHero", value: "1470" }, { label: "FamilyBuil", value: "1592" }, { label: "FengziXiao", value: "1925" }, { label: "Femaleside", value: "2970" }, { label: "Friendstol", value: "3025" }, { label: "FemaleMast", value: "339" }, { label: "ForgetfulP", value: "467" }, { label: "First-time", value: "491" }, { label: "FutureCivi", value: "771" }, { label: "FourthDisa", value: "801" }, { label: "FemalesPro", value: "900" }, { label: "FamillialL", value: "917" }, { label: "FarmingTex", value: "928" }, { label: "FemaleMC", value: "1003" }, { label: "FemalePres", value: "1023" }, { label: "FastWearin", value: "1035" }, { label: "FemaleSpie", value: "1074" }, { label: "France", value: "1080" }, { label: "Futuristic", value: "1087" }, { label: "ForcedLivi", value: "1141" }, { label: "FanFicton", value: "1144" }, { label: "FateSeries", value: "1186" }, { label: "FemaleFigh", value: "1187" }, { label: "familylife", value: "1192" }, { label: "FastGrowth", value: "1219" }, { label: "FamilyLove", value: "1270" }, { label: "Fantasyfut", value: "1369" }, { label: "Forcedinto", value: "1424" }, { label: "Famous", value: "1522" }, { label: "Fistfights", value: "1541" }, { label: "Friction", value: "1569" }, { label: "FaketoReal", value: "1582" }, { label: "Firethief", value: "1655" }, { label: "Fairy\u4E28Pin", value: "1673" }, { label: "foxlisteni", value: "1680" }, { label: "flamingfla", value: "1693" }, { label: "Friday", value: "1744" }, { label: "Famousdete", value: "1769" }, { label: "FerrariEnz", value: "1779" }, { label: "FeiLuEdiso", value: "1796" }, { label: "FallingRai", value: "1798" }, { label: "FairySword", value: "1822" }, { label: "firstperso", value: "1832" }, { label: "Fireinthes", value: "1891" }, { label: "fatmanoffa", value: "1901" }, { label: "fishfishda", value: "1927" }, { label: "Followthew", value: "1941" }, { label: "Fallenleav", value: "1959" }, { label: "Favoritebl", value: "1965" }, { label: "fierce", value: "1984" }, { label: "forest", value: "1988" }, { label: "flyingfish", value: "2003" }, { label: "fullmeal", value: "2030" }, { label: "Forgiveyou", value: "2068" }, { label: "Fahaiunder", value: "2105" }, { label: "FantaCola", value: "2122" }, { label: "FanJiu", value: "2128" }, { label: "FlyingLuTi", value: "2158" }, { label: "furioussna", value: "2188" }, { label: "FoxdemonXi", value: "2226" }, { label: "flyingsqui", value: "2227" }, { label: "FangQingya", value: "2233" }, { label: "FireWinged", value: "2241" }, { label: "Fengqing", value: "2282" }, { label: "FifthEmper", value: "2306" }, { label: "Fourkeys", value: "2310" }, { label: "FightingCo", value: "2311" }, { label: "fairygirlf", value: "2327" }, { label: "fishandraf", value: "2336" }, { label: "Fantasybos", value: "2373" }, { label: "flyinglitt", value: "2398" }, { label: "firstgreen", value: "2409" }, { label: "flyingcow", value: "2424" }, { label: "Floatingli", value: "2427" }, { label: "fakegod", value: "2432" }, { label: "fisheatpan", value: "2443" }, { label: "FatDiddy", value: "2467" }, { label: "fireonfire", value: "2476" }, { label: "flyinthelo", value: "2492" }, { label: "FahaiInvin", value: "2537" }, { label: "Flyingwhit", value: "2553" }, { label: "Faucet", value: "2588" }, { label: "fanofstar", value: "2599" }, { label: "flyingshar", value: "2618" }, { label: "fishinflam", value: "2632" }, { label: "Favoriteco", value: "2642" }, { label: "FallenWing", value: "2644" }, { label: "fishswimmi", value: "2657" }, { label: "flowersoft", value: "2685" }, { label: "Fifi&amp03", value: "2689" }, { label: "fallintoth", value: "2690" }, { label: "Fishheadis", value: "2696" }, { label: "formworksk", value: "2701" }, { label: "FemaleProt", value: "2770" }, { label: "Fairy", value: "2823" }, { label: "Fullcolor", value: "2862" }, { label: "FemaleEmpe", value: "2880" }, { label: "Formation", value: "2884" }, { label: "Funny", value: "2901" }, { label: "FantasyCre", value: "2915" }, { label: "FemalePart", value: "2925" }, { label: "fasttravel", value: "2927" }, { label: "Fightforhe", value: "2929" }, { label: "futuredyst", value: "2949" }, { label: "Familyreun", value: "3008" }, { label: "Fakeandrea", value: "3032" }, { label: "Fantasia", value: "3056" }, { label: "Fantasyrom", value: "3106" }, { label: "Fastpace", value: "3191" }, { label: "Foursome", value: "3201" }, { label: "Fetish", value: "3207" }, { label: "Fiction", value: "3220" }, { label: "fqloo", value: "3236" }, { label: "GameElemen", value: "73" }, { label: "GeniusProt", value: "159" }, { label: "Ghosts", value: "311" }, { label: "Gods", value: "167" }, { label: "Gamers", value: "160" }, { label: "GodProtago", value: "136" }, { label: "GodlyPower", value: "137" }, { label: "genius", value: "1343" }, { label: "GatetoAnot", value: "109" }, { label: "GameRankin", value: "241" }, { label: "Generals", value: "256" }, { label: "GeneticMod", value: "422" }, { label: "Gore", value: "303" }, { label: "Game", value: "937" }, { label: "Guilds", value: "482" }, { label: "Goddesses", value: "166" }, { label: "Gangs", value: "299" }, { label: "Gunfighter", value: "559" }, { label: "GeneModifi", value: "661" }, { label: "GamingE-Sp", value: "496" }, { label: "GenderBend", value: "872" }, { label: "Goblins", value: "627" }, { label: "GameElemen", value: "843" }, { label: "Gambling", value: "461" }, { label: "God", value: "839" }, { label: "Grinding", value: "331" }, { label: "Gangsters", value: "1295" }, { label: "GoldenFing", value: "769" }, { label: "GuardianRe", value: "1272" }, { label: "Gaming", value: "1121" }, { label: "Genies", value: "200" }, { label: "GenshinImp", value: "668" }, { label: "Ghost", value: "813" }, { label: "GameRangki", value: "982" }, { label: "Golems", value: "1291" }, { label: "Grimdark", value: "631" }, { label: "GameOnline", value: "1013" }, { label: "Gourmet", value: "1150" }, { label: "Glasses-we", value: "1341" }, { label: "Gundam", value: "1353" }, { label: "Gettingbac", value: "3029" }, { label: "Grouppampe", value: "3031" }, { label: "Global", value: "3162" }, { label: "Genderless", value: "361" }, { label: "God-humanR", value: "465" }, { label: "GreedyProt", value: "714" }, { label: "GroupChat", value: "799" }, { label: "gameworld", value: "953" }, { label: "GodLikeMC", value: "1006" }, { label: "galacticli", value: "1043" }, { label: "Grupchat", value: "1054" }, { label: "Growth", value: "1066" }, { label: "GodandDevi", value: "1097" }, { label: "Genshin", value: "1099" }, { label: "Goddess", value: "1177" }, { label: "GodlyPower", value: "1183" }, { label: "Geass", value: "1191" }, { label: "Government", value: "1222" }, { label: "gameelemen", value: "1234" }, { label: "Genderless", value: "1239" }, { label: "Giants", value: "1288" }, { label: "Godzilla", value: "1311" }, { label: "GetRich", value: "1319" }, { label: "GentleProt", value: "1324" }, { label: "GentleLove", value: "1366" }, { label: "Glasses-we", value: "1453" }, { label: "GenderRole", value: "1510" }, { label: "Genderbend", value: "1512" }, { label: "GameSystem", value: "1524" }, { label: "Guns", value: "1542" }, { label: "GodlyProta", value: "1591" }, { label: "Galge", value: "1618" }, { label: "greentea", value: "1629" }, { label: "GradeXNUMX", value: "1649" }, { label: "GuShaoxia", value: "1707" }, { label: "goslowbro", value: "1712" }, { label: "goodpotdre", value: "1721" }, { label: "godofduel", value: "1760" }, { label: "Galacticos", value: "1771" }, { label: "goldfinger", value: "1792" }, { label: "Go", value: "1793" }, { label: "gentleman", value: "1834" }, { label: "GodofForti", value: "1848" }, { label: "GreatSage", value: "1880" }, { label: "gossip", value: "1906" }, { label: "giveyoutim", value: "1913" }, { label: "GoneStrawb", value: "1928" }, { label: "Gotaki", value: "1942" }, { label: "God&amp039", value: "2027" }, { label: "Galaxyboy", value: "2107" }, { label: "GreatCeles", value: "2174" }, { label: "GLL", value: "2185" }, { label: "Godofwings", value: "2186" }, { label: "goddessbos", value: "2238" }, { label: "Ghostsinre", value: "2263" }, { label: "Goddidnotg", value: "2271" }, { label: "Gooifyouca", value: "2349" }, { label: "GuiltyScis", value: "2455" }, { label: "godsaltedf", value: "2463" }, { label: "Golden", value: "2504" }, { label: "good-natur", value: "2528" }, { label: "GaoYuanyao", value: "2541" }, { label: "goallist", value: "2544" }, { label: "Ghostexter", value: "2560" }, { label: "goldenfore", value: "2630" }, { label: "GeneralXie", value: "2653" }, { label: "giantpanda", value: "2719" }, { label: "GroupPet", value: "2771" }, { label: "GingerLemo", value: "2803" }, { label: "gongregret", value: "2871" }, { label: "goldrush", value: "2893" }, { label: "Guideverse", value: "2946" }, { label: "Groupspoil", value: "3007" }, { label: "Goodvibes", value: "3040" }, { label: "Genetic", value: "3098" }, { label: "Genderneut", value: "3114" }, { label: "Giantdrago", value: "3164" }, { label: "GeniusFema", value: "3168" }, { label: "Gilf", value: "3203" }, { label: "gacha", value: "3218" }, { label: "HandsomeMa", value: "11" }, { label: "Harem", value: "21" }, { label: "HidingTrue", value: "191" }, { label: "Heartwarmi", value: "57" }, { label: "HarryPotte", value: "436" }, { label: "HidingTrue", value: "39" }, { label: "HiddenAbil", value: "190" }, { label: "Historical", value: "641" }, { label: "Heroes", value: "462" }, { label: "Hackers", value: "188" }, { label: "Hunters", value: "500" }, { label: "Highiq", value: "2981" }, { label: "HumanExper", value: "312" }, { label: "HumanoidPr", value: "528" }, { label: "HeavenlyTr", value: "87" }, { label: "Hero", value: "624" }, { label: "horror", value: "699" }, { label: "HunterxHun", value: "692" }, { label: "HiddenTrue", value: "745" }, { label: "HonestProt", value: "903" }, { label: "Hell", value: "543" }, { label: "Healers", value: "577" }, { label: "HatedProta", value: "1407" }, { label: "Hunter", value: "2837" }, { label: "Handjob", value: "539" }, { label: "Healing", value: "1049" }, { label: "Hospital", value: "439" }, { label: "HidingTrue", value: "855" }, { label: "Heaven", value: "938" }, { label: "Hacker", value: "1091" }, { label: "HiddenIden", value: "1180" }, { label: "HiddenGem", value: "2971" }, { label: "Horor", value: "3226" }, { label: "HumanWeapo", value: "427" }, { label: "HandsomePr", value: "762" }, { label: "Hypnotism", value: "860" }, { label: "Heterochro", value: "1262" }, { label: "HelpfulPro", value: "503" }, { label: "Hollywood", value: "909" }, { label: "HonkaiImpa", value: "976" }, { label: "History", value: "1496" }, { label: "HiddenIden", value: "696" }, { label: "HarshTrain", value: "952" }, { label: "HxH", value: "956" }, { label: "Hogwarts", value: "1211" }, { label: "Herbalist", value: "1459" }, { label: "HappyEndin", value: "1477" }, { label: "HotBlood", value: "2795" }, { label: "Hiddenmarr", value: "3010" }, { label: "Humour", value: "3109" }, { label: "Hard-Worki", value: "103" }, { label: "Harem-seek", value: "138" }, { label: "Human-Nonh", value: "321" }, { label: "Hot-bloode", value: "426" }, { label: "Happy", value: "865" }, { label: "HighSchool", value: "879" }, { label: "Hardworkin", value: "881" }, { label: "HumanExper", value: "1004" }, { label: "HiddenBoss", value: "1063" }, { label: "HaremSeeki", value: "1176" }, { label: "HandsomeMa", value: "1256" }, { label: "Haikyuu", value: "1393" }, { label: "Half-human", value: "1406" }, { label: "HidingAbil", value: "1471" }, { label: "Halo", value: "1473" }, { label: "Hokage", value: "1490" }, { label: "HidingTrue", value: "1584" }, { label: "heroine", value: "1630" }, { label: "HongmengSh", value: "1634" }, { label: "HolyKingRa", value: "1676" }, { label: "hunterkill", value: "1734" }, { label: "HongTang", value: "1735" }, { label: "hyperknigh", value: "1778" }, { label: "Heroesofth", value: "1808" }, { label: "hi", value: "1844" }, { label: "HuiMochou", value: "1847" }, { label: "holyangel", value: "1861" }, { label: "HuanHuanHu", value: "1909" }, { label: "Hashihime", value: "1948" }, { label: "hey", value: "1950" }, { label: "Higu", value: "1963" }, { label: "HappyBeanl", value: "2032" }, { label: "\u9163\u6B4C", value: "2034" }, { label: "Honghuangs", value: "2073" }, { label: "humla", value: "2075" }, { label: "Huijingund", value: "2102" }, { label: "howlingpig", value: "2164" }, { label: "Healthewor", value: "2182" }, { label: "Hawkeye", value: "2189" }, { label: "HaotianExt", value: "2219" }, { label: "handtearin", value: "2223" }, { label: "HomeAttrib", value: "2234" }, { label: "HuTiandi", value: "2235" }, { label: "horrorgod", value: "2247" }, { label: "HakoniwaSe", value: "2255" }, { label: "houseprope", value: "2275" }, { label: "HisMajesty", value: "2283" }, { label: "halfstepge", value: "2345" }, { label: "HonghuangN", value: "2392" }, { label: "Haremismta", value: "2401" }, { label: "heavenclea", value: "2405" }, { label: "heavensong", value: "2420" }, { label: "HongfeiQin", value: "2480" }, { label: "handsomeon", value: "2487" }, { label: "halfanoran", value: "2491" }, { label: "heartandey", value: "2494" }, { label: "HonestandR", value: "2507" }, { label: "HeartHunte", value: "2556" }, { label: "Haminstant", value: "2563" }, { label: "hotpot", value: "2611" }, { label: "H11H", value: "2613" }, { label: "howlingwin", value: "2655" }, { label: "Handsomegu", value: "2671" }, { label: "HappyFlow", value: "2702" }, { label: "Hegemony", value: "2763" }, { label: "Hunter\xD7Hu", value: "2780" }, { label: "hitten", value: "2791" }, { label: "HaoyuYingx", value: "2804" }, { label: "HeartBreak", value: "2895" }, { label: "Historical", value: "2966" }, { label: "Heartthrob", value: "3038" }, { label: "Historical", value: "3064" }, { label: "HiddenWeap", value: "3097" }, { label: "Hentai", value: "3192" }, { label: "Highschool", value: "3194" }, { label: "Humiliatio", value: "3206" }, { label: "HandsomeMC", value: "3209" }, { label: "Immortals", value: "260" }, { label: "Isekai", value: "983" }, { label: "ImperialHa", value: "344" }, { label: "Industrial", value: "560" }, { label: "Interstell", value: "710" }, { label: "Incest", value: "453" }, { label: "Invincible", value: "3074" }, { label: "Inheritanc", value: "229" }, { label: "Immortal", value: "1045" }, { label: "Insects", value: "244" }, { label: "Interestel", value: "698" }, { label: "Investigat", value: "1154" }, { label: "Inferiorit", value: "262" }, { label: "Infrastruc", value: "989" }, { label: "IdentityCr", value: "122" }, { label: "Inscriptio", value: "1413" }, { label: "Industry", value: "818" }, { label: "InfiniteFl", value: "822" }, { label: "Interdimen", value: "423" }, { label: "Idol", value: "845" }, { label: "Investigat", value: "885" }, { label: "infinite", value: "966" }, { label: "InnerVoice", value: "1242" }, { label: "ImperialFa", value: "1609" }, { label: "Indecisive", value: "359" }, { label: "Introverte", value: "511" }, { label: "infrastrac", value: "975" }, { label: "imperialco", value: "1048" }, { label: "Illigitima", value: "1315" }, { label: "Interconne", value: "1360" }, { label: "Investigat", value: "1513" }, { label: "Intelligen", value: "1534" }, { label: "Ilo", value: "1639" }, { label: "Invincible", value: "1660" }, { label: "idropbaby", value: "1686" }, { label: "Invincible", value: "1723" }, { label: "Invincible", value: "1742" }, { label: "Iamtheseak", value: "1751" }, { label: "Ijustwantt", value: "1757" }, { label: "iamatravel", value: "1781" }, { label: "Invincible", value: "1810" }, { label: "icewalk", value: "1824" }, { label: "Intercept0", value: "1842" }, { label: "Iliveupsta", value: "1863" }, { label: "Iamnotaloc", value: "1865" }, { label: "Infiniteme", value: "1883" }, { label: "icalledthe", value: "1888" }, { label: "isitnecess", value: "1921" }, { label: "Infernalco", value: "1924" }, { label: "Isuckbrown", value: "1949" }, { label: "Itsdaybrea", value: "1962" }, { label: "Iwishyouat", value: "1972" }, { label: "Ifyoucango", value: "1973" }, { label: "It&amp039s", value: "2039" }, { label: "I&amp039ma", value: "2041" }, { label: "idon&amp03", value: "2049" }, { label: "InfiniteBu", value: "2053" }, { label: "Iamolderth", value: "2125" }, { label: "IamHisMaje", value: "2151" }, { label: "Iamarealdi", value: "2166" }, { label: "Iamfifth", value: "2172" }, { label: "Iamapirate", value: "2175" }, { label: "ironpillar", value: "2187" }, { label: "I&amp039mo", value: "2208" }, { label: "IamGuanxi", value: "2286" }, { label: "Iamhell", value: "2300" }, { label: "iwantmoney", value: "2315" }, { label: "IsumiLily", value: "2347" }, { label: "Iwanttobea", value: "2360" }, { label: "Iwanttobeo", value: "2402" }, { label: "infinitesu", value: "2412" }, { label: "Ibuprofen", value: "2456" }, { label: "Iamtwenty-", value: "2479" }, { label: "ieatgrass", value: "2485" }, { label: "iwanttogot", value: "2514" }, { label: "Iamtheseco", value: "2527" }, { label: "ImmortalBi", value: "2534" }, { label: "IronThanos", value: "2547" }, { label: "Iamoldwolf", value: "2575" }, { label: "ilovewoo", value: "2585" }, { label: "IamAsi", value: "2625" }, { label: "ihavethere", value: "2650" }, { label: "Iamthemurd", value: "2652" }, { label: "ImmortalMa", value: "2660" }, { label: "Ink", value: "2681" }, { label: "Intercept0", value: "2684" }, { label: "insitu", value: "2693" }, { label: "iwanttoeat", value: "2697" }, { label: "IcedDurian", value: "2707" }, { label: "Inuyasha", value: "2749" }, { label: "IronMaiden", value: "2784" }, { label: "Iateeightc", value: "2787" }, { label: "Incubus", value: "2810" }, { label: "ImperialEx", value: "2818" }, { label: "industrial", value: "2835" }, { label: "Inferior", value: "2896" }, { label: "industryel", value: "2953" }, { label: "Imposter", value: "2980" }, { label: "Invincibil", value: "3148" }, { label: "Issekai", value: "3182" }, { label: "Jealousy", value: "551" }, { label: "JackofAllT", value: "75" }, { label: "Journeytot", value: "677" }, { label: "Josei", value: "876" }, { label: "JujutsuKai", value: "675" }, { label: "Jiangshi", value: "406" }, { label: "JoJo", value: "2740" }, { label: "Jianghu", value: "786" }, { label: "Japan", value: "853" }, { label: "JangSeok-g", value: "1642" }, { label: "Juliet", value: "1658" }, { label: "JOJOWE", value: "1806" }, { label: "joydrummer", value: "1866" }, { label: "Jiutianyu", value: "2029" }, { label: "JuniorSist", value: "2037" }, { label: "jadeeveryy", value: "2198" }, { label: "Jianjiamix", value: "2249" }, { label: "jellyjelly", value: "2365" }, { label: "John117", value: "2508" }, { label: "Jazz", value: "2564" }, { label: "JinglongTa", value: "2643" }, { label: "JunCaiXing", value: "2670" }, { label: "justshout", value: "2676" }, { label: "JoJo&amp03", value: "2741" }, { label: "JackieChan", value: "2750" }, { label: "Judge", value: "3063" }, { label: "Jurassic", value: "3158" }, { label: "KingdomBui", value: "245" }, { label: "Kingdoms", value: "139" }, { label: "Knights", value: "389" }, { label: "KoreanNove", value: "652" }, { label: "KindLoveIn", value: "544" }, { label: "Kingdom-bu", value: "971" }, { label: "Kidnapping", value: "552" }, { label: "Killer", value: "2982" }, { label: "KnightsLev", value: "417" }, { label: "Kuudere", value: "1371" }, { label: "KingdomsKn", value: "317" }, { label: "KindProtag", value: "1031" }, { label: "Knight", value: "1559" }, { label: "King", value: "1745" }, { label: "Kojin", value: "2072" }, { label: "KindomBuil", value: "1027" }, { label: "Koi", value: "1181" }, { label: "Kingdom", value: "1236" }, { label: "KingdomBui", value: "1293" }, { label: "KpopIdols", value: "1337" }, { label: "Kindergart", value: "1370" }, { label: "Kakashi", value: "1491" }, { label: "K-popIdols", value: "1620" }, { label: "KingofDest", value: "1674" }, { label: "KnifePromi", value: "1852" }, { label: "KurongTemp", value: "1858" }, { label: "Kafkajumpi", value: "1887" }, { label: "KwunTong", value: "1898" }, { label: "kingpirate", value: "2044" }, { label: "Killthewor", value: "2056" }, { label: "Kneelingth", value: "2161" }, { label: "KingAsura", value: "2242" }, { label: "KingofMons", value: "2295" }, { label: "keytocome", value: "2323" }, { label: "Knowtheric", value: "2335" }, { label: "Kiritani", value: "2395" }, { label: "KonohaVoll", value: "2403" }, { label: "kingofdeat", value: "2468" }, { label: "KingKonggo", value: "2509" }, { label: "Kneelingan", value: "2678" }, { label: "Knightsand", value: "3067" }, { label: "Korean", value: "3103" }, { label: "LevelSyste", value: "123" }, { label: "Levelup", value: "2961" }, { label: "LuckyProta", value: "207" }, { label: "LoyalSubor", value: "341" }, { label: "LiveBroadc", value: "650" }, { label: "LateRomanc", value: "168" }, { label: "LazyProtag", value: "104" }, { label: "Leadership", value: "419" }, { label: "Low-keyPro", value: "22" }, { label: "LoveatFirs", value: "527" }, { label: "LackofComm", value: "340" }, { label: "Lolicon", value: "313" }, { label: "LoversReun", value: "443" }, { label: "Lawyers", value: "545" }, { label: "LonerProta", value: "364" }, { label: "LoveTriang", value: "848" }, { label: "LongSepara", value: "223" }, { label: "Lightnovel", value: "2959" }, { label: "LoveRivals", value: "948" }, { label: "Lottery", value: "572" }, { label: "Love", value: "1083" }, { label: "LordoftheM", value: "1112" }, { label: "Lovetriang", value: "3027" }, { label: "LivingAlon", value: "399" }, { label: "LowkeyProt", value: "960" }, { label: "Loli", value: "1483" }, { label: "Lovecomedy", value: "2940" }, { label: "LitRPG", value: "3112" }, { label: "LimitedLif", value: "285" }, { label: "ListCreati", value: "687" }, { label: "Legends", value: "140" }, { label: "Livestream", value: "700" }, { label: "LoveContra", value: "1178" }, { label: "LiveStream", value: "1207" }, { label: "LostCivili", value: "42" }, { label: "literature", value: "632" }, { label: "Luck", value: "1182" }, { label: "LuckPlunde", value: "1322" }, { label: "LifeScript", value: "1323" }, { label: "LordAbilit", value: "1328" }, { label: "Legend", value: "1451" }, { label: "Library", value: "1464" }, { label: "Lord", value: "1536" }, { label: "LiWudi", value: "1725" }, { label: "Lillie", value: "2520" }, { label: "Loveafterm", value: "2977" }, { label: "Ldg", value: "3044" }, { label: "LoveIntere", value: "12" }, { label: "LimitlessF", value: "615" }, { label: "LoyalProta", value: "831" }, { label: "Liar", value: "888" }, { label: "LoveandMar", value: "990" }, { label: "LoliProtag", value: "1106" }, { label: "LordGodSpa", value: "1189" }, { label: "LoyalSurbo", value: "1202" }, { label: "LoveIntere", value: "1231" }, { label: "LoveIntere", value: "1260" }, { label: "Long-dista", value: "1461" }, { label: "LeagueofLe", value: "1489" }, { label: "LoveGrowth", value: "1532" }, { label: "LiveBroadc", value: "1578" }, { label: "LowKeyMc", value: "1615" }, { label: "lesstime", value: "1691" }, { label: "LuoTianyi", value: "1716" }, { label: "LikeaDrago", value: "1752" }, { label: "LikeaDrago", value: "1755" }, { label: "Loseafewpo", value: "1775" }, { label: "LeiJiedoes", value: "1782" }, { label: "LordoftheS", value: "1829" }, { label: "Lonelynota", value: "1838" }, { label: "LuoWei", value: "1846" }, { label: "littlehson", value: "1851" }, { label: "LonelyCity", value: "1859" }, { label: "LiverPigeo", value: "1877" }, { label: "littlezlov", value: "1884" }, { label: "littlemoon", value: "1893" }, { label: "LaoLaoXu", value: "1922" }, { label: "Lingran", value: "1939" }, { label: "LacquerNig", value: "1955" }, { label: "lazydevil", value: "1976" }, { label: "LuDehua", value: "1985" }, { label: "littledemo", value: "1990" }, { label: "littlefox", value: "2007" }, { label: "Lightnings", value: "2020" }, { label: "Lovesnacks", value: "2042" }, { label: "littleahxi", value: "2054" }, { label: "laurel", value: "2058" }, { label: "LoneCloudP", value: "2094" }, { label: "lackofboat", value: "2120" }, { label: "LongMengme", value: "2140" }, { label: "littlebrot", value: "2145" }, { label: "lemonandsi", value: "2149" }, { label: "LiMumu", value: "2155" }, { label: "LameHaoisa", value: "2162" }, { label: "littlesuns", value: "2176" }, { label: "LordZhangj", value: "2190" }, { label: "Leapeveryd", value: "2197" }, { label: "littledevi", value: "2211" }, { label: "littlefing", value: "2239" }, { label: "Longpigeon", value: "2245" }, { label: "LiuYujun", value: "2280" }, { label: "Leisurelys", value: "2289" }, { label: "langyalist", value: "2292" }, { label: "Longliveth", value: "2297" }, { label: "longlivemy", value: "2316" }, { label: "LY", value: "2324" }, { label: "lonelyboy", value: "2359" }, { label: "laborhonor", value: "2399" }, { label: "LuoXIV", value: "2407" }, { label: "littlewind", value: "2429" }, { label: "Longlivesa", value: "2435" }, { label: "LinZhengyi", value: "2450" }, { label: "LikeMeiAox", value: "2459" }, { label: "LordTiansh", value: "2488" }, { label: "Longliveth", value: "2531" }, { label: "LingshanIs", value: "2532" }, { label: "LinXiufigh", value: "2539" }, { label: "listentoth", value: "2590" }, { label: "lu11034363", value: "2612" }, { label: "LinBei", value: "2620" }, { label: "Lindentree", value: "2628" }, { label: "LuoYuqianq", value: "2633" }, { label: "LiJunhao", value: "2636" }, { label: "lovetease", value: "2666" }, { label: "littledete", value: "2687" }, { label: "Low-keylux", value: "2699" }, { label: "littlecray", value: "2703" }, { label: "lendmefive", value: "2718" }, { label: "littlewate", value: "2727" }, { label: "longlivedm", value: "2735" }, { label: "\u96F6\u5145", value: "2783" }, { label: "LeiXunqing", value: "2798" }, { label: "LoyalSubor", value: "2814" }, { label: "lazy", value: "2827" }, { label: "LittleWhit", value: "2836" }, { label: "LaidBack", value: "2850" }, { label: "ListAdvent", value: "2863" }, { label: "LongStrip", value: "2864" }, { label: "Lucky", value: "2873" }, { label: "Life", value: "2897" }, { label: "Littlebun", value: "3073" }, { label: "Levelingup", value: "3088" }, { label: "Loneliness", value: "3248" }, { label: "MaleProtag", value: "23" }, { label: "Magic", value: "141" }, { label: "ModernDay", value: "3" }, { label: "Monsters", value: "161" }, { label: "Marvel", value: "342" }, { label: "ModernWorl", value: "276" }, { label: "Misunderst", value: "1009" }, { label: "Misunderst", value: "80" }, { label: "MultipleRe", value: "94" }, { label: "Marriage", value: "46" }, { label: "Mystery", value: "701" }, { label: "MagicalSpa", value: "79" }, { label: "Martialart", value: "51" }, { label: "Military", value: "13" }, { label: "ModernKnow", value: "48" }, { label: "MedicalKno", value: "114" }, { label: "Mpreg", value: "402" }, { label: "Modern", value: "414" }, { label: "MMORPG", value: "337" }, { label: "MonsterTam", value: "81" }, { label: "MultipleId", value: "412" }, { label: "MaleYander", value: "515" }, { label: "MagicBeast", value: "242" }, { label: "Mysterious", value: "332" }, { label: "modernfant", value: "2852" }, { label: "Mythology", value: "143" }, { label: "MultiplePO", value: "171" }, { label: "Movies", value: "250" }, { label: "MysterySol", value: "424" }, { label: "MoneyGrubb", value: "230" }, { label: "MythicalBe", value: "142" }, { label: "MartialSpi", value: "231" }, { label: "MatureProt", value: "383" }, { label: "Munchkin", value: "3219" }, { label: "Music", value: "251" }, { label: "MagicForma", value: "77" }, { label: "MarvelUniv", value: "343" }, { label: "Mecha", value: "618" }, { label: "MiddleAges", value: "3211" }, { label: "ManlyGayCo", value: "995" }, { label: "MagicalTec", value: "400" }, { label: "MultiplePr", value: "490" }, { label: "Mercenarie", value: "211" }, { label: "Mutations", value: "216" }, { label: "Management", value: "464" }, { label: "Maids", value: "531" }, { label: "MaletoFema", value: "563" }, { label: "Medieval", value: "590" }, { label: "Mature", value: "2824" }, { label: "MutatedCre", value: "533" }, { label: "Medicine", value: "614" }, { label: "Mafia", value: "1533" }, { label: "Myth", value: "3054" }, { label: "MobProtago", value: "409" }, { label: "Murders", value: "595" }, { label: "MaleLead", value: "790" }, { label: "Mutation", value: "856" }, { label: "MultipleTi", value: "411" }, { label: "Matriarchy", value: "715" }, { label: "Merchants", value: "1411" }, { label: "modernlove", value: "1632" }, { label: "Murder", value: "124" }, { label: "MindContro", value: "221" }, { label: "MyHeroAcad", value: "693" }, { label: "Models", value: "444" }, { label: "Masturbati", value: "366" }, { label: "ModernDays", value: "797" }, { label: "MultipleWo", value: "858" }, { label: "MartialArt", value: "1046" }, { label: "MaleProtag", value: "2759" }, { label: "Multiplele", value: "3111" }, { label: "Mythical", value: "592" }, { label: "MultipleCP", value: "766" }, { label: "Monster", value: "935" }, { label: "Multiverse", value: "1111" }, { label: "MaleMc", value: "1199" }, { label: "magicalgir", value: "1358" }, { label: "MuteCharac", value: "1410" }, { label: "MassiveHar", value: "1561" }, { label: "MrMo", value: "1652" }, { label: "Mercenary", value: "629" }, { label: "Mangaka", value: "1374" }, { label: "MagicWorld", value: "1625" }, { label: "mermaid", value: "2734" }, { label: "MingDynast", value: "2845" }, { label: "Medical", value: "2881" }, { label: "Marysue", value: "3033" }, { label: "Mysterious", value: "176" }, { label: "MonsterGir", value: "357" }, { label: "Monogamy", value: "910" }, { label: "Male-Lead", value: "940" }, { label: "MartialSpi", value: "962" }, { label: "Male-Prota", value: "980" }, { label: "MaleProtag", value: "988" }, { label: "Mob", value: "1185" }, { label: "multiplere", value: "1257" }, { label: "Mysterious", value: "1357" }, { label: "ModernRoma", value: "1378" }, { label: "Mystical", value: "1458" }, { label: "Meowingbig", value: "1938" }, { label: "MarvelKing", value: "1960" }, { label: "ModernLife", value: "2767" }, { label: "mysteries", value: "2840" }, { label: "Master-Dis", value: "24" }, { label: "Masochisti", value: "365" }, { label: "Marriageof", value: "401" }, { label: "MultipleRe", value: "508" }, { label: "MultipleTr", value: "509" }, { label: "Master-Ser", value: "518" }, { label: "Manipulati", value: "607" }, { label: "MaleMain-l", value: "722" }, { label: "Married", value: "735" }, { label: "Master-App", value: "740" }, { label: "MultiplePe", value: "743" }, { label: "Mage", value: "763" }, { label: "MultipleTr", value: "764" }, { label: "MultiplePo", value: "802" }, { label: "Maleprotag", value: "825" }, { label: "Mismatched", value: "847" }, { label: "Mutualcrus", value: "874" }, { label: "MultipleMo", value: "882" }, { label: "MoneyGrumb", value: "907" }, { label: "MultipleHi", value: "911" }, { label: "MutantPowe", value: "929" }, { label: "ModerDays", value: "967" }, { label: "MultipleBo", value: "1005" }, { label: "Middleage", value: "1011" }, { label: "MagicalAbi", value: "1017" }, { label: "Millionair", value: "1024" }, { label: "MultipleVe", value: "1040" }, { label: "Manipulati", value: "1057" }, { label: "MindReader", value: "1064" }, { label: "MorallyAmb", value: "1075" }, { label: "MCStrongFr", value: "1098" }, { label: "MemoryLoss", value: "1107" }, { label: "MarriageCo", value: "1138" }, { label: "Maid", value: "1160" }, { label: "Misunderst", value: "1165" }, { label: "Mutan", value: "1174" }, { label: "MagicalBat", value: "1188" }, { label: "Ministryof", value: "1212" }, { label: "MrSly", value: "1213" }, { label: "MsPerfect", value: "1214" }, { label: "MultipleWo", value: "1223" }, { label: "Mukbang", value: "1240" }, { label: "MonsterTar", value: "1276" }, { label: "Mimicry", value: "1312" }, { label: "Multipleid", value: "1335" }, { label: "Matchmadei", value: "1347" }, { label: "Morallessp", value: "1350" }, { label: "MemoryReve", value: "1352" }, { label: "MarriedCou", value: "1367" }, { label: "MindBreak", value: "1403" }, { label: "MaleProtag", value: "1507" }, { label: "MovieDirec", value: "1517" }, { label: "Modernhist", value: "1543" }, { label: "Moneylaund", value: "1544" }, { label: "Misunderst", value: "1604" }, { label: "Massive", value: "1606" }, { label: "Mysterious", value: "1621" }, { label: "MedicalKno", value: "1622" }, { label: "marvelworl", value: "1631" }, { label: "math", value: "1633" }, { label: "Moonwing", value: "1640" }, { label: "MentalIlln", value: "1665" }, { label: "Mojunsheep", value: "1677" }, { label: "Mountainsa", value: "1709" }, { label: "MaskedAce", value: "1715" }, { label: "musicwilll", value: "1767" }, { label: "Moonsea", value: "1774" }, { label: "moonbug", value: "1783" }, { label: "Mingjiao", value: "1797" }, { label: "MarquisofB", value: "1805" }, { label: "Mr.EasyPro", value: "1831" }, { label: "MingjiaoTi", value: "1879" }, { label: "MoXueqing", value: "1882" }, { label: "\u6155\u9633", value: "1907" }, { label: "MynameisDa", value: "1929" }, { label: "meowmeow", value: "1932" }, { label: "movingbean", value: "1987" }, { label: "Mountainsa", value: "2002" }, { label: "meetthebea", value: "2013" }, { label: "Mistresspl", value: "2015" }, { label: "man", value: "2048" }, { label: "MistyFlyin", value: "2057" }, { label: "mustdo", value: "2060" }, { label: "mudbodhisa", value: "2078" }, { label: "mylittlesi", value: "2079" }, { label: "moreandmor", value: "2080" }, { label: "Masquerade", value: "2103" }, { label: "makeamirac", value: "2109" }, { label: "Miluo", value: "2124" }, { label: "mynameista", value: "2127" }, { label: "Masterball", value: "2134" }, { label: "milkgrandm", value: "2154" }, { label: "MojiaHills", value: "2214" }, { label: "millionord", value: "2231" }, { label: "MagicTides", value: "2244" }, { label: "MojiaAeros", value: "2253" }, { label: "mythunpara", value: "2264" }, { label: "MangoKK", value: "2293" }, { label: "mythicalma", value: "2296" }, { label: "mywife", value: "2303" }, { label: "Moonlikeah", value: "2325" }, { label: "maninnarut", value: "2337" }, { label: "mapleleafb", value: "2354" }, { label: "MarvelPudd", value: "2416" }, { label: "Mr.Huo", value: "2421" }, { label: "Moyangison", value: "2447" }, { label: "mythicalfi", value: "2454" }, { label: "MagicOne", value: "2478" }, { label: "mixedintwo", value: "2481" }, { label: "Mofamily", value: "2498" }, { label: "MyLubanThi", value: "2503" }, { label: "Makeafortu", value: "2517" }, { label: "MoonlightS", value: "2535" }, { label: "MaskedArmo", value: "2548" }, { label: "medicineme", value: "2571" }, { label: "mambafight", value: "2597" }, { label: "mywifeisya", value: "2635" }, { label: "Moedye", value: "2672" }, { label: "MasterofSi", value: "2688" }, { label: "\u840C\u56FE", value: "2700" }, { label: "Milkgather", value: "2713" }, { label: "mindreadin", value: "2730" }, { label: "Malemainch", value: "2736" }, { label: "Merchant", value: "2744" }, { label: "MoeShinkaw", value: "2788" }, { label: "Motherland", value: "2792" }, { label: "Manhua", value: "2865" }, { label: "MxM", value: "2887" }, { label: "machine", value: "2922" }, { label: "medicalfem", value: "2950" }, { label: "Miracledoc", value: "2956" }, { label: "Motivation", value: "2957" }, { label: "Mechs", value: "2962" }, { label: "MechDesign", value: "2963" }, { label: "Moe", value: "3003" }, { label: "MultipleBo", value: "3062" }, { label: "Merging", value: "3071" }, { label: "Multiplele", value: "3085" }, { label: "MagicDrago", value: "3091" }, { label: "Monstergro", value: "3108" }, { label: "Multiworld", value: "3113" }, { label: "Mostertami", value: "3133" }, { label: "Mag", value: "3157" }, { label: "MonsterCat", value: "3159" }, { label: "Mutatedbea", value: "3181" }, { label: "Milf", value: "3202" }, { label: "Martialart", value: "3235" }, { label: "Naruto", value: "116" }, { label: "Nationalis", value: "110" }, { label: "Nobles", value: "172" }, { label: "NaiveProta", value: "82" }, { label: "NoRomance", value: "672" }, { label: "NoCp", value: "1208" }, { label: "Ninjas", value: "247" }, { label: "Necromance", value: "574" }, { label: "NonHuman", value: "1623" }, { label: "Non-System", value: "654" }, { label: "Netori", value: "84" }, { label: "Near-Death", value: "83" }, { label: "NA", value: "613" }, { label: "No-Harem", value: "3079" }, { label: "NBA", value: "459" }, { label: "NoHarem", value: "832" }, { label: "Netorare", value: "360" }, { label: "Npc", value: "3165" }, { label: "Nocheats", value: "3172" }, { label: "Non-humanP", value: "1382" }, { label: "Nightmare", value: "125" }, { label: "Nurses", value: "440" }, { label: "Nightmares", value: "890" }, { label: "Necromancy", value: "2939" }, { label: "NoSystem", value: "1131" }, { label: "NonHumanPr", value: "1132" }, { label: "Navy", value: "1359" }, { label: "Nine-Taile", value: "2038" }, { label: "Noble", value: "1203" }, { label: "nightsilen", value: "1738" }, { label: "NangongHan", value: "1975" }, { label: "Non-humano", value: "281" }, { label: "Narcissist", value: "565" }, { label: "NoPairing", value: "803" }, { label: "Napoleon", value: "1081" }, { label: "ninja", value: "1375" }, { label: "Neet", value: "1433" }, { label: "Nerd", value: "1518" }, { label: "Nobility", value: "1537" }, { label: "NationBuil", value: "1626" }, { label: "\u9955\u725B", value: "1682" }, { label: "nightfire", value: "1714" }, { label: "Ninjapirat", value: "1718" }, { label: "NinefoldSe", value: "1809" }, { label: "NineWarsof", value: "1931" }, { label: "Nosnacks", value: "1933" }, { label: "NiuBao", value: "1936" }, { label: "Nanshen", value: "2163" }, { label: "NiangkouSa", value: "2202" }, { label: "Nine-color", value: "2288" }, { label: "NarutoClou", value: "2330" }, { label: "narutoceda", value: "2334" }, { label: "NarutoQuiz", value: "2340" }, { label: "notscary", value: "2342" }, { label: "notlevelth", value: "2439" }, { label: "neverfail", value: "2442" }, { label: "NarutoxRea", value: "2460" }, { label: "noncat", value: "2461" }, { label: "Nidouzi", value: "2462" }, { label: "Nowadays", value: "2482" }, { label: "Noless", value: "2576" }, { label: "nightdance", value: "2602" }, { label: "NoGoldFing", value: "2918" }, { label: "NoblesPoli", value: "2933" }, { label: "NTL", value: "2936" }, { label: "Non-HumanM", value: "2937" }, { label: "no-misunde", value: "3137" }, { label: "NSFW", value: "3200" }, { label: "Novel", value: "3238" }, { label: "Non-linear", value: "3249" }, { label: "OnePiece", value: "117" }, { label: "Obsession", value: "2851" }, { label: "Overpowere", value: "2955" }, { label: "OuterSpace", value: "220" }, { label: "Omegaverse", value: "14" }, { label: "OlderLoveI", value: "177" }, { label: "OPMC", value: "862" }, { label: "Orphans", value: "358" }, { label: "Otaku", value: "478" }, { label: "ObsessiveL", value: "468" }, { label: "Orcs", value: "537" }, { label: "OrganizedC", value: "529" }, { label: "OnlineRoma", value: "536" }, { label: "OfficeRoma", value: "578" }, { label: "Overpowere", value: "1058" }, { label: "OPProtagon", value: "787" }, { label: "OnlineGame", value: "936" }, { label: "Ordinary", value: "3132" }, { label: "Orphan", value: "777" }, { label: "Organizati", value: "1114" }, { label: "onlyloveyo", value: "1804" }, { label: "Original", value: "3059" }, { label: "Onlinegami", value: "3070" }, { label: "overpower", value: "3229" }, { label: "Overpowere", value: "25" }, { label: "OnePunchMa", value: "680" }, { label: "Orc", value: "840" }, { label: "Operation", value: "2754" }, { label: "Onenightst", value: "3046" }, { label: "Overprotec", value: "697" }, { label: "OPheroine", value: "1039" }, { label: "On-HookSys", value: "1220" }, { label: "Orientalfa", value: "1448" }, { label: "Otherworld", value: "1530" }, { label: "Orphaned", value: "1535" }, { label: "Officialdo", value: "1545" }, { label: "OrphanMC", value: "1570" }, { label: "Orcsworld", value: "1589" }, { label: "Onepunch", value: "1596" }, { label: "openasmall", value: "1659" }, { label: "oldage", value: "1761" }, { label: "OldQinpeop", value: "1853" }, { label: "OneSwordFl", value: "1890" }, { label: "oldfisheat", value: "1899" }, { label: "Onethousan", value: "1935" }, { label: "Otezetta", value: "1971" }, { label: "olddemon", value: "1983" }, { label: "Obanbrothe", value: "2009" }, { label: "orangeappl", value: "2104" }, { label: "onparadise", value: "2142" }, { label: "OriginalUn", value: "2178" }, { label: "Openyourey", value: "2191" }, { label: "oooobe", value: "2251" }, { label: "ohmygod", value: "2307" }, { label: "Oldghostsm", value: "2319" }, { label: "OTTGroupCh", value: "2332" }, { label: "oldtombrob", value: "2343" }, { label: "Onepunchmo", value: "2370" }, { label: "OneLeafRed", value: "2375" }, { label: "oldfaceunc", value: "2579" }, { label: "OriginalYe", value: "2587" }, { label: "Oneflower", value: "2593" }, { label: "onetree", value: "2594" }, { label: "onemelonri", value: "2595" }, { label: "Oneyearold", value: "2603" }, { label: "onlyyouth", value: "2609" }, { label: "Onepunchto", value: "2616" }, { label: "Origuchi", value: "2623" }, { label: "onemeterst", value: "2675" }, { label: "One-Piece", value: "2732" }, { label: "offical", value: "2756" }, { label: "OverheadHi", value: "2764" }, { label: "Official", value: "2874" }, { label: "Olderlovei", value: "2900" }, { label: "Over-Power", value: "2902" }, { label: "omega", value: "2911" }, { label: "OpFemalePr", value: "2914" }, { label: "Overlord", value: "2997" }, { label: "Otherworld", value: "3099" }, { label: "Orientalmy", value: "3110" }, { label: "Overpowere", value: "3185" }, { label: "Outdoors", value: "3205" }, { label: "Officialwo", value: "3237" }, { label: "Onlinegame", value: "3240" }, { label: "PoortoRich", value: "27" }, { label: "Politics", value: "289" }, { label: "Pets", value: "105" }, { label: "Possession", value: "410" }, { label: "Polygamy", value: "174" }, { label: "Pregnancy", value: "384" }, { label: "Possessive", value: "4" }, { label: "Post-apoca", value: "217" }, { label: "Pokemon", value: "555" }, { label: "PowerCoupl", value: "193" }, { label: "ParallelWo", value: "252" }, { label: "PureLove", value: "2858" }, { label: "Pirates", value: "390" }, { label: "Police", value: "558" }, { label: "PastPlaysa", value: "371" }, { label: "PreviousLi", value: "224" }, { label: "Powerfulco", value: "945" }, { label: "PoorProtag", value: "451" }, { label: "PastTrauma", value: "583" }, { label: "Possessive", value: "2888" }, { label: "PervertedP", value: "173" }, { label: "PopularLov", value: "547" }, { label: "PillConcot", value: "626" }, { label: "PillConcoc", value: "235" }, { label: "PrinceofTe", value: "649" }, { label: "Poisons", value: "447" }, { label: "PowerStrug", value: "587" }, { label: "PragmaticP", value: "428" }, { label: "Psychologi", value: "1611" }, { label: "PlayfulPro", value: "589" }, { label: "ParallelWo", value: "852" }, { label: "Polyandry", value: "530" }, { label: "ProactiveP", value: "854" }, { label: "Psychopath", value: "480" }, { label: "Prison", value: "584" }, { label: "Parody", value: "919" }, { label: "Princess", value: "1119" }, { label: "Positive", value: "2968" }, { label: "PillBasedC", value: "26" }, { label: "PsychicPow", value: "918" }, { label: "Pharmacist", value: "501" }, { label: "Personalit", value: "1327" }, { label: "ParentComp", value: "446" }, { label: "Prostitute", value: "1409" }, { label: "PreviousLi", value: "325" }, { label: "Pet", value: "789" }, { label: "Priests", value: "794" }, { label: "PretendLov", value: "1197" }, { label: "Pilots", value: "1331" }, { label: "Playboys", value: "1435" }, { label: "Programmer", value: "208" }, { label: "Poetry", value: "609" }, { label: "PoliteProt", value: "1415" }, { label: "Prophecies", value: "525" }, { label: "PortableSp", value: "930" }, { label: "Protagonis", value: "1245" }, { label: "Precogniti", value: "1427" }, { label: "Persistent", value: "271" }, { label: "PamperingR", value: "377" }, { label: "PerfectWor", value: "684" }, { label: "Possessive", value: "716" }, { label: "Paranoid", value: "887" }, { label: "Primitivew", value: "1061" }, { label: "President", value: "1316" }, { label: "Pirate", value: "1376" }, { label: "Phoenixes", value: "1420" }, { label: "Paizuri", value: "1429" }, { label: "Part-TimeJ", value: "1434" }, { label: "PrinceQing", value: "2502" }, { label: "Parasites", value: "43" }, { label: "Protagonis", value: "175" }, { label: "Protagonis", value: "318" }, { label: "Protagonis", value: "403" }, { label: "Philosophi", value: "608" }, { label: "poems", value: "633" }, { label: "Protagonis", value: "644" }, { label: "Protagonis", value: "694" }, { label: "Painting", value: "741" }, { label: "Players", value: "767" }, { label: "PoliticalS", value: "804" }, { label: "PovertyAll", value: "805" }, { label: "PseudoHolo", value: "806" }, { label: "PseudoReli", value: "807" }, { label: "Playboymal", value: "814" }, { label: "PastPlaysa", value: "932" }, { label: "Prehistori", value: "942" }, { label: "Prehistori", value: "959" }, { label: "Partnerofa", value: "964" }, { label: "PositiveLe", value: "1019" }, { label: "PlayingGho", value: "1062" }, { label: "Protagonis", value: "1117" }, { label: "Puzzles", value: "1122" }, { label: "PoorRoRich", value: "1129" }, { label: "Psychology", value: "1140" }, { label: "Parasite", value: "1153" }, { label: "Player", value: "1162" }, { label: "PlayerKill", value: "1277" }, { label: "PresentDay", value: "1340" }, { label: "Photograph", value: "1449" }, { label: "ParalelWor", value: "1479" }, { label: "Priestesse", value: "1503" }, { label: "Pills", value: "1520" }, { label: "Professor", value: "1571" }, { label: "PoliticalI", value: "1574" }, { label: "Patriarch", value: "1593" }, { label: "PowersTran", value: "1600" }, { label: "Psychic", value: "1601" }, { label: "PoisonMout", value: "1605" }, { label: "Poorcrazy", value: "1637" }, { label: "PeerlessSw", value: "1643" }, { label: "Peerlessso", value: "1647" }, { label: "perfectmag", value: "1651" }, { label: "PirateDaQi", value: "1702" }, { label: "Piratehaha", value: "1766" }, { label: "Punch", value: "1814" }, { label: "part-timeo", value: "1875" }, { label: "pleasantin", value: "1896" }, { label: "PlayBlueMo", value: "1919" }, { label: "pendreamst", value: "1947" }, { label: "Positiveel", value: "1954" }, { label: "plumthirte", value: "2005" }, { label: "PirateGrea", value: "2010" }, { label: "Pok\xE9monVo", value: "2014" }, { label: "panic", value: "2026" }, { label: "Pipifish", value: "2088" }, { label: "paleandwhi", value: "2118" }, { label: "purekitten", value: "2339" }, { label: "Pirateacto", value: "2346" }, { label: "PirateWars", value: "2367" }, { label: "Pok\xE9monTi", value: "2369" }, { label: "PopeBibiDo", value: "2371" }, { label: "PirateCour", value: "2372" }, { label: "petsurviva", value: "2389" }, { label: "pureimpuls", value: "2414" }, { label: "PiratexFai", value: "2434" }, { label: "pigeonnext", value: "2469" }, { label: "Peoplenear", value: "2510" }, { label: "Papaisvery", value: "2521" }, { label: "Piscesinth", value: "2566" }, { label: "potatogirl", value: "2606" }, { label: "PiratesofH", value: "2629" }, { label: "Pok\xE9monGo", value: "2640" }, { label: "pendragon", value: "2708" }, { label: "PrinceofHe", value: "2729" }, { label: "Protagonis", value: "2739" }, { label: "psionic", value: "2774" }, { label: "Pleaseforg", value: "2785" }, { label: "Peasant", value: "2797" }, { label: "PhantomThi", value: "2801" }, { label: "Photograph", value: "2828" }, { label: "Programmin", value: "2869" }, { label: "PlaneWars", value: "2879" }, { label: "PrimitiveT", value: "2906" }, { label: "Poor", value: "2930" }, { label: "Prince", value: "2935" }, { label: "palace", value: "2948" }, { label: "Preview", value: "3005" }, { label: "Popular", value: "3017" }, { label: "PrettyGirl", value: "3018" }, { label: "Pamper", value: "3041" }, { label: "Princeandp", value: "3065" }, { label: "Petbeasts", value: "3080" }, { label: "Putin", value: "3086" }, { label: "Parallelsp", value: "3120" }, { label: "Passiveski", value: "3136" }, { label: "Payback", value: "3166" }, { label: "QuickTrans", value: "449" }, { label: "qidian", value: "2943" }, { label: "Quickwear", value: "1143" }, { label: "QuirkyChar", value: "1402" }, { label: "QiLuck", value: "1244" }, { label: "QuietChara", value: "1372" }, { label: "qimao", value: "3214" }, { label: "QuickPass", value: "1227" }, { label: "QuickTrans", value: "1259" }, { label: "Question&a", value: "1334" }, { label: "QT", value: "1379" }, { label: "QuickTrans", value: "1602" }, { label: "quietflowe", value: "1698" }, { label: "Qingfeng1D", value: "1701" }, { label: "QinBichu", value: "1706" }, { label: "Quasi-GodS", value: "1768" }, { label: "Qingliansw", value: "1819" }, { label: "QingheTaoi", value: "1885" }, { label: "quitesharp", value: "1952" }, { label: "QiXuan", value: "1969" }, { label: "qingyu", value: "2215" }, { label: "QueenofBla", value: "2302" }, { label: "Quququ", value: "2496" }, { label: "QianshanTw", value: "2600" }, { label: "\u6E05\u88C1", value: "2722" }, { label: "Reincarnat", value: "95" }, { label: "Romance", value: "689" }, { label: "R18", value: "1095" }, { label: "Rebirth", value: "28" }, { label: "Revenge", value: "126" }, { label: "RomanticSu", value: "225" }, { label: "Racism", value: "111" }, { label: "RuthlessPr", value: "203" }, { label: "Royalty", value: "15" }, { label: "RebirthedP", value: "643" }, { label: "Rape", value: "236" }, { label: "Regret", value: "2853" }, { label: "Regression", value: "2856" }, { label: "R-18", value: "553" }, { label: "ReverseHar", value: "212" }, { label: "R-15", value: "617" }, { label: "Religions", value: "591" }, { label: "Resurrecti", value: "222" }, { label: "Rarebloodl", value: "2988" }, { label: "Royalfamil", value: "2995" }, { label: "Rpe", value: "5" }, { label: "ReverseRap", value: "1412" }, { label: "RighteousP", value: "778" }, { label: "RomanceFan", value: "2854" }, { label: "Reborn", value: "899" }, { label: "RaceChange", value: "407" }, { label: "Rivalry", value: "884" }, { label: "RichProtag", value: "875" }, { label: "Restaurant", value: "896" }, { label: "Roommates", value: "996" }, { label: "Richfamily", value: "999" }, { label: "Reikyrecov", value: "713" }, { label: "Rich", value: "827" }, { label: "RichtoPoor", value: "889" }, { label: "RuthlessMc", value: "1033" }, { label: "Reporters", value: "1462" }, { label: "Righteous", value: "2973" }, { label: "Richdaught", value: "2979" }, { label: "Reversal", value: "3215" }, { label: "RapeVictim", value: "6" }, { label: "Reunion", value: "1067" }, { label: "RimuruTemp", value: "1193" }, { label: "relaxed", value: "1384" }, { label: "Rebellion", value: "1432" }, { label: "Rideawhale", value: "1670" }, { label: "riversande", value: "1862" }, { label: "Redemption", value: "2859" }, { label: "RPG", value: "2892" }, { label: "RPGSystem", value: "3179" }, { label: "Reincarnat", value: "354" }, { label: "Returningf", value: "355" }, { label: "Reincarnat", value: "408" }, { label: "Reincarnat", value: "502" }, { label: "Rune", value: "754" }, { label: "RomanticSu", value: "868" }, { label: "RookieProt", value: "951" }, { label: "Reincarnat", value: "1007" }, { label: "robots", value: "1044" }, { label: "Regressor", value: "1163" }, { label: "Ras", value: "1274" }, { label: "ReverseRpe", value: "1286" }, { label: "Ruthless", value: "1298" }, { label: "Researcher", value: "1302" }, { label: "reincarnat", value: "1348" }, { label: "RpeVictimB", value: "1354" }, { label: "RankingLis", value: "1356" }, { label: "ReikiRecov", value: "1389" }, { label: "Russian", value: "1390" }, { label: "Reversible", value: "1436" }, { label: "Reincarnat", value: "1452" }, { label: "RedAlert2", value: "1474" }, { label: "RapeVictim", value: "1481" }, { label: "RomanticPr", value: "1486" }, { label: "Russia", value: "1546" }, { label: "Redalert", value: "1552" }, { label: "Role-Playi", value: "1558" }, { label: "Reincarnat", value: "1563" }, { label: "ReligousOr", value: "1572" }, { label: "ReligiousO", value: "1599" }, { label: "RinYueqing", value: "1644" }, { label: "runawaycit", value: "1663" }, { label: "runawayant", value: "1692" }, { label: "RoyalSabur", value: "1807" }, { label: "reversesmo", value: "1903" }, { label: "Rapeseedra", value: "2016" }, { label: "Ruoshuithr", value: "2096" }, { label: "rainandsno", value: "2111" }, { label: "reallyking", value: "2137" }, { label: "restaurant", value: "2143" }, { label: "recreation", value: "2180" }, { label: "Residencen", value: "2256" }, { label: "richeveryy", value: "2388" }, { label: "RabbitToot", value: "2411" }, { label: "Roon", value: "2431" }, { label: "raisedache", value: "2473" }, { label: "Raiseaghos", value: "2486" }, { label: "Rotaryhotp", value: "2513" }, { label: "rainboweig", value: "2558" }, { label: "Resurrecti", value: "2580" }, { label: "RedDustDru", value: "2617" }, { label: "rainydaywi", value: "2668" }, { label: "Realmmonst", value: "2692" }, { label: "Residentev", value: "2745" }, { label: "RiseofGras", value: "2819" }, { label: "Reiki", value: "2870" }, { label: "Reincarnat", value: "2932" }, { label: "Reverse", value: "2934" }, { label: "Romanticlo", value: "2975" }, { label: "Romancecom", value: "3048" }, { label: "Races", value: "3096" }, { label: "Righteousn", value: "3134" }, { label: "Rise", value: "3146" }, { label: "Return", value: "3222" }, { label: "reasoning", value: "3224" }, { label: "RanchFarmi", value: "3234" }, { label: "System", value: "204" }, { label: "SystemAdmi", value: "76" }, { label: "SecondChan", value: "30" }, { label: "SpecialAbi", value: "183" }, { label: "Showbiz", value: "58" }, { label: "Superpower", value: "463" }, { label: "SliceofLif", value: "765" }, { label: "Survival", value: "112" }, { label: "SlowRomanc", value: "194" }, { label: "Sign-InChe", value: "653" }, { label: "StrongtoSt", value: "264" }, { label: "SwordAndMa", value: "182" }, { label: "ShamelessP", value: "96" }, { label: "StrongLove", value: "214" }, { label: "Scientists", value: "477" }, { label: "SemeProtag", value: "564" }, { label: "SuperTechn", value: "645" }, { label: "SurvivalGa", value: "362" }, { label: "SummoningM", value: "246" }, { label: "SwordWield", value: "99" }, { label: "SlowGrowth", value: "282" }, { label: "StrongProt", value: "657" }, { label: "Strongfrom", value: "197" }, { label: "SmartCoupl", value: "415" }, { label: "Strategist", value: "604" }, { label: "Slaves", value: "181" }, { label: "Sweetlove", value: "2958" }, { label: "SchoolLife", value: "707" }, { label: "ShoujoAi", value: "708" }, { label: "SecretIden", value: "179" }, { label: "Soccer", value: "405" }, { label: "SuddenWeal", value: "458" }, { label: "StrongBack", value: "671" }, { label: "Supernatur", value: "772" }, { label: "SicklyChar", value: "540" }, { label: "StoreOwner", value: "74" }, { label: "Swordsman", value: "622" }, { label: "Singers", value: "253" }, { label: "Sports", value: "674" }, { label: "Spaceship", value: "283" }, { label: "StrategicB", value: "298" }, { label: "Sci-fi", value: "755" }, { label: "SweetText", value: "781" }, { label: "Smut", value: "2984" }, { label: "SecretOrga", value: "596" }, { label: "SecretOrga", value: "992" }, { label: "Summons", value: "1050" }, { label: "Spirits", value: "484" }, { label: "SpaceOpera", value: "619" }, { label: "Sweet", value: "866" }, { label: "SectDevelo", value: "31" }, { label: "SexualAbus", value: "505" }, { label: "SinglePare", value: "594" }, { label: "SentientSk", value: "656" }, { label: "Soldiers", value: "263" }, { label: "Shoujo-AiS", value: "455" }, { label: "Souls", value: "546" }, { label: "SisterComp", value: "356" }, { label: "SlaveProta", value: "570" }, { label: "Shounen-Ai", value: "720" }, { label: "Sects", value: "867" }, { label: "SuddenStre", value: "1086" }, { label: "Sciencefic", value: "1268" }, { label: "Salvation", value: "2867" }, { label: "SkillAssim", value: "385" }, { label: "Siblings", value: "520" }, { label: "SoulPower", value: "566" }, { label: "SummonedHe", value: "397" }, { label: "Space", value: "830" }, { label: "SkillBooks", value: "441" }, { label: "SerialKill", value: "486" }, { label: "Summoner", value: "711" }, { label: "SecretCrus", value: "753" }, { label: "StrongFema", value: "1041" }, { label: "Shapeshift", value: "1619" }, { label: "SpecialAbi", value: "127" }, { label: "Secrets", value: "180" }, { label: "Saints", value: "394" }, { label: "StraightUk", value: "727" }, { label: "SmartMC", value: "1034" }, { label: "SealedPowe", value: "178" }, { label: "SavingtheW", value: "492" }, { label: "StockholmS", value: "506" }, { label: "SelfishPro", value: "538" }, { label: "smartprota", value: "721" }, { label: "StrongMC", value: "746" }, { label: "Schemesand", value: "883" }, { label: "Shapeshift", value: "1416" }, { label: "Scary", value: "3089" }, { label: "SecretiveP", value: "326" }, { label: "ShortStory", value: "352" }, { label: "SkillCreat", value: "386" }, { label: "StubbornPr", value: "479" }, { label: "ShyCharact", value: "599" }, { label: "SigninChec", value: "683" }, { label: "Superstar", value: "1395" }, { label: "Singlefema", value: "2972" }, { label: "SpiritAdvi", value: "98" }, { label: "SelflessPr", value: "351" }, { label: "SadisticCh", value: "456" }, { label: "SpearWield", value: "585" }, { label: "summon", value: "611" }, { label: "Superpower", value: "791" }, { label: "Suicides", value: "823" }, { label: "Sign-in", value: "826" }, { label: "StrongCoup", value: "984" }, { label: "Simulator", value: "1008" }, { label: "StoicChara", value: "1078" }, { label: "Seduction", value: "1383" }, { label: "Servants", value: "1418" }, { label: "SexSlaves", value: "1465" }, { label: "straightma", value: "2752" }, { label: "signin", value: "997" }, { label: "Slice-of-l", value: "1020" }, { label: "Slave", value: "1028" }, { label: "Shounen", value: "1127" }, { label: "SingleHero", value: "1169" }, { label: "Succubus", value: "1200" }, { label: "secretary", value: "1344" }, { label: "Spies", value: "1421" }, { label: "Summoning", value: "1613" }, { label: "Strategy", value: "2820" }, { label: "Spoiling", value: "2991" }, { label: "Scifi", value: "3068" }, { label: "Shota", value: "270" }, { label: "SpiritUser", value: "483" }, { label: "science", value: "634" }, { label: "SpecialFor", value: "679" }, { label: "SwallowedS", value: "688" }, { label: "SentientOb", value: "703" }, { label: "Suspense", value: "704" }, { label: "StrongLove", value: "751" }, { label: "SCP", value: "792" }, { label: "Star", value: "846" }, { label: "Sentimenta", value: "849" }, { label: "SexualCult", value: "914" }, { label: "Saint", value: "924" }, { label: "ShouProtag", value: "1036" }, { label: "SlowLife", value: "1059" }, { label: "SpecialLik", value: "1068" }, { label: "Sea", value: "1170" }, { label: "Simulation", value: "1251" }, { label: "Shuangwen", value: "1261" }, { label: "SecondChan", value: "1267" }, { label: "shounenai", value: "1321" }, { label: "SaikiK", value: "1336" }, { label: "StraightSe", value: "1404" }, { label: "SpatialMan", value: "1444" }, { label: "SlaveHarem", value: "1463" }, { label: "SaintSeiya", value: "1608" }, { label: "smallninel", value: "1746" }, { label: "Swordgod", value: "2457" }, { label: "stallion", value: "2882" }, { label: "Self-disci", value: "2898" }, { label: "Strongfema", value: "3026" }, { label: "School", value: "3081" }, { label: "Serious", value: "3092" }, { label: "Seductive", value: "3144" }, { label: "SchemesAnd", value: "29" }, { label: "Student-Te", value: "184" }, { label: "Strength-b", value: "213" }, { label: "SiblingsNo", value: "272" }, { label: "SecondChan", value: "636" }, { label: "Scavengers", value: "637" }, { label: "SpiritualQ", value: "651" }, { label: "SwordArtOn", value: "666" }, { label: "SystemTran", value: "682" }, { label: "SeeingThin", value: "702" }, { label: "StrongFema", value: "717" }, { label: "SpiritualR", value: "732" }, { label: "systemowne", value: "768" }, { label: "SpiritAnal", value: "775" }, { label: "SchemingPr", value: "808" }, { label: "SpecialLov", value: "869" }, { label: "SameSexMar", value: "886" }, { label: "Sequel", value: "901" }, { label: "SkillSteal", value: "943" }, { label: "SaikiK.", value: "986" }, { label: "Schemes", value: "1025" }, { label: "Son-in-law", value: "1026" }, { label: "SystemTran", value: "1037" }, { label: "sweetroman", value: "1069" }, { label: "Sysetm", value: "1088" }, { label: "Shelter", value: "1094" }, { label: "StrongestP", value: "1108" }, { label: "Scientist", value: "1115" }, { label: "Supportive", value: "1116" }, { label: "Superheroe", value: "1145" }, { label: "SpecialAbi", value: "1158" }, { label: "SlapstickC", value: "1166" }, { label: "SecretRela", value: "1228" }, { label: "Stepmother", value: "1233" }, { label: "SystemFlow", value: "1248" }, { label: "SchoolSett", value: "1273" }, { label: "Siscon", value: "1332" }, { label: "Sailing", value: "1345" }, { label: "schemeandc", value: "1355" }, { label: "strongfema", value: "1362" }, { label: "submissive", value: "1381" }, { label: "singer", value: "1396" }, { label: "suicidalpr", value: "1401" }, { label: "Shotacon", value: "1425" }, { label: "Sibling&am", value: "1426" }, { label: "SevenDeadl", value: "1440" }, { label: "Sharp-tong", value: "1450" }, { label: "SocialOutc", value: "1454" }, { label: "SiblingRiv", value: "1457" }, { label: "SxSlaves", value: "1478" }, { label: "SlaveSyste", value: "1482" }, { label: "StrongSubo", value: "1484" }, { label: "SuperSemin", value: "1485" }, { label: "Strongsubo", value: "1497" }, { label: "Strongfrom", value: "1502" }, { label: "Student", value: "1505" }, { label: "Sisters", value: "1511" }, { label: "Scriptwrit", value: "1519" }, { label: "Smuggling", value: "1547" }, { label: "StrongPowe", value: "1564" }, { label: "SweetYaoi", value: "1576" }, { label: "StrongOpFe", value: "1597" }, { label: "SaltedFish", value: "1610" }, { label: "Si-fi", value: "1616" }, { label: "SeaExplora", value: "1627" }, { label: "smokeinthe", value: "1641" }, { label: "SmokeCloud", value: "1650" }, { label: "Shallowsea", value: "1657" }, { label: "ServantofZ", value: "1667" }, { label: "shrimpinth", value: "1669" }, { label: "Scalesofth", value: "1675" }, { label: "shudder", value: "1679" }, { label: "sweetjelly", value: "1689" }, { label: "sadsword", value: "1695" }, { label: "Swordblood", value: "1697" }, { label: "SaltedFish", value: "1699" }, { label: "Shouldhand", value: "1710" }, { label: "Sterile", value: "1713" }, { label: "sundaysun", value: "1720" }, { label: "SuYechen", value: "1726" }, { label: "\u4ED5\u8FB0", value: "1727" }, { label: "sevenpigeo", value: "1729" }, { label: "summertree", value: "1736" }, { label: "summertrip", value: "1737" }, { label: "SuShaoqing", value: "1747" }, { label: "SwordImmor", value: "1749" }, { label: "sillycatse", value: "1759" }, { label: "six-twochi", value: "1764" }, { label: "Sadreminde", value: "1788" }, { label: "sleepslate", value: "1827" }, { label: "Scourge", value: "1833" }, { label: "ShenLuo", value: "1845" }, { label: "sleepingsa", value: "1855" }, { label: "SuperGodGr", value: "1869" }, { label: "stupidfox", value: "1873" }, { label: "snorkeling", value: "1889" }, { label: "spendthewo", value: "1894" }, { label: "showstory", value: "1902" }, { label: "Sixty-six", value: "1905" }, { label: "silentkill", value: "1910" }, { label: "ShenhuoxoR", value: "1923" }, { label: "sadsadness", value: "1937" }, { label: "sandrivere", value: "1964" }, { label: "startwriti", value: "1978" }, { label: "Siheyuanfl", value: "2033" }, { label: "SakuraMoon", value: "2064" }, { label: "Sevengener", value: "2067" }, { label: "Sword\u4E28Lea", value: "2086" }, { label: "SiheyuanGo", value: "2097" }, { label: "SoulChef", value: "2106" }, { label: "SuZiyouyou", value: "2108" }, { label: "startofthe", value: "2116" }, { label: "Sweetandso", value: "2119" }, { label: "SuperPiran", value: "2129" }, { label: "SystemNo.3", value: "2132" }, { label: "SiheyuanDe", value: "2133" }, { label: "SaltedFish", value: "2156" }, { label: "shadowghos", value: "2159" }, { label: "scumteache", value: "2171" }, { label: "SkinButler", value: "2184" }, { label: "StinkBeanS", value: "2192" }, { label: "Silencehim", value: "2200" }, { label: "ShuYuChenX", value: "2203" }, { label: "StudentUni", value: "2212" }, { label: "specialwar", value: "2216" }, { label: "SillyColum", value: "2217" }, { label: "\u68EE\u7F57", value: "2221" }, { label: "signinsalt", value: "2222" }, { label: "stardarkni", value: "2229" }, { label: "SuWei", value: "2232" }, { label: "self-disci", value: "2237" }, { label: "Simpleone", value: "2243" }, { label: "sisterisbe", value: "2246" }, { label: "Supernatur", value: "2250" }, { label: "SanmitheGr", value: "2259" }, { label: "Saltedfish", value: "2262" }, { label: "SoulCelest", value: "2270" }, { label: "soulanddre", value: "2281" }, { label: "secondpira", value: "2285" }, { label: "SixPathsof", value: "2305" }, { label: "stevec", value: "2320" }, { label: "StewedChic", value: "2328" }, { label: "Secretobse", value: "2338" }, { label: "sleeplesst", value: "2344" }, { label: "SuperGodNo", value: "2352" }, { label: "Superfire", value: "2366" }, { label: "Stomachhur", value: "2368" }, { label: "SongoftheG", value: "2380" }, { label: "stablefort", value: "2385" }, { label: "stonemored", value: "2386" }, { label: "soulmemory", value: "2391" }, { label: "Straightme", value: "2404" }, { label: "ShenJin", value: "2419" }, { label: "Smallmushr", value: "2423" }, { label: "sistercook", value: "2428" }, { label: "ShenhaoMec", value: "2436" }, { label: "singlesalt", value: "2448" }, { label: "summernow", value: "2453" }, { label: "swordrepai", value: "2493" }, { label: "Sakurajima", value: "2518" }, { label: "Smokebambo", value: "2522" }, { label: "Sencha", value: "2540" }, { label: "starfish", value: "2546" }, { label: "swearnotto", value: "2551" }, { label: "SaltedFish", value: "2557" }, { label: "Swimmingfi", value: "2562" }, { label: "speechless", value: "2570" }, { label: "supernovab", value: "2608" }, { label: "SwingingDe", value: "2614" }, { label: "SacrificeX", value: "2619" }, { label: "sopoor", value: "2621" }, { label: "softorange", value: "2634" }, { label: "sunsetover", value: "2638" }, { label: "streamerbl", value: "2639" }, { label: "SouthKefei", value: "2651" }, { label: "stopatfirs", value: "2679" }, { label: "shadowfall", value: "2680" }, { label: "silver", value: "2694" }, { label: "Science-fi", value: "2731" }, { label: "Stand", value: "2742" }, { label: "Show-biz", value: "2746" }, { label: "SxualAbuse", value: "2758" }, { label: "SonInLaw", value: "2776" }, { label: "Shadowless", value: "2789" }, { label: "Superman", value: "2793" }, { label: "Senbeiboy", value: "2799" }, { label: "Sugary", value: "2809" }, { label: "Starwars", value: "2815" }, { label: "Sect", value: "2825" }, { label: "SelfDiscip", value: "2826" }, { label: "Smart", value: "2829" }, { label: "steamponk", value: "2831" }, { label: "systemmale", value: "2842" }, { label: "Softyander", value: "2861" }, { label: "Slvery", value: "2907" }, { label: "skycity", value: "2923" }, { label: "strongwoma", value: "2928" }, { label: "specialpow", value: "2951" }, { label: "Starships", value: "2964" }, { label: "Suddenmarr", value: "2989" }, { label: "Strongfl", value: "2996" }, { label: "Schizophre", value: "3000" }, { label: "Swodandmag", value: "3004" }, { label: "Secretive", value: "3011" }, { label: "SuperAbili", value: "3012" }, { label: "Stepmom", value: "3039" }, { label: "Sweetpampe", value: "3055" }, { label: "Sobrenatur", value: "3057" }, { label: "Stealth", value: "3100" }, { label: "SlowPaced", value: "3101" }, { label: "Studenttea", value: "3107" }, { label: "specialage", value: "3123" }, { label: "Swordsandm", value: "3127" }, { label: "Sorcery", value: "3149" }, { label: "Steampunk", value: "3156" }, { label: "Steamy", value: "3169" }, { label: "Smartfemal", value: "3170" }, { label: "Sekai", value: "3177" }, { label: "Slim", value: "3183" }, { label: "ShamelessM", value: "3187" }, { label: "Scheming", value: "3189" }, { label: "Summonerpr", value: "3195" }, { label: "Sliceoflif", value: "3196" }, { label: "Supporting", value: "3217" }, { label: "Sectbuildi", value: "3227" }, { label: "Sciencefic", value: "3230" }, { label: "Seinen", value: "3241" }, { label: "Transmigra", value: "49" }, { label: "TimeTravel", value: "296" }, { label: "Talents", value: "658" }, { label: "Tragedy", value: "730" }, { label: "TimeSkip", value: "254" }, { label: "TragicPast", value: "128" }, { label: "Technologi", value: "498" }, { label: "Tsundere", value: "130" }, { label: "Thestronga", value: "2960" }, { label: "Thriller", value: "601" }, { label: "Twins", value: "372" }, { label: "Teamwork", value: "113" }, { label: "TimeManipu", value: "466" }, { label: "Thieves", value: "770" }, { label: "Teachers", value: "185" }, { label: "TribalSoci", value: "280" }, { label: "Transplant", value: "319" }, { label: "TwistedPer", value: "731" }, { label: "TomboyishF", value: "258" }, { label: "Threesome", value: "507" }, { label: "TimeLoop", value: "567" }, { label: "Transmigat", value: "1221" }, { label: "Talent", value: "1442" }, { label: "TS", value: "2904" }, { label: "Trap", value: "129" }, { label: "Tennis", value: "301" }, { label: "TerritoryC", value: "681" }, { label: "Toriko", value: "690" }, { label: "TopMC", value: "1255" }, { label: "twilight", value: "1817" }, { label: "Twisted", value: "3028" }, { label: "TimidProta", value: "278" }, { label: "TerminalIl", value: "445" }, { label: "Torture", value: "870" }, { label: "Titans", value: "925" }, { label: "Transmigra", value: "1100" }, { label: "travel", value: "2924" }, { label: "Teen", value: "2986" }, { label: "Transmigra", value: "642" }, { label: "Traverse", value: "821" }, { label: "team", value: "941" }, { label: "Technology", value: "1029" }, { label: "Taoist", value: "1047" }, { label: "Tensura", value: "1194" }, { label: "TypeMoon", value: "1195" }, { label: "Transmigra", value: "1217" }, { label: "Tasker", value: "1235" }, { label: "Trade", value: "1498" }, { label: "Transmigra", value: "1548" }, { label: "TangJichen", value: "1704" }, { label: "Time-Trave", value: "1791" }, { label: "TsukibaAki", value: "1993" }, { label: "Transporte", value: "279" }, { label: "TableTenni", value: "300" }, { label: "Transporte", value: "320" }, { label: "Transporte", value: "349" }, { label: "Transforma", value: "602" }, { label: "Transporte", value: "630" }, { label: "teacher", value: "635" }, { label: "TreasureHu", value: "776" }, { label: "Technology", value: "828" }, { label: "TravelingT", value: "835" }, { label: "Talismans", value: "894" }, { label: "TowerDefen", value: "897" }, { label: "ThreeKingd", value: "947" }, { label: "Tokyo", value: "1010" }, { label: "TimeandSpa", value: "1084" }, { label: "TalentShow", value: "1109" }, { label: "Trnasmigra", value: "1151" }, { label: "Traveling", value: "1171" }, { label: "Tramsmigra", value: "1204" }, { label: "traveller", value: "1232" }, { label: "Tsuru", value: "1292" }, { label: "Tailsman", value: "1314" }, { label: "TsundereLo", value: "1325" }, { label: "TerritoryM", value: "1330" }, { label: "TokyoGhoul", value: "1351" }, { label: "Tyrant", value: "1385" }, { label: "Terrorists", value: "1430" }, { label: "Transporte", value: "1492" }, { label: "Tranformer", value: "1493" }, { label: "Transmigra", value: "1528" }, { label: "TreasureHu", value: "1579" }, { label: "Transmigra", value: "1585" }, { label: "TreasureHu", value: "1588" }, { label: "Tianbang78", value: "1636" }, { label: "Thesunsett", value: "1661" }, { label: "Theflowero", value: "1662" }, { label: "Threedaysa", value: "1705" }, { label: "Twilightis", value: "1708" }, { label: "TheGospelo", value: "1711" }, { label: "TheThreeKi", value: "1719" }, { label: "TingFengZh", value: "1739" }, { label: "tomorrowwi", value: "1741" }, { label: "Three-flav", value: "1763" }, { label: "Thelightof", value: "1770" }, { label: "TaurenIron", value: "1780" }, { label: "Tenthousan", value: "1790" }, { label: "TempleThir", value: "1800" }, { label: "ThreshingG", value: "1801" }, { label: "Technology", value: "1820" }, { label: "Thunderous", value: "1826" }, { label: "thegodofde", value: "1839" }, { label: "ToneMasaya", value: "1860" }, { label: "Thebiggest", value: "1868" }, { label: "Thebigdevi", value: "1871" }, { label: "TopoftheCl", value: "1878" }, { label: "thisyear", value: "1886" }, { label: "Thenewbact", value: "1917" }, { label: "ThreeLives", value: "1920" }, { label: "thewindisb", value: "1930" }, { label: "\u94C1\u5E05", value: "1945" }, { label: "TopoftheCl", value: "1946" }, { label: "Thestronge", value: "1953" }, { label: "TeckTyrann", value: "1957" }, { label: "Theoceando", value: "1966" }, { label: "thaw", value: "1967" }, { label: "therearefi", value: "2000" }, { label: "Tianbangth", value: "2006" }, { label: "TheGodfath", value: "2018" }, { label: "TenCommand", value: "2021" }, { label: "takestock", value: "2028" }, { label: "tobacco", value: "2036" }, { label: "Thinkingof", value: "2046" }, { label: "Theworld&a", value: "2055" }, { label: "threelittl", value: "2059" }, { label: "TombRaider", value: "2069" }, { label: "Tianbangol", value: "2074" }, { label: "TangShaoqi", value: "2076" }, { label: "Theancesto", value: "2114" }, { label: "Thequeenis", value: "2157" }, { label: "Thetruegod", value: "2160" }, { label: "TianYiding", value: "2167" }, { label: "TianbangYa", value: "2169" }, { label: "Thirty-two", value: "2177" }, { label: "Tianshitak", value: "2194" }, { label: "TombRaider", value: "2205" }, { label: "Theoldfive", value: "2207" }, { label: "Two-dimens", value: "2224" }, { label: "threeteeth", value: "2230" }, { label: "TwentyFame", value: "2236" }, { label: "Thelistisi", value: "2240" }, { label: "ThousandTe", value: "2258" }, { label: "takeoverth", value: "2269" }, { label: "TopoftheFo", value: "2274" }, { label: "Theashesar", value: "2277" }, { label: "TombRaider", value: "2284" }, { label: "Two-dimens", value: "2287" }, { label: "Teemotofly", value: "2299" }, { label: "TombRaider", value: "2301" }, { label: "TrumanLive", value: "2309" }, { label: "Takeaplane", value: "2314" }, { label: "Thecatisgo", value: "2322" }, { label: "Tsunderesc", value: "2333" }, { label: "Thefishmar", value: "2357" }, { label: "ThreeLives", value: "2376" }, { label: "Thousandso", value: "2377" }, { label: "Tigerteeth", value: "2396" }, { label: "TroubledWo", value: "2408" }, { label: "Thepowerof", value: "2413" }, { label: "TimeKingJO", value: "2433" }, { label: "Thankyoufo", value: "2438" }, { label: "TianbangHu", value: "2475" }, { label: "Two-dimens", value: "2490" }, { label: "TenThousan", value: "2501" }, { label: "takeoffboy", value: "2511" }, { label: "Twistbroth", value: "2525" }, { label: "towashthed", value: "2536" }, { label: "Thegloryof", value: "2542" }, { label: "Twopoundso", value: "2552" }, { label: "Today&amp0", value: "2578" }, { label: "ThreeDotIn", value: "2591" }, { label: "Twopeopleb", value: "2598" }, { label: "Toilet", value: "2605" }, { label: "TopoftheCl", value: "2615" }, { label: "Tianbanggr", value: "2622" }, { label: "Thelistdep", value: "2627" }, { label: "Thewayofth", value: "2641" }, { label: "Thisissure", value: "2647" }, { label: "twingods", value: "2648" }, { label: "twilightdr", value: "2649" }, { label: "TeenageXia", value: "2665" }, { label: "treeofenli", value: "2686" }, { label: "Thetopofth", value: "2724" }, { label: "TangThirty", value: "2725" }, { label: "TrueorFake", value: "2772" }, { label: "TianbangDi", value: "2800" }, { label: "teacher-st", value: "2839" }, { label: "two-wayred", value: "2843" }, { label: "Timelimit", value: "2855" }, { label: "Turtle", value: "2877" }, { label: "Thiller", value: "2889" }, { label: "teachermal", value: "2952" }, { label: "Trialmarri", value: "3001" }, { label: "Terrori", value: "3013" }, { label: "TheMainCha", value: "3019" }, { label: "TheDevil", value: "3020" }, { label: "Tsundereml", value: "3050" }, { label: "Transmigat", value: "3051" }, { label: "Trickster", value: "3058" }, { label: "Tiger", value: "3087" }, { label: "Trauma", value: "3193" }, { label: "Urban", value: "131" }, { label: "UnlimitedF", value: "1123" }, { label: "UglytoBeau", value: "305" }, { label: "Unconditio", value: "725" }, { label: "UnluckyPro", value: "345" }, { label: "Undead", value: "2919" }, { label: "UrbanLife", value: "733" }, { label: "Unprincipl", value: "3053" }, { label: "Unrequited", value: "535" }, { label: "Urbanroman", value: "3228" }, { label: "UglyProtag", value: "1414" }, { label: "Unreliable", value: "265" }, { label: "UniqueWeap", value: "1428" }, { label: "UniqueCult", value: "78" }, { label: "Underestim", value: "373" }, { label: "Urbanyouth", value: "1333" }, { label: "UniqueWeap", value: "1456" }, { label: "Undocument", value: "1654" }, { label: "Unknowntea", value: "1683" }, { label: "UrbanDatan", value: "1728" }, { label: "UltramanPo", value: "1785" }, { label: "unbearable", value: "1897" }, { label: "undeadfish", value: "1977" }, { label: "Upsetting", value: "2040" }, { label: "urbanstar", value: "2066" }, { label: "Undead\u4E28Kn", value: "2071" }, { label: "urbanshark", value: "2113" }, { label: "UnknownTao", value: "2276" }, { label: "undersilve", value: "2290" }, { label: "Undefeated", value: "2358" }, { label: "UrbanMilit", value: "2379" }, { label: "unknown", value: "2394" }, { label: "underlolic", value: "2583" }, { label: "Unintentio", value: "2704" }, { label: "understate", value: "2715" }, { label: "Unlimitedc", value: "2723" }, { label: "Urbanyearn", value: "2726" }, { label: "Unique", value: "2866" }, { label: "Unlucky", value: "2875" }, { label: "Ugly", value: "2899" }, { label: "Upgrade", value: "3154" }, { label: "UrbanRoman", value: "3239" }, { label: "Villain", value: "512" }, { label: "VirtualRea", value: "162" }, { label: "Videogame", value: "3060" }, { label: "Vampire", value: "1253" }, { label: "Vampires", value: "186" }, { label: "Villainess", value: "811" }, { label: "VillainPro", value: "1241" }, { label: "VoiceActor", value: "1423" }, { label: "Villainess", value: "1224" }, { label: "Video-Game", value: "3161" }, { label: "VoicePack", value: "665" }, { label: "Villains", value: "1146" }, { label: "VarietySho", value: "1250" }, { label: "VictorianE", value: "1551" }, { label: "videogames", value: "2909" }, { label: "Vrmmo", value: "3176" }, { label: "VillainEvi", value: "670" }, { label: "VillIain", value: "1089" }, { label: "Vest", value: "1092" }, { label: "Viewofthec", value: "1825" }, { label: "vampiredri", value: "2374" }, { label: "VikaBaka", value: "2802" }, { label: "Violence", value: "2908" }, { label: "Vrmmorpg", value: "3175" }, { label: "Villainous", value: "3184" }, { label: "Villainmc", value: "3197" }, { label: "Villainher", value: "3198" }, { label: "WeaktoStro", value: "32" }, { label: "WorldHoppi", value: "273" }, { label: "WealthyCha", value: "7" }, { label: "Wizards", value: "391" }, { label: "WorldTrave", value: "218" }, { label: "Wars", value: "291" }, { label: "Writers", value: "404" }, { label: "Werewolf", value: "2978" }, { label: "WeakProtag", value: "497" }, { label: "Wizard", value: "706" }, { label: "Witches", value: "437" }, { label: "War", value: "1076" }, { label: "Wuxia", value: "425" }, { label: "WesternFan", value: "993" }, { label: "World-hopp", value: "812" }, { label: "Werebeasts", value: "857" }, { label: "WorldofWar", value: "1304" }, { label: "Wishes", value: "348" }, { label: "Wisdom", value: "3212" }, { label: "WarsWeakto", value: "514" }, { label: "WearBook", value: "742" }, { label: "Warhammer4", value: "1296" }, { label: "WorldTree", value: "1467" }, { label: "Witch", value: "2847" }, { label: "Wasteland", value: "1030" }, { label: "Wealth", value: "1130" }, { label: "Writer", value: "1499" }, { label: "Wilderness", value: "1562" }, { label: "WenXuanyu", value: "1995" }, { label: "WW2", value: "2838" }, { label: "Wholesome", value: "2860" }, { label: "wealthyfam", value: "2945" }, { label: "WeaktoClan", value: "676" }, { label: "WorldEmpir", value: "691" }, { label: "WorldWar2", value: "1077" }, { label: "Warship", value: "1172" }, { label: "WealthyCha", value: "1173" }, { label: "WealthChar", value: "1205" }, { label: "Wearabook", value: "1216" }, { label: "Warlocks", value: "1297" }, { label: "wearingabo", value: "1320" }, { label: "Wealthy", value: "1598" }, { label: "weektoStro", value: "1607" }, { label: "wishardtow", value: "1672" }, { label: "writeonlyz", value: "1687" }, { label: "WangJiu", value: "1694" }, { label: "Wuxicheng", value: "1703" }, { label: "WindSpirit", value: "1786" }, { label: "wanderings", value: "1815" }, { label: "What&amp03", value: "1874" }, { label: "Wanderer", value: "1940" }, { label: "Westernrai", value: "1970" }, { label: "windingpat", value: "1974" }, { label: "witchfan", value: "2001" }, { label: "watermelon", value: "2024" }, { label: "WasteWoodA", value: "2025" }, { label: "whitekeybo", value: "2101" }, { label: "Winningthe", value: "2144" }, { label: "Walkinthec", value: "2152" }, { label: "Whitehorse", value: "2206" }, { label: "WangXiaomi", value: "2213" }, { label: "witheredpr", value: "2273" }, { label: "Wuhutookof", value: "2294" }, { label: "willowcand", value: "2304" }, { label: "wastefish", value: "2308" }, { label: "WangEr", value: "2317" }, { label: "wanttocome", value: "2356" }, { label: "wanttoeatg", value: "2381" }, { label: "WenGuang", value: "2417" }, { label: "WifeistheD", value: "2464" }, { label: "watertown", value: "2470" }, { label: "warmtime", value: "2484" }, { label: "windandmap", value: "2497" }, { label: "Whoringmak", value: "2596" }, { label: "whiteshirt", value: "2682" }, { label: "WOW", value: "2753" }, { label: "WarofCivil", value: "2765" }, { label: "Warlock", value: "2813" }, { label: "wife-chasi", value: "2872" }, { label: "Warcraft", value: "2938" }, { label: "Worldbuild", value: "2965" }, { label: "Worlds", value: "2992" }, { label: "Weakstrong", value: "3049" }, { label: "Worldofchu", value: "3082" }, { label: "Westerngod", value: "3150" }, { label: "Worldtrave", value: "3160" }, { label: "Weak-to-st", value: "3178" }, { label: "Weakstrong", value: "3199" }, { label: "WeaktoStro", value: "3210" }, { label: "Xianxia", value: "709" }, { label: "Xuanhuan", value: "487" }, { label: "XiuXiuXiuX", value: "1700" }, { label: "\u8C22\u9080", value: "1754" }, { label: "Xiaoxin", value: "1795" }, { label: "Xueqiunder", value: "1918" }, { label: "\u5C0F\u5C01", value: "2052" }, { label: "XuebaIII", value: "2098" }, { label: "Xufamilyel", value: "2099" }, { label: "Xuebaisinv", value: "2135" }, { label: "XuIintheTa", value: "2331" }, { label: "Xiaothreey", value: "2351" }, { label: "XieDaoheng", value: "2393" }, { label: "Xiaonianbl", value: "2406" }, { label: "XiaonianXu", value: "2500" }, { label: "XiaomiStar", value: "2523" }, { label: "Xiaosaid", value: "2573" }, { label: "XiaoxiangP", value: "2714" }, { label: "Yandere", value: "304" }, { label: "Yuri", value: "773" }, { label: "YoungerSis", value: "33" }, { label: "Yaoi", value: "1349" }, { label: "Yu-Gi-Oh!", value: "3244" }, { label: "YoungerLov", value: "728" }, { label: "YoungerBro", value: "1431" }, { label: "Youth", value: "1560" }, { label: "YeluChengj", value: "1678" }, { label: "Yugioh", value: "1391" }, { label: "Yu-Gi-Oh", value: "1614" }, { label: "YellowSpri", value: "1638" }, { label: "youaretoow", value: "1750" }, { label: "YinLiisins", value: "1772" }, { label: "Yongchuang", value: "1835" }, { label: "YingXiaofe", value: "1881" }, { label: "YangXiaoA", value: "1915" }, { label: "YuXiaoqi", value: "1997" }, { label: "Yearningfo", value: "2050" }, { label: "yearningfo", value: "2084" }, { label: "Yunmu", value: "2090" }, { label: "Ying&amp03", value: "2131" }, { label: "YuboTiandi", value: "2136" }, { label: "Yakult", value: "2139" }, { label: "YeXiaobai", value: "2141" }, { label: "Yearningfo", value: "2218" }, { label: "Yaoyue", value: "2355" }, { label: "YuTsingYi", value: "2397" }, { label: "yearningfo", value: "2426" }, { label: "YeGucheng", value: "2526" }, { label: "YoungMaste", value: "2555" }, { label: "YeGongzi", value: "2561" }, { label: "YuYuyu", value: "2569" }, { label: "yearningfo", value: "2624" }, { label: "YoungMaste", value: "2637" }, { label: "YeQianqiu", value: "2645" }, { label: "yearaftery", value: "2705" }, { label: "YunZhongju", value: "2717" }, { label: "Yearningto", value: "2782" }, { label: "YeYe", value: "2790" }, { label: "Yamen", value: "2876" }, { label: "younglovei", value: "2903" }, { label: "YoungGirl", value: "3173" }, { label: "Ystem", value: "3188" }, { label: "Young", value: "3204" }, { label: "Zombies", value: "205" }, { label: "Zergs", value: "800" }, { label: "Zerg", value: "1051" }, { label: "Zombie", value: "1175" }, { label: "z-man", value: "623" }, { label: "ZhuZhiyue", value: "1981" }, { label: "ZombieQuee", value: "1179" }, { label: "Zoo", value: "1566" }, { label: "ZiXuanXuan", value: "1753" }, { label: "ZombieGod", value: "2008" }, { label: "Zuge", value: "2011" }, { label: "ZhugeIrona", value: "2022" }, { label: "zombiefish", value: "2115" }, { label: "Zulongstil", value: "2121" }, { label: "ZhangTianb", value: "2193" }, { label: "ZhuDabald", value: "2362" }, { label: "ZhangJuli", value: "2425" }, { label: "ZhangFeiin", value: "2449" }, { label: "ZhugeDali&", value: "2458" }, { label: "Zhugeiscra", value: "2466" }, { label: "ZhangErgou", value: "2530" }, { label: "ZuwuGonggo", value: "2549" }, { label: "zhishen", value: "2577" }, { label: "Zippo", value: "2586" }, { label: "ZombieSumo", value: "2806" }] } } });
-  exports.default = o;
+  }())({ id: "morenovel", sourceSite: "https://vanovel.com", sourceName: "Vanovel", options: { useNewChapterEndpoint: true, versionIncrements: 2, lang: "Indonesian" }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "New", value: "new-manga" }] } } });
+  exports.default = c;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

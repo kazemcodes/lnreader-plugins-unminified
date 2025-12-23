@@ -1,6 +1,7 @@
 // Bundled plugin for LNReader/IReader (GraalVM/J2V8 compatible)
-// === ICU-FREE POLYFILLS (prevents GraalVM ICU errors) ===
+// === COMPREHENSIVE POLYFILLS (GraalVM/J2V8 compatible) ===
 (function() {
+  // === ICU-FREE Intl POLYFILL ===
   var SafeIntl = {
     DateTimeFormat: function(locale, options) {
       this.locale = locale || 'en';
@@ -86,6 +87,8 @@
   try { if (typeof global !== 'undefined') global.Intl = SafeIntl; } catch(e) {}
   try { if (typeof window !== 'undefined') window.Intl = SafeIntl; } catch(e) {}
   try { if (typeof self !== 'undefined') self.Intl = SafeIntl; } catch(e) {}
+  
+  // === Date prototype overrides ===
   Date.prototype.toLocaleString = function() {
     try {
       return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + 
@@ -103,8 +106,259 @@
       return String(this.getHours()).padStart(2,'0') + ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
     } catch(e) { return this.toISOString().split('T')[1].split('.')[0]; }
   };
+  
+  // === URLSearchParams polyfill ===
+  if (typeof URLSearchParams === 'undefined') {
+    var USP = function(init) {
+      this.params = {};
+      if (typeof init === 'string') {
+        var query = init.indexOf('?') === 0 ? init.substring(1) : init;
+        if (query) {
+          var self = this;
+          query.split('&').forEach(function(pair) {
+            var parts = pair.split('=');
+            var key = decodeURIComponent(parts[0]);
+            var value = parts[1] ? decodeURIComponent(parts[1]) : '';
+            if (!self.params[key]) self.params[key] = [];
+            self.params[key].push(value);
+          });
+        }
+      }
+    };
+    USP.prototype.append = function(key, value) {
+      if (!this.params[key]) this.params[key] = [];
+      this.params[key].push(String(value));
+    };
+    USP.prototype.set = function(key, value) { this.params[key] = [String(value)]; };
+    USP.prototype.get = function(key) { return this.params[key] ? this.params[key][0] : null; };
+    USP.prototype.getAll = function(key) { return this.params[key] || []; };
+    USP.prototype.has = function(key) { return key in this.params; };
+    USP.prototype.delete = function(key) { delete this.params[key]; };
+    USP.prototype.keys = function() { return Object.keys(this.params); };
+    USP.prototype.entries = function() {
+      var result = [];
+      for (var key in this.params) {
+        if (this.params.hasOwnProperty(key)) {
+          for (var i = 0; i < this.params[key].length; i++) {
+            result.push([key, this.params[key][i]]);
+          }
+        }
+      }
+      return result;
+    };
+    USP.prototype.forEach = function(callback) {
+      for (var key in this.params) {
+        if (this.params.hasOwnProperty(key)) {
+          for (var i = 0; i < this.params[key].length; i++) {
+            callback(this.params[key][i], key, this);
+          }
+        }
+      }
+    };
+    USP.prototype.toString = function() {
+      var parts = [];
+      for (var key in this.params) {
+        if (this.params.hasOwnProperty(key)) {
+          for (var i = 0; i < this.params[key].length; i++) {
+            parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key][i]));
+          }
+        }
+      }
+      return parts.join('&');
+    };
+    try { globalThis.URLSearchParams = USP; } catch(e) {}
+  }
+  
+  // === atob/btoa polyfills ===
+  if (typeof atob === 'undefined') {
+    globalThis.atob = function(str) {
+      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      var output = '';
+      str = String(str).replace(/=+$/, '');
+      for (var bc = 0, bs, buffer, idx = 0; buffer = str.charAt(idx++);
+        ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+        buffer = chars.indexOf(buffer);
+      }
+      return output;
+    };
+  }
+  if (typeof btoa === 'undefined') {
+    globalThis.btoa = function(str) {
+      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      var output = '';
+      for (var block, charCode, idx = 0, map = chars;
+        str.charAt(idx | 0) || (map = '=', idx % 1);
+        output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
+        charCode = str.charCodeAt(idx += 3/4);
+        block = block << 8 | charCode;
+      }
+      return output;
+    };
+  }
+  
+  // === Object polyfills ===
+  if (typeof Object.assign !== 'function') {
+    Object.assign = function(target) {
+      if (target == null) throw new TypeError('Cannot convert undefined or null to object');
+      var to = Object(target);
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        if (source != null) {
+          for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) to[key] = source[key];
+          }
+        }
+      }
+      return to;
+    };
+  }
+  if (!Object.entries) {
+    Object.entries = function(obj) {
+      var result = [];
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) result.push([key, obj[key]]);
+      }
+      return result;
+    };
+  }
+  if (!Object.values) {
+    Object.values = function(obj) {
+      var result = [];
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) result.push(obj[key]);
+      }
+      return result;
+    };
+  }
+  if (!Object.fromEntries) {
+    Object.fromEntries = function(entries) {
+      var obj = {};
+      for (var i = 0; i < entries.length; i++) obj[entries[i][0]] = entries[i][1];
+      return obj;
+    };
+  }
+  
+  // === Array polyfills ===
+  if (!Array.from) {
+    Array.from = function(arrayLike, mapFn, thisArg) {
+      var arr = [];
+      for (var i = 0; i < arrayLike.length; i++) {
+        arr.push(mapFn ? mapFn.call(thisArg, arrayLike[i], i) : arrayLike[i]);
+      }
+      return arr;
+    };
+  }
+  if (!Array.prototype.find) {
+    Array.prototype.find = function(predicate, thisArg) {
+      for (var i = 0; i < this.length; i++) {
+        if (predicate.call(thisArg, this[i], i, this)) return this[i];
+      }
+      return undefined;
+    };
+  }
+  if (!Array.prototype.findIndex) {
+    Array.prototype.findIndex = function(predicate, thisArg) {
+      for (var i = 0; i < this.length; i++) {
+        if (predicate.call(thisArg, this[i], i, this)) return i;
+      }
+      return -1;
+    };
+  }
+  if (!Array.prototype.includes) {
+    Array.prototype.includes = function(searchElement, fromIndex) {
+      var start = fromIndex || 0;
+      for (var i = start; i < this.length; i++) {
+        if (this[i] === searchElement) return true;
+      }
+      return false;
+    };
+  }
+  if (!Array.prototype.flat) {
+    Array.prototype.flat = function(depth) {
+      depth = depth === undefined ? 1 : Math.floor(depth);
+      if (depth < 1) return Array.prototype.slice.call(this);
+      return (function flatten(arr, d) {
+        var result = [];
+        for (var i = 0; i < arr.length; i++) {
+          if (Array.isArray(arr[i]) && d > 0) result = result.concat(flatten(arr[i], d - 1));
+          else result.push(arr[i]);
+        }
+        return result;
+      })(this, depth);
+    };
+  }
+  if (!Array.prototype.flatMap) {
+    Array.prototype.flatMap = function(callback, thisArg) {
+      return this.map(callback, thisArg).flat(1);
+    };
+  }
+  
+  // === String polyfills ===
+  if (!String.prototype.includes) {
+    String.prototype.includes = function(search, start) { return this.indexOf(search, start) !== -1; };
+  }
+  if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(search, pos) {
+      pos = pos || 0;
+      return this.substr(pos, search.length) === search;
+    };
+  }
+  if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function(search, length) {
+      if (length === undefined || length > this.length) length = this.length;
+      return this.substring(length - search.length, length) === search;
+    };
+  }
+  if (!String.prototype.padStart) {
+    String.prototype.padStart = function(targetLength, padString) {
+      targetLength = targetLength >> 0;
+      padString = String(padString || ' ');
+      if (this.length >= targetLength) return String(this);
+      targetLength = targetLength - this.length;
+      if (targetLength > padString.length) padString += padString.repeat(targetLength / padString.length);
+      return padString.slice(0, targetLength) + String(this);
+    };
+  }
+  if (!String.prototype.padEnd) {
+    String.prototype.padEnd = function(targetLength, padString) {
+      targetLength = targetLength >> 0;
+      padString = String(padString || ' ');
+      if (this.length >= targetLength) return String(this);
+      targetLength = targetLength - this.length;
+      if (targetLength > padString.length) padString += padString.repeat(targetLength / padString.length);
+      return String(this) + padString.slice(0, targetLength);
+    };
+  }
+  if (!String.prototype.repeat) {
+    String.prototype.repeat = function(count) {
+      if (count < 0) throw new RangeError('repeat count must be non-negative');
+      if (count === Infinity) throw new RangeError('repeat count must be less than infinity');
+      count = Math.floor(count);
+      if (this.length === 0 || count === 0) return '';
+      var result = '';
+      for (var i = 0; i < count; i++) result += this;
+      return result;
+    };
+  }
+  if (!String.prototype.trimStart) {
+    String.prototype.trimStart = function() { return this.replace(/^[\s\uFEFF\xA0]+/, ''); };
+  }
+  if (!String.prototype.trimEnd) {
+    String.prototype.trimEnd = function() { return this.replace(/[\s\uFEFF\xA0]+$/, ''); };
+  }
+  
+  // === Number polyfills ===
+  if (!Number.isNaN) {
+    Number.isNaN = function(value) { return typeof value === 'number' && value !== value; };
+  }
+  if (!Number.isFinite) {
+    Number.isFinite = function(value) { return typeof value === 'number' && isFinite(value); };
+  }
+  if (!Number.isInteger) {
+    Number.isInteger = function(value) { return typeof value === 'number' && isFinite(value) && Math.floor(value) === value; };
+  }
 })();
-// === END ICU-FREE POLYFILLS ===
+// === END COMPREHENSIVE POLYFILLS ===
 
 
 "use strict";
@@ -23745,7 +23999,7 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = function() {
     function i2() {
-      this.id = "storyseedling", this.name = "StorySeedling", this.icon = "src/en/storyseedling/icon.png", this.site = "https://storyseedling.com/", this.version = "1.0.3";
+      this.id = "storyseedling", this.name = "StorySeedling", this.icon = "src/en/storyseedling/icon.png", this.site = "https://storyseedling.com/", this.version = "1.0.4";
     }
     __name(i2, "i");
     return i2.prototype.getCheerio = function(a2, i3) {
@@ -23785,7 +24039,7 @@ var LNReaderPlugin = (() => {
       });
     }, i2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, i3, o, s, c, u, l, p, h, d, f, v, b, m, w, y, x, g, S, j;
+        var t2, i3, o, s, c, u, l, h, p, d, f, v, b, m, w, y, x, g, S, C;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -23793,9 +24047,9 @@ var LNReaderPlugin = (() => {
             case 1:
               return t2 = e2.sent(), i3 = this.site, (o = { path: n2 }).name = t2("h1").text().trim(), (s = t2('img[x-ref="art"].w-full.rounded.shadow-md').attr("src")) && (o.cover = new URL(s, i3).href), c = [], t2(`section[x-data="{ tab: location.hash.substr(1) || 'chapters' }"].relative > div > div > div.flex.flex-wrap > a`).each(function() {
                 c.push(t2(this).text().trim());
-              }), o.genres = c.join(", "), o.author = t2("div.mb-1 a").text().trim(), u = t2("div.gap-2 span.text-sm").text().trim(), l = { ongoing: a.NovelStatus.Ongoing, hiatus: a.NovelStatus.OnHiatus, dropped: a.NovelStatus.Cancelled, cancelled: a.NovelStatus.Cancelled, completed: a.NovelStatus.Completed }, o.status = null !== (j = l[u.toLowerCase()]) && void 0 !== j ? j : a.NovelStatus.Unknown, p = t2("div.mb-4.order-2:not(.lg\\:grid-in-buttons)"), h = p.find("p"), o.summary = h.length > 0 ? h.map(function(e3, n3) {
+              }), o.genres = c.join(", "), o.author = t2("div.mb-1 a").text().trim(), u = t2("div.gap-2 span.text-sm").text().trim(), l = { ongoing: a.NovelStatus.Ongoing, hiatus: a.NovelStatus.OnHiatus, dropped: a.NovelStatus.Cancelled, cancelled: a.NovelStatus.Cancelled, completed: a.NovelStatus.Completed }, o.status = null !== (C = l[u.toLowerCase()]) && void 0 !== C ? C : a.NovelStatus.Unknown, h = t2("div.mb-4.order-2:not(.lg\\:grid-in-buttons)"), p = h.find("p"), o.summary = p.length > 0 ? p.map(function(e3, n3) {
                 return t2(n3).text().trim();
-              }).get().join("\n\n") : p.text().trim(), d = [], (f = t2(".bg-accent div[ax-load][x-data]").attr("x-data")) ? (v = null == f ? void 0 : f.split("'"), b = v[1], m = v[3], w = n2.match(/\d+/), b || (w ? w[0] : null) ? ((y = new FormData()).append("post", m), y.append("id", b), y.append("action", "series_toc"), x = "".concat(this.site).concat("ajax"), g = "".concat(this.site).concat(o.path), [4, (0, r.fetchApi)(x, { method: "POST", referrer: g, referrerPolicy: "origin", body: y }).then(function(t3) {
+              }).get().join("\n\n") : h.text().trim(), d = [], (f = t2(".bg-accent div[ax-load][x-data]").attr("x-data")) ? (v = null == f ? void 0 : f.split("'"), b = v[1], m = v[3], w = n2.match(/\d+/), b || (w ? w[0] : null) ? ((y = new FormData()).append("post", m), y.append("id", b), y.append("action", "series_toc"), x = "".concat(this.site).concat("ajax"), g = "".concat(this.site).concat(o.path), [4, (0, r.fetchApi)(x, { method: "POST", referrer: g, referrerPolicy: "origin", body: y }).then(function(t3) {
                 return t3.json();
               }).catch(function(t3) {
                 return o.summary = "Chapter Parse Error: " + t3 + "\n\n" + o.summary;
@@ -23812,21 +24066,59 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, i2.prototype.parseChapter = function(n2) {
+    }, i2.prototype.updateNonce = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, a2, i3;
+        var t2, r2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return [4, this.getCheerio(this.site + n2, false)];
             case 1:
-              return t2 = e2.sent(), r2 = t2("div[ax-load][x-data]").attr("x-data"), a2 = t2("div.justify-center > div.mb-4"), i3 = a2.html() || "", r2 && (i3 += "\n\n Error parsing chapter: Turnstile detected. Advise just reading in web view until there's a fix."), [2, i3];
+              return t2 = e2.sent(), this.nonce = null === (r2 = t2("div.mb-4:has(h1.text-xl) > div").attr("x-data")) || void 0 === r2 ? void 0 : r2.match(/loadChapter\('.+?', '(.+?)'\)/)[1], [2];
+          }
+        });
+      });
+    }, i2.prototype.parseChapter = function(a2) {
+      return t(this, void 0, void 0, function() {
+        var t2, i3, o, s, c;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return t2 = !this.nonce, this.nonce ? [3, 2] : [4, this.updateNonce(a2)];
+            case 1:
+              e2.sent(), e2.label = 2;
+            case 2:
+              return [4, (0, r.fetchApi)(this.site + a2 + "/content", { method: "POST", headers: { referrer: this.site + a2 + "/", "x-nonce": this.nonce }, body: JSON.stringify({ captcha_response: "" }) }).then(function(t3) {
+                return t3.text();
+              })];
+            case 3:
+              i3 = e2.sent();
+              try {
+                o = JSON.parse(i3);
+              } catch (t3) {
+              }
+              if (!o || o.success) return [3, 6];
+              if ("Invalid security." !== o.message) return [3, 5];
+              if (t2) throw new Error("Failed to find code!");
+              return this.nonce = "", [4, this.parseChapter(a2)];
+            case 4:
+              return [2, e2.sent()];
+            case 5:
+              if (o.captcha) throw new Error("Failed to bypass turnstile captcha (read in webview until it stops ig)");
+              e2.label = 6;
+            case 6:
+              return s = i3.replace(/cls[a-f0-9]+/g, "").split("").map(function(t3) {
+                var e3 = t3.charCodeAt(0), n2 = e3 - (e3 > 12123 ? 12027 : 12033);
+                return n2 >= 32 && n2 <= 126 ? String.fromCharCode(n2) : t3;
+              }).join(""), (c = (0, n.load)(s))("span").text(function(t3, e3) {
+                return e3.toLowerCase().includes("storyseedling") || e3.toLowerCase().includes("story seedling") ? "" : e3;
+              }), [2, c.html()];
           }
         });
       });
     }, i2.prototype.searchNovels = function(a2, i3) {
       return t(this, void 0, void 0, function() {
-        var t2, o, s, c, u, l, p = this;
+        var t2, o, s, c, u, l, h = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -23839,7 +24131,7 @@ var LNReaderPlugin = (() => {
               })];
             case 2:
               return e2.sent().data.posts.forEach(function(e3) {
-                return t2.push({ name: e3.title, cover: e3.thumbnail, path: e3.permalink.replace(p.site, "") });
+                return t2.push({ name: e3.title, cover: e3.thumbnail, path: e3.permalink.replace(h.site, "") });
               }), [2, t2];
           }
         });

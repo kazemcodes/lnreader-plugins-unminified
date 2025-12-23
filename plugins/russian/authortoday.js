@@ -1,6 +1,7 @@
 // Bundled plugin for LNReader/IReader (GraalVM/J2V8 compatible)
-// === ICU-FREE POLYFILLS (prevents GraalVM ICU errors) ===
+// === COMPREHENSIVE POLYFILLS (GraalVM/J2V8 compatible) ===
 (function() {
+  // === ICU-FREE Intl POLYFILL ===
   var SafeIntl = {
     DateTimeFormat: function(locale, options) {
       this.locale = locale || 'en';
@@ -86,6 +87,8 @@
   try { if (typeof global !== 'undefined') global.Intl = SafeIntl; } catch(e) {}
   try { if (typeof window !== 'undefined') window.Intl = SafeIntl; } catch(e) {}
   try { if (typeof self !== 'undefined') self.Intl = SafeIntl; } catch(e) {}
+  
+  // === Date prototype overrides ===
   Date.prototype.toLocaleString = function() {
     try {
       return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + 
@@ -103,8 +106,259 @@
       return String(this.getHours()).padStart(2,'0') + ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
     } catch(e) { return this.toISOString().split('T')[1].split('.')[0]; }
   };
+  
+  // === URLSearchParams polyfill ===
+  if (typeof URLSearchParams === 'undefined') {
+    var USP = function(init) {
+      this.params = {};
+      if (typeof init === 'string') {
+        var query = init.indexOf('?') === 0 ? init.substring(1) : init;
+        if (query) {
+          var self = this;
+          query.split('&').forEach(function(pair) {
+            var parts = pair.split('=');
+            var key = decodeURIComponent(parts[0]);
+            var value = parts[1] ? decodeURIComponent(parts[1]) : '';
+            if (!self.params[key]) self.params[key] = [];
+            self.params[key].push(value);
+          });
+        }
+      }
+    };
+    USP.prototype.append = function(key, value) {
+      if (!this.params[key]) this.params[key] = [];
+      this.params[key].push(String(value));
+    };
+    USP.prototype.set = function(key, value) { this.params[key] = [String(value)]; };
+    USP.prototype.get = function(key) { return this.params[key] ? this.params[key][0] : null; };
+    USP.prototype.getAll = function(key) { return this.params[key] || []; };
+    USP.prototype.has = function(key) { return key in this.params; };
+    USP.prototype.delete = function(key) { delete this.params[key]; };
+    USP.prototype.keys = function() { return Object.keys(this.params); };
+    USP.prototype.entries = function() {
+      var result = [];
+      for (var key in this.params) {
+        if (this.params.hasOwnProperty(key)) {
+          for (var i = 0; i < this.params[key].length; i++) {
+            result.push([key, this.params[key][i]]);
+          }
+        }
+      }
+      return result;
+    };
+    USP.prototype.forEach = function(callback) {
+      for (var key in this.params) {
+        if (this.params.hasOwnProperty(key)) {
+          for (var i = 0; i < this.params[key].length; i++) {
+            callback(this.params[key][i], key, this);
+          }
+        }
+      }
+    };
+    USP.prototype.toString = function() {
+      var parts = [];
+      for (var key in this.params) {
+        if (this.params.hasOwnProperty(key)) {
+          for (var i = 0; i < this.params[key].length; i++) {
+            parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key][i]));
+          }
+        }
+      }
+      return parts.join('&');
+    };
+    try { globalThis.URLSearchParams = USP; } catch(e) {}
+  }
+  
+  // === atob/btoa polyfills ===
+  if (typeof atob === 'undefined') {
+    globalThis.atob = function(str) {
+      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      var output = '';
+      str = String(str).replace(/=+$/, '');
+      for (var bc = 0, bs, buffer, idx = 0; buffer = str.charAt(idx++);
+        ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+        buffer = chars.indexOf(buffer);
+      }
+      return output;
+    };
+  }
+  if (typeof btoa === 'undefined') {
+    globalThis.btoa = function(str) {
+      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      var output = '';
+      for (var block, charCode, idx = 0, map = chars;
+        str.charAt(idx | 0) || (map = '=', idx % 1);
+        output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
+        charCode = str.charCodeAt(idx += 3/4);
+        block = block << 8 | charCode;
+      }
+      return output;
+    };
+  }
+  
+  // === Object polyfills ===
+  if (typeof Object.assign !== 'function') {
+    Object.assign = function(target) {
+      if (target == null) throw new TypeError('Cannot convert undefined or null to object');
+      var to = Object(target);
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        if (source != null) {
+          for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) to[key] = source[key];
+          }
+        }
+      }
+      return to;
+    };
+  }
+  if (!Object.entries) {
+    Object.entries = function(obj) {
+      var result = [];
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) result.push([key, obj[key]]);
+      }
+      return result;
+    };
+  }
+  if (!Object.values) {
+    Object.values = function(obj) {
+      var result = [];
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) result.push(obj[key]);
+      }
+      return result;
+    };
+  }
+  if (!Object.fromEntries) {
+    Object.fromEntries = function(entries) {
+      var obj = {};
+      for (var i = 0; i < entries.length; i++) obj[entries[i][0]] = entries[i][1];
+      return obj;
+    };
+  }
+  
+  // === Array polyfills ===
+  if (!Array.from) {
+    Array.from = function(arrayLike, mapFn, thisArg) {
+      var arr = [];
+      for (var i = 0; i < arrayLike.length; i++) {
+        arr.push(mapFn ? mapFn.call(thisArg, arrayLike[i], i) : arrayLike[i]);
+      }
+      return arr;
+    };
+  }
+  if (!Array.prototype.find) {
+    Array.prototype.find = function(predicate, thisArg) {
+      for (var i = 0; i < this.length; i++) {
+        if (predicate.call(thisArg, this[i], i, this)) return this[i];
+      }
+      return undefined;
+    };
+  }
+  if (!Array.prototype.findIndex) {
+    Array.prototype.findIndex = function(predicate, thisArg) {
+      for (var i = 0; i < this.length; i++) {
+        if (predicate.call(thisArg, this[i], i, this)) return i;
+      }
+      return -1;
+    };
+  }
+  if (!Array.prototype.includes) {
+    Array.prototype.includes = function(searchElement, fromIndex) {
+      var start = fromIndex || 0;
+      for (var i = start; i < this.length; i++) {
+        if (this[i] === searchElement) return true;
+      }
+      return false;
+    };
+  }
+  if (!Array.prototype.flat) {
+    Array.prototype.flat = function(depth) {
+      depth = depth === undefined ? 1 : Math.floor(depth);
+      if (depth < 1) return Array.prototype.slice.call(this);
+      return (function flatten(arr, d) {
+        var result = [];
+        for (var i = 0; i < arr.length; i++) {
+          if (Array.isArray(arr[i]) && d > 0) result = result.concat(flatten(arr[i], d - 1));
+          else result.push(arr[i]);
+        }
+        return result;
+      })(this, depth);
+    };
+  }
+  if (!Array.prototype.flatMap) {
+    Array.prototype.flatMap = function(callback, thisArg) {
+      return this.map(callback, thisArg).flat(1);
+    };
+  }
+  
+  // === String polyfills ===
+  if (!String.prototype.includes) {
+    String.prototype.includes = function(search, start) { return this.indexOf(search, start) !== -1; };
+  }
+  if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(search, pos) {
+      pos = pos || 0;
+      return this.substr(pos, search.length) === search;
+    };
+  }
+  if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function(search, length) {
+      if (length === undefined || length > this.length) length = this.length;
+      return this.substring(length - search.length, length) === search;
+    };
+  }
+  if (!String.prototype.padStart) {
+    String.prototype.padStart = function(targetLength, padString) {
+      targetLength = targetLength >> 0;
+      padString = String(padString || ' ');
+      if (this.length >= targetLength) return String(this);
+      targetLength = targetLength - this.length;
+      if (targetLength > padString.length) padString += padString.repeat(targetLength / padString.length);
+      return padString.slice(0, targetLength) + String(this);
+    };
+  }
+  if (!String.prototype.padEnd) {
+    String.prototype.padEnd = function(targetLength, padString) {
+      targetLength = targetLength >> 0;
+      padString = String(padString || ' ');
+      if (this.length >= targetLength) return String(this);
+      targetLength = targetLength - this.length;
+      if (targetLength > padString.length) padString += padString.repeat(targetLength / padString.length);
+      return String(this) + padString.slice(0, targetLength);
+    };
+  }
+  if (!String.prototype.repeat) {
+    String.prototype.repeat = function(count) {
+      if (count < 0) throw new RangeError('repeat count must be non-negative');
+      if (count === Infinity) throw new RangeError('repeat count must be less than infinity');
+      count = Math.floor(count);
+      if (this.length === 0 || count === 0) return '';
+      var result = '';
+      for (var i = 0; i < count; i++) result += this;
+      return result;
+    };
+  }
+  if (!String.prototype.trimStart) {
+    String.prototype.trimStart = function() { return this.replace(/^[\s\uFEFF\xA0]+/, ''); };
+  }
+  if (!String.prototype.trimEnd) {
+    String.prototype.trimEnd = function() { return this.replace(/[\s\uFEFF\xA0]+$/, ''); };
+  }
+  
+  // === Number polyfills ===
+  if (!Number.isNaN) {
+    Number.isNaN = function(value) { return typeof value === 'number' && value !== value; };
+  }
+  if (!Number.isFinite) {
+    Number.isFinite = function(value) { return typeof value === 'number' && isFinite(value); };
+  }
+  if (!Number.isInteger) {
+    Number.isInteger = function(value) { return typeof value === 'number' && isFinite(value) && Math.floor(value) === value; };
+  }
 })();
-// === END ICU-FREE POLYFILLS ===
+// === END COMPREHENSIVE POLYFILLS ===
 
 
 "use strict";

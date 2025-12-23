@@ -288,6 +288,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/cpunovel/icon.png"
 	},
 	{
+		"id": "crimsonscrolls",
+		"name": "Crimson Scrolls",
+		"site": "https://crimsonscrolls.net",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/crimsonscrolls.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/crimsonscrolls/icon.png"
+	},
+	{
 		"id": "daoistquest",
 		"name": "Daoist Quest",
 		"site": "https://daoist.quest",
@@ -436,7 +445,7 @@
 		"name": "Fiction Zone",
 		"site": "https://fictionzone.net",
 		"lang": "English",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/fictionzone.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/fictionzone/icon.png"
 	},
@@ -490,7 +499,7 @@
 		"name": "Genesis",
 		"site": "https://genesistudio.com",
 		"lang": "English",
-		"version": "1.1.2",
+		"version": "2.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/genesis.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/genesis/icon.png",
 		"customCSS": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/genesis/customCSS.css"
@@ -761,7 +770,7 @@
 		"name": "MVLEMPYR",
 		"site": "https://www.mvlempyr.io/",
 		"lang": "English",
-		"version": "1.0.11",
+		"version": "1.0.12",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/mvlempyr.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/mvlempyr/icon.png"
 	},
@@ -851,7 +860,7 @@
 		"name": "Novel Fire",
 		"site": "https://novelfire.net/",
 		"lang": "English",
-		"version": "1.1.3",
+		"version": "1.1.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelfire.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelfire/icon.png"
 	},
@@ -896,7 +905,7 @@
 		"name": "Novelight",
 		"site": "https://novelight.net/",
 		"lang": "English",
-		"version": "1.1.1",
+		"version": "1.1.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelight.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelight/icon.png"
 	},
@@ -1122,7 +1131,7 @@
 		"name": "StorySeedling",
 		"site": "https://storyseedling.com/",
 		"lang": "English",
-		"version": "1.0.3",
+		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/StorySeedling.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/storyseedling/icon.png"
 	},
@@ -1488,11 +1497,11 @@
 	},
 	{
 		"id": "morenovel",
-		"name": "Risenovel",
-		"site": "https://risenovel.com/",
+		"name": "Vanovel",
+		"site": "https://vanovel.com",
 		"lang": "Bahasa Indonesia",
-		"version": "1.0.9",
-		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/indonesian/Risenovel[madara].js",
+		"version": "1.0.10",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/indonesian/Vanovel[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/morenovel/icon.png"
 	},
 	{
