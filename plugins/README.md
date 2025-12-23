@@ -39,4 +39,4 @@ plugins/
 3. Restart LNReader
 4. Enjoy native V8 performance!
 
-**Total: 494 plugins**
+**Total: 496 plugins**
