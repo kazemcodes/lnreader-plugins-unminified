@@ -69,20 +69,129 @@ jobs:
           echo "Searching for plugin files..."
           find . -type f -name "*.js" -path "*/plugins/*" | head -20
       
+      - name: Create ICU polyfill file
+        run: |
+          cat > lnreader-source/icu-polyfill.js << 'POLYFILL_EOF'
+          // === ICU-FREE POLYFILLS (prevents GraalVM ICU errors) ===
+          (function() {
+            var SafeIntl = {
+              DateTimeFormat: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              NumberFormat: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              Collator: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              PluralRules: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              RelativeTimeFormat: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              }
+            };
+            SafeIntl.DateTimeFormat.prototype.format = function(date) {
+              if (!date) return '';
+              try {
+                var d = date instanceof Date ? date : new Date(date);
+                if (isNaN(d.getTime())) return '';
+                var year = d.getFullYear();
+                var month = String(d.getMonth() + 1).padStart(2, '0');
+                var day = String(d.getDate()).padStart(2, '0');
+                var hours = String(d.getHours()).padStart(2, '0');
+                var minutes = String(d.getMinutes()).padStart(2, '0');
+                var seconds = String(d.getSeconds()).padStart(2, '0');
+                return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+              } catch (e) { return ''; }
+            };
+            SafeIntl.DateTimeFormat.prototype.formatToParts = function(date) {
+              var d = date instanceof Date ? date : new Date(date);
+              return [
+                {type: 'year', value: String(d.getFullYear())},
+                {type: 'literal', value: '-'},
+                {type: 'month', value: String(d.getMonth() + 1).padStart(2, '0')},
+                {type: 'literal', value: '-'},
+                {type: 'day', value: String(d.getDate()).padStart(2, '0')}
+              ];
+            };
+            SafeIntl.DateTimeFormat.prototype.resolvedOptions = function() {
+              return {locale: this.locale, calendar: 'gregory', timeZone: 'UTC'};
+            };
+            SafeIntl.DateTimeFormat.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.NumberFormat.prototype.format = function(num) { return String(num); };
+            SafeIntl.NumberFormat.prototype.formatToParts = function(num) {
+              return [{type: 'integer', value: String(Math.floor(num))}];
+            };
+            SafeIntl.NumberFormat.prototype.resolvedOptions = function() {
+              return {locale: this.locale, style: 'decimal'};
+            };
+            SafeIntl.NumberFormat.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.Collator.prototype.compare = function(a, b) {
+              return String(a).localeCompare(String(b));
+            };
+            SafeIntl.Collator.prototype.resolvedOptions = function() {
+              return {locale: this.locale};
+            };
+            SafeIntl.Collator.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.PluralRules.prototype.select = function(n) {
+              return n === 1 ? 'one' : 'other';
+            };
+            SafeIntl.PluralRules.prototype.resolvedOptions = function() {
+              return {locale: this.locale, type: 'cardinal'};
+            };
+            SafeIntl.PluralRules.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.RelativeTimeFormat.prototype.format = function(value, unit) {
+              var abs = Math.abs(value);
+              var suffix = value < 0 ? ' ago' : ' from now';
+              return abs + ' ' + unit + (abs !== 1 ? 's' : '') + suffix;
+            };
+            SafeIntl.RelativeTimeFormat.prototype.resolvedOptions = function() {
+              return {locale: this.locale};
+            };
+            SafeIntl.RelativeTimeFormat.supportedLocalesOf = function() { return ['en']; };
+            try { globalThis.Intl = SafeIntl; } catch(e) {}
+            try { if (typeof global !== 'undefined') global.Intl = SafeIntl; } catch(e) {}
+            try { if (typeof window !== 'undefined') window.Intl = SafeIntl; } catch(e) {}
+            try { if (typeof self !== 'undefined') self.Intl = SafeIntl; } catch(e) {}
+            Date.prototype.toLocaleString = function() {
+              try {
+                return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + 
+                       String(this.getDate()).padStart(2,'0') + ' ' + String(this.getHours()).padStart(2,'0') + 
+                       ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
+              } catch(e) { return this.toISOString(); }
+            };
+            Date.prototype.toLocaleDateString = function() {
+              try {
+                return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + String(this.getDate()).padStart(2,'0');
+              } catch(e) { return this.toISOString().split('T')[0]; }
+            };
+            Date.prototype.toLocaleTimeString = function() {
+              try {
+                return String(this.getHours()).padStart(2,'0') + ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
+              } catch(e) { return this.toISOString().split('T')[1].split('.')[0]; }
+            };
+          })();
+          // === END ICU-FREE POLYFILLS ===
+          POLYFILL_EOF
+      
       - name: Bundle all plugins
         run: |
           cd lnreader-source
           
           echo "Creating bundling script..."
           
-          # Create bundling script
           cat > bundle-all-plugins.js << 'EOF'
           import { build } from 'esbuild';
           import { polyfillNode } from 'esbuild-plugin-polyfill-node';
           import fs from 'fs';
           import path from 'path';
           
-          // Try multiple possible locations
           const possibleDirs = [
             path.join('.js', 'src', 'plugins'),
             path.join('.js', 'plugins'),
@@ -96,34 +205,19 @@ jobs:
           for (const dir of possibleDirs) {
             if (fs.existsSync(dir)) {
               pluginsBaseDir = dir;
-              console.log(`Found plugins directory: ${dir}\n`);
+              console.log('Found plugins directory: ' + dir + '\n');
               break;
             }
           }
           
           if (!pluginsBaseDir) {
-            console.error('Plugins directory not found in any of these locations:');
-            possibleDirs.forEach(dir => console.error(`  - ${dir}`));
-            
-            console.log('\nActual directory structure:');
-            const listDir = (dir, indent = '', depth = 0) => {
-              if (depth > 2) return;
-              try {
-                const items = fs.readdirSync(dir);
-                items.slice(0, 10).forEach(item => {
-                  const fullPath = path.join(dir, item);
-                  const stat = fs.statSync(fullPath);
-                  console.log(`${indent}${item}${stat.isDirectory() ? '/' : ''}`);
-                  if (stat.isDirectory() && depth < 2) {
-                    listDir(fullPath, indent + '  ', depth + 1);
-                  }
-                });
-              } catch (e) {}
-            };
-            listDir('.');
-            
+            console.error('Plugins directory not found');
             process.exit(1);
           }
+          
+          // Read the ICU polyfill
+          const icuPolyfill = fs.readFileSync('icu-polyfill.js', 'utf-8');
+          const bannerJs = '// Bundled plugin for LNReader/IReader (GraalVM/J2V8 compatible)\n' + icuPolyfill + '\n';
           
           async function bundlePlugin(inputFile, outputFile) {
             const config = {
@@ -138,134 +232,8 @@ jobs:
               sourcemap: false,
               treeShaking: false,
               legalComments: 'inline',
-              banner: {
-                js: `// Bundled plugin with all dependencies included
-// Built for LNReader/IReader (GraalVM/J2V8 compatible)
-// Includes ICU-free polyfills for Date/Intl
-
-// === ICU-FREE POLYFILLS (prevents GraalVM ICU errors) ===
-(function() {
-  // Override Intl completely to avoid ICU dependency
-  var SafeIntl = {
-    DateTimeFormat: function(locale, options) {
-      this.locale = locale || 'en';
-      this.options = options || {};
-    },
-    NumberFormat: function(locale, options) {
-      this.locale = locale || 'en';
-      this.options = options || {};
-    },
-    Collator: function(locale, options) {
-      this.locale = locale || 'en';
-      this.options = options || {};
-    },
-    PluralRules: function(locale, options) {
-      this.locale = locale || 'en';
-      this.options = options || {};
-    },
-    RelativeTimeFormat: function(locale, options) {
-      this.locale = locale || 'en';
-      this.options = options || {};
-    }
-  };
-  
-  SafeIntl.DateTimeFormat.prototype.format = function(date) {
-    if (!date) return '';
-    try {
-      var d = date instanceof Date ? date : new Date(date);
-      if (isNaN(d.getTime())) return '';
-      var year = d.getFullYear();
-      var month = String(d.getMonth() + 1).padStart(2, '0');
-      var day = String(d.getDate()).padStart(2, '0');
-      var hours = String(d.getHours()).padStart(2, '0');
-      var minutes = String(d.getMinutes()).padStart(2, '0');
-      var seconds = String(d.getSeconds()).padStart(2, '0');
-      return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-    } catch (e) { return ''; }
-  };
-  SafeIntl.DateTimeFormat.prototype.formatToParts = function(date) {
-    var d = date instanceof Date ? date : new Date(date);
-    return [
-      {type: 'year', value: String(d.getFullYear())},
-      {type: 'literal', value: '-'},
-      {type: 'month', value: String(d.getMonth() + 1).padStart(2, '0')},
-      {type: 'literal', value: '-'},
-      {type: 'day', value: String(d.getDate()).padStart(2, '0')}
-    ];
-  };
-  SafeIntl.DateTimeFormat.prototype.resolvedOptions = function() {
-    return {locale: this.locale, calendar: 'gregory', timeZone: 'UTC'};
-  };
-  SafeIntl.DateTimeFormat.supportedLocalesOf = function() { return ['en']; };
-  
-  SafeIntl.NumberFormat.prototype.format = function(num) { return String(num); };
-  SafeIntl.NumberFormat.prototype.formatToParts = function(num) {
-    return [{type: 'integer', value: String(Math.floor(num))}];
-  };
-  SafeIntl.NumberFormat.prototype.resolvedOptions = function() {
-    return {locale: this.locale, style: 'decimal'};
-  };
-  SafeIntl.NumberFormat.supportedLocalesOf = function() { return ['en']; };
-  
-  SafeIntl.Collator.prototype.compare = function(a, b) {
-    return String(a).localeCompare(String(b));
-  };
-  SafeIntl.Collator.prototype.resolvedOptions = function() {
-    return {locale: this.locale};
-  };
-  SafeIntl.Collator.supportedLocalesOf = function() { return ['en']; };
-  
-  SafeIntl.PluralRules.prototype.select = function(n) {
-    return n === 1 ? 'one' : 'other';
-  };
-  SafeIntl.PluralRules.prototype.resolvedOptions = function() {
-    return {locale: this.locale, type: 'cardinal'};
-  };
-  SafeIntl.PluralRules.supportedLocalesOf = function() { return ['en']; };
-  
-  SafeIntl.RelativeTimeFormat.prototype.format = function(value, unit) {
-    var abs = Math.abs(value);
-    var suffix = value < 0 ? ' ago' : ' from now';
-    return abs + ' ' + unit + (abs !== 1 ? 's' : '') + suffix;
-  };
-  SafeIntl.RelativeTimeFormat.prototype.resolvedOptions = function() {
-    return {locale: this.locale};
-  };
-  SafeIntl.RelativeTimeFormat.supportedLocalesOf = function() { return ['en']; };
-  
-  // Force override global Intl
-  try { globalThis.Intl = SafeIntl; } catch(e) {}
-  try { if (typeof global !== 'undefined') global.Intl = SafeIntl; } catch(e) {}
-  try { if (typeof window !== 'undefined') window.Intl = SafeIntl; } catch(e) {}
-  try { if (typeof self !== 'undefined') self.Intl = SafeIntl; } catch(e) {}
-  
-  // Override Date prototype locale methods
-  var OrigDate = Date;
-  Date.prototype.toLocaleString = function() {
-    try {
-      return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + 
-             String(this.getDate()).padStart(2,'0') + ' ' + String(this.getHours()).padStart(2,'0') + 
-             ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
-    } catch(e) { return this.toISOString(); }
-  };
-  Date.prototype.toLocaleDateString = function() {
-    try {
-      return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + String(this.getDate()).padStart(2,'0');
-    } catch(e) { return this.toISOString().split('T')[0]; }
-  };
-  Date.prototype.toLocaleTimeString = function() {
-    try {
-      return String(this.getHours()).padStart(2,'0') + ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
-    } catch(e) { return this.toISOString().split('T')[1].split('.')[0]; }
-  };
-})();
-// === END ICU-FREE POLYFILLS ===
-
-`
-              },
-              footer: {
-                js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
-              },
+              banner: { js: bannerJs },
+              footer: { js: '\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n' },
               globalName: 'LNReaderPlugin',
               plugins: [
                 polyfillNode({
@@ -284,22 +252,14 @@ jobs:
               mainFields: ['module', 'main'],
               conditions: ['import', 'require', 'default'],
               logLevel: 'error',
-              logOverride: {
-                'commonjs-variable-in-esm': 'silent'
-              }
+              logOverride: { 'commonjs-variable-in-esm': 'silent' }
             };
             
             try {
               await build(config);
               return true;
             } catch (error) {
-              console.error(`❌ Failed to bundle ${path.basename(inputFile)}:`);
-              console.error(`   Error: ${error.message}`);
-              if (error.errors && error.errors.length > 0) {
-                error.errors.slice(0, 3).forEach(err => {
-                  console.error(`   ${err.text}`);
-                });
-              }
+              console.error('Failed to bundle ' + path.basename(inputFile) + ': ' + error.message);
               return false;
             }
           }
@@ -312,7 +272,7 @@ jobs:
               return fs.statSync(fullPath).isDirectory();
             });
             
-            console.log(`Found ${languages.length} languages\n`);
+            console.log('Found ' + languages.length + ' languages\n');
             
             let totalSuccess = 0;
             let totalFiles = 0;
@@ -327,7 +287,7 @@ jobs:
               
               if (pluginFiles.length === 0) continue;
               
-              console.log(`\n📦 Bundling ${language} (${pluginFiles.length} plugins)...`);
+              console.log('\nBundling ' + language + ' (' + pluginFiles.length + ' plugins)...');
               fs.mkdirSync(outputDir, { recursive: true });
               
               let successCount = 0;
@@ -340,17 +300,17 @@ jobs:
                 if (success) {
                   successCount++;
                   if (successCount % 10 === 0) {
-                    console.log(`  Progress: ${successCount}/${pluginFiles.length}...`);
+                    console.log('  Progress: ' + successCount + '/' + pluginFiles.length + '...');
                   }
                 }
               }
               
-              console.log(`✅ ${language}: ${successCount}/${pluginFiles.length} plugins bundled`);
+              console.log(language + ': ' + successCount + '/' + pluginFiles.length + ' plugins bundled');
               totalSuccess += successCount;
               totalFiles += pluginFiles.length;
             }
           
-            console.log(`\n🎉 Total: ${totalSuccess}/${totalFiles} plugins bundled successfully`);
+            console.log('\nTotal: ' + totalSuccess + '/' + totalFiles + ' plugins bundled successfully');
           }
           
           bundleAllPlugins().catch(console.error);
@@ -370,35 +330,29 @@ jobs:
           
           echo "Verifying bundled plugins..."
           
-          # Count bundled files
           total=$(find .bundled/plugins -name "*.js" -type f 2>/dev/null | wc -l)
           echo "Total bundled files: $total"
           
-          # Show sample
           first_file=$(find .bundled/plugins -name "*.js" -type f 2>/dev/null | head -1)
           if [ -n "$first_file" ]; then
             echo ""
             echo "Sample from $(basename "$first_file"):"
-            head -3 "$first_file"
+            head -5 "$first_file"
             echo "..."
           fi
           
           echo ""
-          echo "✅ Verification complete - Modern JS (ES2020) for J2V8"
+          echo "✅ Verification complete"
           
           cd ..
       
       - name: Organize plugins
         run: |
-          # Create plugins directory
           mkdir -p plugins
-          
-          # Copy bundled plugins
           cp -r lnreader-source/.bundled/plugins/* plugins/ 2>/dev/null || true
           
-          echo "✅ Organized plugins (Modern JS/ES2020 for J2V8)"
+          echo "✅ Organized plugins"
           
-          # Count plugins by language
           echo ""
           echo "Plugin count by language:"
           for lang_dir in plugins/*/; do
@@ -417,7 +371,7 @@ jobs:
           
           const updateUrls = (filePath, outputPath, minified = false) => {
             if (!fs.existsSync(filePath)) {
-              console.log(`⚠️  Source file not found: ${filePath}`);
+              console.log('Source file not found: ' + filePath);
               return;
             }
             
@@ -440,52 +394,11 @@ jobs:
             
             const output = minified ? JSON.stringify(data) : JSON.stringify(data, null, '\t');
             fs.writeFileSync(outputPath, output);
-            console.log(`✅ Updated ${path.basename(outputPath)}`);
+            console.log('Updated ' + path.basename(outputPath));
           };
           
-          // Create manifest files in plugins directory
           updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', false);
           updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', true);
-          SCRIPT
-
-      
-      - name: Update manifest URLs
-        run: |
-          node << 'SCRIPT'
-          const fs = require('fs');
-          const path = require('path');
-          
-          const updateUrls = (filePath, outputPath, minified = false) => {
-            if (!fs.existsSync(filePath)) {
-              console.log(`⚠️  Source file not found: ${filePath}`);
-              return;
-            }
-            
-            const content = fs.readFileSync(filePath, 'utf-8');
-            const data = JSON.parse(content);
-            
-            data.forEach(plugin => {
-              if (plugin.url) {
-                plugin.url = plugin.url
-                  .replace(
-                    /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/src\/plugins\//g,
-                    'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/'
-                  )
-                  .replace(
-                    /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/plugins\//g,
-                    'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/'
-                  );
-              }
-            });
-            
-            const output = minified ? JSON.stringify(data) : JSON.stringify(data, null, '\t');
-            fs.writeFileSync(outputPath, output);
-            console.log(`✅ Updated ${path.basename(outputPath)}`);
-          };
-          
-          // Create manifest files in plugins directory
-          updateUrls('.dist/plugins.json', 'plugins/plugins.json', false);
-          updateUrls('.dist/plugins.min.json', 'plugins/plugins.min.json', true);
           SCRIPT
       
       - name: Generate README
@@ -501,44 +414,16 @@ jobs:
           - ✅ All dependencies bundled (cheerio, dayjs, etc.)
           - ✅ Non-minified for easy debugging
           - ✅ ES2020 target (full ES6+ support)
-          - ✅ Native async/await and Promises
-          - ✅ Arrow functions, classes, template literals
-          - ✅ Self-contained - no external modules needed
           - ✅ ICU-free polyfills included (fixes GraalVM TimeZone errors)
+          - ✅ Self-contained - no external modules needed
           
-          ## JavaScript Engine Compatibility
-          
-          These plugins work with both:
-          - **GraalVM** (IReader Desktop) - with ICU-free Date/Intl polyfills
-          - **J2V8** (V8 JavaScript engine) - native ES6+ support
-          
-          ### ICU-Free Polyfills
-          Each plugin includes polyfills that override `Intl` and `Date.toLocaleString()` 
-          methods to prevent GraalVM ICU dependency errors. This fixes:
-          - `NoClassDefFoundError: org/graalvm/shadowed/com/ibm/icu/util/TimeZone`
+          ## ICU-Free Polyfills
+          Each plugin includes polyfills that override Intl and Date.toLocaleString()
+          to prevent GraalVM ICU dependency errors:
+          - NoClassDefFoundError: org/graalvm/shadowed/com/ibm/icu/util/TimeZone
           - Date formatting issues with dayjs
-          
-          ## Structure
-          
-          ```
-          plugins/
-          ├── plugins.json          # Plugin manifest
-          ├── plugins.min.json      # Minified manifest
-          ├── english/              # English plugins
-          ├── chinese/              # Chinese plugins
-          ├── spanish/              # Spanish plugins
-          └── ...                   # Other languages
-          ```
-          
-          ## Usage
-          
-          1. Download the plugins for your language
-          2. Copy `.js` files to your plugins directory
-          3. Restart the app
-          4. Enjoy!
           EOF
           
-          # Count total plugins
           total=$(find plugins -name "*.js" -type f 2>/dev/null | wc -l)
           echo "" >> plugins/README.md
           echo "**Total: $total plugins**" >> plugins/README.md
@@ -560,10 +445,8 @@ jobs:
       
       - name: Package plugins
         run: |
-          # Create single archive with all plugins
           tar -czf lnreader-plugins-j2v8.tar.gz plugins/
           
-          # Create individual language archives
           cd plugins
           for lang_dir in */; do
             if [ -d "$lang_dir" ]; then
@@ -585,67 +468,19 @@ jobs:
           tag_name: v${{ github.run_number }}
           name: LNReader Plugins v${{ github.run_number }} (GraalVM/J2V8)
           body: |
-            # LNReader Plugins - Bundled & Unminified (GraalVM/J2V8)
+            # LNReader Plugins - Bundled & Unminified
             
             Built from: https://github.com/LNReader/lnreader-plugins
             
-            ## 🚀 JavaScript Engine Compatibility
-            
-            These plugins work with both **GraalVM** (IReader Desktop) and **J2V8** (Android).
-            
-            ### ✅ Full Modern JavaScript Support
-            - Native async/await and Promises
-            - Arrow functions and classes
-            - Template literals
-            - Destructuring and spread operators
-            - ES2020 target - no ES5 transpilation needed!
-            
-            ### 🔧 ICU-Free Polyfills (NEW)
-            Each plugin now includes polyfills that override `Intl` and `Date.toLocaleString()` 
-            to prevent GraalVM ICU dependency errors:
-            - Fixes `NoClassDefFoundError: org/graalvm/shadowed/com/ibm/icu/util/TimeZone`
-            - Fixes dayjs date formatting issues
-            - Works without ICU4J library
-            
-            ## 📥 Download Options
-            
-            ### All Plugins
-            - **lnreader-plugins-j2v8.tar.gz** - All plugins (all languages)
-            
-            ### By Language
-            - **english-plugins.tar.gz** - English plugins only
-            - **chinese-plugins.tar.gz** - Chinese plugins only
-            - **spanish-plugins.tar.gz** - Spanish plugins only
-            - And more...
-            
-            ### Manifest Files
-            - **plugins.json** - Plugin manifest with metadata
-            - **plugins.min.json** - Minified plugin manifest
-            
-            ## ✨ Features
+            ## Features
             - ✅ All dependencies bundled (cheerio, dayjs, etc.)
-            - ✅ Non-minified for easy debugging
+            - ✅ ICU-free polyfills (fixes GraalVM TimeZone errors)
             - ✅ ES2020 with full ES6+ support
-            - ✅ Self-contained - no external modules needed
-            - ✅ ICU-free polyfills for GraalVM compatibility
+            - ✅ Works with GraalVM (IReader Desktop) and J2V8 (Android)
             
-            ## 📖 Usage
-            
-            1. Download `lnreader-plugins-j2v8.tar.gz` or a specific language archive
-            2. Extract and copy `.js` files to your plugins directory
-            3. Restart the app
-            4. Enjoy!
-            
-            ## 📂 Structure
-            
-            ```
-            plugins/
-            ├── plugins.json          # Plugin manifest
-            ├── plugins.min.json      # Minified manifest
-            ├── english/              # English plugins
-            ├── chinese/              # Chinese plugins
-            └── ...                   # Other languages
-            ```
+            ## ICU-Free Polyfills
+            Each plugin includes polyfills that override Intl and Date methods
+            to prevent GraalVM ICU dependency errors.
           files: |
             *.tar.gz
             plugins/plugins.json
