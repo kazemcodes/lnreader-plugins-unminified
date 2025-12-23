@@ -1,6 +1,111 @@
-// Bundled plugin with all dependencies included
-// Built for LNReader Android (J2V8 - V8 JavaScript Engine)
-// Supports: ES6+, async/await, Promises, arrow functions
+// Bundled plugin for LNReader/IReader (GraalVM/J2V8 compatible)
+// === ICU-FREE POLYFILLS (prevents GraalVM ICU errors) ===
+(function() {
+  var SafeIntl = {
+    DateTimeFormat: function(locale, options) {
+      this.locale = locale || 'en';
+      this.options = options || {};
+    },
+    NumberFormat: function(locale, options) {
+      this.locale = locale || 'en';
+      this.options = options || {};
+    },
+    Collator: function(locale, options) {
+      this.locale = locale || 'en';
+      this.options = options || {};
+    },
+    PluralRules: function(locale, options) {
+      this.locale = locale || 'en';
+      this.options = options || {};
+    },
+    RelativeTimeFormat: function(locale, options) {
+      this.locale = locale || 'en';
+      this.options = options || {};
+    }
+  };
+  SafeIntl.DateTimeFormat.prototype.format = function(date) {
+    if (!date) return '';
+    try {
+      var d = date instanceof Date ? date : new Date(date);
+      if (isNaN(d.getTime())) return '';
+      var year = d.getFullYear();
+      var month = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      var hours = String(d.getHours()).padStart(2, '0');
+      var minutes = String(d.getMinutes()).padStart(2, '0');
+      var seconds = String(d.getSeconds()).padStart(2, '0');
+      return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    } catch (e) { return ''; }
+  };
+  SafeIntl.DateTimeFormat.prototype.formatToParts = function(date) {
+    var d = date instanceof Date ? date : new Date(date);
+    return [
+      {type: 'year', value: String(d.getFullYear())},
+      {type: 'literal', value: '-'},
+      {type: 'month', value: String(d.getMonth() + 1).padStart(2, '0')},
+      {type: 'literal', value: '-'},
+      {type: 'day', value: String(d.getDate()).padStart(2, '0')}
+    ];
+  };
+  SafeIntl.DateTimeFormat.prototype.resolvedOptions = function() {
+    return {locale: this.locale, calendar: 'gregory', timeZone: 'UTC'};
+  };
+  SafeIntl.DateTimeFormat.supportedLocalesOf = function() { return ['en']; };
+  SafeIntl.NumberFormat.prototype.format = function(num) { return String(num); };
+  SafeIntl.NumberFormat.prototype.formatToParts = function(num) {
+    return [{type: 'integer', value: String(Math.floor(num))}];
+  };
+  SafeIntl.NumberFormat.prototype.resolvedOptions = function() {
+    return {locale: this.locale, style: 'decimal'};
+  };
+  SafeIntl.NumberFormat.supportedLocalesOf = function() { return ['en']; };
+  SafeIntl.Collator.prototype.compare = function(a, b) {
+    return String(a).localeCompare(String(b));
+  };
+  SafeIntl.Collator.prototype.resolvedOptions = function() {
+    return {locale: this.locale};
+  };
+  SafeIntl.Collator.supportedLocalesOf = function() { return ['en']; };
+  SafeIntl.PluralRules.prototype.select = function(n) {
+    return n === 1 ? 'one' : 'other';
+  };
+  SafeIntl.PluralRules.prototype.resolvedOptions = function() {
+    return {locale: this.locale, type: 'cardinal'};
+  };
+  SafeIntl.PluralRules.supportedLocalesOf = function() { return ['en']; };
+  SafeIntl.RelativeTimeFormat.prototype.format = function(value, unit) {
+    var abs = Math.abs(value);
+    var suffix = value < 0 ? ' ago' : ' from now';
+    return abs + ' ' + unit + (abs !== 1 ? 's' : '') + suffix;
+  };
+  SafeIntl.RelativeTimeFormat.prototype.resolvedOptions = function() {
+    return {locale: this.locale};
+  };
+  SafeIntl.RelativeTimeFormat.supportedLocalesOf = function() { return ['en']; };
+  try { globalThis.Intl = SafeIntl; } catch(e) {}
+  try { if (typeof global !== 'undefined') global.Intl = SafeIntl; } catch(e) {}
+  try { if (typeof window !== 'undefined') window.Intl = SafeIntl; } catch(e) {}
+  try { if (typeof self !== 'undefined') self.Intl = SafeIntl; } catch(e) {}
+  Date.prototype.toLocaleString = function() {
+    try {
+      return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + 
+             String(this.getDate()).padStart(2,'0') + ' ' + String(this.getHours()).padStart(2,'0') + 
+             ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
+    } catch(e) { return this.toISOString(); }
+  };
+  Date.prototype.toLocaleDateString = function() {
+    try {
+      return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + String(this.getDate()).padStart(2,'0');
+    } catch(e) { return this.toISOString().split('T')[0]; }
+  };
+  Date.prototype.toLocaleTimeString = function() {
+    try {
+      return String(this.getHours()).padStart(2,'0') + ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
+    } catch(e) { return this.toISOString().split('T')[1].split('.')[0]; }
+  };
+})();
+// === END ICU-FREE POLYFILLS ===
+
 
 "use strict";
 var LNReaderPlugin = (() => {
@@ -23812,6 +23917,5 @@ var LNReaderPlugin = (() => {
   }(Error);
 })();
 
-// Export for compatibility
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
 

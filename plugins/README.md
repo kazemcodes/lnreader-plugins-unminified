@@ -1,6 +1,6 @@
-# LNReader Plugins - Bundled & Unminified (J2V8)
+# LNReader Plugins - Bundled & Unminified (GraalVM/J2V8)
 
-**Modern JavaScript plugins for LNReader (J2V8 - V8 JavaScript Engine)**
+**Modern JavaScript plugins for LNReader/IReader (GraalVM & J2V8 compatible)**
 
 Built from: https://github.com/LNReader/lnreader-plugins
 
@@ -8,35 +8,13 @@ Built from: https://github.com/LNReader/lnreader-plugins
 - ✅ All dependencies bundled (cheerio, dayjs, etc.)
 - ✅ Non-minified for easy debugging
 - ✅ ES2020 target (full ES6+ support)
-- ✅ Native async/await and Promises
-- ✅ Arrow functions, classes, template literals
+- ✅ ICU-free polyfills included (fixes GraalVM TimeZone errors)
 - ✅ Self-contained - no external modules needed
 
-## JavaScript Engine
-
-These plugins are optimized for **J2V8** (V8 JavaScript engine), which provides:
-- ✅ Full ES6+ compatibility
-- ✅ Native Promise/async/await support
-- ✅ Same engine as Chrome and Node.js
-- ✅ No ES5 transpilation needed
-
-## Structure
-
-```
-plugins/
-├── plugins.json          # Plugin manifest
-├── plugins.min.json      # Minified manifest
-├── english/              # English plugins
-├── chinese/              # Chinese plugins
-├── spanish/              # Spanish plugins
-└── ...                   # Other languages
-```
-
-## Usage
-
-1. Download the plugins for your language
-2. Copy `.js` files to your LNReader plugins directory
-3. Restart LNReader
-4. Enjoy native V8 performance!
+## ICU-Free Polyfills
+Each plugin includes polyfills that override Intl and Date.toLocaleString()
+to prevent GraalVM ICU dependency errors:
+- NoClassDefFoundError: org/graalvm/shadowed/com/ibm/icu/util/TimeZone
+- Date formatting issues with dayjs
 
 **Total: 496 plugins**
