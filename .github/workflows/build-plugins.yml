@@ -72,20 +72,383 @@ jobs:
           echo "Searching for plugin files..."
           find . -type f -name "*.js" -path "*/plugins/*" | head -20
       
+      - name: Create ICU polyfill file
+        run: |
+          cat > lnreader-source/icu-polyfill.js << 'POLYFILL_EOF'
+          // === COMPREHENSIVE POLYFILLS (GraalVM/J2V8 compatible) ===
+          (function() {
+            // === ICU-FREE Intl POLYFILL ===
+            var SafeIntl = {
+              DateTimeFormat: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              NumberFormat: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              Collator: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              PluralRules: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              },
+              RelativeTimeFormat: function(locale, options) {
+                this.locale = locale || 'en';
+                this.options = options || {};
+              }
+            };
+            SafeIntl.DateTimeFormat.prototype.format = function(date) {
+              if (!date) return '';
+              try {
+                var d = date instanceof Date ? date : new Date(date);
+                if (isNaN(d.getTime())) return '';
+                var year = d.getFullYear();
+                var month = String(d.getMonth() + 1).padStart(2, '0');
+                var day = String(d.getDate()).padStart(2, '0');
+                var hours = String(d.getHours()).padStart(2, '0');
+                var minutes = String(d.getMinutes()).padStart(2, '0');
+                var seconds = String(d.getSeconds()).padStart(2, '0');
+                return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+              } catch (e) { return ''; }
+            };
+            SafeIntl.DateTimeFormat.prototype.formatToParts = function(date) {
+              var d = date instanceof Date ? date : new Date(date);
+              return [
+                {type: 'year', value: String(d.getFullYear())},
+                {type: 'literal', value: '-'},
+                {type: 'month', value: String(d.getMonth() + 1).padStart(2, '0')},
+                {type: 'literal', value: '-'},
+                {type: 'day', value: String(d.getDate()).padStart(2, '0')}
+              ];
+            };
+            SafeIntl.DateTimeFormat.prototype.resolvedOptions = function() {
+              return {locale: this.locale, calendar: 'gregory', timeZone: 'UTC'};
+            };
+            SafeIntl.DateTimeFormat.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.NumberFormat.prototype.format = function(num) { return String(num); };
+            SafeIntl.NumberFormat.prototype.formatToParts = function(num) {
+              return [{type: 'integer', value: String(Math.floor(num))}];
+            };
+            SafeIntl.NumberFormat.prototype.resolvedOptions = function() {
+              return {locale: this.locale, style: 'decimal'};
+            };
+            SafeIntl.NumberFormat.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.Collator.prototype.compare = function(a, b) {
+              return String(a).localeCompare(String(b));
+            };
+            SafeIntl.Collator.prototype.resolvedOptions = function() {
+              return {locale: this.locale};
+            };
+            SafeIntl.Collator.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.PluralRules.prototype.select = function(n) {
+              return n === 1 ? 'one' : 'other';
+            };
+            SafeIntl.PluralRules.prototype.resolvedOptions = function() {
+              return {locale: this.locale, type: 'cardinal'};
+            };
+            SafeIntl.PluralRules.supportedLocalesOf = function() { return ['en']; };
+            SafeIntl.RelativeTimeFormat.prototype.format = function(value, unit) {
+              var abs = Math.abs(value);
+              var suffix = value < 0 ? ' ago' : ' from now';
+              return abs + ' ' + unit + (abs !== 1 ? 's' : '') + suffix;
+            };
+            SafeIntl.RelativeTimeFormat.prototype.resolvedOptions = function() {
+              return {locale: this.locale};
+            };
+            SafeIntl.RelativeTimeFormat.supportedLocalesOf = function() { return ['en']; };
+            try { globalThis.Intl = SafeIntl; } catch(e) {}
+            try { if (typeof global !== 'undefined') global.Intl = SafeIntl; } catch(e) {}
+            try { if (typeof window !== 'undefined') window.Intl = SafeIntl; } catch(e) {}
+            try { if (typeof self !== 'undefined') self.Intl = SafeIntl; } catch(e) {}
+            
+            // === Date prototype overrides ===
+            Date.prototype.toLocaleString = function() {
+              try {
+                return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + 
+                       String(this.getDate()).padStart(2,'0') + ' ' + String(this.getHours()).padStart(2,'0') + 
+                       ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
+              } catch(e) { return this.toISOString(); }
+            };
+            Date.prototype.toLocaleDateString = function() {
+              try {
+                return this.getFullYear() + '-' + String(this.getMonth()+1).padStart(2,'0') + '-' + String(this.getDate()).padStart(2,'0');
+              } catch(e) { return this.toISOString().split('T')[0]; }
+            };
+            Date.prototype.toLocaleTimeString = function() {
+              try {
+                return String(this.getHours()).padStart(2,'0') + ':' + String(this.getMinutes()).padStart(2,'0') + ':' + String(this.getSeconds()).padStart(2,'0');
+              } catch(e) { return this.toISOString().split('T')[1].split('.')[0]; }
+            };
+            
+            // === URLSearchParams polyfill ===
+            if (typeof URLSearchParams === 'undefined') {
+              var USP = function(init) {
+                this.params = {};
+                if (typeof init === 'string') {
+                  var query = init.indexOf('?') === 0 ? init.substring(1) : init;
+                  if (query) {
+                    var self = this;
+                    query.split('&').forEach(function(pair) {
+                      var parts = pair.split('=');
+                      var key = decodeURIComponent(parts[0]);
+                      var value = parts[1] ? decodeURIComponent(parts[1]) : '';
+                      if (!self.params[key]) self.params[key] = [];
+                      self.params[key].push(value);
+                    });
+                  }
+                }
+              };
+              USP.prototype.append = function(key, value) {
+                if (!this.params[key]) this.params[key] = [];
+                this.params[key].push(String(value));
+              };
+              USP.prototype.set = function(key, value) { this.params[key] = [String(value)]; };
+              USP.prototype.get = function(key) { return this.params[key] ? this.params[key][0] : null; };
+              USP.prototype.getAll = function(key) { return this.params[key] || []; };
+              USP.prototype.has = function(key) { return key in this.params; };
+              USP.prototype.delete = function(key) { delete this.params[key]; };
+              USP.prototype.keys = function() { return Object.keys(this.params); };
+              USP.prototype.entries = function() {
+                var result = [];
+                for (var key in this.params) {
+                  if (this.params.hasOwnProperty(key)) {
+                    for (var i = 0; i < this.params[key].length; i++) {
+                      result.push([key, this.params[key][i]]);
+                    }
+                  }
+                }
+                return result;
+              };
+              USP.prototype.forEach = function(callback) {
+                for (var key in this.params) {
+                  if (this.params.hasOwnProperty(key)) {
+                    for (var i = 0; i < this.params[key].length; i++) {
+                      callback(this.params[key][i], key, this);
+                    }
+                  }
+                }
+              };
+              USP.prototype.toString = function() {
+                var parts = [];
+                for (var key in this.params) {
+                  if (this.params.hasOwnProperty(key)) {
+                    for (var i = 0; i < this.params[key].length; i++) {
+                      parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key][i]));
+                    }
+                  }
+                }
+                return parts.join('&');
+              };
+              try { globalThis.URLSearchParams = USP; } catch(e) {}
+            }
+            
+            // === atob/btoa polyfills ===
+            if (typeof atob === 'undefined') {
+              globalThis.atob = function(str) {
+                var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                var output = '';
+                str = String(str).replace(/=+$/, '');
+                for (var bc = 0, bs, buffer, idx = 0; buffer = str.charAt(idx++);
+                  ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+                  buffer = chars.indexOf(buffer);
+                }
+                return output;
+              };
+            }
+            if (typeof btoa === 'undefined') {
+              globalThis.btoa = function(str) {
+                var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                var output = '';
+                for (var block, charCode, idx = 0, map = chars;
+                  str.charAt(idx | 0) || (map = '=', idx % 1);
+                  output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
+                  charCode = str.charCodeAt(idx += 3/4);
+                  block = block << 8 | charCode;
+                }
+                return output;
+              };
+            }
+            
+            // === Object polyfills ===
+            if (typeof Object.assign !== 'function') {
+              Object.assign = function(target) {
+                if (target == null) throw new TypeError('Cannot convert undefined or null to object');
+                var to = Object(target);
+                for (var i = 1; i < arguments.length; i++) {
+                  var source = arguments[i];
+                  if (source != null) {
+                    for (var key in source) {
+                      if (Object.prototype.hasOwnProperty.call(source, key)) to[key] = source[key];
+                    }
+                  }
+                }
+                return to;
+              };
+            }
+            if (!Object.entries) {
+              Object.entries = function(obj) {
+                var result = [];
+                for (var key in obj) {
+                  if (Object.prototype.hasOwnProperty.call(obj, key)) result.push([key, obj[key]]);
+                }
+                return result;
+              };
+            }
+            if (!Object.values) {
+              Object.values = function(obj) {
+                var result = [];
+                for (var key in obj) {
+                  if (Object.prototype.hasOwnProperty.call(obj, key)) result.push(obj[key]);
+                }
+                return result;
+              };
+            }
+            if (!Object.fromEntries) {
+              Object.fromEntries = function(entries) {
+                var obj = {};
+                for (var i = 0; i < entries.length; i++) obj[entries[i][0]] = entries[i][1];
+                return obj;
+              };
+            }
+            
+            // === Array polyfills ===
+            if (!Array.from) {
+              Array.from = function(arrayLike, mapFn, thisArg) {
+                var arr = [];
+                for (var i = 0; i < arrayLike.length; i++) {
+                  arr.push(mapFn ? mapFn.call(thisArg, arrayLike[i], i) : arrayLike[i]);
+                }
+                return arr;
+              };
+            }
+            if (!Array.prototype.find) {
+              Array.prototype.find = function(predicate, thisArg) {
+                for (var i = 0; i < this.length; i++) {
+                  if (predicate.call(thisArg, this[i], i, this)) return this[i];
+                }
+                return undefined;
+              };
+            }
+            if (!Array.prototype.findIndex) {
+              Array.prototype.findIndex = function(predicate, thisArg) {
+                for (var i = 0; i < this.length; i++) {
+                  if (predicate.call(thisArg, this[i], i, this)) return i;
+                }
+                return -1;
+              };
+            }
+            if (!Array.prototype.includes) {
+              Array.prototype.includes = function(searchElement, fromIndex) {
+                var start = fromIndex || 0;
+                for (var i = start; i < this.length; i++) {
+                  if (this[i] === searchElement) return true;
+                }
+                return false;
+              };
+            }
+            if (!Array.prototype.flat) {
+              Array.prototype.flat = function(depth) {
+                depth = depth === undefined ? 1 : Math.floor(depth);
+                if (depth < 1) return Array.prototype.slice.call(this);
+                return (function flatten(arr, d) {
+                  var result = [];
+                  for (var i = 0; i < arr.length; i++) {
+                    if (Array.isArray(arr[i]) && d > 0) result = result.concat(flatten(arr[i], d - 1));
+                    else result.push(arr[i]);
+                  }
+                  return result;
+                })(this, depth);
+              };
+            }
+            if (!Array.prototype.flatMap) {
+              Array.prototype.flatMap = function(callback, thisArg) {
+                return this.map(callback, thisArg).flat(1);
+              };
+            }
+            
+            // === String polyfills ===
+            if (!String.prototype.includes) {
+              String.prototype.includes = function(search, start) { return this.indexOf(search, start) !== -1; };
+            }
+            if (!String.prototype.startsWith) {
+              String.prototype.startsWith = function(search, pos) {
+                pos = pos || 0;
+                return this.substr(pos, search.length) === search;
+              };
+            }
+            if (!String.prototype.endsWith) {
+              String.prototype.endsWith = function(search, length) {
+                if (length === undefined || length > this.length) length = this.length;
+                return this.substring(length - search.length, length) === search;
+              };
+            }
+            if (!String.prototype.padStart) {
+              String.prototype.padStart = function(targetLength, padString) {
+                targetLength = targetLength >> 0;
+                padString = String(padString || ' ');
+                if (this.length >= targetLength) return String(this);
+                targetLength = targetLength - this.length;
+                if (targetLength > padString.length) padString += padString.repeat(targetLength / padString.length);
+                return padString.slice(0, targetLength) + String(this);
+              };
+            }
+            if (!String.prototype.padEnd) {
+              String.prototype.padEnd = function(targetLength, padString) {
+                targetLength = targetLength >> 0;
+                padString = String(padString || ' ');
+                if (this.length >= targetLength) return String(this);
+                targetLength = targetLength - this.length;
+                if (targetLength > padString.length) padString += padString.repeat(targetLength / padString.length);
+                return String(this) + padString.slice(0, targetLength);
+              };
+            }
+            if (!String.prototype.repeat) {
+              String.prototype.repeat = function(count) {
+                if (count < 0) throw new RangeError('repeat count must be non-negative');
+                if (count === Infinity) throw new RangeError('repeat count must be less than infinity');
+                count = Math.floor(count);
+                if (this.length === 0 || count === 0) return '';
+                var result = '';
+                for (var i = 0; i < count; i++) result += this;
+                return result;
+              };
+            }
+            if (!String.prototype.trimStart) {
+              String.prototype.trimStart = function() { return this.replace(/^[\s\uFEFF\xA0]+/, ''); };
+            }
+            if (!String.prototype.trimEnd) {
+              String.prototype.trimEnd = function() { return this.replace(/[\s\uFEFF\xA0]+$/, ''); };
+            }
+            
+            // === Number polyfills ===
+            if (!Number.isNaN) {
+              Number.isNaN = function(value) { return typeof value === 'number' && value !== value; };
+            }
+            if (!Number.isFinite) {
+              Number.isFinite = function(value) { return typeof value === 'number' && isFinite(value); };
+            }
+            if (!Number.isInteger) {
+              Number.isInteger = function(value) { return typeof value === 'number' && isFinite(value) && Math.floor(value) === value; };
+            }
+          })();
+          // === END COMPREHENSIVE POLYFILLS ===
+          POLYFILL_EOF
+      
       - name: Bundle all plugins
         run: |
           cd lnreader-source
           
           echo "Creating bundling script..."
           
-          # Create bundling script
           cat > bundle-all-plugins.js << 'EOF'
           import { build } from 'esbuild';
           import { polyfillNode } from 'esbuild-plugin-polyfill-node';
           import fs from 'fs';
           import path from 'path';
           
-          // Try multiple possible locations
           const possibleDirs = [
             path.join('.js', 'src', 'plugins'),
             path.join('.js', 'plugins'),
@@ -99,34 +462,19 @@ jobs:
           for (const dir of possibleDirs) {
             if (fs.existsSync(dir)) {
               pluginsBaseDir = dir;
-              console.log(`Found plugins directory: ${dir}\n`);
+              console.log('Found plugins directory: ' + dir + '\n');
               break;
             }
           }
           
           if (!pluginsBaseDir) {
-            console.error('Plugins directory not found in any of these locations:');
-            possibleDirs.forEach(dir => console.error(`  - ${dir}`));
-            
-            console.log('\nActual directory structure:');
-            const listDir = (dir, indent = '', depth = 0) => {
-              if (depth > 2) return;
-              try {
-                const items = fs.readdirSync(dir);
-                items.slice(0, 10).forEach(item => {
-                  const fullPath = path.join(dir, item);
-                  const stat = fs.statSync(fullPath);
-                  console.log(`${indent}${item}${stat.isDirectory() ? '/' : ''}`);
-                  if (stat.isDirectory() && depth < 2) {
-                    listDir(fullPath, indent + '  ', depth + 1);
-                  }
-                });
-              } catch (e) {}
-            };
-            listDir('.');
-            
+            console.error('Plugins directory not found');
             process.exit(1);
           }
+          
+          // Read the ICU polyfill
+          const icuPolyfill = fs.readFileSync('icu-polyfill.js', 'utf-8');
+          const bannerJs = '// Bundled plugin for LNReader/IReader (GraalVM/J2V8 compatible)\n' + icuPolyfill + '\n';
           
           async function bundlePlugin(inputFile, outputFile) {
             const config = {
@@ -141,12 +489,8 @@ jobs:
               sourcemap: false,
               treeShaking: false,
               legalComments: 'inline',
-              banner: {
-                js: '// Bundled plugin with all dependencies included\n// Built for LNReader Android (J2V8 - V8 JavaScript Engine)\n// Supports: ES6+, async/await, Promises, arrow functions\n'
-              },
-              footer: {
-                js: '\n// Export for compatibility\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n'
-              },
+              banner: { js: bannerJs },
+              footer: { js: '\nif (typeof module !== "undefined" && module.exports) { module.exports = this; }\n' },
               globalName: 'LNReaderPlugin',
               plugins: [
                 polyfillNode({
@@ -165,22 +509,14 @@ jobs:
               mainFields: ['module', 'main'],
               conditions: ['import', 'require', 'default'],
               logLevel: 'error',
-              logOverride: {
-                'commonjs-variable-in-esm': 'silent'
-              }
+              logOverride: { 'commonjs-variable-in-esm': 'silent' }
             };
             
             try {
               await build(config);
               return true;
             } catch (error) {
-              console.error(`❌ Failed to bundle ${path.basename(inputFile)}:`);
-              console.error(`   Error: ${error.message}`);
-              if (error.errors && error.errors.length > 0) {
-                error.errors.slice(0, 3).forEach(err => {
-                  console.error(`   ${err.text}`);
-                });
-              }
+              console.error('Failed to bundle ' + path.basename(inputFile) + ': ' + error.message);
               return false;
             }
           }
@@ -193,7 +529,7 @@ jobs:
               return fs.statSync(fullPath).isDirectory();
             });
             
-            console.log(`Found ${languages.length} languages\n`);
+            console.log('Found ' + languages.length + ' languages\n');
             
             let totalSuccess = 0;
             let totalFiles = 0;
@@ -208,7 +544,7 @@ jobs:
               
               if (pluginFiles.length === 0) continue;
               
-              console.log(`\n📦 Bundling ${language} (${pluginFiles.length} plugins)...`);
+              console.log('\nBundling ' + language + ' (' + pluginFiles.length + ' plugins)...');
               fs.mkdirSync(outputDir, { recursive: true });
               
               let successCount = 0;
@@ -221,17 +557,17 @@ jobs:
                 if (success) {
                   successCount++;
                   if (successCount % 10 === 0) {
-                    console.log(`  Progress: ${successCount}/${pluginFiles.length}...`);
+                    console.log('  Progress: ' + successCount + '/' + pluginFiles.length + '...');
                   }
                 }
               }
               
-              console.log(`✅ ${language}: ${successCount}/${pluginFiles.length} plugins bundled`);
+              console.log(language + ': ' + successCount + '/' + pluginFiles.length + ' plugins bundled');
               totalSuccess += successCount;
               totalFiles += pluginFiles.length;
             }
           
-            console.log(`\n🎉 Total: ${totalSuccess}/${totalFiles} plugins bundled successfully`);
+            console.log('\nTotal: ' + totalSuccess + '/' + totalFiles + ' plugins bundled successfully');
           }
           
           bundleAllPlugins().catch(console.error);
@@ -251,35 +587,29 @@ jobs:
           
           echo "Verifying bundled plugins..."
           
-          # Count bundled files
           total=$(find .bundled/plugins -name "*.js" -type f 2>/dev/null | wc -l)
           echo "Total bundled files: $total"
           
-          # Show sample
           first_file=$(find .bundled/plugins -name "*.js" -type f 2>/dev/null | head -1)
           if [ -n "$first_file" ]; then
             echo ""
             echo "Sample from $(basename "$first_file"):"
-            head -3 "$first_file"
+            head -5 "$first_file"
             echo "..."
           fi
           
           echo ""
-          echo "✅ Verification complete - Modern JS (ES2020) for J2V8"
+          echo "✅ Verification complete"
           
           cd ..
       
       - name: Organize plugins
         run: |
-          # Create plugins directory
           mkdir -p plugins
-          
-          # Copy bundled plugins
           cp -r lnreader-source/.bundled/plugins/* plugins/ 2>/dev/null || true
           
-          echo "✅ Organized plugins (Modern JS/ES2020 for J2V8)"
+          echo "✅ Organized plugins"
           
-          # Count plugins by language
           echo ""
           echo "Plugin count by language:"
           for lang_dir in plugins/*/; do
@@ -298,7 +628,7 @@ jobs:
           
           const updateUrls = (filePath, outputPath, minified = false) => {
             if (!fs.existsSync(filePath)) {
-              console.log(`⚠️  Source file not found: ${filePath}`);
+              console.log('Source file not found: ' + filePath);
               return;
             }
             
@@ -321,60 +651,19 @@ jobs:
             
             const output = minified ? JSON.stringify(data) : JSON.stringify(data, null, '\t');
             fs.writeFileSync(outputPath, output);
-            console.log(`✅ Updated ${path.basename(outputPath)}`);
+            console.log('Updated ' + path.basename(outputPath));
           };
           
-          // Create manifest files in plugins directory
           updateUrls('lnreader-source/.dist/plugins.json', 'plugins/plugins.json', false);
           updateUrls('lnreader-source/.dist/plugins.min.json', 'plugins/plugins.min.json', true);
-          SCRIPT
-
-      
-      - name: Update manifest URLs
-        run: |
-          node << 'SCRIPT'
-          const fs = require('fs');
-          const path = require('path');
-          
-          const updateUrls = (filePath, outputPath, minified = false) => {
-            if (!fs.existsSync(filePath)) {
-              console.log(`⚠️  Source file not found: ${filePath}`);
-              return;
-            }
-            
-            const content = fs.readFileSync(filePath, 'utf-8');
-            const data = JSON.parse(content);
-            
-            data.forEach(plugin => {
-              if (plugin.url) {
-                plugin.url = plugin.url
-                  .replace(
-                    /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/src\/plugins\//g,
-                    'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/'
-                  )
-                  .replace(
-                    /https:\/\/raw\.githubusercontent\.com\/LNReader\/lnreader-plugins\/[^/]+\/\.js\/plugins\//g,
-                    'https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/'
-                  );
-              }
-            });
-            
-            const output = minified ? JSON.stringify(data) : JSON.stringify(data, null, '\t');
-            fs.writeFileSync(outputPath, output);
-            console.log(`✅ Updated ${path.basename(outputPath)}`);
-          };
-          
-          // Create manifest files in plugins directory
-          updateUrls('.dist/plugins.json', 'plugins/plugins.json', false);
-          updateUrls('.dist/plugins.min.json', 'plugins/plugins.min.json', true);
           SCRIPT
       
       - name: Generate README
         run: |
           cat > plugins/README.md << 'EOF'
-          # LNReader Plugins - Bundled & Unminified (J2V8)
+          # LNReader Plugins - Bundled & Unminified (GraalVM/J2V8)
           
-          **Modern JavaScript plugins for LNReader (J2V8 - V8 JavaScript Engine)**
+          **Modern JavaScript plugins for LNReader/IReader (GraalVM & J2V8 compatible)**
           
           Built from: https://github.com/LNReader/lnreader-plugins
           
@@ -382,39 +671,21 @@ jobs:
           - ✅ All dependencies bundled (cheerio, dayjs, etc.)
           - ✅ Non-minified for easy debugging
           - ✅ ES2020 target (full ES6+ support)
-          - ✅ Native async/await and Promises
-          - ✅ Arrow functions, classes, template literals
+          - ✅ Comprehensive polyfills included
           - ✅ Self-contained - no external modules needed
           
-          ## JavaScript Engine
-          
-          These plugins are optimized for **J2V8** (V8 JavaScript engine), which provides:
-          - ✅ Full ES6+ compatibility
-          - ✅ Native Promise/async/await support
-          - ✅ Same engine as Chrome and Node.js
-          - ✅ No ES5 transpilation needed
-          
-          ## Structure
-          
-          ```
-          plugins/
-          ├── plugins.json          # Plugin manifest
-          ├── plugins.min.json      # Minified manifest
-          ├── english/              # English plugins
-          ├── chinese/              # Chinese plugins
-          ├── spanish/              # Spanish plugins
-          └── ...                   # Other languages
-          ```
-          
-          ## Usage
-          
-          1. Download the plugins for your language
-          2. Copy `.js` files to your LNReader plugins directory
-          3. Restart LNReader
-          4. Enjoy native V8 performance!
+          ## Included Polyfills
+          Each plugin includes polyfills for maximum compatibility:
+          - **Intl** - ICU-free DateTimeFormat, NumberFormat, Collator, etc.
+          - **Date** - toLocaleString, toLocaleDateString, toLocaleTimeString
+          - **URLSearchParams** - append, set, get, getAll, has, delete, keys, entries, forEach
+          - **atob/btoa** - Base64 encoding/decoding
+          - **Object** - assign, entries, values, fromEntries
+          - **Array** - from, find, findIndex, includes, flat, flatMap
+          - **String** - includes, startsWith, endsWith, padStart, padEnd, repeat, trimStart, trimEnd
+          - **Number** - isNaN, isFinite, isInteger
           EOF
           
-          # Count total plugins
           total=$(find plugins -name "*.js" -type f 2>/dev/null | wc -l)
           echo "" >> plugins/README.md
           echo "**Total: $total plugins**" >> plugins/README.md
@@ -436,10 +707,8 @@ jobs:
       
       - name: Package plugins
         run: |
-          # Create single archive with all plugins
           tar -czf lnreader-plugins-j2v8.tar.gz plugins/
           
-          # Create individual language archives
           cd plugins
           for lang_dir in */; do
             if [ -d "$lang_dir" ]; then
@@ -459,62 +728,26 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
-          name: LNReader Plugins v${{ github.run_number }} (J2V8)
+          name: LNReader Plugins v${{ github.run_number }} (GraalVM/J2V8)
           body: |
-            # LNReader Plugins - Bundled & Unminified (J2V8)
+            # LNReader Plugins - Bundled & Unminified
             
             Built from: https://github.com/LNReader/lnreader-plugins
             
-            ## 🚀 JavaScript Engine: J2V8 (V8)
-            
-            These plugins are optimized for **J2V8**, which uses the V8 JavaScript engine (same as Chrome and Node.js).
-            
-            ### ✅ Full Modern JavaScript Support
-            - Native async/await and Promises
-            - Arrow functions and classes
-            - Template literals
-            - Destructuring and spread operators
-            - ES2020 target - no ES5 transpilation needed!
-            
-            ## 📥 Download Options
-            
-            ### All Plugins
-            - **lnreader-plugins-j2v8.tar.gz** - All plugins (all languages)
-            
-            ### By Language
-            - **english-plugins.tar.gz** - English plugins only
-            - **chinese-plugins.tar.gz** - Chinese plugins only
-            - **spanish-plugins.tar.gz** - Spanish plugins only
-            - And more...
-            
-            ### Manifest Files
-            - **plugins.json** - Plugin manifest with metadata
-            - **plugins.min.json** - Minified plugin manifest
-            
-            ## ✨ Features
+            ## Features
             - ✅ All dependencies bundled (cheerio, dayjs, etc.)
-            - ✅ Non-minified for easy debugging
+            - ✅ Comprehensive polyfills for GraalVM/J2V8 compatibility
             - ✅ ES2020 with full ES6+ support
-            - ✅ Self-contained - no external modules needed
-            - ✅ Optimized for V8 engine performance
+            - ✅ Works with GraalVM (IReader Desktop) and J2V8 (Android)
             
-            ## 📖 Usage
-            
-            1. Download `lnreader-plugins-j2v8.tar.gz` or a specific language archive
-            2. Extract and copy `.js` files to your LNReader plugins directory
-            3. Restart LNReader
-            4. Enjoy native V8 performance!
-            
-            ## 📂 Structure
-            
-            ```
-            plugins/
-            ├── plugins.json          # Plugin manifest
-            ├── plugins.min.json      # Minified manifest
-            ├── english/              # English plugins
-            ├── chinese/              # Chinese plugins
-            └── ...                   # Other languages
-            ```
+            ## Included Polyfills
+            - Intl (ICU-free), Date.toLocaleString
+            - URLSearchParams (append, set, get, getAll, has, delete, keys, entries, forEach)
+            - atob/btoa (Base64)
+            - Object (assign, entries, values, fromEntries)
+            - Array (from, find, findIndex, includes, flat, flatMap)
+            - String (includes, startsWith, endsWith, padStart, padEnd, repeat, trimStart, trimEnd)
+            - Number (isNaN, isFinite, isInteger)
           files: |
             *.tar.gz
             plugins/plugins.json
