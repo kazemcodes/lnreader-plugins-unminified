@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [lnreader-release]
+  schedule:
+    # Run weekly on Sunday at 6:00 AM UTC
+    - cron: '0 6 * * 0'
 
 jobs:
   build:
