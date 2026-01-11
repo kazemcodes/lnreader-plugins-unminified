@@ -24436,19 +24436,19 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var l = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), u = a(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), c = function() {
     function a2() {
-      this.id = "novelight", this.name = "Novelight", this.version = "1.1.2", this.icon = "src/en/novelight/icon.png", this.site = "https://novelight.net/", this.hideLocked = s.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { sort: { label: "Sort Results By", value: "popularity", options: [{ label: "Title (A>Z)", value: "title" }, { label: "Publication Date", value: "-time_created" }, { label: "Update Date (Newest)", value: "-time_updated" }, { label: "Year Release", value: "-year_of_release" }, { label: "Popularity", value: "popularity" }], type: o.FilterTypes.Picker }, translation: { label: "Translation Status", value: [], options: [{ label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }, { label: "Paused", value: "paused" }, { label: "Dropped", value: "dropped" }, { label: "None", value: "none" }], type: o.FilterTypes.CheckboxGroup }, status: { label: "Status", value: [], options: [{ label: "Releasing", value: "releasing" }, { label: "Completed", value: "completed" }, { label: "Cancelled", value: "cancelled" }, { label: "Not yet released", value: "not+yet+released" }], type: o.FilterTypes.CheckboxGroup }, novel_type: { label: "Type", value: [], options: [{ label: "Fan Fiction", value: "4" }, { label: "Light Novel", value: "1" }, { label: "Published Novel", value: "2" }, { label: "Web Novel", value: "3" }], type: o.FilterTypes.CheckboxGroup }, genres: { label: "Genres", value: [], options: [{ label: "Thriller", value: "1" }, { label: "Supernatural", value: "2" }, { label: "Sports", value: "3" }, { label: "Slice of Life", value: "4" }, { label: "Sci-Fi", value: "5" }, { label: "Romance", value: "6" }, { label: "Psychological", value: "7" }, { label: "Mystery", value: "8" }, { label: "Mecha", value: "9" }, { label: "Horror", value: "10" }, { label: "Fantasy", value: "11" }, { label: "Ecchi", value: "12" }, { label: "Drama", value: "13" }, { label: "Comedy", value: "14" }, { label: "Adventure", value: "15" }, { label: "Action", value: "16" }, { label: "Adult", value: "17" }, { label: "Isekai", value: "18" }, { label: "Wuxia", value: "19" }, { label: "Shounen", value: "20" }, { label: "Yuri", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Harem", value: "24" }, { label: "Seinen", value: "25" }, { label: "Tragedy", value: "26" }, { label: "Mature", value: "27" }, { label: "Martial Arts", value: "28" }, { label: "Gender Bender", value: "29" }, { label: "School Life", value: "30" }, { label: "Xuanhuan", value: "31" }, { label: "Yaoi", value: "32" }, { label: "Historical", value: "33" }], type: o.FilterTypes.CheckboxGroup }, country: { label: "Country", value: [], options: [{ label: "China", value: "1" }, { label: "Japan", value: "2" }, { label: "Korea", value: "3" }, { label: "Other", value: "6" }], type: o.FilterTypes.CheckboxGroup } };
+      this.id = "novelight", this.name = "Novelight", this.version = "1.1.3", this.icon = "src/en/novelight/icon.png", this.site = "https://novelight.net/", this.hideLocked = s.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { sort: { label: "Sort Results By", value: "popularity", options: [{ label: "Title (A>Z)", value: "title" }, { label: "Publication Date", value: "-time_created" }, { label: "Update Date (Newest)", value: "-time_updated" }, { label: "Year Release", value: "-year_of_release" }, { label: "Popularity", value: "popularity" }], type: o.FilterTypes.Picker }, translation: { label: "Translation Status", value: [], options: [{ label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }, { label: "Paused", value: "paused" }, { label: "Dropped", value: "dropped" }, { label: "None", value: "none" }], type: o.FilterTypes.CheckboxGroup }, status: { label: "Status", value: [], options: [{ label: "Releasing", value: "releasing" }, { label: "Completed", value: "completed" }, { label: "Cancelled", value: "cancelled" }, { label: "Not yet released", value: "not+yet+released" }], type: o.FilterTypes.CheckboxGroup }, novel_type: { label: "Type", value: [], options: [{ label: "Fan Fiction", value: "4" }, { label: "Light Novel", value: "1" }, { label: "Published Novel", value: "2" }, { label: "Web Novel", value: "3" }], type: o.FilterTypes.CheckboxGroup }, genres: { label: "Genres", value: [], options: [{ label: "Thriller", value: "1" }, { label: "Supernatural", value: "2" }, { label: "Sports", value: "3" }, { label: "Slice of Life", value: "4" }, { label: "Sci-Fi", value: "5" }, { label: "Romance", value: "6" }, { label: "Psychological", value: "7" }, { label: "Mystery", value: "8" }, { label: "Mecha", value: "9" }, { label: "Horror", value: "10" }, { label: "Fantasy", value: "11" }, { label: "Ecchi", value: "12" }, { label: "Drama", value: "13" }, { label: "Comedy", value: "14" }, { label: "Adventure", value: "15" }, { label: "Action", value: "16" }, { label: "Adult", value: "17" }, { label: "Isekai", value: "18" }, { label: "Wuxia", value: "19" }, { label: "Shounen", value: "20" }, { label: "Yuri", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Harem", value: "24" }, { label: "Seinen", value: "25" }, { label: "Tragedy", value: "26" }, { label: "Mature", value: "27" }, { label: "Martial Arts", value: "28" }, { label: "Gender Bender", value: "29" }, { label: "School Life", value: "30" }, { label: "Xuanhuan", value: "31" }, { label: "Yaoi", value: "32" }, { label: "Historical", value: "33" }], type: o.FilterTypes.CheckboxGroup }, country: { label: "Country", value: [], options: [{ label: "China", value: "1" }, { label: "Japan", value: "2" }, { label: "Korea", value: "3" }, { label: "Other", value: "6" }], type: o.FilterTypes.CheckboxGroup } };
     }
     __name(a2, "a");
     return a2.prototype.popularNovels = function(a3, r2) {
       return e(this, arguments, void 0, function(e2, a4) {
-        var r3, o2, u2, s2, c2, v, h, p, d, f, b, y, g, m, x, w, C, S, _, k, T = this, A = a4.showLatestNovels, N = a4.filters;
+        var r3, o2, u2, s2, c2, h, v, p, d, f, b, y, g, m, x, w, C, S, _, k, T = this, A = a4.showLatestNovels, N = a4.filters;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               if (r3 = "".concat(this.site, "catalog/"), A) r3 += "?ordering=-time_updated&page=".concat(e2);
               else if (N) {
                 for (o2 = new URLSearchParams(), u2 = 0, s2 = N.country.value; u2 < s2.length; u2++) c2 = s2[u2], o2.append("country", c2);
-                for (v = 0, h = N.genres.value; v < h.length; v++) p = h[v], o2.append("genre", p);
+                for (h = 0, v = N.genres.value; h < v.length; h++) p = v[h], o2.append("genre", p);
                 for (d = 0, f = N.translation.value; d < f.length; d++) b = f[d], o2.append("translation", b);
                 for (y = 0, g = N.status.value; y < g.length; y++) m = g[y], o2.append("status", m);
                 for (x = 0, w = N.novel_type.value; x < w.length; x++) C = w[x], o2.append("type", C);
@@ -24470,7 +24470,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, o2, i2, u2, s2, c2, v, h, p, d;
+        var e2, o2, i2, u2, s2, c2, h, v, p, d;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -24478,7 +24478,7 @@ var LNReaderPlugin = (() => {
                 return e3.text();
               })];
             case 1:
-              for (e2 = t2.sent(), o2 = (0, l.load)(e2), i2 = { path: a3, name: o2("h1").text() || "Untitled", cover: this.site + o2(".poster > img").attr("src"), summary: o2("section.text-info.section > p").text(), totalPages: o2("#select-pagination-chapter > option").length, chapters: [] }, u2 = o2("div.mini-info > .item").toArray(), s2 = "", c2 = "", v = 0, h = u2; v < h.length; v++) p = h[v], "Status" === (d = o2(p).find(".sub-header").text().trim()) && (s2 = o2(p).find("div.info").text().trim().toLowerCase()), "Translation" === d && (c2 = o2(p).find("div.info").text().trim().toLowerCase()), "Author" === d && (i2.author = o2(p).find("div.info").text().trim()), "Genres" === d && (i2.genres = o2(p).find("div.info > a").map(function(e3, t3) {
+              for (e2 = t2.sent(), o2 = (0, l.load)(e2), i2 = { path: a3, name: o2("h1").text() || "Untitled", cover: this.site + o2(".poster > img").attr("src"), summary: o2("section.text-info.section > p").text(), totalPages: o2("#select-pagination-chapter > option").length, chapters: [] }, u2 = o2("div.mini-info > .item").toArray(), s2 = "", c2 = "", h = 0, v = u2; h < v.length; h++) p = v[h], "Status" === (d = o2(p).find(".sub-header").text().trim()) && (s2 = o2(p).find("div.info").text().trim().toLowerCase()), "Translation" === d && (c2 = o2(p).find("div.info").text().trim().toLowerCase()), "Author" === d && (i2.author = o2(p).find("div.info").text().trim()), "Genres" === d && (i2.genres = o2(p).find("div.info > a").map(function(e3, t3) {
                 return o2(t3).text();
               }).toArray().join(", "));
               return "cancelled" === s2 ? i2.status = r.NovelStatus.Cancelled : "releasing" === s2 || "ongoing" === c2 ? i2.status = r.NovelStatus.Ongoing : "completed" === s2 && "completed" === c2 && (i2.status = r.NovelStatus.Completed), [2, i2];
@@ -24487,7 +24487,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parsePage = function(a3, r2) {
       return e(this, void 0, void 0, function() {
-        var e2, o2, i2, s2, c2, v, h, p, d, f, b, y, g, m, x = this;
+        var e2, o2, i2, s2, c2, h, v, p, d, f, b, y, g, m, x = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -24501,11 +24501,11 @@ var LNReaderPlugin = (() => {
             case 3:
               return t2.trys.push([3, 5, , 6]), [4, c2.json()];
             case 4:
-              return v = (v = t2.sent()).html, [3, 6];
+              return h = (h = t2.sent()).html, [3, 6];
             case 5:
-              throw h = t2.sent(), console.error("Error Parsing Response"), console.error(h), new Error(h);
+              throw v = t2.sent(), console.error("Error Parsing Response"), console.error(v), new Error(v);
             case 6:
-              return p = [], (0, l.load)("<html>" + v + "</html>")("a").each(function(e3, t3) {
+              return p = [], (0, l.load)("<html>" + h + "</html>")("a").each(function(e3, t3) {
                 var a4 = (0, l.load)(t3)(".title").text().trim(), n2 = !!(0, l.load)(t3)(".cost").text().trim();
                 if (!x.hideLocked || !n2) {
                   var o3;
@@ -24514,7 +24514,7 @@ var LNReaderPlugin = (() => {
                   } catch (e4) {
                   }
                   var i3 = n2 ? "\u{1F512} " + a4 : a4, s3 = t3.attribs.href;
-                  p.push({ name: i3, path: s3, page: r2, releaseTime: o3 });
+                  "/" == s3.charAt(0) && (s3 = s3.substring(1)), p.push({ name: i3, path: s3, page: r2, releaseTime: o3 });
                 }
               }), [2, { chapters: p.reverse() }];
           }
@@ -24522,15 +24522,15 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseChapter = function(a3) {
       return e(this, void 0, void 0, function() {
-        var r2, o2, i2, u2, s2, c2, v, h, p = this;
+        var r2, o2, i2, u2, s2, c2, h, v, p = this;
         return t(this, function(d) {
           switch (d.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + a3).then(function(e2) {
+              return "/" == a3.charAt(0) && (a3 = a3.substring(1)), [4, (0, n.fetchApi)(this.site + a3).then(function(e2) {
                 return e2.text();
               })];
             case 1:
-              return r2 = d.sent(), o2 = null === (v = null == r2 ? void 0 : r2.match(/window\.CSRF_TOKEN = "([^"]+)"/)) || void 0 === v ? void 0 : v[1], i2 = null === (h = null == r2 ? void 0 : r2.match(/const CHAPTER_ID = "([0-9]+)/)) || void 0 === h ? void 0 : h[1], [4, (0, n.fetchApi)(this.site + "book/ajax/read-chapter/" + i2, { method: "GET", headers: { Cookie: "csrftoken=" + o2, Referer: this.site + a3, "X-Requested-With": "XMLHttpRequest" } }).then(function(a4) {
+              return r2 = d.sent(), o2 = null === (h = null == r2 ? void 0 : r2.match(/window\.CSRF_TOKEN = "([^"]+)"/)) || void 0 === h ? void 0 : h[1], i2 = null === (v = null == r2 ? void 0 : r2.match(/const CHAPTER_ID = "([0-9]+)/)) || void 0 === v ? void 0 : v[1], [4, (0, n.fetchApi)(this.site + "book/ajax/read-chapter/" + i2, { method: "GET", headers: { Cookie: "csrftoken=" + o2, Referer: this.site + a3, "X-Requested-With": "XMLHttpRequest" } }).then(function(a4) {
                 return e(p, void 0, void 0, function() {
                   var e2;
                   return t(this, function(t2) {
