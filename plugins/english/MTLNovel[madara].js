@@ -24574,7 +24574,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, r2;
-  }())({ id: "mtl-novel", sourceSite: "https://mtl-novel.com/", sourceName: "MTL-Novel", options: { useNewChapterEndpoint: false, versionIncrements: 1 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [] }, op: { type: "Switch", label: "", value: false }, author: { type: "Text", label: "", value: "" }, artist: { type: "Text", label: "", value: "" }, release: { type: "Text", label: "", value: "" }, adult: { type: "Picker", label: "", value: "", options: [] }, "status[]": { type: "Checkbox", label: "", value: [], options: [] }, m_orderby: { type: "Picker", label: "", value: "", options: [] } } });
+  }())({ id: "mtl-novel", sourceSite: "https://mtl-novel.com/", sourceName: "MTL-Novel", options: { useNewChapterEndpoint: false, versionIncrements: 1, down: true, downSince: 1768289212922 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [] }, op: { type: "Switch", label: "", value: false }, author: { type: "Text", label: "", value: "" }, artist: { type: "Text", label: "", value: "" }, release: { type: "Text", label: "", value: "" }, adult: { type: "Picker", label: "", value: "", options: [] }, "status[]": { type: "Checkbox", label: "", value: [], options: [] }, m_orderby: { type: "Picker", label: "", value: "", options: [] } } });
   exports.default = l;
 })();
 

@@ -24574,7 +24574,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, r2;
-  }())({ id: "AnimesHoy12", sourceSite: "https://animeshoy12.com/", sourceName: "AnimesHoy12", options: { lang: "Spanish" } });
+  }())({ id: "AnimesHoy12", sourceSite: "https://animeshoy12.com/", sourceName: "AnimesHoy12", options: { lang: "Spanish", down: true, downSince: 1768289212951 } });
   exports.default = l;
 })();
 

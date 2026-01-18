@@ -24376,7 +24376,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, n2;
-  }())({ id: "wuxiav", sourceSite: "https://www.wuxiav.com", sourceName: "WuxiaV" });
+  }())({ id: "wuxiav", sourceSite: "https://www.wuxiav.com", sourceName: "WuxiaV", options: { down: true, downSince: 1768289212940 } });
   exports.default = s;
 })();
 

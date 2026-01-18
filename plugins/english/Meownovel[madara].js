@@ -24481,7 +24481,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, u2, c2, h, p, m, d, v = this;
+        var e2, s2, u2, c2, h, p, d, m, v = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -24526,7 +24526,7 @@ var LNReaderPlugin = (() => {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
                 return e2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (d = this.options) || void 0 === d ? void 0 : d.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (m = this.options) || void 0 === m ? void 0 : m.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 3];
             case 2:
@@ -24538,13 +24538,13 @@ var LNReaderPlugin = (() => {
             case 4:
               c2 = t2.sent(), t2.label = 5;
             case 5:
-              return "0" !== c2 && (e2 = (0, r.load)(c2)), m = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
+              return "0" !== c2 && (e2 = (0, r.load)(c2)), d = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
                 var n2 = e2(a4).find("a").text().trim(), r2 = a4.attribs.class.includes("premium-block");
                 r2 && (n2 = "\u{1F512} " + n2);
                 var i2 = e2(a4).find("span.chapter-release-date").text().trim();
                 i2 = i2 ? v.parseData(i2) : (0, l.default)().format("LL");
                 var o2 = e2(a4).find("a").attr("href") || "";
-                !o2 || "#" == o2 || r2 && v.hideLocked || u2.push({ name: n2, path: o2.replace(/https?:\/\/.*?\//, "/"), releaseTime: i2 || null, chapterNumber: m - t3 });
+                !o2 || "#" == o2 || r2 && v.hideLocked || u2.push({ name: n2, path: o2.replace(/https?:\/\/.*?\//, "/"), releaseTime: i2 || null, chapterNumber: d - t3 });
               }), s2.chapters = u2.reverse(), [2, s2];
           }
         });
@@ -24574,7 +24574,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, a2;
-  }())({ id: "meownovel", sourceSite: "https://meownovel.com/", sourceName: "Meownovel", options: { useNewChapterEndpoint: true, lang: "English" }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "[NSFW]", value: "nsfw" }, { label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Anime", value: "anime" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Recommended", value: "recommended" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shounen", value: "shounen" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Trend", value: "trend" }, { label: "Video Games", value: "video-games" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
+  }())({ id: "meownovel", sourceSite: "https://meownovel.com/", sourceName: "Meownovel", options: { useNewChapterEndpoint: true, lang: "English", down: true, downSince: 1768289212931 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "[NSFW]", value: "nsfw" }, { label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Anime", value: "anime" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Recommended", value: "recommended" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shounen", value: "shounen" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Trend", value: "trend" }, { label: "Video Games", value: "video-games" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
   exports.default = c;
 })();
 

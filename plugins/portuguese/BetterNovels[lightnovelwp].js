@@ -24304,7 +24304,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, l2;
-  }())({ id: "betternovels", sourceSite: "https://betternovels.net/", sourceName: "Better Novels", options: { lang: "Portuguese" } });
+  }())({ id: "betternovels", sourceSite: "https://betternovels.net/", sourceName: "Better Novels", options: { lang: "Portuguese", down: true, downSince: 1768289212945 } });
   exports.default = l;
 })();
 

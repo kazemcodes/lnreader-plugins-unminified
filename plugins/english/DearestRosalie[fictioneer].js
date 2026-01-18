@@ -24078,7 +24078,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, o2;
-  }())({ id: "dearestrosalie", sourceSite: "https://dearestrosalie.com", sourceName: "Dearest Rosalie", options: { browsePage: "stories" } });
+  }())({ id: "dearestrosalie", sourceSite: "https://dearestrosalie.com", sourceName: "Dearest Rosalie", options: { browsePage: "stories", down: true, downSince: 1768289212907 } });
   exports.default = o;
 })();
 
