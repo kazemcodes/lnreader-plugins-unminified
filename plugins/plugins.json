@@ -874,6 +874,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelmultiverse/icon.png"
 	},
 	{
+		"id": "novelrest",
+		"name": "NovelRest",
+		"site": "https://novelrest.vercel.app",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelrest.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelrest/icon.png"
+	},
+	{
 		"id": "novelsknight",
 		"name": "NovelsKnight",
 		"site": "https://novelsknight.punchmanga.online/",
@@ -1617,7 +1626,7 @@
 		"name": "Bookhamster",
 		"site": "https://bookhamster.ru",
 		"lang": "Русский",
-		"version": "1.0.2",
+		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/Bookhamster[ifreedom].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/ifreedom/bookhamster/icon.png"
 	},
@@ -1662,7 +1671,7 @@
 		"name": "Свободный Мир Ранобэ",
 		"site": "https://ifreedom.su",
 		"lang": "Русский",
-		"version": "1.0.2",
+		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/СвободныйМирРанобэ[ifreedom].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/ifreedom/ifreedom/icon.png"
 	},
