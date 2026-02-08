@@ -54,6 +54,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/kolnovel/icon.png"
 	},
 	{
+		"id": "markazriwayat",
+		"name": "Markazriwayat",
+		"site": "https://markazriwayat.com/",
+		"lang": "‎العربية",
+		"version": "1.0.8",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/Markazriwayat[madara].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/markazriwayat/icon.png"
+	},
+	{
 		"id": "novel4up",
 		"name": "Novel4Up",
 		"site": "https://novel4up.com/",
@@ -139,7 +148,7 @@
 		"name": "Linovelib",
 		"site": "https://www.bilinovel.com",
 		"lang": "中文, 汉语, 漢語",
-		"version": "1.1.3",
+		"version": "1.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/chinese/linovelib.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/cn/linovelib/icon.png"
 	},
@@ -667,6 +676,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readwn/ltnovel/icon.png"
 	},
 	{
+		"id": "lullobox",
+		"name": "LulloBox",
+		"site": "https://lullobox.com/",
+		"lang": "English",
+		"version": "1.0.8",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/LulloBox[madara].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/lullobox/icon.png"
+	},
+	{
 		"id": "lunarletters",
 		"name": "LunarLetters",
 		"site": "https://lunarletters.com/",
@@ -824,7 +842,7 @@
 		"name": "Novel Fire",
 		"site": "https://novelfire.net/",
 		"lang": "English",
-		"version": "1.1.5",
+		"version": "1.1.7",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelfire.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelfire/icon.png"
 	},
@@ -872,6 +890,15 @@
 		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelMultiverse[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelmultiverse/icon.png"
+	},
+	{
+		"id": "novelninja",
+		"name": "Novel Ninja",
+		"site": "https://novelninja.xyz/",
+		"lang": "English",
+		"version": "1.0.8",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelNinja[madara].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelninja/icon.png"
 	},
 	{
 		"id": "novelrest",
@@ -1622,6 +1649,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/authortoday/icon.png"
 	},
 	{
+		"id": "bllate-api",
+		"name": "Bllate (API)",
+		"site": "https://bllate.org",
+		"lang": "Русский",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/Bllate[rulate].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/rulate/bllate-api/icon.png"
+	},
+	{
 		"id": "bookhamster",
 		"name": "Bookhamster",
 		"site": "https://bookhamster.ru",
@@ -1640,13 +1676,13 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/bookriver/icon.png"
 	},
 	{
-		"id": "erolate",
-		"name": "Erolate",
+		"id": "erolate-api",
+		"name": "Erolate (API)",
 		"site": "https://erolate.com",
 		"lang": "Русский",
-		"version": "1.0.3",
+		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/Erolate[rulate].js",
-		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/rulate/erolate/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/rulate/erolate-api/icon.png"
 	},
 	{
 		"id": "eznovels",
@@ -1757,13 +1793,13 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ranoberf/icon.png"
 	},
 	{
-		"id": "rulate",
-		"name": "Rulate",
+		"id": "rulate-api",
+		"name": "Rulate (API)",
 		"site": "https://tl.rulate.ru",
 		"lang": "Русский",
-		"version": "1.0.3",
+		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/Rulate[rulate].js",
-		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/rulate/rulate/icon.png"
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/rulate/rulate-api/icon.png"
 	},
 	{
 		"id": "TL",
