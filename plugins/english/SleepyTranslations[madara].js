@@ -24461,7 +24461,7 @@ var LNReaderPlugin = (() => {
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(a3, r2) {
         var n2 = e2(r2).find(".post-title").text().trim(), l2 = e2(r2).find(".post-title").find("a").attr("href") || "";
         if (n2 && l2) {
-          var o2 = e2(r2).find("img"), s2 = { name: n2, cover: o2.attr("data-src") || o2.attr("src") || o2.attr("data-lazy-srcset") || i.defaultCover, path: l2.replace(/https?:\/\/.*?\//, "/") };
+          var o2 = e2(r2).find("img"), s2 = { name: n2, cover: o2.attr("data-src") || o2.attr("src") || o2.attr("data-lazy-srcset") || i.defaultCover, path: l2.replace(/https?:\/\/.*?\//, "") };
           t2.push(s2);
         }
       }), t2;
@@ -24544,7 +24544,7 @@ var LNReaderPlugin = (() => {
                 var i2 = e2(a4).find("span.chapter-release-date").text().trim();
                 i2 = i2 ? v.parseData(i2) : (0, o.default)().format("LL");
                 var l2 = e2(a4).find("a").attr("href") || "";
-                !l2 || "#" == l2 || n2 && v.hideLocked || u2.push({ name: r2, path: l2.replace(/https?:\/\/.*?\//, "/"), releaseTime: i2 || null, chapterNumber: m - t3 });
+                !l2 || "#" == l2 || n2 && v.hideLocked || u2.push({ name: r2, path: l2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: m - t3 });
               }), s2.chapters = u2.reverse(), [2, s2];
           }
         });
