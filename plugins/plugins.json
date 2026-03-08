@@ -1716,7 +1716,7 @@
 		"name": "Jaomix",
 		"site": "https://jaomix.ru",
 		"lang": "Русский",
-		"version": "1.0.2",
+		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/jaomix.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/jaomix/icon.png"
 	},

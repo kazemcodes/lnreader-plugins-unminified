@@ -24228,184 +24228,201 @@ var LNReaderPlugin = (() => {
   init_buffer2();
   init_process2();
   var e = function(e2, l2, a2, t2) {
-    return new (a2 || (a2 = Promise))(function(i2, n2) {
-      function u2(e3) {
-        try {
-          o2(t2.next(e3));
-        } catch (e4) {
-          n2(e4);
-        }
-      }
-      __name(u2, "u");
+    return new (a2 || (a2 = Promise))(function(n2, i2) {
       function r2(e3) {
         try {
-          o2(t2.throw(e3));
+          u2(t2.next(e3));
         } catch (e4) {
-          n2(e4);
+          i2(e4);
         }
       }
       __name(r2, "r");
       function o2(e3) {
-        var l3;
-        e3.done ? i2(e3.value) : (l3 = e3.value, l3 instanceof a2 ? l3 : new a2(function(e4) {
-          e4(l3);
-        })).then(u2, r2);
+        try {
+          u2(t2.throw(e3));
+        } catch (e4) {
+          i2(e4);
+        }
       }
       __name(o2, "o");
-      o2((t2 = t2.apply(e2, l2 || [])).next());
+      function u2(e3) {
+        var l3;
+        e3.done ? n2(e3.value) : (l3 = e3.value, l3 instanceof a2 ? l3 : new a2(function(e4) {
+          e4(l3);
+        })).then(r2, o2);
+      }
+      __name(u2, "u");
+      u2((t2 = t2.apply(e2, l2 || [])).next());
     });
   }, l = function(e2, l2) {
-    var a2, t2, i2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & i2[0]) throw i2[1];
-      return i2[1];
-    }, "sent"), trys: [], ops: [] }, u2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return u2.next = r2(0), u2.throw = r2(1), u2.return = r2(2), "function" == typeof Symbol && (u2[Symbol.iterator] = function() {
+    var a2, t2, n2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & n2[0]) throw n2[1];
+      return n2[1];
+    }, "sent"), trys: [], ops: [] }, r2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return r2.next = o2(0), r2.throw = o2(1), r2.return = o2(2), "function" == typeof Symbol && (r2[Symbol.iterator] = function() {
       return this;
-    }), u2;
-    function r2(r3) {
-      return function(o2) {
-        return function(r4) {
+    }), r2;
+    function o2(o3) {
+      return function(u2) {
+        return function(o4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; u2 && (u2 = 0, r4[0] && (n2 = 0)), n2; ) try {
-            if (a2 = 1, t2 && (i2 = 2 & r4[0] ? t2.return : r4[0] ? t2.throw || ((i2 = t2.return) && i2.call(t2), 0) : t2.next) && !(i2 = i2.call(t2, r4[1])).done) return i2;
-            switch (t2 = 0, i2 && (r4 = [2 & r4[0], i2.value]), r4[0]) {
+          for (; r2 && (r2 = 0, o4[0] && (i2 = 0)), i2; ) try {
+            if (a2 = 1, t2 && (n2 = 2 & o4[0] ? t2.return : o4[0] ? t2.throw || ((n2 = t2.return) && n2.call(t2), 0) : t2.next) && !(n2 = n2.call(t2, o4[1])).done) return n2;
+            switch (t2 = 0, n2 && (o4 = [2 & o4[0], n2.value]), o4[0]) {
               case 0:
               case 1:
-                i2 = r4;
+                n2 = o4;
                 break;
               case 4:
-                return n2.label++, { value: r4[1], done: false };
+                return i2.label++, { value: o4[1], done: false };
               case 5:
-                n2.label++, t2 = r4[1], r4 = [0];
+                i2.label++, t2 = o4[1], o4 = [0];
                 continue;
               case 7:
-                r4 = n2.ops.pop(), n2.trys.pop();
+                o4 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(i2 = n2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== r4[0] && 2 !== r4[0])) {
-                  n2 = 0;
+                if (!(n2 = i2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
+                  i2 = 0;
                   continue;
                 }
-                if (3 === r4[0] && (!i2 || r4[1] > i2[0] && r4[1] < i2[3])) {
-                  n2.label = r4[1];
+                if (3 === o4[0] && (!n2 || o4[1] > n2[0] && o4[1] < n2[3])) {
+                  i2.label = o4[1];
                   break;
                 }
-                if (6 === r4[0] && n2.label < i2[1]) {
-                  n2.label = i2[1], i2 = r4;
+                if (6 === o4[0] && i2.label < n2[1]) {
+                  i2.label = n2[1], n2 = o4;
                   break;
                 }
-                if (i2 && n2.label < i2[2]) {
-                  n2.label = i2[2], n2.ops.push(r4);
+                if (n2 && i2.label < n2[2]) {
+                  i2.label = n2[2], i2.ops.push(o4);
                   break;
                 }
-                i2[2] && n2.ops.pop(), n2.trys.pop();
+                n2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
-            r4 = l2.call(e2, n2);
+            o4 = l2.call(e2, i2);
           } catch (e3) {
-            r4 = [6, e3], t2 = 0;
+            o4 = [6, e3], t2 = 0;
           } finally {
-            a2 = i2 = 0;
+            a2 = n2 = 0;
           }
-          if (5 & r4[0]) throw r4[1];
-          return { value: r4[0] ? r4[1] : void 0, done: true };
-        }([r3, o2]);
+          if (5 & o4[0]) throw o4[1];
+          return { value: o4[0] ? o4[1] : void 0, done: true };
+        }([o3, u2]);
       };
     }
-    __name(r2, "r");
+    __name(o2, "o");
   }, a = function(e2) {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var t = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), u = (init_browser(), __toCommonJS(browser_exports)), r = a(require_dayjs_min()), o = function() {
+  var t = (init_filterInputs(), __toCommonJS(filterInputs_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), r = (init_browser(), __toCommonJS(browser_exports)), o = a(require_dayjs_min()), u = function() {
     function a2() {
-      this.id = "jaomix.ru", this.name = "Jaomix", this.site = "https://jaomix.ru", this.version = "1.0.2", this.icon = "src/ru/jaomix/icon.png", this.parseDate = function(e2) {
+      this.id = "jaomix.ru", this.name = "Jaomix", this.site = "https://jaomix.ru", this.version = "1.0.3", this.icon = "src/ru/jaomix/icon.png", this.parseDate = function(e2) {
         void 0 === e2 && (e2 = "");
-        var l2 = { "\u042F\u043D\u0432": 1, "\u0424\u0435\u0432": 2, "\u041C\u0430\u0440": 3, "\u0410\u043F\u0440": 4, "\u041C\u0430\u0439": 5, "\u0418\u044E\u043D": 6, "\u0418\u044E\u043B": 7, "\u0410\u0432\u0433": 8, "\u0421\u0435\u043D": 9, "\u041E\u043A\u0442": 10, "\u041D\u043E\u044F": 11, "\u0414\u0435\u043A": 12 }, a3 = e2.split(" "), t2 = a3[0], i2 = a3[1], n2 = a3[2], u2 = a3[3];
-        return t2 && i2 && l2[n2] && u2 ? (0, r.default)(u2 + "-" + l2[n2] + "-" + i2 + " " + t2).format("LLL") : e2 || null;
+        var l2 = { "\u042F\u043D\u0432": 1, "\u0424\u0435\u0432": 2, "\u041C\u0430\u0440": 3, "\u0410\u043F\u0440": 4, "\u041C\u0430\u0439": 5, "\u0418\u044E\u043D": 6, "\u0418\u044E\u043B": 7, "\u0410\u0432\u0433": 8, "\u0421\u0435\u043D": 9, "\u041E\u043A\u0442": 10, "\u041D\u043E\u044F": 11, "\u0414\u0435\u043A": 12 }, a3 = e2.split(" "), t2 = a3[0], n2 = a3[1], i2 = a3[2], r2 = a3[3];
+        return t2 && n2 && l2[i2] && r2 ? (0, o.default)(r2 + "-" + l2[i2] + "-" + n2 + " " + t2).format("LLL") : e2 || null;
       }, this.filters = { sortby: { label: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430:", value: "topweek", options: [{ label: "\u0422\u043E\u043F \u043D\u0435\u0434\u0435\u043B\u0438", value: "topweek" }, { label: "\u041F\u043E \u0430\u043B\u0444\u0430\u0432\u0438\u0442\u0443", value: "alphabet" }, { label: "\u041F\u043E \u0434\u0430\u0442\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F", value: "upd" }, { label: "\u041F\u043E \u0434\u0430\u0442\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F", value: "new" }, { label: "\u041F\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430\u043C", value: "count" }, { label: "\u0422\u043E\u043F \u0433\u043E\u0434\u0430", value: "topyear" }, { label: "\u0422\u043E\u043F \u0434\u043D\u044F", value: "topday" }, { label: "\u0422\u043E\u043F \u0437\u0430 \u0432\u0441\u0435 \u0432\u0440\u0435\u043C\u044F", value: "alltime" }, { label: "\u0422\u043E\u043F \u043C\u0435\u0441\u044F\u0446\u0430", value: "topmonth" }], type: t.FilterTypes.Picker }, sortdaycreate: { label: "\u0414\u0430\u0442\u0430 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F:", value: "1", options: [{ label: "\u0414\u0430\u0442\u0430 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F", value: "1" }, { label: "\u041E\u0442 120 \u0434\u043E 180 \u0434\u043D\u0435\u0439", value: "1218" }, { label: "\u041E\u0442 180 \u0434\u043E 365 \u0434\u043D\u0435\u0439", value: "1836" }, { label: "\u041E\u0442 30 \u0434\u043E 60 \u0434\u043D\u0435\u0439", value: "3060" }, { label: "\u041E\u0442 365 \u0434\u043D\u0435\u0439", value: "365" }, { label: "\u041E\u0442 60 \u0434\u043E 90 \u0434\u043D\u0435\u0439", value: "6090" }, { label: "\u041E\u0442 90 \u0434\u043E 120 \u0434\u043D\u0435\u0439", value: "9012" }, { label: "\u041F\u043E\u0441\u043B\u0435\u0434. 30 \u0434\u043D\u0435\u0439", value: "30" }], type: t.FilterTypes.Picker }, sortcountchapt: { label: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0433\u043B\u0430\u0432:", value: "1", options: [{ label: "\u041B\u044E\u0431\u043E\u0435 \u043A\u043E\u043B-\u0432\u043E \u0433\u043B\u0430\u0432", value: "1" }, { label: "\u0414\u043E 500", value: "500" }, { label: "\u041E\u0442 1000 \u0434\u043E 2000", value: "1020" }, { label: "\u041E\u0442 2000 \u0434\u043E 3000", value: "2030" }, { label: "\u041E\u0442 3000 \u0434\u043E 4000", value: "3040" }, { label: "\u041E\u0442 4000", value: "400" }, { label: "\u041E\u0442 500 \u0434\u043E 1000", value: "510" }], type: t.FilterTypes.Picker }, genre: { label: "\u0416\u0430\u043D\u0440\u044B:", value: { include: [], exclude: [] }, options: [{ label: "\u0411\u043E\u0435\u0432\u044B\u0435 \u0418\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0430", value: "\u0411\u043E\u0435\u0432\u044B\u0435 \u0418\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0430" }, { label: "\u0412\u0438\u0440\u0442\u0443\u0430\u043B\u044C\u043D\u044B\u0439 \u041C\u0438\u0440", value: "\u0412\u0438\u0440\u0442\u0443\u0430\u043B\u044C\u043D\u044B\u0439 \u041C\u0438\u0440" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "\u0413\u0430\u0440\u0435\u043C" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "\u0414\u0440\u0430\u043C\u0430" }, { label: "\u0418\u0433\u0440\u0430", value: "\u0418\u0433\u0440\u0430" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0438 \u0438\u0437 \u0436\u0438\u0437\u043D\u0438", value: "\u0418\u0441\u0442\u043E\u0440\u0438\u0438 \u0438\u0437 \u0436\u0438\u0437\u043D\u0438" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439", value: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u044F", value: "\u0418\u0441\u0442\u043E\u0440\u0438\u044F" }, { label: "\u0418\u0441\u044D\u043A\u0430\u0439", value: "\u0418\u0441\u044D\u043A\u0430\u0439" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0438\u044F", value: "\u041A\u043E\u043C\u0435\u0434\u0438\u044F" }, { label: "\u041C\u0435\u0445\u0430", value: "\u041C\u0435\u0445\u0430" }, { label: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430", value: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430" }, { label: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430" }, { label: "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C" }, { label: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0441\u0438\u0441", value: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0441\u0438\u0441" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0438\u044F", value: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0438\u044F" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430" }, { label: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435" }, { label: "\u0421\u0451\u043D\u044D\u043D", value: "\u0421\u0451\u043D\u044D\u043D" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "\u0421\u043F\u043E\u0440\u0442" }, { label: "\u0421\u044D\u0439\u043D\u044D\u043D", value: "\u0421\u044D\u0439\u043D\u044D\u043D" }, { label: "\u0421\u044E\u0430\u043D\u044C\u0445\u0443\u0430", value: "\u0421\u044E\u0430\u043D\u044C\u0445\u0443\u0430" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "\u0422\u0440\u0430\u0433\u0435\u0434\u0438\u044F" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438" }, { label: "\u0425\u043E\u0440\u0440\u043E\u0440", value: "\u0425\u043E\u0440\u0440\u043E\u0440" }, { label: "\u0428\u043A\u043E\u043B\u044C\u043D\u0430\u044F \u0436\u0438\u0437\u043D\u044C", value: "\u0428\u043A\u043E\u043B\u044C\u043D\u0430\u044F \u0436\u0438\u0437\u043D\u044C" }, { label: "\u0428\u043E\u0443\u043D\u0435\u043D", value: "\u0428\u043E\u0443\u043D\u0435\u043D" }, { label: "\u042D\u043A\u0448\u043D", value: "\u042D\u043A\u0448\u043D" }, { label: "\u042D\u0442\u0442\u0438", value: "\u042D\u0442\u0442\u0438" }, { label: "Adult", value: "Adult" }, { label: "Ecchi", value: "Ecchi" }, { label: "Josei", value: "Josei" }, { label: "Mature", value: "Mature" }, { label: "Shoujo", value: "Shoujo" }, { label: "Wuxia", value: "Wuxia" }, { label: "Xianxia", value: "Xianxia" }, { label: "Xuanhuan", value: "Xuanhuan" }], type: t.FilterTypes.ExcludableCheckboxGroup }, lang: { label: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u044F\u0437\u044B\u043A\u0438:", value: [], options: [{ label: "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439", value: "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439" }, { label: "\u041A\u0438\u0442\u0430\u0439\u0441\u043A\u0438\u0439", value: "\u041A\u0438\u0442\u0430\u0439\u0441\u043A\u0438\u0439" }, { label: "\u041A\u043E\u0440\u0435\u0439\u0441\u043A\u0438\u0439", value: "\u041A\u043E\u0440\u0435\u0439\u0441\u043A\u0438\u0439" }, { label: "\u042F\u043F\u043E\u043D\u0441\u043A\u0438\u0439", value: "\u042F\u043F\u043E\u043D\u0441\u043A\u0438\u0439" }], type: t.FilterTypes.CheckboxGroup } };
     }
     __name(a2, "a");
     return a2.prototype.popularNovels = function(a3, t2) {
       return e(this, arguments, void 0, function(e2, a4) {
-        var t3, n2, r2, o2, v, s, c, b, d, h, p, f, m, y, g, x = this, w = a4.showLatestNovels, k = a4.filters;
+        var t3, i2, o2, u2, s, c, v, h, p, b, d, f, m, y, g, x = this, w = a4.showLatestNovels, k = a4.filters;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return t3 = this.site + "/?searchrn", (null === (s = null === (v = null == k ? void 0 : k.lang) || void 0 === v ? void 0 : v.value) || void 0 === s ? void 0 : s.length) && (t3 += k.lang.value.map(function(e3, l3) {
+              return t3 = this.site + "/?searchrn", (null === (c = null === (s = null == k ? void 0 : k.lang) || void 0 === s ? void 0 : s.value) || void 0 === c ? void 0 : c.length) && (t3 += k.lang.value.map(function(e3, l3) {
                 return "&lang[".concat(l3, "]=").concat(e3);
-              }).join("")), (null === (d = null === (b = null === (c = null == k ? void 0 : k.genre) || void 0 === c ? void 0 : c.value) || void 0 === b ? void 0 : b.include) || void 0 === d ? void 0 : d.length) && (t3 += k.genre.value.include.map(function(e3, l3) {
+              }).join("")), (null === (p = null === (h = null === (v = null == k ? void 0 : k.genre) || void 0 === v ? void 0 : v.value) || void 0 === h ? void 0 : h.include) || void 0 === p ? void 0 : p.length) && (t3 += k.genre.value.include.map(function(e3, l3) {
                 return "&genre[".concat(l3, "]=").concat(e3);
-              }).join("")), (null === (f = null === (p = null === (h = null == k ? void 0 : k.genre) || void 0 === h ? void 0 : h.value) || void 0 === p ? void 0 : p.exclude) || void 0 === f ? void 0 : f.length) && (t3 += k.genre.value.exclude.map(function(e3, l3) {
+              }).join("")), (null === (f = null === (d = null === (b = null == k ? void 0 : k.genre) || void 0 === b ? void 0 : b.value) || void 0 === d ? void 0 : d.exclude) || void 0 === f ? void 0 : f.length) && (t3 += k.genre.value.exclude.map(function(e3, l3) {
                 return "&delgenre[".concat(l3, "]=del ").concat(e3);
-              }).join("")), t3 += "&sortcountchapt=" + ((null === (m = null == k ? void 0 : k.sortcountchapt) || void 0 === m ? void 0 : m.value) || "1"), t3 += "&sortdaycreate=" + ((null === (y = null == k ? void 0 : k.sortdaycreate) || void 0 === y ? void 0 : y.value) || "1"), t3 += "&sortby=" + (w ? "upd" : (null === (g = null == k ? void 0 : k.sortby) || void 0 === g ? void 0 : g.value) || "topweek"), t3 += "&gpage=" + e2, [4, (0, i.fetchApi)(t3).then(function(e3) {
+              }).join("")), t3 += "&sortcountchapt=" + ((null === (m = null == k ? void 0 : k.sortcountchapt) || void 0 === m ? void 0 : m.value) || "1"), t3 += "&sortdaycreate=" + ((null === (y = null == k ? void 0 : k.sortdaycreate) || void 0 === y ? void 0 : y.value) || "1"), t3 += "&sortby=" + (w ? "upd" : (null === (g = null == k ? void 0 : k.sortby) || void 0 === g ? void 0 : g.value) || "topweek"), t3 += "&gpage=" + e2, [4, (0, n.fetchApi)(t3).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return n2 = l2.sent(), r2 = (0, u.load)(n2), o2 = [], r2('div[class="block-home"] > div[class="one"]').each(function(e3, l3) {
-                var a5, t4 = r2(l3).find('div[class="img-home"] > a').attr("title"), i2 = null === (a5 = r2(l3).find('div[class="img-home"] > a > img').attr("src")) || void 0 === a5 ? void 0 : a5.replace("-150x150", ""), n3 = r2(l3).find('div[class="img-home"] > a').attr("href");
-                t4 && n3 && o2.push({ name: t4, cover: i2, path: n3.replace(x.site, "") });
-              }), [2, o2];
+              return i2 = l2.sent(), o2 = (0, r.load)(i2), u2 = [], o2('div[class="block-home"] > div[class="one"]').each(function(e3, l3) {
+                var a5, t4 = o2(l3).find('div[class="img-home"] > a').attr("title"), n2 = null === (a5 = o2(l3).find('div[class="img-home"] > a > img').attr("src")) || void 0 === a5 ? void 0 : a5.replace("-150x150", ""), i3 = o2(l3).find('div[class="img-home"] > a').attr("href");
+                t4 && i3 && u2.push({ name: t4, cover: n2, path: i3.replace(x.site, "") });
+              }), [2, u2];
           }
         });
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, t2, r2, o2, v, s = this;
+        var e2, t2, o2;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return [4, (0, i.fetchApi)(this.site + a3).then(function(e3) {
+              return [4, (0, n.fetchApi)(this.site + a3).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return e2 = l2.sent(), t2 = (0, u.load)(e2), r2 = { path: a3, name: t2('div[class="desc-book"] > h1').text().trim(), cover: t2('div[class="img-book"] > img').attr("src"), summary: t2('div[id="desc-tab"]').text().trim() }, t2("#info-book > p").each(function() {
+              return e2 = l2.sent(), t2 = (0, r.load)(e2), o2 = { path: a3, name: t2('div[class="desc-book"] > h1').text().trim(), cover: t2('div[class="img-book"] > img').attr("src"), summary: t2('div[id="desc-tab"]').text().trim(), totalPages: t2(".sel-toc > option").length }, t2("#info-book > p").each(function() {
                 var e3 = t2(this).text().replace(/,/g, "").split(" ");
-                "\u0410\u0432\u0442\u043E\u0440:" === e3[0] ? r2.author = e3.splice(1).join(" ") : "\u0416\u0430\u043D\u0440\u044B:" === e3[0] ? r2.genres = e3.splice(1).join(",") : "\u0421\u0442\u0430\u0442\u0443\u0441:" === e3[0] && (r2.status = e3.includes("\u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F") ? n.NovelStatus.Ongoing : n.NovelStatus.Completed);
-              }), o2 = [], v = t2("div.title").length, t2("div.title").each(function(e3, l3) {
-                var a4 = t2(l3).find("a").attr("title"), i2 = t2(l3).find("a").attr("href");
-                if (a4 && i2) {
-                  var n2 = t2(l3).find("time").text();
-                  o2.push({ name: a4, path: i2.replace(s.site, ""), releaseTime: s.parseDate(n2), chapterNumber: v - e3 });
-                }
-              }), r2.chapters = o2.reverse(), [2, r2];
+                "\u0410\u0432\u0442\u043E\u0440:" === e3[0] ? o2.author = e3.splice(1).join(" ") : "\u0416\u0430\u043D\u0440\u044B:" === e3[0] ? o2.genres = e3.splice(1).join(",") : "\u0421\u0442\u0430\u0442\u0443\u0441:" === e3[0] && (o2.status = e3.includes("\u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed);
+              }), o2.chapters = this.parseChapters(t2), [2, o2];
           }
         });
       });
+    }, a2.prototype.parsePage = function(a3, t2) {
+      return e(this, void 0, void 0, function() {
+        var e2, i2;
+        return l(this, function(l2) {
+          switch (l2.label) {
+            case 0:
+              return [4, (0, n.fetchApi)("".concat(this.site, "/wp-admin/admin-ajax.php"), { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", Referer: this.site + a3, Origin: this.site }, body: new URLSearchParams({ action: "loadpagenavchapstt", page: t2 }).toString() }).then(function(e3) {
+                return e3.text();
+              })];
+            case 1:
+              return e2 = l2.sent(), i2 = (0, r.load)(e2), [2, { chapters: this.parseChapters(i2) }];
+          }
+        });
+      });
+    }, a2.prototype.parseChapters = function(e2) {
+      var l2 = this, a3 = [];
+      return e2("div.title").each(function(t2, n2) {
+        var i2 = e2(n2).find("a").attr("title"), r2 = e2(n2).find("a").attr("href");
+        if (i2 && r2) {
+          var o2 = e2(n2).find("time").text();
+          a3.push({ name: i2, path: r2.replace(l2.site, ""), releaseTime: l2.parseDate(o2) });
+        }
+      }), a3;
     }, a2.prototype.parseChapter = function(a3) {
       return e(this, void 0, void 0, function() {
         var e2, t2;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return [4, (0, i.fetchApi)(this.site + a3).then(function(e3) {
+              return [4, (0, n.fetchApi)(this.site + a3).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return e2 = l2.sent(), (t2 = (0, u.load)(e2))('div[class="adblock-service"]').remove(), [2, (t2('div[class="entry-content"]').html() || "").replace(/<a[^>]*>(.*?)<\/a>/gi, "$1")];
+              return e2 = l2.sent(), (t2 = (0, r.load)(e2))(".adblock-service, .lazyblock").remove(), [2, (t2(".entry-content").html() || "").replace(/<a[^>]*>(.*?)<\/a>/gi, "$1")];
           }
         });
       });
     }, a2.prototype.searchNovels = function(a3) {
       return e(this, arguments, void 0, function(e2, a4) {
-        var t2, n2, r2, o2, v = this;
+        var t2, i2, o2, u2, s = this;
         return void 0 === a4 && (a4 = 1), l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return t2 = this.site + "/?searchrn=" + e2 + "&but=\u041F\u043E\u0438\u0441\u043A \u043F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E&sortby=upd&gpage=" + a4, [4, (0, i.fetchApi)(t2).then(function(e3) {
+              return t2 = this.site + "/?searchrn=" + e2 + "&but=\u041F\u043E\u0438\u0441\u043A \u043F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E&sortby=upd&gpage=" + a4, [4, (0, n.fetchApi)(t2).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return n2 = l2.sent(), r2 = (0, u.load)(n2), o2 = [], r2('div[class="block-home"] > div[class="one"]').each(function(e3, l3) {
-                var a5, t3 = r2(l3).find('div[class="img-home"] > a').attr("title"), i2 = null === (a5 = r2(l3).find('div[class="img-home"] > a > img').attr("src")) || void 0 === a5 ? void 0 : a5.replace("-150x150", ""), n3 = r2(l3).find('div[class="img-home"] > a').attr("href");
-                t3 && n3 && o2.push({ name: t3, cover: i2, path: n3.replace(v.site, "") });
-              }), [2, o2];
+              return i2 = l2.sent(), o2 = (0, r.load)(i2), u2 = [], o2('div[class="block-home"] > div[class="one"]').each(function(e3, l3) {
+                var a5, t3 = o2(l3).find('div[class="img-home"] > a').attr("title"), n2 = null === (a5 = o2(l3).find('div[class="img-home"] > a > img').attr("src")) || void 0 === a5 ? void 0 : a5.replace("-150x150", ""), i3 = o2(l3).find('div[class="img-home"] > a').attr("href");
+                t3 && i3 && u2.push({ name: t3, cover: n2, path: i3.replace(s.site, "") });
+              }), [2, u2];
           }
         });
       });
     }, a2;
   }();
-  exports.default = new o();
+  exports.default = new u();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
