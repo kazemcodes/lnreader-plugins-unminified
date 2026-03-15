@@ -369,6 +369,7 @@ var LNReaderPlugin = (() => {
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
   var __esm = (fn, res) => function __init() {
     return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
@@ -397,6 +398,7 @@ var LNReaderPlugin = (() => {
     mod2
   ));
   var __toCommonJS = (mod2) => __copyProps(__defProp({}, "__esModule", { value: true }), mod2);
+  var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 
   // ../node_modules/esbuild-plugin-polyfill-node/polyfills/__dirname.js
   var init_dirname = __esm({
@@ -823,14 +825,14 @@ var LNReaderPlugin = (() => {
     if (_dewExec$1) return exports$1;
     _dewExec$1 = true;
     /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-    exports$1.read = function(buffer, offset, isLE, mLen, nBytes) {
+    exports$1.read = function(buffer, offset, isLE2, mLen, nBytes) {
       var e2, m;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var nBits = -7;
-      var i2 = isLE ? nBytes - 1 : 0;
-      var d = isLE ? -1 : 1;
+      var i2 = isLE2 ? nBytes - 1 : 0;
+      var d = isLE2 ? -1 : 1;
       var s = buffer[offset + i2];
       i2 += d;
       e2 = s & (1 << -nBits) - 1;
@@ -853,14 +855,14 @@ var LNReaderPlugin = (() => {
       }
       return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
-    exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
+    exports$1.write = function(buffer, value, offset, isLE2, mLen, nBytes) {
       var e2, m, c;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-      var i2 = isLE ? 0 : nBytes - 1;
-      var d = isLE ? 1 : -1;
+      var i2 = isLE2 ? 0 : nBytes - 1;
+      var d = isLE2 ? 1 : -1;
       var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
@@ -1220,7 +1222,7 @@ var LNReaderPlugin = (() => {
             return len;
           case "utf8":
           case "utf-8":
-            return utf8ToBytes(string).length;
+            return utf8ToBytes2(string).length;
           case "ucs2":
           case "ucs-2":
           case "utf16le":
@@ -1232,7 +1234,7 @@ var LNReaderPlugin = (() => {
             return base64ToBytes(string).length;
           default:
             if (loweredCase) {
-              return mustMatch ? -1 : utf8ToBytes(string).length;
+              return mustMatch ? -1 : utf8ToBytes2(string).length;
             }
             encoding = ("" + encoding).toLowerCase();
             loweredCase = true;
@@ -1533,7 +1535,7 @@ var LNReaderPlugin = (() => {
     }
     __name(hexWrite, "hexWrite");
     function utf8Write(buf, string, offset, length) {
-      return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length);
+      return blitBuffer(utf8ToBytes2(string, buf.length - offset), buf, offset, length);
     }
     __name(utf8Write, "utf8Write");
     function asciiWrite(buf, string, offset, length) {
@@ -1759,10 +1761,10 @@ var LNReaderPlugin = (() => {
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
       let val2 = this[offset];
-      let mul = 1;
+      let mul3 = 1;
       let i2 = 0;
-      while (++i2 < byteLength2 && (mul *= 256)) {
-        val2 += this[offset + i2] * mul;
+      while (++i2 < byteLength2 && (mul3 *= 256)) {
+        val2 += this[offset + i2] * mul3;
       }
       return val2;
     }, "readUIntLE");
@@ -1773,9 +1775,9 @@ var LNReaderPlugin = (() => {
         checkOffset(offset, byteLength2, this.length);
       }
       let val2 = this[offset + --byteLength2];
-      let mul = 1;
-      while (byteLength2 > 0 && (mul *= 256)) {
-        val2 += this[offset + --byteLength2] * mul;
+      let mul3 = 1;
+      while (byteLength2 > 0 && (mul3 *= 256)) {
+        val2 += this[offset + --byteLength2] * mul3;
       }
       return val2;
     }, "readUIntBE");
@@ -1833,13 +1835,13 @@ var LNReaderPlugin = (() => {
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
       let val2 = this[offset];
-      let mul = 1;
+      let mul3 = 1;
       let i2 = 0;
-      while (++i2 < byteLength2 && (mul *= 256)) {
-        val2 += this[offset + i2] * mul;
+      while (++i2 < byteLength2 && (mul3 *= 256)) {
+        val2 += this[offset + i2] * mul3;
       }
-      mul *= 128;
-      if (val2 >= mul) val2 -= Math.pow(2, 8 * byteLength2);
+      mul3 *= 128;
+      if (val2 >= mul3) val2 -= Math.pow(2, 8 * byteLength2);
       return val2;
     }, "readIntLE");
     Buffer2.prototype.readIntBE = /* @__PURE__ */ __name(function readIntBE(offset, byteLength2, noAssert) {
@@ -1847,13 +1849,13 @@ var LNReaderPlugin = (() => {
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
       let i2 = byteLength2;
-      let mul = 1;
+      let mul3 = 1;
       let val2 = this[offset + --i2];
-      while (i2 > 0 && (mul *= 256)) {
-        val2 += this[offset + --i2] * mul;
+      while (i2 > 0 && (mul3 *= 256)) {
+        val2 += this[offset + --i2] * mul3;
       }
-      mul *= 128;
-      if (val2 >= mul) val2 -= Math.pow(2, 8 * byteLength2);
+      mul3 *= 128;
+      if (val2 >= mul3) val2 -= Math.pow(2, 8 * byteLength2);
       return val2;
     }, "readIntBE");
     Buffer2.prototype.readInt8 = /* @__PURE__ */ __name(function readInt8(offset, noAssert) {
@@ -1941,11 +1943,11 @@ var LNReaderPlugin = (() => {
         const maxBytes = Math.pow(2, 8 * byteLength2) - 1;
         checkInt(this, value, offset, byteLength2, maxBytes, 0);
       }
-      let mul = 1;
+      let mul3 = 1;
       let i2 = 0;
       this[offset] = value & 255;
-      while (++i2 < byteLength2 && (mul *= 256)) {
-        this[offset + i2] = value / mul & 255;
+      while (++i2 < byteLength2 && (mul3 *= 256)) {
+        this[offset + i2] = value / mul3 & 255;
       }
       return offset + byteLength2;
     }, "writeUIntLE");
@@ -1958,10 +1960,10 @@ var LNReaderPlugin = (() => {
         checkInt(this, value, offset, byteLength2, maxBytes, 0);
       }
       let i2 = byteLength2 - 1;
-      let mul = 1;
+      let mul3 = 1;
       this[offset + i2] = value & 255;
-      while (--i2 >= 0 && (mul *= 256)) {
-        this[offset + i2] = value / mul & 255;
+      while (--i2 >= 0 && (mul3 *= 256)) {
+        this[offset + i2] = value / mul3 & 255;
       }
       return offset + byteLength2;
     }, "writeUIntBE");
@@ -2060,18 +2062,18 @@ var LNReaderPlugin = (() => {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) {
-        const limit = Math.pow(2, 8 * byteLength2 - 1);
-        checkInt(this, value, offset, byteLength2, limit - 1, -limit);
+        const limit2 = Math.pow(2, 8 * byteLength2 - 1);
+        checkInt(this, value, offset, byteLength2, limit2 - 1, -limit2);
       }
       let i2 = 0;
-      let mul = 1;
+      let mul3 = 1;
       let sub = 0;
       this[offset] = value & 255;
-      while (++i2 < byteLength2 && (mul *= 256)) {
+      while (++i2 < byteLength2 && (mul3 *= 256)) {
         if (value < 0 && sub === 0 && this[offset + i2 - 1] !== 0) {
           sub = 1;
         }
-        this[offset + i2] = (value / mul >> 0) - sub & 255;
+        this[offset + i2] = (value / mul3 >> 0) - sub & 255;
       }
       return offset + byteLength2;
     }, "writeIntLE");
@@ -2079,18 +2081,18 @@ var LNReaderPlugin = (() => {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) {
-        const limit = Math.pow(2, 8 * byteLength2 - 1);
-        checkInt(this, value, offset, byteLength2, limit - 1, -limit);
+        const limit2 = Math.pow(2, 8 * byteLength2 - 1);
+        checkInt(this, value, offset, byteLength2, limit2 - 1, -limit2);
       }
       let i2 = byteLength2 - 1;
-      let mul = 1;
+      let mul3 = 1;
       let sub = 0;
       this[offset + i2] = value & 255;
-      while (--i2 >= 0 && (mul *= 256)) {
+      while (--i2 >= 0 && (mul3 *= 256)) {
         if (value < 0 && sub === 0 && this[offset + i2 + 1] !== 0) {
           sub = 1;
         }
-        this[offset + i2] = (value / mul >> 0) - sub & 255;
+        this[offset + i2] = (value / mul3 >> 0) - sub & 255;
       }
       return offset + byteLength2;
     }, "writeIntBE");
@@ -2378,7 +2380,7 @@ var LNReaderPlugin = (() => {
       return str;
     }
     __name(base64clean, "base64clean");
-    function utf8ToBytes(string, units) {
+    function utf8ToBytes2(string, units) {
       units = units || Infinity;
       let codePoint;
       const length = string.length;
@@ -2426,7 +2428,7 @@ var LNReaderPlugin = (() => {
       }
       return bytes;
     }
-    __name(utf8ToBytes, "utf8ToBytes");
+    __name(utf8ToBytes2, "utf8ToBytes");
     function asciiToBytes(str) {
       const byteArray = [];
       for (let i2 = 0; i2 < str.length; ++i2) {
@@ -9975,18 +9977,18 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.findAll = exports4.existsOne = exports4.findOne = exports4.findOneChild = exports4.find = exports4.filter = void 0;
       var domhandler_1 = require_lib2();
-      function filter3(test, node, recurse, limit) {
+      function filter3(test, node, recurse, limit2) {
         if (recurse === void 0) {
           recurse = true;
         }
-        if (limit === void 0) {
-          limit = Infinity;
+        if (limit2 === void 0) {
+          limit2 = Infinity;
         }
-        return find2(test, Array.isArray(node) ? node : [node], recurse, limit);
+        return find2(test, Array.isArray(node) ? node : [node], recurse, limit2);
       }
       __name(filter3, "filter");
       exports4.filter = filter3;
-      function find2(test, nodes, recurse, limit) {
+      function find2(test, nodes, recurse, limit2) {
         var result = [];
         var nodeStack = [nodes];
         var indexStack = [0];
@@ -10002,7 +10004,7 @@ var LNReaderPlugin = (() => {
           var elem = nodeStack[0][indexStack[0]++];
           if (test(elem)) {
             result.push(elem);
-            if (--limit <= 0)
+            if (--limit2 <= 0)
               return result;
           }
           if (recurse && (0, domhandler_1.hasChildren)(elem) && elem.children.length > 0) {
@@ -10149,12 +10151,12 @@ var LNReaderPlugin = (() => {
       }
       __name(testElement, "testElement");
       exports4.testElement = testElement;
-      function getElements(options, nodes, recurse, limit) {
-        if (limit === void 0) {
-          limit = Infinity;
+      function getElements(options, nodes, recurse, limit2) {
+        if (limit2 === void 0) {
+          limit2 = Infinity;
         }
         var test = compileTest(options);
-        return test ? (0, querying_js_1.filter)(test, nodes, recurse, limit) : [];
+        return test ? (0, querying_js_1.filter)(test, nodes, recurse, limit2) : [];
       }
       __name(getElements, "getElements");
       exports4.getElements = getElements;
@@ -10168,25 +10170,25 @@ var LNReaderPlugin = (() => {
       }
       __name(getElementById, "getElementById");
       exports4.getElementById = getElementById;
-      function getElementsByTagName(tagName, nodes, recurse, limit) {
+      function getElementsByTagName(tagName, nodes, recurse, limit2) {
         if (recurse === void 0) {
           recurse = true;
         }
-        if (limit === void 0) {
-          limit = Infinity;
+        if (limit2 === void 0) {
+          limit2 = Infinity;
         }
-        return (0, querying_js_1.filter)(Checks["tag_name"](tagName), nodes, recurse, limit);
+        return (0, querying_js_1.filter)(Checks["tag_name"](tagName), nodes, recurse, limit2);
       }
       __name(getElementsByTagName, "getElementsByTagName");
       exports4.getElementsByTagName = getElementsByTagName;
-      function getElementsByTagType(type, nodes, recurse, limit) {
+      function getElementsByTagType(type, nodes, recurse, limit2) {
         if (recurse === void 0) {
           recurse = true;
         }
-        if (limit === void 0) {
-          limit = Infinity;
+        if (limit2 === void 0) {
+          limit2 = Infinity;
         }
-        return (0, querying_js_1.filter)(Checks["tag_type"](type), nodes, recurse, limit);
+        return (0, querying_js_1.filter)(Checks["tag_type"](type), nodes, recurse, limit2);
       }
       __name(getElementsByTagType, "getElementsByTagType");
       exports4.getElementsByTagType = getElementsByTagType;
@@ -12439,7 +12441,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -13164,7 +13166,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -13312,22 +13314,22 @@ var LNReaderPlugin = (() => {
         return findFilterElements(elements, selector, options, false, elements.length);
       }
       __name(filterBySelector, "filterBySelector");
-      function select3(selector, root2, options, limit) {
+      function select3(selector, root2, options, limit2) {
         if (options === void 0) {
           options = {};
         }
-        if (limit === void 0) {
-          limit = Infinity;
+        if (limit2 === void 0) {
+          limit2 = Infinity;
         }
         if (typeof selector === "function") {
           return find2(root2, selector);
         }
         var _a = (0, helpers_js_1.groupSelectors)((0, css_what_1.parse)(selector)), plain = _a[0], filtered = _a[1];
         var results = filtered.map(function(sel) {
-          return findFilterElements(root2, sel, options, true, limit);
+          return findFilterElements(root2, sel, options, true, limit2);
         });
         if (plain.length) {
-          results.push(findElements(root2, plain, options, limit));
+          results.push(findElements(root2, plain, options, limit2));
         }
         if (results.length === 0) {
           return [];
@@ -13346,11 +13348,11 @@ var LNReaderPlugin = (() => {
         var sub = selector.slice(0, filterIndex);
         var filter4 = selector[filterIndex];
         var partLimit = selector.length - 1 === filterIndex ? totalLimit : Infinity;
-        var limit = (0, positionals_js_1.getLimit)(filter4.name, filter4.data, partLimit);
-        if (limit === 0)
+        var limit2 = (0, positionals_js_1.getLimit)(filter4.name, filter4.data, partLimit);
+        if (limit2 === 0)
           return [];
-        var elemsNoLimit = sub.length === 0 && !Array.isArray(root2) ? DomUtils.getChildren(root2).filter(DomUtils.isTag) : sub.length === 0 ? (Array.isArray(root2) ? root2 : [root2]).filter(DomUtils.isTag) : queryForSelector || sub.some(css_what_1.isTraversal) ? findElements(root2, [sub], options, limit) : filterElements(root2, [sub], options);
-        var elems = elemsNoLimit.slice(0, limit);
+        var elemsNoLimit = sub.length === 0 && !Array.isArray(root2) ? DomUtils.getChildren(root2).filter(DomUtils.isTag) : sub.length === 0 ? (Array.isArray(root2) ? root2 : [root2]).filter(DomUtils.isTag) : queryForSelector || sub.some(css_what_1.isTraversal) ? findElements(root2, [sub], options, limit2) : filterElements(root2, [sub], options);
+        var elems = elemsNoLimit.slice(0, limit2);
         var result = filterByPosition(filter4.name, elems, filter4.data, options);
         if (result.length === 0 || selector.length === filterIndex + 1) {
           return result;
@@ -13388,19 +13390,19 @@ var LNReaderPlugin = (() => {
         );
       }
       __name(findFilterElements, "findFilterElements");
-      function findElements(root2, sel, options, limit) {
+      function findElements(root2, sel, options, limit2) {
         var query = (0, css_select_1._compileToken)(sel, options, root2);
-        return find2(root2, query, limit);
+        return find2(root2, query, limit2);
       }
       __name(findElements, "findElements");
-      function find2(root2, query, limit) {
-        if (limit === void 0) {
-          limit = Infinity;
+      function find2(root2, query, limit2) {
+        if (limit2 === void 0) {
+          limit2 = Infinity;
         }
         var elems = (0, css_select_1.prepareContext)(root2, DomUtils, query.shouldTestNextSiblings);
         return DomUtils.find(function(node) {
           return DomUtils.isTag(node) && query(node);
-        }, elems, true, limit);
+        }, elems, true, limit2);
       }
       __name(find2, "find");
       function filterElements(elements, sel, options) {
@@ -13461,7 +13463,7 @@ var LNReaderPlugin = (() => {
     }
     return this._findBySelector(selectorOrHaystack, Number.POSITIVE_INFINITY);
   }
-  function _findBySelector(selector, limit) {
+  function _findBySelector(selector, limit2) {
     var _a;
     const context = this.toArray();
     const elems = reSiblingSelector.test(selector) ? context : this.children().toArray();
@@ -13475,7 +13477,7 @@ var LNReaderPlugin = (() => {
       pseudos: this.options.pseudos,
       quirksMode: this.options.quirksMode
     };
-    return this._make(select.select(selector, elems, options, limit));
+    return this._make(select.select(selector, elems, options, limit2));
   }
   function _getMatcher(matchMap) {
     return function(fn, ...postFns) {
@@ -23903,182 +23905,1912 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // node_modules/@noble/ciphers/utils.js
+  function isBytes(a2) {
+    return a2 instanceof Uint8Array || ArrayBuffer.isView(a2) && a2.constructor.name === "Uint8Array";
+  }
+  function abool(b) {
+    if (typeof b !== "boolean")
+      throw new Error(`boolean expected, not ${b}`);
+  }
+  function anumber(n2) {
+    if (!Number.isSafeInteger(n2) || n2 < 0)
+      throw new Error("positive integer expected, got " + n2);
+  }
+  function abytes(value, length, title2 = "") {
+    const bytes = isBytes(value);
+    const len = value?.length;
+    const needsLen = length !== void 0;
+    if (!bytes || needsLen && len !== length) {
+      const prefix = title2 && `"${title2}" `;
+      const ofLen = needsLen ? ` of length ${length}` : "";
+      const got = bytes ? `length=${len}` : `type=${typeof value}`;
+      throw new Error(prefix + "expected Uint8Array" + ofLen + ", got " + got);
+    }
+    return value;
+  }
+  function aexists(instance, checkFinished = true) {
+    if (instance.destroyed)
+      throw new Error("Hash instance has been destroyed");
+    if (checkFinished && instance.finished)
+      throw new Error("Hash#digest() has already been called");
+  }
+  function aoutput(out, instance) {
+    abytes(out, void 0, "output");
+    const min = instance.outputLen;
+    if (out.length < min) {
+      throw new Error("digestInto() expects output buffer of length at least " + min);
+    }
+  }
+  function u8(arr) {
+    return new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength);
+  }
+  function u32(arr) {
+    return new Uint32Array(arr.buffer, arr.byteOffset, Math.floor(arr.byteLength / 4));
+  }
+  function clean(...arrays) {
+    for (let i2 = 0; i2 < arrays.length; i2++) {
+      arrays[i2].fill(0);
+    }
+  }
+  function createView(arr) {
+    return new DataView(arr.buffer, arr.byteOffset, arr.byteLength);
+  }
+  function bytesToHex(bytes) {
+    abytes(bytes);
+    if (hasHexBuiltin)
+      return bytes.toHex();
+    let hex = "";
+    for (let i2 = 0; i2 < bytes.length; i2++) {
+      hex += hexes[bytes[i2]];
+    }
+    return hex;
+  }
+  function asciiToBase16(ch) {
+    if (ch >= asciis._0 && ch <= asciis._9)
+      return ch - asciis._0;
+    if (ch >= asciis.A && ch <= asciis.F)
+      return ch - (asciis.A - 10);
+    if (ch >= asciis.a && ch <= asciis.f)
+      return ch - (asciis.a - 10);
+    return;
+  }
+  function hexToBytes(hex) {
+    if (typeof hex !== "string")
+      throw new Error("hex string expected, got " + typeof hex);
+    if (hasHexBuiltin)
+      return Uint8Array.fromHex(hex);
+    const hl = hex.length;
+    const al = hl / 2;
+    if (hl % 2)
+      throw new Error("hex string expected, got unpadded hex of length " + hl);
+    const array = new Uint8Array(al);
+    for (let ai = 0, hi = 0; ai < al; ai++, hi += 2) {
+      const n1 = asciiToBase16(hex.charCodeAt(hi));
+      const n2 = asciiToBase16(hex.charCodeAt(hi + 1));
+      if (n1 === void 0 || n2 === void 0) {
+        const char = hex[hi] + hex[hi + 1];
+        throw new Error('hex string expected, got non-hex character "' + char + '" at index ' + hi);
+      }
+      array[ai] = n1 * 16 + n2;
+    }
+    return array;
+  }
+  function hexToNumber(hex) {
+    if (typeof hex !== "string")
+      throw new Error("hex string expected, got " + typeof hex);
+    return BigInt(hex === "" ? "0" : "0x" + hex);
+  }
+  function bytesToNumberBE(bytes) {
+    return hexToNumber(bytesToHex(bytes));
+  }
+  function numberToBytesBE(n2, len) {
+    return hexToBytes(n2.toString(16).padStart(len * 2, "0"));
+  }
+  function utf8ToBytes(str) {
+    if (typeof str !== "string")
+      throw new Error("string expected");
+    return new Uint8Array(new TextEncoder().encode(str));
+  }
+  function bytesToUtf8(bytes) {
+    return new TextDecoder().decode(bytes);
+  }
+  function overlapBytes(a2, b) {
+    return a2.buffer === b.buffer && // best we can do, may fail with an obscure Proxy
+    a2.byteOffset < b.byteOffset + b.byteLength && // a starts before b end
+    b.byteOffset < a2.byteOffset + a2.byteLength;
+  }
+  function complexOverlapBytes(input, output) {
+    if (overlapBytes(input, output) && input.byteOffset < output.byteOffset)
+      throw new Error("complex overlap of input and output is not supported");
+  }
+  function concatBytes(...arrays) {
+    let sum = 0;
+    for (let i2 = 0; i2 < arrays.length; i2++) {
+      const a2 = arrays[i2];
+      abytes(a2);
+      sum += a2.length;
+    }
+    const res = new Uint8Array(sum);
+    for (let i2 = 0, pad = 0; i2 < arrays.length; i2++) {
+      const a2 = arrays[i2];
+      res.set(a2, pad);
+      pad += a2.length;
+    }
+    return res;
+  }
+  function checkOpts(defaults, opts) {
+    if (opts == null || typeof opts !== "object")
+      throw new Error("options must be defined");
+    const merged = Object.assign(defaults, opts);
+    return merged;
+  }
+  function equalBytes(a2, b) {
+    if (a2.length !== b.length)
+      return false;
+    let diff = 0;
+    for (let i2 = 0; i2 < a2.length; i2++)
+      diff |= a2[i2] ^ b[i2];
+    return diff === 0;
+  }
+  function getOutput(expectedLength, out, onlyAligned = true) {
+    if (out === void 0)
+      return new Uint8Array(expectedLength);
+    if (out.length !== expectedLength)
+      throw new Error('"output" expected Uint8Array of length ' + expectedLength + ", got: " + out.length);
+    if (onlyAligned && !isAligned32(out))
+      throw new Error("invalid output, must be aligned");
+    return out;
+  }
+  function u64Lengths(dataLength, aadLength, isLE2) {
+    abool(isLE2);
+    const num = new Uint8Array(16);
+    const view = createView(num);
+    view.setBigUint64(0, BigInt(aadLength), isLE2);
+    view.setBigUint64(8, BigInt(dataLength), isLE2);
+    return num;
+  }
+  function isAligned32(bytes) {
+    return bytes.byteOffset % 4 === 0;
+  }
+  function copyBytes(bytes) {
+    return Uint8Array.from(bytes);
+  }
+  function randomBytes(bytesLength = 32) {
+    const cr = typeof globalThis === "object" ? globalThis.crypto : null;
+    if (typeof cr?.getRandomValues !== "function")
+      throw new Error("crypto.getRandomValues must be defined");
+    return cr.getRandomValues(new Uint8Array(bytesLength));
+  }
+  function managedNonce(fn, randomBytes_ = randomBytes) {
+    const { nonceLength } = fn;
+    anumber(nonceLength);
+    const addNonce = /* @__PURE__ */ __name((nonce, ciphertext) => {
+      const out = concatBytes(nonce, ciphertext);
+      ciphertext.fill(0);
+      return out;
+    }, "addNonce");
+    return (key, ...args) => ({
+      encrypt(plaintext) {
+        abytes(plaintext);
+        const nonce = randomBytes_(nonceLength);
+        const encrypted = fn(key, nonce, ...args).encrypt(plaintext);
+        if (encrypted instanceof Promise)
+          return encrypted.then((ct) => addNonce(nonce, ct));
+        return addNonce(nonce, encrypted);
+      },
+      decrypt(ciphertext) {
+        abytes(ciphertext);
+        const nonce = ciphertext.subarray(0, nonceLength);
+        const decrypted = ciphertext.subarray(nonceLength);
+        return fn(key, nonce, ...args).decrypt(decrypted);
+      }
+    });
+  }
+  var isLE, hasHexBuiltin, hexes, asciis, wrapCipher;
+  var init_utils2 = __esm({
+    "node_modules/@noble/ciphers/utils.js"() {
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      /*! noble-ciphers - MIT License (c) 2023 Paul Miller (paulmillr.com) */
+      __name(isBytes, "isBytes");
+      __name(abool, "abool");
+      __name(anumber, "anumber");
+      __name(abytes, "abytes");
+      __name(aexists, "aexists");
+      __name(aoutput, "aoutput");
+      __name(u8, "u8");
+      __name(u32, "u32");
+      __name(clean, "clean");
+      __name(createView, "createView");
+      isLE = /* @__PURE__ */ (() => new Uint8Array(new Uint32Array([287454020]).buffer)[0] === 68)();
+      hasHexBuiltin = /* @__PURE__ */ (() => (
+        // @ts-ignore
+        typeof Uint8Array.from([]).toHex === "function" && typeof Uint8Array.fromHex === "function"
+      ))();
+      hexes = /* @__PURE__ */ Array.from({ length: 256 }, (_, i2) => i2.toString(16).padStart(2, "0"));
+      __name(bytesToHex, "bytesToHex");
+      asciis = { _0: 48, _9: 57, A: 65, F: 70, a: 97, f: 102 };
+      __name(asciiToBase16, "asciiToBase16");
+      __name(hexToBytes, "hexToBytes");
+      __name(hexToNumber, "hexToNumber");
+      __name(bytesToNumberBE, "bytesToNumberBE");
+      __name(numberToBytesBE, "numberToBytesBE");
+      __name(utf8ToBytes, "utf8ToBytes");
+      __name(bytesToUtf8, "bytesToUtf8");
+      __name(overlapBytes, "overlapBytes");
+      __name(complexOverlapBytes, "complexOverlapBytes");
+      __name(concatBytes, "concatBytes");
+      __name(checkOpts, "checkOpts");
+      __name(equalBytes, "equalBytes");
+      wrapCipher = /* @__PURE__ */ __name(/* @__NO_SIDE_EFFECTS__ */ (params, constructor) => {
+        function wrappedCipher(key, ...args) {
+          abytes(key, void 0, "key");
+          if (!isLE)
+            throw new Error("Non little-endian hardware is not yet supported");
+          if (params.nonceLength !== void 0) {
+            const nonce = args[0];
+            abytes(nonce, params.varSizeNonce ? void 0 : params.nonceLength, "nonce");
+          }
+          const tagl = params.tagLength;
+          if (tagl && args[1] !== void 0)
+            abytes(args[1], void 0, "AAD");
+          const cipher = constructor(key, ...args);
+          const checkOutput = /* @__PURE__ */ __name((fnLength, output) => {
+            if (output !== void 0) {
+              if (fnLength !== 2)
+                throw new Error("cipher output not supported");
+              abytes(output, void 0, "output");
+            }
+          }, "checkOutput");
+          let called = false;
+          const wrCipher = {
+            encrypt(data2, output) {
+              if (called)
+                throw new Error("cannot encrypt() twice with same key + nonce");
+              called = true;
+              abytes(data2);
+              checkOutput(cipher.encrypt.length, output);
+              return cipher.encrypt(data2, output);
+            },
+            decrypt(data2, output) {
+              abytes(data2);
+              if (tagl && data2.length < tagl)
+                throw new Error('"ciphertext" expected length bigger than tagLength=' + tagl);
+              checkOutput(cipher.decrypt.length, output);
+              return cipher.decrypt(data2, output);
+            }
+          };
+          return wrCipher;
+        }
+        __name(wrappedCipher, "wrappedCipher");
+        Object.assign(wrappedCipher, params);
+        return wrappedCipher;
+      }, "wrapCipher");
+      __name(getOutput, "getOutput");
+      __name(u64Lengths, "u64Lengths");
+      __name(isAligned32, "isAligned32");
+      __name(copyBytes, "copyBytes");
+      __name(randomBytes, "randomBytes");
+      __name(managedNonce, "managedNonce");
+    }
+  });
+
+  // node_modules/@noble/ciphers/_polyval.js
+  function _toGHASHKey(k) {
+    k.reverse();
+    const hiBit = k[15] & 1;
+    let carry = 0;
+    for (let i2 = 0; i2 < k.length; i2++) {
+      const t2 = k[i2];
+      k[i2] = t2 >>> 1 | carry;
+      carry = (t2 & 1) << 7;
+    }
+    k[0] ^= -hiBit & 225;
+    return k;
+  }
+  function wrapConstructorWithKey(hashCons) {
+    const hashC = /* @__PURE__ */ __name((msg, key) => hashCons(key, msg.length).update(msg).digest(), "hashC");
+    const tmp = hashCons(new Uint8Array(16), 0);
+    hashC.outputLen = tmp.outputLen;
+    hashC.blockLen = tmp.blockLen;
+    hashC.create = (key, expectedLength) => hashCons(key, expectedLength);
+    return hashC;
+  }
+  var BLOCK_SIZE, ZEROS16, ZEROS32, POLY, mul2, swapLE, estimateWindow, _GHASH, GHASH, _Polyval, Polyval, ghash, polyval;
+  var init_polyval = __esm({
+    "node_modules/@noble/ciphers/_polyval.js"() {
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_utils2();
+      BLOCK_SIZE = 16;
+      ZEROS16 = /* @__PURE__ */ new Uint8Array(16);
+      ZEROS32 = u32(ZEROS16);
+      POLY = 225;
+      mul2 = /* @__PURE__ */ __name((s0, s1, s2, s3) => {
+        const hiBit = s3 & 1;
+        return {
+          s3: s2 << 31 | s3 >>> 1,
+          s2: s1 << 31 | s2 >>> 1,
+          s1: s0 << 31 | s1 >>> 1,
+          s0: s0 >>> 1 ^ POLY << 24 & -(hiBit & 1)
+          // reduce % poly
+        };
+      }, "mul2");
+      swapLE = /* @__PURE__ */ __name((n2) => (n2 >>> 0 & 255) << 24 | (n2 >>> 8 & 255) << 16 | (n2 >>> 16 & 255) << 8 | n2 >>> 24 & 255 | 0, "swapLE");
+      __name(_toGHASHKey, "_toGHASHKey");
+      estimateWindow = /* @__PURE__ */ __name((bytes) => {
+        if (bytes > 64 * 1024)
+          return 8;
+        if (bytes > 1024)
+          return 4;
+        return 2;
+      }, "estimateWindow");
+      _GHASH = class _GHASH {
+        // We select bits per window adaptively based on expectedLength
+        constructor(key, expectedLength) {
+          __publicField(this, "blockLen", BLOCK_SIZE);
+          __publicField(this, "outputLen", BLOCK_SIZE);
+          __publicField(this, "s0", 0);
+          __publicField(this, "s1", 0);
+          __publicField(this, "s2", 0);
+          __publicField(this, "s3", 0);
+          __publicField(this, "finished", false);
+          __publicField(this, "t");
+          __publicField(this, "W");
+          __publicField(this, "windowSize");
+          abytes(key, 16, "key");
+          key = copyBytes(key);
+          const kView = createView(key);
+          let k0 = kView.getUint32(0, false);
+          let k1 = kView.getUint32(4, false);
+          let k2 = kView.getUint32(8, false);
+          let k3 = kView.getUint32(12, false);
+          const doubles = [];
+          for (let i2 = 0; i2 < 128; i2++) {
+            doubles.push({ s0: swapLE(k0), s1: swapLE(k1), s2: swapLE(k2), s3: swapLE(k3) });
+            ({ s0: k0, s1: k1, s2: k2, s3: k3 } = mul2(k0, k1, k2, k3));
+          }
+          const W = estimateWindow(expectedLength || 1024);
+          if (![1, 2, 4, 8].includes(W))
+            throw new Error("ghash: invalid window size, expected 2, 4 or 8");
+          this.W = W;
+          const bits = 128;
+          const windows = bits / W;
+          const windowSize = this.windowSize = 2 ** W;
+          const items = [];
+          for (let w = 0; w < windows; w++) {
+            for (let byte = 0; byte < windowSize; byte++) {
+              let s0 = 0, s1 = 0, s2 = 0, s3 = 0;
+              for (let j = 0; j < W; j++) {
+                const bit = byte >>> W - j - 1 & 1;
+                if (!bit)
+                  continue;
+                const { s0: d0, s1: d1, s2: d2, s3: d3 } = doubles[W * w + j];
+                s0 ^= d0, s1 ^= d1, s2 ^= d2, s3 ^= d3;
+              }
+              items.push({ s0, s1, s2, s3 });
+            }
+          }
+          this.t = items;
+        }
+        _updateBlock(s0, s1, s2, s3) {
+          s0 ^= this.s0, s1 ^= this.s1, s2 ^= this.s2, s3 ^= this.s3;
+          const { W, t: t2, windowSize } = this;
+          let o0 = 0, o1 = 0, o2 = 0, o3 = 0;
+          const mask = (1 << W) - 1;
+          let w = 0;
+          for (const num of [s0, s1, s2, s3]) {
+            for (let bytePos = 0; bytePos < 4; bytePos++) {
+              const byte = num >>> 8 * bytePos & 255;
+              for (let bitPos = 8 / W - 1; bitPos >= 0; bitPos--) {
+                const bit = byte >>> W * bitPos & mask;
+                const { s0: e0, s1: e1, s2: e2, s3: e3 } = t2[w * windowSize + bit];
+                o0 ^= e0, o1 ^= e1, o2 ^= e2, o3 ^= e3;
+                w += 1;
+              }
+            }
+          }
+          this.s0 = o0;
+          this.s1 = o1;
+          this.s2 = o2;
+          this.s3 = o3;
+        }
+        update(data2) {
+          aexists(this);
+          abytes(data2);
+          data2 = copyBytes(data2);
+          const b32 = u32(data2);
+          const blocks = Math.floor(data2.length / BLOCK_SIZE);
+          const left = data2.length % BLOCK_SIZE;
+          for (let i2 = 0; i2 < blocks; i2++) {
+            this._updateBlock(b32[i2 * 4 + 0], b32[i2 * 4 + 1], b32[i2 * 4 + 2], b32[i2 * 4 + 3]);
+          }
+          if (left) {
+            ZEROS16.set(data2.subarray(blocks * BLOCK_SIZE));
+            this._updateBlock(ZEROS32[0], ZEROS32[1], ZEROS32[2], ZEROS32[3]);
+            clean(ZEROS32);
+          }
+          return this;
+        }
+        destroy() {
+          const { t: t2 } = this;
+          for (const elm of t2) {
+            elm.s0 = 0, elm.s1 = 0, elm.s2 = 0, elm.s3 = 0;
+          }
+        }
+        digestInto(out) {
+          aexists(this);
+          aoutput(out, this);
+          this.finished = true;
+          const { s0, s1, s2, s3 } = this;
+          const o32 = u32(out);
+          o32[0] = s0;
+          o32[1] = s1;
+          o32[2] = s2;
+          o32[3] = s3;
+          return out;
+        }
+        digest() {
+          const res = new Uint8Array(BLOCK_SIZE);
+          this.digestInto(res);
+          this.destroy();
+          return res;
+        }
+      };
+      __name(_GHASH, "GHASH");
+      GHASH = _GHASH;
+      _Polyval = class _Polyval extends GHASH {
+        constructor(key, expectedLength) {
+          abytes(key);
+          const ghKey = _toGHASHKey(copyBytes(key));
+          super(ghKey, expectedLength);
+          clean(ghKey);
+        }
+        update(data2) {
+          aexists(this);
+          abytes(data2);
+          data2 = copyBytes(data2);
+          const b32 = u32(data2);
+          const left = data2.length % BLOCK_SIZE;
+          const blocks = Math.floor(data2.length / BLOCK_SIZE);
+          for (let i2 = 0; i2 < blocks; i2++) {
+            this._updateBlock(swapLE(b32[i2 * 4 + 3]), swapLE(b32[i2 * 4 + 2]), swapLE(b32[i2 * 4 + 1]), swapLE(b32[i2 * 4 + 0]));
+          }
+          if (left) {
+            ZEROS16.set(data2.subarray(blocks * BLOCK_SIZE));
+            this._updateBlock(swapLE(ZEROS32[3]), swapLE(ZEROS32[2]), swapLE(ZEROS32[1]), swapLE(ZEROS32[0]));
+            clean(ZEROS32);
+          }
+          return this;
+        }
+        digestInto(out) {
+          aexists(this);
+          aoutput(out, this);
+          this.finished = true;
+          const { s0, s1, s2, s3 } = this;
+          const o32 = u32(out);
+          o32[0] = s0;
+          o32[1] = s1;
+          o32[2] = s2;
+          o32[3] = s3;
+          return out.reverse();
+        }
+      };
+      __name(_Polyval, "Polyval");
+      Polyval = _Polyval;
+      __name(wrapConstructorWithKey, "wrapConstructorWithKey");
+      ghash = wrapConstructorWithKey((key, expectedLength) => new GHASH(key, expectedLength));
+      polyval = wrapConstructorWithKey((key, expectedLength) => new Polyval(key, expectedLength));
+    }
+  });
+
+  // node_modules/@noble/ciphers/aes.js
+  function validateKeyLength(key) {
+    if (![16, 24, 32].includes(key.length))
+      throw new Error('"aes key" expected Uint8Array of length 16/24/32, got length=' + key.length);
+  }
+  function mul22(n2) {
+    return n2 << 1 ^ POLY2 & -(n2 >> 7);
+  }
+  function mul(a2, b) {
+    let res = 0;
+    for (; b > 0; b >>= 1) {
+      res ^= a2 & -(b & 1);
+      a2 = mul22(a2);
+    }
+    return res;
+  }
+  function genTtable(sbox2, fn) {
+    if (sbox2.length !== 256)
+      throw new Error("Wrong sbox length");
+    const T0 = new Uint32Array(256).map((_, j) => fn(sbox2[j]));
+    const T1 = T0.map(rotl32_8);
+    const T2 = T1.map(rotl32_8);
+    const T3 = T2.map(rotl32_8);
+    const T01 = new Uint32Array(256 * 256);
+    const T23 = new Uint32Array(256 * 256);
+    const sbox22 = new Uint16Array(256 * 256);
+    for (let i2 = 0; i2 < 256; i2++) {
+      for (let j = 0; j < 256; j++) {
+        const idx = i2 * 256 + j;
+        T01[idx] = T0[i2] ^ T1[j];
+        T23[idx] = T2[i2] ^ T3[j];
+        sbox22[idx] = sbox2[i2] << 8 | sbox2[j];
+      }
+    }
+    return { sbox: sbox2, sbox2: sbox22, T0, T1, T2, T3, T01, T23 };
+  }
+  function expandKeyLE(key) {
+    abytes(key);
+    const len = key.length;
+    validateKeyLength(key);
+    const { sbox2 } = tableEncoding;
+    const toClean = [];
+    if (!isAligned32(key))
+      toClean.push(key = copyBytes(key));
+    const k32 = u32(key);
+    const Nk = k32.length;
+    const subByte = /* @__PURE__ */ __name((n2) => applySbox(sbox2, n2, n2, n2, n2), "subByte");
+    const xk = new Uint32Array(len + 28);
+    xk.set(k32);
+    for (let i2 = Nk; i2 < xk.length; i2++) {
+      let t2 = xk[i2 - 1];
+      if (i2 % Nk === 0)
+        t2 = subByte(rotr32_8(t2)) ^ xPowers[i2 / Nk - 1];
+      else if (Nk > 6 && i2 % Nk === 4)
+        t2 = subByte(t2);
+      xk[i2] = xk[i2 - Nk] ^ t2;
+    }
+    clean(...toClean);
+    return xk;
+  }
+  function expandKeyDecLE(key) {
+    const encKey = expandKeyLE(key);
+    const xk = encKey.slice();
+    const Nk = encKey.length;
+    const { sbox2 } = tableEncoding;
+    const { T0, T1, T2, T3 } = tableDecoding;
+    for (let i2 = 0; i2 < Nk; i2 += 4) {
+      for (let j = 0; j < 4; j++)
+        xk[i2 + j] = encKey[Nk - i2 - 4 + j];
+    }
+    clean(encKey);
+    for (let i2 = 4; i2 < Nk - 4; i2++) {
+      const x = xk[i2];
+      const w = applySbox(sbox2, x, x, x, x);
+      xk[i2] = T0[w & 255] ^ T1[w >>> 8 & 255] ^ T2[w >>> 16 & 255] ^ T3[w >>> 24];
+    }
+    return xk;
+  }
+  function apply0123(T01, T23, s0, s1, s2, s3) {
+    return T01[s0 << 8 & 65280 | s1 >>> 8 & 255] ^ T23[s2 >>> 8 & 65280 | s3 >>> 24 & 255];
+  }
+  function applySbox(sbox2, s0, s1, s2, s3) {
+    return sbox2[s0 & 255 | s1 & 65280] | sbox2[s2 >>> 16 & 255 | s3 >>> 16 & 65280] << 16;
+  }
+  function encrypt(xk, s0, s1, s2, s3) {
+    const { sbox2, T01, T23 } = tableEncoding;
+    let k = 0;
+    s0 ^= xk[k++], s1 ^= xk[k++], s2 ^= xk[k++], s3 ^= xk[k++];
+    const rounds = xk.length / 4 - 2;
+    for (let i2 = 0; i2 < rounds; i2++) {
+      const t02 = xk[k++] ^ apply0123(T01, T23, s0, s1, s2, s3);
+      const t12 = xk[k++] ^ apply0123(T01, T23, s1, s2, s3, s0);
+      const t22 = xk[k++] ^ apply0123(T01, T23, s2, s3, s0, s1);
+      const t32 = xk[k++] ^ apply0123(T01, T23, s3, s0, s1, s2);
+      s0 = t02, s1 = t12, s2 = t22, s3 = t32;
+    }
+    const t0 = xk[k++] ^ applySbox(sbox2, s0, s1, s2, s3);
+    const t1 = xk[k++] ^ applySbox(sbox2, s1, s2, s3, s0);
+    const t2 = xk[k++] ^ applySbox(sbox2, s2, s3, s0, s1);
+    const t3 = xk[k++] ^ applySbox(sbox2, s3, s0, s1, s2);
+    return { s0: t0, s1: t1, s2: t2, s3: t3 };
+  }
+  function decrypt(xk, s0, s1, s2, s3) {
+    const { sbox2, T01, T23 } = tableDecoding;
+    let k = 0;
+    s0 ^= xk[k++], s1 ^= xk[k++], s2 ^= xk[k++], s3 ^= xk[k++];
+    const rounds = xk.length / 4 - 2;
+    for (let i2 = 0; i2 < rounds; i2++) {
+      const t02 = xk[k++] ^ apply0123(T01, T23, s0, s3, s2, s1);
+      const t12 = xk[k++] ^ apply0123(T01, T23, s1, s0, s3, s2);
+      const t22 = xk[k++] ^ apply0123(T01, T23, s2, s1, s0, s3);
+      const t32 = xk[k++] ^ apply0123(T01, T23, s3, s2, s1, s0);
+      s0 = t02, s1 = t12, s2 = t22, s3 = t32;
+    }
+    const t0 = xk[k++] ^ applySbox(sbox2, s0, s3, s2, s1);
+    const t1 = xk[k++] ^ applySbox(sbox2, s1, s0, s3, s2);
+    const t2 = xk[k++] ^ applySbox(sbox2, s2, s1, s0, s3);
+    const t3 = xk[k++] ^ applySbox(sbox2, s3, s2, s1, s0);
+    return { s0: t0, s1: t1, s2: t2, s3: t3 };
+  }
+  function ctrCounter(xk, nonce, src, dst) {
+    abytes(nonce, BLOCK_SIZE2, "nonce");
+    abytes(src);
+    const srcLen = src.length;
+    dst = getOutput(srcLen, dst);
+    complexOverlapBytes(src, dst);
+    const ctr2 = nonce;
+    const c32 = u32(ctr2);
+    let { s0, s1, s2, s3 } = encrypt(xk, c32[0], c32[1], c32[2], c32[3]);
+    const src32 = u32(src);
+    const dst32 = u32(dst);
+    for (let i2 = 0; i2 + 4 <= src32.length; i2 += 4) {
+      dst32[i2 + 0] = src32[i2 + 0] ^ s0;
+      dst32[i2 + 1] = src32[i2 + 1] ^ s1;
+      dst32[i2 + 2] = src32[i2 + 2] ^ s2;
+      dst32[i2 + 3] = src32[i2 + 3] ^ s3;
+      incBytes(ctr2, false, 1);
+      ({ s0, s1, s2, s3 } = encrypt(xk, c32[0], c32[1], c32[2], c32[3]));
+    }
+    const start = BLOCK_SIZE2 * Math.floor(src32.length / BLOCK_SIZE32);
+    if (start < srcLen) {
+      const b32 = new Uint32Array([s0, s1, s2, s3]);
+      const buf = u8(b32);
+      for (let i2 = start, pos = 0; i2 < srcLen; i2++, pos++)
+        dst[i2] = src[i2] ^ buf[pos];
+      clean(b32);
+    }
+    return dst;
+  }
+  function ctr32(xk, isLE2, nonce, src, dst) {
+    abytes(nonce, BLOCK_SIZE2, "nonce");
+    abytes(src);
+    dst = getOutput(src.length, dst);
+    const ctr2 = nonce;
+    const c32 = u32(ctr2);
+    const view = createView(ctr2);
+    const src32 = u32(src);
+    const dst32 = u32(dst);
+    const ctrPos = isLE2 ? 0 : 12;
+    const srcLen = src.length;
+    let ctrNum = view.getUint32(ctrPos, isLE2);
+    let { s0, s1, s2, s3 } = encrypt(xk, c32[0], c32[1], c32[2], c32[3]);
+    for (let i2 = 0; i2 + 4 <= src32.length; i2 += 4) {
+      dst32[i2 + 0] = src32[i2 + 0] ^ s0;
+      dst32[i2 + 1] = src32[i2 + 1] ^ s1;
+      dst32[i2 + 2] = src32[i2 + 2] ^ s2;
+      dst32[i2 + 3] = src32[i2 + 3] ^ s3;
+      ctrNum = ctrNum + 1 >>> 0;
+      view.setUint32(ctrPos, ctrNum, isLE2);
+      ({ s0, s1, s2, s3 } = encrypt(xk, c32[0], c32[1], c32[2], c32[3]));
+    }
+    const start = BLOCK_SIZE2 * Math.floor(src32.length / BLOCK_SIZE32);
+    if (start < srcLen) {
+      const b32 = new Uint32Array([s0, s1, s2, s3]);
+      const buf = u8(b32);
+      for (let i2 = start, pos = 0; i2 < srcLen; i2++, pos++)
+        dst[i2] = src[i2] ^ buf[pos];
+      clean(b32);
+    }
+    return dst;
+  }
+  function validateBlockDecrypt(data2) {
+    abytes(data2);
+    if (data2.length % BLOCK_SIZE2 !== 0) {
+      throw new Error("aes-(cbc/ecb).decrypt ciphertext should consist of blocks with size " + BLOCK_SIZE2);
+    }
+  }
+  function validateBlockEncrypt(plaintext, pcks5, dst) {
+    abytes(plaintext);
+    let outLen = plaintext.length;
+    const remaining = outLen % BLOCK_SIZE2;
+    if (!pcks5 && remaining !== 0)
+      throw new Error("aec/(cbc-ecb): unpadded plaintext with disabled padding");
+    if (!isAligned32(plaintext))
+      plaintext = copyBytes(plaintext);
+    const b = u32(plaintext);
+    if (pcks5) {
+      let left = BLOCK_SIZE2 - remaining;
+      if (!left)
+        left = BLOCK_SIZE2;
+      outLen = outLen + left;
+    }
+    dst = getOutput(outLen, dst);
+    complexOverlapBytes(plaintext, dst);
+    const o = u32(dst);
+    return { b, o, out: dst };
+  }
+  function validatePCKS(data2, pcks5) {
+    if (!pcks5)
+      return data2;
+    const len = data2.length;
+    if (!len)
+      throw new Error("aes/pcks5: empty ciphertext not allowed");
+    const lastByte = data2[len - 1];
+    if (lastByte <= 0 || lastByte > 16)
+      throw new Error("aes/pcks5: wrong padding");
+    const out = data2.subarray(0, -lastByte);
+    for (let i2 = 0; i2 < lastByte; i2++)
+      if (data2[len - i2 - 1] !== lastByte)
+        throw new Error("aes/pcks5: wrong padding");
+    return out;
+  }
+  function padPCKS(left) {
+    const tmp = new Uint8Array(16);
+    const tmp32 = u32(tmp);
+    tmp.set(left);
+    const paddingByte = BLOCK_SIZE2 - left.length;
+    for (let i2 = BLOCK_SIZE2 - paddingByte; i2 < BLOCK_SIZE2; i2++)
+      tmp[i2] = paddingByte;
+    return tmp32;
+  }
+  function computeTag(fn, isLE2, key, data2, AAD) {
+    const aadLength = AAD ? AAD.length : 0;
+    const h = fn.create(key, data2.length + aadLength);
+    if (AAD)
+      h.update(AAD);
+    const num = u64Lengths(8 * data2.length, 8 * aadLength, isLE2);
+    h.update(data2);
+    h.update(num);
+    const res = h.digest();
+    clean(num);
+    return res;
+  }
+  function isBytes32(a2) {
+    return a2 instanceof Uint32Array || ArrayBuffer.isView(a2) && a2.constructor.name === "Uint32Array";
+  }
+  function encryptBlock(xk, block) {
+    abytes(block, 16, "block");
+    if (!isBytes32(xk))
+      throw new Error("_encryptBlock accepts result of expandKeyLE");
+    const b32 = u32(block);
+    let { s0, s1, s2, s3 } = encrypt(xk, b32[0], b32[1], b32[2], b32[3]);
+    b32[0] = s0, b32[1] = s1, b32[2] = s2, b32[3] = s3;
+    return block;
+  }
+  function decryptBlock(xk, block) {
+    abytes(block, 16, "block");
+    if (!isBytes32(xk))
+      throw new Error("_decryptBlock accepts result of expandKeyLE");
+    const b32 = u32(block);
+    let { s0, s1, s2, s3 } = decrypt(xk, b32[0], b32[1], b32[2], b32[3]);
+    b32[0] = s0, b32[1] = s1, b32[2] = s2, b32[3] = s3;
+    return block;
+  }
+  function dbl(block) {
+    let carry = 0;
+    for (let i2 = BLOCK_SIZE2 - 1; i2 >= 0; i2--) {
+      const newCarry = (block[i2] & 128) >>> 7;
+      block[i2] = block[i2] << 1 | carry;
+      carry = newCarry;
+    }
+    if (carry) {
+      block[BLOCK_SIZE2 - 1] ^= 135;
+    }
+    return block;
+  }
+  function xorBlock(a2, b) {
+    if (a2.length !== b.length)
+      throw new Error("xorBlock: blocks must have same length");
+    for (let i2 = 0; i2 < a2.length; i2++) {
+      a2[i2] = a2[i2] ^ b[i2];
+    }
+    return a2;
+  }
+  function xorend(a2, b) {
+    if (b.length > a2.length) {
+      throw new Error("xorend: len(B) must be less than or equal to len(A)");
+    }
+    const offset = a2.length - b.length;
+    for (let i2 = 0; i2 < b.length; i2++) {
+      a2[offset + i2] = a2[offset + i2] ^ b[i2];
+    }
+    return a2;
+  }
+  function s2v(key, strings) {
+    validateKeyLength(key);
+    const len = strings.length;
+    if (len > 127) {
+      throw new Error("s2v: number of input strings must be less than or equal to 127");
+    }
+    if (len === 0)
+      return cmac(key, ONE_BLOCK);
+    let d = cmac(key, EMPTY_BLOCK);
+    for (let i2 = 0; i2 < len - 1; i2++) {
+      dbl(d);
+      const cmacResult = cmac(key, strings[i2]);
+      xorBlock(d, cmacResult);
+      clean(cmacResult);
+    }
+    const s_n = strings[len - 1];
+    let t2;
+    if (s_n.byteLength >= BLOCK_SIZE2) {
+      t2 = xorend(Uint8Array.from(s_n), d);
+    } else {
+      const paddedSn = new Uint8Array(BLOCK_SIZE2);
+      paddedSn.set(s_n);
+      paddedSn[s_n.length] = 128;
+      t2 = xorBlock(dbl(d), paddedSn);
+      clean(paddedSn);
+    }
+    const result = cmac(key, t2);
+    clean(d, t2);
+    return result;
+  }
+  var BLOCK_SIZE2, BLOCK_SIZE32, EMPTY_BLOCK, ONE_BLOCK, POLY2, incBytes, sbox, invSbox, rotr32_8, rotl32_8, byteSwap, tableEncoding, tableDecoding, xPowers, ctr, ecb, cbc, cfb, gcm, limit, gcmsiv, AESW, AESKW_IV, aeskw, AESKWP_IV, aeskwp, __AesCtrDRBG, _AesCtrDRBG, createAesDrbg, rngAesCtrDrbg128, rngAesCtrDrbg256, __CMAC, _CMAC, cmac, siv, aessiv2, unsafe;
+  var init_aes = __esm({
+    "node_modules/@noble/ciphers/aes.js"() {
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_polyval();
+      init_utils2();
+      BLOCK_SIZE2 = 16;
+      BLOCK_SIZE32 = 4;
+      EMPTY_BLOCK = /* @__PURE__ */ new Uint8Array(BLOCK_SIZE2);
+      ONE_BLOCK = /* @__PURE__ */ Uint8Array.from([
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]);
+      POLY2 = 283;
+      __name(validateKeyLength, "validateKeyLength");
+      __name(mul22, "mul2");
+      __name(mul, "mul");
+      incBytes = /* @__PURE__ */ __name((data2, isLE2, carry = 1) => {
+        if (!Number.isSafeInteger(carry))
+          throw new Error("incBytes: wrong carry " + carry);
+        abytes(data2);
+        for (let i2 = 0; i2 < data2.length; i2++) {
+          const pos = !isLE2 ? data2.length - 1 - i2 : i2;
+          carry = carry + (data2[pos] & 255) | 0;
+          data2[pos] = carry & 255;
+          carry >>>= 8;
+        }
+      }, "incBytes");
+      sbox = /* @__PURE__ */ (() => {
+        const t2 = new Uint8Array(256);
+        for (let i2 = 0, x = 1; i2 < 256; i2++, x ^= mul22(x))
+          t2[i2] = x;
+        const box = new Uint8Array(256);
+        box[0] = 99;
+        for (let i2 = 0; i2 < 255; i2++) {
+          let x = t2[255 - i2];
+          x |= x << 8;
+          box[t2[i2]] = (x ^ x >> 4 ^ x >> 5 ^ x >> 6 ^ x >> 7 ^ 99) & 255;
+        }
+        clean(t2);
+        return box;
+      })();
+      invSbox = /* @__PURE__ */ sbox.map((_, j) => sbox.indexOf(j));
+      rotr32_8 = /* @__PURE__ */ __name((n2) => n2 << 24 | n2 >>> 8, "rotr32_8");
+      rotl32_8 = /* @__PURE__ */ __name((n2) => n2 << 8 | n2 >>> 24, "rotl32_8");
+      byteSwap = /* @__PURE__ */ __name((word) => word << 24 & 4278190080 | word << 8 & 16711680 | word >>> 8 & 65280 | word >>> 24 & 255, "byteSwap");
+      __name(genTtable, "genTtable");
+      tableEncoding = /* @__PURE__ */ genTtable(sbox, (s) => mul(s, 3) << 24 | s << 16 | s << 8 | mul(s, 2));
+      tableDecoding = /* @__PURE__ */ genTtable(invSbox, (s) => mul(s, 11) << 24 | mul(s, 13) << 16 | mul(s, 9) << 8 | mul(s, 14));
+      xPowers = /* @__PURE__ */ (() => {
+        const p = new Uint8Array(16);
+        for (let i2 = 0, x = 1; i2 < 16; i2++, x = mul22(x))
+          p[i2] = x;
+        return p;
+      })();
+      __name(expandKeyLE, "expandKeyLE");
+      __name(expandKeyDecLE, "expandKeyDecLE");
+      __name(apply0123, "apply0123");
+      __name(applySbox, "applySbox");
+      __name(encrypt, "encrypt");
+      __name(decrypt, "decrypt");
+      __name(ctrCounter, "ctrCounter");
+      __name(ctr32, "ctr32");
+      ctr = /* @__PURE__ */ wrapCipher({ blockSize: 16, nonceLength: 16 }, /* @__PURE__ */ __name(function aesctr(key, nonce) {
+        function processCtr(buf, dst) {
+          abytes(buf);
+          if (dst !== void 0) {
+            abytes(dst);
+            if (!isAligned32(dst))
+              throw new Error("unaligned destination");
+          }
+          const xk = expandKeyLE(key);
+          const n2 = copyBytes(nonce);
+          const toClean = [xk, n2];
+          if (!isAligned32(buf))
+            toClean.push(buf = copyBytes(buf));
+          const out = ctrCounter(xk, n2, buf, dst);
+          clean(...toClean);
+          return out;
+        }
+        __name(processCtr, "processCtr");
+        return {
+          encrypt: /* @__PURE__ */ __name((plaintext, dst) => processCtr(plaintext, dst), "encrypt"),
+          decrypt: /* @__PURE__ */ __name((ciphertext, dst) => processCtr(ciphertext, dst), "decrypt")
+        };
+      }, "aesctr"));
+      __name(validateBlockDecrypt, "validateBlockDecrypt");
+      __name(validateBlockEncrypt, "validateBlockEncrypt");
+      __name(validatePCKS, "validatePCKS");
+      __name(padPCKS, "padPCKS");
+      ecb = /* @__PURE__ */ wrapCipher({ blockSize: 16 }, /* @__PURE__ */ __name(function aesecb(key, opts = {}) {
+        const pcks5 = !opts.disablePadding;
+        return {
+          encrypt(plaintext, dst) {
+            const { b, o, out: _out } = validateBlockEncrypt(plaintext, pcks5, dst);
+            const xk = expandKeyLE(key);
+            let i2 = 0;
+            for (; i2 + 4 <= b.length; ) {
+              const { s0, s1, s2, s3 } = encrypt(xk, b[i2 + 0], b[i2 + 1], b[i2 + 2], b[i2 + 3]);
+              o[i2++] = s0, o[i2++] = s1, o[i2++] = s2, o[i2++] = s3;
+            }
+            if (pcks5) {
+              const tmp32 = padPCKS(plaintext.subarray(i2 * 4));
+              const { s0, s1, s2, s3 } = encrypt(xk, tmp32[0], tmp32[1], tmp32[2], tmp32[3]);
+              o[i2++] = s0, o[i2++] = s1, o[i2++] = s2, o[i2++] = s3;
+            }
+            clean(xk);
+            return _out;
+          },
+          decrypt(ciphertext, dst) {
+            validateBlockDecrypt(ciphertext);
+            const xk = expandKeyDecLE(key);
+            dst = getOutput(ciphertext.length, dst);
+            const toClean = [xk];
+            if (!isAligned32(ciphertext))
+              toClean.push(ciphertext = copyBytes(ciphertext));
+            complexOverlapBytes(ciphertext, dst);
+            const b = u32(ciphertext);
+            const o = u32(dst);
+            for (let i2 = 0; i2 + 4 <= b.length; ) {
+              const { s0, s1, s2, s3 } = decrypt(xk, b[i2 + 0], b[i2 + 1], b[i2 + 2], b[i2 + 3]);
+              o[i2++] = s0, o[i2++] = s1, o[i2++] = s2, o[i2++] = s3;
+            }
+            clean(...toClean);
+            return validatePCKS(dst, pcks5);
+          }
+        };
+      }, "aesecb"));
+      cbc = /* @__PURE__ */ wrapCipher({ blockSize: 16, nonceLength: 16 }, /* @__PURE__ */ __name(function aescbc(key, iv, opts = {}) {
+        const pcks5 = !opts.disablePadding;
+        return {
+          encrypt(plaintext, dst) {
+            const xk = expandKeyLE(key);
+            const { b, o, out: _out } = validateBlockEncrypt(plaintext, pcks5, dst);
+            let _iv = iv;
+            const toClean = [xk];
+            if (!isAligned32(_iv))
+              toClean.push(_iv = copyBytes(_iv));
+            const n32 = u32(_iv);
+            let s0 = n32[0], s1 = n32[1], s2 = n32[2], s3 = n32[3];
+            let i2 = 0;
+            for (; i2 + 4 <= b.length; ) {
+              s0 ^= b[i2 + 0], s1 ^= b[i2 + 1], s2 ^= b[i2 + 2], s3 ^= b[i2 + 3];
+              ({ s0, s1, s2, s3 } = encrypt(xk, s0, s1, s2, s3));
+              o[i2++] = s0, o[i2++] = s1, o[i2++] = s2, o[i2++] = s3;
+            }
+            if (pcks5) {
+              const tmp32 = padPCKS(plaintext.subarray(i2 * 4));
+              s0 ^= tmp32[0], s1 ^= tmp32[1], s2 ^= tmp32[2], s3 ^= tmp32[3];
+              ({ s0, s1, s2, s3 } = encrypt(xk, s0, s1, s2, s3));
+              o[i2++] = s0, o[i2++] = s1, o[i2++] = s2, o[i2++] = s3;
+            }
+            clean(...toClean);
+            return _out;
+          },
+          decrypt(ciphertext, dst) {
+            validateBlockDecrypt(ciphertext);
+            const xk = expandKeyDecLE(key);
+            let _iv = iv;
+            const toClean = [xk];
+            if (!isAligned32(_iv))
+              toClean.push(_iv = copyBytes(_iv));
+            const n32 = u32(_iv);
+            dst = getOutput(ciphertext.length, dst);
+            if (!isAligned32(ciphertext))
+              toClean.push(ciphertext = copyBytes(ciphertext));
+            complexOverlapBytes(ciphertext, dst);
+            const b = u32(ciphertext);
+            const o = u32(dst);
+            let s0 = n32[0], s1 = n32[1], s2 = n32[2], s3 = n32[3];
+            for (let i2 = 0; i2 + 4 <= b.length; ) {
+              const ps0 = s0, ps1 = s1, ps2 = s2, ps3 = s3;
+              s0 = b[i2 + 0], s1 = b[i2 + 1], s2 = b[i2 + 2], s3 = b[i2 + 3];
+              const { s0: o0, s1: o1, s2: o2, s3: o3 } = decrypt(xk, s0, s1, s2, s3);
+              o[i2++] = o0 ^ ps0, o[i2++] = o1 ^ ps1, o[i2++] = o2 ^ ps2, o[i2++] = o3 ^ ps3;
+            }
+            clean(...toClean);
+            return validatePCKS(dst, pcks5);
+          }
+        };
+      }, "aescbc"));
+      cfb = /* @__PURE__ */ wrapCipher({ blockSize: 16, nonceLength: 16 }, /* @__PURE__ */ __name(function aescfb(key, iv) {
+        function processCfb(src, isEncrypt, dst) {
+          abytes(src);
+          const srcLen = src.length;
+          dst = getOutput(srcLen, dst);
+          if (overlapBytes(src, dst))
+            throw new Error("overlapping src and dst not supported.");
+          const xk = expandKeyLE(key);
+          let _iv = iv;
+          const toClean = [xk];
+          if (!isAligned32(_iv))
+            toClean.push(_iv = copyBytes(_iv));
+          if (!isAligned32(src))
+            toClean.push(src = copyBytes(src));
+          const src32 = u32(src);
+          const dst32 = u32(dst);
+          const next32 = isEncrypt ? dst32 : src32;
+          const n32 = u32(_iv);
+          let s0 = n32[0], s1 = n32[1], s2 = n32[2], s3 = n32[3];
+          for (let i2 = 0; i2 + 4 <= src32.length; ) {
+            const { s0: e0, s1: e1, s2: e2, s3: e3 } = encrypt(xk, s0, s1, s2, s3);
+            dst32[i2 + 0] = src32[i2 + 0] ^ e0;
+            dst32[i2 + 1] = src32[i2 + 1] ^ e1;
+            dst32[i2 + 2] = src32[i2 + 2] ^ e2;
+            dst32[i2 + 3] = src32[i2 + 3] ^ e3;
+            s0 = next32[i2++], s1 = next32[i2++], s2 = next32[i2++], s3 = next32[i2++];
+          }
+          const start = BLOCK_SIZE2 * Math.floor(src32.length / BLOCK_SIZE32);
+          if (start < srcLen) {
+            ({ s0, s1, s2, s3 } = encrypt(xk, s0, s1, s2, s3));
+            const buf = u8(new Uint32Array([s0, s1, s2, s3]));
+            for (let i2 = start, pos = 0; i2 < srcLen; i2++, pos++)
+              dst[i2] = src[i2] ^ buf[pos];
+            clean(buf);
+          }
+          clean(...toClean);
+          return dst;
+        }
+        __name(processCfb, "processCfb");
+        return {
+          encrypt: /* @__PURE__ */ __name((plaintext, dst) => processCfb(plaintext, true, dst), "encrypt"),
+          decrypt: /* @__PURE__ */ __name((ciphertext, dst) => processCfb(ciphertext, false, dst), "decrypt")
+        };
+      }, "aescfb"));
+      __name(computeTag, "computeTag");
+      gcm = /* @__PURE__ */ wrapCipher({ blockSize: 16, nonceLength: 12, tagLength: 16, varSizeNonce: true }, /* @__PURE__ */ __name(function aesgcm(key, nonce, AAD) {
+        if (nonce.length < 8)
+          throw new Error("aes/gcm: invalid nonce length");
+        const tagLength = 16;
+        function _computeTag(authKey, tagMask, data2) {
+          const tag = computeTag(ghash, false, authKey, data2, AAD);
+          for (let i2 = 0; i2 < tagMask.length; i2++)
+            tag[i2] ^= tagMask[i2];
+          return tag;
+        }
+        __name(_computeTag, "_computeTag");
+        function deriveKeys() {
+          const xk = expandKeyLE(key);
+          const authKey = EMPTY_BLOCK.slice();
+          const counter = EMPTY_BLOCK.slice();
+          ctr32(xk, false, counter, counter, authKey);
+          if (nonce.length === 12) {
+            counter.set(nonce);
+          } else {
+            const nonceLen = EMPTY_BLOCK.slice();
+            const view = createView(nonceLen);
+            view.setBigUint64(8, BigInt(nonce.length * 8), false);
+            const g = ghash.create(authKey).update(nonce).update(nonceLen);
+            g.digestInto(counter);
+            g.destroy();
+          }
+          const tagMask = ctr32(xk, false, counter, EMPTY_BLOCK);
+          return { xk, authKey, counter, tagMask };
+        }
+        __name(deriveKeys, "deriveKeys");
+        return {
+          encrypt(plaintext) {
+            const { xk, authKey, counter, tagMask } = deriveKeys();
+            const out = new Uint8Array(plaintext.length + tagLength);
+            const toClean = [xk, authKey, counter, tagMask];
+            if (!isAligned32(plaintext))
+              toClean.push(plaintext = copyBytes(plaintext));
+            ctr32(xk, false, counter, plaintext, out.subarray(0, plaintext.length));
+            const tag = _computeTag(authKey, tagMask, out.subarray(0, out.length - tagLength));
+            toClean.push(tag);
+            out.set(tag, plaintext.length);
+            clean(...toClean);
+            return out;
+          },
+          decrypt(ciphertext) {
+            const { xk, authKey, counter, tagMask } = deriveKeys();
+            const toClean = [xk, authKey, tagMask, counter];
+            if (!isAligned32(ciphertext))
+              toClean.push(ciphertext = copyBytes(ciphertext));
+            const data2 = ciphertext.subarray(0, -tagLength);
+            const passedTag = ciphertext.subarray(-tagLength);
+            const tag = _computeTag(authKey, tagMask, data2);
+            toClean.push(tag);
+            if (!equalBytes(tag, passedTag))
+              throw new Error("aes/gcm: invalid ghash tag");
+            const out = ctr32(xk, false, counter, data2);
+            clean(...toClean);
+            return out;
+          }
+        };
+      }, "aesgcm"));
+      limit = /* @__PURE__ */ __name((name, min, max) => (value) => {
+        if (!Number.isSafeInteger(value) || min > value || value > max) {
+          const minmax = "[" + min + ".." + max + "]";
+          throw new Error("" + name + ": expected value in range " + minmax + ", got " + value);
+        }
+      }, "limit");
+      gcmsiv = /* @__PURE__ */ wrapCipher({ blockSize: 16, nonceLength: 12, tagLength: 16, varSizeNonce: true }, /* @__PURE__ */ __name(function aessiv(key, nonce, AAD) {
+        const tagLength = 16;
+        const AAD_LIMIT = limit("AAD", 0, 2 ** 36);
+        const PLAIN_LIMIT = limit("plaintext", 0, 2 ** 36);
+        const NONCE_LIMIT = limit("nonce", 12, 12);
+        const CIPHER_LIMIT = limit("ciphertext", 16, 2 ** 36 + 16);
+        abytes(key);
+        validateKeyLength(key);
+        NONCE_LIMIT(nonce.length);
+        if (AAD !== void 0)
+          AAD_LIMIT(AAD.length);
+        function deriveKeys() {
+          const xk = expandKeyLE(key);
+          const encKey = new Uint8Array(key.length);
+          const authKey = new Uint8Array(16);
+          const toClean = [xk, encKey];
+          let _nonce = nonce;
+          if (!isAligned32(_nonce))
+            toClean.push(_nonce = copyBytes(_nonce));
+          const n32 = u32(_nonce);
+          let s0 = 0, s1 = n32[0], s2 = n32[1], s3 = n32[2];
+          let counter = 0;
+          for (const derivedKey of [authKey, encKey].map(u32)) {
+            const d32 = u32(derivedKey);
+            for (let i2 = 0; i2 < d32.length; i2 += 2) {
+              const { s0: o0, s1: o1 } = encrypt(xk, s0, s1, s2, s3);
+              d32[i2 + 0] = o0;
+              d32[i2 + 1] = o1;
+              s0 = ++counter;
+            }
+          }
+          const res = { authKey, encKey: expandKeyLE(encKey) };
+          clean(...toClean);
+          return res;
+        }
+        __name(deriveKeys, "deriveKeys");
+        function _computeTag(encKey, authKey, data2) {
+          const tag = computeTag(polyval, true, authKey, data2, AAD);
+          for (let i2 = 0; i2 < 12; i2++)
+            tag[i2] ^= nonce[i2];
+          tag[15] &= 127;
+          const t32 = u32(tag);
+          let s0 = t32[0], s1 = t32[1], s2 = t32[2], s3 = t32[3];
+          ({ s0, s1, s2, s3 } = encrypt(encKey, s0, s1, s2, s3));
+          t32[0] = s0, t32[1] = s1, t32[2] = s2, t32[3] = s3;
+          return tag;
+        }
+        __name(_computeTag, "_computeTag");
+        function processSiv(encKey, tag, input) {
+          let block = copyBytes(tag);
+          block[15] |= 128;
+          const res = ctr32(encKey, true, block, input);
+          clean(block);
+          return res;
+        }
+        __name(processSiv, "processSiv");
+        return {
+          encrypt(plaintext) {
+            PLAIN_LIMIT(plaintext.length);
+            const { encKey, authKey } = deriveKeys();
+            const tag = _computeTag(encKey, authKey, plaintext);
+            const toClean = [encKey, authKey, tag];
+            if (!isAligned32(plaintext))
+              toClean.push(plaintext = copyBytes(plaintext));
+            const out = new Uint8Array(plaintext.length + tagLength);
+            out.set(tag, plaintext.length);
+            out.set(processSiv(encKey, tag, plaintext));
+            clean(...toClean);
+            return out;
+          },
+          decrypt(ciphertext) {
+            CIPHER_LIMIT(ciphertext.length);
+            const tag = ciphertext.subarray(-tagLength);
+            const { encKey, authKey } = deriveKeys();
+            const toClean = [encKey, authKey];
+            if (!isAligned32(ciphertext))
+              toClean.push(ciphertext = copyBytes(ciphertext));
+            const plaintext = processSiv(encKey, tag, ciphertext.subarray(0, -tagLength));
+            const expectedTag = _computeTag(encKey, authKey, plaintext);
+            toClean.push(expectedTag);
+            if (!equalBytes(tag, expectedTag)) {
+              clean(...toClean);
+              throw new Error("invalid polyval tag");
+            }
+            clean(...toClean);
+            return plaintext;
+          }
+        };
+      }, "aessiv"));
+      __name(isBytes32, "isBytes32");
+      __name(encryptBlock, "encryptBlock");
+      __name(decryptBlock, "decryptBlock");
+      AESW = {
+        /*
+        High-level pseudocode:
+        ```
+        A: u64 = IV
+        out = []
+        for (let i=0, ctr = 0; i<6; i++) {
+          for (const chunk of chunks(plaintext, 8)) {
+            A ^= swapEndianess(ctr++)
+            [A, res] = chunks(encrypt(A || chunk), 8);
+            out ||= res
+          }
+        }
+        out = A || out
+        ```
+        Decrypt is the same, but reversed.
+        */
+        encrypt(kek, out) {
+          if (out.length >= 2 ** 32)
+            throw new Error("plaintext should be less than 4gb");
+          const xk = expandKeyLE(kek);
+          if (out.length === 16)
+            encryptBlock(xk, out);
+          else {
+            const o32 = u32(out);
+            let a0 = o32[0], a1 = o32[1];
+            for (let j = 0, ctr2 = 1; j < 6; j++) {
+              for (let pos = 2; pos < o32.length; pos += 2, ctr2++) {
+                const { s0, s1, s2, s3 } = encrypt(xk, a0, a1, o32[pos], o32[pos + 1]);
+                a0 = s0, a1 = s1 ^ byteSwap(ctr2), o32[pos] = s2, o32[pos + 1] = s3;
+              }
+            }
+            o32[0] = a0, o32[1] = a1;
+          }
+          xk.fill(0);
+        },
+        decrypt(kek, out) {
+          if (out.length - 8 >= 2 ** 32)
+            throw new Error("ciphertext should be less than 4gb");
+          const xk = expandKeyDecLE(kek);
+          const chunks = out.length / 8 - 1;
+          if (chunks === 1)
+            decryptBlock(xk, out);
+          else {
+            const o32 = u32(out);
+            let a0 = o32[0], a1 = o32[1];
+            for (let j = 0, ctr2 = chunks * 6; j < 6; j++) {
+              for (let pos = chunks * 2; pos >= 1; pos -= 2, ctr2--) {
+                a1 ^= byteSwap(ctr2);
+                const { s0, s1, s2, s3 } = decrypt(xk, a0, a1, o32[pos], o32[pos + 1]);
+                a0 = s0, a1 = s1, o32[pos] = s2, o32[pos + 1] = s3;
+              }
+            }
+            o32[0] = a0, o32[1] = a1;
+          }
+          xk.fill(0);
+        }
+      };
+      AESKW_IV = /* @__PURE__ */ new Uint8Array(8).fill(166);
+      aeskw = /* @__PURE__ */ wrapCipher({ blockSize: 8 }, (kek) => ({
+        encrypt(plaintext) {
+          if (!plaintext.length || plaintext.length % 8 !== 0)
+            throw new Error("invalid plaintext length");
+          if (plaintext.length === 8)
+            throw new Error("8-byte keys not allowed in AESKW, use AESKWP instead");
+          const out = concatBytes(AESKW_IV, plaintext);
+          AESW.encrypt(kek, out);
+          return out;
+        },
+        decrypt(ciphertext) {
+          if (ciphertext.length % 8 !== 0 || ciphertext.length < 3 * 8)
+            throw new Error("invalid ciphertext length");
+          const out = copyBytes(ciphertext);
+          AESW.decrypt(kek, out);
+          if (!equalBytes(out.subarray(0, 8), AESKW_IV))
+            throw new Error("integrity check failed");
+          out.subarray(0, 8).fill(0);
+          return out.subarray(8);
+        }
+      }));
+      AESKWP_IV = 2790873510;
+      aeskwp = /* @__PURE__ */ wrapCipher({ blockSize: 8 }, (kek) => ({
+        encrypt(plaintext) {
+          if (!plaintext.length)
+            throw new Error("invalid plaintext length");
+          const padded = Math.ceil(plaintext.length / 8) * 8;
+          const out = new Uint8Array(8 + padded);
+          out.set(plaintext, 8);
+          const out32 = u32(out);
+          out32[0] = AESKWP_IV;
+          out32[1] = byteSwap(plaintext.length);
+          AESW.encrypt(kek, out);
+          return out;
+        },
+        decrypt(ciphertext) {
+          if (ciphertext.length < 16)
+            throw new Error("invalid ciphertext length");
+          const out = copyBytes(ciphertext);
+          const o32 = u32(out);
+          AESW.decrypt(kek, out);
+          const len = byteSwap(o32[1]) >>> 0;
+          const padded = Math.ceil(len / 8) * 8;
+          if (o32[0] !== AESKWP_IV || out.length - 8 !== padded)
+            throw new Error("integrity check failed");
+          for (let i2 = len; i2 < padded; i2++)
+            if (out[8 + i2] !== 0)
+              throw new Error("integrity check failed");
+          out.subarray(0, 8).fill(0);
+          return out.subarray(8, 8 + len);
+        }
+      }));
+      __AesCtrDRBG = class __AesCtrDRBG {
+        constructor(keyLen, seed, personalization) {
+          __publicField(this, "blockLen");
+          __publicField(this, "key");
+          __publicField(this, "nonce");
+          __publicField(this, "state");
+          __publicField(this, "reseedCnt");
+          this.blockLen = ctr.blockSize;
+          const keyLenBytes = keyLen / 8;
+          const nonceLen = 16;
+          this.state = new Uint8Array(keyLenBytes + nonceLen);
+          this.key = this.state.subarray(0, keyLenBytes);
+          this.nonce = this.state.subarray(keyLenBytes, keyLenBytes + nonceLen);
+          this.reseedCnt = 1;
+          incBytes(this.nonce, false, 1);
+          this.addEntropy(seed, personalization);
+        }
+        update(data2) {
+          ctr(this.key, this.nonce).encrypt(new Uint8Array(this.state.length), this.state);
+          if (data2) {
+            abytes(data2);
+            for (let i2 = 0; i2 < data2.length; i2++)
+              this.state[i2] ^= data2[i2];
+          }
+          incBytes(this.nonce, false, 1);
+        }
+        addEntropy(seed, info) {
+          abytes(seed, this.state.length, "seed");
+          const _seed = seed.slice();
+          if (info) {
+            abytes(info);
+            if (info.length > _seed.length)
+              throw new Error("info length is too big");
+            for (let i2 = 0; i2 < info.length; i2++)
+              _seed[i2] ^= info[i2];
+          }
+          this.update(_seed);
+          _seed.fill(0);
+          this.reseedCnt = 1;
+        }
+        randomBytes(len, info) {
+          anumber(len);
+          if (this.reseedCnt++ >= 2 ** 48)
+            throw new Error("entropy exhausted");
+          if (info)
+            this.update(info);
+          const res = new Uint8Array(len);
+          ctr(this.key, this.nonce).encrypt(res, res);
+          incBytes(this.nonce, false, Math.ceil(len / this.blockLen));
+          this.update(info);
+          return res;
+        }
+        clean() {
+          this.state.fill(0);
+          this.reseedCnt = 0;
+        }
+      };
+      __name(__AesCtrDRBG, "_AesCtrDRBG");
+      _AesCtrDRBG = __AesCtrDRBG;
+      createAesDrbg = /* @__PURE__ */ __name((keyLen) => {
+        return (seed, personalization = void 0) => new _AesCtrDRBG(keyLen, seed, personalization);
+      }, "createAesDrbg");
+      rngAesCtrDrbg128 = /* @__PURE__ */ createAesDrbg(128);
+      rngAesCtrDrbg256 = /* @__PURE__ */ createAesDrbg(256);
+      __name(dbl, "dbl");
+      __name(xorBlock, "xorBlock");
+      __name(xorend, "xorend");
+      __CMAC = class __CMAC {
+        constructor(key) {
+          __publicField(this, "buffer");
+          __publicField(this, "destroyed");
+          __publicField(this, "k1");
+          __publicField(this, "k2");
+          __publicField(this, "xk");
+          abytes(key);
+          validateKeyLength(key);
+          this.xk = expandKeyLE(key);
+          this.buffer = new Uint8Array(0);
+          this.destroyed = false;
+          const L = new Uint8Array(BLOCK_SIZE2);
+          encryptBlock(this.xk, L);
+          this.k1 = dbl(L);
+          this.k2 = dbl(new Uint8Array(this.k1));
+        }
+        update(data2) {
+          const { destroyed, buffer } = this;
+          if (destroyed)
+            throw new Error("CMAC instance was destroyed");
+          abytes(data2);
+          const newBuffer = new Uint8Array(buffer.length + data2.length);
+          newBuffer.set(buffer);
+          newBuffer.set(data2, buffer.length);
+          this.buffer = newBuffer;
+          return this;
+        }
+        // see https://www.rfc-editor.org/rfc/rfc4493.html#section-2.4
+        digest() {
+          if (this.destroyed)
+            throw new Error("CMAC instance was destroyed");
+          const { buffer } = this;
+          const msgLen = buffer.length;
+          let n2 = Math.ceil(msgLen / BLOCK_SIZE2);
+          let flag;
+          if (n2 === 0) {
+            n2 = 1;
+            flag = false;
+          } else {
+            flag = msgLen % BLOCK_SIZE2 === 0;
+          }
+          const lastBlockStart = (n2 - 1) * BLOCK_SIZE2;
+          const lastBlockData = buffer.subarray(lastBlockStart);
+          let m_last;
+          if (flag) {
+            m_last = xorBlock(new Uint8Array(lastBlockData), this.k1);
+          } else {
+            const padded = new Uint8Array(BLOCK_SIZE2);
+            padded.set(lastBlockData);
+            padded[lastBlockData.length] = 128;
+            m_last = xorBlock(padded, this.k2);
+          }
+          let x = new Uint8Array(BLOCK_SIZE2);
+          for (let i2 = 0; i2 < n2 - 1; i2++) {
+            const m_i = buffer.subarray(i2 * BLOCK_SIZE2, (i2 + 1) * BLOCK_SIZE2);
+            xorBlock(x, m_i);
+            encryptBlock(this.xk, x);
+          }
+          xorBlock(x, m_last);
+          encryptBlock(this.xk, x);
+          clean(m_last);
+          return x;
+        }
+        destroy() {
+          const { buffer, destroyed, xk, k1, k2 } = this;
+          if (destroyed)
+            return;
+          this.destroyed = true;
+          clean(buffer, xk, k1, k2);
+        }
+      };
+      __name(__CMAC, "_CMAC");
+      _CMAC = __CMAC;
+      cmac = /* @__PURE__ */ __name((key, message) => new _CMAC(key).update(message).digest(), "cmac");
+      cmac.create = (key) => new _CMAC(key);
+      __name(s2v, "s2v");
+      siv = /* @__PURE__ */ __name(() => {
+        throw new Error('"siv" from v1 is now "gcmsiv"');
+      }, "siv");
+      aessiv2 = /* @__PURE__ */ wrapCipher({ blockSize: 16, tagLength: 16 }, /* @__PURE__ */ __name(function aessiv3(key, ...AAD) {
+        const PLAIN_LIMIT = limit("plaintext", 0, 2 ** 132);
+        const CIPHER_LIMIT = limit("ciphertext", 16, 2 ** 132 + 16);
+        if (AAD.length > 126) {
+          throw new Error('"AAD" number of elements must be less than or equal to 126');
+        }
+        AAD.forEach((aad) => abytes(aad));
+        abytes(key);
+        if (![32, 48, 64].includes(key.length))
+          throw new Error('"aes key" expected Uint8Array of length 32/48/64, got length=' + key.length);
+        const k1 = key.subarray(0, key.length / 2);
+        const k2 = key.subarray(key.length / 2);
+        return {
+          // https://datatracker.ietf.org/doc/html/rfc5297.html#section-2.6
+          encrypt(plaintext) {
+            PLAIN_LIMIT(plaintext.length);
+            const v = s2v(k1, [...AAD, plaintext]);
+            const q = Uint8Array.from(v);
+            q[8] &= 127;
+            q[12] &= 127;
+            const c = ctr(k2, q).encrypt(plaintext);
+            return concatBytes(v, c);
+          },
+          // https://datatracker.ietf.org/doc/html/rfc5297.html#section-2.7
+          decrypt(ciphertext) {
+            CIPHER_LIMIT(ciphertext.length);
+            const v = ciphertext.subarray(0, BLOCK_SIZE2);
+            const c = ciphertext.subarray(BLOCK_SIZE2);
+            const q = Uint8Array.from(v);
+            q[8] &= 127;
+            q[12] &= 127;
+            const p = ctr(k2, q).decrypt(c);
+            const t2 = s2v(k1, [...AAD, p]);
+            if (equalBytes(t2, v)) {
+              return p;
+            } else {
+              throw new Error("invalid siv tag");
+            }
+          }
+        };
+      }, "aessiv"));
+      unsafe = {
+        expandKeyLE,
+        expandKeyDecLE,
+        encrypt,
+        decrypt,
+        encryptBlock,
+        decryptBlock,
+        ctrCounter,
+        ctr32,
+        dbl,
+        xorBlock,
+        xorend,
+        s2v
+      };
+    }
+  });
+
+  // src/lib/aes.ts
+  var init_aes2 = __esm({
+    "src/lib/aes.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_aes();
+    }
+  });
+
+  // src/libs/aes.ts
+  var aes_exports = {};
+  __export(aes_exports, {
+    gcm: () => gcm
+  });
+  var init_aes3 = __esm({
+    "src/libs/aes.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_aes2();
+    }
+  });
+
   // .js/plugins/english/wtrlab.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, r2, n2) {
-    return new (r2 || (r2 = Promise))(function(a2, i2) {
-      function o(e3) {
+  var e = function(e2, l2, a2, t2) {
+    return new (a2 || (a2 = Promise))(function(r2, u2) {
+      function i2(e3) {
         try {
-          l(n2.next(e3));
+          o(t2.next(e3));
         } catch (e4) {
-          i2(e4);
+          u2(e4);
         }
+      }
+      __name(i2, "i");
+      function n2(e3) {
+        try {
+          o(t2.throw(e3));
+        } catch (e4) {
+          u2(e4);
+        }
+      }
+      __name(n2, "n");
+      function o(e3) {
+        var l3;
+        e3.done ? r2(e3.value) : (l3 = e3.value, l3 instanceof a2 ? l3 : new a2(function(e4) {
+          e4(l3);
+        })).then(i2, n2);
       }
       __name(o, "o");
-      function s(e3) {
-        try {
-          l(n2.throw(e3));
-        } catch (e4) {
-          i2(e4);
-        }
-      }
-      __name(s, "s");
-      function l(e3) {
-        var t3;
-        e3.done ? a2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2(function(e4) {
-          e4(t3);
-        })).then(o, s);
-      }
-      __name(l, "l");
-      l((n2 = n2.apply(e2, t2 || [])).next());
+      o((t2 = t2.apply(e2, l2 || [])).next());
     });
-  }, t = function(e2, t2) {
-    var r2, n2, a2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & a2[0]) throw a2[1];
-      return a2[1];
-    }, "sent"), trys: [], ops: [] }, o = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return o.next = s(0), o.throw = s(1), o.return = s(2), "function" == typeof Symbol && (o[Symbol.iterator] = function() {
+  }, l = function(e2, l2) {
+    var a2, t2, r2, u2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & r2[0]) throw r2[1];
+      return r2[1];
+    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return i2.next = n2(0), i2.throw = n2(1), i2.return = n2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
       return this;
-    }), o;
-    function s(s2) {
-      return function(l) {
-        return function(s3) {
-          if (r2) throw new TypeError("Generator is already executing.");
-          for (; o && (o = 0, s3[0] && (i2 = 0)), i2; ) try {
-            if (r2 = 1, n2 && (a2 = 2 & s3[0] ? n2.return : s3[0] ? n2.throw || ((a2 = n2.return) && a2.call(n2), 0) : n2.next) && !(a2 = a2.call(n2, s3[1])).done) return a2;
-            switch (n2 = 0, a2 && (s3 = [2 & s3[0], a2.value]), s3[0]) {
+    }), i2;
+    function n2(n3) {
+      return function(o) {
+        return function(n4) {
+          if (a2) throw new TypeError("Generator is already executing.");
+          for (; i2 && (i2 = 0, n4[0] && (u2 = 0)), u2; ) try {
+            if (a2 = 1, t2 && (r2 = 2 & n4[0] ? t2.return : n4[0] ? t2.throw || ((r2 = t2.return) && r2.call(t2), 0) : t2.next) && !(r2 = r2.call(t2, n4[1])).done) return r2;
+            switch (t2 = 0, r2 && (n4 = [2 & n4[0], r2.value]), n4[0]) {
               case 0:
               case 1:
-                a2 = s3;
+                r2 = n4;
                 break;
               case 4:
-                return i2.label++, { value: s3[1], done: false };
+                return u2.label++, { value: n4[1], done: false };
               case 5:
-                i2.label++, n2 = s3[1], s3 = [0];
+                u2.label++, t2 = n4[1], n4 = [0];
                 continue;
               case 7:
-                s3 = i2.ops.pop(), i2.trys.pop();
+                n4 = u2.ops.pop(), u2.trys.pop();
                 continue;
               default:
-                if (!(a2 = i2.trys, (a2 = a2.length > 0 && a2[a2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
-                  i2 = 0;
+                if (!(r2 = u2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== n4[0] && 2 !== n4[0])) {
+                  u2 = 0;
                   continue;
                 }
-                if (3 === s3[0] && (!a2 || s3[1] > a2[0] && s3[1] < a2[3])) {
-                  i2.label = s3[1];
+                if (3 === n4[0] && (!r2 || n4[1] > r2[0] && n4[1] < r2[3])) {
+                  u2.label = n4[1];
                   break;
                 }
-                if (6 === s3[0] && i2.label < a2[1]) {
-                  i2.label = a2[1], a2 = s3;
+                if (6 === n4[0] && u2.label < r2[1]) {
+                  u2.label = r2[1], r2 = n4;
                   break;
                 }
-                if (a2 && i2.label < a2[2]) {
-                  i2.label = a2[2], i2.ops.push(s3);
+                if (r2 && u2.label < r2[2]) {
+                  u2.label = r2[2], u2.ops.push(n4);
                   break;
                 }
-                a2[2] && i2.ops.pop(), i2.trys.pop();
+                r2[2] && u2.ops.pop(), u2.trys.pop();
                 continue;
             }
-            s3 = t2.call(e2, i2);
+            n4 = l2.call(e2, u2);
           } catch (e3) {
-            s3 = [6, e3], n2 = 0;
+            n4 = [6, e3], t2 = 0;
           } finally {
-            r2 = a2 = 0;
+            a2 = r2 = 0;
           }
-          if (5 & s3[0]) throw s3[1];
-          return { value: s3[0] ? s3[1] : void 0, done: true };
-        }([s2, l]);
+          if (5 & n4[0]) throw n4[1];
+          return { value: n4[0] ? n4[1] : void 0, done: true };
+        }([n3, o]);
       };
     }
-    __name(s, "s");
+    __name(n2, "n");
+  }, a = function(e2, l2, a2) {
+    if (a2 || 2 === arguments.length) for (var t2, r2 = 0, u2 = l2.length; r2 < u2; r2++) !t2 && r2 in l2 || (t2 || (t2 = Array.prototype.slice.call(l2, 0, r2)), t2[r2] = l2[r2]);
+    return e2.concat(t2 || Array.prototype.slice.call(l2));
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_browser(), __toCommonJS(browser_exports)), i = function() {
-    function i2() {
-      this.id = "WTRLAB", this.name = "WTR-LAB", this.site = "https://wtr-lab.com/", this.version = "1.0.1", this.icon = "src/en/wtrlab/icon.png", this.sourceLang = "en/", this.filters = { order: { value: "chapter", label: "Order by", options: [{ label: "View", value: "view" }, { label: "Name", value: "name" }, { label: "Addition Date", value: "date" }, { label: "Reader", value: "reader" }, { label: "Chapter", value: "chapter" }], type: n.FilterTypes.Picker }, sort: { value: "desc", label: "Sort by", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: n.FilterTypes.Picker }, storyStatus: { value: "all", label: "Status", options: [{ label: "All", value: "all" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }], type: n.FilterTypes.Picker } };
+  var t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), u = (init_browser(), __toCommonJS(browser_exports)), i = (init_aes3(), __toCommonJS(aes_exports)), n = function() {
+    function n2() {
+      this.id = "WTRLAB", this.name = "WTR-LAB", this.site = "https://wtr-lab.com/", this.version = "1.1.0", this.icon = "src/en/wtrlab/icon.png", this.sourceLang = "en/", this.filters = { search: { value: "", label: "Search", type: r.FilterTypes.TextInput }, orderBy: { value: "update", label: "Order by", options: [{ label: "Update Date", value: "update" }, { label: "Addition Date", value: "date" }, { label: "Random", value: "random" }, { label: "Weekly View", value: "weekly_rank" }, { label: "Monthly View", value: "monthly_rank" }, { label: "All-Time View", value: "view" }, { label: "Name", value: "name" }, { label: "Reader", value: "reader" }, { label: "Chapter", value: "chapter" }, { label: "Rating", value: "rating" }, { label: "Review Count", value: "total_rate" }, { label: "Vote Count", value: "vote" }], type: r.FilterTypes.Picker }, order: { value: "desc", label: "Order", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: r.FilterTypes.Picker }, status: { value: "all", label: "Status", options: [{ label: "All", value: "all" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "Dropped", value: "dropped" }], type: r.FilterTypes.Picker }, release_status: { value: "all", label: "Release Status", options: [{ label: "All", value: "all" }, { label: "Released", value: "released" }, { label: "On Voting", value: "voting" }], type: r.FilterTypes.Picker }, addition_age: { value: "all", label: "Addition Age", options: [{ label: "All", value: "all" }, { label: "< 2 Days", value: "day" }, { label: "< 1 Week", value: "week" }, { label: "< 1 Month", value: "month" }], type: r.FilterTypes.Picker }, min_chapters: { value: "", label: "Minimum Chapters", type: r.FilterTypes.TextInput }, min_rating: { value: "", label: "Minimum Rating (0.0-5.0)", type: r.FilterTypes.TextInput }, min_review_count: { value: "", label: "Minimum Review Count", type: r.FilterTypes.TextInput }, genre_operator: { value: "and", label: "Genre (And/Or)", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: r.FilterTypes.Picker }, genres: { label: "Genres", type: r.FilterTypes.ExcludableCheckboxGroup, value: { include: [], exclude: [] }, options: [{ label: "Male Protagonist", value: "417" }, { label: "Transmigration", value: "717" }, { label: "System", value: "696" }, { label: "Cultivation", value: "169" }, { label: "Special Abilities", value: "667" }, { label: "Female Protagonist", value: "275" }, { label: "Fanfiction", value: "263" }, { label: "Weak to Strong", value: "750" }, { label: "Handsome Male Lead", value: "327" }, { label: "Beautiful Female Lead", value: "81" }, { label: "Game Elements", value: "297" }, { label: "Cheats", value: "122" }, { label: "Genius Protagonist", value: "306" }, { label: "Reincarnation", value: "578" }, { label: "Harem-seeking Protagonist", value: "329" }, { label: "Time Travel", value: "710" }, { label: "Overpowered Protagonist", value: "506" }, { label: "Modern Day", value: "446" }, { label: "Business Management", value: "108" }, { label: "Calm Protagonist", value: "111" }, { label: "Magic", value: "410" }, { label: "Immortals", value: "357" }, { label: "Clever Protagonist", value: "134" }, { label: "Ruthless Protagonist", value: "595" }, { label: "Apocalypse", value: "47" }, { label: "World Hopping", value: "756" }, { label: "Poor to Rich", value: "540" }, { label: "Douluo Dalu", value: "772" }, { label: "Naruto", value: "769" }, { label: "Farming", value: "266" }, { label: "Fantasy World", value: "265" }, { label: "Kingdom Building", value: "379" }, { label: "Fast Cultivation", value: "267" }, { label: "Protagonist Strong from the Start", value: "560" }, { label: "Cunning Protagonist", value: "171" }, { label: "Nationalism", value: "476" }, { label: "Schemes And Conspiracies", value: "601" }, { label: "Survival", value: "692" }, { label: "Post-apocalyptic", value: "544" }, { label: "Hard-Working Protagonist", value: "328" }, { label: "Showbiz", value: "640" }, { label: "Unlimited Flow", value: "735" }, { label: "Demons", value: "191" }, { label: "Monsters", value: "452" }, { label: "Dragons", value: "216" }, { label: "Romantic Subplot", value: "592" }, { label: "Polygamy", value: "538" }, { label: "Beast Companions", value: "78" }, { label: "Marvel", value: "766" }, { label: "Evolution", value: "248" }, { label: "One Piece", value: "767" }, { label: "Leadership", value: "388" }, { label: "Alternate World", value: "30" }, { label: "Pets", value: "520" }, { label: "World Travel", value: "757" }, { label: "Celebrities", value: "117" }, { label: "Strong to Stronger", value: "682" }, { label: "Game Ranking System", value: "298" }, { label: "Alchemy", value: "27" }, { label: "Arrogant Characters", value: "56" }, { label: "Multiple Realms", value: "459" }, { label: "Army Building", value: "54" }, { label: "Magical Space", value: "414" }, { label: "Wealthy Characters", value: "751" }, { label: "Early Romance", value: "225" }, { label: "Racism", value: "570" }, { label: "Devoted Love Interests", value: "198" }, { label: "Comedic Undertone", value: "146" }, { label: "Businessmen", value: "109" }, { label: "Second Chance", value: "606" }, { label: "Revenge", value: "585" }, { label: "Wizards", value: "755" }, { label: "Pregnancy", value: "549" }, { label: "Ancient China", value: "34" }, { label: "Black Belly", value: "87" }, { label: "Evil Protagonist", value: "246" }, { label: "Love Interest Falls in Love First", value: "403" }, { label: "Evil Gods", value: "244" }, { label: "Academy", value: "5" }, { label: "Outer Space", value: "505" }, { label: "Zombies", value: "765" }, { label: "Single Female Lead", value: "787" }, { label: "Mythology", value: "473" }, { label: "Gods", value: "316" }, { label: "Harry Potter", value: "768" }, { label: "Sword Wielder", value: "695" }, { label: "Shameless Protagonist", value: "630" }, { label: "Futuristic Setting", value: "294" }, { label: "Pokemon", value: "771" }, { label: "Parallel Worlds", value: "510" }, { label: "Level System", value: "390" }, { label: "Beasts", value: "80" }, { label: "Strong Love Interests", value: "681" }, { label: "Fantasy Creatures", value: "264" }, { label: "Modern Knowledge", value: "447" }, { label: "Hiding True Identity", value: "343" }, { label: "Loyal Subordinates", value: "408" }, { label: "Slow Romance", value: "659" }, { label: "Family", value: "257" }, { label: "Politics", value: "536" }, { label: "Determined Protagonist", value: "197" }, { label: "Hiding True Abilities", value: "342" }, { label: "Cosmic Wars", value: "156" }, { label: "Ancient Times", value: "35" }, { label: "Arranged Marriage", value: "55" }, { label: "Complex Family Relationships", value: "148" }, { label: "Cold Protagonist", value: "142" }, { label: "Ghosts", value: "307" }, { label: "Sword And Magic", value: "694" }, { label: "Based on an Anime", value: "74" }, { label: "Wars", value: "748" }, { label: "Survival Game", value: "693" }, { label: "Military", value: "437" }, { label: "Betrayal", value: "83" }, { label: "Misunderstandings", value: "442" }, { label: "Time Skip", value: "709" }, { label: "Bloodlines", value: "93" }, { label: "Transported to Another World", value: "721" }, { label: "Cautious Protagonist", value: "116" }, { label: "Nobles", value: "485" }, { label: "Technological Gap", value: "699" }, { label: "Doting Love Interests", value: "211" }, { label: "Antihero Protagonist", value: "43" }, { label: "Godly Powers", value: "315" }, { label: "Reincarnated in Another World", value: "577" }, { label: "Lucky Protagonist", value: "409" }, { label: "Virtual Reality", value: "742" }, { label: "Medical Knowledge", value: "433" }, { label: "God Protagonist", value: "312" }, { label: "Adapted to Manhua", value: "15" }, { label: "Fast Learner", value: "268" }, { label: "Childcare", value: "126" }, { label: "Kingdoms", value: "380" }, { label: "Scientists", value: "603" }, { label: "Underestimated Protagonist", value: "731" }, { label: "Multiple Identities", value: "455" }, { label: "Naive Protagonist", value: "474" }, { label: "Doctors", value: "208" }, { label: "Artifacts", value: "58" }, { label: "Older Love Interests", value: "492" }, { label: "Elves", value: "233" }, { label: "Hidden Abilities", value: "341" }, { label: "Power Couple", value: "545" }, { label: "Cooking", value: "154" }, { label: "Unique Cultivation Technique", value: "732" }, { label: "Body Tempering", value: "95" }, { label: "Chat Rooms", value: "121" }, { label: "Eye Powers", value: "251" }, { label: "Artificial Intelligence", value: "59" }, { label: "Master-Disciple Relationship", value: "428" }, { label: "Interdimensional Travel", value: "368" }, { label: "Famous Protagonist", value: "261" }, { label: "Royalty", value: "594" }, { label: "Low-key Protagonist", value: "407" }, { label: "Late Romance", value: "385" }, { label: "Gamers", value: "299" }, { label: "Monster Tamer", value: "451" }, { label: "Possessive Characters", value: "543" }, { label: "Aliens", value: "28" }, { label: "Multiple POV", value: "457" }, { label: "Mythical Beasts", value: "472" }, { label: "Familial Love", value: "255" }, { label: "Confident Protagonist", value: "150" }, { label: "Mature Protagonist", value: "432" }, { label: "Rape", value: "571" }, { label: "Reincarnated as a Monster", value: "574" }, { label: "Slow Growth at Start", value: "658" }, { label: "Cold Love Interests", value: "141" }, { label: "Character Growth", value: "118" }, { label: "Sect Development", value: "613" }, { label: "Summoning Magic", value: "691" }, { label: "Acting", value: "7" }, { label: "Ability Steal", value: "2" }, { label: "Movies", value: "453" }, { label: "Ninjas", value: "484" }, { label: "Previous Life Talent", value: "551" }, { label: "Gate to Another World", value: "301" }, { label: "Money Grubber", value: "448" }, { label: "Non-humanoid Protagonist", value: "486" }, { label: "Dark", value: "181" }, { label: "Strength-based Social Hierarchy", value: "680" }, { label: "Industrialization", value: "362" }, { label: "Mysterious Past", value: "470" }, { label: "Caring Protagonist", value: "115" }, { label: "Pirates", value: "529" }, { label: "Pill Concocting", value: "527" }, { label: "European Ambience", value: "243" }, { label: "Cruel Characters", value: "167" }, { label: "Charismatic Protagonist", value: "119" }, { label: "Strategist", value: "679" }, { label: "Assassins", value: "61" }, { label: "Secret Organizations", value: "609" }, { label: "Knights", value: "381" }, { label: "Vampires", value: "740" }, { label: "Firearms", value: "278" }, { label: "Army", value: "53" }, { label: "Dao Comprehension", value: "179" }, { label: "Absent Parents", value: "3" }, { label: "Clan Building", value: "132" }, { label: "Detectives", value: "196" }, { label: "Heroes", value: "339" }, { label: "Friendship", value: "291" }, { label: "Charming Protagonist", value: "120" }, { label: "Accelerated Growth", value: "6" }, { label: "College/University", value: "144" }, { label: "Depictions of Cruelty", value: "193" }, { label: "Artifact Crafting", value: "57" }, { label: "Doting Parents", value: "213" }, { label: "Past Plays a Big Role", value: "515" }, { label: "MMORPG", value: "443" }, { label: "Card Games", value: "113" }, { label: "Magic Beasts", value: "411" }, { label: "Tragic Past", value: "715" }, { label: "First-time Intercourse", value: "280" }, { label: "Transported into a Game World", value: "719" }, { label: "Mysterious Family Background", value: "468" }, { label: "Management", value: "420" }, { label: "Secret Identity", value: "608" }, { label: "Earth Invasion", value: "226" }, { label: "Clones", value: "136" }, { label: "Based on a Video Game", value: "72" }, { label: "Swallowed Star", value: "785" }, { label: "Magic Formations", value: "412" }, { label: "Gao Wu", value: "781" }, { label: "Genetic Modifications", value: "304" }, { label: "Male Yandere", value: "419" }, { label: "Writers", value: "759" }, { label: "Based on a Movie", value: "69" }, { label: "Elemental Magic", value: "232" }, { label: "Discrimination", value: "201" }, { label: "Marriage", value: "424" }, { label: "Evil Organizations", value: "245" }, { label: "Younger Sisters", value: "764" }, { label: "Sudden Wealth", value: "688" }, { label: "Doting Older Siblings", value: "212" }, { label: "Cute Children", value: "174" }, { label: "Manipulative Characters", value: "422" }, { label: "Age Progression", value: "24" }, { label: "Hunters", value: "353" }, { label: "Adventurers", value: "22" }, { label: "Threesome", value: "704" }, { label: "Mystery Solving", value: "471" }, { label: "Perverted Protagonist", value: "519" }, { label: "Jack of All Trades", value: "372" }, { label: "Battle Competition", value: "76" }, { label: "Multiple Reincarnated Individuals", value: "460" }, { label: "Sex Slaves", value: "627" }, { label: "Soul Power", value: "663" }, { label: "Orphans", value: "500" }, { label: "Martial Spirits", value: "426" }, { label: "Dense Protagonist", value: "192" }, { label: "Family Conflict", value: "259" }, { label: "Magical Technology", value: "415" }, { label: "Warhammer", value: "775" }, { label: "Smart Couple", value: "660" }, { label: "Teachers", value: "697" }, { label: "Police", value: "534" }, { label: "Selfish Protagonist", value: "616" }, { label: "Simulator", value: "786" }, { label: "Demonic Cultivation Technique", value: "190" }, { label: "Rape Victim Becomes Lover", value: "572" }, { label: "Hackers", value: "324" }, { label: "Sudden Strength Gain", value: "687" }, { label: "Imperial Harem", value: "358" }, { label: "Family Business", value: "258" }, { label: "Cute Protagonist", value: "175" }, { label: "Apathetic Protagonist", value: "46" }, { label: "Lack of Common Sense", value: "383" }, { label: "Aristocracy", value: "51" }, { label: "Death of Loved Ones", value: "184" }, { label: "Enemies Become Lovers", value: "237" }, { label: "Empires", value: "235" }, { label: "Dungeons", value: "221" }, { label: "Male to Female", value: "418" }, { label: "Lazy Protagonist", value: "387" }, { label: "Evil Religions", value: "247" }, { label: "Obsessive Love", value: "490" }, { label: "Easy Going Life", value: "227" }, { label: "Appearance Changes", value: "48" }, { label: "Demon Lord", value: "189" }, { label: "Carefree Protagonist", value: "114" }, { label: "Mutations", value: "466" }, { label: "Student-Teacher Relationship", value: "685" }, { label: "R-18", value: "568" }, { label: "Abusive Characters", value: "4" }, { label: "Appearance Different from Actual Age", value: "49" }, { label: "Football", value: "780" }, { label: "Human-Nonhuman Relationship", value: "351" }, { label: "Pragmatic Protagonist", value: "547" }, { label: "Hot-blooded Protagonist", value: "348" }, { label: "Necromancer", value: "478" }, { label: "Battle Academy", value: "75" }, { label: "Witches", value: "754" }, { label: "Yandere", value: "760" }, { label: "Dragon Ball", value: "773" }, { label: "Childhood Friends", value: "127" }, { label: "Based on a TV Show", value: "71" }, { label: "Dwarfs", value: "222" }, { label: "Inheritance", value: "364" }, { label: "Child Protagonist", value: "125" }, { label: "Honkai", value: "818" }, { label: "Daoism", value: "180" }, { label: "Heavenly Tribulation", value: "335" }, { label: "Netori", value: "482" }, { label: "Sexual Cultivation Technique", value: "629" }, { label: "Buddhism", value: "106" }, { label: "Broken Engagement", value: "103" }, { label: "Reverse Rape", value: "587" }, { label: "Time Manipulation", value: "707" }, { label: "DC Universe", value: "778" }, { label: "Eidetic Memory", value: "230" }, { label: "Clingy Lover", value: "135" }, { label: "Live Streaming", value: "782" }, { label: "Mutated Creatures", value: "465" }, { label: "Phoenixes", value: "524" }, { label: "Sharp-tongued Characters", value: "633" }, { label: "Souls", value: "664" }, { label: "Poor Protagonist", value: "539" }, { label: "Angels", value: "38" }, { label: "Singers", value: "648" }, { label: "Proactive Protagonist", value: "555" }, { label: "Heartwarming", value: "333" }, { label: "Fellatio", value: "273" }, { label: "Spatial Manipulation", value: "665" }, { label: "Tsundere", value: "725" }, { label: "Enemies Become Allies", value: "236" }, { label: "e-Sports", value: "224" }, { label: "Mind Control", value: "439" }, { label: "Mercenaries", value: "435" }, { label: "Adopted Protagonist", value: "20" }, { label: "Average-looking Protagonist", value: "65" }, { label: "Master-Servant Relationship", value: "429" }, { label: "Gore", value: "318" }, { label: "Store Owner", value: "675" }, { label: "Amnesia", value: "31" }, { label: "Human Experimentation", value: "349" }, { label: "Strategic Battles", value: "678" }, { label: "Goddesses", value: "314" }, { label: "Skill Assimilation", value: "651" }, { label: "Abandoned Children", value: "1" }, { label: "Bleach", value: "770" }, { label: "Death", value: "183" }, { label: "Emotionally Weak Protagonist", value: "234" }, { label: "Aggressive Characters", value: "26" }, { label: "Resurrection", value: "583" }, { label: "Cross-dressing", value: "165" }, { label: "Transformation Ability", value: "716" }, { label: "Villainess Noble Girls", value: "741" }, { label: "Insects", value: "366" }, { label: "Thriller", value: "705" }, { label: "Orcs", value: "497" }, { label: "Boss-Subordinate Relationship", value: "100" }, { label: "Fated Lovers", value: "271" }, { label: "Music", value: "464" }, { label: "Economics", value: "228" }, { label: "Loli", value: "395" }, { label: "Couple Growth", value: "158" }, { label: "Incest", value: "359" }, { label: "Multiple Transported Individuals", value: "462" }, { label: "Protagonist with Multiple Bodies", value: "561" }, { label: "Religions", value: "579" }, { label: "Game Creator", value: "784" }, { label: "Soldiers", value: "662" }, { label: "Righteous Protagonist", value: "590" }, { label: "Blacksmith", value: "89" }, { label: "Adopted Children", value: "19" }, { label: "Yu-Gi-Oh!", value: "774" }, { label: "Twins", value: "726" }, { label: "Crossover", value: "166" }, { label: "Power Struggle", value: "546" }, { label: "Otaku", value: "501" }, { label: "Saints", value: "597" }, { label: "Teamwork", value: "698" }, { label: "Age Regression", value: "25" }, { label: "Honghuang", value: "801" }, { label: "Siblings Not Related by Blood", value: "645" }, { label: "Reincarnated in a Game World", value: "576" }, { label: "Poisons", value: "533" }, { label: "Fox Spirits", value: "289" }, { label: "Adapted to Manga", value: "14" }, { label: "Sexual Abuse", value: "628" }, { label: "Dolls/Puppets", value: "209" }, { label: "Long Separations", value: "398" }, { label: "Proficiency", value: "793" }, { label: "Skill Creation", value: "653" }, { label: "Gangs", value: "300" }, { label: "Gunfighters", value: "323" }, { label: "Journey to the West", value: "796" }, { label: "Detective Conan", value: "804" }, { label: "Popular Love Interests", value: "541" }, { label: "Pill Based Cultivation", value: "526" }, { label: "Destiny", value: "195" }, { label: "Parody", value: "513" }, { label: "Multiple Timelines", value: "461" }, { label: "Personality Changes", value: "518" }, { label: "Psychic Powers", value: "562" }, { label: "Generals", value: "303" }, { label: "Narcissistic Protagonist", value: "475" }, { label: "Transplanted Memories", value: "718" }, { label: "Crime", value: "163" }, { label: "Domestic Affairs", value: "210" }, { label: "Murders", value: "463" }, { label: "Guilds", value: "322" }, { label: "Books", value: "98" }, { label: "Chefs", value: "123" }, { label: "Mortal Flow", value: "792" }, { label: "Loner Protagonist", value: "397" }, { label: "Contracts", value: "153" }, { label: "Quirky Characters", value: "566" }, { label: "Adapted to Anime", value: "10" }, { label: "Beastkin", value: "79" }, { label: "Archery", value: "50" }, { label: "Adultery", value: "21" }, { label: "Harsh Training", value: "330" }, { label: "Organized Crime", value: "498" }, { label: "Biochip", value: "85" }, { label: "Fairies", value: "252" }, { label: "Psychopaths", value: "563" }, { label: "Multiple Protagonists", value: "458" }, { label: "Ugly to Beautiful", value: "729" }, { label: "Playful Protagonist", value: "531" }, { label: "Minecraft", value: "790" }, { label: "Medieval", value: "434" }, { label: "Divination", value: "205" }, { label: "Younger Love Interests", value: "763" }, { label: "Sister Complex", value: "650" }, { label: "Maids", value: "416" }, { label: "Protagonist Falls in Love First", value: "559" }, { label: "Dreams", value: "217" }, { label: "Persistent Love Interests", value: "517" }, { label: "Hunter x Hunter", value: "777" }, { label: "Brother Complex", value: "104" }, { label: "Humanoid Protagonist", value: "352" }, { label: "Brotherhood", value: "105" }, { label: "Playboys", value: "530" }, { label: "Jealousy", value: "373" }, { label: "Tribal Society", value: "723" }, { label: "Secrets", value: "612" }, { label: "Saving the World", value: "600" }, { label: "Slaves", value: "656" }, { label: "Three Kingdoms", value: "795" }, { label: "Childhood Love", value: "128" }, { label: "Thieves", value: "703" }, { label: "Demi-Humans", value: "188" }, { label: "Dao Companion", value: "178" }, { label: "Sign In", value: "811" }, { label: "Race Change", value: "569" }, { label: "Crafting", value: "162" }, { label: "First Love", value: "279" }, { label: "Cyberpunk 2077", value: "783" }, { label: "Curses", value: "173" }, { label: "Spirit Advisor", value: "669" }, { label: "Marriage of Convenience", value: "425" }, { label: "Near-Death Experience", value: "477" }, { label: "Lost Civilizations", value: "400" }, { label: "Prophecies", value: "557" }, { label: "Forced Marriage", value: "286" }, { label: "Episodic", value: "241" }, { label: "Conferred Gods", value: "800" }, { label: "Artists", value: "60" }, { label: "Animal Characteristics", value: "39" }, { label: "Cannibalism", value: "112" }, { label: "Fearless Protagonist", value: "272" }, { label: "Dark Fantasy", value: "789" }, { label: "Secretive Protagonist", value: "611" }, { label: "God-human Relationship", value: "313" }, { label: "Child Abuse", value: "124" }, { label: "Cowardly Protagonist", value: "161" }, { label: "Anti-social Protagonist", value: "42" }, { label: "Prison", value: "554" }, { label: "Female Master", value: "274" }, { label: "Hollywood", value: "779" }, { label: "Past Trauma", value: "516" }, { label: "Torture", value: "713" }, { label: "Adapted to Drama", value: "11" }, { label: "Bullying", value: "107" }, { label: "Androgynous Characters", value: "36" }, { label: "Class Awakening", value: "827" }, { label: "Multiple Personalities", value: "456" }, { label: "Corruption", value: "155" }, { label: "Merchants", value: "436" }, { label: "Animal Rearing", value: "40" }, { label: "Werebeasts", value: "752" }, { label: "Exorcism", value: "250" }, { label: "Bodyguards", value: "97" }, { label: "Hell", value: "336" }, { label: "Bickering Couple", value: "84" }, { label: "Honest Protagonist", value: "346" }, { label: "Fairy Tail", value: "814" }, { label: "Divorce", value: "207" }, { label: "Spirits", value: "671" }, { label: "Unconditional Love", value: "730" }, { label: "Reverse Harem", value: "586" }, { label: "World Tree", value: "758" }, { label: "Criminals", value: "164" }, { label: "Skill Books", value: "652" }, { label: "Investigations", value: "370" }, { label: "Succubus", value: "686" }, { label: "Blackmail", value: "88" }, { label: "Sentient Objects", value: "620" }, { label: "Goblins", value: "311" }, { label: "Different Social Status", value: "199" }, { label: "Hospital", value: "347" }, { label: "Genshin Impact", value: "815" }, { label: "Stubborn Protagonist", value: "683" }, { label: "Sickly Characters", value: "646" }, { label: "Servants", value: "623" }, { label: "Disabilities", value: "200" }, { label: "Lord", value: "823" }, { label: "Returning from Another World", value: "584" }, { label: "Cute Story", value: "176" }, { label: "Unlucky Protagonist", value: "736" }, { label: "Life Script", value: "824" }, { label: "Netorare", value: "480" }, { label: "Heaven", value: "334" }, { label: "Spear Wielder", value: "666" }, { label: "Inscriptions", value: "365" }, { label: "Engineer", value: "239" }, { label: "Lord of the Mysteries", value: "799" }, { label: "Masochistic Characters", value: "427" }, { label: "Possession", value: "542" }, { label: "Conditional Power", value: "149" }, { label: "Familiars", value: "256" }, { label: "Healers", value: "332" }, { label: "Slave Harem", value: "654" }, { label: "Herbalist", value: "338" }, { label: "Kind Love Interests", value: "378" }, { label: "Devouring", value: "797" }, { label: "League of Legends", value: "791" }, { label: "Mpreg", value: "454" }, { label: "Famous Parents", value: "260" }, { label: "Love at First Sight", value: "402" }, { label: "Heavenly Defying Comprehension", value: "803" }, { label: "Basketball", value: "809" }, { label: "Hated Protagonist", value: "331" }, { label: "Fallen Angels", value: "253" }, { label: "Dragon Slayers", value: "215" }, { label: "Seme Protagonist", value: "618" }, { label: "Legends", value: "389" }, { label: "Fleet Battles", value: "282" }, { label: "Blood Manipulation", value: "92" }, { label: "Court Official", value: "159" }, { label: "Summoned Hero", value: "690" }, { label: "Androids", value: "37" }, { label: "Lottery", value: "401" }, { label: "Game of Thrones", value: "813" }, { label: "Fat to Fit", value: "270" }, { label: "Priests", value: "553" }, { label: "Seeing Things Other Humans Can't", value: "615" }, { label: "Shoujo-Ai Subplot", value: "638" }, { label: "Twisted Personality", value: "727" }, { label: "Magical Girls", value: "413" }, { label: "Sadistic Characters", value: "596" }, { label: "Enlightenment", value: "240" }, { label: "Prostitutes", value: "558" }, { label: "Weak Protagonist", value: "749" }, { label: "Copy", value: "807" }, { label: "Adapted to Game", value: "13" }, { label: "Puppeteers", value: "564" }, { label: "Sealed Power", value: "605" }, { label: "Cohabitation", value: "140" }, { label: "Mob Protagonist", value: "444" }, { label: "Seven Deadly Sins", value: "624" }, { label: "Single Parent", value: "649" }, { label: "Drugs", value: "218" }, { label: "Territory Management", value: "802" }, { label: "Druids", value: "219" }, { label: "Kidnappings", value: "377" }, { label: "R-15", value: "567" }, { label: "Brainwashing", value: "101" }, { label: "Overprotective Siblings", value: "507" }, { label: "Gambling", value: "296" }, { label: "Arms Dealers", value: "52" }, { label: "Manly Gay Couple", value: "423" }, { label: "Unique Weapons", value: "734" }, { label: "Lawyers", value: "386" }, { label: "Anal", value: "33" }, { label: "Time Loop", value: "706" }, { label: "Grinding", value: "320" }, { label: "Slave Protagonist", value: "655" }, { label: "Hypnotism", value: "354" }, { label: "Demon Slayer", value: "812" }, { label: "Unreliable Narrator", value: "737" }, { label: "Unique Weapon User", value: "733" }, { label: "Poetry", value: "532" }, { label: "Philosophical", value: "522" }, { label: "Feng Shui", value: "277" }, { label: "Chuunibyou", value: "131" }, { label: "Reality-Game Fusion", value: "830" }, { label: "Dragon Riders", value: "214" }, { label: "Omegaverse", value: "493" }, { label: "Suicides", value: "689" }, { label: "Love Rivals", value: "404" }, { label: "Stoic Characters", value: "674" }, { label: "Monster Girls", value: "449" }, { label: "Trickster", value: "724" }, { label: "Handjob", value: "326" }, { label: "Limited Lifespan", value: "392" }, { label: "Restaurant", value: "582" }, { label: "Fallen Nobility", value: "254" }, { label: "Masturbation", value: "430" }, { label: "Dishonest Protagonist", value: "203" }, { label: "Dungeon Master", value: "220" }, { label: "Serial Killers", value: "622" }, { label: "Younger Brothers", value: "762" }, { label: "Pharmacist", value: "521" }, { label: "Secret Relationship", value: "610" }, { label: "Living Alone", value: "394" }, { label: "Mangaka", value: "421" }, { label: "Childish Protagonist", value: "130" }, { label: "Office Romance", value: "491" }, { label: "Models", value: "445" }, { label: "Human Weapon", value: "350" }, { label: "Fanaticism", value: "262" }, { label: "Pilots", value: "528" }, { label: "Lovers Reunited", value: "406" }, { label: "Blind Protagonist", value: "91" }, { label: "Rebellion", value: "573" }, { label: "Programmer", value: "556" }, { label: "Flashbacks", value: "281" }, { label: "Forced into a Relationship", value: "284" }, { label: "More Children More Blessings", value: "825" }, { label: "Sibling's Care", value: "643" }, { label: "Helpful Protagonist", value: "337" }, { label: "Fat Protagonist", value: "269" }, { label: "Awkward Protagonist", value: "67" }, { label: "Spiritual Energy Revival", value: "828" }, { label: "Distrustful Protagonist", value: "204" }, { label: "Folklore", value: "283" }, { label: "Engagement", value: "238" }, { label: "Half-human Protagonist", value: "325" }, { label: "Wishes", value: "753" }, { label: "Tomboyish Female Lead", value: "712" }, { label: "Shapeshifters", value: "631" }, { label: "Love Triangles", value: "405" }, { label: "Shounen-Ai Subplot", value: "639" }, { label: "Shy Characters", value: "641" }, { label: "Reborn as the Villain", value: "831" }, { label: "Body Swap", value: "94" }, { label: "Coming of Age", value: "147" }, { label: "Online Romance", value: "495" }, { label: "DnD", value: "794" }, { label: "Kuudere", value: "382" }, { label: "Monster Society", value: "450" }, { label: "Adapted to Drama CD", value: "12" }, { label: "Spirit Users", value: "670" }, { label: "Trap", value: "722" }, { label: "Orgy", value: "499" }, { label: "Inferiority Complex", value: "363" }, { label: "Unrequited Love", value: "738" }, { label: "Genderless Protagonist", value: "302" }, { label: "Elderly Protagonist", value: "231" }, { label: "Tentacles", value: "700" }, { label: "Clumsy Love Interests", value: "138" }, { label: "Library", value: "391" }, { label: "Parasites", value: "511" }, { label: "Sentimental Protagonist", value: "621" }, { label: "Mysterious Illness", value: "469" }, { label: "Spies", value: "668" }, { label: "Dead Protagonist", value: "182" }, { label: "Former Hero", value: "288" }, { label: "Cousins", value: "160" }, { label: "Seduction", value: "614" }, { label: "Interconnected Storylines", value: "367" }, { label: "Jujutsu Kaisen", value: "776" }, { label: "Curious Protagonist", value: "172" }, { label: "Stockholm Syndrome", value: "673" }, { label: "Genies", value: "305" }, { label: "Time Paradox", value: "708" }, { label: "Mind Break", value: "438" }, { label: "Polite Protagonist", value: "535" }, { label: "Bookworm", value: "99" }, { label: "Transported Modern Structure", value: "720" }, { label: "Bestiality", value: "82" }, { label: "Childhood Promise", value: "129" }, { label: "Parent Complex", value: "512" }, { label: "Sibling Rivalry", value: "642" }, { label: "BDSM", value: "77" }, { label: "Eunuch", value: "242" }, { label: "Introverted Protagonist", value: "369" }, { label: "Affair", value: "23" }, { label: "Autism", value: "63" }, { label: "Matriarchy", value: "431" }, { label: "Selfless Protagonist", value: "617" }, { label: "Automatons", value: "64" }, { label: "Business Wars", value: "806" }, { label: "Quiet Characters", value: "565" }, { label: "Depression", value: "194" }, { label: "Siblings", value: "644" }, { label: "Polyandry", value: "537" }, { label: "Western Names", value: "788" }, { label: "Terrorists", value: "702" }, { label: "Ugly Protagonist", value: "728" }, { label: "Rich to Poor", value: "589" }, { label: "Reincarnated as an Object", value: "575" }, { label: "Antique Shop", value: "44" }, { label: "Amusement Park", value: "32" }, { label: "Nurses", value: "489" }, { label: "Friends Become Enemies", value: "290" }, { label: "Sculptors", value: "604" }, { label: "Forgetful Protagonist", value: "287" }, { label: "Siheyuan", value: "820" }, { label: "Invisibility", value: "371" }, { label: "Schizophrenia", value: "602" }, { label: "Voice Actors", value: "744" }, { label: "Apartment Life", value: "45" }, { label: "Terminal Illness", value: "701" }, { label: "Adapted to Manhwa", value: "16" }, { label: "Nightmares", value: "483" }, { label: "Adapted to Movie", value: "17" }, { label: "Priestesses", value: "552" }, { label: "Co-Workers", value: "139" }, { label: "Undead Protagonist", value: "810" }, { label: "Disfigurement", value: "202" }, { label: "Golems", value: "317" }, { label: "Dystopia", value: "223" }, { label: "Sharing A Body", value: "632" }, { label: "Witcher", value: "819" }, { label: "Based on a Visual Novel", value: "73" }, { label: "Reporters", value: "581" }, { label: "Onmyouji", value: "496" }, { label: "Identity Crisis", value: "355" }, { label: "Language Barrier", value: "384" }, { label: "Part-Time Job", value: "514" }, { label: "Clubs", value: "137" }, { label: "Long-distance Relationship", value: "399" }, { label: "Forced Living Arrangements", value: "285" }, { label: "Paizuri", value: "509" }, { label: "Cunnilingus", value: "170" }, { label: "War Records", value: "747" }, { label: "Rivalry", value: "591" }, { label: "Loneliness", value: "396" }, { label: "Pretend Lovers", value: "550" }, { label: "Photography", value: "525" }, { label: "Timid Protagonist", value: "711" }, { label: "Youkai", value: "761" }, { label: "Astrologers", value: "62" }, { label: "Cosplay", value: "157" }, { label: "Adapted from Manga", value: "8" }, { label: "Confinement", value: "151" }, { label: "Reversible Couple", value: "588" }, { label: "Blind Dates", value: "90" }, { label: "Eavesdropping", value: "798" }, { label: "Neet", value: "479" }, { label: "Star Wars", value: "817" }, { label: "Stalkers", value: "672" }, { label: "Outcasts", value: "503" }, { label: "Secret Crush", value: "607" }, { label: "Female to Male", value: "276" }, { label: "Anti-Magic", value: "41" }, { label: "Valkyries", value: "739" }, { label: "Sex Friends", value: "626" }, { label: "Non-linear Storytelling", value: "487" }, { label: "Straight Uke", value: "677" }, { label: "Galge", value: "295" }, { label: "Mute Character", value: "467" }, { label: "Jobless Class", value: "375" }, { label: "Glasses-wearing Love Interests", value: "309" }, { label: "Shikigami", value: "635" }, { label: "Faith Dependent Deities", value: "808" }, { label: "Delusions", value: "187" }, { label: "Delinquents", value: "186" }, { label: "Dancers", value: "177" }, { label: "Award-winning Work", value: "66" }, { label: "Conflicting Loyalties", value: "152" }, { label: "Coma", value: "145" }, { label: "Futanari", value: "293" }, { label: "Divine Protection", value: "206" }, { label: "Guardian Relationship", value: "321" }, { label: "Grave Keepers", value: "319" }, { label: "Mismatched Couple", value: "441" }, { label: "Outdoor Intercourse", value: "504" }, { label: "Incubus", value: "360" }, { label: "Seven Virtues", value: "625" }, { label: "Sign Language", value: "647" }, { label: "Debts", value: "185" }, { label: "Nudity", value: "488" }, { label: "Roommates", value: "593" }, { label: "Shota", value: "637" }, { label: "Heterochromia", value: "340" }, { label: "Indecisive Protagonist", value: "361" }, { label: "Precognition", value: "548" }, { label: "Frieren", value: "816" }, { label: "Adapted to Visual Novel", value: "18" }, { label: "Collection of Short Stories", value: "143" }, { label: "Cryostasis", value: "168" }, { label: "Bands", value: "68" }, { label: "Netorase", value: "481" }, { label: "Otome Game", value: "502" }, { label: "Bisexual Protagonist", value: "86" }, { label: "Homunculus", value: "345" }, { label: "Voyeurism", value: "745" }, { label: "Gladiators", value: "308" }, { label: "Student Council", value: "684" }, { label: "Samurai", value: "599" }, { label: "Social Outcasts", value: "661" }, { label: "Misandry", value: "440" }, { label: "Fujoshi", value: "292" }, { label: "Glasses-wearing Protagonist", value: "310" }, { label: "Butlers", value: "110" }, { label: "Adapted from Manhua", value: "9" }, { label: "Sleeping", value: "657" }, { label: "Overlord", value: "826" }, { label: "Oneshot", value: "494" }, { label: "Imaginary Friend", value: "356" }, { label: "Jiangshi", value: "374" }, { label: "Array", value: "822" }, { label: "Based on a Song", value: "70" }, { label: "Hong Kong", value: "821" }, { label: "Waiters", value: "746" }, { label: "JSDF", value: "376" }, { label: "Short Story", value: "636" }, { label: "Vocaloid", value: "743" }, { label: "Living Abroad", value: "393" }, { label: "Shield User", value: "634" }, { label: "Editors", value: "229" }, { label: "Reluctant Protagonist", value: "580" }, { label: "Kimetsu no Yaiba", value: "805" }, { label: "Toys", value: "714" }, { label: "Classic", value: "133" }, { label: "Breast Fetish", value: "102" }, { label: "Exhibitionism", value: "249" }, { label: "Pacifist Protagonist", value: "508" }, { label: "Body-double", value: "96" }, { label: "Reborn", value: "829" }, { label: "Straight Seme", value: "676" }, { label: "Phobias", value: "523" }, { label: "Salaryman", value: "598" }, { label: "Hikikomori", value: "344" }, { label: "All-Girls School", value: "29" }, { label: "Senpai-Kouhai Relationship", value: "619" }] }, tag_operator: { value: "and", label: "Tag (And/Or)", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: r.FilterTypes.Picker }, tags: { label: "Tags", type: r.FilterTypes.ExcludableCheckboxGroup, value: { include: [], exclude: [] }, options: [{ label: "Male Protagonist", value: "417" }, { label: "Transmigration", value: "717" }, { label: "System", value: "696" }, { label: "Cultivation", value: "169" }, { label: "Special Abilities", value: "667" }, { label: "Female Protagonist", value: "275" }, { label: "Fanfiction", value: "263" }, { label: "Weak to Strong", value: "750" }, { label: "Handsome Male Lead", value: "327" }, { label: "Beautiful Female Lead", value: "81" }, { label: "Game Elements", value: "297" }, { label: "Cheats", value: "122" }, { label: "Genius Protagonist", value: "306" }, { label: "Reincarnation", value: "578" }, { label: "Harem-seeking Protagonist", value: "329" }, { label: "Time Travel", value: "710" }, { label: "Overpowered Protagonist", value: "506" }, { label: "Modern Day", value: "446" }, { label: "Business Management", value: "108" }, { label: "Calm Protagonist", value: "111" }, { label: "Magic", value: "410" }, { label: "Immortals", value: "357" }, { label: "Clever Protagonist", value: "134" }, { label: "Ruthless Protagonist", value: "595" }, { label: "Apocalypse", value: "47" }, { label: "World Hopping", value: "756" }, { label: "Poor to Rich", value: "540" }, { label: "Douluo Dalu", value: "772" }, { label: "Naruto", value: "769" }, { label: "Farming", value: "266" }, { label: "Fantasy World", value: "265" }, { label: "Kingdom Building", value: "379" }, { label: "Fast Cultivation", value: "267" }, { label: "Protagonist Strong from the Start", value: "560" }, { label: "Cunning Protagonist", value: "171" }, { label: "Nationalism", value: "476" }, { label: "Schemes And Conspiracies", value: "601" }, { label: "Survival", value: "692" }, { label: "Post-apocalyptic", value: "544" }, { label: "Hard-Working Protagonist", value: "328" }, { label: "Showbiz", value: "640" }, { label: "Unlimited Flow", value: "735" }, { label: "Demons", value: "191" }] }, folders: { value: "", label: "Library Folders", options: [{ label: "No Filter", value: "" }, { label: "Reading", value: "1" }, { label: "Read Later", value: "2" }, { label: "Completed", value: "3" }, { label: "Trash", value: "5" }], type: r.FilterTypes.Picker }, library_exclude: { value: "", label: "Library Exclude", options: [{ label: "None", value: "" }, { label: "Exclude All", value: "history" }, { label: "Exclude Trash", value: "trash" }, { label: "Exclude Library & Trash", value: "in_library" }], type: r.FilterTypes.Picker } };
     }
-    __name(i2, "i");
-    return i2.prototype.popularNovels = function(n2, i3) {
-      return e(this, arguments, void 0, function(e2, n3) {
-        var i4, o, s, l, c = this, u = n3.showLatestNovels, p = n3.filters;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    __name(n2, "n");
+    return n2.prototype.popularNovels = function(a2, r2) {
+      return e(this, arguments, void 0, function(e2, a3) {
+        var r3, i2, n3, o, s, v, b, c, d, p, g, h, m, y = this, f = a3.showLatestNovels, P = a3.filters;
+        return l(this, function(l2) {
+          switch (l2.label) {
             case 0:
-              return i4 = this.site + this.sourceLang + "novel-list?", i4 += "orderBy=".concat(p.order.value), i4 += "&order=".concat(p.sort.value), i4 += "&filter=".concat(p.storyStatus.value), i4 += "&page=".concat(e2), u ? [4, (0, r.fetchApi)(this.site + "api/home/recent", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ page: e2 }) })] : [3, 3];
+              return r3 = this.site + this.sourceLang + "novel-list?", (i2 = new URLSearchParams()).append("orderBy", P.orderBy.value), i2.append("order", P.order.value), i2.append("status", P.status.value), i2.append("release_status", P.release_status.value), i2.append("addition_age", P.addition_age.value), i2.append("page", e2.toString()), P.search.value && i2.append("text", P.search.value), (null === (p = P.genres.value) || void 0 === p ? void 0 : p.include) && P.genres.value.include.length > 0 && (i2.append("gi", P.genres.value.include.join(",")), i2.append("gc", P.genre_operator.value)), (null === (g = P.genres.value) || void 0 === g ? void 0 : g.exclude) && P.genres.value.exclude.length > 0 && i2.append("ge", P.genres.value.exclude.join(",")), (null === (h = P.tags.value) || void 0 === h ? void 0 : h.include) && P.tags.value.include.length > 0 && (i2.append("ti", P.tags.value.include.join(",")), i2.append("tc", P.tag_operator.value)), (null === (m = P.tags.value) || void 0 === m ? void 0 : m.exclude) && P.tags.value.exclude.length > 0 && i2.append("te", P.tags.value.exclude.join(",")), P.folders.value && i2.append("folders", P.folders.value), P.library_exclude.value && i2.append("le", P.library_exclude.value), P.min_chapters.value && i2.append("minc", P.min_chapters.value), P.min_rating.value && i2.append("minr", P.min_rating.value), P.min_review_count.value && i2.append("minrc", P.min_review_count.value), f ? [4, (0, t.fetchApi)(this.site + "api/home/recent", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ page: e2 }) })] : [3, 3];
             case 1:
-              return [4, t2.sent().json()];
+            case 5:
+              return [4, l2.sent().json()];
             case 2:
-              return o = t2.sent(), [2, o.data.map(function(e3) {
-                return { name: e3.serie.data.title || "", cover: e3.serie.data.image, path: c.sourceLang + "serie-" + e3.serie.raw_id + "/" + e3.serie.slug || "" };
+              return n3 = l2.sent(), [2, n3.data.map(function(e3) {
+                return { name: e3.serie.data.title || e3.serie.slug || "", cover: e3.serie.data.image, path: y.sourceLang + "serie-" + e3.serie.raw_id + "/" + e3.serie.slug || "" };
               })];
             case 3:
-              return [4, (0, r.fetchApi)(i4).then(function(e3) {
+              return [4, (0, t.fetchApi)(this.site + "en/novel-finder").then(function(e3) {
                 return e3.text();
               })];
             case 4:
-              return s = t2.sent(), l = (0, a.load)(s), [2, l(".serie-item").map(function(e3, t3) {
-                return { name: l(t3).find(".title-wrap > a").text().replace(l(t3).find(".rawtitle").text(), "") || "", cover: l(t3).find("img").attr("src"), path: l(t3).find("a").attr("href") || "" };
-              }).get().filter(function(e3) {
-                return e3.name && e3.path;
+              if (o = l2.sent(), s = (0, u.load)(o), !(v = s("#__NEXT_DATA__").html())) throw new Error("Could not find __NEXT_DATA__ on novel finder page");
+              return b = JSON.parse(v).buildId, r3 = "".concat(this.site, "_next/data/").concat(b, "/en/novel-finder.json?").concat(i2.toString()), [4, (0, t.fetchApi)(r3)];
+            case 6:
+              return c = l2.sent(), d = /* @__PURE__ */ new Set(), [2, c.pageProps.series.filter(function(e3) {
+                return !d.has(e3.raw_id) && (d.add(e3.raw_id), true);
+              }).map(function(e3) {
+                return { name: e3.data.title, cover: e3.data.image, path: "".concat(y.sourceLang, "serie-").concat(e3.raw_id, "/").concat(e3.slug) };
               })];
           }
         });
       });
-    }, i2.prototype.parseNovel = function(n2) {
+    }, n2.prototype.parseNovel = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, i3, o, s, l, c, u = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
+        var e2, i2, n3, o, s, v, b, c, d, p, g, h, m, y, f, P, S, C, A, w, T, M, F, L, D, x, k, R;
+        return l(this, function(l2) {
+          switch (l2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(this.site + n2).then(function(e3) {
+              return [4, (0, t.fetchApi)(this.site + r2).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return e2 = t2.sent(), i3 = (0, a.load)(e2), (o = { path: n2, name: i3("h1.text-uppercase").text(), cover: i3(".img-wrap > img").attr("src"), summary: i3(".lead").text().trim() }).genres = i3('td:contains("Genre")').next().find("a").map(function(e3, t3) {
-                return i3(t3).text();
-              }).toArray().join(","), o.author = i3('td:contains("Author")').next().text().replace(/[\t\n]/g, ""), o.status = i3('td:contains("Status")').next().text().replace(/[\t\n]/g, ""), s = i3("#__NEXT_DATA__").html() + "", l = JSON.parse(s), c = l.props.pageProps.serie.chapters.map(function(e3, t3) {
-                var r2;
-                return { name: e3.title, path: u.sourceLang + "serie-" + l.props.pageProps.serie.serie_data.raw_id + "/" + l.props.pageProps.serie.serie_data.slug + "/chapter-" + e3.order, releaseTime: null === (r2 = (null == e3 ? void 0 : e3.created_at) || (null == e3 ? void 0 : e3.updated_at)) || void 0 === r2 ? void 0 : r2.substring(0, 10), chapterNumber: t3 + 1 };
-              }), o.chapters = c, [2, o];
-          }
-        });
-      });
-    }, i2.prototype.parseChapter = function(n2) {
-      return e(this, void 0, void 0, function() {
-        var e2, i3, o, s, l, c, u, p, h, f;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return [4, (0, r.fetchApi)(this.site + n2).then(function(e3) {
-                return e3.text();
-              })];
-            case 1:
-              for (e2 = t2.sent(), i3 = (0, a.load)(e2), o = i3("#__NEXT_DATA__").html() + "", s = JSON.parse(o), l = JSON.stringify(s.props.pageProps.serie.chapter_data.data.body), c = JSON.parse(l), u = "", p = 0, h = c; p < h.length; p++) f = h[p], u += "<p>".concat(f, "</p>");
-              return [2, u];
-          }
-        });
-      });
-    }, i2.prototype.searchNovels = function(n2) {
-      return e(this, void 0, void 0, function() {
-        var e2, a2 = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return [4, (0, r.fetchApi)(this.site + "api/search", { headers: { "Content-Type": "application/json", Referer: this.site + this.sourceLang, Origin: this.site }, method: "POST", body: JSON.stringify({ text: n2 }) })];
-            case 1:
-              return [4, t2.sent().json()];
+              if (e2 = l2.sent(), i2 = (0, u.load)(e2), n3 = i2("#__NEXT_DATA__"), o = n3.html(), s = null, v = null, b = 0, c = { path: r2, name: i2("h1.text-uppercase").text(), summary: i2(".lead").text().trim() }, o) try {
+                if (d = JSON.parse(o), p = null === (F = null === (M = null === (T = null == d ? void 0 : d.props) || void 0 === T ? void 0 : T.pageProps) || void 0 === M ? void 0 : M.serie) || void 0 === F ? void 0 : F.serie_data) switch (c.name = (null === (L = p.data) || void 0 === L ? void 0 : L.title) || "", c.cover = (null === (D = p.data) || void 0 === D ? void 0 : D.image) || "", c.summary = (null === (x = p.data) || void 0 === x ? void 0 : x.description) || "", c.author = (null === (k = p.data) || void 0 === k ? void 0 : k.author) || "", s = p.raw_id || null, v = p.slug || null, p.status) {
+                  case 0:
+                    c.status = "Ongoing";
+                    break;
+                  case 1:
+                    c.status = "Completed";
+                    break;
+                  default:
+                    c.status = "Unknown";
+                }
+              } catch (e3) {
+                console.error("Failed to parse __NEXT_DATA__:", e3);
+              }
+              if (c.name || (c.name = i2("h1.text-uppercase").text() || i2("h1.long-title").text() || i2(".title-wrap h1").text().trim()), c.cover || (c.cover = i2(".image-wrap img").attr("src") || i2(".img-wrap > img").attr("src")), c.summary || (c.summary = i2(".description").text().trim() || i2(".desc-wrap .description").text().trim() || i2(".lead").text().trim()), (g = i2('td:contains("Genre")').next().find("a").map(function(e3, l3) {
+                return i2(l3).text().replace(/<!--.*?-->/g, "").trim();
+              }).toArray() || i2(".genre").map(function(e3, l3) {
+                return i2(l3).text().replace(/<!--.*?-->/g, "").trim();
+              }).toArray() || i2(".genres .genre").map(function(e3, l3) {
+                return i2(l3).text().replace(/<!--.*?-->/g, "").trim();
+              }).toArray()).length > 0 && (c.genres = g.map(function(e3) {
+                return e3.replace(/,$/, "").trim();
+              }).filter(function(e3) {
+                return e3 && e3.length > 0;
+              }).join(", ")), (h = i2('td:contains("Tags")').next().find("a").map(function(e3, l3) {
+                return i2(l3).text().replace(/<!--.*?-->/g, "").replace(/,$/, "").trim();
+              }).toArray() || i2(".tag").map(function(e3, l3) {
+                return i2(l3).text().replace(/<!--.*?-->/g, "").replace(/,$/, "").trim();
+              }).toArray() || i2(".tags .tag").map(function(e3, l3) {
+                return i2(l3).text().replace(/<!--.*?-->/g, "").replace(/,$/, "").trim();
+              }).toArray()).length > 0 && (m = c.genres ? c.genres.split(", ") : [], y = a(a([], m, true), h, true).filter(function(e3) {
+                return e3 && e3.length > 0;
+              }), f = y.filter(function(e3, l3) {
+                return y.indexOf(e3) === l3;
+              }), c.genres = f.join(", ")), c.author || (c.author = i2('td:contains("Author")').next().text().replace(/[\t\n]/g, "").trim() || i2('td:contains("Author") + td').text().replace(/[\t\n]/g, "").trim()), c.status || (c.status = i2('td:contains("Status")').next().text().replace(/[\t\n]/g, "").trim() || i2('td:contains("Status") + td').text().replace(/[\t\n]/g, "").trim() || (null === (R = i2('.detail-line:contains("\u2022")').text().match(/•\s*(\w+)/)) || void 0 === R ? void 0 : R[1]) || ""), (P = r2.match(/serie-(\d+)\/([^/]+)/)) && (s = parseInt(P[1]), v = P[2]), S = i2('.detail-line:contains("Chapters")').text() || i2('div:contains("Chapters")').text(), (C = S.match(/(\d+)\s+Chapters?/i)) && (b = parseInt(C[1])), A = [], !(s && v && b > 0)) return [3, 6];
+              l2.label = 2;
             case 2:
-              return e2 = t2.sent(), [2, e2.data.map(function(e3) {
-                return { name: e3.data.title || "", cover: e3.data.image, path: a2.sourceLang + "serie-" + e3.raw_id + "/" + e3.slug || "" };
+              return l2.trys.push([2, 4, , 5]), [4, this.fetchAllChapters(s, b, v)];
+            case 3:
+              return A = l2.sent(), [3, 5];
+            case 4:
+              return w = l2.sent(), console.error("Failed to fetch chapters via API:", w), A = [], [3, 5];
+            case 5:
+              return [3, 7];
+            case 6:
+              console.warn("Could not extract rawId, slug, or chapterCount from page", { rawId: s, slug: v, chapterCount: b }), l2.label = 7;
+            case 7:
+              return c.chapters = A, [2, c];
+          }
+        });
+      });
+    }, n2.prototype.decrypt = function(a2, t2) {
+      return e(this, void 0, void 0, function() {
+        var e2, r2, u2, n3, o, s, v, b, c, d, p, g;
+        return l(this, function(l2) {
+          try {
+            if (e2 = false, r2 = a2, a2.startsWith("arr:") ? (e2 = true, r2 = a2.substring(4)) : a2.startsWith("str:") && (r2 = a2.substring(4)), 3 !== (u2 = r2.split(":")).length) throw Error("Invalid encrypted data format");
+            return n3 = u2.map(function(e3) {
+              return Uint8Array.from(atob(e3), function(e4) {
+                return e4.charCodeAt(0);
+              });
+            }), o = n3[0], s = n3[1], v = n3[2], (b = new Uint8Array(v.length + s.length)).set(v), b.set(s, v.length), c = new TextEncoder().encode(t2.slice(0, 32)), d = (0, i.gcm)(c, o), p = d.decrypt(b), g = new TextDecoder().decode(p), e2 ? [2, JSON.parse(g)] : [2, g];
+          } catch (e3) {
+            return console.error("Client-side decryption error:", e3), [2, { error: "<p>Client-side decryption error:</p>".concat(e3) }];
+          }
+          return [2];
+        });
+      });
+    }, n2.prototype.getKey = function(a2) {
+      return e(this, void 0, void 0, function() {
+        var e2, r2, u2, i2, n3, o, s, v, b, c, d, p;
+        return l(this, function(l2) {
+          switch (l2.label) {
+            case 0:
+              for (e2 = 'TextEncoder().encode("', r2 = [], i2 = -1, n3 = a2("head").find("script").toArray(), o = 0, s = n3; o < s.length; o++) v = s[o], (d = a2(v).attr("src")) && (r2.includes(d) || r2.push(d));
+              b = 0, c = r2, l2.label = 1;
+            case 1:
+              return b < c.length ? (d = c[b], [4, (0, t.fetchApi)("".concat(this.site).concat(d))]) : [3, 5];
+            case 2:
+              return [4, l2.sent().text()];
+            case 3:
+              if (p = l2.sent(), (i2 = p.indexOf(e2)) >= 0) return u2 = p, [3, 5];
+              l2.label = 4;
+            case 4:
+              return b++, [3, 1];
+            case 5:
+              if (!u2) throw new Error("Failed to find Encryption Key");
+              return [2, u2.substring(i2 + 22, i2 + 54)];
+          }
+        });
+      });
+    }, n2.prototype.translate = function(a2) {
+      return e(this, void 0, void 0, function() {
+        var e2, r2;
+        return l(this, function(l2) {
+          switch (l2.label) {
+            case 0:
+              return e2 = a2.map(function(e3, l3) {
+                return "<a i=".concat(l3, ">").concat(e3, "</a>");
+              }), [4, (0, t.fetchApi)("https://translate-pa.googleapis.com/v1/translateHtml", { credentials: "omit", headers: { "content-type": "application/json+protobuf", "X-Goog-API-Key": "AIzaSyATBXajvzQLTDHEQbcpq0Ihe0vWDHmO520" }, referrer: "https://wtr-lab.com/", body: "[[".concat(JSON.stringify(e2), ',"zh-CN","en"],"te_lib"]'), method: "POST" })];
+            case 1:
+              return [4, (r2 = l2.sent()).json()];
+            case 2:
+              return r2 = l2.sent(), [2, r2 && r2[0] ? r2[0] : []];
+          }
+        });
+      });
+    }, n2.prototype.parseChapter = function(a2) {
+      return e(this, void 0, void 0, function() {
+        var e2, r2, i2, n3, o, s, v, b, c, d, p, g, h, m, y, f, P, S, C, A, w, T, M;
+        return l(this, function(l2) {
+          switch (l2.label) {
+            case 0:
+              return e2 = this.site + a2, r2 = null, i2 = null, n3 = null, (o = a2.match(/serie-(\d+)\/[^/]+\/chapter-(\d+)/)) && (r2 = parseInt(o[1], 10), i2 = parseInt(o[2], 10)), r2 && i2 ? [3, 2] : [4, (0, t.fetchApi)(e2).then(function(e3) {
+                return e3.text();
+              })];
+            case 1:
+              S = l2.sent(), n3 = (0, u.load)(S), s = n3("#__NEXT_DATA__").html() + "", v = JSON.parse(s), r2 = v.props.pageProps.serie.chapter.raw_id, i2 = v.props.pageProps.serie.chapter.order, l2.label = 2;
+            case 2:
+              if (!r2 || !i2) throw m = "Missing required parameters for API call from URL '".concat(a2, "' - rawId: ").concat(r2, ", chapterNo: ").concat(i2, ". Please check the URL format."), console.error(m), new Error(m);
+              b = "", d = 0, p = ["ai", "web"], l2.label = 3;
+            case 3:
+              return d < p.length ? (g = p[d], [4, (0, t.fetchApi)("".concat(this.site, "api/reader/get"), { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, referrer: e2, body: JSON.stringify({ translate: g, language: this.sourceLang.replace("/", ""), raw_id: r2, chapter_no: i2, retry: false, force_retry: false }) })]) : [3, 7];
+            case 4:
+              return [4, (h = l2.sent()).json()];
+            case 5:
+              if (c = l2.sent(), h.ok) {
+                if (!c.error) return [3, 7];
+              } else if (c.error) return b = c.error, [3, 6];
+              l2.label = 6;
+            case 6:
+              return d++, [3, 3];
+            case 7:
+              if (0 == c.success) throw m = c.message, console.error(m), new Error(m);
+              return y = c.data.data.body, f = {}, Object.prototype.hasOwnProperty.call(c.data.data, "glossary_data") && (f = c.data.data.glossary_data), P = "", y.toString().startsWith("arr:") || y.toString().startsWith("str:") ? n3 ? [3, 9] : [4, (0, t.fetchApi)(e2).then(function(e3) {
+                return e3.text();
+              })] : [3, 13];
+            case 8:
+              S = l2.sent(), n3 = (0, u.load)(S), l2.label = 9;
+            case 9:
+              return [4, this.getKey(n3)];
+            case 10:
+              return C = l2.sent(), [4, this.decrypt(y, C)];
+            case 11:
+              return y = l2.sent(), Object.prototype.hasOwnProperty.call(y, "error") ? [2, P += "<p>".concat(y.error.toString(), "</p>")] : [4, this.translate(y)];
+            case 12:
+              y = l2.sent(), P += "<p><small>This is being translated from your device via google translate (source's method) - Login via web view to try for ai translations</small></p>", l2.label = 13;
+            case 13:
+              for ("" !== b && (P += '<p style="color:darkred;">'.concat(b, "</p>")), A = [], Object.prototype.hasOwnProperty.call(f, "terms") && (A = Object.fromEntries(f.terms.map(function(e3, l3) {
+                return ["\u203B".concat(l3, "\u26EC"), e3[0]];
+              }))), w = 0, T = y; w < T.length; w++) M = T[w], Object.keys(A).length > 0 && (M = M.replaceAll(/※[0-9]+⛬/g, function(e3) {
+                return A[e3];
+              })), P += "<p>".concat(M, "</p>");
+              return [2, P];
+          }
+        });
+      });
+    }, n2.prototype.fetchAllChapters = function(a2, r2, u2) {
+      return e(this, void 0, void 0, function() {
+        var e2, i2, n3, o, s, v, b, c = this;
+        return l(this, function(l2) {
+          switch (l2.label) {
+            case 0:
+              e2 = [], i2 = 250, n3 = 1, l2.label = 1;
+            case 1:
+              if (!(n3 <= r2)) return [3, 7];
+              o = Math.min(n3 + i2 - 1, r2), l2.label = 2;
+            case 2:
+              return l2.trys.push([2, 5, , 6]), [4, (0, t.fetchApi)("".concat(this.site, "api/chapters/").concat(a2, "?start=").concat(n3, "&end=").concat(o))];
+            case 3:
+              return [4, l2.sent().json()];
+            case 4:
+              return (s = l2.sent()).chapters && Array.isArray(s.chapters) && (v = s.chapters.map(function(e3) {
+                var l3;
+                return { name: e3.title, path: "".concat(c.sourceLang, "serie-").concat(a2, "/").concat(u2, "/chapter-").concat(e3.order), releaseTime: null === (l3 = e3.updated_at) || void 0 === l3 ? void 0 : l3.substring(0, 10), chapterNumber: e3.order };
+              }), e2.push.apply(e2, v)), !s.chapters || s.chapters.length < i2 ? [3, 7] : [3, 6];
+            case 5:
+              return b = l2.sent(), console.error("Failed to fetch chapters ".concat(n3, "-").concat(o, ":"), b), [3, 6];
+            case 6:
+              return n3 += i2, [3, 1];
+            case 7:
+              return [2, e2.sort(function(e3, l3) {
+                return (e3.chapterNumber || 0) - (l3.chapterNumber || 0);
               })];
           }
         });
       });
-    }, i2;
+    }, n2.prototype.searchNovels = function(a2, t2) {
+      return e(this, void 0, void 0, function() {
+        var e2;
+        return l(this, function(l2) {
+          return (e2 = this.filters).search.value = a2, [2, this.popularNovels(t2, { showLatestNovels: false, filters: e2 })];
+        });
+      });
+    }, n2;
   }();
-  exports.default = new i();
+  exports.default = new n();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
