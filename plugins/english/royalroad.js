@@ -14888,25 +14888,127 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // src/lib/storage.ts
+  var _Storage, Storage, storage, _LocalStorage, LocalStorage, localStorage, sessionStorage;
+  var init_storage = __esm({
+    "src/lib/storage.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      _Storage = class _Storage {
+        /**
+         * Initializes a new instance of the Storage class.
+         */
+        constructor() {
+          this.db = {};
+        }
+        /**
+         * Sets a key-value pair in storage.
+         *
+         * @param {string} key - The key to set.
+         * @param {any} value - The value to set.
+         * @param {Date | number} [expires] - Optional expiry date or time in milliseconds.
+         */
+        set(key, value, expires) {
+          this.db[key] = {
+            created: /* @__PURE__ */ new Date(),
+            value,
+            expires: expires instanceof Date ? expires.getTime() : expires
+          };
+        }
+        /**
+         * Retrieves the value for a given key from storage.
+         *
+         * @param {string} key - The key to retrieve the value for.
+         * @param {boolean} [raw] - Optional flag to return the raw stored item.
+         * @returns {any} The stored value or undefined if key is not found.
+         */
+        get(key, raw) {
+          const item = this.db[key];
+          if (item?.expires && Date.now() > item.expires) {
+            this.delete(key);
+            return void 0;
+          }
+          return raw ? item : item?.value;
+        }
+        /**
+         * Retrieves all keys set by the `set` method.
+         *
+         * @returns {string[]} An array of keys.
+         */
+        getAllKeys() {
+          return Object.keys(this.db);
+        }
+        /**
+         * Deletes a key from the storage.
+         *
+         * @param key - The key to delete.
+         */
+        delete(key) {
+          delete this.db[key];
+        }
+        /**
+         * Clears all stored items from storage.
+         */
+        clearAll() {
+          this.db = {};
+        }
+      };
+      __name(_Storage, "Storage");
+      Storage = _Storage;
+      storage = new Storage();
+      _LocalStorage = class _LocalStorage {
+        constructor() {
+          this.db = {};
+        }
+        get() {
+          return this.db;
+        }
+      };
+      __name(_LocalStorage, "LocalStorage");
+      LocalStorage = _LocalStorage;
+      localStorage = new LocalStorage();
+      sessionStorage = new LocalStorage();
+    }
+  });
+
+  // src/libs/storage.ts
+  var storage_exports = {};
+  __export(storage_exports, {
+    localStorage: () => localStorage,
+    sessionStorage: () => sessionStorage,
+    storage: () => storage
+  });
+  var init_storage2 = __esm({
+    "src/libs/storage.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_storage();
+    }
+  });
+
   // .js/plugins/english/royalroad.js
   init_dirname();
   init_buffer2();
   init_process2();
   var e = function(e2, a2, l2, t2) {
-    return new (l2 || (l2 = Promise))(function(n2, r3) {
-      function i2(e3) {
+    return new (l2 || (l2 = Promise))(function(n2, i2) {
+      function r3(e3) {
         try {
           o2(t2.next(e3));
         } catch (e4) {
-          r3(e4);
+          i2(e4);
         }
       }
-      __name(i2, "i");
+      __name(r3, "r");
       function s2(e3) {
         try {
           o2(t2.throw(e3));
         } catch (e4) {
-          r3(e4);
+          i2(e4);
         }
       }
       __name(s2, "s");
@@ -14914,24 +15016,24 @@ var LNReaderPlugin = (() => {
         var a3;
         e3.done ? n2(e3.value) : (a3 = e3.value, a3 instanceof l2 ? a3 : new l2(function(e4) {
           e4(a3);
-        })).then(i2, s2);
+        })).then(r3, s2);
       }
       __name(o2, "o");
       o2((t2 = t2.apply(e2, a2 || [])).next());
     });
   }, a = function(e2, a2) {
-    var l2, t2, n2, r3 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+    var l2, t2, n2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & n2[0]) throw n2[1];
       return n2[1];
-    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return i2.next = s2(0), i2.throw = s2(1), i2.return = s2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, r3 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return r3.next = s2(0), r3.throw = s2(1), r3.return = s2(2), "function" == typeof Symbol && (r3[Symbol.iterator] = function() {
       return this;
-    }), i2;
+    }), r3;
     function s2(s3) {
       return function(o2) {
         return function(s4) {
           if (l2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, s4[0] && (r3 = 0)), r3; ) try {
+          for (; r3 && (r3 = 0, s4[0] && (i2 = 0)), i2; ) try {
             if (l2 = 1, t2 && (n2 = 2 & s4[0] ? t2.return : s4[0] ? t2.throw || ((n2 = t2.return) && n2.call(t2), 0) : t2.next) && !(n2 = n2.call(t2, s4[1])).done) return n2;
             switch (t2 = 0, n2 && (s4 = [2 & s4[0], n2.value]), s4[0]) {
               case 0:
@@ -14939,34 +15041,34 @@ var LNReaderPlugin = (() => {
                 n2 = s4;
                 break;
               case 4:
-                return r3.label++, { value: s4[1], done: false };
+                return i2.label++, { value: s4[1], done: false };
               case 5:
-                r3.label++, t2 = s4[1], s4 = [0];
+                i2.label++, t2 = s4[1], s4 = [0];
                 continue;
               case 7:
-                s4 = r3.ops.pop(), r3.trys.pop();
+                s4 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(n2 = r3.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
-                  r3 = 0;
+                if (!(n2 = i2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                  i2 = 0;
                   continue;
                 }
                 if (3 === s4[0] && (!n2 || s4[1] > n2[0] && s4[1] < n2[3])) {
-                  r3.label = s4[1];
+                  i2.label = s4[1];
                   break;
                 }
-                if (6 === s4[0] && r3.label < n2[1]) {
-                  r3.label = n2[1], n2 = s4;
+                if (6 === s4[0] && i2.label < n2[1]) {
+                  i2.label = n2[1], n2 = s4;
                   break;
                 }
-                if (n2 && r3.label < n2[2]) {
-                  r3.label = n2[2], r3.ops.push(s4);
+                if (n2 && i2.label < n2[2]) {
+                  i2.label = n2[2], i2.ops.push(s4);
                   break;
                 }
-                n2[2] && r3.ops.pop(), r3.trys.pop();
+                n2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
-            s4 = a2.call(e2, r3);
+            s4 = a2.call(e2, i2);
           } catch (e3) {
             s4 = [6, e3], t2 = 0;
           } finally {
@@ -14980,35 +15082,35 @@ var LNReaderPlugin = (() => {
     __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var l, t = require_lib6(), n = (init_fetch2(), __toCommonJS(fetch_exports)), r2 = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = (init_isAbsoluteUrl(), __toCommonJS(isAbsoluteUrl_exports)), o = function() {
-    function o2() {
-      this.id = "royalroad", this.name = "Royal Road", this.version = "2.2.3", this.icon = "src/en/royalroad/icon.png", this.site = "https://www.royalroad.com/", this.filters = { keyword: { type: r2.FilterTypes.TextInput, label: "Keyword (title or description)", value: "" }, author: { type: r2.FilterTypes.TextInput, label: "Author", value: "" }, genres: { type: r2.FilterTypes.ExcludableCheckboxGroup, label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Contemporary", value: "contemporary" }, { label: "Drama", value: "drama" }, { label: "Fantasy", value: "fantasy" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "Satire", value: "satire" }, { label: "Sci-fi", value: "sci_fi" }, { label: "Short Story", value: "one_shot" }, { label: "Tragedy", value: "tragedy" }] }, tags: { type: r2.FilterTypes.ExcludableCheckboxGroup, label: "Tags", value: { include: [], exclude: [] }, options: [{ label: "Anti-Hero Lead", value: "anti-hero_lead" }, { label: "Artificial Intelligence", value: "artificial_intelligence" }, { label: "Attractive Lead", value: "attractive_lead" }, { label: "Cyberpunk", value: "cyberpunk" }, { label: "Dungeon", value: "dungeon" }, { label: "Dystopia", value: "dystopia" }, { label: "Female Lead", value: "female_lead" }, { label: "First Contact", value: "first_contact" }, { label: "GameLit", value: "gamelit" }, { label: "Gender Bender", value: "gender_bender" }, { label: "Genetically Engineered", value: "genetically_engineered " }, { label: "Grimdark", value: "grimdark" }, { label: "Hard Sci-fi", value: "hard_sci-fi" }, { label: "Harem", value: "harem" }, { label: "High Fantasy", value: "high_fantasy" }, { label: "LitRPG", value: "litrpg" }, { label: "Low Fantasy", value: "low_fantasy" }, { label: "Magic", value: "magic" }, { label: "Male Lead", value: "male_lead" }, { label: "Martial Arts", value: "martial_arts" }, { label: "Multiple Lead Characters", value: "multiple_lead" }, { label: "Mythos", value: "mythos" }, { label: "Non-Human Lead", value: "non-human_lead" }, { label: "Portal Fantasy / Isekai", value: "summoned_hero" }, { label: "Post Apocalyptic", value: "post_apocalyptic" }, { label: "Progression", value: "progression" }, { label: "Reader Interactive", value: "reader_interactive" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Ruling Class", value: "ruling_class" }, { label: "School Life", value: "school_life" }, { label: "Secret Identity", value: "secret_identity" }, { label: "Slice of Life", value: "slice_of_life" }, { label: "Soft Sci-fi", value: "soft_sci-fi" }, { label: "Space Opera", value: "space_opera" }, { label: "Sports", value: "sports" }, { label: "Steampunk", value: "steampunk" }, { label: "Strategy", value: "strategy" }, { label: "Strong Lead", value: "strong_lead" }, { label: "Super Heroes", value: "super_heroes" }, { label: "Supernatural", value: "supernatural" }, { label: "Technologically Engineered", value: "technologically_engineered" }, { label: "Time Loop", value: "loop" }, { label: "Time Travel", value: "time_travel" }, { label: "Urban Fantasy", value: "urban_fantasy" }, { label: "Villainous Lead", value: "villainous_lead" }, { label: "Virtual Reality", value: "virtual_reality" }, { label: "War and Military", value: "war_and_military" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }] }, content_warnings: { type: r2.FilterTypes.ExcludableCheckboxGroup, label: "Content Warnings", value: { include: [], exclude: [] }, options: [{ label: "Profanity", value: "profanity" }, { label: "Sexual Content", value: "sexuality" }, { label: "Graphic Violence", value: "graphic_violence" }, { label: "Sensitive Content", value: "sensitive" }, { label: "AI-Assisted Content", value: "ai_assisted" }, { label: "AI-Generated Content", value: "ai_generated" }] }, minPages: { type: r2.FilterTypes.TextInput, label: "Min Pages", value: "0" }, maxPages: { type: r2.FilterTypes.TextInput, label: "Max Pages", value: "20000" }, minRating: { type: r2.FilterTypes.TextInput, label: "Min Rating (0.0 - 5.0)", value: "0.0" }, maxRating: { type: r2.FilterTypes.TextInput, label: "Max Rating (0.0 - 5.0)", value: "5.0" }, status: { type: r2.FilterTypes.Picker, label: "Status", value: "ALL", options: [{ label: "All", value: "ALL" }, { label: "Completed", value: "COMPLETED" }, { label: "Dropped", value: "DROPPED" }, { label: "Ongoing", value: "ONGOING" }, { label: "Hiatus", value: "HIATUS" }, { label: "Stub", value: "STUB" }] }, orderBy: { type: r2.FilterTypes.Picker, label: "Order by", value: "relevance", options: [{ label: "Relevance", value: "relevance" }, { label: "Popularity", value: "popularity" }, { label: "Average Rating", value: "rating" }, { label: "Last Update", value: "last_update" }, { label: "Release Date", value: "release_date" }, { label: "Followers", value: "followers" }, { label: "Number of Pages", value: "length" }, { label: "Views", value: "views" }, { label: "Title", value: "title" }, { label: "Author", value: "author" }] }, dir: { type: r2.FilterTypes.Picker, label: "Direction", value: "desc", options: [{ label: "Ascending", value: "asc" }, { label: "Descending", value: "desc" }] }, type: { type: r2.FilterTypes.Picker, label: "Type", value: "ALL", options: [{ label: "All", value: "ALL" }, { label: "Fan Fiction", value: "fanfiction" }, { label: "Original", value: "original" }] } };
+  var l, t = require_lib6(), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), r2 = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = (init_isAbsoluteUrl(), __toCommonJS(isAbsoluteUrl_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), u = function() {
+    function u2() {
+      this.id = "royalroad", this.name = "Royal Road", this.version = "2.3.0", this.icon = "src/en/royalroad/icon.png", this.site = "https://www.royalroad.com/", this.enableVol = o.storage.get("enableVol"), this.pluginSettings = { enableVol: { value: "", label: "Enable Pagination / Volume view (not recommended)", type: "Switch" } }, this.filters = { keyword: { type: i.FilterTypes.TextInput, label: "Keyword (title or description)", value: "" }, author: { type: i.FilterTypes.TextInput, label: "Author", value: "" }, genres: { type: i.FilterTypes.ExcludableCheckboxGroup, label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Contemporary", value: "contemporary" }, { label: "Drama", value: "drama" }, { label: "Fantasy", value: "fantasy" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "Satire", value: "satire" }, { label: "Sci-fi", value: "sci_fi" }, { label: "Short Story", value: "one_shot" }, { label: "Tragedy", value: "tragedy" }] }, tags: { type: i.FilterTypes.ExcludableCheckboxGroup, label: "Tags", value: { include: [], exclude: [] }, options: [{ label: "Anti-Hero Lead", value: "anti-hero_lead" }, { label: "Artificial Intelligence", value: "artificial_intelligence" }, { label: "Attractive Lead", value: "attractive_lead" }, { label: "Cyberpunk", value: "cyberpunk" }, { label: "Dungeon", value: "dungeon" }, { label: "Dystopia", value: "dystopia" }, { label: "Female Lead", value: "female_lead" }, { label: "First Contact", value: "first_contact" }, { label: "GameLit", value: "gamelit" }, { label: "Gender Bender", value: "gender_bender" }, { label: "Genetically Engineered", value: "genetically_engineered " }, { label: "Grimdark", value: "grimdark" }, { label: "Hard Sci-fi", value: "hard_sci-fi" }, { label: "Harem", value: "harem" }, { label: "High Fantasy", value: "high_fantasy" }, { label: "LitRPG", value: "litrpg" }, { label: "Low Fantasy", value: "low_fantasy" }, { label: "Magic", value: "magic" }, { label: "Male Lead", value: "male_lead" }, { label: "Martial Arts", value: "martial_arts" }, { label: "Multiple Lead Characters", value: "multiple_lead" }, { label: "Mythos", value: "mythos" }, { label: "Non-Human Lead", value: "non-human_lead" }, { label: "Portal Fantasy / Isekai", value: "summoned_hero" }, { label: "Post Apocalyptic", value: "post_apocalyptic" }, { label: "Progression", value: "progression" }, { label: "Reader Interactive", value: "reader_interactive" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Ruling Class", value: "ruling_class" }, { label: "School Life", value: "school_life" }, { label: "Secret Identity", value: "secret_identity" }, { label: "Slice of Life", value: "slice_of_life" }, { label: "Soft Sci-fi", value: "soft_sci-fi" }, { label: "Space Opera", value: "space_opera" }, { label: "Sports", value: "sports" }, { label: "Steampunk", value: "steampunk" }, { label: "Strategy", value: "strategy" }, { label: "Strong Lead", value: "strong_lead" }, { label: "Super Heroes", value: "super_heroes" }, { label: "Supernatural", value: "supernatural" }, { label: "Technologically Engineered", value: "technologically_engineered" }, { label: "Time Loop", value: "loop" }, { label: "Time Travel", value: "time_travel" }, { label: "Urban Fantasy", value: "urban_fantasy" }, { label: "Villainous Lead", value: "villainous_lead" }, { label: "Virtual Reality", value: "virtual_reality" }, { label: "War and Military", value: "war_and_military" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }] }, content_warnings: { type: i.FilterTypes.ExcludableCheckboxGroup, label: "Content Warnings", value: { include: [], exclude: [] }, options: [{ label: "Profanity", value: "profanity" }, { label: "Sexual Content", value: "sexuality" }, { label: "Graphic Violence", value: "graphic_violence" }, { label: "Sensitive Content", value: "sensitive" }, { label: "AI-Assisted Content", value: "ai_assisted" }, { label: "AI-Generated Content", value: "ai_generated" }] }, minPages: { type: i.FilterTypes.TextInput, label: "Min Pages", value: "0" }, maxPages: { type: i.FilterTypes.TextInput, label: "Max Pages", value: "20000" }, minRating: { type: i.FilterTypes.TextInput, label: "Min Rating (0.0 - 5.0)", value: "0.0" }, maxRating: { type: i.FilterTypes.TextInput, label: "Max Rating (0.0 - 5.0)", value: "5.0" }, status: { type: i.FilterTypes.Picker, label: "Status", value: "ALL", options: [{ label: "All", value: "ALL" }, { label: "Completed", value: "COMPLETED" }, { label: "Dropped", value: "DROPPED" }, { label: "Ongoing", value: "ONGOING" }, { label: "Hiatus", value: "HIATUS" }, { label: "Stub", value: "STUB" }] }, orderBy: { type: i.FilterTypes.Picker, label: "Order by", value: "relevance", options: [{ label: "Relevance", value: "relevance" }, { label: "Popularity", value: "popularity" }, { label: "Average Rating", value: "rating" }, { label: "Last Update", value: "last_update" }, { label: "Release Date", value: "release_date" }, { label: "Followers", value: "followers" }, { label: "Number of Pages", value: "length" }, { label: "Views", value: "views" }, { label: "Title", value: "title" }, { label: "Author", value: "author" }] }, dir: { type: i.FilterTypes.Picker, label: "Direction", value: "desc", options: [{ label: "Ascending", value: "asc" }, { label: "Descending", value: "desc" }] }, type: { type: i.FilterTypes.Picker, label: "Type", value: "ALL", options: [{ label: "All", value: "ALL" }, { label: "Fan Fiction", value: "fanfiction" }, { label: "Original", value: "original" }] } };
     }
-    __name(o2, "o");
-    return o2.prototype.parseNovels = function(e2) {
-      var a2 = this.site, n2 = [], r3 = {}, i2 = l.Idle, o3 = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, t2) {
+    __name(u2, "u");
+    return u2.prototype.parseNovels = function(e2) {
+      var a2 = this.site, n2 = [], i2 = {}, r3 = l.Idle, o2 = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, t2) {
         var n3;
-        if ((null === (n3 = t2.class) || void 0 === n3 ? void 0 : n3.includes("fiction-list-item")) && (i2 = l.Novel), i2 === l.Novel) switch (e3) {
+        if ((null === (n3 = t2.class) || void 0 === n3 ? void 0 : n3.includes("fiction-list-item")) && (r3 = l.Novel), r3 === l.Novel) switch (e3) {
           case "a":
-            t2.href && (r3.path = t2.href.split("/").slice(1, 3).join("/"));
+            t2.href && (i2.path = t2.href.split("/").slice(1, 3).join("/"));
             break;
           case "img":
-            t2.src && (r3.name = t2.alt || "", r3.cover = (0, s.isUrlAbsolute)(t2.src) ? t2.src : a2 + t2.src.slice(1));
+            t2.src && (i2.name = t2.alt || "", i2.cover = (0, s.isUrlAbsolute)(t2.src) ? t2.src : a2 + t2.src.slice(1));
         }
       }, "onopentag"), onclosetag: /* @__PURE__ */ __name(function(e3) {
-        "figure" === e3 && (r3.path && r3.name && (n2.push(r3), r3 = {}), i2 = l.Idle);
+        "figure" === e3 && (i2.path && i2.name && (n2.push(i2), i2 = {}), r3 = l.Idle);
       }, "onclosetag") });
-      return o3.write(e2), o3.end(), n2;
-    }, o2.prototype.popularNovels = function(l2, t2) {
+      return o2.write(e2), o2.end(), n2;
+    }, u2.prototype.popularNovels = function(l2, t2) {
       return e(this, arguments, void 0, function(e2, l3) {
-        var t3, r3, i2, s2, o3, u, c, p, v, d, b = l3.filters, h = l3.showLatestNovels;
+        var t3, i2, r3, s2, o2, u3, c, p, v, d, b = l3.filters, h = l3.showLatestNovels;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              for (r3 in t3 = new URLSearchParams({ page: e2.toString() }), h && t3.append("orderBy", "last_update"), b || (b = this.filters || {}), b) if ("" !== b[r3].value) if ("genres" === r3 || "tags" === r3 || "content_warnings" === r3) {
-                if (b[r3].value.include) for (i2 = 0, s2 = b[r3].value.include; i2 < s2.length; i2++) o3 = s2[i2], t3.append("tagsAdd", o3);
-                if (b[r3].value.exclude) for (u = 0, c = b[r3].value.exclude; u < c.length; u++) p = c[u], t3.append("tagsRemove", p);
-              } else t3.append(r3, String(b[r3].value));
+              for (i2 in t3 = new URLSearchParams({ page: e2.toString() }), h && t3.append("orderBy", "last_update"), b || (b = this.filters || {}), b) if ("" !== b[i2].value) if ("genres" === i2 || "tags" === i2 || "content_warnings" === i2) {
+                if (b[i2].value.include) for (r3 = 0, s2 = b[i2].value.include; r3 < s2.length; r3++) o2 = s2[r3], t3.append("tagsAdd", o2);
+                if (b[i2].value.exclude) for (u3 = 0, c = b[i2].value.exclude; u3 < c.length; u3++) p = c[u3], t3.append("tagsRemove", p);
+              } else t3.append(i2, String(b[i2].value));
               return v = "".concat(this.site, "fictions/search?").concat(t3.toString()), [4, (0, n.fetchApi)(v).then(function(e3) {
                 return e3.text();
               })];
@@ -15017,189 +15119,189 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.parseNovel = function(r3) {
+    }, u2.prototype.parseNovel = function(i2) {
       return e(this, void 0, void 0, function() {
-        var e2, o3, u, c, p, v, d, b, h, f, g, y, I;
+        var e2, o2, u3, c, p, v, d, b, h, f, g, y, I, m;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + r3)];
+              return [4, (0, n.fetchApi)(this.site + i2)];
             case 1:
               return [4, a2.sent().text()];
             case 2:
-              return e2 = a2.sent(), o3 = { path: r3 }, u = this.site, c = l.Idle, p = "", v = 0, d = [], b = [], h = [], f = [], g = [], y = [], I = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, a3) {
-                var t2, n2, r4, i2;
+              return e2 = a2.sent(), o2 = { path: i2 }, u3 = this.site, c = this.enableVol, p = l.Idle, v = "", d = 0, b = [], h = [], f = [], g = [], y = [], I = [], m = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, a3) {
+                var t2, n2, i3, r3;
                 switch (e3) {
                   case "h1":
-                    c = l.InTitle;
+                    p = l.InTitle;
                     break;
                   case "a":
-                    (null === (t2 = a3.href) || void 0 === t2 ? void 0 : t2.startsWith("/profile/")) && !o3.author ? c = l.InAuthor : c === l.InTags && (c = l.InTagLink);
+                    (null === (t2 = a3.href) || void 0 === t2 ? void 0 : t2.startsWith("/profile/")) && !o2.author ? p = l.InAuthor : p === l.InTags && (p = l.InTagLink);
                     break;
                   case "div":
-                    "description" === a3.class && (c = l.InDescription);
+                    "description" === a3.class && (p = l.InDescription);
                     break;
                   case "hr":
-                    c === l.InDescription && b.push("\n\n---\n\n");
+                    p === l.InDescription && h.push("\n\n---\n\n");
                     break;
                   case "br":
-                    c === l.InDescription && b.push("\n\n");
+                    p === l.InDescription && h.push("\n\n");
                     break;
                   case "span":
-                    (null === (n2 = a3.class) || void 0 === n2 ? void 0 : n2.includes("tags")) ? c = l.InTags : (null === (r4 = a3.class) || void 0 === r4 ? void 0 : r4.includes("label-sm")) && 2 === ++v && (c = l.InStatusSpan, p = "");
+                    (null === (n2 = a3.class) || void 0 === n2 ? void 0 : n2.includes("tags")) ? p = l.InTags : (null === (i3 = a3.class) || void 0 === i3 ? void 0 : i3.includes("label-sm")) && 2 === ++d && (p = l.InStatusSpan, v = "");
                     break;
                   case "img":
-                    (null === (i2 = a3.class) || void 0 === i2 ? void 0 : i2.includes("thumbnail")) && (o3.cover = a3.src, o3.cover && !(0, s.isUrlAbsolute)(o3.cover) && (o3.cover = u + o3.cover.slice(1)));
+                    (null === (r3 = a3.class) || void 0 === r3 ? void 0 : r3.includes("thumbnail")) && (o2.cover = a3.src, o2.cover && !(0, s.isUrlAbsolute)(o2.cover) && (o2.cover = u3 + o2.cover.slice(1)));
                     break;
                   case "script":
-                    c = l.InScript;
+                    p = l.InScript;
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
                 var a3 = e3.trim();
-                if (a3 || c === l.InScript) switch (c) {
+                if (a3 || p === l.InScript) switch (p) {
                   case l.InTitle:
-                    d.push(e3);
-                    break;
-                  case l.InAuthor:
-                    o3.author = a3;
-                    break;
-                  case l.InDescription:
                     b.push(e3);
                     break;
+                  case l.InAuthor:
+                    o2.author = a3;
+                    break;
+                  case l.InDescription:
+                    h.push(e3);
+                    break;
                   case l.InStatusSpan:
-                    p = a3;
+                    v = a3;
                     break;
                   case l.InTagLink:
-                    f.push(a3);
+                    g.push(a3);
                     break;
                   case l.InScript:
-                    h.push(e3);
+                    f.push(e3);
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 switch (e3) {
                   case "h1":
-                    c === l.InTitle && (o3.name = d.join("").trim(), c = l.Idle);
+                    p === l.InTitle && (o2.name = b.join("").trim(), p = l.Idle);
                     break;
                   case "a":
-                    c === l.InTagLink ? c = l.InTags : c === l.InAuthor && (c = l.Idle);
+                    p === l.InTagLink ? p = l.InTags : p === l.InAuthor && (p = l.Idle);
                     break;
                   case "p":
-                    c === l.InDescription && b.push("\n\n");
+                    p === l.InDescription && h.push("\n\n");
                     break;
                   case "div":
-                    c === l.InDescription && (o3.summary = b.join("").replace(/&nbsp;/g, " ").replace(/\n{3,}/g, "\n\n").trim(), b.length = 0, c = l.Idle);
+                    p === l.InDescription && (o2.summary = h.join("").replace(/&nbsp;/g, " ").replace(/\n{3,}/g, "\n\n").trim(), h.length = 0, p = l.Idle);
                     break;
                   case "span":
-                    c === l.InTags ? (o3.genres = f.join(", "), c = l.Idle) : c === l.InStatusSpan && (c = l.Idle);
+                    p === l.InTags ? (o2.genres = g.join(", "), p = l.Idle) : p === l.InStatusSpan && (p = l.Idle);
                     break;
                   case "script":
-                    if (c === l.InScript) {
-                      c = l.Idle;
-                      var a3 = h.join(""), t2 = a3.match(/window\.chapters\s*=\s*(\[.*?\]);/), n2 = a3.match(/window\.volumes\s*=\s*(\[.*?\]);/);
-                      (null == t2 ? void 0 : t2[1]) && (g = JSON.parse(t2[1])), (null == n2 ? void 0 : n2[1]) && (y = JSON.parse(n2[1]));
+                    if (p === l.InScript) {
+                      p = l.Idle;
+                      var a3 = f.join(""), t2 = a3.match(/window\.chapters\s*=\s*(\[.*?\]);/), n2 = a3.match(/window\.volumes\s*=\s*(\[.*?\]);/);
+                      (null == t2 ? void 0 : t2[1]) && (y = JSON.parse(t2[1])), (null == n2 ? void 0 : n2[1]) && c && (I = JSON.parse(n2[1]));
                     }
                 }
               }, "onclosetag"), onend: /* @__PURE__ */ __name(function() {
-                switch (p) {
+                switch (v) {
                   case "ONGOING":
-                    o3.status = i.NovelStatus.Ongoing;
+                    o2.status = r2.NovelStatus.Ongoing;
                     break;
                   case "HIATUS":
-                    o3.status = i.NovelStatus.OnHiatus;
+                    o2.status = r2.NovelStatus.OnHiatus;
                     break;
                   case "COMPLETED":
-                    o3.status = i.NovelStatus.Completed;
+                    o2.status = r2.NovelStatus.Completed;
                     break;
                   default:
-                    o3.status = i.NovelStatus.Unknown;
+                    o2.status = r2.NovelStatus.Unknown;
                 }
-                o3.chapters = g.map(function(e3) {
-                  var a3, l2 = y.find(function(a4) {
+                o2.chapters = y.map(function(e3) {
+                  var a3, l2 = I.find(function(a4) {
                     return a4.id === e3.volumeId;
                   });
                   return { name: e3.title, path: (a3 = e3.url.split("/"), "".concat(a3[1], "/").concat(a3[2], "/").concat(a3[4], "/").concat(a3[5])), releaseTime: e3.date, chapterNumber: null == e3 ? void 0 : e3.order, page: null == l2 ? void 0 : l2.title };
                 });
-              }, "onend") }), I.write(e2), I.end(), [2, o3];
+              }, "onend") }), m.write(e2), m.end(), [2, o2];
           }
         });
       });
-    }, o2.prototype.parseChapter = function(r3) {
+    }, u2.prototype.parseChapter = function(i2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, s2, o3, u, c, p, v, d, b, h, f, g, y, I, m, S;
+        var e2, r3, s2, o2, u3, c, p, v, d, b, h, f, g, y, I, m, S;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + r3)];
+              return [4, (0, n.fetchApi)(this.site + i2)];
             case 1:
               return [4, a2.sent().text()];
             case 2:
-              return e2 = a2.sent(), i2 = l.Idle, s2 = 0, o3 = 0, u = [], c = [], p = [], v = [], d = true, b = e2.match(/<style>\n\s+.(.+?){[^{]+?display: none;/), h = null === (S = null == b ? void 0 : b[1]) || void 0 === S ? void 0 : S.trim(), f = null, g = /[&<>"']/g, y = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }, I = /* @__PURE__ */ __name(function(e3) {
+              return e2 = a2.sent(), r3 = l.Idle, s2 = 0, o2 = 0, u3 = [], c = [], p = [], v = [], d = true, b = e2.match(/<style>\n\s+.(.+?){[^{]+?display: none;/), h = null === (S = null == b ? void 0 : b[1]) || void 0 === S ? void 0 : S.trim(), f = null, g = /[&<>"']/g, y = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }, I = /* @__PURE__ */ __name(function(e3) {
                 return g.test(e3) ? (g.lastIndex = 0, e3.replace(g, function(e4) {
                   return y[e4];
                 })) : e3;
               }, "I"), (m = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, a3) {
-                o3++;
+                o2++;
                 var t2 = a3.class || "";
-                if (i2 !== l.InHidden && h && t2.includes(h)) return f = { state: i2, depth: s2 }, i2 = l.InHidden, void (s2 = o3);
-                switch (i2) {
+                if (r3 !== l.InHidden && h && t2.includes(h)) return f = { state: r3, depth: s2 }, r3 = l.InHidden, void (s2 = o2);
+                switch (r3) {
                   case l.Idle:
-                    t2.includes("chapter-content") ? (i2 = l.InChapter, s2 = o3, d = false) : t2.includes("author-note-portlet") && (i2 = l.InNote, s2 = o3);
+                    t2.includes("chapter-content") ? (r3 = l.InChapter, s2 = o2, d = false) : t2.includes("author-note-portlet") && (r3 = l.InNote, s2 = o2);
                     break;
                   case l.InHidden:
                     return;
                 }
-                if (i2 === l.InChapter || i2 === l.InNote) {
+                if (r3 === l.InChapter || r3 === l.InNote) {
                   var n2 = "<".concat(e3);
-                  for (var r4 in a3) {
-                    var p2 = a3[r4].replace(/"/g, "&quot;");
-                    n2 += " ".concat(r4, '="').concat(p2, '"');
+                  for (var i3 in a3) {
+                    var p2 = a3[i3].replace(/"/g, "&quot;");
+                    n2 += " ".concat(i3, '="').concat(p2, '"');
                   }
-                  n2 += ">", i2 === l.InChapter ? u.push(n2) : c.push(n2);
+                  n2 += ">", r3 === l.InChapter ? u3.push(n2) : c.push(n2);
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
-                switch (i2) {
+                switch (r3) {
                   case l.InChapter:
-                    u.push(I(e3));
+                    u3.push(I(e3));
                     break;
                   case l.InNote:
                     c.push(I(e3));
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
-                if (o3 === s2) switch (i2) {
+                if (o2 === s2) switch (r3) {
                   case l.InHidden:
-                    return f ? (i2 = f.state, s2 = f.depth, f = null) : (i2 = l.Idle, s2 = 0), void o3--;
+                    return f ? (r3 = f.state, s2 = f.depth, f = null) : (r3 = l.Idle, s2 = 0), void o2--;
                   case l.InChapter:
-                    return u.push("</div>"), i2 = l.Idle, s2 = 0, void o3--;
+                    return u3.push("</div>"), r3 = l.Idle, s2 = 0, void o2--;
                   case l.InNote:
                     var a3 = "author-note-".concat(d ? "before" : "after"), t2 = c.join("").trim(), n2 = '<div class="'.concat(a3, '">').concat(t2, "</div>");
-                    return d ? p.push(n2) : v.push(n2), c.length = 0, i2 = l.Idle, s2 = 0, void o3--;
+                    return d ? p.push(n2) : v.push(n2), c.length = 0, r3 = l.Idle, s2 = 0, void o2--;
                 }
-                else if ((i2 === l.InChapter || i2 === l.InNote) && !m.isVoidElement(e3)) {
-                  var r4 = "</".concat(e3, ">");
-                  i2 === l.InChapter ? u.push(r4) : c.push(r4);
+                else if ((r3 === l.InChapter || r3 === l.InNote) && !m.isVoidElement(e3)) {
+                  var i3 = "</".concat(e3, ">");
+                  r3 === l.InChapter ? u3.push(i3) : c.push(i3);
                 }
-                o3--;
-              }, "onclosetag") })).write(e2), m.end(), [2, [p.length > 0 ? p.join("") : null, u.length > 0 ? u.join("").trim() : null, v.length > 0 ? v.join("") : null].filter(Boolean).join('\n<hr class="notes-separator">\n')];
+                o2--;
+              }, "onclosetag") })).write(e2), m.end(), [2, [p.length > 0 ? p.join("") : null, u3.length > 0 ? u3.join("").trim() : null, v.length > 0 ? v.join("") : null].filter(Boolean).join('\n<hr class="notes-separator">\n')];
           }
         });
       });
-    }, o2.prototype.searchNovels = function(l2, t2) {
+    }, u2.prototype.searchNovels = function(l2, t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r3, i2;
+        var e2, i2, r3;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return e2 = new URLSearchParams({ page: t2.toString(), title: l2, globalFilters: "true" }), r3 = "".concat(this.site, "fictions/search?").concat(e2.toString()), [4, (0, n.fetchApi)(r3).then(function(e3) {
+              return e2 = new URLSearchParams({ page: t2.toString(), title: l2, globalFilters: "true" }), i2 = "".concat(this.site, "fictions/search?").concat(e2.toString()), [4, (0, n.fetchApi)(i2).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return i2 = a2.sent(), [2, this.parseNovels(i2)];
+              return r3 = a2.sent(), [2, this.parseNovels(r3)];
           }
         });
       });
-    }, o2;
+    }, u2;
   }();
-  exports.default = new o(), function(e2) {
+  exports.default = new u(), function(e2) {
     e2[e2.Idle = 0] = "Idle", e2[e2.InTitle = 1] = "InTitle", e2[e2.InAuthor = 2] = "InAuthor", e2[e2.InDescription = 3] = "InDescription", e2[e2.InTags = 4] = "InTags", e2[e2.InTagLink = 5] = "InTagLink", e2[e2.InStatusSpan = 6] = "InStatusSpan", e2[e2.InScript = 7] = "InScript", e2[e2.InNote = 8] = "InNote", e2[e2.InChapter = 9] = "InChapter", e2[e2.InHidden = 10] = "InHidden", e2[e2.Novel = 11] = "Novel";
   }(l || (l = {}));
 })();

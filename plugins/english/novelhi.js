@@ -12405,7 +12405,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -13130,7 +13130,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -23869,142 +23869,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/filters.ts
-  var FilterTypes;
-  var init_filters = __esm({
-    "src/types/filters.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      FilterTypes = /* @__PURE__ */ ((FilterTypes2) => {
-        FilterTypes2["TextInput"] = "Text";
-        FilterTypes2["Picker"] = "Picker";
-        FilterTypes2["CheckboxGroup"] = "Checkbox";
-        FilterTypes2["Switch"] = "Switch";
-        FilterTypes2["ExcludableCheckboxGroup"] = "XCheckbox";
-        return FilterTypes2;
-      })(FilterTypes || {});
-    }
-  });
-
-  // src/libs/filterInputs.ts
-  var filterInputs_exports = {};
-  __export(filterInputs_exports, {
-    FilterTypes: () => FilterTypes
-  });
-  var init_filterInputs = __esm({
-    "src/libs/filterInputs.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_filters();
-    }
-  });
-
-  // src/lib/storage.ts
-  var _Storage, Storage, storage, _LocalStorage, LocalStorage, localStorage, sessionStorage;
-  var init_storage = __esm({
-    "src/lib/storage.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      _Storage = class _Storage {
-        /**
-         * Initializes a new instance of the Storage class.
-         */
-        constructor() {
-          this.db = {};
-        }
-        /**
-         * Sets a key-value pair in storage.
-         *
-         * @param {string} key - The key to set.
-         * @param {any} value - The value to set.
-         * @param {Date | number} [expires] - Optional expiry date or time in milliseconds.
-         */
-        set(key, value, expires) {
-          this.db[key] = {
-            created: /* @__PURE__ */ new Date(),
-            value,
-            expires: expires instanceof Date ? expires.getTime() : expires
-          };
-        }
-        /**
-         * Retrieves the value for a given key from storage.
-         *
-         * @param {string} key - The key to retrieve the value for.
-         * @param {boolean} [raw] - Optional flag to return the raw stored item.
-         * @returns {any} The stored value or undefined if key is not found.
-         */
-        get(key, raw) {
-          const item = this.db[key];
-          if (item?.expires && Date.now() > item.expires) {
-            this.delete(key);
-            return void 0;
-          }
-          return raw ? item : item?.value;
-        }
-        /**
-         * Retrieves all keys set by the `set` method.
-         *
-         * @returns {string[]} An array of keys.
-         */
-        getAllKeys() {
-          return Object.keys(this.db);
-        }
-        /**
-         * Deletes a key from the storage.
-         *
-         * @param key - The key to delete.
-         */
-        delete(key) {
-          delete this.db[key];
-        }
-        /**
-         * Clears all stored items from storage.
-         */
-        clearAll() {
-          this.db = {};
-        }
-      };
-      __name(_Storage, "Storage");
-      Storage = _Storage;
-      storage = new Storage();
-      _LocalStorage = class _LocalStorage {
-        constructor() {
-          this.db = {};
-        }
-        get() {
-          return this.db;
-        }
-      };
-      __name(_LocalStorage, "LocalStorage");
-      LocalStorage = _LocalStorage;
-      localStorage = new LocalStorage();
-      sessionStorage = new LocalStorage();
-    }
-  });
-
-  // src/libs/storage.ts
-  var storage_exports = {};
-  __export(storage_exports, {
-    localStorage: () => localStorage,
-    sessionStorage: () => sessionStorage,
-    storage: () => storage
-  });
-  var init_storage2 = __esm({
-    "src/libs/storage.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_storage();
-    }
-  });
-
   // src/types/constants.ts
   var NovelStatus, defaultCover;
   var init_constants = __esm({
@@ -24026,6 +23890,21 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // src/libs/novelStatus.ts
+  var novelStatus_exports = {};
+  __export(novelStatus_exports, {
+    NovelStatus: () => NovelStatus
+  });
+  var init_novelStatus = __esm({
+    "src/libs/novelStatus.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_constants();
+    }
+  });
+
   // src/libs/defaultCover.ts
   var defaultCover_exports = {};
   __export(defaultCover_exports, {
@@ -24041,282 +23920,187 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // .js/plugins/english/fenrirrealm.js
+  // .js/plugins/english/novelhi.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, n2, a2) {
-    return new (n2 || (n2 = Promise))(function(r2, i2) {
-      function o2(e3) {
+  var e = function(e2, t2, n2, r2) {
+    return new (n2 || (n2 = Promise))(function(o2, a2) {
+      function i2(e3) {
         try {
-          c(a2.next(e3));
+          c(r2.next(e3));
         } catch (e4) {
-          i2(e4);
+          a2(e4);
         }
       }
-      __name(o2, "o");
-      function l2(e3) {
+      __name(i2, "i");
+      function s(e3) {
         try {
-          c(a2.throw(e3));
+          c(r2.throw(e3));
         } catch (e4) {
-          i2(e4);
+          a2(e4);
         }
       }
-      __name(l2, "l");
+      __name(s, "s");
       function c(e3) {
         var t3;
-        e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof n2 ? t3 : new n2(function(e4) {
+        e3.done ? o2(e3.value) : (t3 = e3.value, t3 instanceof n2 ? t3 : new n2(function(e4) {
           e4(t3);
-        })).then(o2, l2);
+        })).then(i2, s);
       }
       __name(c, "c");
-      c((a2 = a2.apply(e2, t2 || [])).next());
+      c((r2 = r2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
-    var n2, a2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & r2[0]) throw r2[1];
-      return r2[1];
-    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return o2.next = l2(0), o2.throw = l2(1), o2.return = l2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
+    var n2, r2, o2, a2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & o2[0]) throw o2[1];
+      return o2[1];
+    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return i2.next = s(0), i2.throw = s(1), i2.return = s(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
       return this;
-    }), o2;
-    function l2(l3) {
+    }), i2;
+    function s(s2) {
       return function(c) {
-        return function(l4) {
+        return function(s3) {
           if (n2) throw new TypeError("Generator is already executing.");
-          for (; o2 && (o2 = 0, l4[0] && (i2 = 0)), i2; ) try {
-            if (n2 = 1, a2 && (r2 = 2 & l4[0] ? a2.return : l4[0] ? a2.throw || ((r2 = a2.return) && r2.call(a2), 0) : a2.next) && !(r2 = r2.call(a2, l4[1])).done) return r2;
-            switch (a2 = 0, r2 && (l4 = [2 & l4[0], r2.value]), l4[0]) {
+          for (; i2 && (i2 = 0, s3[0] && (a2 = 0)), a2; ) try {
+            if (n2 = 1, r2 && (o2 = 2 & s3[0] ? r2.return : s3[0] ? r2.throw || ((o2 = r2.return) && o2.call(r2), 0) : r2.next) && !(o2 = o2.call(r2, s3[1])).done) return o2;
+            switch (r2 = 0, o2 && (s3 = [2 & s3[0], o2.value]), s3[0]) {
               case 0:
               case 1:
-                r2 = l4;
+                o2 = s3;
                 break;
               case 4:
-                return i2.label++, { value: l4[1], done: false };
+                return a2.label++, { value: s3[1], done: false };
               case 5:
-                i2.label++, a2 = l4[1], l4 = [0];
+                a2.label++, r2 = s3[1], s3 = [0];
                 continue;
               case 7:
-                l4 = i2.ops.pop(), i2.trys.pop();
+                s3 = a2.ops.pop(), a2.trys.pop();
                 continue;
               default:
-                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== l4[0] && 2 !== l4[0])) {
-                  i2 = 0;
+                if (!(o2 = a2.trys, (o2 = o2.length > 0 && o2[o2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
+                  a2 = 0;
                   continue;
                 }
-                if (3 === l4[0] && (!r2 || l4[1] > r2[0] && l4[1] < r2[3])) {
-                  i2.label = l4[1];
+                if (3 === s3[0] && (!o2 || s3[1] > o2[0] && s3[1] < o2[3])) {
+                  a2.label = s3[1];
                   break;
                 }
-                if (6 === l4[0] && i2.label < r2[1]) {
-                  i2.label = r2[1], r2 = l4;
+                if (6 === s3[0] && a2.label < o2[1]) {
+                  a2.label = o2[1], o2 = s3;
                   break;
                 }
-                if (r2 && i2.label < r2[2]) {
-                  i2.label = r2[2], i2.ops.push(l4);
+                if (o2 && a2.label < o2[2]) {
+                  a2.label = o2[2], a2.ops.push(s3);
                   break;
                 }
-                r2[2] && i2.ops.pop(), i2.trys.pop();
+                o2[2] && a2.ops.pop(), a2.trys.pop();
                 continue;
             }
-            l4 = t2.call(e2, i2);
+            s3 = t2.call(e2, a2);
           } catch (e3) {
-            l4 = [6, e3], a2 = 0;
+            s3 = [6, e3], r2 = 0;
           } finally {
-            n2 = r2 = 0;
+            n2 = o2 = 0;
           }
-          if (5 & l4[0]) throw l4[1];
-          return { value: l4[0] ? l4[1] : void 0, done: true };
-        }([l3, c]);
+          if (5 & s3[0]) throw s3[1];
+          return { value: s3[0] ? s3[1] : void 0, done: true };
+        }([s2, c]);
       };
     }
-    __name(l2, "l");
+    __name(s, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_browser(), __toCommonJS(browser_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = (init_storage2(), __toCommonJS(storage_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), l = function() {
-    function l2() {
-      var e2 = this;
-      this.id = "fenrir", this.name = "Fenrir Realm", this.icon = "src/en/fenrirrealm/icon.png", this.site = "https://fenrirealm.com", this.version = "1.0.13", this.imageRequestInit = void 0, this.hideLocked = i.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.resolveUrl = function(t2, n2) {
-        return e2.site + "/series/" + t2.split("~~")[0];
-      }, this.filters = { status: { type: r.FilterTypes.Picker, label: "Status", value: "any", options: [{ label: "All", value: "any" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }] }, sort: { type: r.FilterTypes.Picker, label: "Sort", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }] }, genres: { type: r.FilterTypes.CheckboxGroup, label: "Genres", value: [], options: [{ label: "Action", value: "1" }, { label: "Adult", value: "2" }, { label: "Adventure", value: "3" }, { label: "Comedy", value: "4" }, { label: "Drama", value: "5" }, { label: "Ecchi", value: "6" }, { label: "Fantasy", value: "7" }, { label: "Gender Bender", value: "8" }, { label: "Harem", value: "9" }, { label: "Historical", value: "10" }, { label: "Horror", value: "11" }, { label: "Josei", value: "12" }, { label: "Martial Arts", value: "13" }, { label: "Mature", value: "14" }, { label: "Mecha", value: "15" }, { label: "Mystery", value: "16" }, { label: "Psychological", value: "17" }, { label: "Romance", value: "18" }, { label: "School Life", value: "19" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Shounen", value: "24" }, { label: "Shounen Ai", value: "25" }, { label: "Slice of Life", value: "26" }, { label: "Smut", value: "27" }, { label: "Sports", value: "28" }, { label: "Supernatural", value: "29" }, { label: "Tragedy", value: "30" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "32" }, { label: "Xuanhuan", value: "33" }, { label: "Yaoi", value: "34" }, { label: "Yuri", value: "35" }] } };
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = function() {
+    function i2() {
+      this.id = "novelhi", this.name = "NovelHi", this.icon = "src/en/novelhi/icon.png", this.site = "https://novelhi.com/", this.version = "1.0.0", this.loadedNovelCache = [];
     }
-    __name(l2, "l");
-    return l2.prototype.popularNovels = function(a2, r2) {
-      return e(this, arguments, void 0, function(e2, a3) {
-        var r3, i2, o2 = this, l3 = a3.showLatestNovels, c = a3.filters;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return r3 = c.sort.value, l3 && (r3 = "latest"), i2 = c.genres.value.map(function(e3) {
-                return "&genres%5B%5D=" + e3;
-              }).join(""), [4, (0, n.fetchApi)("".concat(this.site, "/api/series/filter?page=").concat(e2, "&per_page=20&status=").concat(c.status.value, "&order=").concat(r3).concat(i2)).then(function(e3) {
-                return e3.json().catch(function() {
-                  throw new Error("There was an error fetching the data from the server. Please try to open it in WebView");
-                });
-              })];
-            case 1:
-              return [2, (t2.sent().data || []).map(function(e3) {
-                return o2.parseNovelFromApi(e3);
-              })];
-          }
-        });
+    __name(i2, "i");
+    return i2.prototype.parseNovels = function(e2) {
+      var t2, n2 = e2.map(function(e3) {
+        return { name: e3.bookName, path: "s/".concat(e3.simpleName), cover: e3.picUrl || a.defaultCover, summary: e3.bookDesc, author: e3.authorName, status: e3.bookStatus, genres: e3.genres.map(function(e4) {
+          return e4.genreName;
+        }).join(", ") };
       });
-    }, l2.prototype.parseNovel = function(r2) {
-      return e(this, void 0, void 0, function() {
-        var e2, i2, l3, c, u, s, p, v, h, d, f, b, m;
+      return (t2 = this.loadedNovelCache).push.apply(t2, n2), this.loadedNovelCache.length > 100 && (this.loadedNovelCache = this.loadedNovelCache.slice(-100)), n2;
+    }, i2.prototype.popularNovels = function(r2, o2) {
+      return e(this, arguments, void 0, function(e2, r3) {
+        var o3, a2, i3;
+        r3.showLatestNovels;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = r2, [4, (0, n.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(r2, "/chapters"), {})];
-            case 1:
-              return (i2 = t2.sent()).ok ? [3, 6] : (l3 = r2.match(/^\d+-(.+)$/), c = l3 ? l3[1] : r2, [4, (0, n.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(c, "/chapters"), {})]);
-            case 2:
-              return i2 = t2.sent(), e2 = c, i2.ok ? [3, 5] : (u = c.replace(/-/g, " ").split(" "), s = u.find(function(e3) {
-                return e3.length > 3;
-              }) || u[0], [4, (0, n.fetchApi)("".concat(this.site, "/api/series/filter?page=1&per_page=20&search=").concat(encodeURIComponent(s))).then(function(e3) {
-                return e3.json();
-              })]);
-            case 3:
-              return (p = t2.sent()).data && p.data.length > 0 ? (e2 = p.data[0].slug, [4, (0, n.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(e2, "/chapters"), {})]) : [3, 5];
-            case 4:
-              i2 = t2.sent(), t2.label = 5;
-            case 5:
-              if (!i2.ok) throw new Error("Novel not found. It may have been removed or its URL changed significantly.");
-              t2.label = 6;
-            case 6:
-              return [4, (0, n.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(e2)).then(function(e3) {
-                return e3.json();
-              })];
-            case 7:
-              return v = t2.sent(), h = (0, a.load)(v.description || ""), d = { path: e2, name: v.title || "", summary: h("p").length > 0 ? h("p").map(function(e3, t3) {
-                return (0, a.load)(t3).text();
-              }).get().join("\n\n") : h.text() || "", author: (null === (b = v.user) || void 0 === b ? void 0 : b.name) || (null === (m = v.user) || void 0 === m ? void 0 : m.username) || "", cover: v.cover ? this.site + "/" + v.cover : o.defaultCover, genres: (v.genres || []).map(function(e3) {
-                return e3.name;
-              }).join(","), status: v.status || "Unknown" }, [4, i2.json()];
-            case 8:
-              return f = t2.sent(), this.hideLocked && (f = f.filter(function(e3) {
-                var t3;
-                return !(null === (t3 = e3.locked) || void 0 === t3 ? void 0 : t3.price);
-              })), d.chapters = f.map(function(e3) {
-                var t3, n2, a2, i3, o2, l4;
-                return { name: ((null === (t3 = e3.locked) || void 0 === t3 ? void 0 : t3.price) ? "\u{1F512} " : "") + (null == (null === (n2 = e3.group) || void 0 === n2 ? void 0 : n2.index) ? "" : "Vol " + (null === (a2 = e3.group) || void 0 === a2 ? void 0 : a2.index) + " ") + "Chapter " + e3.number + (e3.title && e3.title.trim() != "Chapter " + e3.number ? " - " + e3.title.replace(/^chapter [0-9]+ . /i, "") : ""), path: r2 + (null == (null === (i3 = e3.group) || void 0 === i3 ? void 0 : i3.index) ? "" : "/" + (null === (o2 = e3.group) || void 0 === o2 ? void 0 : o2.slug)) + "/" + (e3.slug || "chapter-" + e3.number) + "~~" + e3.id, releaseTime: e3.created_at, chapterNumber: e3.number + 1e4 * ((null === (l4 = e3.group) || void 0 === l4 ? void 0 : l4.index) || 0) };
-              }).sort(function(e3, t3) {
-                return e3.chapterNumber - t3.chapterNumber;
-              }), [2, d];
-          }
-        });
-      });
-    }, l2.prototype.parseChapter = function(r2) {
-      return e(this, void 0, void 0, function() {
-        var e2, i2, o2, l3, c, u, s, p, v, h, d, f, b, m, y;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return (e2 = r2.split("~~")[1]) ? (i2 = "".concat(this.site, "/api/new/v2/chapters/").concat(e2), [4, (0, n.fetchApi)(i2)]) : [3, 3];
+              return (o3 = new URLSearchParams()).append("curr", "".concat(e2)), o3.append("limit", "10"), o3.append("keyword", ""), a2 = "".concat(this.site, "book/searchByPageInShelf?") + o3.toString(), [4, (0, n.fetchApi)(a2)];
             case 1:
               return [4, t2.sent().json()];
             case 2:
-              if (h = t2.sent(), (o2 = h.content) && "doc" === (l3 = JSON.parse(o2)).type) return [2, l3.content.map(function(e3) {
-                var t3, n2, a2;
-                if ("paragraph" === e3.type) {
-                  var r3 = (null === (t3 = e3.content) || void 0 === t3 ? void 0 : t3.map(function(e4) {
-                    var t4;
-                    if ("text" === e4.type) {
-                      var n3 = e4.text;
-                      if (e4.marks) for (var a3 = 0, r4 = e4.marks; a3 < r4.length; a3++) {
-                        var i4 = r4[a3];
-                        "bold" === i4.type && (n3 = "<b>".concat(n3, "</b>")), "italic" === i4.type && (n3 = "<i>".concat(n3, "</i>")), "underline" === i4.type && (n3 = "<u>".concat(n3, "</u>")), "strike" === i4.type && (n3 = "<strike>".concat(n3, "</strike>")), "link" === i4.type && (n3 = '<a href="'.concat(null === (t4 = i4.attrs) || void 0 === t4 ? void 0 : t4.href, '">').concat(n3, "</a>"));
-                      }
-                      return n3;
-                    }
-                    return "hardBreak" === e4.type ? "<br>" : "";
-                  }).join("")) || "";
-                  return "<p>".concat(r3, "</p>");
-                }
-                if ("heading" === e3.type) {
-                  var i3 = (null === (n2 = e3.attrs) || void 0 === n2 ? void 0 : n2.level) || 1;
-                  r3 = (null === (a2 = e3.content) || void 0 === a2 ? void 0 : a2.map(function(e4) {
-                    return e4.text;
-                  }).join("")) || "";
-                  return "<h".concat(i3, ">").concat(r3, "</h").concat(i3, ">");
-                }
-                return "";
-              }).join("\n")];
-              t2.label = 3;
-            case 3:
-              return c = "".concat(this.site, "/series/").concat(r2.split("~~")[0]), [4, (0, n.fetchApi)(c)];
-            case 4:
+              return i3 = t2.sent(), [2, this.parseNovels(i3.data.list)];
+          }
+        });
+      });
+    }, i2.prototype.parseNovel = function(i3) {
+      return e(this, void 0, void 0, function() {
+        var e2, s, c, l, u, h, p, d, f, v, m, b, y;
+        return t(this, function(t2) {
+          switch (t2.label) {
+            case 0:
+              return [4, (0, n.fetchApi)(this.site + i3)];
+            case 1:
               return [4, t2.sent().text()];
+            case 2:
+              if (e2 = t2.sent(), s = (0, r.load)(e2), c = s("#translate <").html()) throw console.error("This Novel has been removed and is no longer available"), Error("This Novel has been removed and is no longer available");
+              return l = { path: i3, name: s("meta[name=keywords]").attr("content") || "Untitled", cover: s(".cover,.decorate-img").attr("src") || a.defaultCover }, (u = this.loadedNovelCache.find(function(e3) {
+                return e3.path === i3;
+              })) ? [3, 4] : [4, this.searchNovels(l.name, 1)];
+            case 3:
+              u = t2.sent().find(function(e3) {
+                return e3.path === i3;
+              }), t2.label = 4;
+            case 4:
+              return u && (l.genres = u.genres, l.author = u.author, l.status = "1" === u.status ? o.NovelStatus.Completed : o.NovelStatus.Ongoing, h = u.summary.replace(/<br\s*\/?>/gi, "\n"), l.summary = (0, r.load)(h).text().trim()), p = [], !(d = s("#bookId").attr("value")) || c ? [3, 7] : ((f = new URLSearchParams()).append("bookId", d), f.append("curr", "1"), f.append("limit", "42121"), v = "".concat(this.site, "book/queryIndexList?") + f.toString(), [4, (0, n.fetchApi)(v)]);
             case 5:
-              if (u = t2.sent(), s = (0, a.load)(u), p = s("div.content-area p").map(function(e3, t3) {
-                return "<p>".concat((0, a.load)(t3).html(), "</p>");
-              }).get().join("\n")) return [2, p];
-              t2.label = 6;
-            case 6:
-              return t2.trys.push([6, 9, , 10]), v = "".concat(this.site, "/series/").concat(r2.split("~~")[0], "/__data.json?x-sveltekit-invalidated=001"), [4, (0, n.fetchApi)(v)];
-            case 7:
               return [4, t2.sent().json()];
-            case 8:
-              return h = t2.sent(), d = h.nodes, (f = null === (y = null == d ? void 0 : d.find(function(e3) {
-                return "data" === e3.type;
-              })) || void 0 === y ? void 0 : y.data) && (b = f.find(function(e3) {
-                return "string" == typeof e3 && e3.includes('{"type":"doc"');
-              })) && "doc" === (m = JSON.parse(b)).type && (p = m.content.map(function(e3) {
-                var t3;
-                if ("paragraph" === e3.type) {
-                  var n2 = (null === (t3 = e3.content) || void 0 === t3 ? void 0 : t3.map(function(e4) {
-                    if ("text" === e4.type) {
-                      var t4 = e4.text;
-                      if (e4.marks) for (var n3 = 0, a2 = e4.marks; n3 < a2.length; n3++) {
-                        var r3 = a2[n3];
-                        "bold" === r3.type && (t4 = "<b>".concat(t4, "</b>")), "italic" === r3.type && (t4 = "<i>".concat(t4, "</i>"));
-                      }
-                      return t4;
-                    }
-                    return "";
-                  }).join("")) || "";
-                  return "<p>".concat(n2, "</p>");
-                }
-                return "";
-              }).join("\n")), [3, 10];
-            case 9:
-              return t2.sent(), [3, 10];
-            case 10:
-              return [2, p];
+            case 6:
+              m = t2.sent(), null === (y = null === (b = null == m ? void 0 : m.data) || void 0 === b ? void 0 : b.list) || void 0 === y || y.forEach(function(e3) {
+                return p.push({ name: e3.indexName, path: i3 + "/" + e3.indexNum, releaseTime: e3.createTime });
+              }), t2.label = 7;
+            case 7:
+              return l.chapters = p.reverse(), [2, l];
           }
         });
       });
-    }, l2.prototype.searchNovels = function(a2, r2) {
+    }, i2.prototype.parseChapter = function(o2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, o2, l3, c = this;
+        var e2, a2, i3, s;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = "".concat(this.site, "/api/series/filter?page=").concat(r2, "&per_page=20&search=").concat(encodeURIComponent(a2)), [4, (0, n.fetchApi)(e2).then(function(e3) {
-                return e3.json();
+              return e2 = this.site + o2, [4, (0, n.fetchApi)(e2).then(function(e3) {
+                return e3.text();
               })];
             case 1:
-              return i2 = t2.sent(), 1 !== r2 || i2.data && 0 !== i2.data.length ? [3, 3] : (o2 = a2.split(" "), (l3 = o2.find(function(e3) {
-                return e3.length > 3;
-              }) || o2[0]) && l3 !== a2 ? (e2 = "".concat(this.site, "/api/series/filter?page=").concat(r2, "&per_page=20&search=").concat(encodeURIComponent(l3)), [4, (0, n.fetchApi)(e2).then(function(e3) {
-                return e3.json();
-              })]) : [3, 3]);
-            case 2:
-              i2 = t2.sent(), t2.label = 3;
-            case 3:
-              return [2, (i2.data || []).map(function(e3) {
-                return c.parseNovelFromApi(e3);
-              })];
+              return a2 = t2.sent(), (i3 = (0, r.load)(a2))("#showReading script,ins").remove(), (s = i3("#showReading").html()) ? [2, s] : [2, i3("#translate <").html() || ""];
           }
         });
       });
-    }, l2.prototype.parseNovelFromApi = function(e2) {
-      return { name: e2.title, path: e2.slug, cover: this.site + "/" + e2.cover, summary: e2.description, status: e2.status, genres: e2.genres.map(function(e3) {
-        return e3.name;
-      }).join(",") };
-    }, l2;
+    }, i2.prototype.searchNovels = function(r2, o2) {
+      return e(this, void 0, void 0, function() {
+        var e2, a2, i3;
+        return t(this, function(t2) {
+          switch (t2.label) {
+            case 0:
+              return (e2 = new URLSearchParams()).append("curr", "".concat(o2)), e2.append("limit", "10"), e2.append("keyword", "".concat(r2)), a2 = "".concat(this.site, "book/searchByPageInShelf?") + e2.toString(), [4, (0, n.fetchApi)(a2)];
+            case 1:
+              return [4, t2.sent().json()];
+            case 2:
+              return i3 = t2.sent(), [2, this.parseNovels(i3.data.list)];
+          }
+        });
+      });
+    }, i2;
   }();
-  exports.default = new l();
+  exports.default = new i();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

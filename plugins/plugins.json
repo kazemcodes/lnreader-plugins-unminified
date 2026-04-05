@@ -427,7 +427,7 @@
 		"name": "Fenrir Realm",
 		"site": "https://fenrirealm.com",
 		"lang": "English",
-		"version": "1.0.12",
+		"version": "1.0.13",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/fenrirrealm.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/fenrirrealm/icon.png"
 	},
@@ -851,7 +851,7 @@
 		"name": "Novel Fire",
 		"site": "https://novelfire.net/",
 		"lang": "English",
-		"version": "1.1.7",
+		"version": "1.1.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelfire.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelfire/icon.png"
 	},
@@ -872,6 +872,15 @@
 		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelhall.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelhall/icon.png"
+	},
+	{
+		"id": "novelhi",
+		"name": "NovelHi",
+		"site": "https://novelhi.com/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelhi.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelhi/icon.png"
 	},
 	{
 		"id": "novelib",
@@ -941,7 +950,7 @@
 		"name": "Novel Updates",
 		"site": "https://www.novelupdates.com/",
 		"lang": "English",
-		"version": "0.9.6",
+		"version": "0.9.7",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelupdates.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelupdates/icon.png",
 		"customCSS": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelupdates/customCSS.css"
@@ -1068,7 +1077,7 @@
 		"name": "Royal Road",
 		"site": "https://www.royalroad.com/",
 		"lang": "English",
-		"version": "2.2.3",
+		"version": "2.3.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/royalroad.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/royalroad/icon.png"
 	},
@@ -1595,6 +1604,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/centralnovel/icon.png"
 	},
 	{
+		"id": "illusia",
+		"name": "Illusia",
+		"site": "https://illusia.com.br",
+		"lang": "Português",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/portuguese/illusia.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/pt-br/illusia/icon.png"
+	},
+	{
 		"id": "kiniga",
 		"name": "Kiniga",
 		"site": "https://kiniga.com/",
@@ -1883,6 +1901,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/mtlnovel/mtlnovel/icon.png"
 	},
 	{
+		"id": "nova",
+		"name": "NOVA",
+		"site": "https://novelasligeras.net",
+		"lang": "Español",
+		"version": "1.1.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/spanish/NOVA.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/nova/icon.png"
+	},
+	{
 		"id": "novelasligera",
 		"name": "Novelas Ligera",
 		"site": "https://novelasligera.com/",
@@ -2112,7 +2139,7 @@
 		"name": "BakaInUA",
 		"site": "https://baka.in.ua",
 		"lang": "Українська",
-		"version": "2.0.0",
+		"version": "3.1.6",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/ukrainian/bakainua.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/uk/bakainua/icon.png"
 	},

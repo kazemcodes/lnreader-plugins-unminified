@@ -23943,11 +23943,11 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, a2, n2) {
-    return new (a2 || (a2 = Promise))(function(r2, i2) {
+  var e = function(e2, t2, a2, r2) {
+    return new (a2 || (a2 = Promise))(function(n2, i2) {
       function l2(e3) {
         try {
-          u(n2.next(e3));
+          o(r2.next(e3));
         } catch (e4) {
           i2(e4);
         }
@@ -23955,179 +23955,186 @@ var LNReaderPlugin = (() => {
       __name(l2, "l");
       function s(e3) {
         try {
-          u(n2.throw(e3));
+          o(r2.throw(e3));
         } catch (e4) {
           i2(e4);
         }
       }
       __name(s, "s");
-      function u(e3) {
+      function o(e3) {
         var t3;
-        e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
+        e3.done ? n2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
           e4(t3);
         })).then(l2, s);
       }
-      __name(u, "u");
-      u((n2 = n2.apply(e2, t2 || [])).next());
+      __name(o, "o");
+      o((r2 = r2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
-    var a2, n2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & r2[0]) throw r2[1];
-      return r2[1];
+    var a2, r2, n2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & n2[0]) throw n2[1];
+      return n2[1];
     }, "sent"), trys: [], ops: [] }, l2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
     return l2.next = s(0), l2.throw = s(1), l2.return = s(2), "function" == typeof Symbol && (l2[Symbol.iterator] = function() {
       return this;
     }), l2;
     function s(s2) {
-      return function(u) {
+      return function(o) {
         return function(s3) {
           if (a2) throw new TypeError("Generator is already executing.");
           for (; l2 && (l2 = 0, s3[0] && (i2 = 0)), i2; ) try {
-            if (a2 = 1, n2 && (r2 = 2 & s3[0] ? n2.return : s3[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, s3[1])).done) return r2;
-            switch (n2 = 0, r2 && (s3 = [2 & s3[0], r2.value]), s3[0]) {
+            if (a2 = 1, r2 && (n2 = 2 & s3[0] ? r2.return : s3[0] ? r2.throw || ((n2 = r2.return) && n2.call(r2), 0) : r2.next) && !(n2 = n2.call(r2, s3[1])).done) return n2;
+            switch (r2 = 0, n2 && (s3 = [2 & s3[0], n2.value]), s3[0]) {
               case 0:
               case 1:
-                r2 = s3;
+                n2 = s3;
                 break;
               case 4:
                 return i2.label++, { value: s3[1], done: false };
               case 5:
-                i2.label++, n2 = s3[1], s3 = [0];
+                i2.label++, r2 = s3[1], s3 = [0];
                 continue;
               case 7:
                 s3 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
+                if (!(n2 = i2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
                   i2 = 0;
                   continue;
                 }
-                if (3 === s3[0] && (!r2 || s3[1] > r2[0] && s3[1] < r2[3])) {
+                if (3 === s3[0] && (!n2 || s3[1] > n2[0] && s3[1] < n2[3])) {
                   i2.label = s3[1];
                   break;
                 }
-                if (6 === s3[0] && i2.label < r2[1]) {
-                  i2.label = r2[1], r2 = s3;
+                if (6 === s3[0] && i2.label < n2[1]) {
+                  i2.label = n2[1], n2 = s3;
                   break;
                 }
-                if (r2 && i2.label < r2[2]) {
-                  i2.label = r2[2], i2.ops.push(s3);
+                if (n2 && i2.label < n2[2]) {
+                  i2.label = n2[2], i2.ops.push(s3);
                   break;
                 }
-                r2[2] && i2.ops.pop(), i2.trys.pop();
+                n2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
             s3 = t2.call(e2, i2);
           } catch (e3) {
-            s3 = [6, e3], n2 = 0;
+            s3 = [6, e3], r2 = 0;
           } finally {
-            a2 = r2 = 0;
+            a2 = n2 = 0;
           }
           if (5 & s3[0]) throw s3[1];
           return { value: s3[0] ? s3[1] : void 0, done: true };
-        }([s2, u]);
+        }([s2, o]);
       };
     }
     __name(s, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var a = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), l = function() {
+  var a = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), l = function() {
     function l2() {
-      this.id = "bakainua", this.name = "BakaInUA", this.icon = "src/uk/bakainua/icon.png", this.site = "https://baka.in.ua", this.version = "2.0.0", this.filters = { genre: { type: i.FilterTypes.Picker, label: "\u0416\u0430\u043D\u0440", value: "", options: [{ label: "\u0412\u0441\u0456 \u0436\u0430\u043D\u0440\u0438", value: "" }, { label: "BL", value: "19" }, { label: "GL", value: "20" }, { label: "\u0410\u0432\u0442\u043E\u0440\u0441\u044C\u043A\u0435", value: "32" }, { label: "\u0411\u043E\u0439\u043E\u0432\u0438\u043A", value: "2" }, { label: "\u0412\u0443\u0441\u044F", value: "16" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "5" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "22" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "12" }, { label: "\u0416\u0430\u0445\u0438", value: "10" }, { label: "\u0406\u0441\u0435\u043A\u0430\u0439", value: "13" }, { label: "\u0406\u0441\u0442\u043E\u0440\u0438\u0447\u043D\u0435", value: "15" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0456\u044F", value: "11" }, { label: "\u041B\u0413\u0411\u0422", value: "3" }, { label: "\u041C\u0456\u0441\u0442\u0438\u043A\u0430", value: "18" }, { label: "\u041E\u043C\u0435\u0433\u0430\u0432\u0435\u0440\u0441", value: "30" }, { label: "\u041F\u043E\u0432\u0441\u044F\u043A\u0434\u0435\u043D\u043D\u0456\u0441\u0442\u044C", value: "17" }, { label: "\u041F\u0440\u0438\u0433\u043E\u0434\u0438", value: "7" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0456\u044F", value: "28" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "1" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "9" }, { label: "\u0421\u044E\u0430\u043D\u044C\u0445\u0432\u0430\u043D\u044C", value: "27" }, { label: "\u0421\u044F\u043D\u044C\u0441\u044F", value: "26" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0456\u044F", value: "24" }, { label: "\u0422\u0440\u0438\u043B\u0435\u0440", value: "21" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "8" }, { label: "\u0424\u0430\u043D\u0444\u0456\u043A", value: "23" }, { label: "\u0424\u0435\u043D\u0442\u0435\u0437\u0456", value: "4" }, { label: "\u0428\u043A\u043E\u043B\u0430", value: "6" }] }, only_new: { type: i.FilterTypes.Switch, label: "\u041D\u043E\u0432\u0438\u043D\u043A\u0438", value: false }, longreads: { type: i.FilterTypes.Switch, label: "\u0414\u043E\u0432\u0433\u043E\u0447\u0438\u0442\u0438", value: false }, finished: { type: i.FilterTypes.Switch, label: "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0435", value: false } };
+      this.id = "bakainua", this.name = "BakaInUA", this.icon = "src/uk/bakainua/icon.png", this.site = "https://baka.in.ua", this.version = "3.1.6", this.filters = { genre: { type: i.FilterTypes.Picker, label: "\u0416\u0430\u043D\u0440", value: "", options: [{ label: "\u0412\u0441\u0456 \u0436\u0430\u043D\u0440\u0438", value: "" }, { label: "BL", value: "19" }, { label: "GL", value: "20" }, { label: "\u0410\u0432\u0442\u043E\u0440\u0441\u044C\u043A\u0435", value: "32" }, { label: "\u0411\u043E\u0439\u043E\u0432\u0438\u043A", value: "2" }, { label: "\u0412\u0443\u0441\u044F", value: "16" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "5" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "22" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "12" }, { label: "\u0416\u0430\u0445\u0438", value: "10" }, { label: "\u0406\u0441\u0435\u043A\u0430\u0439", value: "13" }, { label: "\u0406\u0441\u0442\u043E\u0440\u0438\u0447\u043D\u0435", value: "15" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0456\u044F", value: "11" }, { label: "\u041B\u0413\u0411\u0422", value: "3" }, { label: "\u041C\u0456\u0441\u0442\u0438\u043A\u0430", value: "18" }, { label: "\u041E\u043C\u0435\u0433\u0430\u0432\u0435\u0440\u0441", value: "30" }, { label: "\u041F\u043E\u0432\u0441\u044F\u043A\u0434\u0435\u043D\u043D\u0456\u0441\u0442\u044C", value: "17" }, { label: "\u041F\u0440\u0438\u0433\u043E\u0434\u0438", value: "7" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0456\u044F", value: "28" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "1" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "9" }, { label: "\u0421\u044E\u0430\u043D\u044C\u0445\u0432\u0430\u043D\u044C", value: "27" }, { label: "\u0421\u044F\u043D\u044C\u0441\u044F", value: "26" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0456\u044F", value: "24" }, { label: "\u0422\u0440\u0438\u043B\u0435\u0440", value: "21" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "8" }, { label: "\u0424\u0430\u043D\u0444\u0456\u043A", value: "23" }, { label: "\u0424\u0435\u043D\u0442\u0435\u0437\u0456", value: "4" }, { label: "\u0428\u043A\u043E\u043B\u0430", value: "6" }] }, only_new: { type: i.FilterTypes.Switch, label: "\u041D\u043E\u0432\u0438\u043D\u043A\u0438", value: false }, longreads: { type: i.FilterTypes.Switch, label: "\u0414\u043E\u0432\u0433\u043E\u0447\u0438\u0442\u0438", value: false }, finished: { type: i.FilterTypes.Switch, label: "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0435", value: false } };
     }
     __name(l2, "l");
-    return l2.prototype.popularNovels = function(r2, i2) {
-      return e(this, arguments, void 0, function(r3, i3) {
-        var l3, s, u, o, c, h = this, p = i3.filters, v = i3.showLatestNovels;
+    return l2.prototype.popularNovels = function(n2, i2) {
+      return e(this, arguments, void 0, function(n3, i3) {
+        var l3, s, o, u, c, h = this, p = i3.filters, f = i3.showLatestNovels;
         return t(this, function(i4) {
           switch (i4.label) {
             case 0:
-              return l3 = [], s = new URL(this.site + "/fictions/alphabetical"), r3 > 1 && s.searchParams.append("page", r3.toString()), (v || p && p.only_new.value) && s.searchParams.append("only_new", "1"), p && (p.longreads.value && s.searchParams.append("longreads", "1"), p.finished.value && s.searchParams.append("finished", "1"), "" !== p.genre.value && s.searchParams.append("genre", p.genre.value)), [4, (0, n.fetchApi)(s.toString())];
+              return l3 = [], s = new URL(this.site + "/fictions/alphabetical"), n3 > 1 && s.searchParams.append("page", n3.toString()), (f || p && p.only_new.value) && s.searchParams.append("only_new", "1"), p && (p.longreads.value && s.searchParams.append("longreads", "1"), p.finished.value && s.searchParams.append("finished", "1"), "" !== p.genre.value && s.searchParams.append("genre", p.genre.value)), [4, (0, r.fetchApi)(s.toString(), { headers: { "user-agent": "Mozilla/5.0" } })];
             case 1:
               return [4, i4.sent().text()];
             case 2:
-              return u = i4.sent(), (o = (0, a.load)(u))("div#fiction-list-page > div > div > div > img").each(function(e2, t2) {
-                var a2 = o(t2).attr("data-fiction-picker-id-param");
+              return o = i4.sent(), (u = (0, a.load)(o))("[data-fiction-picker-id-param]").each(function(e2, t2) {
+                var a2 = u(t2).attr("data-fiction-picker-id-param");
                 a2 && l3.push(a2);
-              }), c = l3.map(function(r4) {
+              }), c = l3.map(function(n4) {
                 return e(h, void 0, void 0, function() {
                   var e2, i5, l4, s2;
                   return t(this, function(t2) {
                     switch (t2.label) {
                       case 0:
-                        return [4, (0, n.fetchApi)("".concat(this.site, "/fictions/").concat(r4, "/details"), { headers: { accept: "text/vnd.turbo-stream.html" } })];
+                        return t2.trys.push([0, 3, , 4]), [4, (0, r.fetchApi)("".concat(this.site, "/fictions/").concat(n4, "/details"), { headers: { "user-agent": "Mozilla/5.0" } })];
                       case 1:
-                        return e2 = t2.sent(), l4 = a.load, [4, e2.text()];
+                        return [4, t2.sent().text()];
                       case 2:
-                        return i5 = l4.apply(void 0, [t2.sent()]), s2 = i5("a").first(), [2, { name: i5("h3").text().trim(), path: s2.attr("href") || "", cover: this.site + i5(s2).find("img").attr("src") }];
+                        return e2 = t2.sent(), i5 = (0, a.load)(e2), l4 = i5("a").first(), [2, { name: i5("h3").text().trim(), path: (null === (s2 = l4.attr("href")) || void 0 === s2 ? void 0 : s2.replace(this.site + "/", "")) || "", cover: this.site + l4.find("img").attr("src") }];
+                      case 3:
+                        return t2.sent(), [2, null];
+                      case 4:
+                        return [2];
                     }
                   });
                 });
               }), [4, Promise.all(c)];
             case 3:
-              return [2, i4.sent()];
+              return [2, i4.sent().filter(function(e2) {
+                return null !== e2;
+              })];
           }
         });
       });
     }, l2.prototype.parseNovel = function(i2) {
       return e(this, void 0, void 0, function() {
-        var e2, l3, s, u;
+        var e2, l3, s, o, u, c, h, p, f, v, d, b, m = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + "/" + i2)];
+              return [4, (0, r.fetchApi)(this.site + "/" + i2, { headers: { "user-agent": "Mozilla/5.0" } })];
             case 1:
               return [4, t2.sent().text()];
             case 2:
-              switch (e2 = t2.sent(), l3 = (0, a.load)(e2), s = { path: i2, name: l3("main div > h1").text().trim(), author: l3("button#fictions-author-search").text().trim(), cover: this.site + l3("main div > img").attr("src"), summary: l3("main div > h3").first().parent().find("div").text().trim(), genres: l3('h4:contains("\u0416\u0430\u043D\u0440\u0438")').last().siblings().last().find("span").map(function(e3, t3) {
-                return l3(t3).text().trim();
-              }).get().join(", ") }, l3('div:contains("\u0421\u0442\u0430\u0442\u0443\u0441")').last().siblings().text().trim()) {
-                case "\u0412\u0438\u0434\u0430\u0454\u0442.":
-                  s.status = r.NovelStatus.Ongoing;
-                  break;
-                case "\u0417\u0430\u0432\u0435\u0440\u0448.":
-                  s.status = r.NovelStatus.Completed;
-                  break;
-                case "\u041F\u043E\u043A\u0438\u043D\u0443.":
-                  s.status = r.NovelStatus.OnHiatus;
-                  break;
-                default:
-                  s.status = r.NovelStatus.Unknown;
-              }
-              return u = [], l3("li.group a").each(function(e3, t3) {
-                var a2 = { name: l3(t3).find("span").eq(1).text().trim(), path: l3(t3).attr("href") || "", chapterNumber: parseInt(l3(t3).find("span").eq(0).text().trim()), releaseTime: l3(t3).find("span").eq(2).text().trim() };
-                u.push(a2);
-              }), s.chapters = u.reverse(), [2, s];
+              return e2 = t2.sent(), l3 = (0, a.load)(e2), s = l3("turbo-frame#alternative-tabs form").map(function(e3, t3) {
+                return { name: l3(t3).find("button span").first().text().trim(), ids: l3(t3).find('input[name="translator[]"]').map(function(e4, t4) {
+                  return l3(t4).attr("value") || "";
+                }).get() };
+              }).get(), o = s[0], u = new URL(this.site + "/" + i2), (null === (b = null == o ? void 0 : o.ids) || void 0 === b ? void 0 : b.length) && o.ids.forEach(function(e3) {
+                return u.searchParams.append("translator[]", e3);
+              }), [4, (0, r.fetchApi)(u.toString(), { headers: { "user-agent": "Mozilla/5.0" } })];
+            case 3:
+              return [4, t2.sent().text()];
+            case 4:
+              return c = t2.sent(), h = (0, a.load)(c), (p = h('meta[property="og:image"]').attr("content") || "") && !p.startsWith("http") && (p = this.site + p), f = { path: i2, name: h("h1").first().text().trim(), author: h("#fictions-author-search").text().trim() || "\u041D\u0435\u0432\u0456\u0434\u043E\u043C\u043E", artist: h("#fictions-author-search").text().trim() || "\u041D\u0435\u0432\u0456\u0434\u043E\u043C\u043E", cover: p, summary: h("div.whitespace-pre-line").first().text().replace(/\s+/g, " ").trim(), genres: h("div.flex.flex-wrap.gap-2 span").map(function(e3, t3) {
+                return h(t3).text().trim();
+              }).get().join(", ") }, (v = h('div.text-sm:contains("\u0421\u0442\u0430\u0442\u0443\u0441")').prev("div.text-2xl").text().trim()).includes("\u0417\u0430\u0432\u0435\u0440\u0448") ? f.status = n.NovelStatus.Completed : v.includes("\u0412\u0438\u0434\u0430\u0454\u0442") ? f.status = n.NovelStatus.Ongoing : v.includes("\u041F\u043E\u043A\u0438\u043D\u0443") ? f.status = n.NovelStatus.OnHiatus : f.status = n.NovelStatus.Unknown, d = [], h('li.group a[href*="/chapters/"]').each(function(e3, t3) {
+                var a2 = h(t3).attr("href") || "";
+                d.push({ name: h(t3).find("span").eq(1).text().trim() || "\u0420\u043E\u0437\u0434\u0456\u043B", path: a2.replace(m.site + "/", ""), chapterNumber: parseFloat(h(t3).find("span").eq(0).text().replace(",", ".")) || 0, releaseTime: h(t3).find("span").eq(2).text().trim() });
+              }), f.chapters = d.reverse(), [2, f];
           }
         });
       });
-    }, l2.prototype.parseChapter = function(r2) {
+    }, l2.prototype.parseChapter = function(n2) {
       return e(this, void 0, void 0, function() {
-        var e2;
+        var e2, i2, l3, s, o, u;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + "/" + r2)];
+              return [4, (0, r.fetchApi)(this.site + "/" + n2, { headers: { "user-agent": "Mozilla/5.0" } })];
             case 1:
               return [4, t2.sent().text()];
             case 2:
-              return e2 = t2.sent(), [2, (0, a.load)(e2)("#user-content").html() || ""];
+              return e2 = t2.sent(), i2 = (0, a.load)(e2), !(l3 = i2(".trix-content, .prose, article, #chapter-content").first()).text().trim() && (s = i2("[data-chapter-content-value]").attr("data-chapter-content-value")) ? [2, s] : (l3.find("script, style, button, form, .ads, .social-share").remove(), (!(o = l3.html()) || o.trim().length < 100) && (u = e2.match(/"content\\":\\"(.*?)\\"/)) && u[1] && (o = u[1].replace(/\\n/g, "<br>").replace(/\\"/g, '"').replace(/\\u003c/g, "<").replace(/\\u003e/g, ">")), [2, o || "\u041A\u043E\u043D\u0442\u0435\u043D\u0442 \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u043D\u043E. \u041C\u043E\u0436\u043B\u0438\u0432\u043E, \u043F\u043E\u0442\u0440\u0456\u0431\u043D\u0430 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0456\u044F \u043D\u0430 \u0441\u0430\u0439\u0442\u0456."]);
           }
         });
       });
-    }, l2.prototype.searchNovels = function(r2) {
+    }, l2.prototype.searchNovels = function(n2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, l3, s = this;
+        var e2, i2, l3, s, o = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = [], [4, (0, n.fetchApi)(this.site + "/search?search%5B%5D=" + r2 + "&only_fictions=true")];
+              return e2 = "".concat(this.site, "/search?filter=fiction&search[]=").concat(encodeURIComponent(n2)), [4, (0, r.fetchApi)(e2, { headers: { "user-agent": "Mozilla/5.0" } })];
             case 1:
               return [4, t2.sent().text()];
             case 2:
-              return i2 = t2.sent(), (l3 = (0, a.load)(i2))("ul > section").each(function(t3, a2) {
-                e2.push({ path: l3(a2).find("a").first().attr("href") || "", name: l3(a2).find("a > h2").first().text().trim(), cover: s.site + l3(a2).find("img").first().attr("src") });
-              }), [2, e2];
+              return i2 = t2.sent(), l3 = (0, a.load)(i2), s = [], l3('turbo-frame#fictions-section a[href^="/fictions/"]').each(function(e3, t3) {
+                var a2 = l3(t3), r2 = a2.attr("href") || "";
+                if (r2) {
+                  var n3 = r2.replace(/^\/fictions\//, "").replace(/^\/+/, ""), i3 = a2.find("h3").first().text().trim(), u = a2.closest(".group").find("img").attr("src");
+                  s.push({ path: "/fictions/".concat(n3), name: i3, cover: u ? o.site + u : "" });
+                }
+              }), [2, s];
           }
         });
       });
