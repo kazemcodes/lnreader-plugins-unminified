@@ -103,7 +103,7 @@
 		"name": "Riwyat",
 		"site": "https://cenele.com/",
 		"lang": "‎العربية",
-		"version": "1.0.13",
+		"version": "1.0.14",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/Riwyat[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/riwyat/icon.png"
 	},
@@ -541,6 +541,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/inkitt/icon.png"
 	},
 	{
+		"id": "inoveltranslation",
+		"name": "iNovelTranslation",
+		"site": "https://inoveltranslation.com",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/inoveltranslation.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/inoveltranslation/icon.png"
+	},
+	{
 		"id": "ippotranslations",
 		"name": "Ippotranslations",
 		"site": "https://ippotranslations.com/",
@@ -851,7 +860,7 @@
 		"name": "Novel Fire",
 		"site": "https://novelfire.net/",
 		"lang": "English",
-		"version": "1.1.8",
+		"version": "1.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelfire.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelfire/icon.png"
 	},
@@ -950,7 +959,7 @@
 		"name": "Novel Updates",
 		"site": "https://www.novelupdates.com/",
 		"lang": "English",
-		"version": "0.9.7",
+		"version": "0.9.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelupdates.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelupdates/icon.png",
 		"customCSS": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelupdates/customCSS.css"
@@ -1480,9 +1489,9 @@
 	{
 		"id": "morenovel",
 		"name": "Vanovel",
-		"site": "https://vanovel.com",
+		"site": "https://vanovel.com/",
 		"lang": "Bahasa Indonesia",
-		"version": "1.0.10",
+		"version": "1.0.11",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/indonesian/Vanovel[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/morenovel/icon.png"
 	},
@@ -1608,7 +1617,7 @@
 		"name": "Illusia",
 		"site": "https://illusia.com.br",
 		"lang": "Português",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/portuguese/illusia.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/pt-br/illusia/icon.png"
 	},
@@ -1917,6 +1926,15 @@
 		"version": "1.0.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/spanish/novelasligera.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/novelasligera/icon.png"
+	},
+	{
+		"id": "novelyra",
+		"name": "Novelyra",
+		"site": "https://novelyra.com/",
+		"lang": "Español",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/spanish/novelyra.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/novelyra/icon.png"
 	},
 	{
 		"id": "oasistranslations",

@@ -4737,7 +4737,7 @@ var LNReaderPlugin = (() => {
         object.onRemove(this);
         return clearCache(this);
       }, "remove");
-      Namespace.prototype.define = /* @__PURE__ */ __name(function define2(path, json) {
+      Namespace.prototype.define = /* @__PURE__ */ __name(function define(path, json) {
         if (util.isString(path))
           path = path.split(".");
         else if (!Array.isArray(path))
@@ -12405,7 +12405,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -13130,7 +13130,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -23920,290 +23920,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/dayjs/dayjs.min.js
-  var require_dayjs_min = __commonJS({
-    "node_modules/dayjs/dayjs.min.js"(exports4, module2) {
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      !function(t2, e2) {
-        "object" == typeof exports4 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
-      }(exports4, function() {
-        "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
-          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
-          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
-          var r3 = String(t3);
-          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
-        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
-          if (e3.date() < n3.date()) return -t3(n3, e3);
-          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c2), s3 = n3 - i3 < 0, u3 = e3.clone().add(r3 + (s3 ? -1 : 1), c2);
-          return +(-(r3 + (n3 - i3) / (s3 ? i3 - u3 : u3 - i3)) || 0);
-        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
-          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
-        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c2, y: h, w: o2, d: a2, D: d, h: u2, m: s2, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
-        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
-          return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
-        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
-          return t3 instanceof _ || !(!t3 || !t3[p]);
-        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
-          var i3;
-          if (!e3) return g;
-          if ("string" == typeof e3) {
-            var s3 = e3.toLowerCase();
-            D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
-            var u3 = e3.split("-");
-            if (!i3 && u3.length > 1) return t3(u3[0]);
-          } else {
-            var a3 = e3.name;
-            D[a3] = e3, i3 = a3;
-          }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
-        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
-          if (S(t3)) return t3.clone();
-          var n3 = "object" == typeof e3 ? e3 : {};
-          return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v;
-        b.l = w, b.i = S, b.w = function(t3, e3) {
-          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
-        };
-        var _ = function() {
-          function M2(t3) {
-            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
-          }
-          __name(M2, "M");
-          var m2 = M2.prototype;
-          return m2.parse = function(t3) {
-            this.$d = function(t4) {
-              var e3 = t4.date, n3 = t4.utc;
-              if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b.u(e3)) return /* @__PURE__ */ new Date();
-              if (e3 instanceof Date) return new Date(e3);
-              if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r3 = e3.match($2);
-                if (r3) {
-                  var i3 = r3[2] - 1 || 0, s3 = (r3[7] || "0").substring(0, 3);
-                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3);
-                }
-              }
-              return new Date(e3);
-            }(t3), this.init();
-          }, m2.init = function() {
-            var t3 = this.$d;
-            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
-          }, m2.$utils = function() {
-            return b;
-          }, m2.isValid = function() {
-            return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t3, e3) {
-            var n3 = O(t3);
-            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
-          }, m2.isAfter = function(t3, e3) {
-            return O(t3) < this.startOf(e3);
-          }, m2.isBefore = function(t3, e3) {
-            return this.endOf(e3) < O(t3);
-          }, m2.$g = function(t3, e3, n3) {
-            return b.u(t3) ? this[e3] : this.set(n3, t3);
-          }, m2.unix = function() {
-            return Math.floor(this.valueOf() / 1e3);
-          }, m2.valueOf = function() {
-            return this.$d.getTime();
-          }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
-              return r3 ? i3 : i3.endOf(a2);
-            }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
-              case h:
-                return r3 ? l3(1, 0) : l3(31, 11);
-              case c2:
-                return r3 ? l3(1, M3) : l3(0, M3 + 1);
-              case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
-              case a2:
-              case d:
-                return $3(v2 + "Hours", 0);
-              case u2:
-                return $3(v2 + "Minutes", 1);
-              case s2:
-                return $3(v2 + "Seconds", 2);
-              case i2:
-                return $3(v2 + "Milliseconds", 3);
-              default:
-                return this.clone();
-            }
-          }, m2.endOf = function(t3) {
-            return this.startOf(t3, false);
-          }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c2] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
-            if (o3 === c2 || o3 === h) {
-              var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
-            } else l3 && this.$d[l3]($3);
-            return this.init(), this;
-          }, m2.set = function(t3, e3) {
-            return this.clone().$set(t3, e3);
-          }, m2.get = function(t3) {
-            return this[b.p(t3)]();
-          }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
-            r3 = Number(r3);
-            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
-              var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
-            }, "y");
-            if ($3 === c2) return this.set(c2, this.$M + r3);
-            if ($3 === h) return this.set(h, this.$y + r3);
-            if ($3 === a2) return y2(1);
-            if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s2] = e2, d2[u2] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
-            return b.w(m3, this);
-          }, m2.subtract = function(t3, e3) {
-            return this.add(-1 * t3, e3);
-          }, m2.format = function(t3) {
-            var e3 = this, n3 = this.$locale();
-            if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
-              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
-              return b.s(s3 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
-              var r4 = t4 < 12 ? "AM" : "PM";
-              return n4 ? r4.toLowerCase() : r4;
-            };
-            return r3.replace(y, function(t4, r4) {
-              return r4 || function(t5) {
-                switch (t5) {
-                  case "YY":
-                    return String(e3.$y).slice(-2);
-                  case "YYYY":
-                    return b.s(e3.$y, 4, "0");
-                  case "M":
-                    return a3 + 1;
-                  case "MM":
-                    return b.s(a3 + 1, 2, "0");
-                  case "MMM":
-                    return h2(n3.monthsShort, a3, c3, 3);
-                  case "MMMM":
-                    return h2(c3, a3);
-                  case "D":
-                    return e3.$D;
-                  case "DD":
-                    return b.s(e3.$D, 2, "0");
-                  case "d":
-                    return String(e3.$W);
-                  case "dd":
-                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
-                  case "ddd":
-                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
-                  case "dddd":
-                    return o3[e3.$W];
-                  case "H":
-                    return String(s3);
-                  case "HH":
-                    return b.s(s3, 2, "0");
-                  case "h":
-                    return d2(1);
-                  case "hh":
-                    return d2(2);
-                  case "a":
-                    return $3(s3, u3, true);
-                  case "A":
-                    return $3(s3, u3, false);
-                  case "m":
-                    return String(u3);
-                  case "mm":
-                    return b.s(u3, 2, "0");
-                  case "s":
-                    return String(e3.$s);
-                  case "ss":
-                    return b.s(e3.$s, 2, "0");
-                  case "SSS":
-                    return b.s(e3.$ms, 3, "0");
-                  case "Z":
-                    return i3;
-                }
-                return null;
-              }(t4) || i3.replace(":", "");
-            });
-          }, m2.utcOffset = function() {
-            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b.m(y2, m3);
-            }, "D");
-            switch (M3) {
-              case h:
-                $3 = D2() / 12;
-                break;
-              case c2:
-                $3 = D2();
-                break;
-              case f:
-                $3 = D2() / 3;
-                break;
-              case o2:
-                $3 = (g2 - v2) / 6048e5;
-                break;
-              case a2:
-                $3 = (g2 - v2) / 864e5;
-                break;
-              case u2:
-                $3 = g2 / n2;
-                break;
-              case s2:
-                $3 = g2 / e2;
-                break;
-              case i2:
-                $3 = g2 / t2;
-                break;
-              default:
-                $3 = g2;
-            }
-            return l3 ? $3 : b.a($3);
-          }, m2.daysInMonth = function() {
-            return this.endOf(c2).$D;
-          }, m2.$locale = function() {
-            return D[this.$L];
-          }, m2.locale = function(t3, e3) {
-            if (!t3) return this.$L;
-            var n3 = this.clone(), r3 = w(t3, e3, true);
-            return r3 && (n3.$L = r3), n3;
-          }, m2.clone = function() {
-            return b.w(this.$d, this);
-          }, m2.toDate = function() {
-            return new Date(this.valueOf());
-          }, m2.toJSON = function() {
-            return this.isValid() ? this.toISOString() : null;
-          }, m2.toISOString = function() {
-            return this.$d.toISOString();
-          }, m2.toString = function() {
-            return this.$d.toUTCString();
-          }, M2;
-        }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s2], ["$H", u2], ["$W", a2], ["$M", c2], ["$y", h], ["$D", d]].forEach(function(t3) {
-          k[t3[1]] = function(e3) {
-            return this.$g(e3, t3[0], t3[1]);
-          };
-        }), O.extend = function(t3, e3) {
-          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
-        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
-          return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
-      });
-    }
-  });
-
   // src/lib/storage.ts
   var _Storage, Storage, storage, _LocalStorage, LocalStorage, localStorage, sessionStorage;
   var init_storage = __esm({
@@ -24306,281 +24022,248 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // .js/plugins/arabic/Riwyat[madara].js
+  // .js/plugins/english/inoveltranslation.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, a2, n2) {
-    return new (a2 || (a2 = Promise))(function(r2, l2) {
-      function i2(e3) {
+  var e = function() {
+    return e = Object.assign || function(e2) {
+      for (var t2, r2 = 1, n2 = arguments.length; r2 < n2; r2++) for (var i2 in t2 = arguments[r2]) Object.prototype.hasOwnProperty.call(t2, i2) && (e2[i2] = t2[i2]);
+      return e2;
+    }, e.apply(this, arguments);
+  }, t = function(e2, t2, r2, n2) {
+    return new (r2 || (r2 = Promise))(function(i2, o2) {
+      function a2(e3) {
         try {
           s2(n2.next(e3));
         } catch (e4) {
-          l2(e4);
+          o2(e4);
         }
       }
-      __name(i2, "i");
-      function o2(e3) {
+      __name(a2, "a");
+      function c2(e3) {
         try {
           s2(n2.throw(e3));
         } catch (e4) {
-          l2(e4);
+          o2(e4);
         }
       }
-      __name(o2, "o");
+      __name(c2, "c");
       function s2(e3) {
         var t3;
-        e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
+        e3.done ? i2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2(function(e4) {
           e4(t3);
-        })).then(i2, o2);
+        })).then(a2, c2);
       }
       __name(s2, "s");
       s2((n2 = n2.apply(e2, t2 || [])).next());
     });
-  }, t = function(e2, t2) {
-    var a2, n2, r2, l2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & r2[0]) throw r2[1];
-      return r2[1];
-    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return i2.next = o2(0), i2.throw = o2(1), i2.return = o2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
+  }, r = function(e2, t2) {
+    var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & i2[0]) throw i2[1];
+      return i2[1];
+    }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return a2.next = c2(0), a2.throw = c2(1), a2.return = c2(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
       return this;
-    }), i2;
-    function o2(o3) {
+    }), a2;
+    function c2(c3) {
       return function(s2) {
-        return function(o4) {
-          if (a2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, o4[0] && (l2 = 0)), l2; ) try {
-            if (a2 = 1, n2 && (r2 = 2 & o4[0] ? n2.return : o4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, o4[1])).done) return r2;
-            switch (n2 = 0, r2 && (o4 = [2 & o4[0], r2.value]), o4[0]) {
+        return function(c4) {
+          if (r2) throw new TypeError("Generator is already executing.");
+          for (; a2 && (a2 = 0, c4[0] && (o2 = 0)), o2; ) try {
+            if (r2 = 1, n2 && (i2 = 2 & c4[0] ? n2.return : c4[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, c4[1])).done) return i2;
+            switch (n2 = 0, i2 && (c4 = [2 & c4[0], i2.value]), c4[0]) {
               case 0:
               case 1:
-                r2 = o4;
+                i2 = c4;
                 break;
               case 4:
-                return l2.label++, { value: o4[1], done: false };
+                return o2.label++, { value: c4[1], done: false };
               case 5:
-                l2.label++, n2 = o4[1], o4 = [0];
+                o2.label++, n2 = c4[1], c4 = [0];
                 continue;
               case 7:
-                o4 = l2.ops.pop(), l2.trys.pop();
+                c4 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(r2 = l2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
-                  l2 = 0;
+                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== c4[0] && 2 !== c4[0])) {
+                  o2 = 0;
                   continue;
                 }
-                if (3 === o4[0] && (!r2 || o4[1] > r2[0] && o4[1] < r2[3])) {
-                  l2.label = o4[1];
+                if (3 === c4[0] && (!i2 || c4[1] > i2[0] && c4[1] < i2[3])) {
+                  o2.label = c4[1];
                   break;
                 }
-                if (6 === o4[0] && l2.label < r2[1]) {
-                  l2.label = r2[1], r2 = o4;
+                if (6 === c4[0] && o2.label < i2[1]) {
+                  o2.label = i2[1], i2 = c4;
                   break;
                 }
-                if (r2 && l2.label < r2[2]) {
-                  l2.label = r2[2], l2.ops.push(o4);
+                if (i2 && o2.label < i2[2]) {
+                  o2.label = i2[2], o2.ops.push(c4);
                   break;
                 }
-                r2[2] && l2.ops.pop(), l2.trys.pop();
+                i2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            o4 = t2.call(e2, l2);
+            c4 = t2.call(e2, o2);
           } catch (e3) {
-            o4 = [6, e3], n2 = 0;
+            c4 = [6, e3], n2 = 0;
           } finally {
-            a2 = r2 = 0;
+            r2 = i2 = 0;
           }
-          if (5 & o4[0]) throw o4[1];
-          return { value: o4[0] ? o4[1] : void 0, done: true };
-        }([o3, s2]);
+          if (5 & c4[0]) throw c4[1];
+          return { value: c4[0] ? c4[1] : void 0, done: true };
+        }([c3, s2]);
       };
     }
-    __name(o2, "o");
-  }, a = function(e2) {
-    return e2 && e2.__esModule ? e2 : { default: e2 };
+    __name(c2, "c");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = a(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(e2, t2) {
-    return new RegExp(t2.join("|")).test(e2);
-  }, "u"), c = new (function() {
-    function a2(e2) {
-      var t2, a3;
-      this.hideLocked = s.storage.get("hideLocked"), this.parseData = function(e3) {
-        var t3, a4 = (0, o.default)(), n3 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", r2 = parseInt(n3, 10);
-        if (!n3) return e3;
-        if (u(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a4 = a4.subtract(r2, "second");
-        else if (u(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a4 = a4.subtract(r2, "minute");
-        else if (u(e3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) a4 = a4.subtract(r2, "hours");
-        else if (u(e3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) a4 = a4.subtract(r2, "days");
-        else if (u(e3, ["week", "semana"])) a4 = a4.subtract(r2, "week");
-        else if (u(e3, ["month", "mes"])) a4 = a4.subtract(r2, "month");
-        else {
-          if (!u(e3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, o.default)(e3).format("LL") ? (0, o.default)(e3).format("LL") : e3;
-          a4 = a4.subtract(r2, "year");
-        }
-        return a4.format("LL");
-      }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
-      var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "1.0.".concat(8 + n2), this.options = e2.options, this.filters = e2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), c = (init_storage2(), __toCommonJS(storage_exports)), s = function() {
+    function s2() {
+      var e2 = this;
+      this.id = "inoveltranslation", this.name = "iNovelTranslation", this.icon = "src/en/inoveltranslation/icon.png", this.site = "https://inoveltranslation.com", this.version = "1.0.0", this.filters = void 0, this.pluginSettings = { hideLocked: { value: false, label: "Hide locked chapters", type: "Switch" } }, this.HEADERS = { Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9", Referer: "https://inoveltranslation.com/", "Sec-Fetch-Dest": "empty", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Site": "same-origin" }, this.resolveUrl = function(t2, r2) {
+        return e2.site + t2;
+      };
     }
-    __name(a2, "a");
-    return a2.prototype.translateDragontea = function(e2) {
-      var t2;
-      if ("dragontea" !== this.id) return e2;
-      var a3 = (0, r.load)((null === (t2 = e2.html()) || void 0 === t2 ? void 0 : t2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
-      return e2.html(a3.html()), e2.find("*").addBack().contents().filter(function(e3, t3) {
-        return 3 === t3.nodeType;
-      }).each(function(e3, t3) {
-        var n2 = a3(t3), r2 = n2.text().normalize("NFD").split("").map(function(e4) {
-          var t4 = e4.normalize("NFC"), a4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(t4);
-          return a4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[a4] + e4.slice(t4.length) : e4;
-        }).join("");
-        n2.replaceWith(r2.replace("\n", "<br>"));
-      }), e2;
-    }, a2.prototype.getHostname = function(e2) {
-      var t2 = (e2 = e2.split("/")[2]).split(".");
-      return t2.pop(), t2.join(".");
-    }, a2.prototype.getCheerio = function(a3, l2) {
-      return e(this, void 0, void 0, function() {
-        var e2, i2, o2, s2;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    __name(s2, "s");
+    return s2.prototype.popularNovels = function(e2, i2) {
+      return t(this, void 0, void 0, function() {
+        var t2, i3, a2, c2 = this;
+        return r(this, function(r2) {
+          switch (r2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(a3)];
-            case 1:
-              if (!(e2 = t2.sent()).ok && 1 != l2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
-              return o2 = r.load, [4, e2.text()];
-            case 2:
-              if (i2 = o2.apply(void 0, [t2.sent()]), s2 = i2("title").text().trim(), this.getHostname(a3) != this.getHostname(e2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
-              return [2, i2];
-          }
-        });
-      });
-    }, a2.prototype.parseNovels = function(e2) {
-      var t2 = [];
-      return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(a3, n2) {
-        var r2 = e2(n2).find(".post-title").text().trim(), i2 = e2(n2).find(".post-title").find("a").attr("href") || "";
-        if (r2 && i2) {
-          var o2 = e2(n2).find("img"), s2 = { name: r2, cover: o2.attr("data-src") || o2.attr("src") || o2.attr("data-lazy-srcset") || l.defaultCover, path: i2.replace(/https?:\/\/.*?\//, "") };
-          t2.push(s2);
-        }
-      }), t2;
-    }, a2.prototype.popularNovels = function(a3, n2) {
-      return e(this, arguments, void 0, function(e2, a4) {
-        var n3, r2, l2, i2, o2, s2, u2 = a4.filters, c2 = a4.showLatestNovels;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              for (r2 in n3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), c2 && (n3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[r2].value) for (l2 = 0, i2 = u2[r2].value; l2 < i2.length; l2++) o2 = i2[l2], n3 += "&".concat(r2, "=").concat(o2);
-              else u2[r2].value && (n3 += "&".concat(r2, "=").concat(u2[r2].value));
-              return [4, this.getCheerio(n3, 1 != e2)];
-            case 1:
-              return s2 = t2.sent(), [2, this.parseNovels(s2)];
-          }
-        });
-      });
-    }, a2.prototype.parseNovel = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, s2, u2, c2, p, h, v, d, m = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return [4, this.getCheerio(this.site + a3, false)];
-            case 1:
-              return (e2 = t2.sent())(".manga-title-badges, #manga-title span").remove(), (s2 = { path: a3, name: e2(".post-title h1").text().trim() || e2("#manga-title h1").text().trim() || e2(".manga-title").text().trim() || "" }).cover = e2(".summary_image > a > img").attr("data-lazy-src") || e2(".summary_image > a > img").attr("data-src") || e2(".summary_image > a > img").attr("src") || l.defaultCover, e2(".post-content_item, .post-content").each(function() {
-                var t3 = e2(this).find("h5").text().trim(), a4 = e2(this).find(".summary-content") || e2(this).find(".summary_content");
-                switch (t3) {
-                  case "Genre(s)":
-                  case "Genre":
-                  case "Tags(s)":
-                  case "Tag(s)":
-                  case "Tags":
-                  case "G\xE9nero(s)":
-                  case "Kategori":
-                  case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
-                    s2.genres ? s2.genres += ", " + a4.find("a").map(function(t4, a5) {
-                      return e2(a5).text();
-                    }).get().join(", ") : s2.genres = a4.find("a").map(function(t4, a5) {
-                      return e2(a5).text();
-                    }).get().join(", ");
-                    break;
-                  case "Author(s)":
-                  case "Author":
-                  case "Autor(es)":
-                  case "\u0627\u0644\u0645\u0624\u0644\u0641":
-                  case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
-                    s2.author = a4.text().trim();
-                    break;
-                  case "Status":
-                  case "Novel":
-                  case "Estado":
-                  case "Durum":
-                    s2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed;
-                    break;
-                  case "Artist(s)":
-                    s2.artist = a4.text().trim();
-                }
-              }), s2.genres || (s2.genres = e2(".genres-content").text().trim()), s2.status || (s2.status = e2(".manga-status").text().trim().includes("OnGoing") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed), s2.author || (s2.author = e2(".manga-author a").text().trim()), s2.rating || (s2.rating = parseFloat(e2(".post-rating span").text().trim())), s2.author || (s2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), s2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(t3, a4) {
-                return e2(a4).text();
-              }).get().join("\n\n").trim() || e2(".manga-summary p").map(function(t3, a4) {
-                return e2(a4).text();
-              }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
-                return e2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (d = this.options) || void 0 === d ? void 0 : d.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
-                return e3.text();
-              })] : [3, 3];
-            case 2:
-              return c2 = t2.sent(), [3, 5];
-            case 3:
-              return p = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (h = new FormData()).append("action", "manga_get_chapters"), h.append("manga", p), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: h }).then(function(e3) {
-                return e3.text();
+              return t2 = "".concat(this.site, "/api/novels?limit=50&page=").concat(e2), [4, (0, n.fetchApi)(t2, { headers: this.HEADERS }).then(function(e3) {
+                return e3.json();
               })];
+            case 1:
+              return i3 = r2.sent(), a2 = [], i3.docs && i3.docs.forEach(function(e3) {
+                var t3;
+                a2.push({ name: e3.title, path: "/novels/".concat(e3.id), cover: (null === (t3 = e3.cover) || void 0 === t3 ? void 0 : t3.url) ? c2.site + e3.cover.url : o.defaultCover });
+              }), [2, a2];
+          }
+        });
+      });
+    }, s2.prototype.parseNovel = function(e2) {
+      return t(this, void 0, void 0, function() {
+        var t2, i2, s3, l, u, h, p, f, d, v, m, g, y;
+        return r(this, function(r2) {
+          switch (r2.label) {
+            case 0:
+              return t2 = e2.split("/").pop(), i2 = "".concat(this.site, "/api/novels/").concat(t2, "?depth=1"), [4, (0, n.fetchApi)(i2, { headers: this.HEADERS }).then(function(e3) {
+                return e3.json();
+              })];
+            case 1:
+              return s3 = r2.sent(), l = "".concat(this.site, "/api/chapters?where[novel][equals]=").concat(t2, "&limit=999&depth=0"), [4, (0, n.fetchApi)(l, { headers: this.HEADERS }).then(function(e3) {
+                return e3.json();
+              })];
+            case 2:
+              return u = r2.sent(), h = "completed" === s3.publication ? a.NovelStatus.Completed : a.NovelStatus.Ongoing, p = s3.tags ? s3.tags.map(function(e3) {
+                return e3.name;
+              }).join(", ") : "", f = "", s3.sypnosis && s3.sypnosis.root && (f = this.lexicalToText(s3.sypnosis.root)), d = { path: e2, name: s3.title || "Untitled", cover: (null === (g = s3.cover) || void 0 === g ? void 0 : g.url) ? this.site + s3.cover.url : o.defaultCover, summary: f, author: (null === (y = s3.author) || void 0 === y ? void 0 : y.name) || "Unknown", genres: p, status: h }, v = [], m = c.storage.get("hideLocked"), u.docs && u.docs.forEach(function(e3) {
+                var t3 = null !== e3.tier;
+                if (!t3 || !m) {
+                  var r3 = e3.title ? " - ".concat(e3.title) : "", n2 = t3 ? " \u{1F512}" : "";
+                  v.push({ name: "Ch. ".concat(e3.chapter).concat(n2).concat(r3), path: "/chapters/".concat(e3.id), releaseTime: e3.updatedAt, chapterNumber: e3.chapter });
+                }
+              }), d.chapters = v.sort(function(e3, t3) {
+                return (e3.chapterNumber || 0) - (t3.chapterNumber || 0);
+              }), [2, d];
+          }
+        });
+      });
+    }, s2.prototype.parseChapter = function(o2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a2, c2, s3, l, u, h, p, f, d, v, m, g, y, b, x, w, E, S, T, A;
+        return r(this, function(r2) {
+          switch (r2.label) {
+            case 0:
+              return [4, new Promise(function(e2) {
+                return setTimeout(e2, 1500);
+              })];
+            case 1:
+              r2.sent(), t2 = e(e({}, this.HEADERS), { rsc: "1" }), r2.label = 2;
+            case 2:
+              return r2.trys.push([2, 4, , 5]), [4, (0, n.fetchApi)(this.site + o2, { headers: t2 })];
+            case 3:
+              return a2 = r2.sent(), [3, 5];
             case 4:
-              c2 = t2.sent(), t2.label = 5;
+              throw c2 = r2.sent(), new Error("Network error: ".concat(c2.message));
             case 5:
-              return "0" !== c2 && (e2 = (0, r.load)(c2)), v = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
-                var n2 = e2(a4).find("a").text().trim(), r2 = a4.attribs.class.includes("premium-block");
-                r2 && (n2 = "\u{1F512} " + n2);
-                var l2 = e2(a4).find("span.chapter-release-date").text().trim();
-                l2 = l2 ? m.parseData(l2) : (0, o.default)().format("LL");
-                var i2 = e2(a4).find("a").attr("href") || "";
-                !i2 || "#" == i2 || r2 && m.hideLocked || u2.push({ name: n2, path: i2.replace(/https?:\/\/.*?\//, ""), releaseTime: l2 || null, chapterNumber: v - t3 });
-              }), s2.chapters = u2.reverse(), [2, s2];
-          }
-        });
-      });
-    }, a2.prototype.parseChapter = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, n2, r2;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return [4, this.getCheerio(this.site + a3, false)];
-            case 1:
-              if (e2 = t2.sent(), n2 = e2(".text-left") || e2(".text-right") || e2(".entry-content") || e2(".c-blog-post > div > div:nth-child(2)"), null === (r2 = this.options) || void 0 === r2 ? void 0 : r2.customJs) try {
-                n2.find('span[style*="opacity: 0; position: fixed;"],[role="presentation"]').remove();
-              } catch (e3) {
-                throw console.error("Error executing customJs:", e3), e3;
+              if (200 !== a2.status) throw new Error("Cloudflare challenge or server error (Status: ".concat(a2.status, "). Please open in WebView to verify."));
+              return [4, a2.text()];
+            case 6:
+              if (!(s3 = r2.sent()) || "" === s3.trim()) throw new Error("Server returned empty data.");
+              if ((s3.includes("cf-browser-verification") || s3.includes("cf-challenge") || s3.includes("cloudflare-static") || s3.includes("Just a moment...")) && !s3.includes("root") && !s3.includes("paragraph")) throw new Error("Cloudflare Challenge detected. Please open this novel in WebView to solve the challenge.");
+              if (l = s3.replace(/\\"/g, '"').replace(/\\\\/g, "\\"), -1 !== (u = l.indexOf('"children":[{"type":"paragraph"')) && (h = l.lastIndexOf("{", u), -1 !== (p = l.lastIndexOf('"root"', u)) && p > h - 30 && (h = l.lastIndexOf("{", p)), -1 !== h)) {
+                for (f = 0, d = false, v = false, m = "", g = h; g < l.length; g++) if (y = l[g], v) v = false;
+                else if ("\\" !== y) if ('"' !== y) {
+                  if (d || ("{" === y ? f++ : "}" === y && f--), 0 === f && g > h) {
+                    m = l.substring(h, g + 1);
+                    break;
+                  }
+                } else d = !d;
+                else v = true;
+                if (m) try {
+                  if (b = m.replace(/[\x00-\x1F\x7F-\x9F]/g, ""), x = JSON.parse(b), (w = x.root || x) && w.children) return [2, this.lexicalToHtml(w)];
+                } catch (e2) {
+                  if (E = "", (S = m.match(/"text":"(.*?)"/g)) && S.length > 0) return S.forEach(function(e3) {
+                    var t3 = e3.substring(8, e3.length - 1);
+                    t3.trim() && " " !== t3 && (E += "<p>".concat(t3, "</p>"));
+                  }), [2, E];
+                  throw new Error("JSON Parse error: ".concat(e2.message, ". Data snippet: ").concat(m.substring(0, 500)));
+                }
               }
-              return [2, this.translateDragontea(n2).html() || ""];
+              if (T = (0, i.load)(s3), A = T('main > section[data-sentry-component="RichText"]').html()) return [2, A];
+              throw new Error("Story content not found. Cloudflare might be blocking the request or the page structure has changed. Please try opening in WebView first.");
           }
         });
       });
-    }, a2.prototype.searchNovels = function(a3, n2) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, s2.prototype.lexicalToHtml = function(e2) {
+      var t2 = "";
+      if (e2.children) for (var r2 = 0, n2 = e2.children; r2 < n2.length; r2++) {
+        var i2 = n2[r2];
+        if ("paragraph" === i2.type) t2 += "<p>".concat(this.lexicalToHtml(i2), "</p>");
+        else if ("text" === i2.type) {
+          var o2 = i2.text || "";
+          1 & i2.format && (o2 = "<b>".concat(o2, "</b>")), 2 & i2.format && (o2 = "<i>".concat(o2, "</i>")), t2 += o2;
+        } else if ("list" === i2.type) {
+          var a2 = "number" === i2.listType ? "ol" : "ul";
+          t2 += "<".concat(a2, ">").concat(this.lexicalToHtml(i2), "</").concat(a2, ">");
+        } else if ("listitem" === i2.type) t2 += "<li>".concat(this.lexicalToHtml(i2), "</li>");
+        else if ("heading" === i2.type) {
+          a2 = i2.tag || "h3";
+          t2 += "<".concat(a2, ">").concat(this.lexicalToHtml(i2), "</").concat(a2, ">");
+        } else t2 += this.lexicalToHtml(i2);
+      }
+      return t2;
+    }, s2.prototype.lexicalToText = function(e2) {
+      var t2 = "";
+      if (e2.children) for (var r2 = 0, n2 = e2.children; r2 < n2.length; r2++) {
+        var i2 = n2[r2];
+        "paragraph" === i2.type ? t2 += this.lexicalToText(i2) + "\n\n" : "text" === i2.type ? t2 += i2.text || "" : "listitem" === i2.type ? t2 += "\u2022 " + this.lexicalToText(i2) + "\n" : t2 += this.lexicalToText(i2);
+      }
+      return t2;
+    }, s2.prototype.searchNovels = function(e2, i2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a2, c2, s3 = this;
+        return r(this, function(r2) {
+          switch (r2.label) {
             case 0:
-              return e2 = this.site + "/page/" + n2 + "/?s=" + encodeURIComponent(a3) + "&post_type=wp-manga", [4, this.getCheerio(e2, true)];
+              return t2 = "".concat(this.site, "/api/novels?where[title][contains]=").concat(encodeURIComponent(e2), "&limit=50&page=").concat(i2), [4, (0, n.fetchApi)(t2, { headers: this.HEADERS }).then(function(e3) {
+                return e3.json();
+              })];
             case 1:
-              return r2 = t2.sent(), [2, this.parseNovels(r2)];
+              return a2 = r2.sent(), c2 = [], a2.docs && a2.docs.forEach(function(e3) {
+                var t3;
+                c2.push({ name: e3.title, path: "/novels/".concat(e3.id), cover: (null === (t3 = e3.cover) || void 0 === t3 ? void 0 : t3.url) ? s3.site + e3.cover.url : o.defaultCover });
+              }), [2, c2];
           }
         });
       });
-    }, a2;
-  }())({ id: "riwyat", sourceSite: "https://cenele.com/", sourceName: "Riwyat", options: { useNewChapterEndpoint: true, lang: "Arabic", versionIncrements: 6, customJs: `chapterText.find('span[style*="opacity: 0; position: fixed;"],[role="presentation"]').remove();` }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "\u0623\u0643\u0634\u0646", value: "\u0623\u0643\u0634\u0646" }, { label: "\u0623\u064A\u062A\u0634\u064A", value: "\u0623\u064A\u062A\u0634\u064A" }, { label: "\u0627\u0633\u062A\u0631\u0627\u062A\u062C\u064A", value: "\u0627\u0633\u062A\u0631\u0627\u062A\u062C\u064A" }, { label: "\u0627\u0644\u0639\u0635\u0631 \u0627\u0644\u062D\u062F\u064A\u062B", value: "\u0627\u0644\u0639\u0635\u0631-\u0627\u0644\u062D\u062F\u064A\u062B" }, { label: "\u0627\u0646\u062A\u0642\u0627\u0645", value: "\u0627\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0628\u0627\u0644\u063A", value: "\u0628\u0627\u0644\u063A" }, { label: "\u0628\u0646\u0627\u0621 \u0645\u0645\u0644\u0643\u0629", value: "\u0628\u0646\u0627\u0621-\u0645\u0645\u0644\u0643\u0629" }, { label: "\u0628\u0648\u0644\u064A\u0633\u064A", value: "\u0628\u0648\u0644\u064A\u0633\u064A" }, { label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "\u062A\u0627\u0631\u064A\u062E\u064A" }, { label: "\u062C\u0648\u0633\u064A", value: "\u062C\u0648\u0633\u064A" }, { label: "\u062D\u0631\u064A\u0645", value: "\u062D\u0631\u064A\u0645" }, { label: "\u062D\u064A\u0627\u0629 \u064A\u0648\u0645\u064A\u0629", value: "\u062D\u064A\u0627\u0629-\u064A\u0648\u0645\u064A\u0629" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u064A" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "\u062F\u0631\u0627\u0645\u0627" }, { label: "\u0631\u0639\u0628", value: "\u0631\u0639\u0628" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A\u0629", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A\u0629" }, { label: "\u0631\u064A\u0627\u0636\u064A", value: "\u0631\u064A\u0627\u0636\u064A" }, { label: "\u0632\u064A\u0627\u0646\u0634\u064A\u0627", value: "xianxia" }, { label: "\u0633\u0646\u064A\u0646", value: "\u0633\u0646\u064A\u0646" }, { label: "\u0634\u0631\u064A\u062D\u0629 \u062D\u064A\u0627\u0629", value: "\u0634\u0631\u064A\u062D\u0629-\u062D\u064A\u0627\u0629" }, { label: "\u0634\u0648\u0627\u0646\u0647\u0648\u0627\u0646", value: "xuanhuan" }, { label: "\u0634\u0648\u062C\u0648", value: "\u0634\u0648\u062C\u0648" }, { label: "\u0634\u0648\u0646\u064A\u0646", value: "\u0634\u0648\u0646\u064A\u0646" }, { label: "\u0634\u064A\u0627\u0646\u0634\u064A\u0627", value: "\u0634\u064A\u0627\u0646\u0634\u064A\u0627" }, { label: "\u0639\u0633\u0643\u0631\u064A", value: "\u0639\u0633\u0643\u0631\u064A" }, { label: "\u063A\u0645\u0648\u0636", value: "\u063A\u0645\u0648\u0636" }, { label: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644\u064A\u0629", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644\u064A\u0629" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0649-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627" }, { label: "\u0643\u0648\u0645\u064A\u0643", value: "\u0643\u0648\u0645\u064A\u0643" }, { label: "\u0644\u0644\u0643\u0628\u0627\u0631", value: "\u0644\u0644\u0643\u0628\u0627\u0631" }, { label: "\u0645\u0623\u0633\u0627\u0629", value: "\u0645\u0623\u0633\u0627\u0629" }, { label: "\u0645\u0627\u0646\u062C\u0627", value: "\u0645\u0627\u0646\u062C\u0627" }, { label: "\u0645\u0627\u0646\u0647\u0627", value: "\u0645\u0627\u0646\u0647\u0627" }, { label: "\u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0645\u0627\u0646\u0647\u0648\u0627" }, { label: "\u0645\u062F\u0631\u0633\u064A", value: "\u0645\u062F\u0631\u0633\u064A" }, { label: "\u0645\u0635\u0627\u0635\u064A \u062F\u0645\u0627\u0621", value: "\u0645\u0635\u0627\u0635\u064A-\u062F\u0645\u0627\u0621" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "\u0645\u063A\u0627\u0645\u0631\u0629" }, { label: "\u0645\u0643\u062A\u0645\u0644\u0629", value: "\u0645\u0643\u062A\u0645\u0644\u0629" }, { label: "\u0646\u0641\u0633\u064A", value: "\u0646\u0641\u0633\u064A" }, { label: "\u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0639\u0627\u0644\u0645", value: "\u0646\u0647\u0627\u064A\u0629-\u0627\u0644\u0639\u0627\u0644\u0645" }, { label: "\u0648\u0627\u0628 \u062A\u0648\u0646", value: "\u0648\u0627\u0628-\u062A\u0648\u0646" }, { label: "\u0648\u0627\u0646 \u0634\u0648\u062A", value: "\u0648\u0627\u0646-\u0634\u0648\u062A" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "\u0645\u0633\u062A\u0645\u0631\u0629", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
-  exports.default = c;
+    }, s2;
+  }();
+  exports.default = new s();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
