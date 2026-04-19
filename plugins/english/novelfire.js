@@ -24067,7 +24067,7 @@ var LNReaderPlugin = (() => {
     return new (a2 || (a2 = Promise))(function(r2, n2) {
       function o2(e3) {
         try {
-          u2(l2.next(e3));
+          s2(l2.next(e3));
         } catch (e4) {
           n2(e4);
         }
@@ -24075,20 +24075,20 @@ var LNReaderPlugin = (() => {
       __name(o2, "o");
       function i2(e3) {
         try {
-          u2(l2.throw(e3));
+          s2(l2.throw(e3));
         } catch (e4) {
           n2(e4);
         }
       }
       __name(i2, "i");
-      function u2(e3) {
+      function s2(e3) {
         var t3;
         e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
           e4(t3);
         })).then(o2, i2);
       }
-      __name(u2, "u");
-      u2((l2 = l2.apply(e2, t2 || [])).next());
+      __name(s2, "s");
+      s2((l2 = l2.apply(e2, t2 || [])).next());
     });
   }, l = function(e2, t2) {
     var a2, l2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
@@ -24099,7 +24099,7 @@ var LNReaderPlugin = (() => {
       return this;
     }), o2;
     function i2(i3) {
-      return function(u2) {
+      return function(s2) {
         return function(i4) {
           if (a2) throw new TypeError("Generator is already executing.");
           for (; o2 && (o2 = 0, i4[0] && (n2 = 0)), n2; ) try {
@@ -24145,15 +24145,16 @@ var LNReaderPlugin = (() => {
           }
           if (5 & i4[0]) throw i4[1];
           return { value: i4[0] ? i4[1] : void 0, done: true };
-        }([i3, u2]);
+        }([i3, s2]);
       };
     }
     __name(i2, "i");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), u = (init_constants(), __toCommonJS(constants_exports)), s = (init_storage2(), __toCommonJS(storage_exports)), c = function() {
+  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), s = (init_constants(), __toCommonJS(constants_exports)), u = (init_storage2(), __toCommonJS(storage_exports)), c = function() {
     function e2() {
-      this.id = "novelfire", this.name = "Novel Fire", this.version = "1.2.0", this.icon = "src/en/novelfire/icon.png", this.site = "https://novelfire.net/", this.novelList = [], this.singlePage = s.storage.get("singlePage"), this.pluginSettings = { singlePage: { value: "", label: "Force load all chapters on a single page (Slower & use more data)", type: "Switch" } }, this.filters = { sort: { label: "Sort Results By", value: "rank-top", options: [{ label: "Rank (Top)", value: "rank-top" }, { label: "Rating Score (Top)", value: "rating-score-top" }, { label: "Review Count (Most)", value: "review" }, { label: "Comment Count (Most)", value: "comment" }, { label: "Bookmark Count (Most)", value: "bookmark" }, { label: "Today Views (Most)", value: "today-view" }, { label: "Monthly Views (Most)", value: "monthly-view" }, { label: "Total Views (Most)", value: "total-view" }, { label: "Title (A>Z)", value: "abc" }, { label: "Title (Z>A)", value: "cba" }, { label: "Last Updated (Newest)", value: "date" }, { label: "Chapter Count (Most)", value: "chapter-count-most" }], type: i.FilterTypes.Picker }, status: { label: "Translation Status", value: "-1", options: [{ label: "All", value: "-1" }, { label: "Completed", value: "1" }, { label: "Ongoing", value: "0" }], type: i.FilterTypes.Picker }, genre_operator: { label: "Genres (And/Or/Exclude)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }, { label: "EXCLUDE", value: "exclude" }], type: i.FilterTypes.Picker }, genres: { label: "Genres", value: [], options: [{ label: "Action", value: "3" }, { label: "Adult", value: "28" }, { label: "Adventure", value: "4" }, { label: "Anime", value: "46" }, { label: "Arts", value: "47" }, { label: "Comedy", value: "5" }, { label: "Drama", value: "24" }, { label: "Eastern", value: "44" }, { label: "Ecchi", value: "26" }, { label: "Fan-fiction", value: "48" }, { label: "Fantasy", value: "6" }, { label: "Game", value: "19" }, { label: "Gender Bender", value: "25" }, { label: "Harem", value: "7" }, { label: "Historical", value: "12" }, { label: "Horror", value: "37" }, { label: "Isekai", value: "49" }, { label: "Josei", value: "2" }, { label: "Lgbt+", value: "45" }, { label: "Magic", value: "50" }, { label: "Magical Realism", value: "51" }, { label: "Manhua", value: "52" }, { label: "Martial Arts", value: "15" }, { label: "Mature", value: "8" }, { label: "Mecha", value: "34" }, { label: "Military", value: "53" }, { label: "Modern Life", value: "54" }, { label: "Movies", value: "55" }, { label: "Mystery", value: "16" }, { label: "Other", value: "64" }, { label: "Psychological", value: "9" }, { label: "Realistic Fiction", value: "56" }, { label: "Reincarnation", value: "43" }, { label: "Romance", value: "1" }, { label: "School Life", value: "21" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "10" }, { label: "Shoujo", value: "38" }, { label: "Shoujo Ai", value: "57" }, { label: "Shounen", value: "17" }, { label: "Shounen Ai", value: "39" }, { label: "Slice of Life", value: "13" }, { label: "Smut", value: "29" }, { label: "Sports", value: "42" }, { label: "Supernatural", value: "18" }, { label: "System", value: "58" }, { label: "Tragedy", value: "32" }, { label: "Urban", value: "63" }, { label: "Urban Life", value: "59" }, { label: "Video Games", value: "60" }, { label: "War", value: "61" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "23" }, { label: "Xuanhuan", value: "22" }, { label: "Yaoi", value: "14" }, { label: "Yuri", value: "62" }], type: i.FilterTypes.CheckboxGroup }, language: { label: "Language", value: [], options: [{ label: "Chinese", value: "1" }, { label: "Korean", value: "2" }, { label: "Japanese", value: "3" }, { label: "English", value: "4" }], type: i.FilterTypes.CheckboxGroup }, rating_operator: { label: "Rating (Min/Max)", value: "min", options: [{ label: "Min", value: "min" }, { label: "Max", value: "max" }], type: i.FilterTypes.Picker }, rating: { label: "Rating", value: "0", options: [{ label: "All", value: "0" }, { label: "1", value: "1" }, { label: "2", value: "2" }, { label: "3", value: "3" }, { label: "4", value: "4" }, { label: "5", value: "5" }], type: i.FilterTypes.Picker }, chapters: { label: "Chapters", value: "0", options: [{ label: "All", value: "0" }, { label: "<50", value: "1,49" }, { label: "50-100", value: "50,100" }, { label: "100-200", value: "100,200" }, { label: "200-500", value: "200,500" }, { label: "500-1000", value: "500,1000" }, { label: ">1000", value: "1001,1000000" }], type: i.FilterTypes.Picker } };
+      var e3;
+      this.id = "novelfire", this.name = "Novel Fire", this.version = "1.3.1", this.icon = "src/en/novelfire/icon.png", this.site = "https://novelfire.net/", this.webStorageUtilized = true, this.novelList = [], this.draw = 0, this.pluginSettings = { pageLength: { value: "-1", label: "Page Mode (Change if Broken)", type: "Select", options: [{ label: "100 (Fallback Mode)", value: "100" }, { label: "200", value: "200" }, { label: "500", value: "500" }, { label: "All", value: "-1" }] }, singlePage: { value: "", label: "Force load all chapters on a single page (Slower & use more data)", type: "Switch" } }, this.singlePage = u.storage.get("singlePage"), this.pageLength = null !== (e3 = u.storage.get("pageLength")) && void 0 !== e3 ? e3 : "-1", this.filters = { sort: { label: "Sort Results By", value: "rank-top", options: [{ label: "Rank (Top)", value: "rank-top" }, { label: "Rating Score (Top)", value: "rating-score-top" }, { label: "Review Count (Most)", value: "review" }, { label: "Comment Count (Most)", value: "comment" }, { label: "Bookmark Count (Most)", value: "bookmark" }, { label: "Today Views (Most)", value: "today-view" }, { label: "Monthly Views (Most)", value: "monthly-view" }, { label: "Total Views (Most)", value: "total-view" }, { label: "Title (A>Z)", value: "abc" }, { label: "Title (Z>A)", value: "cba" }, { label: "Last Updated (Newest)", value: "date" }, { label: "Chapter Count (Most)", value: "chapter-count-most" }], type: i.FilterTypes.Picker }, status: { label: "Translation Status", value: "-1", options: [{ label: "All", value: "-1" }, { label: "Completed", value: "1" }, { label: "Ongoing", value: "0" }], type: i.FilterTypes.Picker }, genre_operator: { label: "Genres (And/Or/Exclude)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }, { label: "EXCLUDE", value: "exclude" }], type: i.FilterTypes.Picker }, genres: { label: "Genres", value: [], options: [{ label: "Action", value: "3" }, { label: "Adult", value: "28" }, { label: "Adventure", value: "4" }, { label: "Anime", value: "46" }, { label: "Arts", value: "47" }, { label: "Comedy", value: "5" }, { label: "Drama", value: "24" }, { label: "Eastern", value: "44" }, { label: "Ecchi", value: "26" }, { label: "Fan-fiction", value: "48" }, { label: "Fantasy", value: "6" }, { label: "Game", value: "19" }, { label: "Gender Bender", value: "25" }, { label: "Harem", value: "7" }, { label: "Historical", value: "12" }, { label: "Horror", value: "37" }, { label: "Isekai", value: "49" }, { label: "Josei", value: "2" }, { label: "Lgbt+", value: "45" }, { label: "Magic", value: "50" }, { label: "Magical Realism", value: "51" }, { label: "Manhua", value: "52" }, { label: "Martial Arts", value: "15" }, { label: "Mature", value: "8" }, { label: "Mecha", value: "34" }, { label: "Military", value: "53" }, { label: "Modern Life", value: "54" }, { label: "Movies", value: "55" }, { label: "Mystery", value: "16" }, { label: "Other", value: "64" }, { label: "Psychological", value: "9" }, { label: "Realistic Fiction", value: "56" }, { label: "Reincarnation", value: "43" }, { label: "Romance", value: "1" }, { label: "School Life", value: "21" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "10" }, { label: "Shoujo", value: "38" }, { label: "Shoujo Ai", value: "57" }, { label: "Shounen", value: "17" }, { label: "Shounen Ai", value: "39" }, { label: "Slice of Life", value: "13" }, { label: "Smut", value: "29" }, { label: "Sports", value: "42" }, { label: "Supernatural", value: "18" }, { label: "System", value: "58" }, { label: "Tragedy", value: "32" }, { label: "Urban", value: "63" }, { label: "Urban Life", value: "59" }, { label: "Video Games", value: "60" }, { label: "War", value: "61" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "23" }, { label: "Xuanhuan", value: "22" }, { label: "Yaoi", value: "14" }, { label: "Yuri", value: "62" }], type: i.FilterTypes.CheckboxGroup }, language: { label: "Language", value: [], options: [{ label: "Chinese", value: "1" }, { label: "Korean", value: "2" }, { label: "Japanese", value: "3" }, { label: "English", value: "4" }], type: i.FilterTypes.CheckboxGroup }, rating_operator: { label: "Rating (Min/Max)", value: "min", options: [{ label: "Min", value: "min" }, { label: "Max", value: "max" }], type: i.FilterTypes.Picker }, rating: { label: "Rating", value: "0", options: [{ label: "All", value: "0" }, { label: "1", value: "1" }, { label: "2", value: "2" }, { label: "3", value: "3" }, { label: "4", value: "4" }, { label: "5", value: "5" }], type: i.FilterTypes.Picker }, chapters: { label: "Chapters", value: "0", options: [{ label: "All", value: "0" }, { label: "<50", value: "1,49" }, { label: "50-100", value: "50,100" }, { label: "100-200", value: "100,200" }, { label: "200-500", value: "200,500" }, { label: "500-1000", value: "500,1000" }, { label: ">1000", value: "1001,1000000" }], type: i.FilterTypes.Picker } };
     }
     __name(e2, "e");
     return e2.prototype.getCheerio = function(e3, t2) {
@@ -24175,8 +24176,8 @@ var LNReaderPlugin = (() => {
     }, e2.prototype.parseNovels = function(e3, t2) {
       var a2 = this;
       return void 0 === t2 && (t2 = ".novel-item"), e3(t2).map(function(t3, l2) {
-        var r2 = e3(l2).find(".novel-title > a"), n2 = e3(l2).find("a"), o2 = r2.text() || n2.attr("title") || "No Title Found", i2 = e3(l2).find(".novel-cover > img"), u2 = a2.site + h(i2.attr("data-src") || i2.attr("src") || ""), s2 = r2.attr("href") || n2.attr("href");
-        return s2 ? { name: o2, cover: u2, path: h(s2.replace(a2.site, "")) } : null;
+        var r2, n2 = e3(l2), o2 = n2.find(".novel-title > a"), i2 = n2.find("a"), u2 = o2.text() || i2.attr("title") || "No Title Found", c2 = n2.find(".novel-cover > img"), p2 = null !== (r2 = c2.attr("data-src")) && void 0 !== r2 ? r2 : c2.attr("src"), v2 = p2 ? new URL(p2, a2.site).href : s.defaultCover, h = o2.attr("href") || i2.attr("href");
+        return h ? { name: u2, cover: v2, path: new URL(h, a2.site).pathname.substring(1) } : null;
       }).get().filter(function(e4) {
         return null !== e4;
       }).filter(function(e4) {
@@ -24184,36 +24185,37 @@ var LNReaderPlugin = (() => {
       });
     }, e2.prototype.popularNovels = function(e3, t2) {
       return a(this, arguments, void 0, function(e4, t3) {
-        var a2, r2, n2, o2, i2, u2, s2, c2, p2, v2 = t3.showLatestNovels, h2 = t3.filters;
+        var a2, r2, n2, o2, i2, s2, u2, c2, p2, v2 = t3.showLatestNovels, h = t3.filters;
         return l(this, function(t4) {
           switch (t4.label) {
             case 0:
-              for (1 === e4 && (this.novelList = []), a2 = this.site + "search-adv", r2 = new URLSearchParams(), n2 = 0, o2 = h2.language.value; n2 < o2.length; n2++) i2 = o2[n2], r2.append("country_id[]", i2);
-              for (r2.append("ctgcon", h2.genre_operator.value), u2 = 0, s2 = h2.genres.value; u2 < s2.length; u2++) c2 = s2[u2], r2.append("categories[]", c2);
-              return r2.append("totalchapter", h2.chapters.value), r2.append("ratcon", h2.rating_operator.value), r2.append("rating", h2.rating.value), r2.append("status", h2.status.value), r2.append("sort", v2 ? "date" : h2.sort.value), r2.append("tagcon", "and"), r2.append("page", e4.toString()), [4, this.getCheerio("".concat(a2, "?").concat(r2.toString()), false)];
+              for (1 === e4 && (this.novelList = [], this.draw = 0), a2 = this.site + "search-adv", r2 = new URLSearchParams(), n2 = 0, o2 = h.language.value; n2 < o2.length; n2++) i2 = o2[n2], r2.append("country_id[]", i2);
+              for (r2.append("ctgcon", h.genre_operator.value), s2 = 0, u2 = h.genres.value; s2 < u2.length; s2++) c2 = u2[s2], r2.append("categories[]", c2);
+              return r2.append("totalchapter", h.chapters.value), r2.append("ratcon", h.rating_operator.value), r2.append("rating", h.rating.value), r2.append("status", h.status.value), r2.append("sort", v2 ? "date" : h.sort.value), r2.append("tagcon", "and"), r2.append("page", e4.toString()), [4, this.getCheerio("".concat(a2, "?").concat(r2.toString()), false)];
             case 1:
               return p2 = t4.sent(), [2, this.parseNovels(p2)];
           }
         });
       });
-    }, e2.prototype.getAllChapters = function(e3, t2) {
+    }, e2.prototype.getAllChapters = function(e3, t2, o2) {
       return a(this, void 0, void 0, function() {
-        var a2, o2, i2, u2;
+        var a2, i2, s2, u2, c2, h, b, f;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return a2 = "".concat(this.site, "listChapterDataAjax?post_id=").concat(t2), [4, (0, n.fetchApi)(a2)];
+              return a2 = parseInt(this.pageLength) || -1, i2 = "".concat(this.site, "ajax/listChapterDataAjax"), s2 = -1 === a2 ? 0 : (parseInt(o2) - 1) * a2, this.draw++, u2 = new URLSearchParams({ draw: this.draw.toString(), "columns[0][data]": "n_sort", "columns[0][name]": "cmm_posts_detail.n_sort", "columns[0][searchable]": "true", "columns[0][orderable]": "true", "columns[0][search][value]": "", "columns[0][search][regex]": "false", "columns[1][data]": "bookmark_created_at", "columns[1][name]": "bookmark_chapters.created_at", "columns[1][searchable]": "false", "columns[1][orderable]": "true", "columns[1][search][value]": "", "columns[1][search][regex]": "false", "order[0][column]": "0", "order[0][dir]": "asc", "order[0][name]": "cmm_posts_detail.n_sort", start: s2.toString(), length: a2.toString(), "search[value]": "", "search[regex]": "false", post_id: t2, only_bookmark: "false", _: Date.now().toString() }), [4, (0, n.fetchApi)("".concat(i2, "?").concat(u2.toString()))];
             case 1:
-              return [4, l2.sent().text()];
+              if (429 === (c2 = l2.sent()).status) throw new p();
+              return [4, c2.text()];
             case 2:
-              if ((o2 = l2.sent()).includes("You are being rate limited")) throw new p();
-              if (o2.includes("Page Not Found 404")) throw new v();
-              return i2 = JSON.parse(o2), u2 = i2.data.map(function(t3) {
+              if ((h = l2.sent()).includes("You are being rate limited")) throw new p();
+              if (h.includes("Page Not Found 404")) throw new v();
+              return b = JSON.parse(h), f = (b.data || []).map(function(t3) {
                 var a3 = (0, r.load)(t3.title || t3.slug).text(), l3 = "".concat(e3, "/chapter-").concat(t3.n_sort), n2 = t3.n_sort;
                 return l3 ? { name: a3, path: l3, chapterNumber: Number(n2) } : null;
               }).filter(function(e4) {
                 return null !== e4;
-              }), [2, u2.sort(function(e4, t3) {
+              }), [2, f.sort(function(e4, t3) {
                 return (e4.chapterNumber || 0) - (t3.chapterNumber || 0);
               })];
           }
@@ -24221,28 +24223,28 @@ var LNReaderPlugin = (() => {
       });
     }, e2.prototype.getAllChaptersForce = function(e3, t2) {
       return a(this, void 0, void 0, function() {
-        var a2, r2, n2, o2, i2, u2, s2, c2, v2, h2, b, f, d, g, y, m, w, S, x, C = this;
+        var a2, r2, n2, o2, i2, s2, u2, c2, v2, h, b, f, d, g, m, y, w, S, _, x = this;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
               a2 = Array.from({ length: t2 }, function(e4, t3) {
                 return t3 + 1;
-              }), r2 = [], n2 = 5, o2 = 10, i2 = 3.5, u2 = [], s2 = 0, l2.label = 1;
+              }), r2 = [], n2 = 5, o2 = 10, i2 = 3.5, s2 = [], u2 = 0, l2.label = 1;
             case 1:
-              if (!(s2 < a2.length)) return [3, 11];
-              c2 = a2.slice(s2, s2 + n2), v2 = c2[0], h2 = c2[c2.length - 1], b = 0, l2.label = 2;
+              if (!(u2 < a2.length)) return [3, 11];
+              c2 = a2.slice(u2, u2 + n2), v2 = c2[0], h = c2[c2.length - 1], b = 0, l2.label = 2;
             case 2:
               if (!(b < o2)) return [3, 10];
               l2.label = 3;
             case 3:
               return l2.trys.push([3, 5, , 9]), [4, Promise.all(c2.map(function(t3) {
-                return C.parsePage(e3, t3.toString());
+                return x.parsePage(e3, t3.toString());
               }))];
             case 4:
-              return f = l2.sent(), u2.push.apply(u2, f), [3, 10];
+              return f = l2.sent(), s2.push.apply(s2, f), [3, 10];
             case 5:
               if (!((d = l2.sent()) instanceof p)) return [3, 7];
-              if (b += 1, console.warn("[pages=".concat(v2, "-").concat(h2, "] Novel Fire is rate limiting requests. Retry attempt ").concat(b + 1, " in ").concat(i2, " seconds...")), b === o2) throw d;
+              if (b += 1, console.warn("[pages=".concat(v2, "-").concat(h, "] Novel Fire is rate limiting requests. Retry attempt ").concat(b + 1, " in ").concat(i2, " seconds...")), b === o2) throw d;
               return [4, new Promise(function(e4) {
                 return setTimeout(e4, 1e3 * i2);
               })];
@@ -24255,84 +24257,87 @@ var LNReaderPlugin = (() => {
             case 9:
               return [3, 2];
             case 10:
-              return s2 += n2, [3, 1];
+              return u2 += n2, [3, 1];
             case 11:
-              for (g = 0, y = u2; g < y.length; g++) if ((m = y[g]).chapters) for (w = 0, S = m.chapters; w < S.length; w++) x = S[w], r2.push(x);
+              for (g = 0, m = s2; g < m.length; g++) if ((y = m[g]).chapters) for (w = 0, S = y.chapters; w < S.length; w++) _ = S[w], r2.push(_);
               return [2, r2];
           }
         });
       });
     }, e2.prototype.parseNovel = function(e3) {
       return a(this, void 0, void 0, function() {
-        var t2, a2, r2, n2, i2, s2, c2, p2, v2, b, f, d, g, y, m, w, S;
+        var t2, a2, r2, n2, i2, c2, p2, v2, h, b, f, d, g, m, y, w;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return t2 = h(e3), [4, this.getCheerio(this.site + t2, false)];
+              return this.draw = 0, [4, this.getCheerio(this.site + e3, false)];
             case 1:
-              a2 = l2.sent(), r2 = this.site, n2 = "0", (i2 = { path: t2, totalPages: 1 }).name = null !== (y = null !== (g = a2(".novel-title").text().trim()) && void 0 !== g ? g : a2(".cover > img").attr("alt")) && void 0 !== y ? y : "No Titled Found", s2 = null !== (m = a2(".cover > img").attr("data-src")) && void 0 !== m ? m : a2(".cover > img").attr("src"), i2.cover = s2 ? new URL(s2, r2).href : u.defaultCover, i2.genres = a2(".categories .property-item").map(function(e4, t3) {
-                return a2(t3).text();
-              }).toArray().join(","), (c2 = a2(".summary .content")).find(".expand").remove(), c2.find("br").replaceWith("\n"), c2.find("p").before("\n").after("\n\n"), i2.summary = (null === (w = c2.text().split("\n").map(function(e4) {
+              return t2 = l2.sent(), a2 = this.site, (r2 = t2("#novel-report").attr("report-post_id")) && u.storage.set("novelfire_postid_".concat(e3), r2), (n2 = { path: e3, totalPages: 1 }).name = null !== (g = null !== (d = t2(".novel-title").text().trim()) && void 0 !== d ? d : t2(".cover > img").attr("alt")) && void 0 !== g ? g : "No Titled Found", i2 = null !== (m = t2(".cover > img").attr("data-src")) && void 0 !== m ? m : t2(".cover > img").attr("src"), n2.cover = i2 ? new URL(i2, a2).href : s.defaultCover, n2.genres = t2(".categories .property-item").map(function(e4, a3) {
+                return t2(a3).text();
+              }).toArray().join(","), (c2 = t2(".summary .content")).find(".expand").remove(), c2.find("br").replaceWith("\n"), c2.find("p").before("\n").after("\n\n"), n2.summary = (null === (y = c2.text().split("\n").map(function(e4) {
                 return e4.trim();
-              }).join("\n")) || void 0 === w ? void 0 : w.replace(/\n{3,}/g, "\n\n").trim()) || "Summary Not Found", i2.author = a2(".author .property-item > span").text(), p2 = a2(".header-stats .ongoing").text() || a2(".header-stats .completed").text() || "Unknown", v2 = { ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled, cancelled: o.NovelStatus.Cancelled, completed: o.NovelStatus.Completed, unknown: o.NovelStatus.Unknown }, i2.status = null !== (S = v2[p2.toLowerCase()]) && void 0 !== S ? S : o.NovelStatus.Unknown, i2.rating = parseFloat(a2(".nub").text().trim()), n2 = a2("#novel-report").attr("report-post_id") || "0", l2.label = 2;
+              }).join("\n")) || void 0 === y ? void 0 : y.replace(/\n{3,}/g, "\n\n").trim()) || "Summary Not Found", n2.author = t2(".author .property-item > span").text(), p2 = t2(".header-stats .ongoing").text() || t2(".header-stats .completed").text() || "Unknown", v2 = { ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled, cancelled: o.NovelStatus.Cancelled, completed: o.NovelStatus.Completed, unknown: o.NovelStatus.Unknown }, n2.status = null !== (w = v2[p2.toLowerCase()]) && void 0 !== w ? w : o.NovelStatus.Unknown, n2.rating = parseFloat(t2(".nub").text().trim()), h = t2(".header-stats i.icon-book-open").parent().text().trim(), b = parseInt(this.pageLength) || -1, n2.totalPages = -1 === b ? 1 : Math.ceil(parseInt(h) / b) || 1, 100 === b && this.singlePage ? (f = n2, [4, this.getAllChaptersForce(n2.path, n2.totalPages)]) : [3, 3];
             case 2:
-              return l2.trys.push([2, 4, , 7]), b = i2, [4, this.getAllChapters(t2, n2)];
+              f.chapters = l2.sent(), n2.totalPages = 1, l2.label = 3;
             case 3:
-              return b.chapters = l2.sent(), [3, 7];
-            case 4:
-              return l2.sent(), f = a2(".header-stats .icon-book-open").parent().text().trim(), i2.totalPages = Math.ceil(parseInt(f) / 50), this.singlePage ? (d = i2, [4, this.getAllChaptersForce(t2, i2.totalPages)]) : [3, 6];
-            case 5:
-              d.chapters = l2.sent(), i2.totalPages > 1 && i2.chapters.length > 50 && (i2.totalPages = 1), l2.label = 6;
-            case 6:
-              return [3, 7];
-            case 7:
-              return [2, i2];
+              return [2, n2];
           }
         });
       });
     }, e2.prototype.parsePage = function(e3, t2) {
       return a(this, void 0, void 0, function() {
-        var a2, o2, i2, u2 = this;
+        var a2, o2, i2, s2, c2 = this;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return a2 = "".concat(this.site).concat(e3, "/chapters?page=").concat(t2), [4, (0, n.fetchApi)(a2)];
+              if (!(a2 = u.storage.get("novelfire_postid_".concat(e3))) || isNaN(Number(a2))) return [3, 4];
+              l2.label = 1;
             case 1:
-              return [4, l2.sent().text()];
+              return l2.trys.push([1, 3, , 4]), [4, this.getAllChapters(e3, a2, t2)];
             case 2:
-              return o2 = l2.sent(), i2 = (0, r.load)(o2), [2, { chapters: i2(".chapter-list li").map(function(e4, t3) {
-                var a3 = i2(t3).find("a").attr("title") || "No Title Found", l3 = i2(t3).find("a").attr("href");
-                return l3 ? { name: a3, path: h(l3.replace(u2.site, "")) } : null;
+              return [2, { chapters: l2.sent() }];
+            case 3:
+              return l2.sent(), [3, 4];
+            case 4:
+              return 100 !== (parseInt(this.pageLength) || -1) ? [3, 7] : (o2 = "".concat(this.site).concat(e3, "/chapters?page=").concat(t2), [4, (0, n.fetchApi)(o2)]);
+            case 5:
+              return [4, l2.sent().text()];
+            case 6:
+              return i2 = l2.sent(), s2 = (0, r.load)(i2), [2, { chapters: s2(".chapter-list li").map(function(e4, t3) {
+                var a3 = s2(t3).find("a").attr("title") || "No Title Found", l3 = s2(t3).find("a").attr("href");
+                return l3 ? { name: a3, path: new URL(l3, c2.site).pathname.substring(1) } : null;
               }).get().filter(function(e4) {
                 return null !== e4;
               }) }];
+            case 7:
+              return [2, { chapters: [] }];
           }
         });
       });
     }, e2.prototype.parseChapter = function(e3) {
       return a(this, void 0, void 0, function() {
-        var t2, a2, r2, n2, o2, i2, u2, s2;
+        var t2, a2, r2, n2, o2, i2, s2, u2;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
               return t2 = this.site + e3, [4, this.getCheerio(t2, false)];
             case 1:
-              for (a2 = l2.sent(), r2 = a2("#content"), n2 = r2.find(":not(p, h1, span, i, b, u, img, a, div, strong)"), o2 = 0, i2 = n2.toArray(); o2 < i2.length; o2++) u2 = i2[o2], u2.name.toString().length > 5 && "nf" == u2.name.toString().substring(0, 1) && a2(u2).remove();
-              return [2, (null === (s2 = r2.html()) || void 0 === s2 ? void 0 : s2.replace(/&nbsp;/g, " ")) || ""];
+              for (a2 = l2.sent(), r2 = a2("#content"), n2 = r2.find(":not(p, h1, span, i, b, u, img, a, div, strong)"), o2 = 0, i2 = n2.toArray(); o2 < i2.length; o2++) s2 = i2[o2], s2.name.toString().length > 5 && "nf" == s2.name.toString().substring(0, 1) && a2(s2).remove();
+              return [2, (null === (u2 = r2.html()) || void 0 === u2 ? void 0 : u2.replace(/&nbsp;/g, " ")) || ""];
           }
         });
       });
     }, e2.prototype.searchNovels = function(e3, t2) {
       return a(this, void 0, void 0, function() {
-        var a2, o2, i2, u2;
+        var a2, o2, i2, s2;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return 1 === t2 && (this.novelList = []), (a2 = new URLSearchParams()).append("keyword", e3), a2.append("page", t2.toString()), o2 = "".concat(this.site, "search?").concat(a2.toString()), [4, (0, n.fetchApi)(o2)];
+              return 1 === t2 && (this.novelList = [], this.draw = 0), (a2 = new URLSearchParams()).append("keyword", e3), a2.append("page", t2.toString()), o2 = "".concat(this.site, "search?").concat(a2.toString()), [4, (0, n.fetchApi)(o2)];
             case 1:
               return [4, l2.sent().text()];
             case 2:
-              return i2 = l2.sent(), u2 = (0, r.load)(i2), [2, this.parseNovels(u2, ".novel-list.chapters .novel-item")];
+              return i2 = l2.sent(), s2 = (0, r.load)(i2), [2, this.parseNovels(s2, ".novel-list.chapters .novel-item")];
           }
         });
       });
@@ -24356,10 +24361,6 @@ var LNReaderPlugin = (() => {
     __name(a2, "a");
     return t(a2, e2), a2;
   }(Error);
-  function h(e2) {
-    return "/" == e2.charAt(0) ? e2.substring(1) : e2;
-  }
-  __name(h, "h");
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
