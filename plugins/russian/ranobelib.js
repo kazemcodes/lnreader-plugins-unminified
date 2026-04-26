@@ -8493,7 +8493,7 @@ var LNReaderPlugin = (() => {
   var n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), u = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), s = t(require_dayjs_min()), v = { 1: r.NovelStatus.Ongoing, 2: r.NovelStatus.Completed, 3: r.NovelStatus.OnHiatus, 4: r.NovelStatus.Cancelled }, c = { Accept: "application/json", Referer: "https://ranobelib.me", Origin: "https://ranobelib.me/", "Site-Id": "3", "client-time-zone": Intl.DateTimeFormat().resolvedOptions().timeZone || "Europe/Moscow", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 YaBrowser/25.12.0.0 Safari/537.36" }, b = function() {
     function t2() {
       var l2 = this;
-      this.id = "RLIB", this.name = "RanobeLib", this.site = "https://ranobelib.me", this.apiSite = "https://api.cdnlibs.org/api/manga/", this.version = "2.2.2", this.icon = "src/ru/ranobelib/icon.png", this.webStorageUtilized = true, this.imageRequestInit = { headers: e(e({}, c), { Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8" }) }, this.resolveUrl = function(e2, a2) {
+      this.id = "RLIB", this.name = "RanobeLib", this.site = "https://ranobelib.me", this.apiSite = "https://api.cdnlibs.org/api/manga/", this.version = "2.2.3", this.icon = "src/ru/ranobelib/icon.png", this.webStorageUtilized = true, this.imageRequestInit = { headers: e(e({}, c), { Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8" }) }, this.resolveUrl = function(e2, a2) {
         var t3, n2 = (null === (t3 = l2.user) || void 0 === t3 ? void 0 : t3.ui) ? "ui=" + l2.user.ui : "";
         if (a2) return l2.site + "/ru/book/" + e2 + (n2 ? "?" + n2 : "");
         var u2 = e2.split("/"), i2 = u2[0], r2 = u2[1], o2 = u2[2], s2 = u2[3], v2 = i2 + "/read/v" + r2 + "/c" + o2 + (s2 ? "?bid=" + s2 : "");
@@ -8527,7 +8527,7 @@ var LNReaderPlugin = (() => {
       });
     }, t2.prototype.parseNovel = function(t3) {
       return l(this, void 0, void 0, function() {
-        var l2, n2, o2, c2, b2, d2, p, h, f, g, m, y, _, k;
+        var l2, n2, o2, c2, b2, p, h, f, g, m, y, _, k, x;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -8535,29 +8535,29 @@ var LNReaderPlugin = (() => {
                 return e2.json();
               })];
             case 1:
-              return l2 = a2.sent().data, n2 = { path: t3, name: l2.rus_name || l2.name, cover: (null === (p = l2.cover) || void 0 === p ? void 0 : p.default) || u.defaultCover, summary: null === (h = l2.summary) || void 0 === h ? void 0 : h.trim() }, (null === (f = l2.status) || void 0 === f ? void 0 : f.id) && (n2.status = v[l2.status.id] || r.NovelStatus.Unknown), (null === (g = l2.authors) || void 0 === g ? void 0 : g.length) && (n2.author = l2.authors[0].name), (null === (m = l2.artists) || void 0 === m ? void 0 : m.length) && (n2.artist = l2.artists[0].name), (o2 = [l2.genres || [], l2.tags || []].flat().map(function(e2) {
+              return l2 = a2.sent().data, n2 = { path: t3, name: l2.rus_name || l2.name, cover: (null === (h = l2.cover) || void 0 === h ? void 0 : h.default) || u.defaultCover, summary: "string" == typeof l2.summary ? l2.summary.trim() : "doc" === (null === (f = l2.summary) || void 0 === f ? void 0 : f.type) ? d(l2.summary.content, []) : void 0 }, (null === (g = l2.status) || void 0 === g ? void 0 : g.id) && (n2.status = v[l2.status.id] || r.NovelStatus.Unknown), (null === (m = l2.authors) || void 0 === m ? void 0 : m.length) && (n2.author = l2.authors[0].name), (null === (y = l2.artists) || void 0 === y ? void 0 : y.length) && (n2.artist = l2.artists[0].name), (o2 = [l2.genres || [], l2.tags || []].flat().map(function(e2) {
                 return null == e2 ? void 0 : e2.name;
               }).filter(function(e2) {
                 return e2;
-              })).length && (n2.genres = o2.join(", ")), c2 = (null === (y = l2.teams) || void 0 === y ? void 0 : y.reduce(function(e2, l3) {
+              })).length && (n2.genres = o2.join(", ")), c2 = (null === (_ = l2.teams) || void 0 === _ ? void 0 : _.reduce(function(e2, l3) {
                 var a3, t4 = l3.name, n3 = l3.details;
                 return e2[String(null !== (a3 = null == n3 ? void 0 : n3.branch_id) && void 0 !== a3 ? a3 : "0")] = t4, e2;
               }, { 0: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430" })) || { 0: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430" }, [4, (0, i.fetchApi)("".concat(this.apiSite).concat(t3, "/chapters"), { headers: this.getHeaders() }).then(function(e2) {
                 return e2.json();
               })];
             case 2:
-              return b2 = a2.sent(), (null === (_ = b2.data) || void 0 === _ ? void 0 : _.length) && (d2 = b2.data.flatMap(function(e2) {
+              return b2 = a2.sent(), (null === (k = b2.data) || void 0 === k ? void 0 : k.length) && (p = b2.data.flatMap(function(e2) {
                 return e2.branches.map(function(l3) {
                   var a3 = l3.branch_id, n3 = l3.created_at, u2 = String(null != a3 ? a3 : "0");
                   return { name: "\u0422\u043E\u043C ".concat(e2.volume, " \u0413\u043B\u0430\u0432\u0430 ").concat(e2.number).concat(e2.name ? " " + e2.name.trim() : ""), path: "".concat(t3, "/").concat(e2.volume, "/").concat(e2.number, "/").concat(u2), releaseTime: n3 ? (0, s.default)(n3).format("LLL") : null, chapterNumber: e2.index, page: c2[u2] || "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439" };
                 });
-              }), d2.length && (1 === new Set(d2.map(function(e2) {
+              }), p.length && (1 === new Set(p.map(function(e2) {
                 return e2.page;
-              })).size ? d2 = d2.map(function(l3) {
+              })).size ? p = p.map(function(l3) {
                 return e(e({}, l3), { page: void 0 });
-              }) : (null === (k = l2.teams) || void 0 === k ? void 0 : k.length) > 1 && d2.sort(function(e2, l3) {
+              }) : (null === (x = l2.teams) || void 0 === x ? void 0 : x.length) > 1 && p.sort(function(e2, l3) {
                 return e2.page && l3.page && e2.page !== l3.page ? e2.page.localeCompare(l3.page) : (e2.chapterNumber || 0) - (l3.chapterNumber || 0);
-              }), n2.chapters = d2)), [2, n2];
+              }), n2.chapters = p)), [2, n2];
           }
         });
       });

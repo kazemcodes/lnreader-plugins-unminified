@@ -193,7 +193,7 @@
 		"name": "AllNovel",
 		"site": "https://allnovel.org/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/AllNovel[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/allnovel/icon.png"
 	},
@@ -202,7 +202,7 @@
 		"name": "AllNovelFull",
 		"site": "https://novgo.net/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/AllNovelFull[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/anf.net/icon.png"
 	},
@@ -247,7 +247,7 @@
 		"name": "BoxNovel",
 		"site": "https://novlove.com/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/BoxNovel[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/boxnovel/icon.png"
 	},
@@ -472,7 +472,7 @@
 		"name": "Free Web Novel",
 		"site": "https://freewebnovel.com/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/FreeWebNovel[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/fwn.com/icon.png"
 	},
@@ -608,7 +608,7 @@
 		"name": "Lib Read",
 		"site": "https://libread.com/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/LibRead[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/libread/icon.png"
 	},
@@ -626,7 +626,7 @@
 		"name": "LightNovelPlus",
 		"site": "https://lightnovelplus.com/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/LightNovelPlus[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/lightnovelplus/icon.png"
 	},
@@ -833,16 +833,16 @@
 		"name": "Novel Bin",
 		"site": "https://novelbin.com/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelBin[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/novelbin/icon.png"
 	},
 	{
 		"id": "novelbuddy",
-		"name": "NovelBuddy.io",
-		"site": "https://novelbuddy.io/",
+		"name": "NovelBuddy",
+		"site": "https://novelbuddy.com/",
 		"lang": "English",
-		"version": "1.0.4",
+		"version": "2.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelbuddy.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelbuddy/icon.png"
 	},
@@ -860,7 +860,7 @@
 		"name": "Novel Fire",
 		"site": "https://novelfire.net/",
 		"lang": "English",
-		"version": "1.3.1",
+		"version": "1.4.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelfire.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelfire/icon.png"
 	},
@@ -869,7 +869,7 @@
 		"name": "NovelFull",
 		"site": "https://novelfull.com/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelFull[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/novelfull/icon.png"
 	},
@@ -1059,7 +1059,7 @@
 		"name": "ReadNovelFull",
 		"site": "https://readnovelfull.com/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/ReadNovelFull[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/readnovelfull/icon.png"
 	},
@@ -1815,7 +1815,7 @@
 		"name": "RanobeLib",
 		"site": "https://ranobelib.me",
 		"lang": "Русский",
-		"version": "2.2.2",
+		"version": "2.2.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/ranobelib.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ranobelib/icon.png"
 	},
@@ -1977,7 +1977,7 @@
 		"name": "SkyNovels",
 		"site": "https://www.skynovels.net/",
 		"lang": "Español",
-		"version": "1.0.1",
+		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/spanish/skynovels.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/es/skynovels/icon.png"
 	},
