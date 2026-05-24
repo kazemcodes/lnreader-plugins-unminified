@@ -7946,443 +7946,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/protobufjs/src/types.js
-  var require_types = __commonJS({
-    "node_modules/protobufjs/src/types.js"(exports4) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      var types = exports4;
-      var util = require_util();
-      var s2 = [
-        "double",
-        // 0
-        "float",
-        // 1
-        "int32",
-        // 2
-        "uint32",
-        // 3
-        "sint32",
-        // 4
-        "fixed32",
-        // 5
-        "sfixed32",
-        // 6
-        "int64",
-        // 7
-        "uint64",
-        // 8
-        "sint64",
-        // 9
-        "fixed64",
-        // 10
-        "sfixed64",
-        // 11
-        "bool",
-        // 12
-        "string",
-        // 13
-        "bytes"
-        // 14
-      ];
-      function bake(values, offset) {
-        var i2 = 0, o2 = {};
-        offset |= 0;
-        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
-        return o2;
-      }
-      __name(bake, "bake");
-      types.basic = bake([
-        /* double   */
-        1,
-        /* float    */
-        5,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0,
-        /* string   */
-        2,
-        /* bytes    */
-        2
-      ]);
-      types.defaults = bake([
-        /* double   */
-        0,
-        /* float    */
-        0,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        0,
-        /* sfixed32 */
-        0,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        0,
-        /* sfixed64 */
-        0,
-        /* bool     */
-        false,
-        /* string   */
-        "",
-        /* bytes    */
-        util.emptyArray,
-        /* message  */
-        null
-      ]);
-      types.long = bake([
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1
-      ], 7);
-      types.mapKey = bake([
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0,
-        /* string   */
-        2
-      ], 2);
-      types.packed = bake([
-        /* double   */
-        1,
-        /* float    */
-        5,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0
-      ]);
-    }
-  });
-
-  // node_modules/protobufjs/src/field.js
-  var require_field = __commonJS({
-    "node_modules/protobufjs/src/field.js"(exports4, module2) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      module2.exports = Field;
-      var ReflectionObject = require_object();
-      ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
-      var Enum = require_enum(), types = require_types(), util = require_util();
-      var Type;
-      var ruleRe = /^required|optional|repeated$/;
-      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
-        return new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
-      }, "fromJSON");
-      function Field(name, id, type, rule, extend, options, comment) {
-        if (util.isObject(rule)) {
-          comment = extend;
-          options = rule;
-          rule = extend = void 0;
-        } else if (util.isObject(extend)) {
-          comment = options;
-          options = extend;
-          extend = void 0;
-        }
-        ReflectionObject.call(this, name, options);
-        if (!util.isInteger(id) || id < 0)
-          throw TypeError("id must be a non-negative integer");
-        if (!util.isString(type))
-          throw TypeError("type must be a string");
-        if (rule !== void 0 && !ruleRe.test(rule = rule.toString().toLowerCase()))
-          throw TypeError("rule must be a string rule");
-        if (extend !== void 0 && !util.isString(extend))
-          throw TypeError("extend must be a string");
-        if (rule === "proto3_optional") {
-          rule = "optional";
-        }
-        this.rule = rule && rule !== "optional" ? rule : void 0;
-        this.type = type;
-        this.id = id;
-        this.extend = extend || void 0;
-        this.required = rule === "required";
-        this.optional = !this.required;
-        this.repeated = rule === "repeated";
-        this.map = false;
-        this.message = null;
-        this.partOf = null;
-        this.typeDefault = null;
-        this.defaultValue = null;
-        this.long = util.Long ? types.long[type] !== void 0 : (
-          /* istanbul ignore next */
-          false
-        );
-        this.bytes = type === "bytes";
-        this.resolvedType = null;
-        this.extensionField = null;
-        this.declaringField = null;
-        this._packed = null;
-        this.comment = comment;
-      }
-      __name(Field, "Field");
-      Object.defineProperty(Field.prototype, "packed", {
-        get: /* @__PURE__ */ __name(function() {
-          if (this._packed === null)
-            this._packed = this.getOption("packed") !== false;
-          return this._packed;
-        }, "get")
-      });
-      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
-        if (name === "packed")
-          this._packed = null;
-        return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
-      }, "setOption");
-      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
-        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
-        return util.toObject([
-          "rule",
-          this.rule !== "optional" && this.rule || void 0,
-          "type",
-          this.type,
-          "id",
-          this.id,
-          "extend",
-          this.extend,
-          "options",
-          this.options,
-          "comment",
-          keepComments ? this.comment : void 0
-        ]);
-      }, "toJSON");
-      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
-        if (this.resolved)
-          return this;
-        if ((this.typeDefault = types.defaults[this.type]) === void 0) {
-          this.resolvedType = (this.declaringField ? this.declaringField.parent : this.parent).lookupTypeOrEnum(this.type);
-          if (this.resolvedType instanceof Type)
-            this.typeDefault = null;
-          else
-            this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
-        } else if (this.options && this.options.proto3_optional) {
-          this.typeDefault = null;
-        }
-        if (this.options && this.options["default"] != null) {
-          this.typeDefault = this.options["default"];
-          if (this.resolvedType instanceof Enum && typeof this.typeDefault === "string")
-            this.typeDefault = this.resolvedType.values[this.typeDefault];
-        }
-        if (this.options) {
-          if (this.options.packed === true || this.options.packed !== void 0 && this.resolvedType && !(this.resolvedType instanceof Enum))
-            delete this.options.packed;
-          if (!Object.keys(this.options).length)
-            this.options = void 0;
-        }
-        if (this.long) {
-          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
-          if (Object.freeze)
-            Object.freeze(this.typeDefault);
-        } else if (this.bytes && typeof this.typeDefault === "string") {
-          var buf;
-          if (util.base64.test(this.typeDefault))
-            util.base64.decode(this.typeDefault, buf = util.newBuffer(util.base64.length(this.typeDefault)), 0);
-          else
-            util.utf8.write(this.typeDefault, buf = util.newBuffer(util.utf8.length(this.typeDefault)), 0);
-          this.typeDefault = buf;
-        }
-        if (this.map)
-          this.defaultValue = util.emptyObject;
-        else if (this.repeated)
-          this.defaultValue = util.emptyArray;
-        else
-          this.defaultValue = this.typeDefault;
-        if (this.parent instanceof Type)
-          this.parent.ctor.prototype[this.name] = this.defaultValue;
-        return ReflectionObject.prototype.resolve.call(this);
-      }, "resolve");
-      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
-        if (typeof fieldType === "function")
-          fieldType = util.decorateType(fieldType).name;
-        else if (fieldType && typeof fieldType === "object")
-          fieldType = util.decorateEnum(fieldType).name;
-        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
-          util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
-        }, "fieldDecorator");
-      }, "decorateField");
-      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
-        Type = Type_;
-      }, "configure");
-    }
-  });
-
-  // node_modules/protobufjs/src/oneof.js
-  var require_oneof = __commonJS({
-    "node_modules/protobufjs/src/oneof.js"(exports4, module2) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      module2.exports = OneOf;
-      var ReflectionObject = require_object();
-      ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
-      var Field = require_field(), util = require_util();
-      function OneOf(name, fieldNames, options, comment) {
-        if (!Array.isArray(fieldNames)) {
-          options = fieldNames;
-          fieldNames = void 0;
-        }
-        ReflectionObject.call(this, name, options);
-        if (!(fieldNames === void 0 || Array.isArray(fieldNames)))
-          throw TypeError("fieldNames must be an Array");
-        this.oneof = fieldNames || [];
-        this.fieldsArray = [];
-        this.comment = comment;
-      }
-      __name(OneOf, "OneOf");
-      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
-        return new OneOf(name, json.oneof, json.options, json.comment);
-      }, "fromJSON");
-      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
-        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
-        return util.toObject([
-          "options",
-          this.options,
-          "oneof",
-          this.oneof,
-          "comment",
-          keepComments ? this.comment : void 0
-        ]);
-      }, "toJSON");
-      function addFieldsToParent(oneof) {
-        if (oneof.parent) {
-          for (var i2 = 0; i2 < oneof.fieldsArray.length; ++i2)
-            if (!oneof.fieldsArray[i2].parent)
-              oneof.parent.add(oneof.fieldsArray[i2]);
-        }
-      }
-      __name(addFieldsToParent, "addFieldsToParent");
-      OneOf.prototype.add = /* @__PURE__ */ __name(function add2(field) {
-        if (!(field instanceof Field))
-          throw TypeError("field must be a Field");
-        if (field.parent && field.parent !== this.parent)
-          field.parent.remove(field);
-        this.oneof.push(field.name);
-        this.fieldsArray.push(field);
-        field.partOf = this;
-        addFieldsToParent(this);
-        return this;
-      }, "add");
-      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove2(field) {
-        if (!(field instanceof Field))
-          throw TypeError("field must be a Field");
-        var index2 = this.fieldsArray.indexOf(field);
-        if (index2 < 0)
-          throw Error(field + " is not a member of " + this);
-        this.fieldsArray.splice(index2, 1);
-        index2 = this.oneof.indexOf(field.name);
-        if (index2 > -1)
-          this.oneof.splice(index2, 1);
-        field.partOf = null;
-        return this;
-      }, "remove");
-      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent2) {
-        ReflectionObject.prototype.onAdd.call(this, parent2);
-        var self2 = this;
-        for (var i2 = 0; i2 < this.oneof.length; ++i2) {
-          var field = parent2.get(this.oneof[i2]);
-          if (field && !field.partOf) {
-            field.partOf = self2;
-            self2.fieldsArray.push(field);
-          }
-        }
-        addFieldsToParent(this);
-      }, "onAdd");
-      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent2) {
-        for (var i2 = 0, field; i2 < this.fieldsArray.length; ++i2)
-          if ((field = this.fieldsArray[i2]).parent)
-            field.parent.remove(field);
-        ReflectionObject.prototype.onRemove.call(this, parent2);
-      }, "onRemove");
-      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
-        var fieldNames = new Array(arguments.length), index2 = 0;
-        while (index2 < arguments.length)
-          fieldNames[index2] = arguments[index2++];
-        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
-          util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
-          Object.defineProperty(prototype, oneofName, {
-            get: util.oneOfGetter(fieldNames),
-            set: util.oneOfSetter(fieldNames)
-          });
-        }, "oneOfDecorator");
-      }, "decorateOneOf");
-    }
-  });
-
   // node_modules/protobufjs/src/namespace.js
   var require_namespace = __commonJS({
     "node_modules/protobufjs/src/namespace.js"(exports4, module2) {
@@ -8428,10 +7991,18 @@ var LNReaderPlugin = (() => {
         ReflectionObject.call(this, name, options);
         this.nested = void 0;
         this._nestedArray = null;
+        this._lookupCache = {};
+        this._needsRecursiveFeatureResolution = true;
+        this._needsRecursiveResolve = true;
       }
       __name(Namespace, "Namespace");
       function clearCache(namespace) {
         namespace._nestedArray = null;
+        namespace._lookupCache = {};
+        var parent2 = namespace;
+        while (parent2 = parent2.parent) {
+          parent2._lookupCache = {};
+        }
         return namespace;
       }
       __name(clearCache, "clearCache");
@@ -8490,6 +8061,18 @@ var LNReaderPlugin = (() => {
           }
         }
         this.nested[object.name] = object;
+        if (!(this instanceof Type || this instanceof Service || this instanceof Enum || this instanceof Field)) {
+          if (!object._edition) {
+            object._edition = object._defaultEdition;
+          }
+        }
+        this._needsRecursiveFeatureResolution = true;
+        this._needsRecursiveResolve = true;
+        var parent2 = this;
+        while (parent2 = parent2.parent) {
+          parent2._needsRecursiveFeatureResolution = true;
+          parent2._needsRecursiveResolve = true;
+        }
         object.onAdd(this);
         return clearCache(this);
       }, "add");
@@ -8526,14 +8109,28 @@ var LNReaderPlugin = (() => {
         return ptr;
       }, "define");
       Namespace.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
+        this._resolveFeaturesRecursive(this._edition);
         var nested = this.nestedArray, i2 = 0;
+        this.resolve();
         while (i2 < nested.length)
           if (nested[i2] instanceof Namespace)
             nested[i2++].resolveAll();
           else
             nested[i2++].resolve();
-        return this.resolve();
+        this._needsRecursiveResolve = false;
+        return this;
       }, "resolveAll");
+      Namespace.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        this._needsRecursiveFeatureResolution = false;
+        edition = this._edition || edition;
+        ReflectionObject.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.nestedArray.forEach((nested) => {
+          nested._resolveFeaturesRecursive(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Namespace.prototype.lookup = /* @__PURE__ */ __name(function lookup(path, filterTypes, parentAlreadyChecked) {
         if (typeof filterTypes === "boolean") {
           parentAlreadyChecked = filterTypes;
@@ -8546,22 +8143,49 @@ var LNReaderPlugin = (() => {
           path = path.split(".");
         } else if (!path.length)
           return this;
+        var flatPath = path.join(".");
         if (path[0] === "")
           return this.root.lookup(path.slice(1), filterTypes);
+        var found = this.root._fullyQualifiedObjects && this.root._fullyQualifiedObjects["." + flatPath];
+        if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+          return found;
+        }
+        found = this._lookupImpl(path, flatPath);
+        if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+          return found;
+        }
+        if (parentAlreadyChecked)
+          return null;
+        var current = this;
+        while (current.parent) {
+          found = current.parent._lookupImpl(path, flatPath);
+          if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+            return found;
+          }
+          current = current.parent;
+        }
+        return null;
+      }, "lookup");
+      Namespace.prototype._lookupImpl = /* @__PURE__ */ __name(function lookup(path, flatPath) {
+        if (Object.prototype.hasOwnProperty.call(this._lookupCache, flatPath)) {
+          return this._lookupCache[flatPath];
+        }
         var found = this.get(path[0]);
+        var exact = null;
         if (found) {
           if (path.length === 1) {
-            if (!filterTypes || filterTypes.indexOf(found.constructor) > -1)
-              return found;
-          } else if (found instanceof Namespace && (found = found.lookup(path.slice(1), filterTypes, true)))
-            return found;
-        } else
+            exact = found;
+          } else if (found instanceof Namespace) {
+            path = path.slice(1);
+            exact = found._lookupImpl(path, path.join("."));
+          }
+        } else {
           for (var i2 = 0; i2 < this.nestedArray.length; ++i2)
-            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2].lookup(path, filterTypes, true)))
-              return found;
-        if (this.parent === null || parentAlreadyChecked)
-          return null;
-        return this.parent.lookup(path, filterTypes);
+            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2]._lookupImpl(path, flatPath)))
+              exact = found;
+        }
+        this._lookupCache[flatPath] = exact;
+        return exact;
       }, "lookup");
       Namespace.prototype.lookupType = /* @__PURE__ */ __name(function lookupType(path) {
         var found = this.lookup(path, [Type]);
@@ -8750,13 +8374,18 @@ var LNReaderPlugin = (() => {
             service.add(Method.fromJSON(names[i2], json.methods[names[i2]]));
         if (json.nested)
           service.addJSON(json.nested);
+        if (json.edition)
+          service._edition = json.edition;
         service.comment = json.comment;
+        service._defaultEdition = "proto3";
         return service;
       }, "fromJSON");
       Service.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           inherited && inherited.options || void 0,
           "methods",
@@ -8782,11 +8411,22 @@ var LNReaderPlugin = (() => {
         return this.methods[name] || Namespace.prototype.get.call(this, name);
       }, "get");
       Service.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
+        Namespace.prototype.resolve.call(this);
         var methods = this.methodsArray;
         for (var i2 = 0; i2 < methods.length; ++i2)
           methods[i2].resolve();
-        return Namespace.prototype.resolve.call(this);
+        return this;
       }, "resolveAll");
+      Service.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        edition = this._edition || edition;
+        Namespace.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.methodsArray.forEach((method) => {
+          method._resolveFeaturesRecursive(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Service.prototype.add = /* @__PURE__ */ __name(function add2(object) {
         if (this.get(object.name))
           throw Error("duplicate name '" + object.name + "' in " + this);
@@ -8834,8 +8474,12 @@ var LNReaderPlugin = (() => {
       var util = require_minimal();
       function Message(properties) {
         if (properties)
-          for (var keys = Object.keys(properties), i2 = 0; i2 < keys.length; ++i2)
-            this[keys[i2]] = properties[keys[i2]];
+          for (var keys = Object.keys(properties), i2 = 0; i2 < keys.length; ++i2) {
+            var key = keys[i2];
+            if (key === "__proto__")
+              continue;
+            this[key] = properties[key];
+          }
       }
       __name(Message, "Message");
       Message.create = /* @__PURE__ */ __name(function create(properties) {
@@ -8882,11 +8526,9 @@ var LNReaderPlugin = (() => {
       }
       __name(missing, "missing");
       function decoder(mtype) {
-        var gen = util.codegen(["r", "l"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
+        var gen = util.codegen(["r", "l", "e"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
           return field2.map;
-        }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()");
-        if (mtype.group) gen("if((t&7)===4)")("break");
-        gen("switch(t>>>3){");
+        }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()")("if(t===e)")("break")("switch(t>>>3){");
         var i2 = 0;
         for (; i2 < /* initializes */
         mtype.fieldsArray.length; ++i2) {
@@ -8907,9 +8549,9 @@ var LNReaderPlugin = (() => {
           } else if (field.repeated) {
             gen("if(!(%s&&%s.length))", ref, ref)("%s=[]", ref);
             if (types.packed[type] !== void 0) gen("if((t&7)===2){")("var c2=r.uint32()+r.pos")("while(r.pos<c2)")("%s.push(r.%s())", ref, type)("}else");
-            if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s.push(types[%i].decode(r))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i2);
+            if (types.basic[type] === void 0) gen(field.delimited ? "%s.push(types[%i].decode(r,undefined,((t&~7)|4)))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i2);
             else gen("%s.push(r.%s())", ref, type);
-          } else if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s=types[%i].decode(r)" : "%s=types[%i].decode(r,r.uint32())", ref, i2);
+          } else if (types.basic[type] === void 0) gen(field.delimited ? "%s=types[%i].decode(r,undefined,((t&~7)|4))" : "%s=types[%i].decode(r,r.uint32())", ref, i2);
           else gen("%s=r.%s()", ref, type);
           gen("break")("}");
         }
@@ -9309,6 +8951,7 @@ var LNReaderPlugin = (() => {
       ((Type.prototype = Object.create(Namespace.prototype)).constructor = Type).className = "Type";
       var Enum = require_enum(), OneOf = require_oneof(), Field = require_field(), MapField = require_mapfield(), Service = require_service2(), Message = require_message(), Reader = require_reader(), Writer = require_writer(), util = require_util(), encoder = require_encoder(), decoder = require_decoder(), verifier = require_verifier(), converter = require_converter(), wrappers = require_wrappers();
       function Type(name, options) {
+        name = name.replace(/\W/g, "");
         Namespace.call(this, name, options);
         this.fields = {};
         this.oneofs = void 0;
@@ -9442,12 +9085,17 @@ var LNReaderPlugin = (() => {
           type.group = true;
         if (json.comment)
           type.comment = json.comment;
+        if (json.edition)
+          type._edition = json.edition;
+        type._defaultEdition = "proto3";
         return type;
       }, "fromJSON");
       Type.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           inherited && inherited.options || void 0,
           "oneofs",
@@ -9469,15 +9117,29 @@ var LNReaderPlugin = (() => {
         ]);
       }, "toJSON");
       Type.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
-        var fields = this.fieldsArray, i2 = 0;
-        while (i2 < fields.length)
-          fields[i2++].resolve();
+        if (!this._needsRecursiveResolve) return this;
+        Namespace.prototype.resolveAll.call(this);
         var oneofs = this.oneofsArray;
         i2 = 0;
         while (i2 < oneofs.length)
           oneofs[i2++].resolve();
-        return Namespace.prototype.resolveAll.call(this);
+        var fields = this.fieldsArray, i2 = 0;
+        while (i2 < fields.length)
+          fields[i2++].resolve();
+        return this;
       }, "resolveAll");
+      Type.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        edition = this._edition || edition;
+        Namespace.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.oneofsArray.forEach((oneof) => {
+          oneof._resolveFeatures(edition);
+        });
+        this.fieldsArray.forEach((field) => {
+          field._resolveFeatures(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Type.prototype.get = /* @__PURE__ */ __name(function get2(name) {
         return this.fields[name] || this.oneofs && this.oneofs[name] || this.nested && this.nested[name] || null;
       }, "get");
@@ -9622,6 +9284,8 @@ var LNReaderPlugin = (() => {
         Namespace.call(this, "", options);
         this.deferred = [];
         this.files = [];
+        this._edition = "proto2";
+        this._fullyQualifiedObjects = {};
       }
       __name(Root, "Root");
       Root.fromJSON = /* @__PURE__ */ __name(function fromJSON(json, root2) {
@@ -9629,7 +9293,7 @@ var LNReaderPlugin = (() => {
           root2 = new Root();
         if (json.options)
           root2.setOptions(json.options);
-        return root2.addJSON(json.nested);
+        return root2.addJSON(json.nested).resolveAll();
       }, "fromJSON");
       Root.prototype.resolvePath = util.path.resolve;
       Root.prototype.fetch = util.fetch;
@@ -9642,14 +9306,20 @@ var LNReaderPlugin = (() => {
           options = void 0;
         }
         var self2 = this;
-        if (!callback)
+        if (!callback) {
           return util.asPromise(load2, self2, filename, options);
+        }
         var sync = callback === SYNC;
         function finish(err, root2) {
-          if (!callback)
+          if (!callback) {
             return;
-          if (sync)
+          }
+          if (sync) {
             throw err;
+          }
+          if (root2) {
+            root2.resolveAll();
+          }
           var cb = callback;
           callback = null;
           cb(err, root2);
@@ -9687,19 +9357,21 @@ var LNReaderPlugin = (() => {
           } catch (err) {
             finish(err);
           }
-          if (!sync && !queued)
+          if (!sync && !queued) {
             finish(null, self2);
+          }
         }
         __name(process3, "process");
         function fetch2(filename2, weak) {
           filename2 = getBundledFileName(filename2) || filename2;
-          if (self2.files.indexOf(filename2) > -1)
+          if (self2.files.indexOf(filename2) > -1) {
             return;
+          }
           self2.files.push(filename2);
           if (filename2 in common) {
-            if (sync)
+            if (sync) {
               process3(filename2, common[filename2]);
-            else {
+            } else {
               ++queued;
               setTimeout(function() {
                 --queued;
@@ -9722,8 +9394,9 @@ var LNReaderPlugin = (() => {
             ++queued;
             self2.fetch(filename2, function(err, source2) {
               --queued;
-              if (!callback)
+              if (!callback) {
                 return;
+              }
               if (err) {
                 if (!weak)
                   finish(err);
@@ -9737,16 +9410,20 @@ var LNReaderPlugin = (() => {
         }
         __name(fetch2, "fetch");
         var queued = 0;
-        if (util.isString(filename))
+        if (util.isString(filename)) {
           filename = [filename];
+        }
         for (var i2 = 0, resolved; i2 < filename.length; ++i2)
           if (resolved = self2.resolvePath("", filename[i2]))
             fetch2(resolved);
-        if (sync)
+        if (sync) {
+          self2.resolveAll();
           return self2;
-        if (!queued)
+        }
+        if (!queued) {
           finish(null, self2);
-        return void 0;
+        }
+        return self2;
       }, "load");
       Root.prototype.loadSync = /* @__PURE__ */ __name(function loadSync(filename, options) {
         if (!util.isNode)
@@ -9754,6 +9431,7 @@ var LNReaderPlugin = (() => {
         return this.load(filename, options, SYNC);
       }, "loadSync");
       Root.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
         if (this.deferred.length)
           throw Error("unresolvable extensions: " + this.deferred.map(function(field) {
             return "'extend " + field.extend + "' in " + field.parent.fullName;
@@ -9802,6 +9480,9 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             object.parent[object.name] = object;
         }
+        if (object instanceof Type || object instanceof Enum || object instanceof Field) {
+          this._fullyQualifiedObjects[object.fullName] = object;
+        }
       }, "_handleAdd");
       Root.prototype._handleRemove = /* @__PURE__ */ __name(function _handleRemove(object) {
         if (object instanceof Field) {
@@ -9831,6 +9512,7 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             delete object.parent[object.name];
         }
+        delete this._fullyQualifiedObjects[object.fullName];
       }, "_handleRemove");
       Root._configure = function(Type_, parse_, common_) {
         Type = Type_;
@@ -9922,7 +9604,7 @@ var LNReaderPlugin = (() => {
         Object.defineProperty(object, "$type", { value: enm, enumerable: false });
         return enm;
       }, "decorateEnum");
-      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value) {
+      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value, ifNotSet) {
         function setProp2(dst2, path2, value2) {
           var part = path2.shift();
           if (part === "__proto__" || part === "prototype") {
@@ -9932,6 +9614,8 @@ var LNReaderPlugin = (() => {
             dst2[part] = setProp2(dst2[part] || {}, path2, value2);
           } else {
             var prevValue = dst2[part];
+            if (prevValue && ifNotSet)
+              return dst2;
             if (prevValue)
               value2 = [].concat(prevValue).concat(value2);
             dst2[part] = value2;
@@ -9954,6 +9638,500 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // node_modules/protobufjs/src/types.js
+  var require_types = __commonJS({
+    "node_modules/protobufjs/src/types.js"(exports4) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      var types = exports4;
+      var util = require_util();
+      var s2 = [
+        "double",
+        // 0
+        "float",
+        // 1
+        "int32",
+        // 2
+        "uint32",
+        // 3
+        "sint32",
+        // 4
+        "fixed32",
+        // 5
+        "sfixed32",
+        // 6
+        "int64",
+        // 7
+        "uint64",
+        // 8
+        "sint64",
+        // 9
+        "fixed64",
+        // 10
+        "sfixed64",
+        // 11
+        "bool",
+        // 12
+        "string",
+        // 13
+        "bytes"
+        // 14
+      ];
+      function bake(values, offset) {
+        var i2 = 0, o2 = {};
+        offset |= 0;
+        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
+        return o2;
+      }
+      __name(bake, "bake");
+      types.basic = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2,
+        /* bytes    */
+        2
+      ]);
+      types.defaults = bake([
+        /* double   */
+        0,
+        /* float    */
+        0,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        0,
+        /* sfixed32 */
+        0,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        0,
+        /* sfixed64 */
+        0,
+        /* bool     */
+        false,
+        /* string   */
+        "",
+        /* bytes    */
+        util.emptyArray,
+        /* message  */
+        null
+      ]);
+      types.long = bake([
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1
+      ], 7);
+      types.mapKey = bake([
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2
+      ], 2);
+      types.packed = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0
+      ]);
+    }
+  });
+
+  // node_modules/protobufjs/src/field.js
+  var require_field = __commonJS({
+    "node_modules/protobufjs/src/field.js"(exports4, module2) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      module2.exports = Field;
+      var ReflectionObject = require_object();
+      ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
+      var Enum = require_enum(), types = require_types(), util = require_util();
+      var Type;
+      var ruleRe = /^required|optional|repeated$/;
+      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        var field = new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
+        if (json.edition)
+          field._edition = json.edition;
+        field._defaultEdition = "proto3";
+        return field;
+      }, "fromJSON");
+      function Field(name, id, type, rule, extend, options, comment) {
+        if (util.isObject(rule)) {
+          comment = extend;
+          options = rule;
+          rule = extend = void 0;
+        } else if (util.isObject(extend)) {
+          comment = options;
+          options = extend;
+          extend = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!util.isInteger(id) || id < 0)
+          throw TypeError("id must be a non-negative integer");
+        if (!util.isString(type))
+          throw TypeError("type must be a string");
+        if (rule !== void 0 && !ruleRe.test(rule = rule.toString().toLowerCase()))
+          throw TypeError("rule must be a string rule");
+        if (extend !== void 0 && !util.isString(extend))
+          throw TypeError("extend must be a string");
+        if (rule === "proto3_optional") {
+          rule = "optional";
+        }
+        this.rule = rule && rule !== "optional" ? rule : void 0;
+        this.type = type;
+        this.id = id;
+        this.extend = extend || void 0;
+        this.repeated = rule === "repeated";
+        this.map = false;
+        this.message = null;
+        this.partOf = null;
+        this.typeDefault = null;
+        this.defaultValue = null;
+        this.long = util.Long ? types.long[type] !== void 0 : (
+          /* istanbul ignore next */
+          false
+        );
+        this.bytes = type === "bytes";
+        this.resolvedType = null;
+        this.extensionField = null;
+        this.declaringField = null;
+        this.comment = comment;
+      }
+      __name(Field, "Field");
+      Object.defineProperty(Field.prototype, "required", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._features.field_presence === "LEGACY_REQUIRED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "optional", {
+        get: /* @__PURE__ */ __name(function() {
+          return !this.required;
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "delimited", {
+        get: /* @__PURE__ */ __name(function() {
+          return this.resolvedType instanceof Type && this._features.message_encoding === "DELIMITED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "packed", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._features.repeated_field_encoding === "PACKED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "hasPresence", {
+        get: /* @__PURE__ */ __name(function() {
+          if (this.repeated || this.map) {
+            return false;
+          }
+          return this.partOf || // oneofs
+          this.declaringField || this.extensionField || // extensions
+          this._features.field_presence !== "IMPLICIT";
+        }, "get")
+      });
+      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+        return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
+      }, "setOption");
+      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "edition",
+          this._editionToJSON(),
+          "rule",
+          this.rule !== "optional" && this.rule || void 0,
+          "type",
+          this.type,
+          "id",
+          this.id,
+          "extend",
+          this.extend,
+          "options",
+          this.options,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+        if (this.resolved)
+          return this;
+        if ((this.typeDefault = types.defaults[this.type]) === void 0) {
+          this.resolvedType = (this.declaringField ? this.declaringField.parent : this.parent).lookupTypeOrEnum(this.type);
+          if (this.resolvedType instanceof Type)
+            this.typeDefault = null;
+          else
+            this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
+        } else if (this.options && this.options.proto3_optional) {
+          this.typeDefault = null;
+        }
+        if (this.options && this.options["default"] != null) {
+          this.typeDefault = this.options["default"];
+          if (this.resolvedType instanceof Enum && typeof this.typeDefault === "string")
+            this.typeDefault = this.resolvedType.values[this.typeDefault];
+        }
+        if (this.options) {
+          if (this.options.packed !== void 0 && this.resolvedType && !(this.resolvedType instanceof Enum))
+            delete this.options.packed;
+          if (!Object.keys(this.options).length)
+            this.options = void 0;
+        }
+        if (this.long) {
+          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
+          if (Object.freeze)
+            Object.freeze(this.typeDefault);
+        } else if (this.bytes && typeof this.typeDefault === "string") {
+          var buf;
+          if (util.base64.test(this.typeDefault))
+            util.base64.decode(this.typeDefault, buf = util.newBuffer(util.base64.length(this.typeDefault)), 0);
+          else
+            util.utf8.write(this.typeDefault, buf = util.newBuffer(util.utf8.length(this.typeDefault)), 0);
+          this.typeDefault = buf;
+        }
+        if (this.map)
+          this.defaultValue = util.emptyObject;
+        else if (this.repeated)
+          this.defaultValue = util.emptyArray;
+        else
+          this.defaultValue = this.typeDefault;
+        if (this.parent instanceof Type)
+          this.parent.ctor.prototype[this.name] = this.defaultValue;
+        return ReflectionObject.prototype.resolve.call(this);
+      }, "resolve");
+      Field.prototype._inferLegacyProtoFeatures = /* @__PURE__ */ __name(function _inferLegacyProtoFeatures(edition) {
+        if (edition !== "proto2" && edition !== "proto3") {
+          return {};
+        }
+        var features2 = {};
+        if (this.rule === "required") {
+          features2.field_presence = "LEGACY_REQUIRED";
+        }
+        if (this.parent && types.defaults[this.type] === void 0) {
+          var type = this.parent.get(this.type.split(".").pop());
+          if (type && type instanceof Type && type.group) {
+            features2.message_encoding = "DELIMITED";
+          }
+        }
+        if (this.getOption("packed") === true) {
+          features2.repeated_field_encoding = "PACKED";
+        } else if (this.getOption("packed") === false) {
+          features2.repeated_field_encoding = "EXPANDED";
+        }
+        return features2;
+      }, "_inferLegacyProtoFeatures");
+      Field.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        return ReflectionObject.prototype._resolveFeatures.call(this, this._edition || edition);
+      }, "_resolveFeatures");
+      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
+        if (typeof fieldType === "function")
+          fieldType = util.decorateType(fieldType).name;
+        else if (fieldType && typeof fieldType === "object")
+          fieldType = util.decorateEnum(fieldType).name;
+        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
+          util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
+        }, "fieldDecorator");
+      }, "decorateField");
+      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
+        Type = Type_;
+      }, "configure");
+    }
+  });
+
+  // node_modules/protobufjs/src/oneof.js
+  var require_oneof = __commonJS({
+    "node_modules/protobufjs/src/oneof.js"(exports4, module2) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      module2.exports = OneOf;
+      var ReflectionObject = require_object();
+      ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
+      var Field = require_field(), util = require_util();
+      function OneOf(name, fieldNames, options, comment) {
+        if (!Array.isArray(fieldNames)) {
+          options = fieldNames;
+          fieldNames = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!(fieldNames === void 0 || Array.isArray(fieldNames)))
+          throw TypeError("fieldNames must be an Array");
+        this.oneof = fieldNames || [];
+        this.fieldsArray = [];
+        this.comment = comment;
+      }
+      __name(OneOf, "OneOf");
+      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new OneOf(name, json.oneof, json.options, json.comment);
+      }, "fromJSON");
+      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "options",
+          this.options,
+          "oneof",
+          this.oneof,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      function addFieldsToParent(oneof) {
+        if (oneof.parent) {
+          for (var i2 = 0; i2 < oneof.fieldsArray.length; ++i2)
+            if (!oneof.fieldsArray[i2].parent)
+              oneof.parent.add(oneof.fieldsArray[i2]);
+        }
+      }
+      __name(addFieldsToParent, "addFieldsToParent");
+      OneOf.prototype.add = /* @__PURE__ */ __name(function add2(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        if (field.parent && field.parent !== this.parent)
+          field.parent.remove(field);
+        this.oneof.push(field.name);
+        this.fieldsArray.push(field);
+        field.partOf = this;
+        addFieldsToParent(this);
+        return this;
+      }, "add");
+      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove2(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        var index2 = this.fieldsArray.indexOf(field);
+        if (index2 < 0)
+          throw Error(field + " is not a member of " + this);
+        this.fieldsArray.splice(index2, 1);
+        index2 = this.oneof.indexOf(field.name);
+        if (index2 > -1)
+          this.oneof.splice(index2, 1);
+        field.partOf = null;
+        return this;
+      }, "remove");
+      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent2) {
+        ReflectionObject.prototype.onAdd.call(this, parent2);
+        var self2 = this;
+        for (var i2 = 0; i2 < this.oneof.length; ++i2) {
+          var field = parent2.get(this.oneof[i2]);
+          if (field && !field.partOf) {
+            field.partOf = self2;
+            self2.fieldsArray.push(field);
+          }
+        }
+        addFieldsToParent(this);
+      }, "onAdd");
+      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent2) {
+        for (var i2 = 0, field; i2 < this.fieldsArray.length; ++i2)
+          if ((field = this.fieldsArray[i2]).parent)
+            field.parent.remove(field);
+        ReflectionObject.prototype.onRemove.call(this, parent2);
+      }, "onRemove");
+      Object.defineProperty(OneOf.prototype, "isProto3Optional", {
+        get: /* @__PURE__ */ __name(function() {
+          if (this.fieldsArray == null || this.fieldsArray.length !== 1) {
+            return false;
+          }
+          var field = this.fieldsArray[0];
+          return field.options != null && field.options["proto3_optional"] === true;
+        }, "get")
+      });
+      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
+        var fieldNames = new Array(arguments.length), index2 = 0;
+        while (index2 < arguments.length)
+          fieldNames[index2] = arguments[index2++];
+        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
+          util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
+          Object.defineProperty(prototype, oneofName, {
+            get: util.oneOfGetter(fieldNames),
+            set: util.oneOfSetter(fieldNames)
+          });
+        }, "oneOfDecorator");
+      }, "decorateOneOf");
+    }
+  });
+
   // node_modules/protobufjs/src/object.js
   var require_object = __commonJS({
     "node_modules/protobufjs/src/object.js"(exports4, module2) {
@@ -9963,8 +10141,12 @@ var LNReaderPlugin = (() => {
       init_process2();
       module2.exports = ReflectionObject;
       ReflectionObject.className = "ReflectionObject";
+      var OneOf = require_oneof();
       var util = require_util();
       var Root;
+      var editions2023Defaults = { enum_type: "OPEN", field_presence: "EXPLICIT", json_format: "ALLOW", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "PACKED", utf8_validation: "VERIFY" };
+      var proto2Defaults = { enum_type: "CLOSED", field_presence: "EXPLICIT", json_format: "LEGACY_BEST_EFFORT", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "EXPANDED", utf8_validation: "NONE" };
+      var proto3Defaults = { enum_type: "OPEN", field_presence: "IMPLICIT", json_format: "ALLOW", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "PACKED", utf8_validation: "VERIFY" };
       function ReflectionObject(name, options) {
         if (!util.isString(name))
           throw TypeError("name must be a string");
@@ -9973,6 +10155,10 @@ var LNReaderPlugin = (() => {
         this.options = options;
         this.parsedOptions = null;
         this.name = name;
+        this._edition = null;
+        this._defaultEdition = "proto2";
+        this._features = {};
+        this._featuresResolved = false;
         this.parent = null;
         this.resolved = false;
         this.comment = null;
@@ -10038,14 +10224,67 @@ var LNReaderPlugin = (() => {
           this.resolved = true;
         return this;
       }, "resolve");
+      ReflectionObject.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        return this._resolveFeatures(this._edition || edition);
+      }, "_resolveFeaturesRecursive");
+      ReflectionObject.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        if (this._featuresResolved) {
+          return;
+        }
+        var defaults = {};
+        if (!edition) {
+          throw new Error("Unknown edition for " + this.fullName);
+        }
+        var protoFeatures = Object.assign(
+          this.options ? Object.assign({}, this.options.features) : {},
+          this._inferLegacyProtoFeatures(edition)
+        );
+        if (this._edition) {
+          if (edition === "proto2") {
+            defaults = Object.assign({}, proto2Defaults);
+          } else if (edition === "proto3") {
+            defaults = Object.assign({}, proto3Defaults);
+          } else if (edition === "2023") {
+            defaults = Object.assign({}, editions2023Defaults);
+          } else {
+            throw new Error("Unknown edition: " + edition);
+          }
+          this._features = Object.assign(defaults, protoFeatures || {});
+          this._featuresResolved = true;
+          return;
+        }
+        if (this.partOf instanceof OneOf) {
+          var lexicalParentFeaturesCopy = Object.assign({}, this.partOf._features);
+          this._features = Object.assign(lexicalParentFeaturesCopy, protoFeatures || {});
+        } else if (this.declaringField) {
+        } else if (this.parent) {
+          var parentFeaturesCopy = Object.assign({}, this.parent._features);
+          this._features = Object.assign(parentFeaturesCopy, protoFeatures || {});
+        } else {
+          throw new Error("Unable to find a parent for " + this.fullName);
+        }
+        if (this.extensionField) {
+          this.extensionField._features = this._features;
+        }
+        this._featuresResolved = true;
+      }, "_resolveFeatures");
+      ReflectionObject.prototype._inferLegacyProtoFeatures = /* @__PURE__ */ __name(function _inferLegacyProtoFeatures() {
+        return {};
+      }, "_inferLegacyProtoFeatures");
       ReflectionObject.prototype.getOption = /* @__PURE__ */ __name(function getOption(name) {
         if (this.options)
           return this.options[name];
         return void 0;
       }, "getOption");
       ReflectionObject.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
-        if (!ifNotSet || !this.options || this.options[name] === void 0)
-          (this.options || (this.options = {}))[name] = value;
+        if (!this.options)
+          this.options = {};
+        if (/^features\./.test(name)) {
+          util.setProperty(this.options, name, value, ifNotSet);
+        } else if (!ifNotSet || this.options[name] === void 0) {
+          if (this.getOption(name) !== value) this.resolved = false;
+          this.options[name] = value;
+        }
         return this;
       }, "setOption");
       ReflectionObject.prototype.setParsedOption = /* @__PURE__ */ __name(function setParsedOption(name, value, propName) {
@@ -10084,6 +10323,12 @@ var LNReaderPlugin = (() => {
           return className + " " + fullName;
         return className;
       }, "toString");
+      ReflectionObject.prototype._editionToJSON = /* @__PURE__ */ __name(function _editionToJSON() {
+        if (!this._edition || this._edition === "proto3") {
+          return void 0;
+        }
+        return this._edition;
+      }, "_editionToJSON");
       ReflectionObject._configure = function(Root_) {
         Root = Root_;
       };
@@ -10110,6 +10355,7 @@ var LNReaderPlugin = (() => {
         this.comment = comment;
         this.comments = comments || {};
         this.valuesOptions = valuesOptions;
+        this._valuesFeatures = {};
         this.reserved = void 0;
         if (values) {
           for (var keys = Object.keys(values), i2 = 0; i2 < keys.length; ++i2)
@@ -10118,14 +10364,28 @@ var LNReaderPlugin = (() => {
         }
       }
       __name(Enum, "Enum");
+      Enum.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        edition = this._edition || edition;
+        ReflectionObject.prototype._resolveFeatures.call(this, edition);
+        Object.keys(this.values).forEach((key) => {
+          var parentFeaturesCopy = Object.assign({}, this._features);
+          this._valuesFeatures[key] = Object.assign(parentFeaturesCopy, this.valuesOptions && this.valuesOptions[key] && this.valuesOptions[key].features);
+        });
+        return this;
+      }, "_resolveFeatures");
       Enum.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
         var enm = new Enum(name, json.values, json.options, json.comment, json.comments);
         enm.reserved = json.reserved;
+        if (json.edition)
+          enm._edition = json.edition;
+        enm._defaultEdition = "proto3";
         return enm;
       }, "fromJSON");
       Enum.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           this.options,
           "valuesOptions",
@@ -10197,7 +10457,7 @@ var LNReaderPlugin = (() => {
       module2.exports = encoder;
       var Enum = require_enum(), types = require_types(), util = require_util();
       function genTypePartial(gen, field, fieldIndex, ref) {
-        return field.resolvedType.group ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
+        return field.delimited ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
       }
       __name(genTypePartial, "genTypePartial");
       function encoder(mtype) {
@@ -10557,8 +10817,8 @@ var LNReaderPlugin = (() => {
       module2.exports = parse5;
       parse5.filename = null;
       parse5.defaults = { keepCase: false };
-      var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), types = require_types(), util = require_util();
-      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/, fqTypeRefRe = /^(?:\.[a-zA-Z_][a-zA-Z_0-9]*)+$/;
+      var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), ReflectionObject = require_object(), types = require_types(), util = require_util();
+      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/;
       function parse5(source, root2, options) {
         if (!(root2 instanceof Root)) {
           options = root2;
@@ -10568,11 +10828,23 @@ var LNReaderPlugin = (() => {
           options = parse5.defaults;
         var preferTrailingComment = options.preferTrailingComment || false;
         var tn = tokenize(source, options.alternateCommentMode || false), next2 = tn.next, push = tn.push, peek = tn.peek, skip = tn.skip, cmnt = tn.cmnt;
-        var head = true, pkg, imports, weakImports, syntax, isProto3 = false;
+        var head = true, pkg, imports, weakImports, edition = "proto2";
         var ptr = root2;
+        var topLevelObjects = [];
+        var topLevelOptions = {};
         var applyCase = options.keepCase ? function(name) {
           return name;
         } : util.camelCase;
+        function resolveFileFeatures() {
+          topLevelObjects.forEach((obj) => {
+            obj._edition = edition;
+            Object.keys(topLevelOptions).forEach((opt) => {
+              if (obj.getOption(opt) !== void 0) return;
+              obj.setOption(opt, topLevelOptions[opt], true);
+            });
+          });
+        }
+        __name(resolveFileFeatures, "resolveFileFeatures");
         function illegal(token2, name, insideTryCatch) {
           var filename = parse5.filename;
           if (!insideTryCatch)
@@ -10622,10 +10894,23 @@ var LNReaderPlugin = (() => {
         function readRanges(target, acceptStrings) {
           var token2, start;
           do {
-            if (acceptStrings && ((token2 = peek()) === '"' || token2 === "'"))
-              target.push(readString());
-            else
-              target.push([start = parseId(next2()), skip("to", true) ? parseId(next2()) : start]);
+            if (acceptStrings && ((token2 = peek()) === '"' || token2 === "'")) {
+              var str = readString();
+              target.push(str);
+              if (edition >= 2023) {
+                throw illegal(str, "id");
+              }
+            } else {
+              try {
+                target.push([start = parseId(next2()), skip("to", true) ? parseId(next2()) : start]);
+              } catch (err) {
+                if (acceptStrings && typeRefRe.test(token2) && edition >= 2023) {
+                  target.push(token2);
+                } else {
+                  throw err;
+                }
+              }
+            }
           } while (skip(",", true));
           var dummy = { options: void 0 };
           dummy.setOption = function(name, value) {
@@ -10729,14 +11014,21 @@ var LNReaderPlugin = (() => {
         __name(parseImport, "parseImport");
         function parseSyntax() {
           skip("=");
-          syntax = readString();
-          isProto3 = syntax === "proto3";
-          if (!isProto3 && syntax !== "proto2")
-            throw illegal(syntax, "syntax");
-          root2.setOption("syntax", syntax);
+          edition = readString();
+          if (edition < 2023)
+            throw illegal(edition, "syntax");
           skip(";");
         }
         __name(parseSyntax, "parseSyntax");
+        function parseEdition() {
+          skip("=");
+          edition = readString();
+          const supportedEditions = ["2023"];
+          if (!supportedEditions.includes(edition))
+            throw illegal(edition, "edition");
+          skip(";");
+        }
+        __name(parseEdition, "parseEdition");
         function parseCommon(parent2, token2) {
           switch (token2) {
             case "option":
@@ -10793,12 +11085,17 @@ var LNReaderPlugin = (() => {
                 parseMapField(type, token3);
                 break;
               case "required":
+                if (edition !== "proto2")
+                  throw illegal(token3);
+              /* eslint-disable no-fallthrough */
               case "repeated":
                 parseField(type, token3);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(type, "proto3_optional");
+                } else if (edition !== "proto2") {
+                  throw illegal(token3);
                 } else {
                   parseField(type, "optional");
                 }
@@ -10813,14 +11110,18 @@ var LNReaderPlugin = (() => {
                 readRanges(type.reserved || (type.reserved = []), true);
                 break;
               default:
-                if (!isProto3 || !typeRefRe.test(token3))
+                if (edition === "proto2" || !typeRefRe.test(token3)) {
                   throw illegal(token3);
+                }
                 push(token3);
                 parseField(type, "optional");
                 break;
             }
           }, "parseType_block"));
           parent2.add(type);
+          if (parent2 === ptr) {
+            topLevelObjects.push(type);
+          }
         }
         __name(parseType, "parseType");
         function parseField(parent2, rule, extend) {
@@ -10857,16 +11158,15 @@ var LNReaderPlugin = (() => {
           } else {
             parent2.add(field);
           }
-          if (!isProto3 && field.repeated && (types.packed[type] !== void 0 || types.basic[type] === void 0))
-            field.setOption(
-              "packed",
-              false,
-              /* ifNotSet */
-              true
-            );
+          if (parent2 === ptr) {
+            topLevelObjects.push(field);
+          }
         }
         __name(parseField, "parseField");
         function parseGroup(parent2, rule) {
+          if (edition >= 2023) {
+            throw illegal("group");
+          }
           var name = next2();
           if (!nameRe.test(name))
             throw illegal(name, "name");
@@ -10890,7 +11190,7 @@ var LNReaderPlugin = (() => {
                 parseField(type, token2);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(type, "proto3_optional");
                 } else {
                   parseField(type, "optional");
@@ -10901,6 +11201,9 @@ var LNReaderPlugin = (() => {
                 break;
               case "enum":
                 parseEnum(type, token2);
+                break;
+              case "reserved":
+                readRanges(type.reserved || (type.reserved = []), true);
                 break;
               /* istanbul ignore next */
               default:
@@ -10965,12 +11268,16 @@ var LNReaderPlugin = (() => {
                 break;
               case "reserved":
                 readRanges(enm.reserved || (enm.reserved = []), true);
+                if (enm.reserved === void 0) enm.reserved = [];
                 break;
               default:
                 parseEnumValue(enm, token3);
             }
           }, "parseEnum_block"));
           parent2.add(enm);
+          if (parent2 === ptr) {
+            topLevelObjects.push(enm);
+          }
         }
         __name(parseEnum, "parseEnum");
         function parseEnumValue(parent2, token2) {
@@ -10980,10 +11287,14 @@ var LNReaderPlugin = (() => {
           var value = parseId(next2(), true), dummy = {
             options: void 0
           };
+          dummy.getOption = function(name) {
+            return this.options[name];
+          };
           dummy.setOption = function(name, value2) {
-            if (this.options === void 0)
-              this.options = {};
-            this.options[name] = value2;
+            ReflectionObject.prototype.setOption.call(dummy, name, value2);
+          };
+          dummy.setParsedOption = function() {
+            return void 0;
           };
           ifBlock(dummy, /* @__PURE__ */ __name(function parseEnumValue_block(token3) {
             if (token3 === "option") {
@@ -10994,29 +11305,40 @@ var LNReaderPlugin = (() => {
           }, "parseEnumValue_block"), /* @__PURE__ */ __name(function parseEnumValue_line() {
             parseInlineOptions(dummy);
           }, "parseEnumValue_line"));
-          parent2.add(token2, value, dummy.comment, dummy.options);
+          parent2.add(token2, value, dummy.comment, dummy.parsedOptions || dummy.options);
         }
         __name(parseEnumValue, "parseEnumValue");
         function parseOption(parent2, token2) {
-          var isCustom = skip("(", true);
-          if (!typeRefRe.test(token2 = next2()))
-            throw illegal(token2, "name");
-          var name = token2;
-          var option = name;
+          var option;
           var propName;
-          if (isCustom) {
-            skip(")");
-            name = "(" + name + ")";
-            option = name;
-            token2 = peek();
-            if (fqTypeRefRe.test(token2)) {
-              propName = token2.slice(1);
-              name += token2;
-              next2();
-            }
+          var isOption = true;
+          if (token2 === "option") {
+            token2 = next2();
           }
-          skip("=");
+          while (token2 !== "=") {
+            if (token2 === "(") {
+              var parensValue = next2();
+              skip(")");
+              token2 = "(" + parensValue + ")";
+            }
+            if (isOption) {
+              isOption = false;
+              if (token2.includes(".") && !token2.includes("(")) {
+                var tokens = token2.split(".");
+                option = tokens[0] + ".";
+                token2 = tokens[1];
+                continue;
+              }
+              option = token2;
+            } else {
+              propName = propName ? propName += token2 : token2;
+            }
+            token2 = next2();
+          }
+          var name = propName ? option.concat(propName) : option;
           var optionValue = parseOptionValue(parent2, name);
+          propName = propName && propName[0] === "." ? propName.slice(1) : propName;
+          option = option && option[option.length - 1] === "." ? option.slice(0, -1) : option;
           setParsedOption(parent2, option, optionValue, propName);
         }
         __name(parseOption, "parseOption");
@@ -11033,9 +11355,9 @@ var LNReaderPlugin = (() => {
               var value;
               var propName = token;
               skip(":", true);
-              if (peek() === "{")
+              if (peek() === "{") {
                 value = parseOptionValue(parent2, name + "." + token);
-              else if (peek() === "[") {
+              } else if (peek() === "[") {
                 value = [];
                 var lastValue;
                 if (skip("[", true)) {
@@ -11067,6 +11389,10 @@ var LNReaderPlugin = (() => {
         }
         __name(parseOptionValue, "parseOptionValue");
         function setOption(parent2, name, value) {
+          if (ptr === parent2 && /^features\./.test(name)) {
+            topLevelOptions[name] = value;
+            return;
+          }
           if (parent2.setOption)
             parent2.setOption(name, value);
         }
@@ -11091,14 +11417,18 @@ var LNReaderPlugin = (() => {
             throw illegal(token2, "service name");
           var service = new Service(token2);
           ifBlock(service, /* @__PURE__ */ __name(function parseService_block(token3) {
-            if (parseCommon(service, token3))
+            if (parseCommon(service, token3)) {
               return;
+            }
             if (token3 === "rpc")
               parseMethod(service, token3);
             else
               throw illegal(token3);
           }, "parseService_block"));
           parent2.add(service);
+          if (parent2 === ptr) {
+            topLevelObjects.push(service);
+          }
         }
         __name(parseService, "parseService");
         function parseMethod(parent2, token2) {
@@ -11145,14 +11475,14 @@ var LNReaderPlugin = (() => {
                 parseField(parent2, token3, reference);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(parent2, "proto3_optional", reference);
                 } else {
                   parseField(parent2, "optional", reference);
                 }
                 break;
               default:
-                if (!isProto3 || !typeRefRe.test(token3))
+                if (edition === "proto2" || !typeRefRe.test(token3))
                   throw illegal(token3);
                 push(token3);
                 parseField(parent2, "optional", reference);
@@ -11179,9 +11509,14 @@ var LNReaderPlugin = (() => {
                 throw illegal(token);
               parseSyntax();
               break;
+            case "edition":
+              if (!head)
+                throw illegal(token);
+              parseEdition();
+              break;
             case "option":
               parseOption(ptr, token);
-              skip(";");
+              skip(";", true);
               break;
             default:
               if (parseCommon(ptr, token)) {
@@ -11191,12 +11526,12 @@ var LNReaderPlugin = (() => {
               throw illegal(token);
           }
         }
+        resolveFileFeatures();
         parse5.filename = null;
         return {
           "package": pkg,
           "imports": imports,
           weakImports,
-          syntax,
           root: root2
         };
       }
@@ -11638,10 +11973,12 @@ var LNReaderPlugin = (() => {
       fetchProto = /* @__PURE__ */ __name(async function(protoInit, url, init) {
         const protoRoot = (0, import_protobufjs.parse)(protoInit.proto).root;
         const RequestMessge = protoRoot.lookupType(protoInit.requestType);
-        if (RequestMessge.verify(protoInit.requestData)) {
+        if (RequestMessge.verify(protoInit.requestData || {})) {
           throw new Error("Invalid Proto");
         }
-        const encodedrequest = RequestMessge.encode(protoInit.requestData).finish();
+        const encodedrequest = RequestMessge.encode(
+          protoInit.requestData || {}
+        ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
           Array(5).fill(0).map((v, idx) => {
@@ -23918,99 +24255,99 @@ var LNReaderPlugin = (() => {
     return new (a2 || (a2 = Promise))(function(r2, o2) {
       function s2(e3) {
         try {
-          l2(n2.next(e3));
+          i2(n2.next(e3));
         } catch (e4) {
           o2(e4);
         }
       }
       __name(s2, "s");
-      function i2(e3) {
+      function l2(e3) {
         try {
-          l2(n2.throw(e3));
+          i2(n2.throw(e3));
         } catch (e4) {
           o2(e4);
         }
       }
-      __name(i2, "i");
-      function l2(e3) {
+      __name(l2, "l");
+      function i2(e3) {
         var t3;
         e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
           e4(t3);
-        })).then(s2, i2);
+        })).then(s2, l2);
       }
-      __name(l2, "l");
-      l2((n2 = n2.apply(e2, t2 || [])).next());
+      __name(i2, "i");
+      i2((n2 = n2.apply(e2, t2 || [])).next());
     });
   }, a = function(e2, t2) {
     var a2, n2, r2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & r2[0]) throw r2[1];
       return r2[1];
     }, "sent"), trys: [], ops: [] }, s2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return s2.next = i2(0), s2.throw = i2(1), s2.return = i2(2), "function" == typeof Symbol && (s2[Symbol.iterator] = function() {
+    return s2.next = l2(0), s2.throw = l2(1), s2.return = l2(2), "function" == typeof Symbol && (s2[Symbol.iterator] = function() {
       return this;
     }), s2;
-    function i2(i3) {
-      return function(l2) {
-        return function(i4) {
+    function l2(l3) {
+      return function(i2) {
+        return function(l4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; s2 && (s2 = 0, i4[0] && (o2 = 0)), o2; ) try {
-            if (a2 = 1, n2 && (r2 = 2 & i4[0] ? n2.return : i4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, i4[1])).done) return r2;
-            switch (n2 = 0, r2 && (i4 = [2 & i4[0], r2.value]), i4[0]) {
+          for (; s2 && (s2 = 0, l4[0] && (o2 = 0)), o2; ) try {
+            if (a2 = 1, n2 && (r2 = 2 & l4[0] ? n2.return : l4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, l4[1])).done) return r2;
+            switch (n2 = 0, r2 && (l4 = [2 & l4[0], r2.value]), l4[0]) {
               case 0:
               case 1:
-                r2 = i4;
+                r2 = l4;
                 break;
               case 4:
-                return o2.label++, { value: i4[1], done: false };
+                return o2.label++, { value: l4[1], done: false };
               case 5:
-                o2.label++, n2 = i4[1], i4 = [0];
+                o2.label++, n2 = l4[1], l4 = [0];
                 continue;
               case 7:
-                i4 = o2.ops.pop(), o2.trys.pop();
+                l4 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(r2 = o2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== i4[0] && 2 !== i4[0])) {
+                if (!(r2 = o2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== l4[0] && 2 !== l4[0])) {
                   o2 = 0;
                   continue;
                 }
-                if (3 === i4[0] && (!r2 || i4[1] > r2[0] && i4[1] < r2[3])) {
-                  o2.label = i4[1];
+                if (3 === l4[0] && (!r2 || l4[1] > r2[0] && l4[1] < r2[3])) {
+                  o2.label = l4[1];
                   break;
                 }
-                if (6 === i4[0] && o2.label < r2[1]) {
-                  o2.label = r2[1], r2 = i4;
+                if (6 === l4[0] && o2.label < r2[1]) {
+                  o2.label = r2[1], r2 = l4;
                   break;
                 }
                 if (r2 && o2.label < r2[2]) {
-                  o2.label = r2[2], o2.ops.push(i4);
+                  o2.label = r2[2], o2.ops.push(l4);
                   break;
                 }
                 r2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            i4 = t2.call(e2, o2);
+            l4 = t2.call(e2, o2);
           } catch (e3) {
-            i4 = [6, e3], n2 = 0;
+            l4 = [6, e3], n2 = 0;
           } finally {
             a2 = r2 = 0;
           }
-          if (5 & i4[0]) throw i4[1];
-          return { value: i4[0] ? i4[1] : void 0, done: true };
-        }([i3, l2]);
+          if (5 & l4[0]) throw l4[1];
+          return { value: l4[0] ? l4[1] : void 0, done: true };
+        }([l3, i2]);
       };
     }
-    __name(i2, "i");
+    __name(l2, "l");
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  var n, r = require_lib6(), o = (init_fetch2(), __toCommonJS(fetch_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_browser(), __toCommonJS(browser_exports)), l = function() {
-    function l2(e2) {
+  Object.defineProperty(exports, "__esModule", { value: true }), exports.ReadNovelFullPlugin = void 0;
+  var n, r = require_lib6(), o = (init_fetch2(), __toCommonJS(fetch_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = (init_browser(), __toCommonJS(browser_exports)), i = function() {
+    function i2(e2) {
       var t2;
       this.lastSearch = null, this.searchInterval = 3400, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/readnovelfull/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var a2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.2.".concat(0 + a2), this.options = e2.options, this.filters = e2.filters;
+      this.version = "2.2.".concat(1 + a2), this.options = e2.options, this.filters = e2.filters;
     }
-    __name(l2, "l");
-    return l2.prototype.sleep = function(e2) {
+    __name(i2, "i");
+    return i2.prototype.sleep = function(e2) {
       return t(this, void 0, void 0, function() {
         return a(this, function(t2) {
           return [2, new Promise(function(t3) {
@@ -24018,19 +24355,19 @@ var LNReaderPlugin = (() => {
           })];
         });
       });
-    }, l2.prototype.parseNovels = function(t2) {
-      var a2, o2 = this, s2 = [], i2 = {}, l3 = [n.Idle], c2 = /* @__PURE__ */ __name(function() {
-        return l3[l3.length - 1];
+    }, i2.prototype.parseNovels = function(t2) {
+      var a2, o2 = this, s2 = [], l2 = {}, i3 = [n.Idle], c2 = /* @__PURE__ */ __name(function() {
+        return i3[i3.length - 1];
       }, "c"), u = /* @__PURE__ */ __name(function(e2) {
-        return l3.push(e2);
+        return i3.push(e2);
       }, "u"), h = /* @__PURE__ */ __name(function() {
-        return l3.length > 1 ? l3.pop() : c2();
+        return i3.length > 1 ? i3.pop() : c2();
       }, "h"), p = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
         var r2, s3 = c2();
         if (((null === (r2 = t3.class) || void 0 === r2 ? void 0 : r2.includes("archive")) || "col-content" === t3.class) && (u(n.NovelList), a2 = 0), s3 === n.NovelList || s3 === n.NovelName) switch (e2) {
           case "img":
-            var l4 = t3["data-src"] || t3.src;
-            l4 && (i2.cover = new URL(l4, o2.site).href);
+            var i4 = t3["data-src"] || t3.src;
+            i4 && (l2.cover = new URL(i4, o2.site).href);
             break;
           case "h3":
             s3 === n.NovelList && u(n.NovelName);
@@ -24038,7 +24375,7 @@ var LNReaderPlugin = (() => {
           case "a":
             if (s3 === n.NovelName) {
               var h2 = t3.href;
-              h2 && (i2.path = new URL(h2, o2.site).pathname.substring(1), i2.name = t3.title);
+              h2 && (l2.path = new URL(h2, o2.site).pathname.substring(1), l2.name = t3.title);
             }
             break;
           case "div":
@@ -24049,16 +24386,16 @@ var LNReaderPlugin = (() => {
         }
       }, "onopentag"), onclosetag: /* @__PURE__ */ __name(function(t3) {
         var r2 = c2();
-        "a" === t3 && r2 === n.NovelName && (i2.name && i2.path && s2.push(e({}, i2)), i2 = {}, h()), "div" === t3 && r2 === n.NovelList && --a2 < 0 && h();
+        "a" === t3 && r2 === n.NovelName && (l2.name && l2.path && s2.push(e({}, l2)), l2 = {}, h()), "div" === t3 && r2 === n.NovelList && --a2 < 0 && h();
       }, "onclosetag") });
       return p.write(t2), p.end(), s2;
-    }, l2.prototype.popularNovels = function(e2, n2) {
+    }, i2.prototype.popularNovels = function(e2, n2) {
       return t(this, arguments, void 0, function(e3, t2) {
-        var n3, r2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, x, P = t2.filters, L = t2.showLatestNovels;
+        var n3, r2, s2, l2, i3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, x, P = t2.filters, L = t2.showLatestNovels;
         return a(this, function(t3) {
           switch (t3.label) {
             case 0:
-              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, i2 = n3.novelListing, l3 = n3.typeParam, c2 = void 0 === l3 ? "type" : l3, u = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, b = n3.noPages, m = void 0 === b ? [] : b, w = n3.pageAsPath, y = void 0 !== w && w, 1 !== e3 && !L && !P.genres.value.length && m.length > 0 && m.includes(P.type.value) ? [2, []] : (S = "", i2 ? (N = new URLSearchParams(), L ? N.append(c2, u) : P.genres.value.length ? (N.append(c2, p), N.append(d, P.genres.value)) : N.append(c2, P.type.value), f && g && N.append(f, g), N.append(s2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(N.toString())) : (k = L ? u : P.genres.value.length ? P.genres.value : P.type.value, S = y ? e3 > 1 ? "".concat(this.site).concat(k, "/").concat(e3.toString()) : "".concat(this.site).concat(k) : "".concat(this.site).concat(k, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
+              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, l2 = n3.novelListing, i3 = n3.typeParam, c2 = void 0 === i3 ? "type" : i3, u = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, b = n3.noPages, m = void 0 === b ? [] : b, w = n3.pageAsPath, y = void 0 !== w && w, 1 !== e3 && !L && !P.genres.value.length && m.length > 0 && m.includes(P.type.value) ? [2, []] : (S = "", l2 ? (N = new URLSearchParams(), L ? N.append(c2, u) : P.genres.value.length ? (N.append(c2, p), N.append(d, P.genres.value)) : N.append(c2, P.type.value), f && g && N.append(f, g), N.append(s2, e3.toString()), S = "".concat(this.site).concat(l2, "?").concat(N.toString())) : (k = L ? u : P.genres.value.length ? P.genres.value : P.type.value, S = y ? e3 > 1 ? "".concat(this.site).concat(k, "/").concat(e3.toString()) : "".concat(this.site).concat(k) : "".concat(this.site).concat(k, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
             case 1:
               if (!(C = t3.sent()).ok) throw new Error("Could not reach site (".concat(C.status, ": ").concat(C.statusText, ") try to open in webview."));
               return [4, C.text()];
@@ -24067,17 +24404,17 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, l2.prototype.parseNovel = function(i2) {
+    }, i2.prototype.parseNovel = function(l2) {
       return t(this, void 0, void 0, function() {
-        var t2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, x, P, L, A, I, j, H, E, G, R, _ = this;
+        var t2, i3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, x, P, L, A, I, j, H, R, E, G, _ = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site + i2, [4, (0, o.fetchApi)(t2)];
+              return t2 = this.site + l2, [4, (0, o.fetchApi)(t2)];
             case 1:
               return [4, a2.sent().text()];
             case 2:
-              return l3 = a2.sent(), c2 = { path: i2, chapters: [] }, u = [], h = [], p = [], v = [], d = [], f = [], g = null, b = {}, m = 0, y = [n.Idle], S = /* @__PURE__ */ __name(function() {
+              return i3 = a2.sent(), c2 = { path: l2, chapters: [] }, u = [], h = [], p = [], v = [], d = [], f = [], g = null, b = {}, m = 0, y = [n.Idle], S = /* @__PURE__ */ __name(function() {
                 return y[y.length - 1];
               }, "S"), N = /* @__PURE__ */ __name(function(e2) {
                 return y.push(e2);
@@ -24102,8 +24439,8 @@ var LNReaderPlugin = (() => {
                     break;
                   case "img":
                     if (s2 === n.Cover) {
-                      var l4 = null !== (r2 = null !== (a3 = t3.src) && void 0 !== a3 ? a3 : t3["data-cfsrc"]) && void 0 !== r2 ? r2 : t3["data-src"], h2 = t3.title;
-                      l4 && (c2.cover = new URL(l4, _.site).href), h2 ? c2.name = h2 : k();
+                      var i4 = null !== (r2 = null !== (a3 = t3.src) && void 0 !== a3 ? a3 : t3["data-cfsrc"]) && void 0 !== r2 ? r2 : t3["data-src"], h2 = t3.title;
+                      i4 && (c2.cover = new URL(i4, _.site).href), h2 ? c2.name = h2 : k();
                     }
                     break;
                   case "h3":
@@ -24125,7 +24462,7 @@ var LNReaderPlugin = (() => {
                     if (s2 === n.ChapterList) {
                       m++;
                       var v2 = t3.href;
-                      N(n.Chapter), b.name = t3.title || "Chapter ".concat(m), b.releaseTime = null, b.chapterNumber = m, b.path = (null == v2 ? void 0 : v2.substring(1)) || i2.replace(".html", "/chapter-".concat(m, ".html"));
+                      N(n.Chapter), b.name = t3.title || "Chapter ".concat(m), b.releaseTime = null, b.chapterNumber = m, b.path = (null == v2 ? void 0 : v2.substring(1)) || l2.replace(".html", "/chapter-".concat(m, ".html"));
                     }
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
@@ -24208,41 +24545,41 @@ var LNReaderPlugin = (() => {
                         return;
                     }
                   }), !g) {
-                    var e2 = i2.match(/\d+/);
+                    var e2 = l2.match(/\d+/);
                     g = e2 ? e2[0] : null;
                   }
                 } else c2.genres = v.join("").trim(), c2.author = p.join("").trim(), c2.status = h.join("").toLowerCase().replace(/\b\w/g, function(e3) {
                   return e3.toUpperCase();
                 });
                 c2.summary = u.join("\n\n").trim();
-              }, "onend") }), C.write(l3), C.end(), this.options.noAjax && f.length > 0 ? (c2.chapters = f, [3, 7]) : [3, 3];
+              }, "onend") }), C.write(i3), C.end(), this.options.noAjax && f.length > 0 ? (c2.chapters = f, [3, 7]) : [3, 3];
             case 3:
-              return null === g ? [3, 7] : (x = this.options.chapterListing || "ajax/chapter-archive", P = this.options.chapterParam || "novelId", L = new URLSearchParams(((R = {})[P] = g, R)), A = "".concat(this.site).concat(x, "?").concat(L.toString()), [4, (0, o.fetchApi)(A)]);
+              return null === g ? [3, 7] : (x = this.options.chapterListing || "ajax/chapter-archive", P = this.options.chapterParam || "novelId", L = new URLSearchParams(((G = {})[P] = g, G)), A = "".concat(this.site).concat(x, "?").concat(L.toString()), [4, (0, o.fetchApi)(A)]);
             case 4:
               return (I = a2.sent()).ok ? [3, 5] : (console.error("Failed to fetch chapters: ".concat(I.status)), c2.chapters = [], [3, 7]);
             case 5:
               return [4, I.text()];
             case 6:
-              j = a2.sent(), H = [], E = {}, (G = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
+              j = a2.sent(), H = [], R = {}, (E = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
                 var a3, r2;
                 if ("a" === e2 && t3.href ? (a3 = t3.href, r2 = t3.title || "", N(n.Chapter)) : "option" === e2 && t3.value && (a3 = t3.value, r2 = "", N(n.Chapter)), void 0 !== a3) {
                   var o2 = new URL(a3, _.site);
-                  E.path = o2.pathname.substring(1), E.name = r2;
+                  R.path = o2.pathname.substring(1), R.name = r2;
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
                 var t3 = e2.trim();
-                S() === n.Chapter && !E.name && t3 && (E.name += t3);
+                S() === n.Chapter && !R.name && t3 && (R.name += t3);
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(t3) {
-                "a" !== t3 && "option" !== t3 || S() !== n.Chapter || (E.name && E.path && (E.name = E.name.trim(), E.releaseTime = null, H.push(e({}, E))), E = {}, k());
-              }, "onclosetag") })).write(j), G.end(), c2.chapters = H, a2.label = 7;
+                "a" !== t3 && "option" !== t3 || S() !== n.Chapter || (R.name && R.path && (R.name = R.name.trim(), R.releaseTime = null, H.push(e({}, R))), R = {}, k());
+              }, "onclosetag") })).write(j), E.end(), c2.chapters = H, a2.label = 7;
             case 7:
               return [2, c2];
           }
         });
       });
-    }, l2.prototype.parseChapter = function(e2) {
+    }, i2.prototype.parseChapter = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, s2, l3, c2, u, h, p, v, d, f, g, b, m, w, y;
+        var t2, s2, i3, c2, u, h, p, v, d, f, g, b, m, w, y;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -24251,7 +24588,7 @@ var LNReaderPlugin = (() => {
               return [4, a2.sent().text()];
             case 2:
               if (t2 = a2.sent(), null === (y = this.options) || void 0 === y ? void 0 : y.customJs) try {
-                (s2 = (0, i.load)(t2))(".txt, #chr-content, #chapter-content").find("*").addBack().contents().filter(function(e3, t3) {
+                (s2 = (0, l.load)(t2))(".txt, #chr-content, #chapter-content").find("*").addBack().contents().filter(function(e3, t3) {
                   return "text" === t3.type;
                 }).each(function(e3, t3) {
                   t3.data = t3.data.replace(/(?:𝐟|ᵮ|𝑓|𝒇|𝒻|𝓯|𝔣|𝕗|𝖿|𝗳|𝙛|𝚏|ꬵ|ꞙ|ẝ|𝖋|ⓕ|ｆ|ƒ|ḟ|ʃ|բ|ᶠ|⒡|ſ|ꊰ|ʄ|∱|ᶂ|𝘧|\bf)(?:𝚛|ꭇ|ᣴ|ℾ|𝚪|𝛤|𝜞|𝝘|𝞒|Ⲅ|Г|Ꮁ|ᒥ|ꭈ|ⲅ|ꮁ|ⓡ|ｒ|ŕ|ṙ|ř|ȑ|ȓ|ṛ|ṝ|ŗ|г|Ր|ɾ|ᥬ|ṟ|ɍ|ʳ|⒭|ɼ|ѓ|ᴦ|ᶉ|𝐫|𝑟|𝒓|𝓇|𝓻|𝔯|𝕣|𝖗|𝗋|𝗿|𝘳|𝙧|ᵲ|ґ|ᵣ|r)(?:ə|ә|ⅇ|ꬲ|ꞓ|⋴|𝛆|𝛜|𝜀|𝜖|𝜺|𝝐|𝝴|𝞊|𝞮|𝟄|ⲉ|ꮛ|𐐩|Ꞓ|Ⲉ|⍷|𝑒|𝓮|𝕖|𝖊|𝘦|𝗲|𝚎|𝙚|𝒆|𝔢|𝖾|𝐞|Ҿ|ҿ|ⓔ|ｅ|⒠|è|ᧉ|é|ᶒ|ê|ɘ|ἔ|ề|ế|ễ|૯|ǝ|є|ε|ē|ҽ|ɛ|ể|ẽ|ḕ|ḗ|ĕ|ė|ë|ẻ|ě|ȅ|ȇ|ẹ|ệ|ȩ|ɇ|ₑ|ę|ḝ|ḙ|ḛ|℮|е|ԑ|ѐ|ӗ|ᥱ|ё|ἐ|ἑ|ἒ|ἓ|ἕ|ℯ|e)+(?:𝐰|ꝡ|𝑤|𝒘|𝓌|𝔀|𝔴|𝕨|𝖜|𝗐|𝘄|𝘸|𝙬|𝚠|ա|ẁ|ꮃ|ẃ|ⓦ|⍵|ŵ|ẇ|ẅ|ẘ|ẉ|ⱳ|ὼ|ὠ|ὡ|ὢ|ὣ|ω|ὤ|ὥ|ὦ|ὧ|ῲ|ῳ|ῴ|ῶ|ῷ|Ⱳ|ѡ|ԝ|ᴡ|ώ|ᾠ|ᾡ|ᾢ|ᾣ|ᾤ|ᾥ|ᾦ|ɯ|𝝕|𝟉|𝞏|w)(?:ə|ә|ⅇ|ꬲ|ꞓ|⋴|𝛆|𝛜|𝜀|𝜖|𝜺|𝝐|𝝴|𝞊|𝞮|𝟄|ⲉ|ꮛ|𐐩|Ꞓ|Ⲉ|⍷|𝑒|𝓮|𝕖|𝖊|𝘦|𝗲|𝚎|𝙚|𝒆|𝔢|𝖾|𝐞|Ҿ|ҿ|ⓔ|ｅ|⒠|è|ᧉ|é|ᶒ|ê|ɘ|ἔ|ề|ế|ễ|૯|ǝ|є|ε|ē|ҽ|ɛ|ể|ẽ|ḕ|ḗ|ĕ|ė|ë|ẻ|ě|ȅ|ȇ|ẹ|ệ|ȩ|ɇ|ₑ|ę|ḝ|ḙ|ḛ|℮|е|ԑ|ѐ|ӗ|ᥱ|ё|ἐ|ἑ|ἒ|ἓ|ἕ|ℯ|e)(?:ꮟ|Ꮟ|𝐛|𝘣|𝒷|𝔟|𝓫|𝖇|𝖻|𝑏|𝙗|𝕓|𝒃|𝗯|𝚋|♭|ᑳ|ᒈ|ｂ|ᖚ|ᕹ|ᕺ|ⓑ|ḃ|ḅ|ҍ|ъ|ḇ|ƃ|ɓ|ƅ|ᖯ|Ƅ|Ь|ᑲ|þ|Ƃ|⒝|Ъ|ᶀ|ᑿ|ᒀ|ᒂ|ᒁ|ᑾ|ь|ƀ|Ҍ|Ѣ|ѣ|ᔎ |b)(?:ո|ռ|ח|𝒏|𝓷|𝙣|𝑛|𝖓|𝔫|𝗇|𝚗|𝗻|ᥒ|ⓝ|ή|ｎ|ǹ|ᴒ|ń|ñ|ᾗ|η|ṅ|ň|ṇ|ɲ|ņ|ṋ|ṉ|ղ|ຖ|Ռ|ƞ|ŋ|⒩|ภ|ก|ɳ|п|ŉ|л|ԉ|Ƞ|ἠ|ἡ|ῃ|դ|ᾐ|ᾑ|ᾒ|ᾓ|ᾔ|ᾕ|ᾖ|ῄ|ῆ|ῇ|ῂ|ἢ|ἣ|ἤ|ἥ|ἦ|ἧ|ὴ|ή|በ|ቡ|ቢ|ባ|ቤ|ብ|ቦ|ȵ|𝛈|𝜂|𝜼|𝝶|𝞰|𝕟|𝘯|𝐧|𝓃|ᶇ|ᵰ|ᥥ|∩|n)(?:ం|ಂ|ം|ං|૦|௦|۵|ℴ|𝑜|𝒐|𝖔|ꬽ|𝝄|𝛔|𝜎|𝝈|𝞂|ჿ|𝚘|০|୦|ዐ|𝛐|𝗈|𝞼|ဝ|ⲟ|𝙤|၀|𐐬|𝔬|𐓪|𝓸|🇴|⍤|○|ϙ|🅾|𝒪|𝖮|𝟢|𝟶|𝙾|𝘰|𝗼|𝕠|𝜊|𝐨|𝝾|𝞸|ᐤ|ⓞ|ѳ|᧐|ᥲ|ð|ｏ|ఠ|ᦞ|Փ|ò|ө|ӧ|ó|º|ō|ô|ǒ|ȏ|ŏ|ồ|ȭ|ṏ|ὄ|ṑ|ṓ|ȯ|ȫ|๏|ᴏ|ő|ö|ѻ|о|ዐ|ǭ|ȱ|০|୦|٥|౦|೦|൦|๐|໐|ο|օ|ᴑ|०|੦|ỏ|ơ|ờ|ớ|ỡ|ở|ợ|ọ|ộ|ǫ|ø|ǿ|ɵ|ծ|ὀ|ὁ|ό|ὸ|ό|ὂ|ὃ|ὅ|o)(?:∨|⌄|⋁|ⅴ|𝐯|𝑣|𝒗|𝓋|𝔳|𝕧|𝖛|𝗏|ꮩ|ሀ|ⓥ|ｖ|𝜐|𝝊|ṽ|ṿ|౮|ง|ѵ|ע|ᴠ|ν|ט|ᵥ|ѷ|៴|ᘁ|𝙫|𝚟|𝛎|𝜈|𝝂|𝝼|𝞶|𝘷|𝘃|𝓿|v)(?:ə|ә|ⅇ|ꬲ|ꞓ|⋴|𝛆|𝛜|𝜀|𝜖|𝜺|𝝐|𝝴|𝞊|𝞮|𝟄|ⲉ|ꮛ|𐐩|Ꞓ|Ⲉ|⍷|𝑒|𝓮|𝕖|𝖊|𝘦|𝗲|𝚎|𝙚|𝒆|𝔢|𝖾|𝐞|Ҿ|ҿ|ⓔ|ｅ|⒠|è|ᧉ|é|ᶒ|ê|ɘ|ἔ|ề|ế|ễ|૯|ǝ|є|ε|ē|ҽ|ɛ|ể|ẽ|ḕ|ḗ|ĕ|ė|ë|ẻ|ě|ȅ|ȇ|ẹ|ệ|ȩ|ɇ|ₑ|ę|ḝ|ḙ|ḛ|℮|е|ԑ|ѐ|ӗ|ᥱ|ё|ἐ|ἑ|ἒ|ἓ|ἕ|ℯ|e)(?:ⓛ|ｌ|ŀ|ĺ|ľ|ḷ|ḹ|ļ|Ӏ|ℓ|ḽ|ḻ|ł|ﾚ|ɭ|ƚ|ɫ|ⱡ|\||Ɩ|⒧|ʅ|ǀ|ו|ן|Ι|І|｜|ᶩ|ӏ|𝓘|𝕀|𝖨|𝗜|𝘐|𝐥|𝑙|𝒍|𝓁|𝔩|𝕝|𝖑|𝗅|𝗹|𝘭|𝚕|𝜤|𝝞|ı|𝚤|ɩ|ι|𝛊|𝜄|𝜾|𝞲|I|l)(?:.?(?:🝌|ｃ|ⅽ|𝐜|𝑐|𝒄|𝒸|𝓬|𝔠|𝕔|𝖈|𝖼|𝗰|𝘤|𝙘|𝚌|ᴄ|ϲ|ⲥ|с|ꮯ|𐐽|ⲥ|𐐽|ꮯ|ĉ|ｃ|ⓒ|ć|č|ċ|ç|ҁ|ƈ|ḉ|ȼ|ↄ|с|ር|ᴄ|ϲ|ҫ|꒝|ς|ɽ|ϛ|𝙲|ᑦ|᧚|𝐜|𝑐|𝒄|𝒸|𝓬|𝔠|𝕔|𝖈|𝖼|𝗰|𝘤|𝙘|𝚌|₵|🇨|ᥴ|ᒼ|ⅽ|c)(?:ం|ಂ|ം|ං|૦|௦|۵|ℴ|𝑜|𝒐|𝖔|ꬽ|𝝄|𝛔|𝜎|𝝈|𝞂|ჿ|𝚘|০|୦|ዐ|𝛐|𝗈|𝞼|ဝ|ⲟ|𝙤|၀|𐐬|𝔬|𐓪|𝓸|🇴|⍤|○|ϙ|🅾|𝒪|𝖮|𝟢|𝟶|𝙾|𝘰|𝗼|𝕠|𝜊|𝐨|𝝾|𝞸|ᐤ|ⓞ|ѳ|᧐|ᥲ|ð|ｏ|ఠ|ᦞ|Փ|ò|ө|ӧ|ó|º|ō|ô|ǒ|ȏ|ŏ|ồ|ȭ|ṏ|ὄ|ṑ|ṓ|ȯ|ȫ|๏|ᴏ|ő|ö|ѻ|о|ዐ|ǭ|ȱ|০|୦|٥|౦|೦|൦|๐|໐|ο|օ|ᴑ|०|੦|ỏ|ơ|ờ|ớ|ỡ|ở|ợ|ọ|ộ|ǫ|ø|ǿ|ɵ|ծ|ὀ|ὁ|ό|ὸ|ό|ὂ|ὃ|ὅ|o)(?:₥|ᵯ|𝖒|𝐦|𝗆|𝔪|𝕞|𝓂|ⓜ|ｍ|ന|ᙢ|൩|ḿ|ṁ|ⅿ|ϻ|ṃ|ጠ|ɱ|៳|ᶆ|𝒎|𝙢|𝓶|𝚖|𝑚|𝗺|᧕|᧗|m))?/g, "");
@@ -24265,18 +24602,18 @@ var LNReaderPlugin = (() => {
                 return v.push(e3);
               }, "f"), g = /* @__PURE__ */ __name(function() {
                 return v.length > 1 ? v.pop() : d();
-              }, "g"), b = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;", "\xA0": "&nbsp;" }, m = /* @__PURE__ */ __name(function(e3) {
-                return e3.replace(/[&<>"' ]/g, function(e4) {
+              }, "g"), b = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;", "\xA0": "&nbsp;", "\u200C": "" }, m = /* @__PURE__ */ __name(function(e3) {
+                return e3.replace(/[&<>"'\xA0\u200C]/g, function(e4) {
                   return b[e4];
                 });
               }, "m"), w = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, t3) {
                 var a3, r2 = d(), o2 = null === (a3 = t3.class) || void 0 === a3 ? void 0 : a3.trim();
                 switch (r2) {
                   case n.Idle:
-                    "txt" !== o2 && "chr-content" !== t3.id && "chapter-content" !== t3.id || (f(n.Chapter), l3 = 0);
+                    "txt" !== o2 && "chr-content" !== t3.id && "chapter-content" !== t3.id || (f(n.Chapter), i3 = 0);
                     break;
                   case n.Chapter:
-                    "sub" === e3 ? f(n.Hidden) : "div" === e3 && (l3++, ((null == o2 ? void 0 : o2.includes("unlock-buttons")) || (null == o2 ? void 0 : o2.includes("ads"))) && (f(n.Hidden), c2 = 0));
+                    "sub" === e3 || "iframe" === e3 ? f(n.Hidden) : "div" === e3 && (i3++, ((null == o2 ? void 0 : o2.includes("unlock-buttons")) || (null == o2 ? void 0 : o2.includes("ads"))) && (f(n.Hidden), c2 = 0));
                     break;
                   case n.Hidden:
                     "sub" === e3 ? f(n.Hidden) : "div" === e3 && c2++;
@@ -24291,10 +24628,10 @@ var LNReaderPlugin = (() => {
                     return "" === t3[e4].trim();
                   })) {
                     h = true, p = e3;
-                    var i2 = e3.replace(/\b\w/g, function(e4) {
+                    var l2 = e3.replace(/\b\w/g, function(e4) {
                       return e4.toUpperCase();
                     });
-                    u.push(m("<".concat(i2, " ").concat(s3.join(" "), ">")));
+                    u.push(m("<".concat(l2, " ").concat(s3.join(" "), ">")));
                   } else {
                     var v2 = s3.map(function(e4) {
                       return " ".concat(e4, '="').concat(t3[e4].replace(/"/g, "&quot;"), '"');
@@ -24303,17 +24640,20 @@ var LNReaderPlugin = (() => {
                   }
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
-                d() === n.Chapter && u.push(m(e3));
+                if (d() === n.Chapter) {
+                  var t3 = m(e3);
+                  u.push(t3.trim().replace(/\s\s+/, " "));
+                }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 var t3 = d();
-                t3 === n.Hidden && ("sub" === e3 ? g() : "div" === e3 && --c2 < 0 && (g(), l3--)), t3 === n.Chapter && (w.isVoidElement(e3) || (h && e3 === p ? (h = false, p = "") : u.push("</".concat(e3, ">"))), "div" === e3 && --l3 < 0 && f(n.Stopped));
+                t3 === n.Hidden && ("sub" === e3 || "iframe" === e3 ? g() : "div" === e3 && --c2 < 0 && (g(), i3--)), t3 === n.Chapter && (w.isVoidElement(e3) || (h && e3 === p ? (h = false, p = "") : u.push("</".concat(e3, ">"))), "div" === e3 && --i3 < 0 && f(n.Stopped));
               }, "onclosetag") }), w.write(t2), w.end(), [2, u.join("")];
           }
         });
       });
-    }, l2.prototype.searchNovels = function(n2, r2) {
+    }, i2.prototype.searchNovels = function(n2, r2) {
       return t(this, void 0, void 0, function() {
-        var t2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C;
+        var t2, s2, l2, i3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -24321,7 +24661,7 @@ var LNReaderPlugin = (() => {
             case 1:
               a2.sent(), a2.label = 2;
             case 2:
-              return s2 = this.options, i2 = s2.pageParam, l3 = void 0 === i2 ? "page" : i2, c2 = s2.searchKey, u = void 0 === c2 ? "keyword" : c2, h = s2.postSearch, p = s2.langParam, v = s2.urlLangCode, d = s2.searchPage, f = new URLSearchParams(e(e(((S = {})[u] = n2, S), p && v && ((N = {})[p] = v, N)), !h && ((k = {})[l3] = r2.toString(), k))), g = "".concat(this.site).concat(d).concat(h ? "" : "?".concat(f.toString())), b = h ? { method: "POST", body: f.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } } : void 0, [4, (0, o.fetchApi)(g, b)];
+              return s2 = this.options, l2 = s2.pageParam, i3 = void 0 === l2 ? "page" : l2, c2 = s2.searchKey, u = void 0 === c2 ? "keyword" : c2, h = s2.postSearch, p = s2.langParam, v = s2.urlLangCode, d = s2.searchPage, f = new URLSearchParams(e(e(((S = {})[u] = n2, S), p && v && ((N = {})[p] = v, N)), !h && ((k = {})[i3] = r2.toString(), k))), g = "".concat(this.site).concat(d).concat(h ? "" : "?".concat(f.toString())), b = h ? { method: "POST", body: f.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } } : void 0, [4, (0, o.fetchApi)(g, b)];
             case 3:
               if (m = a2.sent(), this.lastSearch = Date.now(), !m.ok) throw new Error("Could not reach site ('".concat(m.status, "') try to open in webview."));
               return [4, m.text()];
@@ -24331,12 +24671,12 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, l2;
+    }, i2;
   }();
-  !function(e2) {
+  exports.ReadNovelFullPlugin = i, function(e2) {
     e2[e2.Idle = 0] = "Idle", e2[e2.Info = 1] = "Info", e2[e2.Cover = 2] = "Cover", e2[e2.Author = 3] = "Author", e2[e2.Genres = 4] = "Genres", e2[e2.Status = 5] = "Status", e2[e2.Hidden = 6] = "Hidden", e2[e2.Summary = 7] = "Summary", e2[e2.Stopped = 8] = "Stopped", e2[e2.Chapter = 9] = "Chapter", e2[e2.ChapterList = 10] = "ChapterList", e2[e2.NovelName = 11] = "NovelName", e2[e2.NovelList = 12] = "NovelList";
   }(n || (n = {}));
-  var c = new l({ id: "FWN.com", sourceSite: "https://freewebnovel.com/", sourceName: "Free Web Novel", options: { latestPage: "sort/latest-novels", searchPage: "search", searchKey: "searchkey", postSearch: true, noAjax: true, noPages: ["sort/most-popular"], pageAsPath: true, customJs: "$('.txt, #chr-content, #chapter-content').find('*').addBack().contents().filter((_, el) => el.type === 'text').each((_, el) => { el.data = el.data.replace(/(?:\u{1D41F}|\u1D6E|\u{1D453}|\u{1D487}|\u{1D4BB}|\u{1D4EF}|\u{1D523}|\u{1D557}|\u{1D5BF}|\u{1D5F3}|\u{1D65B}|\u{1D68F}|\uAB35|\uA799|\u1E9D|\u{1D58B}|\u24D5|\uFF46|\u0192|\u1E1F|\u0283|\u0562|\u1DA0|\u24A1|\u017F|\uA2B0|\u0284|\u2231|\u1D82|\u{1D627}|\\bf)(?:\u{1D69B}|\uAB47|\u18F4|\u213E|\u{1D6AA}|\u{1D6E4}|\u{1D71E}|\u{1D758}|\u{1D792}|\u2C84|\u0413|\u13B1|\u14A5|\uAB48|\u2C85|\uAB81|\u24E1|\uFF52|\u0155|\u1E59|\u0159|\u0211|\u0213|\u1E5B|\u1E5D|\u0157|\u0433|\u0550|\u027E|\u196C|\u1E5F|\u024D|\u02B3|\u24AD|\u027C|\u0453|\u1D26|\u1D89|\u{1D42B}|\u{1D45F}|\u{1D493}|\u{1D4C7}|\u{1D4FB}|\u{1D52F}|\u{1D563}|\u{1D597}|\u{1D5CB}|\u{1D5FF}|\u{1D633}|\u{1D667}|\u1D72|\u0491|\u1D63|r)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)+(?:\u{1D430}|\uA761|\u{1D464}|\u{1D498}|\u{1D4CC}|\u{1D500}|\u{1D534}|\u{1D568}|\u{1D59C}|\u{1D5D0}|\u{1D604}|\u{1D638}|\u{1D66C}|\u{1D6A0}|\u0561|\u1E81|\uAB83|\u1E83|\u24E6|\u2375|\u0175|\u1E87|\u1E85|\u1E98|\u1E89|\u2C73|\u1F7C|\u1F60|\u1F61|\u1F62|\u1F63|\u03C9|\u1F64|\u1F65|\u1F66|\u1F67|\u1FF2|\u1FF3|\u1FF4|\u1FF6|\u1FF7|\u2C72|\u0461|\u051D|\u1D21|\u1F7D|\u1FA0|\u1FA1|\u1FA2|\u1FA3|\u1FA4|\u1FA5|\u1FA6|\u026F|\u{1D755}|\u{1D7C9}|\u{1D78F}|w)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\uAB9F|\u13CF|\u{1D41B}|\u{1D623}|\u{1D4B7}|\u{1D51F}|\u{1D4EB}|\u{1D587}|\u{1D5BB}|\u{1D44F}|\u{1D657}|\u{1D553}|\u{1D483}|\u{1D5EF}|\u{1D68B}|\u266D|\u1473|\u1488|\uFF42|\u159A|\u1579|\u157A|\u24D1|\u1E03|\u1E05|\u048D|\u044A|\u1E07|\u0183|\u0253|\u0185|\u15AF|\u0184|\u042C|\u1472|\xFE|\u0182|\u249D|\u042A|\u1D80|\u147F|\u1480|\u1482|\u1481|\u147E|\u044C|\u0180|\u048C|\u0462|\u0463|\u150E |b)(?:\u0578|\u057C|\u05D7|\u{1D48F}|\u{1D4F7}|\u{1D663}|\u{1D45B}|\u{1D593}|\u{1D52B}|\u{1D5C7}|\u{1D697}|\u{1D5FB}|\u1952|\u24DD|\u03AE|\uFF4E|\u01F9|\u1D12|\u0144|\xF1|\u1F97|\u03B7|\u1E45|\u0148|\u1E47|\u0272|\u0146|\u1E4B|\u1E49|\u0572|\u0E96|\u054C|\u019E|\u014B|\u24A9|\u0E20|\u0E01|\u0273|\u043F|\u0149|\u043B|\u0509|\u0220|\u1F20|\u1F21|\u1FC3|\u0564|\u1F90|\u1F91|\u1F92|\u1F93|\u1F94|\u1F95|\u1F96|\u1FC4|\u1FC6|\u1FC7|\u1FC2|\u1F22|\u1F23|\u1F24|\u1F25|\u1F26|\u1F27|\u1F74|\u1F75|\u1260|\u1261|\u1262|\u1263|\u1264|\u1265|\u1266|\u0235|\u{1D6C8}|\u{1D702}|\u{1D73C}|\u{1D776}|\u{1D7B0}|\u{1D55F}|\u{1D62F}|\u{1D427}|\u{1D4C3}|\u1D87|\u1D70|\u1965|\u2229|n)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u2228|\u2304|\u22C1|\u2174|\u{1D42F}|\u{1D463}|\u{1D497}|\u{1D4CB}|\u{1D533}|\u{1D567}|\u{1D59B}|\u{1D5CF}|\uABA9|\u1200|\u24E5|\uFF56|\u{1D710}|\u{1D74A}|\u1E7D|\u1E7F|\u0C6E|\u0E07|\u0475|\u05E2|\u1D20|\u03BD|\u05D8|\u1D65|\u0477|\u17F4|\u1601|\u{1D66B}|\u{1D69F}|\u{1D6CE}|\u{1D708}|\u{1D742}|\u{1D77C}|\u{1D7B6}|\u{1D637}|\u{1D603}|\u{1D4FF}|v)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\u24DB|\uFF4C|\u0140|\u013A|\u013E|\u1E37|\u1E39|\u013C|\u04C0|\u2113|\u1E3D|\u1E3B|\u0142|\uFF9A|\u026D|\u019A|\u026B|\u2C61|\\||\u0196|\u24A7|\u0285|\u01C0|\u05D5|\u05DF|\u0399|\u0406|\uFF5C|\u1DA9|\u04CF|\u{1D4D8}|\u{1D540}|\u{1D5A8}|\u{1D5DC}|\u{1D610}|\u{1D425}|\u{1D459}|\u{1D48D}|\u{1D4C1}|\u{1D529}|\u{1D55D}|\u{1D591}|\u{1D5C5}|\u{1D5F9}|\u{1D62D}|\u{1D695}|\u{1D724}|\u{1D75E}|\u0131|\u{1D6A4}|\u0269|\u1FBE|\u{1D6CA}|\u{1D704}|\u{1D73E}|\u{1D7B2}|I|l)(?:.?(?:\u{1F74C}|\uFF43|\u217D|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u1D04|\u03F2|\u2CA5|\u0441|\uABAF|\u{1043D}|\u2CA5|\u{1043D}|\uABAF|\u0109|\uFF43|\u24D2|\u0107|\u010D|\u010B|\xE7|\u0481|\u0188|\u1E09|\u023C|\u2184|\u0441|\u122D|\u1D04|\u03F2|\u04AB|\uA49D|\u03C2|\u027D|\u03DB|\u{1D672}|\u1466|\u19DA|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u20B5|\u{1F1E8}|\u1974|\u14BC|\u217D|c)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u20A5|\u1D6F|\u{1D592}|\u{1D426}|\u{1D5C6}|\u{1D52A}|\u{1D55E}|\u{1D4C2}|\u24DC|\uFF4D|\u0D28|\u1662|\u0D69|\u1E3F|\u1E41|\u217F|\u03FB|\u1E43|\u1320|\u0271|\u17F3|\u1D86|\u{1D48E}|\u{1D662}|\u{1D4F6}|\u{1D696}|\u{1D45A}|\u{1D5FA}|\u19D5|\u19D7|m))?/g, ''); });" }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
+  var c = new i({ id: "FWN.com", sourceSite: "https://freewebnovel.com/", sourceName: "Free Web Novel", options: { latestPage: "sort/latest-novels", searchPage: "search", searchKey: "searchkey", postSearch: true, noAjax: true, noPages: ["sort/most-popular"], pageAsPath: true, customJs: "$('.txt, #chr-content, #chapter-content').find('*').addBack().contents().filter((_, el) => el.type === 'text').each((_, el) => { el.data = el.data.replace(/(?:\u{1D41F}|\u1D6E|\u{1D453}|\u{1D487}|\u{1D4BB}|\u{1D4EF}|\u{1D523}|\u{1D557}|\u{1D5BF}|\u{1D5F3}|\u{1D65B}|\u{1D68F}|\uAB35|\uA799|\u1E9D|\u{1D58B}|\u24D5|\uFF46|\u0192|\u1E1F|\u0283|\u0562|\u1DA0|\u24A1|\u017F|\uA2B0|\u0284|\u2231|\u1D82|\u{1D627}|\\bf)(?:\u{1D69B}|\uAB47|\u18F4|\u213E|\u{1D6AA}|\u{1D6E4}|\u{1D71E}|\u{1D758}|\u{1D792}|\u2C84|\u0413|\u13B1|\u14A5|\uAB48|\u2C85|\uAB81|\u24E1|\uFF52|\u0155|\u1E59|\u0159|\u0211|\u0213|\u1E5B|\u1E5D|\u0157|\u0433|\u0550|\u027E|\u196C|\u1E5F|\u024D|\u02B3|\u24AD|\u027C|\u0453|\u1D26|\u1D89|\u{1D42B}|\u{1D45F}|\u{1D493}|\u{1D4C7}|\u{1D4FB}|\u{1D52F}|\u{1D563}|\u{1D597}|\u{1D5CB}|\u{1D5FF}|\u{1D633}|\u{1D667}|\u1D72|\u0491|\u1D63|r)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)+(?:\u{1D430}|\uA761|\u{1D464}|\u{1D498}|\u{1D4CC}|\u{1D500}|\u{1D534}|\u{1D568}|\u{1D59C}|\u{1D5D0}|\u{1D604}|\u{1D638}|\u{1D66C}|\u{1D6A0}|\u0561|\u1E81|\uAB83|\u1E83|\u24E6|\u2375|\u0175|\u1E87|\u1E85|\u1E98|\u1E89|\u2C73|\u1F7C|\u1F60|\u1F61|\u1F62|\u1F63|\u03C9|\u1F64|\u1F65|\u1F66|\u1F67|\u1FF2|\u1FF3|\u1FF4|\u1FF6|\u1FF7|\u2C72|\u0461|\u051D|\u1D21|\u1F7D|\u1FA0|\u1FA1|\u1FA2|\u1FA3|\u1FA4|\u1FA5|\u1FA6|\u026F|\u{1D755}|\u{1D7C9}|\u{1D78F}|w)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\uAB9F|\u13CF|\u{1D41B}|\u{1D623}|\u{1D4B7}|\u{1D51F}|\u{1D4EB}|\u{1D587}|\u{1D5BB}|\u{1D44F}|\u{1D657}|\u{1D553}|\u{1D483}|\u{1D5EF}|\u{1D68B}|\u266D|\u1473|\u1488|\uFF42|\u159A|\u1579|\u157A|\u24D1|\u1E03|\u1E05|\u048D|\u044A|\u1E07|\u0183|\u0253|\u0185|\u15AF|\u0184|\u042C|\u1472|\xFE|\u0182|\u249D|\u042A|\u1D80|\u147F|\u1480|\u1482|\u1481|\u147E|\u044C|\u0180|\u048C|\u0462|\u0463|\u150E |b)(?:\u0578|\u057C|\u05D7|\u{1D48F}|\u{1D4F7}|\u{1D663}|\u{1D45B}|\u{1D593}|\u{1D52B}|\u{1D5C7}|\u{1D697}|\u{1D5FB}|\u1952|\u24DD|\u03AE|\uFF4E|\u01F9|\u1D12|\u0144|\xF1|\u1F97|\u03B7|\u1E45|\u0148|\u1E47|\u0272|\u0146|\u1E4B|\u1E49|\u0572|\u0E96|\u054C|\u019E|\u014B|\u24A9|\u0E20|\u0E01|\u0273|\u043F|\u0149|\u043B|\u0509|\u0220|\u1F20|\u1F21|\u1FC3|\u0564|\u1F90|\u1F91|\u1F92|\u1F93|\u1F94|\u1F95|\u1F96|\u1FC4|\u1FC6|\u1FC7|\u1FC2|\u1F22|\u1F23|\u1F24|\u1F25|\u1F26|\u1F27|\u1F74|\u1F75|\u1260|\u1261|\u1262|\u1263|\u1264|\u1265|\u1266|\u0235|\u{1D6C8}|\u{1D702}|\u{1D73C}|\u{1D776}|\u{1D7B0}|\u{1D55F}|\u{1D62F}|\u{1D427}|\u{1D4C3}|\u1D87|\u1D70|\u1965|\u2229|n)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u2228|\u2304|\u22C1|\u2174|\u{1D42F}|\u{1D463}|\u{1D497}|\u{1D4CB}|\u{1D533}|\u{1D567}|\u{1D59B}|\u{1D5CF}|\uABA9|\u1200|\u24E5|\uFF56|\u{1D710}|\u{1D74A}|\u1E7D|\u1E7F|\u0C6E|\u0E07|\u0475|\u05E2|\u1D20|\u03BD|\u05D8|\u1D65|\u0477|\u17F4|\u1601|\u{1D66B}|\u{1D69F}|\u{1D6CE}|\u{1D708}|\u{1D742}|\u{1D77C}|\u{1D7B6}|\u{1D637}|\u{1D603}|\u{1D4FF}|v)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\u24DB|\uFF4C|\u0140|\u013A|\u013E|\u1E37|\u1E39|\u013C|\u04C0|\u2113|\u1E3D|\u1E3B|\u0142|\uFF9A|\u026D|\u019A|\u026B|\u2C61|\\||\u0196|\u24A7|\u0285|\u01C0|\u05D5|\u05DF|\u0399|\u0406|\uFF5C|\u1DA9|\u04CF|\u{1D4D8}|\u{1D540}|\u{1D5A8}|\u{1D5DC}|\u{1D610}|\u{1D425}|\u{1D459}|\u{1D48D}|\u{1D4C1}|\u{1D529}|\u{1D55D}|\u{1D591}|\u{1D5C5}|\u{1D5F9}|\u{1D62D}|\u{1D695}|\u{1D724}|\u{1D75E}|\u0131|\u{1D6A4}|\u0269|\u1FBE|\u{1D6CA}|\u{1D704}|\u{1D73E}|\u{1D7B2}|I|l)(?:.?(?:\u{1F74C}|\uFF43|\u217D|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u1D04|\u03F2|\u2CA5|\u0441|\uABAF|\u{1043D}|\u2CA5|\u{1043D}|\uABAF|\u0109|\uFF43|\u24D2|\u0107|\u010D|\u010B|\xE7|\u0481|\u0188|\u1E09|\u023C|\u2184|\u0441|\u122D|\u1D04|\u03F2|\u04AB|\uA49D|\u03C2|\u027D|\u03DB|\u{1D672}|\u1466|\u19DA|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u20B5|\u{1F1E8}|\u1974|\u14BC|\u217D|c)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u20A5|\u1D6F|\u{1D592}|\u{1D426}|\u{1D5C6}|\u{1D52A}|\u{1D55E}|\u{1D4C2}|\u24DC|\uFF4D|\u0D28|\u1662|\u0D69|\u1E3F|\u1E41|\u217F|\u03FB|\u1E43|\u1320|\u0271|\u17F3|\u1D86|\u{1D48E}|\u{1D662}|\u{1D4F6}|\u{1D696}|\u{1D45A}|\u{1D5FA}|\u19D5|\u19D7|m))?/g, ''); });" }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
   exports.default = c;
 })();
 

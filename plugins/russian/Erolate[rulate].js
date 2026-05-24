@@ -443,8 +443,8 @@ var LNReaderPlugin = (() => {
   function nextTick(fun) {
     var args = new Array(arguments.length - 1);
     if (arguments.length > 1) {
-      for (var i = 1; i < arguments.length; i++)
-        args[i - 1] = arguments[i];
+      for (var i2 = 1; i2 < arguments.length; i2++)
+        args[i2 - 1] = arguments[i2];
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining)
@@ -729,9 +729,9 @@ var LNReaderPlugin = (() => {
     var revLookup = [];
     var Arr = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
     var code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    for (var i = 0, len = code.length; i < len; ++i) {
-      lookup[i] = code[i];
-      revLookup[code.charCodeAt(i)] = i;
+    for (var i2 = 0, len = code.length; i2 < len; ++i2) {
+      lookup[i2] = code[i2];
+      revLookup[code.charCodeAt(i2)] = i2;
     }
     revLookup["-".charCodeAt(0)] = 62;
     revLookup["_".charCodeAt(0)] = 63;
@@ -765,19 +765,19 @@ var LNReaderPlugin = (() => {
       var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen));
       var curByte = 0;
       var len2 = placeHoldersLen > 0 ? validLen - 4 : validLen;
-      var i2;
-      for (i2 = 0; i2 < len2; i2 += 4) {
-        tmp = revLookup[b64.charCodeAt(i2)] << 18 | revLookup[b64.charCodeAt(i2 + 1)] << 12 | revLookup[b64.charCodeAt(i2 + 2)] << 6 | revLookup[b64.charCodeAt(i2 + 3)];
+      var i3;
+      for (i3 = 0; i3 < len2; i3 += 4) {
+        tmp = revLookup[b64.charCodeAt(i3)] << 18 | revLookup[b64.charCodeAt(i3 + 1)] << 12 | revLookup[b64.charCodeAt(i3 + 2)] << 6 | revLookup[b64.charCodeAt(i3 + 3)];
         arr[curByte++] = tmp >> 16 & 255;
         arr[curByte++] = tmp >> 8 & 255;
         arr[curByte++] = tmp & 255;
       }
       if (placeHoldersLen === 2) {
-        tmp = revLookup[b64.charCodeAt(i2)] << 2 | revLookup[b64.charCodeAt(i2 + 1)] >> 4;
+        tmp = revLookup[b64.charCodeAt(i3)] << 2 | revLookup[b64.charCodeAt(i3 + 1)] >> 4;
         arr[curByte++] = tmp & 255;
       }
       if (placeHoldersLen === 1) {
-        tmp = revLookup[b64.charCodeAt(i2)] << 10 | revLookup[b64.charCodeAt(i2 + 1)] << 4 | revLookup[b64.charCodeAt(i2 + 2)] >> 2;
+        tmp = revLookup[b64.charCodeAt(i3)] << 10 | revLookup[b64.charCodeAt(i3 + 1)] << 4 | revLookup[b64.charCodeAt(i3 + 2)] >> 2;
         arr[curByte++] = tmp >> 8 & 255;
         arr[curByte++] = tmp & 255;
       }
@@ -791,8 +791,8 @@ var LNReaderPlugin = (() => {
     function encodeChunk(uint8, start, end) {
       var tmp;
       var output = [];
-      for (var i2 = start; i2 < end; i2 += 3) {
-        tmp = (uint8[i2] << 16 & 16711680) + (uint8[i2 + 1] << 8 & 65280) + (uint8[i2 + 2] & 255);
+      for (var i3 = start; i3 < end; i3 += 3) {
+        tmp = (uint8[i3] << 16 & 16711680) + (uint8[i3 + 1] << 8 & 65280) + (uint8[i3 + 2] & 255);
         output.push(tripletToBase64(tmp));
       }
       return output.join("");
@@ -804,8 +804,8 @@ var LNReaderPlugin = (() => {
       var extraBytes = len2 % 3;
       var parts = [];
       var maxChunkLength = 16383;
-      for (var i2 = 0, len22 = len2 - extraBytes; i2 < len22; i2 += maxChunkLength) {
-        parts.push(encodeChunk(uint8, i2, i2 + maxChunkLength > len22 ? len22 : i2 + maxChunkLength));
+      for (var i3 = 0, len22 = len2 - extraBytes; i3 < len22; i3 += maxChunkLength) {
+        parts.push(encodeChunk(uint8, i3, i3 + maxChunkLength > len22 ? len22 : i3 + maxChunkLength));
       }
       if (extraBytes === 1) {
         tmp = uint8[len2 - 1];
@@ -829,19 +829,19 @@ var LNReaderPlugin = (() => {
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var nBits = -7;
-      var i = isLE ? nBytes - 1 : 0;
+      var i2 = isLE ? nBytes - 1 : 0;
       var d = isLE ? -1 : 1;
-      var s = buffer[offset + i];
-      i += d;
+      var s = buffer[offset + i2];
+      i2 += d;
       e2 = s & (1 << -nBits) - 1;
       s >>= -nBits;
       nBits += eLen;
-      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i], i += d, nBits -= 8) {
+      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
       m = e2 & (1 << -nBits) - 1;
       e2 >>= -nBits;
       nBits += mLen;
-      for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {
+      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
       if (e2 === 0) {
         e2 = 1 - eBias;
@@ -859,7 +859,7 @@ var LNReaderPlugin = (() => {
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-      var i = isLE ? 0 : nBytes - 1;
+      var i2 = isLE ? 0 : nBytes - 1;
       var d = isLE ? 1 : -1;
       var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
@@ -892,13 +892,13 @@ var LNReaderPlugin = (() => {
           e2 = 0;
         }
       }
-      for (; mLen >= 8; buffer[offset + i] = m & 255, i += d, m /= 256, mLen -= 8) {
+      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d, m /= 256, mLen -= 8) {
       }
       e2 = e2 << mLen | m;
       eLen += mLen;
-      for (; eLen > 0; buffer[offset + i] = e2 & 255, i += d, e2 /= 256, eLen -= 8) {
+      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i - d] |= s * 128;
+      buffer[offset + i2 - d] |= s * 128;
     };
     return exports$1;
   }
@@ -1055,8 +1055,8 @@ var LNReaderPlugin = (() => {
     function fromArrayLike(array) {
       const length = array.length < 0 ? 0 : checked(array.length) | 0;
       const buf = createBuffer(length);
-      for (let i = 0; i < length; i += 1) {
-        buf[i] = array[i] & 255;
+      for (let i2 = 0; i2 < length; i2 += 1) {
+        buf[i2] = array[i2] & 255;
       }
       return buf;
     }
@@ -1135,10 +1135,10 @@ var LNReaderPlugin = (() => {
       if (a2 === b) return 0;
       let x = a2.length;
       let y = b.length;
-      for (let i = 0, len = Math.min(x, y); i < len; ++i) {
-        if (a2[i] !== b[i]) {
-          x = a2[i];
-          y = b[i];
+      for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
+        if (a2[i2] !== b[i2]) {
+          x = a2[i2];
+          y = b[i2];
           break;
         }
       }
@@ -1171,17 +1171,17 @@ var LNReaderPlugin = (() => {
       if (list.length === 0) {
         return Buffer2.alloc(0);
       }
-      let i;
+      let i2;
       if (length === void 0) {
         length = 0;
-        for (i = 0; i < list.length; ++i) {
-          length += list[i].length;
+        for (i2 = 0; i2 < list.length; ++i2) {
+          length += list[i2].length;
         }
       }
       const buffer = Buffer2.allocUnsafe(length);
       let pos = 0;
-      for (i = 0; i < list.length; ++i) {
-        let buf = list[i];
+      for (i2 = 0; i2 < list.length; ++i2) {
+        let buf = list[i2];
         if (isInstance(buf, Uint8Array)) {
           if (pos + buf.length > buffer.length) {
             if (!Buffer2.isBuffer(buf)) buf = Buffer2.from(buf);
@@ -1290,9 +1290,9 @@ var LNReaderPlugin = (() => {
     __name(slowToString, "slowToString");
     Buffer2.prototype._isBuffer = true;
     function swap(b, n2, m) {
-      const i = b[n2];
+      const i2 = b[n2];
       b[n2] = b[m];
-      b[m] = i;
+      b[m] = i2;
     }
     __name(swap, "swap");
     Buffer2.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
@@ -1300,8 +1300,8 @@ var LNReaderPlugin = (() => {
       if (len % 2 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 16-bits");
       }
-      for (let i = 0; i < len; i += 2) {
-        swap(this, i, i + 1);
+      for (let i2 = 0; i2 < len; i2 += 2) {
+        swap(this, i2, i2 + 1);
       }
       return this;
     }, "swap16");
@@ -1310,9 +1310,9 @@ var LNReaderPlugin = (() => {
       if (len % 4 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 32-bits");
       }
-      for (let i = 0; i < len; i += 4) {
-        swap(this, i, i + 3);
-        swap(this, i + 1, i + 2);
+      for (let i2 = 0; i2 < len; i2 += 4) {
+        swap(this, i2, i2 + 3);
+        swap(this, i2 + 1, i2 + 2);
       }
       return this;
     }, "swap32");
@@ -1321,11 +1321,11 @@ var LNReaderPlugin = (() => {
       if (len % 8 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 64-bits");
       }
-      for (let i = 0; i < len; i += 8) {
-        swap(this, i, i + 7);
-        swap(this, i + 1, i + 6);
-        swap(this, i + 2, i + 5);
-        swap(this, i + 3, i + 4);
+      for (let i2 = 0; i2 < len; i2 += 8) {
+        swap(this, i2, i2 + 7);
+        swap(this, i2 + 1, i2 + 6);
+        swap(this, i2 + 2, i2 + 5);
+        swap(this, i2 + 3, i2 + 4);
       }
       return this;
     }, "swap64");
@@ -1392,10 +1392,10 @@ var LNReaderPlugin = (() => {
       const len = Math.min(x, y);
       const thisCopy = this.slice(thisStart, thisEnd);
       const targetCopy = target.slice(start, end);
-      for (let i = 0; i < len; ++i) {
-        if (thisCopy[i] !== targetCopy[i]) {
-          x = thisCopy[i];
-          y = targetCopy[i];
+      for (let i2 = 0; i2 < len; ++i2) {
+        if (thisCopy[i2] !== targetCopy[i2]) {
+          x = thisCopy[i2];
+          y = targetCopy[i2];
           break;
         }
       }
@@ -1463,37 +1463,37 @@ var LNReaderPlugin = (() => {
           byteOffset /= 2;
         }
       }
-      function read(buf, i2) {
+      function read(buf, i3) {
         if (indexSize === 1) {
-          return buf[i2];
+          return buf[i3];
         } else {
-          return buf.readUInt16BE(i2 * indexSize);
+          return buf.readUInt16BE(i3 * indexSize);
         }
       }
       __name(read, "read");
-      let i;
+      let i2;
       if (dir) {
         let foundIndex = -1;
-        for (i = byteOffset; i < arrLength; i++) {
-          if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
-            if (foundIndex === -1) foundIndex = i;
-            if (i - foundIndex + 1 === valLength) return foundIndex * indexSize;
+        for (i2 = byteOffset; i2 < arrLength; i2++) {
+          if (read(arr, i2) === read(val, foundIndex === -1 ? 0 : i2 - foundIndex)) {
+            if (foundIndex === -1) foundIndex = i2;
+            if (i2 - foundIndex + 1 === valLength) return foundIndex * indexSize;
           } else {
-            if (foundIndex !== -1) i -= i - foundIndex;
+            if (foundIndex !== -1) i2 -= i2 - foundIndex;
             foundIndex = -1;
           }
         }
       } else {
         if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
-        for (i = byteOffset; i >= 0; i--) {
+        for (i2 = byteOffset; i2 >= 0; i2--) {
           let found = true;
           for (let j = 0; j < valLength; j++) {
-            if (read(arr, i + j) !== read(val, j)) {
+            if (read(arr, i2 + j) !== read(val, j)) {
               found = false;
               break;
             }
           }
-          if (found) return i;
+          if (found) return i2;
         }
       }
       return -1;
@@ -1523,13 +1523,13 @@ var LNReaderPlugin = (() => {
       if (length > strLen / 2) {
         length = strLen / 2;
       }
-      let i;
-      for (i = 0; i < length; ++i) {
-        const parsed = parseInt(string.substr(i * 2, 2), 16);
-        if (numberIsNaN(parsed)) return i;
-        buf[offset + i] = parsed;
+      let i2;
+      for (i2 = 0; i2 < length; ++i2) {
+        const parsed = parseInt(string.substr(i2 * 2, 2), 16);
+        if (numberIsNaN(parsed)) return i2;
+        buf[offset + i2] = parsed;
       }
-      return i;
+      return i2;
     }
     __name(hexWrite, "hexWrite");
     function utf8Write(buf, string, offset, length) {
@@ -1618,12 +1618,12 @@ var LNReaderPlugin = (() => {
     function utf8Slice(buf, start, end) {
       end = Math.min(buf.length, end);
       const res = [];
-      let i = start;
-      while (i < end) {
-        const firstByte = buf[i];
+      let i2 = start;
+      while (i2 < end) {
+        const firstByte = buf[i2];
         let codePoint = null;
         let bytesPerSequence = firstByte > 239 ? 4 : firstByte > 223 ? 3 : firstByte > 191 ? 2 : 1;
-        if (i + bytesPerSequence <= end) {
+        if (i2 + bytesPerSequence <= end) {
           let secondByte, thirdByte, fourthByte, tempCodePoint;
           switch (bytesPerSequence) {
             case 1:
@@ -1632,7 +1632,7 @@ var LNReaderPlugin = (() => {
               }
               break;
             case 2:
-              secondByte = buf[i + 1];
+              secondByte = buf[i2 + 1];
               if ((secondByte & 192) === 128) {
                 tempCodePoint = (firstByte & 31) << 6 | secondByte & 63;
                 if (tempCodePoint > 127) {
@@ -1641,8 +1641,8 @@ var LNReaderPlugin = (() => {
               }
               break;
             case 3:
-              secondByte = buf[i + 1];
-              thirdByte = buf[i + 2];
+              secondByte = buf[i2 + 1];
+              thirdByte = buf[i2 + 2];
               if ((secondByte & 192) === 128 && (thirdByte & 192) === 128) {
                 tempCodePoint = (firstByte & 15) << 12 | (secondByte & 63) << 6 | thirdByte & 63;
                 if (tempCodePoint > 2047 && (tempCodePoint < 55296 || tempCodePoint > 57343)) {
@@ -1651,9 +1651,9 @@ var LNReaderPlugin = (() => {
               }
               break;
             case 4:
-              secondByte = buf[i + 1];
-              thirdByte = buf[i + 2];
-              fourthByte = buf[i + 3];
+              secondByte = buf[i2 + 1];
+              thirdByte = buf[i2 + 2];
+              fourthByte = buf[i2 + 3];
               if ((secondByte & 192) === 128 && (thirdByte & 192) === 128 && (fourthByte & 192) === 128) {
                 tempCodePoint = (firstByte & 15) << 18 | (secondByte & 63) << 12 | (thirdByte & 63) << 6 | fourthByte & 63;
                 if (tempCodePoint > 65535 && tempCodePoint < 1114112) {
@@ -1671,7 +1671,7 @@ var LNReaderPlugin = (() => {
           codePoint = 56320 | codePoint & 1023;
         }
         res.push(codePoint);
-        i += bytesPerSequence;
+        i2 += bytesPerSequence;
       }
       return decodeCodePointsArray(res);
     }
@@ -1683,9 +1683,9 @@ var LNReaderPlugin = (() => {
         return String.fromCharCode.apply(String, codePoints);
       }
       let res = "";
-      let i = 0;
-      while (i < len) {
-        res += String.fromCharCode.apply(String, codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH));
+      let i2 = 0;
+      while (i2 < len) {
+        res += String.fromCharCode.apply(String, codePoints.slice(i2, i2 += MAX_ARGUMENTS_LENGTH));
       }
       return res;
     }
@@ -1693,8 +1693,8 @@ var LNReaderPlugin = (() => {
     function asciiSlice(buf, start, end) {
       let ret = "";
       end = Math.min(buf.length, end);
-      for (let i = start; i < end; ++i) {
-        ret += String.fromCharCode(buf[i] & 127);
+      for (let i2 = start; i2 < end; ++i2) {
+        ret += String.fromCharCode(buf[i2] & 127);
       }
       return ret;
     }
@@ -1702,8 +1702,8 @@ var LNReaderPlugin = (() => {
     function latin1Slice(buf, start, end) {
       let ret = "";
       end = Math.min(buf.length, end);
-      for (let i = start; i < end; ++i) {
-        ret += String.fromCharCode(buf[i]);
+      for (let i2 = start; i2 < end; ++i2) {
+        ret += String.fromCharCode(buf[i2]);
       }
       return ret;
     }
@@ -1713,8 +1713,8 @@ var LNReaderPlugin = (() => {
       if (!start || start < 0) start = 0;
       if (!end || end < 0 || end > len) end = len;
       let out = "";
-      for (let i = start; i < end; ++i) {
-        out += hexSliceLookupTable[buf[i]];
+      for (let i2 = start; i2 < end; ++i2) {
+        out += hexSliceLookupTable[buf[i2]];
       }
       return out;
     }
@@ -1722,8 +1722,8 @@ var LNReaderPlugin = (() => {
     function utf16leSlice(buf, start, end) {
       const bytes = buf.slice(start, end);
       let res = "";
-      for (let i = 0; i < bytes.length - 1; i += 2) {
-        res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
+      for (let i2 = 0; i2 < bytes.length - 1; i2 += 2) {
+        res += String.fromCharCode(bytes[i2] + bytes[i2 + 1] * 256);
       }
       return res;
     }
@@ -1760,9 +1760,9 @@ var LNReaderPlugin = (() => {
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
       let val = this[offset];
       let mul = 1;
-      let i = 0;
-      while (++i < byteLength2 && (mul *= 256)) {
-        val += this[offset + i] * mul;
+      let i2 = 0;
+      while (++i2 < byteLength2 && (mul *= 256)) {
+        val += this[offset + i2] * mul;
       }
       return val;
     }, "readUIntLE");
@@ -1834,9 +1834,9 @@ var LNReaderPlugin = (() => {
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
       let val = this[offset];
       let mul = 1;
-      let i = 0;
-      while (++i < byteLength2 && (mul *= 256)) {
-        val += this[offset + i] * mul;
+      let i2 = 0;
+      while (++i2 < byteLength2 && (mul *= 256)) {
+        val += this[offset + i2] * mul;
       }
       mul *= 128;
       if (val >= mul) val -= Math.pow(2, 8 * byteLength2);
@@ -1846,11 +1846,11 @@ var LNReaderPlugin = (() => {
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
-      let i = byteLength2;
+      let i2 = byteLength2;
       let mul = 1;
-      let val = this[offset + --i];
-      while (i > 0 && (mul *= 256)) {
-        val += this[offset + --i] * mul;
+      let val = this[offset + --i2];
+      while (i2 > 0 && (mul *= 256)) {
+        val += this[offset + --i2] * mul;
       }
       mul *= 128;
       if (val >= mul) val -= Math.pow(2, 8 * byteLength2);
@@ -1942,10 +1942,10 @@ var LNReaderPlugin = (() => {
         checkInt(this, value, offset, byteLength2, maxBytes, 0);
       }
       let mul = 1;
-      let i = 0;
+      let i2 = 0;
       this[offset] = value & 255;
-      while (++i < byteLength2 && (mul *= 256)) {
-        this[offset + i] = value / mul & 255;
+      while (++i2 < byteLength2 && (mul *= 256)) {
+        this[offset + i2] = value / mul & 255;
       }
       return offset + byteLength2;
     }, "writeUIntLE");
@@ -1957,11 +1957,11 @@ var LNReaderPlugin = (() => {
         const maxBytes = Math.pow(2, 8 * byteLength2) - 1;
         checkInt(this, value, offset, byteLength2, maxBytes, 0);
       }
-      let i = byteLength2 - 1;
+      let i2 = byteLength2 - 1;
       let mul = 1;
-      this[offset + i] = value & 255;
-      while (--i >= 0 && (mul *= 256)) {
-        this[offset + i] = value / mul & 255;
+      this[offset + i2] = value & 255;
+      while (--i2 >= 0 && (mul *= 256)) {
+        this[offset + i2] = value / mul & 255;
       }
       return offset + byteLength2;
     }, "writeUIntBE");
@@ -2063,15 +2063,15 @@ var LNReaderPlugin = (() => {
         const limit = Math.pow(2, 8 * byteLength2 - 1);
         checkInt(this, value, offset, byteLength2, limit - 1, -limit);
       }
-      let i = 0;
+      let i2 = 0;
       let mul = 1;
       let sub = 0;
       this[offset] = value & 255;
-      while (++i < byteLength2 && (mul *= 256)) {
-        if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+      while (++i2 < byteLength2 && (mul *= 256)) {
+        if (value < 0 && sub === 0 && this[offset + i2 - 1] !== 0) {
           sub = 1;
         }
-        this[offset + i] = (value / mul >> 0) - sub & 255;
+        this[offset + i2] = (value / mul >> 0) - sub & 255;
       }
       return offset + byteLength2;
     }, "writeIntLE");
@@ -2082,15 +2082,15 @@ var LNReaderPlugin = (() => {
         const limit = Math.pow(2, 8 * byteLength2 - 1);
         checkInt(this, value, offset, byteLength2, limit - 1, -limit);
       }
-      let i = byteLength2 - 1;
+      let i2 = byteLength2 - 1;
       let mul = 1;
       let sub = 0;
-      this[offset + i] = value & 255;
-      while (--i >= 0 && (mul *= 256)) {
-        if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+      this[offset + i2] = value & 255;
+      while (--i2 >= 0 && (mul *= 256)) {
+        if (value < 0 && sub === 0 && this[offset + i2 + 1] !== 0) {
           sub = 1;
         }
-        this[offset + i] = (value / mul >> 0) - sub & 255;
+        this[offset + i2] = (value / mul >> 0) - sub & 255;
       }
       return offset + byteLength2;
     }, "writeIntBE");
@@ -2244,10 +2244,10 @@ var LNReaderPlugin = (() => {
       start = start >>> 0;
       end = end === void 0 ? this.length : end >>> 0;
       if (!val) val = 0;
-      let i;
+      let i2;
       if (typeof val === "number") {
-        for (i = start; i < end; ++i) {
-          this[i] = val;
+        for (i2 = start; i2 < end; ++i2) {
+          this[i2] = val;
         }
       } else {
         const bytes = Buffer2.isBuffer(val) ? val : Buffer2.from(val, encoding);
@@ -2255,8 +2255,8 @@ var LNReaderPlugin = (() => {
         if (len === 0) {
           throw new TypeError('The value "' + val + '" is invalid for argument "value"');
         }
-        for (i = 0; i < end - start; ++i) {
-          this[i + start] = bytes[i % len];
+        for (i2 = 0; i2 < end - start; ++i2) {
+          this[i2 + start] = bytes[i2 % len];
         }
       }
       return this;
@@ -2319,12 +2319,12 @@ var LNReaderPlugin = (() => {
     }, RangeError);
     function addNumericalSeparator(val) {
       let res = "";
-      let i = val.length;
+      let i2 = val.length;
       const start = val[0] === "-" ? 1 : 0;
-      for (; i >= start + 4; i -= 3) {
-        res = `_${val.slice(i - 3, i)}${res}`;
+      for (; i2 >= start + 4; i2 -= 3) {
+        res = `_${val.slice(i2 - 3, i2)}${res}`;
       }
-      return `${val.slice(0, i)}${res}`;
+      return `${val.slice(0, i2)}${res}`;
     }
     __name(addNumericalSeparator, "addNumericalSeparator");
     function checkBounds(buf, offset, byteLength2) {
@@ -2384,14 +2384,14 @@ var LNReaderPlugin = (() => {
       const length = string.length;
       let leadSurrogate = null;
       const bytes = [];
-      for (let i = 0; i < length; ++i) {
-        codePoint = string.charCodeAt(i);
+      for (let i2 = 0; i2 < length; ++i2) {
+        codePoint = string.charCodeAt(i2);
         if (codePoint > 55295 && codePoint < 57344) {
           if (!leadSurrogate) {
             if (codePoint > 56319) {
               if ((units -= 3) > -1) bytes.push(239, 191, 189);
               continue;
-            } else if (i + 1 === length) {
+            } else if (i2 + 1 === length) {
               if ((units -= 3) > -1) bytes.push(239, 191, 189);
               continue;
             }
@@ -2429,8 +2429,8 @@ var LNReaderPlugin = (() => {
     __name(utf8ToBytes, "utf8ToBytes");
     function asciiToBytes(str) {
       const byteArray = [];
-      for (let i = 0; i < str.length; ++i) {
-        byteArray.push(str.charCodeAt(i) & 255);
+      for (let i2 = 0; i2 < str.length; ++i2) {
+        byteArray.push(str.charCodeAt(i2) & 255);
       }
       return byteArray;
     }
@@ -2438,9 +2438,9 @@ var LNReaderPlugin = (() => {
     function utf16leToBytes(str, units) {
       let c, hi, lo;
       const byteArray = [];
-      for (let i = 0; i < str.length; ++i) {
+      for (let i2 = 0; i2 < str.length; ++i2) {
         if ((units -= 2) < 0) break;
-        c = str.charCodeAt(i);
+        c = str.charCodeAt(i2);
         hi = c >> 8;
         lo = c % 256;
         byteArray.push(lo);
@@ -2454,12 +2454,12 @@ var LNReaderPlugin = (() => {
     }
     __name(base64ToBytes, "base64ToBytes");
     function blitBuffer(src, dst, offset, length) {
-      let i;
-      for (i = 0; i < length; ++i) {
-        if (i + offset >= dst.length || i >= src.length) break;
-        dst[i + offset] = src[i];
+      let i2;
+      for (i2 = 0; i2 < length; ++i2) {
+        if (i2 + offset >= dst.length || i2 >= src.length) break;
+        dst[i2 + offset] = src[i2];
       }
-      return i;
+      return i2;
     }
     __name(blitBuffer, "blitBuffer");
     function isInstance(obj, type) {
@@ -2473,10 +2473,10 @@ var LNReaderPlugin = (() => {
     const hexSliceLookupTable = function() {
       const alphabet = "0123456789abcdef";
       const table = new Array(256);
-      for (let i = 0; i < 16; ++i) {
-        const i16 = i * 16;
+      for (let i2 = 0; i2 < 16; ++i2) {
+        const i16 = i2 * 16;
         for (let j = 0; j < 16; ++j) {
-          table[i16 + j] = alphabet[i] + alphabet[j];
+          table[i16 + j] = alphabet[i2] + alphabet[j];
         }
       }
       return table;
@@ -2591,54 +2591,54 @@ var LNReaderPlugin = (() => {
       }, "length");
       var b64 = new Array(64);
       var s64 = new Array(123);
-      for (i = 0; i < 64; )
-        s64[b64[i] = i < 26 ? i + 65 : i < 52 ? i + 71 : i < 62 ? i - 4 : i - 59 | 43] = i++;
+      for (i2 = 0; i2 < 64; )
+        s64[b64[i2] = i2 < 26 ? i2 + 65 : i2 < 52 ? i2 + 71 : i2 < 62 ? i2 - 4 : i2 - 59 | 43] = i2++;
       base64.encode = /* @__PURE__ */ __name(function encode(buffer, start, end) {
         var parts = null, chunk = [];
-        var i2 = 0, j = 0, t2;
+        var i3 = 0, j = 0, t2;
         while (start < end) {
           var b = buffer[start++];
           switch (j) {
             case 0:
-              chunk[i2++] = b64[b >> 2];
+              chunk[i3++] = b64[b >> 2];
               t2 = (b & 3) << 4;
               j = 1;
               break;
             case 1:
-              chunk[i2++] = b64[t2 | b >> 4];
+              chunk[i3++] = b64[t2 | b >> 4];
               t2 = (b & 15) << 2;
               j = 2;
               break;
             case 2:
-              chunk[i2++] = b64[t2 | b >> 6];
-              chunk[i2++] = b64[b & 63];
+              chunk[i3++] = b64[t2 | b >> 6];
+              chunk[i3++] = b64[b & 63];
               j = 0;
               break;
           }
-          if (i2 > 8191) {
+          if (i3 > 8191) {
             (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
-            i2 = 0;
+            i3 = 0;
           }
         }
         if (j) {
-          chunk[i2++] = b64[t2];
-          chunk[i2++] = 61;
+          chunk[i3++] = b64[t2];
+          chunk[i3++] = 61;
           if (j === 1)
-            chunk[i2++] = 61;
+            chunk[i3++] = 61;
         }
         if (parts) {
-          if (i2)
-            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
+          if (i3)
+            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i3)));
           return parts.join("");
         }
-        return String.fromCharCode.apply(String, chunk.slice(0, i2));
+        return String.fromCharCode.apply(String, chunk.slice(0, i3));
       }, "encode");
       var invalidEncoding = "invalid encoding";
       base64.decode = /* @__PURE__ */ __name(function decode(string, buffer, offset) {
         var start = offset;
         var j = 0, t2;
-        for (var i2 = 0; i2 < string.length; ) {
-          var c = string.charCodeAt(i2++);
+        for (var i3 = 0; i3 < string.length; ) {
+          var c = string.charCodeAt(i3++);
           if (c === 61 && j > 1)
             break;
           if ((c = s64[c]) === void 0)
@@ -2671,7 +2671,7 @@ var LNReaderPlugin = (() => {
       base64.test = /* @__PURE__ */ __name(function test(string) {
         return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(string);
       }, "test");
-      var i;
+      var i2;
     }
   });
 
@@ -2702,11 +2702,11 @@ var LNReaderPlugin = (() => {
             this._listeners[evt] = [];
           else {
             var listeners2 = this._listeners[evt];
-            for (var i = 0; i < listeners2.length; )
-              if (listeners2[i].fn === fn)
-                listeners2.splice(i, 1);
+            for (var i2 = 0; i2 < listeners2.length; )
+              if (listeners2[i2].fn === fn)
+                listeners2.splice(i2, 1);
               else
-                ++i;
+                ++i2;
           }
         }
         return this;
@@ -2714,11 +2714,11 @@ var LNReaderPlugin = (() => {
       EventEmitter.prototype.emit = /* @__PURE__ */ __name(function emit2(evt) {
         var listeners2 = this._listeners[evt];
         if (listeners2) {
-          var args = [], i = 1;
-          for (; i < arguments.length; )
-            args.push(arguments[i++]);
-          for (i = 0; i < listeners2.length; )
-            listeners2[i].fn.apply(listeners2[i++].ctx, args);
+          var args = [], i2 = 1;
+          for (; i2 < arguments.length; )
+            args.push(arguments[i2++]);
+          for (i2 = 0; i2 < listeners2.length; )
+            listeners2[i2].fn.apply(listeners2[i2++].ctx, args);
         }
         return this;
       }, "emit");
@@ -2970,14 +2970,14 @@ var LNReaderPlugin = (() => {
       var utf8 = exports4;
       utf8.length = /* @__PURE__ */ __name(function utf8_length(string) {
         var len = 0, c = 0;
-        for (var i = 0; i < string.length; ++i) {
-          c = string.charCodeAt(i);
+        for (var i2 = 0; i2 < string.length; ++i2) {
+          c = string.charCodeAt(i2);
           if (c < 128)
             len += 1;
           else if (c < 2048)
             len += 2;
-          else if ((c & 64512) === 55296 && (string.charCodeAt(i + 1) & 64512) === 56320) {
-            ++i;
+          else if ((c & 64512) === 55296 && (string.charCodeAt(i2 + 1) & 64512) === 56320) {
+            ++i2;
             len += 4;
           } else
             len += 3;
@@ -2988,43 +2988,43 @@ var LNReaderPlugin = (() => {
         var len = end - start;
         if (len < 1)
           return "";
-        var parts = null, chunk = [], i = 0, t2;
+        var parts = null, chunk = [], i2 = 0, t2;
         while (start < end) {
           t2 = buffer[start++];
           if (t2 < 128)
-            chunk[i++] = t2;
+            chunk[i2++] = t2;
           else if (t2 > 191 && t2 < 224)
-            chunk[i++] = (t2 & 31) << 6 | buffer[start++] & 63;
+            chunk[i2++] = (t2 & 31) << 6 | buffer[start++] & 63;
           else if (t2 > 239 && t2 < 365) {
             t2 = ((t2 & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63) - 65536;
-            chunk[i++] = 55296 + (t2 >> 10);
-            chunk[i++] = 56320 + (t2 & 1023);
+            chunk[i2++] = 55296 + (t2 >> 10);
+            chunk[i2++] = 56320 + (t2 & 1023);
           } else
-            chunk[i++] = (t2 & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
-          if (i > 8191) {
+            chunk[i2++] = (t2 & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
+          if (i2 > 8191) {
             (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
-            i = 0;
+            i2 = 0;
           }
         }
         if (parts) {
-          if (i)
-            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i)));
+          if (i2)
+            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
           return parts.join("");
         }
-        return String.fromCharCode.apply(String, chunk.slice(0, i));
+        return String.fromCharCode.apply(String, chunk.slice(0, i2));
       }, "utf8_read");
       utf8.write = /* @__PURE__ */ __name(function utf8_write(string, buffer, offset) {
         var start = offset, c1, c2;
-        for (var i = 0; i < string.length; ++i) {
-          c1 = string.charCodeAt(i);
+        for (var i2 = 0; i2 < string.length; ++i2) {
+          c1 = string.charCodeAt(i2);
           if (c1 < 128) {
             buffer[offset++] = c1;
           } else if (c1 < 2048) {
             buffer[offset++] = c1 >> 6 | 192;
             buffer[offset++] = c1 & 63 | 128;
-          } else if ((c1 & 64512) === 55296 && ((c2 = string.charCodeAt(i + 1)) & 64512) === 56320) {
+          } else if ((c1 & 64512) === 55296 && ((c2 = string.charCodeAt(i2 + 1)) & 64512) === 56320) {
             c1 = 65536 + ((c1 & 1023) << 10) + (c2 & 1023);
-            ++i;
+            ++i2;
             buffer[offset++] = c1 >> 18 | 240;
             buffer[offset++] = c1 >> 12 & 63 | 128;
             buffer[offset++] = c1 >> 6 & 63 | 128;
@@ -3258,9 +3258,9 @@ var LNReaderPlugin = (() => {
         return bits.toNumber(Boolean(unsigned));
       }, "longFromHash");
       function merge(dst, src, ifNotSet) {
-        for (var keys = Object.keys(src), i = 0; i < keys.length; ++i)
-          if (dst[keys[i]] === void 0 || !ifNotSet)
-            dst[keys[i]] = src[keys[i]];
+        for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
+          if (dst[keys[i2]] === void 0 || !ifNotSet)
+            dst[keys[i2]] = src[keys[i2]];
         return dst;
       }
       __name(merge, "merge");
@@ -3318,19 +3318,19 @@ var LNReaderPlugin = (() => {
       util.ProtocolError = newError("ProtocolError");
       util.oneOfGetter = /* @__PURE__ */ __name(function getOneOf(fieldNames) {
         var fieldMap = {};
-        for (var i = 0; i < fieldNames.length; ++i)
-          fieldMap[fieldNames[i]] = 1;
+        for (var i2 = 0; i2 < fieldNames.length; ++i2)
+          fieldMap[fieldNames[i2]] = 1;
         return function() {
-          for (var keys = Object.keys(this), i2 = keys.length - 1; i2 > -1; --i2)
-            if (fieldMap[keys[i2]] === 1 && this[keys[i2]] !== void 0 && this[keys[i2]] !== null)
-              return keys[i2];
+          for (var keys = Object.keys(this), i3 = keys.length - 1; i3 > -1; --i3)
+            if (fieldMap[keys[i3]] === 1 && this[keys[i3]] !== void 0 && this[keys[i3]] !== null)
+              return keys[i3];
         };
       }, "getOneOf");
       util.oneOfSetter = /* @__PURE__ */ __name(function setOneOf(fieldNames) {
         return function(name) {
-          for (var i = 0; i < fieldNames.length; ++i)
-            if (fieldNames[i] !== name)
-              delete this[fieldNames[i]];
+          for (var i2 = 0; i2 < fieldNames.length; ++i2)
+            if (fieldNames[i2] !== name)
+              delete this[fieldNames[i2]];
         };
       }, "setOneOf");
       util.toJSONOptions = {
@@ -3495,8 +3495,8 @@ var LNReaderPlugin = (() => {
       var writeBytes = util.Array.prototype.set ? /* @__PURE__ */ __name(function writeBytes_set(val, buf, pos) {
         buf.set(val, pos);
       }, "writeBytes_set") : /* @__PURE__ */ __name(function writeBytes_for(val, buf, pos) {
-        for (var i = 0; i < val.length; ++i)
-          buf[pos + i] = val[i];
+        for (var i2 = 0; i2 < val.length; ++i2)
+          buf[pos + i2] = val[i2];
       }, "writeBytes_for");
       Writer.prototype.bytes = /* @__PURE__ */ __name(function write_bytes(value) {
         var len = value.length >>> 0;
@@ -3580,8 +3580,8 @@ var LNReaderPlugin = (() => {
         }, "writeBytesBuffer_set") : /* @__PURE__ */ __name(function writeBytesBuffer_copy(val, buf, pos) {
           if (val.copy)
             val.copy(buf, pos, 0, val.length);
-          else for (var i = 0; i < val.length; )
-            buf[pos++] = val[i++];
+          else for (var i2 = 0; i2 < val.length; )
+            buf[pos++] = val[i2++];
         }, "writeBytesBuffer_copy");
       };
       BufferWriter.prototype.bytes = /* @__PURE__ */ __name(function write_bytes_buffer(value) {
@@ -3682,10 +3682,10 @@ var LNReaderPlugin = (() => {
       }, "read_sint32");
       function readLongVarint() {
         var bits = new LongBits(0, 0);
-        var i = 0;
+        var i2 = 0;
         if (this.len - this.pos > 4) {
-          for (; i < 4; ++i) {
-            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
+          for (; i2 < 4; ++i2) {
+            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i2 * 7) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
@@ -3693,29 +3693,29 @@ var LNReaderPlugin = (() => {
           bits.hi = (bits.hi | (this.buf[this.pos] & 127) >> 4) >>> 0;
           if (this.buf[this.pos++] < 128)
             return bits;
-          i = 0;
+          i2 = 0;
         } else {
-          for (; i < 3; ++i) {
+          for (; i2 < 3; ++i2) {
             if (this.pos >= this.len)
               throw indexOutOfRange(this);
-            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
+            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i2 * 7) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
-          bits.lo = (bits.lo | (this.buf[this.pos++] & 127) << i * 7) >>> 0;
+          bits.lo = (bits.lo | (this.buf[this.pos++] & 127) << i2 * 7) >>> 0;
           return bits;
         }
         if (this.len - this.pos > 4) {
-          for (; i < 5; ++i) {
-            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
+          for (; i2 < 5; ++i2) {
+            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i2 * 7 + 3) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
         } else {
-          for (; i < 5; ++i) {
+          for (; i2 < 5; ++i2) {
             if (this.pos >= this.len)
               throw indexOutOfRange(this);
-            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
+            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i2 * 7 + 3) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
@@ -4104,8 +4104,8 @@ var LNReaderPlugin = (() => {
             var buffer = xhr.response;
             if (!buffer) {
               buffer = [];
-              for (var i = 0; i < xhr.responseText.length; ++i)
-                buffer.push(xhr.responseText.charCodeAt(i) & 255);
+              for (var i2 = 0; i2 < xhr.responseText.length; ++i2)
+                buffer.push(xhr.responseText.charCodeAt(i2) & 255);
             }
             return callback(null, typeof Uint8Array !== "undefined" ? new Uint8Array(buffer) : buffer);
           }
@@ -4151,18 +4151,18 @@ var LNReaderPlugin = (() => {
           var parts = path2.split("/"), absolute = isAbsolute(path2), prefix = "";
           if (absolute)
             prefix = parts.shift() + "/";
-          for (var i = 0; i < parts.length; ) {
-            if (parts[i] === "..") {
-              if (i > 0 && parts[i - 1] !== "..")
-                parts.splice(--i, 2);
+          for (var i2 = 0; i2 < parts.length; ) {
+            if (parts[i2] === "..") {
+              if (i2 > 0 && parts[i2 - 1] !== "..")
+                parts.splice(--i2, 2);
               else if (absolute)
-                parts.splice(i, 1);
+                parts.splice(i2, 1);
               else
-                ++i;
-            } else if (parts[i] === ".")
-              parts.splice(i, 1);
+                ++i2;
+            } else if (parts[i2] === ".")
+              parts.splice(i2, 1);
             else
-              ++i;
+              ++i2;
           }
           return prefix + parts.join("/");
         }, "normalize")
@@ -4176,443 +4176,6 @@ var LNReaderPlugin = (() => {
           originPath = normalize(originPath);
         return (originPath = originPath.replace(/(?:\/|^)[^/]+$/, "")).length ? normalize(originPath + "/" + includePath) : includePath;
       }, "resolve");
-    }
-  });
-
-  // node_modules/protobufjs/src/types.js
-  var require_types = __commonJS({
-    "node_modules/protobufjs/src/types.js"(exports4) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      var types = exports4;
-      var util = require_util();
-      var s = [
-        "double",
-        // 0
-        "float",
-        // 1
-        "int32",
-        // 2
-        "uint32",
-        // 3
-        "sint32",
-        // 4
-        "fixed32",
-        // 5
-        "sfixed32",
-        // 6
-        "int64",
-        // 7
-        "uint64",
-        // 8
-        "sint64",
-        // 9
-        "fixed64",
-        // 10
-        "sfixed64",
-        // 11
-        "bool",
-        // 12
-        "string",
-        // 13
-        "bytes"
-        // 14
-      ];
-      function bake(values, offset) {
-        var i = 0, o2 = {};
-        offset |= 0;
-        while (i < values.length) o2[s[i + offset]] = values[i++];
-        return o2;
-      }
-      __name(bake, "bake");
-      types.basic = bake([
-        /* double   */
-        1,
-        /* float    */
-        5,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0,
-        /* string   */
-        2,
-        /* bytes    */
-        2
-      ]);
-      types.defaults = bake([
-        /* double   */
-        0,
-        /* float    */
-        0,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        0,
-        /* sfixed32 */
-        0,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        0,
-        /* sfixed64 */
-        0,
-        /* bool     */
-        false,
-        /* string   */
-        "",
-        /* bytes    */
-        util.emptyArray,
-        /* message  */
-        null
-      ]);
-      types.long = bake([
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1
-      ], 7);
-      types.mapKey = bake([
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0,
-        /* string   */
-        2
-      ], 2);
-      types.packed = bake([
-        /* double   */
-        1,
-        /* float    */
-        5,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0
-      ]);
-    }
-  });
-
-  // node_modules/protobufjs/src/field.js
-  var require_field = __commonJS({
-    "node_modules/protobufjs/src/field.js"(exports4, module2) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      module2.exports = Field;
-      var ReflectionObject = require_object();
-      ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
-      var Enum = require_enum(), types = require_types(), util = require_util();
-      var Type;
-      var ruleRe = /^required|optional|repeated$/;
-      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
-        return new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
-      }, "fromJSON");
-      function Field(name, id, type, rule, extend, options, comment) {
-        if (util.isObject(rule)) {
-          comment = extend;
-          options = rule;
-          rule = extend = void 0;
-        } else if (util.isObject(extend)) {
-          comment = options;
-          options = extend;
-          extend = void 0;
-        }
-        ReflectionObject.call(this, name, options);
-        if (!util.isInteger(id) || id < 0)
-          throw TypeError("id must be a non-negative integer");
-        if (!util.isString(type))
-          throw TypeError("type must be a string");
-        if (rule !== void 0 && !ruleRe.test(rule = rule.toString().toLowerCase()))
-          throw TypeError("rule must be a string rule");
-        if (extend !== void 0 && !util.isString(extend))
-          throw TypeError("extend must be a string");
-        if (rule === "proto3_optional") {
-          rule = "optional";
-        }
-        this.rule = rule && rule !== "optional" ? rule : void 0;
-        this.type = type;
-        this.id = id;
-        this.extend = extend || void 0;
-        this.required = rule === "required";
-        this.optional = !this.required;
-        this.repeated = rule === "repeated";
-        this.map = false;
-        this.message = null;
-        this.partOf = null;
-        this.typeDefault = null;
-        this.defaultValue = null;
-        this.long = util.Long ? types.long[type] !== void 0 : (
-          /* istanbul ignore next */
-          false
-        );
-        this.bytes = type === "bytes";
-        this.resolvedType = null;
-        this.extensionField = null;
-        this.declaringField = null;
-        this._packed = null;
-        this.comment = comment;
-      }
-      __name(Field, "Field");
-      Object.defineProperty(Field.prototype, "packed", {
-        get: /* @__PURE__ */ __name(function() {
-          if (this._packed === null)
-            this._packed = this.getOption("packed") !== false;
-          return this._packed;
-        }, "get")
-      });
-      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
-        if (name === "packed")
-          this._packed = null;
-        return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
-      }, "setOption");
-      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
-        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
-        return util.toObject([
-          "rule",
-          this.rule !== "optional" && this.rule || void 0,
-          "type",
-          this.type,
-          "id",
-          this.id,
-          "extend",
-          this.extend,
-          "options",
-          this.options,
-          "comment",
-          keepComments ? this.comment : void 0
-        ]);
-      }, "toJSON");
-      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
-        if (this.resolved)
-          return this;
-        if ((this.typeDefault = types.defaults[this.type]) === void 0) {
-          this.resolvedType = (this.declaringField ? this.declaringField.parent : this.parent).lookupTypeOrEnum(this.type);
-          if (this.resolvedType instanceof Type)
-            this.typeDefault = null;
-          else
-            this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
-        } else if (this.options && this.options.proto3_optional) {
-          this.typeDefault = null;
-        }
-        if (this.options && this.options["default"] != null) {
-          this.typeDefault = this.options["default"];
-          if (this.resolvedType instanceof Enum && typeof this.typeDefault === "string")
-            this.typeDefault = this.resolvedType.values[this.typeDefault];
-        }
-        if (this.options) {
-          if (this.options.packed === true || this.options.packed !== void 0 && this.resolvedType && !(this.resolvedType instanceof Enum))
-            delete this.options.packed;
-          if (!Object.keys(this.options).length)
-            this.options = void 0;
-        }
-        if (this.long) {
-          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
-          if (Object.freeze)
-            Object.freeze(this.typeDefault);
-        } else if (this.bytes && typeof this.typeDefault === "string") {
-          var buf;
-          if (util.base64.test(this.typeDefault))
-            util.base64.decode(this.typeDefault, buf = util.newBuffer(util.base64.length(this.typeDefault)), 0);
-          else
-            util.utf8.write(this.typeDefault, buf = util.newBuffer(util.utf8.length(this.typeDefault)), 0);
-          this.typeDefault = buf;
-        }
-        if (this.map)
-          this.defaultValue = util.emptyObject;
-        else if (this.repeated)
-          this.defaultValue = util.emptyArray;
-        else
-          this.defaultValue = this.typeDefault;
-        if (this.parent instanceof Type)
-          this.parent.ctor.prototype[this.name] = this.defaultValue;
-        return ReflectionObject.prototype.resolve.call(this);
-      }, "resolve");
-      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
-        if (typeof fieldType === "function")
-          fieldType = util.decorateType(fieldType).name;
-        else if (fieldType && typeof fieldType === "object")
-          fieldType = util.decorateEnum(fieldType).name;
-        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
-          util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
-        }, "fieldDecorator");
-      }, "decorateField");
-      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
-        Type = Type_;
-      }, "configure");
-    }
-  });
-
-  // node_modules/protobufjs/src/oneof.js
-  var require_oneof = __commonJS({
-    "node_modules/protobufjs/src/oneof.js"(exports4, module2) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      module2.exports = OneOf;
-      var ReflectionObject = require_object();
-      ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
-      var Field = require_field(), util = require_util();
-      function OneOf(name, fieldNames, options, comment) {
-        if (!Array.isArray(fieldNames)) {
-          options = fieldNames;
-          fieldNames = void 0;
-        }
-        ReflectionObject.call(this, name, options);
-        if (!(fieldNames === void 0 || Array.isArray(fieldNames)))
-          throw TypeError("fieldNames must be an Array");
-        this.oneof = fieldNames || [];
-        this.fieldsArray = [];
-        this.comment = comment;
-      }
-      __name(OneOf, "OneOf");
-      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
-        return new OneOf(name, json.oneof, json.options, json.comment);
-      }, "fromJSON");
-      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
-        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
-        return util.toObject([
-          "options",
-          this.options,
-          "oneof",
-          this.oneof,
-          "comment",
-          keepComments ? this.comment : void 0
-        ]);
-      }, "toJSON");
-      function addFieldsToParent(oneof) {
-        if (oneof.parent) {
-          for (var i = 0; i < oneof.fieldsArray.length; ++i)
-            if (!oneof.fieldsArray[i].parent)
-              oneof.parent.add(oneof.fieldsArray[i]);
-        }
-      }
-      __name(addFieldsToParent, "addFieldsToParent");
-      OneOf.prototype.add = /* @__PURE__ */ __name(function add(field) {
-        if (!(field instanceof Field))
-          throw TypeError("field must be a Field");
-        if (field.parent && field.parent !== this.parent)
-          field.parent.remove(field);
-        this.oneof.push(field.name);
-        this.fieldsArray.push(field);
-        field.partOf = this;
-        addFieldsToParent(this);
-        return this;
-      }, "add");
-      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove(field) {
-        if (!(field instanceof Field))
-          throw TypeError("field must be a Field");
-        var index = this.fieldsArray.indexOf(field);
-        if (index < 0)
-          throw Error(field + " is not a member of " + this);
-        this.fieldsArray.splice(index, 1);
-        index = this.oneof.indexOf(field.name);
-        if (index > -1)
-          this.oneof.splice(index, 1);
-        field.partOf = null;
-        return this;
-      }, "remove");
-      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent) {
-        ReflectionObject.prototype.onAdd.call(this, parent);
-        var self2 = this;
-        for (var i = 0; i < this.oneof.length; ++i) {
-          var field = parent.get(this.oneof[i]);
-          if (field && !field.partOf) {
-            field.partOf = self2;
-            self2.fieldsArray.push(field);
-          }
-        }
-        addFieldsToParent(this);
-      }, "onAdd");
-      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent) {
-        for (var i = 0, field; i < this.fieldsArray.length; ++i)
-          if ((field = this.fieldsArray[i]).parent)
-            field.parent.remove(field);
-        ReflectionObject.prototype.onRemove.call(this, parent);
-      }, "onRemove");
-      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
-        var fieldNames = new Array(arguments.length), index = 0;
-        while (index < arguments.length)
-          fieldNames[index] = arguments[index++];
-        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
-          util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
-          Object.defineProperty(prototype, oneofName, {
-            get: util.oneOfGetter(fieldNames),
-            set: util.oneOfSetter(fieldNames)
-          });
-        }, "oneOfDecorator");
-      }, "decorateOneOf");
     }
   });
 
@@ -4635,24 +4198,24 @@ var LNReaderPlugin = (() => {
         if (!(array && array.length))
           return void 0;
         var obj = {};
-        for (var i = 0; i < array.length; ++i)
-          obj[array[i].name] = array[i].toJSON(toJSONOptions);
+        for (var i2 = 0; i2 < array.length; ++i2)
+          obj[array[i2].name] = array[i2].toJSON(toJSONOptions);
         return obj;
       }
       __name(arrayToJSON, "arrayToJSON");
       Namespace.arrayToJSON = arrayToJSON;
       Namespace.isReservedId = /* @__PURE__ */ __name(function isReservedId(reserved, id) {
         if (reserved) {
-          for (var i = 0; i < reserved.length; ++i)
-            if (typeof reserved[i] !== "string" && reserved[i][0] <= id && reserved[i][1] > id)
+          for (var i2 = 0; i2 < reserved.length; ++i2)
+            if (typeof reserved[i2] !== "string" && reserved[i2][0] <= id && reserved[i2][1] > id)
               return true;
         }
         return false;
       }, "isReservedId");
       Namespace.isReservedName = /* @__PURE__ */ __name(function isReservedName(reserved, name) {
         if (reserved) {
-          for (var i = 0; i < reserved.length; ++i)
-            if (reserved[i] === name)
+          for (var i2 = 0; i2 < reserved.length; ++i2)
+            if (reserved[i2] === name)
               return true;
         }
         return false;
@@ -4661,10 +4224,18 @@ var LNReaderPlugin = (() => {
         ReflectionObject.call(this, name, options);
         this.nested = void 0;
         this._nestedArray = null;
+        this._lookupCache = {};
+        this._needsRecursiveFeatureResolution = true;
+        this._needsRecursiveResolve = true;
       }
       __name(Namespace, "Namespace");
       function clearCache(namespace) {
         namespace._nestedArray = null;
+        namespace._lookupCache = {};
+        var parent = namespace;
+        while (parent = parent.parent) {
+          parent._lookupCache = {};
+        }
         return namespace;
       }
       __name(clearCache, "clearCache");
@@ -4684,11 +4255,11 @@ var LNReaderPlugin = (() => {
       Namespace.prototype.addJSON = /* @__PURE__ */ __name(function addJSON(nestedJson) {
         var ns = this;
         if (nestedJson) {
-          for (var names = Object.keys(nestedJson), i = 0, nested; i < names.length; ++i) {
-            nested = nestedJson[names[i]];
+          for (var names = Object.keys(nestedJson), i2 = 0, nested; i2 < names.length; ++i2) {
+            nested = nestedJson[names[i2]];
             ns.add(
               // most to least likely
-              (nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : nested.id !== void 0 ? Field.fromJSON : Namespace.fromJSON)(names[i], nested)
+              (nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : nested.id !== void 0 ? Field.fromJSON : Namespace.fromJSON)(names[i2], nested)
             );
           }
         }
@@ -4712,8 +4283,8 @@ var LNReaderPlugin = (() => {
           if (prev) {
             if (prev instanceof Namespace && object instanceof Namespace && !(prev instanceof Type || prev instanceof Service)) {
               var nested = prev.nestedArray;
-              for (var i = 0; i < nested.length; ++i)
-                object.add(nested[i]);
+              for (var i2 = 0; i2 < nested.length; ++i2)
+                object.add(nested[i2]);
               this.remove(prev);
               if (!this.nested)
                 this.nested = {};
@@ -4723,6 +4294,18 @@ var LNReaderPlugin = (() => {
           }
         }
         this.nested[object.name] = object;
+        if (!(this instanceof Type || this instanceof Service || this instanceof Enum || this instanceof Field)) {
+          if (!object._edition) {
+            object._edition = object._defaultEdition;
+          }
+        }
+        this._needsRecursiveFeatureResolution = true;
+        this._needsRecursiveResolve = true;
+        var parent = this;
+        while (parent = parent.parent) {
+          parent._needsRecursiveFeatureResolution = true;
+          parent._needsRecursiveResolve = true;
+        }
         object.onAdd(this);
         return clearCache(this);
       }, "add");
@@ -4759,14 +4342,28 @@ var LNReaderPlugin = (() => {
         return ptr;
       }, "define");
       Namespace.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
-        var nested = this.nestedArray, i = 0;
-        while (i < nested.length)
-          if (nested[i] instanceof Namespace)
-            nested[i++].resolveAll();
+        if (!this._needsRecursiveResolve) return this;
+        this._resolveFeaturesRecursive(this._edition);
+        var nested = this.nestedArray, i2 = 0;
+        this.resolve();
+        while (i2 < nested.length)
+          if (nested[i2] instanceof Namespace)
+            nested[i2++].resolveAll();
           else
-            nested[i++].resolve();
-        return this.resolve();
+            nested[i2++].resolve();
+        this._needsRecursiveResolve = false;
+        return this;
       }, "resolveAll");
+      Namespace.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        this._needsRecursiveFeatureResolution = false;
+        edition = this._edition || edition;
+        ReflectionObject.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.nestedArray.forEach((nested) => {
+          nested._resolveFeaturesRecursive(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Namespace.prototype.lookup = /* @__PURE__ */ __name(function lookup(path, filterTypes, parentAlreadyChecked) {
         if (typeof filterTypes === "boolean") {
           parentAlreadyChecked = filterTypes;
@@ -4779,22 +4376,49 @@ var LNReaderPlugin = (() => {
           path = path.split(".");
         } else if (!path.length)
           return this;
+        var flatPath = path.join(".");
         if (path[0] === "")
           return this.root.lookup(path.slice(1), filterTypes);
+        var found = this.root._fullyQualifiedObjects && this.root._fullyQualifiedObjects["." + flatPath];
+        if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+          return found;
+        }
+        found = this._lookupImpl(path, flatPath);
+        if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+          return found;
+        }
+        if (parentAlreadyChecked)
+          return null;
+        var current = this;
+        while (current.parent) {
+          found = current.parent._lookupImpl(path, flatPath);
+          if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+            return found;
+          }
+          current = current.parent;
+        }
+        return null;
+      }, "lookup");
+      Namespace.prototype._lookupImpl = /* @__PURE__ */ __name(function lookup(path, flatPath) {
+        if (Object.prototype.hasOwnProperty.call(this._lookupCache, flatPath)) {
+          return this._lookupCache[flatPath];
+        }
         var found = this.get(path[0]);
+        var exact = null;
         if (found) {
           if (path.length === 1) {
-            if (!filterTypes || filterTypes.indexOf(found.constructor) > -1)
-              return found;
-          } else if (found instanceof Namespace && (found = found.lookup(path.slice(1), filterTypes, true)))
-            return found;
-        } else
-          for (var i = 0; i < this.nestedArray.length; ++i)
-            if (this._nestedArray[i] instanceof Namespace && (found = this._nestedArray[i].lookup(path, filterTypes, true)))
-              return found;
-        if (this.parent === null || parentAlreadyChecked)
-          return null;
-        return this.parent.lookup(path, filterTypes);
+            exact = found;
+          } else if (found instanceof Namespace) {
+            path = path.slice(1);
+            exact = found._lookupImpl(path, path.join("."));
+          }
+        } else {
+          for (var i2 = 0; i2 < this.nestedArray.length; ++i2)
+            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2]._lookupImpl(path, flatPath)))
+              exact = found;
+        }
+        this._lookupCache[flatPath] = exact;
+        return exact;
       }, "lookup");
       Namespace.prototype.lookupType = /* @__PURE__ */ __name(function lookupType(path) {
         var found = this.lookup(path, [Type]);
@@ -4979,17 +4603,22 @@ var LNReaderPlugin = (() => {
       Service.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
         var service = new Service(name, json.options);
         if (json.methods)
-          for (var names = Object.keys(json.methods), i = 0; i < names.length; ++i)
-            service.add(Method.fromJSON(names[i], json.methods[names[i]]));
+          for (var names = Object.keys(json.methods), i2 = 0; i2 < names.length; ++i2)
+            service.add(Method.fromJSON(names[i2], json.methods[names[i2]]));
         if (json.nested)
           service.addJSON(json.nested);
+        if (json.edition)
+          service._edition = json.edition;
         service.comment = json.comment;
+        service._defaultEdition = "proto3";
         return service;
       }, "fromJSON");
       Service.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           inherited && inherited.options || void 0,
           "methods",
@@ -5015,11 +4644,22 @@ var LNReaderPlugin = (() => {
         return this.methods[name] || Namespace.prototype.get.call(this, name);
       }, "get");
       Service.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
+        Namespace.prototype.resolve.call(this);
         var methods = this.methodsArray;
-        for (var i = 0; i < methods.length; ++i)
-          methods[i].resolve();
-        return Namespace.prototype.resolve.call(this);
+        for (var i2 = 0; i2 < methods.length; ++i2)
+          methods[i2].resolve();
+        return this;
       }, "resolveAll");
+      Service.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        edition = this._edition || edition;
+        Namespace.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.methodsArray.forEach((method) => {
+          method._resolveFeaturesRecursive(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Service.prototype.add = /* @__PURE__ */ __name(function add(object) {
         if (this.get(object.name))
           throw Error("duplicate name '" + object.name + "' in " + this);
@@ -5042,9 +4682,9 @@ var LNReaderPlugin = (() => {
       }, "remove");
       Service.prototype.create = /* @__PURE__ */ __name(function create(rpcImpl, requestDelimited, responseDelimited) {
         var rpcService = new rpc.Service(rpcImpl, requestDelimited, responseDelimited);
-        for (var i = 0, method; i < /* initializes */
-        this.methodsArray.length; ++i) {
-          var methodName = util.lcFirst((method = this._methodsArray[i]).resolve().name).replace(/[^$\w_]/g, "");
+        for (var i2 = 0, method; i2 < /* initializes */
+        this.methodsArray.length; ++i2) {
+          var methodName = util.lcFirst((method = this._methodsArray[i2]).resolve().name).replace(/[^$\w_]/g, "");
           rpcService[methodName] = util.codegen(["r", "c"], util.isReserved(methodName) ? methodName + "_" : methodName)("return this.rpcCall(m,q,s,r,c)")({
             m: method,
             q: method.resolvedRequestType.ctor,
@@ -5067,8 +4707,12 @@ var LNReaderPlugin = (() => {
       var util = require_minimal();
       function Message(properties) {
         if (properties)
-          for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-            this[keys[i]] = properties[keys[i]];
+          for (var keys = Object.keys(properties), i2 = 0; i2 < keys.length; ++i2) {
+            var key = keys[i2];
+            if (key === "__proto__")
+              continue;
+            this[key] = properties[key];
+          }
       }
       __name(Message, "Message");
       Message.create = /* @__PURE__ */ __name(function create(properties) {
@@ -5115,15 +4759,13 @@ var LNReaderPlugin = (() => {
       }
       __name(missing, "missing");
       function decoder(mtype) {
-        var gen = util.codegen(["r", "l"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
+        var gen = util.codegen(["r", "l", "e"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
           return field2.map;
-        }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()");
-        if (mtype.group) gen("if((t&7)===4)")("break");
-        gen("switch(t>>>3){");
-        var i = 0;
-        for (; i < /* initializes */
-        mtype.fieldsArray.length; ++i) {
-          var field = mtype._fieldsArray[i].resolve(), type = field.resolvedType instanceof Enum ? "int32" : field.type, ref = "m" + util.safeProp(field.name);
+        }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()")("if(t===e)")("break")("switch(t>>>3){");
+        var i2 = 0;
+        for (; i2 < /* initializes */
+        mtype.fieldsArray.length; ++i2) {
+          var field = mtype._fieldsArray[i2].resolve(), type = field.resolvedType instanceof Enum ? "int32" : field.type, ref = "m" + util.safeProp(field.name);
           gen("case %i: {", field.id);
           if (field.map) {
             gen("if(%s===util.emptyObject)", ref)("%s={}", ref)("var c2 = r.uint32()+r.pos");
@@ -5132,7 +4774,7 @@ var LNReaderPlugin = (() => {
             if (types.defaults[type] !== void 0) gen("value=%j", types.defaults[type]);
             else gen("value=null");
             gen("while(r.pos<c2){")("var tag2=r.uint32()")("switch(tag2>>>3){")("case 1: k=r.%s(); break", field.keyType)("case 2:");
-            if (types.basic[type] === void 0) gen("value=types[%i].decode(r,r.uint32())", i);
+            if (types.basic[type] === void 0) gen("value=types[%i].decode(r,r.uint32())", i2);
             else gen("value=r.%s()", type);
             gen("break")("default:")("r.skipType(tag2&7)")("break")("}")("}");
             if (types.long[field.keyType] !== void 0) gen('%s[typeof k==="object"?util.longToHash(k):k]=value', ref);
@@ -5140,15 +4782,15 @@ var LNReaderPlugin = (() => {
           } else if (field.repeated) {
             gen("if(!(%s&&%s.length))", ref, ref)("%s=[]", ref);
             if (types.packed[type] !== void 0) gen("if((t&7)===2){")("var c2=r.uint32()+r.pos")("while(r.pos<c2)")("%s.push(r.%s())", ref, type)("}else");
-            if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s.push(types[%i].decode(r))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i);
+            if (types.basic[type] === void 0) gen(field.delimited ? "%s.push(types[%i].decode(r,undefined,((t&~7)|4)))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i2);
             else gen("%s.push(r.%s())", ref, type);
-          } else if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s=types[%i].decode(r)" : "%s=types[%i].decode(r,r.uint32())", ref, i);
+          } else if (types.basic[type] === void 0) gen(field.delimited ? "%s=types[%i].decode(r,undefined,((t&~7)|4))" : "%s=types[%i].decode(r,r.uint32())", ref, i2);
           else gen("%s=r.%s()", ref, type);
           gen("break")("}");
         }
         gen("default:")("r.skipType(t&7)")("break")("}")("}");
-        for (i = 0; i < mtype._fieldsArray.length; ++i) {
-          var rfield = mtype._fieldsArray[i];
+        for (i2 = 0; i2 < mtype._fieldsArray.length; ++i2) {
+          var rfield = mtype._fieldsArray[i2];
           if (rfield.required) gen("if(!m.hasOwnProperty(%j))", rfield.name)("throw util.ProtocolError(%j,{instance:m})", missing(rfield));
         }
         return gen("return m");
@@ -5240,17 +4882,17 @@ var LNReaderPlugin = (() => {
         var gen = util.codegen(["m"], mtype.name + "$verify")('if(typeof m!=="object"||m===null)')("return%j", "object expected");
         var oneofs = mtype.oneofsArray, seenFirstField = {};
         if (oneofs.length) gen("var p={}");
-        for (var i = 0; i < /* initializes */
-        mtype.fieldsArray.length; ++i) {
-          var field = mtype._fieldsArray[i].resolve(), ref = "m" + util.safeProp(field.name);
+        for (var i2 = 0; i2 < /* initializes */
+        mtype.fieldsArray.length; ++i2) {
+          var field = mtype._fieldsArray[i2].resolve(), ref = "m" + util.safeProp(field.name);
           if (field.optional) gen("if(%s!=null&&m.hasOwnProperty(%j)){", ref, field.name);
           if (field.map) {
             gen("if(!util.isObject(%s))", ref)("return%j", invalid(field, "object"))("var k=Object.keys(%s)", ref)("for(var i=0;i<k.length;++i){");
             genVerifyKey(gen, field, "k[i]");
-            genVerifyValue(gen, field, i, ref + "[k[i]]")("}");
+            genVerifyValue(gen, field, i2, ref + "[k[i]]")("}");
           } else if (field.repeated) {
             gen("if(!Array.isArray(%s))", ref)("return%j", invalid(field, "array"))("for(var i=0;i<%s.length;++i){", ref);
-            genVerifyValue(gen, field, i, ref + "[i]")("}");
+            genVerifyValue(gen, field, i2, ref + "[i]")("}");
           } else {
             if (field.partOf) {
               var oneofProp = util.safeProp(field.partOf.name);
@@ -5258,7 +4900,7 @@ var LNReaderPlugin = (() => {
               seenFirstField[field.partOf.name] = 1;
               gen("p%s=1", oneofProp);
             }
-            genVerifyValue(gen, field, i, ref);
+            genVerifyValue(gen, field, i2, ref);
           }
           if (field.optional) gen("}");
         }
@@ -5282,13 +4924,13 @@ var LNReaderPlugin = (() => {
         if (field.resolvedType) {
           if (field.resolvedType instanceof Enum) {
             gen("switch(d%s){", prop);
-            for (var values = field.resolvedType.values, keys = Object.keys(values), i = 0; i < keys.length; ++i) {
-              if (values[keys[i]] === field.typeDefault && !defaultAlreadyEmitted) {
+            for (var values = field.resolvedType.values, keys = Object.keys(values), i2 = 0; i2 < keys.length; ++i2) {
+              if (values[keys[i2]] === field.typeDefault && !defaultAlreadyEmitted) {
                 gen("default:")('if(typeof(d%s)==="number"){m%s=d%s;break}', prop, prop, prop);
                 if (!field.repeated) gen("break");
                 defaultAlreadyEmitted = true;
               }
-              gen("case%j:", keys[i])("case %i:", values[keys[i]])("m%s=%j", prop, values[keys[i]])("break");
+              gen("case%j:", keys[i2])("case %i:", values[keys[i2]])("m%s=%j", prop, values[keys[i2]])("break");
             }
             gen("}");
           } else gen('if(typeof d%s!=="object")', prop)("throw TypeError(%j)", field.fullName + ": object expected")("m%s=types[%i].fromObject(d%s)", prop, fieldIndex, prop);
@@ -5336,15 +4978,15 @@ var LNReaderPlugin = (() => {
         var gen = util.codegen(["d"], mtype.name + "$fromObject")("if(d instanceof this.ctor)")("return d");
         if (!fields.length) return gen("return new this.ctor");
         gen("var m=new this.ctor");
-        for (var i = 0; i < fields.length; ++i) {
-          var field = fields[i].resolve(), prop = util.safeProp(field.name);
+        for (var i2 = 0; i2 < fields.length; ++i2) {
+          var field = fields[i2].resolve(), prop = util.safeProp(field.name);
           if (field.map) {
             gen("if(d%s){", prop)('if(typeof d%s!=="object")', prop)("throw TypeError(%j)", field.fullName + ": object expected")("m%s={}", prop)("for(var ks=Object.keys(d%s),i=0;i<ks.length;++i){", prop);
             genValuePartial_fromObject(
               gen,
               field,
               /* not sorted */
-              i,
+              i2,
               prop + "[ks[i]]"
             )("}")("}");
           } else if (field.repeated) {
@@ -5353,7 +4995,7 @@ var LNReaderPlugin = (() => {
               gen,
               field,
               /* not sorted */
-              i,
+              i2,
               prop + "[i]"
             )("}")("}");
           } else {
@@ -5362,7 +5004,7 @@ var LNReaderPlugin = (() => {
               gen,
               field,
               /* not sorted */
-              i,
+              i2,
               prop
             );
             if (!(field.resolvedType instanceof Enum)) gen("}");
@@ -5406,24 +5048,24 @@ var LNReaderPlugin = (() => {
         if (!fields.length)
           return util.codegen()("return {}");
         var gen = util.codegen(["m", "o"], mtype.name + "$toObject")("if(!o)")("o={}")("var d={}");
-        var repeatedFields = [], mapFields = [], normalFields = [], i = 0;
-        for (; i < fields.length; ++i)
-          if (!fields[i].partOf)
-            (fields[i].resolve().repeated ? repeatedFields : fields[i].map ? mapFields : normalFields).push(fields[i]);
+        var repeatedFields = [], mapFields = [], normalFields = [], i2 = 0;
+        for (; i2 < fields.length; ++i2)
+          if (!fields[i2].partOf)
+            (fields[i2].resolve().repeated ? repeatedFields : fields[i2].map ? mapFields : normalFields).push(fields[i2]);
         if (repeatedFields.length) {
           gen("if(o.arrays||o.defaults){");
-          for (i = 0; i < repeatedFields.length; ++i) gen("d%s=[]", util.safeProp(repeatedFields[i].name));
+          for (i2 = 0; i2 < repeatedFields.length; ++i2) gen("d%s=[]", util.safeProp(repeatedFields[i2].name));
           gen("}");
         }
         if (mapFields.length) {
           gen("if(o.objects||o.defaults){");
-          for (i = 0; i < mapFields.length; ++i) gen("d%s={}", util.safeProp(mapFields[i].name));
+          for (i2 = 0; i2 < mapFields.length; ++i2) gen("d%s={}", util.safeProp(mapFields[i2].name));
           gen("}");
         }
         if (normalFields.length) {
           gen("if(o.defaults){");
-          for (i = 0; i < normalFields.length; ++i) {
-            var field = normalFields[i], prop = util.safeProp(field.name);
+          for (i2 = 0; i2 < normalFields.length; ++i2) {
+            var field = normalFields[i2], prop = util.safeProp(field.name);
             if (field.resolvedType instanceof Enum) gen("d%s=o.enums===String?%j:%j", prop, field.resolvedType.valuesById[field.typeDefault], field.typeDefault);
             else if (field.long) gen("if(util.Long){")("var n=new util.Long(%i,%i,%j)", field.typeDefault.low, field.typeDefault.high, field.typeDefault.unsigned)("d%s=o.longs===String?n.toString():o.longs===Number?n.toNumber():n", prop)("}else")("d%s=o.longs===String?%j:%i", prop, field.typeDefault.toString(), field.typeDefault.toNumber());
             else if (field.bytes) {
@@ -5434,8 +5076,8 @@ var LNReaderPlugin = (() => {
           gen("}");
         }
         var hasKs2 = false;
-        for (i = 0; i < fields.length; ++i) {
-          var field = fields[i], index = mtype._fieldsArray.indexOf(field), prop = util.safeProp(field.name);
+        for (i2 = 0; i2 < fields.length; ++i2) {
+          var field = fields[i2], index = mtype._fieldsArray.indexOf(field), prop = util.safeProp(field.name);
           if (field.map) {
             if (!hasKs2) {
               hasKs2 = true;
@@ -5542,6 +5184,7 @@ var LNReaderPlugin = (() => {
       ((Type.prototype = Object.create(Namespace.prototype)).constructor = Type).className = "Type";
       var Enum = require_enum(), OneOf = require_oneof(), Field = require_field(), MapField = require_mapfield(), Service = require_service2(), Message = require_message(), Reader = require_reader(), Writer = require_writer(), util = require_util(), encoder = require_encoder(), decoder = require_decoder(), verifier = require_verifier(), converter = require_converter(), wrappers = require_wrappers();
       function Type(name, options) {
+        name = name.replace(/\W/g, "");
         Namespace.call(this, name, options);
         this.fields = {};
         this.oneofs = void 0;
@@ -5566,8 +5209,8 @@ var LNReaderPlugin = (() => {
             if (this._fieldsById)
               return this._fieldsById;
             this._fieldsById = {};
-            for (var names = Object.keys(this.fields), i = 0; i < names.length; ++i) {
-              var field = this.fields[names[i]], id = field.id;
+            for (var names = Object.keys(this.fields), i2 = 0; i2 < names.length; ++i2) {
+              var field = this.fields[names[i2]], id = field.id;
               if (this._fieldsById[id])
                 throw Error("duplicate id " + id + " in " + this);
               this._fieldsById[id] = field;
@@ -5616,26 +5259,26 @@ var LNReaderPlugin = (() => {
             ctor.$type = ctor.prototype.$type = this;
             util.merge(ctor, Message, true);
             this._ctor = ctor;
-            var i = 0;
-            for (; i < /* initializes */
-            this.fieldsArray.length; ++i)
-              this._fieldsArray[i].resolve();
+            var i2 = 0;
+            for (; i2 < /* initializes */
+            this.fieldsArray.length; ++i2)
+              this._fieldsArray[i2].resolve();
             var ctorProperties = {};
-            for (i = 0; i < /* initializes */
-            this.oneofsArray.length; ++i)
-              ctorProperties[this._oneofsArray[i].resolve().name] = {
-                get: util.oneOfGetter(this._oneofsArray[i].oneof),
-                set: util.oneOfSetter(this._oneofsArray[i].oneof)
+            for (i2 = 0; i2 < /* initializes */
+            this.oneofsArray.length; ++i2)
+              ctorProperties[this._oneofsArray[i2].resolve().name] = {
+                get: util.oneOfGetter(this._oneofsArray[i2].oneof),
+                set: util.oneOfSetter(this._oneofsArray[i2].oneof)
               };
-            if (i)
+            if (i2)
               Object.defineProperties(ctor.prototype, ctorProperties);
           }, "set")
         }
       });
       Type.generateConstructor = /* @__PURE__ */ __name(function generateConstructor(mtype) {
         var gen = util.codegen(["p"], mtype.name);
-        for (var i = 0, field; i < mtype.fieldsArray.length; ++i)
-          if ((field = mtype._fieldsArray[i]).map) gen("this%s={}", util.safeProp(field.name));
+        for (var i2 = 0, field; i2 < mtype.fieldsArray.length; ++i2)
+          if ((field = mtype._fieldsArray[i2]).map) gen("this%s={}", util.safeProp(field.name));
           else if (field.repeated) gen("this%s=[]", util.safeProp(field.name));
         return gen("if(p)for(var ks=Object.keys(p),i=0;i<ks.length;++i)if(p[ks[i]]!=null)")("this[ks[i]]=p[ks[i]]");
       }, "generateConstructor");
@@ -5651,20 +5294,20 @@ var LNReaderPlugin = (() => {
         var type = new Type(name, json.options);
         type.extensions = json.extensions;
         type.reserved = json.reserved;
-        var names = Object.keys(json.fields), i = 0;
-        for (; i < names.length; ++i)
+        var names = Object.keys(json.fields), i2 = 0;
+        for (; i2 < names.length; ++i2)
           type.add(
-            (typeof json.fields[names[i]].keyType !== "undefined" ? MapField.fromJSON : Field.fromJSON)(names[i], json.fields[names[i]])
+            (typeof json.fields[names[i2]].keyType !== "undefined" ? MapField.fromJSON : Field.fromJSON)(names[i2], json.fields[names[i2]])
           );
         if (json.oneofs)
-          for (names = Object.keys(json.oneofs), i = 0; i < names.length; ++i)
-            type.add(OneOf.fromJSON(names[i], json.oneofs[names[i]]));
+          for (names = Object.keys(json.oneofs), i2 = 0; i2 < names.length; ++i2)
+            type.add(OneOf.fromJSON(names[i2], json.oneofs[names[i2]]));
         if (json.nested)
-          for (names = Object.keys(json.nested), i = 0; i < names.length; ++i) {
-            var nested = json.nested[names[i]];
+          for (names = Object.keys(json.nested), i2 = 0; i2 < names.length; ++i2) {
+            var nested = json.nested[names[i2]];
             type.add(
               // most to least likely
-              (nested.id !== void 0 ? Field.fromJSON : nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : Namespace.fromJSON)(names[i], nested)
+              (nested.id !== void 0 ? Field.fromJSON : nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : Namespace.fromJSON)(names[i2], nested)
             );
           }
         if (json.extensions && json.extensions.length)
@@ -5675,12 +5318,17 @@ var LNReaderPlugin = (() => {
           type.group = true;
         if (json.comment)
           type.comment = json.comment;
+        if (json.edition)
+          type._edition = json.edition;
+        type._defaultEdition = "proto3";
         return type;
       }, "fromJSON");
       Type.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           inherited && inherited.options || void 0,
           "oneofs",
@@ -5702,15 +5350,29 @@ var LNReaderPlugin = (() => {
         ]);
       }, "toJSON");
       Type.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
-        var fields = this.fieldsArray, i = 0;
-        while (i < fields.length)
-          fields[i++].resolve();
+        if (!this._needsRecursiveResolve) return this;
+        Namespace.prototype.resolveAll.call(this);
         var oneofs = this.oneofsArray;
-        i = 0;
-        while (i < oneofs.length)
-          oneofs[i++].resolve();
-        return Namespace.prototype.resolveAll.call(this);
+        i2 = 0;
+        while (i2 < oneofs.length)
+          oneofs[i2++].resolve();
+        var fields = this.fieldsArray, i2 = 0;
+        while (i2 < fields.length)
+          fields[i2++].resolve();
+        return this;
       }, "resolveAll");
+      Type.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        edition = this._edition || edition;
+        Namespace.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.oneofsArray.forEach((oneof) => {
+          oneof._resolveFeatures(edition);
+        });
+        this.fieldsArray.forEach((field) => {
+          field._resolveFeatures(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Type.prototype.get = /* @__PURE__ */ __name(function get(name) {
         return this.fields[name] || this.oneofs && this.oneofs[name] || this.nested && this.nested[name] || null;
       }, "get");
@@ -5773,9 +5435,9 @@ var LNReaderPlugin = (() => {
       }, "create");
       Type.prototype.setup = /* @__PURE__ */ __name(function setup() {
         var fullName = this.fullName, types = [];
-        for (var i = 0; i < /* initializes */
-        this.fieldsArray.length; ++i)
-          types.push(this._fieldsArray[i].resolve().resolvedType);
+        for (var i2 = 0; i2 < /* initializes */
+        this.fieldsArray.length; ++i2)
+          types.push(this._fieldsArray[i2].resolve().resolvedType);
         this.encode = encoder(this)({
           Writer,
           types,
@@ -5855,6 +5517,8 @@ var LNReaderPlugin = (() => {
         Namespace.call(this, "", options);
         this.deferred = [];
         this.files = [];
+        this._edition = "proto2";
+        this._fullyQualifiedObjects = {};
       }
       __name(Root, "Root");
       Root.fromJSON = /* @__PURE__ */ __name(function fromJSON(json, root) {
@@ -5862,7 +5526,7 @@ var LNReaderPlugin = (() => {
           root = new Root();
         if (json.options)
           root.setOptions(json.options);
-        return root.addJSON(json.nested);
+        return root.addJSON(json.nested).resolveAll();
       }, "fromJSON");
       Root.prototype.resolvePath = util.path.resolve;
       Root.prototype.fetch = util.fetch;
@@ -5875,14 +5539,20 @@ var LNReaderPlugin = (() => {
           options = void 0;
         }
         var self2 = this;
-        if (!callback)
+        if (!callback) {
           return util.asPromise(load, self2, filename, options);
+        }
         var sync = callback === SYNC;
         function finish(err, root) {
-          if (!callback)
+          if (!callback) {
             return;
-          if (sync)
+          }
+          if (sync) {
             throw err;
+          }
+          if (root) {
+            root.resolveAll();
+          }
           var cb = callback;
           callback = null;
           cb(err, root);
@@ -5905,34 +5575,36 @@ var LNReaderPlugin = (() => {
               self2.setOptions(source.options).addJSON(source.nested);
             else {
               parse.filename = filename2;
-              var parsed = parse(source, self2, options), resolved2, i2 = 0;
+              var parsed = parse(source, self2, options), resolved2, i3 = 0;
               if (parsed.imports) {
-                for (; i2 < parsed.imports.length; ++i2)
-                  if (resolved2 = getBundledFileName(parsed.imports[i2]) || self2.resolvePath(filename2, parsed.imports[i2]))
+                for (; i3 < parsed.imports.length; ++i3)
+                  if (resolved2 = getBundledFileName(parsed.imports[i3]) || self2.resolvePath(filename2, parsed.imports[i3]))
                     fetch2(resolved2);
               }
               if (parsed.weakImports) {
-                for (i2 = 0; i2 < parsed.weakImports.length; ++i2)
-                  if (resolved2 = getBundledFileName(parsed.weakImports[i2]) || self2.resolvePath(filename2, parsed.weakImports[i2]))
+                for (i3 = 0; i3 < parsed.weakImports.length; ++i3)
+                  if (resolved2 = getBundledFileName(parsed.weakImports[i3]) || self2.resolvePath(filename2, parsed.weakImports[i3]))
                     fetch2(resolved2, true);
               }
             }
           } catch (err) {
             finish(err);
           }
-          if (!sync && !queued)
+          if (!sync && !queued) {
             finish(null, self2);
+          }
         }
         __name(process3, "process");
         function fetch2(filename2, weak) {
           filename2 = getBundledFileName(filename2) || filename2;
-          if (self2.files.indexOf(filename2) > -1)
+          if (self2.files.indexOf(filename2) > -1) {
             return;
+          }
           self2.files.push(filename2);
           if (filename2 in common) {
-            if (sync)
+            if (sync) {
               process3(filename2, common[filename2]);
-            else {
+            } else {
               ++queued;
               setTimeout(function() {
                 --queued;
@@ -5955,8 +5627,9 @@ var LNReaderPlugin = (() => {
             ++queued;
             self2.fetch(filename2, function(err, source2) {
               --queued;
-              if (!callback)
+              if (!callback) {
                 return;
+              }
               if (err) {
                 if (!weak)
                   finish(err);
@@ -5970,16 +5643,20 @@ var LNReaderPlugin = (() => {
         }
         __name(fetch2, "fetch");
         var queued = 0;
-        if (util.isString(filename))
+        if (util.isString(filename)) {
           filename = [filename];
-        for (var i = 0, resolved; i < filename.length; ++i)
-          if (resolved = self2.resolvePath("", filename[i]))
+        }
+        for (var i2 = 0, resolved; i2 < filename.length; ++i2)
+          if (resolved = self2.resolvePath("", filename[i2]))
             fetch2(resolved);
-        if (sync)
+        if (sync) {
+          self2.resolveAll();
           return self2;
-        if (!queued)
+        }
+        if (!queued) {
           finish(null, self2);
-        return void 0;
+        }
+        return self2;
       }, "load");
       Root.prototype.loadSync = /* @__PURE__ */ __name(function loadSync(filename, options) {
         if (!util.isNode)
@@ -5987,6 +5664,7 @@ var LNReaderPlugin = (() => {
         return this.load(filename, options, SYNC);
       }, "loadSync");
       Root.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
         if (this.deferred.length)
           throw Error("unresolvable extensions: " + this.deferred.map(function(field) {
             return "'extend " + field.extend + "' in " + field.parent.fullName;
@@ -6024,16 +5702,19 @@ var LNReaderPlugin = (() => {
             object.parent[object.name] = object.values;
         } else if (!(object instanceof OneOf)) {
           if (object instanceof Type)
-            for (var i = 0; i < this.deferred.length; )
-              if (tryHandleExtension(this, this.deferred[i]))
-                this.deferred.splice(i, 1);
+            for (var i2 = 0; i2 < this.deferred.length; )
+              if (tryHandleExtension(this, this.deferred[i2]))
+                this.deferred.splice(i2, 1);
               else
-                ++i;
+                ++i2;
           for (var j = 0; j < /* initializes */
           object.nestedArray.length; ++j)
             this._handleAdd(object._nestedArray[j]);
           if (exposeRe.test(object.name))
             object.parent[object.name] = object;
+        }
+        if (object instanceof Type || object instanceof Enum || object instanceof Field) {
+          this._fullyQualifiedObjects[object.fullName] = object;
         }
       }, "_handleAdd");
       Root.prototype._handleRemove = /* @__PURE__ */ __name(function _handleRemove(object) {
@@ -6058,12 +5739,13 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             delete object.parent[object.name];
         } else if (object instanceof Namespace) {
-          for (var i = 0; i < /* initializes */
-          object.nestedArray.length; ++i)
-            this._handleRemove(object._nestedArray[i]);
+          for (var i2 = 0; i2 < /* initializes */
+          object.nestedArray.length; ++i2)
+            this._handleRemove(object._nestedArray[i2]);
           if (exposeRe.test(object.name))
             delete object.parent[object.name];
         }
+        delete this._fullyQualifiedObjects[object.fullName];
       }, "_handleRemove");
       Root._configure = function(Type_, parse_, common_) {
         Type = Type_;
@@ -6155,7 +5837,7 @@ var LNReaderPlugin = (() => {
         Object.defineProperty(object, "$type", { value: enm, enumerable: false });
         return enm;
       }, "decorateEnum");
-      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value) {
+      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value, ifNotSet) {
         function setProp(dst2, path2, value2) {
           var part = path2.shift();
           if (part === "__proto__" || part === "prototype") {
@@ -6165,6 +5847,8 @@ var LNReaderPlugin = (() => {
             dst2[part] = setProp(dst2[part] || {}, path2, value2);
           } else {
             var prevValue = dst2[part];
+            if (prevValue && ifNotSet)
+              return dst2;
             if (prevValue)
               value2 = [].concat(prevValue).concat(value2);
             dst2[part] = value2;
@@ -6187,6 +5871,500 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // node_modules/protobufjs/src/types.js
+  var require_types = __commonJS({
+    "node_modules/protobufjs/src/types.js"(exports4) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      var types = exports4;
+      var util = require_util();
+      var s = [
+        "double",
+        // 0
+        "float",
+        // 1
+        "int32",
+        // 2
+        "uint32",
+        // 3
+        "sint32",
+        // 4
+        "fixed32",
+        // 5
+        "sfixed32",
+        // 6
+        "int64",
+        // 7
+        "uint64",
+        // 8
+        "sint64",
+        // 9
+        "fixed64",
+        // 10
+        "sfixed64",
+        // 11
+        "bool",
+        // 12
+        "string",
+        // 13
+        "bytes"
+        // 14
+      ];
+      function bake(values, offset) {
+        var i2 = 0, o2 = {};
+        offset |= 0;
+        while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
+        return o2;
+      }
+      __name(bake, "bake");
+      types.basic = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2,
+        /* bytes    */
+        2
+      ]);
+      types.defaults = bake([
+        /* double   */
+        0,
+        /* float    */
+        0,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        0,
+        /* sfixed32 */
+        0,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        0,
+        /* sfixed64 */
+        0,
+        /* bool     */
+        false,
+        /* string   */
+        "",
+        /* bytes    */
+        util.emptyArray,
+        /* message  */
+        null
+      ]);
+      types.long = bake([
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1
+      ], 7);
+      types.mapKey = bake([
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2
+      ], 2);
+      types.packed = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0
+      ]);
+    }
+  });
+
+  // node_modules/protobufjs/src/field.js
+  var require_field = __commonJS({
+    "node_modules/protobufjs/src/field.js"(exports4, module2) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      module2.exports = Field;
+      var ReflectionObject = require_object();
+      ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
+      var Enum = require_enum(), types = require_types(), util = require_util();
+      var Type;
+      var ruleRe = /^required|optional|repeated$/;
+      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        var field = new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
+        if (json.edition)
+          field._edition = json.edition;
+        field._defaultEdition = "proto3";
+        return field;
+      }, "fromJSON");
+      function Field(name, id, type, rule, extend, options, comment) {
+        if (util.isObject(rule)) {
+          comment = extend;
+          options = rule;
+          rule = extend = void 0;
+        } else if (util.isObject(extend)) {
+          comment = options;
+          options = extend;
+          extend = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!util.isInteger(id) || id < 0)
+          throw TypeError("id must be a non-negative integer");
+        if (!util.isString(type))
+          throw TypeError("type must be a string");
+        if (rule !== void 0 && !ruleRe.test(rule = rule.toString().toLowerCase()))
+          throw TypeError("rule must be a string rule");
+        if (extend !== void 0 && !util.isString(extend))
+          throw TypeError("extend must be a string");
+        if (rule === "proto3_optional") {
+          rule = "optional";
+        }
+        this.rule = rule && rule !== "optional" ? rule : void 0;
+        this.type = type;
+        this.id = id;
+        this.extend = extend || void 0;
+        this.repeated = rule === "repeated";
+        this.map = false;
+        this.message = null;
+        this.partOf = null;
+        this.typeDefault = null;
+        this.defaultValue = null;
+        this.long = util.Long ? types.long[type] !== void 0 : (
+          /* istanbul ignore next */
+          false
+        );
+        this.bytes = type === "bytes";
+        this.resolvedType = null;
+        this.extensionField = null;
+        this.declaringField = null;
+        this.comment = comment;
+      }
+      __name(Field, "Field");
+      Object.defineProperty(Field.prototype, "required", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._features.field_presence === "LEGACY_REQUIRED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "optional", {
+        get: /* @__PURE__ */ __name(function() {
+          return !this.required;
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "delimited", {
+        get: /* @__PURE__ */ __name(function() {
+          return this.resolvedType instanceof Type && this._features.message_encoding === "DELIMITED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "packed", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._features.repeated_field_encoding === "PACKED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "hasPresence", {
+        get: /* @__PURE__ */ __name(function() {
+          if (this.repeated || this.map) {
+            return false;
+          }
+          return this.partOf || // oneofs
+          this.declaringField || this.extensionField || // extensions
+          this._features.field_presence !== "IMPLICIT";
+        }, "get")
+      });
+      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+        return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
+      }, "setOption");
+      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "edition",
+          this._editionToJSON(),
+          "rule",
+          this.rule !== "optional" && this.rule || void 0,
+          "type",
+          this.type,
+          "id",
+          this.id,
+          "extend",
+          this.extend,
+          "options",
+          this.options,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+        if (this.resolved)
+          return this;
+        if ((this.typeDefault = types.defaults[this.type]) === void 0) {
+          this.resolvedType = (this.declaringField ? this.declaringField.parent : this.parent).lookupTypeOrEnum(this.type);
+          if (this.resolvedType instanceof Type)
+            this.typeDefault = null;
+          else
+            this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
+        } else if (this.options && this.options.proto3_optional) {
+          this.typeDefault = null;
+        }
+        if (this.options && this.options["default"] != null) {
+          this.typeDefault = this.options["default"];
+          if (this.resolvedType instanceof Enum && typeof this.typeDefault === "string")
+            this.typeDefault = this.resolvedType.values[this.typeDefault];
+        }
+        if (this.options) {
+          if (this.options.packed !== void 0 && this.resolvedType && !(this.resolvedType instanceof Enum))
+            delete this.options.packed;
+          if (!Object.keys(this.options).length)
+            this.options = void 0;
+        }
+        if (this.long) {
+          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
+          if (Object.freeze)
+            Object.freeze(this.typeDefault);
+        } else if (this.bytes && typeof this.typeDefault === "string") {
+          var buf;
+          if (util.base64.test(this.typeDefault))
+            util.base64.decode(this.typeDefault, buf = util.newBuffer(util.base64.length(this.typeDefault)), 0);
+          else
+            util.utf8.write(this.typeDefault, buf = util.newBuffer(util.utf8.length(this.typeDefault)), 0);
+          this.typeDefault = buf;
+        }
+        if (this.map)
+          this.defaultValue = util.emptyObject;
+        else if (this.repeated)
+          this.defaultValue = util.emptyArray;
+        else
+          this.defaultValue = this.typeDefault;
+        if (this.parent instanceof Type)
+          this.parent.ctor.prototype[this.name] = this.defaultValue;
+        return ReflectionObject.prototype.resolve.call(this);
+      }, "resolve");
+      Field.prototype._inferLegacyProtoFeatures = /* @__PURE__ */ __name(function _inferLegacyProtoFeatures(edition) {
+        if (edition !== "proto2" && edition !== "proto3") {
+          return {};
+        }
+        var features2 = {};
+        if (this.rule === "required") {
+          features2.field_presence = "LEGACY_REQUIRED";
+        }
+        if (this.parent && types.defaults[this.type] === void 0) {
+          var type = this.parent.get(this.type.split(".").pop());
+          if (type && type instanceof Type && type.group) {
+            features2.message_encoding = "DELIMITED";
+          }
+        }
+        if (this.getOption("packed") === true) {
+          features2.repeated_field_encoding = "PACKED";
+        } else if (this.getOption("packed") === false) {
+          features2.repeated_field_encoding = "EXPANDED";
+        }
+        return features2;
+      }, "_inferLegacyProtoFeatures");
+      Field.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        return ReflectionObject.prototype._resolveFeatures.call(this, this._edition || edition);
+      }, "_resolveFeatures");
+      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
+        if (typeof fieldType === "function")
+          fieldType = util.decorateType(fieldType).name;
+        else if (fieldType && typeof fieldType === "object")
+          fieldType = util.decorateEnum(fieldType).name;
+        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
+          util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
+        }, "fieldDecorator");
+      }, "decorateField");
+      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
+        Type = Type_;
+      }, "configure");
+    }
+  });
+
+  // node_modules/protobufjs/src/oneof.js
+  var require_oneof = __commonJS({
+    "node_modules/protobufjs/src/oneof.js"(exports4, module2) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      module2.exports = OneOf;
+      var ReflectionObject = require_object();
+      ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
+      var Field = require_field(), util = require_util();
+      function OneOf(name, fieldNames, options, comment) {
+        if (!Array.isArray(fieldNames)) {
+          options = fieldNames;
+          fieldNames = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!(fieldNames === void 0 || Array.isArray(fieldNames)))
+          throw TypeError("fieldNames must be an Array");
+        this.oneof = fieldNames || [];
+        this.fieldsArray = [];
+        this.comment = comment;
+      }
+      __name(OneOf, "OneOf");
+      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new OneOf(name, json.oneof, json.options, json.comment);
+      }, "fromJSON");
+      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "options",
+          this.options,
+          "oneof",
+          this.oneof,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      function addFieldsToParent(oneof) {
+        if (oneof.parent) {
+          for (var i2 = 0; i2 < oneof.fieldsArray.length; ++i2)
+            if (!oneof.fieldsArray[i2].parent)
+              oneof.parent.add(oneof.fieldsArray[i2]);
+        }
+      }
+      __name(addFieldsToParent, "addFieldsToParent");
+      OneOf.prototype.add = /* @__PURE__ */ __name(function add(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        if (field.parent && field.parent !== this.parent)
+          field.parent.remove(field);
+        this.oneof.push(field.name);
+        this.fieldsArray.push(field);
+        field.partOf = this;
+        addFieldsToParent(this);
+        return this;
+      }, "add");
+      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        var index = this.fieldsArray.indexOf(field);
+        if (index < 0)
+          throw Error(field + " is not a member of " + this);
+        this.fieldsArray.splice(index, 1);
+        index = this.oneof.indexOf(field.name);
+        if (index > -1)
+          this.oneof.splice(index, 1);
+        field.partOf = null;
+        return this;
+      }, "remove");
+      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent) {
+        ReflectionObject.prototype.onAdd.call(this, parent);
+        var self2 = this;
+        for (var i2 = 0; i2 < this.oneof.length; ++i2) {
+          var field = parent.get(this.oneof[i2]);
+          if (field && !field.partOf) {
+            field.partOf = self2;
+            self2.fieldsArray.push(field);
+          }
+        }
+        addFieldsToParent(this);
+      }, "onAdd");
+      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent) {
+        for (var i2 = 0, field; i2 < this.fieldsArray.length; ++i2)
+          if ((field = this.fieldsArray[i2]).parent)
+            field.parent.remove(field);
+        ReflectionObject.prototype.onRemove.call(this, parent);
+      }, "onRemove");
+      Object.defineProperty(OneOf.prototype, "isProto3Optional", {
+        get: /* @__PURE__ */ __name(function() {
+          if (this.fieldsArray == null || this.fieldsArray.length !== 1) {
+            return false;
+          }
+          var field = this.fieldsArray[0];
+          return field.options != null && field.options["proto3_optional"] === true;
+        }, "get")
+      });
+      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
+        var fieldNames = new Array(arguments.length), index = 0;
+        while (index < arguments.length)
+          fieldNames[index] = arguments[index++];
+        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
+          util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
+          Object.defineProperty(prototype, oneofName, {
+            get: util.oneOfGetter(fieldNames),
+            set: util.oneOfSetter(fieldNames)
+          });
+        }, "oneOfDecorator");
+      }, "decorateOneOf");
+    }
+  });
+
   // node_modules/protobufjs/src/object.js
   var require_object = __commonJS({
     "node_modules/protobufjs/src/object.js"(exports4, module2) {
@@ -6196,8 +6374,12 @@ var LNReaderPlugin = (() => {
       init_process2();
       module2.exports = ReflectionObject;
       ReflectionObject.className = "ReflectionObject";
+      var OneOf = require_oneof();
       var util = require_util();
       var Root;
+      var editions2023Defaults = { enum_type: "OPEN", field_presence: "EXPLICIT", json_format: "ALLOW", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "PACKED", utf8_validation: "VERIFY" };
+      var proto2Defaults = { enum_type: "CLOSED", field_presence: "EXPLICIT", json_format: "LEGACY_BEST_EFFORT", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "EXPANDED", utf8_validation: "NONE" };
+      var proto3Defaults = { enum_type: "OPEN", field_presence: "IMPLICIT", json_format: "ALLOW", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "PACKED", utf8_validation: "VERIFY" };
       function ReflectionObject(name, options) {
         if (!util.isString(name))
           throw TypeError("name must be a string");
@@ -6206,6 +6388,10 @@ var LNReaderPlugin = (() => {
         this.options = options;
         this.parsedOptions = null;
         this.name = name;
+        this._edition = null;
+        this._defaultEdition = "proto2";
+        this._features = {};
+        this._featuresResolved = false;
         this.parent = null;
         this.resolved = false;
         this.comment = null;
@@ -6271,14 +6457,67 @@ var LNReaderPlugin = (() => {
           this.resolved = true;
         return this;
       }, "resolve");
+      ReflectionObject.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        return this._resolveFeatures(this._edition || edition);
+      }, "_resolveFeaturesRecursive");
+      ReflectionObject.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        if (this._featuresResolved) {
+          return;
+        }
+        var defaults = {};
+        if (!edition) {
+          throw new Error("Unknown edition for " + this.fullName);
+        }
+        var protoFeatures = Object.assign(
+          this.options ? Object.assign({}, this.options.features) : {},
+          this._inferLegacyProtoFeatures(edition)
+        );
+        if (this._edition) {
+          if (edition === "proto2") {
+            defaults = Object.assign({}, proto2Defaults);
+          } else if (edition === "proto3") {
+            defaults = Object.assign({}, proto3Defaults);
+          } else if (edition === "2023") {
+            defaults = Object.assign({}, editions2023Defaults);
+          } else {
+            throw new Error("Unknown edition: " + edition);
+          }
+          this._features = Object.assign(defaults, protoFeatures || {});
+          this._featuresResolved = true;
+          return;
+        }
+        if (this.partOf instanceof OneOf) {
+          var lexicalParentFeaturesCopy = Object.assign({}, this.partOf._features);
+          this._features = Object.assign(lexicalParentFeaturesCopy, protoFeatures || {});
+        } else if (this.declaringField) {
+        } else if (this.parent) {
+          var parentFeaturesCopy = Object.assign({}, this.parent._features);
+          this._features = Object.assign(parentFeaturesCopy, protoFeatures || {});
+        } else {
+          throw new Error("Unable to find a parent for " + this.fullName);
+        }
+        if (this.extensionField) {
+          this.extensionField._features = this._features;
+        }
+        this._featuresResolved = true;
+      }, "_resolveFeatures");
+      ReflectionObject.prototype._inferLegacyProtoFeatures = /* @__PURE__ */ __name(function _inferLegacyProtoFeatures() {
+        return {};
+      }, "_inferLegacyProtoFeatures");
       ReflectionObject.prototype.getOption = /* @__PURE__ */ __name(function getOption(name) {
         if (this.options)
           return this.options[name];
         return void 0;
       }, "getOption");
       ReflectionObject.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
-        if (!ifNotSet || !this.options || this.options[name] === void 0)
-          (this.options || (this.options = {}))[name] = value;
+        if (!this.options)
+          this.options = {};
+        if (/^features\./.test(name)) {
+          util.setProperty(this.options, name, value, ifNotSet);
+        } else if (!ifNotSet || this.options[name] === void 0) {
+          if (this.getOption(name) !== value) this.resolved = false;
+          this.options[name] = value;
+        }
         return this;
       }, "setOption");
       ReflectionObject.prototype.setParsedOption = /* @__PURE__ */ __name(function setParsedOption(name, value, propName) {
@@ -6307,8 +6546,8 @@ var LNReaderPlugin = (() => {
       }, "setParsedOption");
       ReflectionObject.prototype.setOptions = /* @__PURE__ */ __name(function setOptions(options, ifNotSet) {
         if (options)
-          for (var keys = Object.keys(options), i = 0; i < keys.length; ++i)
-            this.setOption(keys[i], options[keys[i]], ifNotSet);
+          for (var keys = Object.keys(options), i2 = 0; i2 < keys.length; ++i2)
+            this.setOption(keys[i2], options[keys[i2]], ifNotSet);
         return this;
       }, "setOptions");
       ReflectionObject.prototype.toString = /* @__PURE__ */ __name(function toString() {
@@ -6317,6 +6556,12 @@ var LNReaderPlugin = (() => {
           return className + " " + fullName;
         return className;
       }, "toString");
+      ReflectionObject.prototype._editionToJSON = /* @__PURE__ */ __name(function _editionToJSON() {
+        if (!this._edition || this._edition === "proto3") {
+          return void 0;
+        }
+        return this._edition;
+      }, "_editionToJSON");
       ReflectionObject._configure = function(Root_) {
         Root = Root_;
       };
@@ -6343,22 +6588,37 @@ var LNReaderPlugin = (() => {
         this.comment = comment;
         this.comments = comments || {};
         this.valuesOptions = valuesOptions;
+        this._valuesFeatures = {};
         this.reserved = void 0;
         if (values) {
-          for (var keys = Object.keys(values), i = 0; i < keys.length; ++i)
-            if (typeof values[keys[i]] === "number")
-              this.valuesById[this.values[keys[i]] = values[keys[i]]] = keys[i];
+          for (var keys = Object.keys(values), i2 = 0; i2 < keys.length; ++i2)
+            if (typeof values[keys[i2]] === "number")
+              this.valuesById[this.values[keys[i2]] = values[keys[i2]]] = keys[i2];
         }
       }
       __name(Enum, "Enum");
+      Enum.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        edition = this._edition || edition;
+        ReflectionObject.prototype._resolveFeatures.call(this, edition);
+        Object.keys(this.values).forEach((key) => {
+          var parentFeaturesCopy = Object.assign({}, this._features);
+          this._valuesFeatures[key] = Object.assign(parentFeaturesCopy, this.valuesOptions && this.valuesOptions[key] && this.valuesOptions[key].features);
+        });
+        return this;
+      }, "_resolveFeatures");
       Enum.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
         var enm = new Enum(name, json.values, json.options, json.comment, json.comments);
         enm.reserved = json.reserved;
+        if (json.edition)
+          enm._edition = json.edition;
+        enm._defaultEdition = "proto3";
         return enm;
       }, "fromJSON");
       Enum.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           this.options,
           "valuesOptions",
@@ -6430,18 +6690,18 @@ var LNReaderPlugin = (() => {
       module2.exports = encoder;
       var Enum = require_enum(), types = require_types(), util = require_util();
       function genTypePartial(gen, field, fieldIndex, ref) {
-        return field.resolvedType.group ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
+        return field.delimited ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
       }
       __name(genTypePartial, "genTypePartial");
       function encoder(mtype) {
         var gen = util.codegen(["m", "w"], mtype.name + "$encode")("if(!w)")("w=Writer.create()");
-        var i, ref;
+        var i2, ref;
         var fields = (
           /* initializes */
           mtype.fieldsArray.slice().sort(util.compareFieldsById)
         );
-        for (var i = 0; i < fields.length; ++i) {
-          var field = fields[i].resolve(), index = mtype._fieldsArray.indexOf(field), type = field.resolvedType instanceof Enum ? "int32" : field.type, wireType = types.basic[type];
+        for (var i2 = 0; i2 < fields.length; ++i2) {
+          var field = fields[i2].resolve(), index = mtype._fieldsArray.indexOf(field), type = field.resolvedType instanceof Enum ? "int32" : field.type, wireType = types.basic[type];
           ref = "m" + util.safeProp(field.name);
           if (field.map) {
             gen("if(%s!=null&&Object.hasOwnProperty.call(m,%j)){", ref, field.name)("for(var ks=Object.keys(%s),i=0;i<ks.length;++i){", ref)("w.uint32(%i).fork().uint32(%i).%s(ks[i])", (field.id << 3 | 2) >>> 0, 8 | types.mapKey[field.keyType], field.keyType);
@@ -6597,8 +6857,8 @@ var LNReaderPlugin = (() => {
             }
           } while (c === " " || c === "	");
           var lines = source.substring(start, end).split(setCommentSplitRe);
-          for (var i = 0; i < lines.length; ++i)
-            lines[i] = lines[i].replace(alternateCommentMode ? setCommentAltRe : setCommentRe, "").trim();
+          for (var i2 = 0; i2 < lines.length; ++i2)
+            lines[i2] = lines[i2].replace(alternateCommentMode ? setCommentAltRe : setCommentRe, "").trim();
           comment.text = lines.join("\n").trim();
           comments[line] = comment;
           lastCommentLine = line;
@@ -6790,8 +7050,8 @@ var LNReaderPlugin = (() => {
       module2.exports = parse;
       parse.filename = null;
       parse.defaults = { keepCase: false };
-      var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), types = require_types(), util = require_util();
-      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/, fqTypeRefRe = /^(?:\.[a-zA-Z_][a-zA-Z_0-9]*)+$/;
+      var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), ReflectionObject = require_object(), types = require_types(), util = require_util();
+      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/;
       function parse(source, root, options) {
         if (!(root instanceof Root)) {
           options = root;
@@ -6801,11 +7061,23 @@ var LNReaderPlugin = (() => {
           options = parse.defaults;
         var preferTrailingComment = options.preferTrailingComment || false;
         var tn = tokenize(source, options.alternateCommentMode || false), next = tn.next, push = tn.push, peek = tn.peek, skip = tn.skip, cmnt = tn.cmnt;
-        var head = true, pkg, imports, weakImports, syntax, isProto3 = false;
+        var head = true, pkg, imports, weakImports, edition = "proto2";
         var ptr = root;
+        var topLevelObjects = [];
+        var topLevelOptions = {};
         var applyCase = options.keepCase ? function(name) {
           return name;
         } : util.camelCase;
+        function resolveFileFeatures() {
+          topLevelObjects.forEach((obj) => {
+            obj._edition = edition;
+            Object.keys(topLevelOptions).forEach((opt) => {
+              if (obj.getOption(opt) !== void 0) return;
+              obj.setOption(opt, topLevelOptions[opt], true);
+            });
+          });
+        }
+        __name(resolveFileFeatures, "resolveFileFeatures");
         function illegal(token2, name, insideTryCatch) {
           var filename = parse.filename;
           if (!insideTryCatch)
@@ -6855,10 +7127,23 @@ var LNReaderPlugin = (() => {
         function readRanges(target, acceptStrings) {
           var token2, start;
           do {
-            if (acceptStrings && ((token2 = peek()) === '"' || token2 === "'"))
-              target.push(readString());
-            else
-              target.push([start = parseId(next()), skip("to", true) ? parseId(next()) : start]);
+            if (acceptStrings && ((token2 = peek()) === '"' || token2 === "'")) {
+              var str = readString();
+              target.push(str);
+              if (edition >= 2023) {
+                throw illegal(str, "id");
+              }
+            } else {
+              try {
+                target.push([start = parseId(next()), skip("to", true) ? parseId(next()) : start]);
+              } catch (err) {
+                if (acceptStrings && typeRefRe.test(token2) && edition >= 2023) {
+                  target.push(token2);
+                } else {
+                  throw err;
+                }
+              }
+            }
           } while (skip(",", true));
           var dummy = { options: void 0 };
           dummy.setOption = function(name, value) {
@@ -6962,14 +7247,21 @@ var LNReaderPlugin = (() => {
         __name(parseImport, "parseImport");
         function parseSyntax() {
           skip("=");
-          syntax = readString();
-          isProto3 = syntax === "proto3";
-          if (!isProto3 && syntax !== "proto2")
-            throw illegal(syntax, "syntax");
-          root.setOption("syntax", syntax);
+          edition = readString();
+          if (edition < 2023)
+            throw illegal(edition, "syntax");
           skip(";");
         }
         __name(parseSyntax, "parseSyntax");
+        function parseEdition() {
+          skip("=");
+          edition = readString();
+          const supportedEditions = ["2023"];
+          if (!supportedEditions.includes(edition))
+            throw illegal(edition, "edition");
+          skip(";");
+        }
+        __name(parseEdition, "parseEdition");
         function parseCommon(parent, token2) {
           switch (token2) {
             case "option":
@@ -7026,12 +7318,17 @@ var LNReaderPlugin = (() => {
                 parseMapField(type, token3);
                 break;
               case "required":
+                if (edition !== "proto2")
+                  throw illegal(token3);
+              /* eslint-disable no-fallthrough */
               case "repeated":
                 parseField(type, token3);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(type, "proto3_optional");
+                } else if (edition !== "proto2") {
+                  throw illegal(token3);
                 } else {
                   parseField(type, "optional");
                 }
@@ -7046,14 +7343,18 @@ var LNReaderPlugin = (() => {
                 readRanges(type.reserved || (type.reserved = []), true);
                 break;
               default:
-                if (!isProto3 || !typeRefRe.test(token3))
+                if (edition === "proto2" || !typeRefRe.test(token3)) {
                   throw illegal(token3);
+                }
                 push(token3);
                 parseField(type, "optional");
                 break;
             }
           }, "parseType_block"));
           parent.add(type);
+          if (parent === ptr) {
+            topLevelObjects.push(type);
+          }
         }
         __name(parseType, "parseType");
         function parseField(parent, rule, extend) {
@@ -7090,16 +7391,15 @@ var LNReaderPlugin = (() => {
           } else {
             parent.add(field);
           }
-          if (!isProto3 && field.repeated && (types.packed[type] !== void 0 || types.basic[type] === void 0))
-            field.setOption(
-              "packed",
-              false,
-              /* ifNotSet */
-              true
-            );
+          if (parent === ptr) {
+            topLevelObjects.push(field);
+          }
         }
         __name(parseField, "parseField");
         function parseGroup(parent, rule) {
+          if (edition >= 2023) {
+            throw illegal("group");
+          }
           var name = next();
           if (!nameRe.test(name))
             throw illegal(name, "name");
@@ -7123,7 +7423,7 @@ var LNReaderPlugin = (() => {
                 parseField(type, token2);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(type, "proto3_optional");
                 } else {
                   parseField(type, "optional");
@@ -7134,6 +7434,9 @@ var LNReaderPlugin = (() => {
                 break;
               case "enum":
                 parseEnum(type, token2);
+                break;
+              case "reserved":
+                readRanges(type.reserved || (type.reserved = []), true);
                 break;
               /* istanbul ignore next */
               default:
@@ -7198,12 +7501,16 @@ var LNReaderPlugin = (() => {
                 break;
               case "reserved":
                 readRanges(enm.reserved || (enm.reserved = []), true);
+                if (enm.reserved === void 0) enm.reserved = [];
                 break;
               default:
                 parseEnumValue(enm, token3);
             }
           }, "parseEnum_block"));
           parent.add(enm);
+          if (parent === ptr) {
+            topLevelObjects.push(enm);
+          }
         }
         __name(parseEnum, "parseEnum");
         function parseEnumValue(parent, token2) {
@@ -7213,10 +7520,14 @@ var LNReaderPlugin = (() => {
           var value = parseId(next(), true), dummy = {
             options: void 0
           };
+          dummy.getOption = function(name) {
+            return this.options[name];
+          };
           dummy.setOption = function(name, value2) {
-            if (this.options === void 0)
-              this.options = {};
-            this.options[name] = value2;
+            ReflectionObject.prototype.setOption.call(dummy, name, value2);
+          };
+          dummy.setParsedOption = function() {
+            return void 0;
           };
           ifBlock(dummy, /* @__PURE__ */ __name(function parseEnumValue_block(token3) {
             if (token3 === "option") {
@@ -7227,29 +7538,40 @@ var LNReaderPlugin = (() => {
           }, "parseEnumValue_block"), /* @__PURE__ */ __name(function parseEnumValue_line() {
             parseInlineOptions(dummy);
           }, "parseEnumValue_line"));
-          parent.add(token2, value, dummy.comment, dummy.options);
+          parent.add(token2, value, dummy.comment, dummy.parsedOptions || dummy.options);
         }
         __name(parseEnumValue, "parseEnumValue");
         function parseOption(parent, token2) {
-          var isCustom = skip("(", true);
-          if (!typeRefRe.test(token2 = next()))
-            throw illegal(token2, "name");
-          var name = token2;
-          var option = name;
+          var option;
           var propName;
-          if (isCustom) {
-            skip(")");
-            name = "(" + name + ")";
-            option = name;
-            token2 = peek();
-            if (fqTypeRefRe.test(token2)) {
-              propName = token2.slice(1);
-              name += token2;
-              next();
-            }
+          var isOption = true;
+          if (token2 === "option") {
+            token2 = next();
           }
-          skip("=");
+          while (token2 !== "=") {
+            if (token2 === "(") {
+              var parensValue = next();
+              skip(")");
+              token2 = "(" + parensValue + ")";
+            }
+            if (isOption) {
+              isOption = false;
+              if (token2.includes(".") && !token2.includes("(")) {
+                var tokens = token2.split(".");
+                option = tokens[0] + ".";
+                token2 = tokens[1];
+                continue;
+              }
+              option = token2;
+            } else {
+              propName = propName ? propName += token2 : token2;
+            }
+            token2 = next();
+          }
+          var name = propName ? option.concat(propName) : option;
           var optionValue = parseOptionValue(parent, name);
+          propName = propName && propName[0] === "." ? propName.slice(1) : propName;
+          option = option && option[option.length - 1] === "." ? option.slice(0, -1) : option;
           setParsedOption(parent, option, optionValue, propName);
         }
         __name(parseOption, "parseOption");
@@ -7266,9 +7588,9 @@ var LNReaderPlugin = (() => {
               var value;
               var propName = token;
               skip(":", true);
-              if (peek() === "{")
+              if (peek() === "{") {
                 value = parseOptionValue(parent, name + "." + token);
-              else if (peek() === "[") {
+              } else if (peek() === "[") {
                 value = [];
                 var lastValue;
                 if (skip("[", true)) {
@@ -7300,6 +7622,10 @@ var LNReaderPlugin = (() => {
         }
         __name(parseOptionValue, "parseOptionValue");
         function setOption(parent, name, value) {
+          if (ptr === parent && /^features\./.test(name)) {
+            topLevelOptions[name] = value;
+            return;
+          }
           if (parent.setOption)
             parent.setOption(name, value);
         }
@@ -7324,14 +7650,18 @@ var LNReaderPlugin = (() => {
             throw illegal(token2, "service name");
           var service = new Service(token2);
           ifBlock(service, /* @__PURE__ */ __name(function parseService_block(token3) {
-            if (parseCommon(service, token3))
+            if (parseCommon(service, token3)) {
               return;
+            }
             if (token3 === "rpc")
               parseMethod(service, token3);
             else
               throw illegal(token3);
           }, "parseService_block"));
           parent.add(service);
+          if (parent === ptr) {
+            topLevelObjects.push(service);
+          }
         }
         __name(parseService, "parseService");
         function parseMethod(parent, token2) {
@@ -7378,14 +7708,14 @@ var LNReaderPlugin = (() => {
                 parseField(parent, token3, reference);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(parent, "proto3_optional", reference);
                 } else {
                   parseField(parent, "optional", reference);
                 }
                 break;
               default:
-                if (!isProto3 || !typeRefRe.test(token3))
+                if (edition === "proto2" || !typeRefRe.test(token3))
                   throw illegal(token3);
                 push(token3);
                 parseField(parent, "optional", reference);
@@ -7412,9 +7742,14 @@ var LNReaderPlugin = (() => {
                 throw illegal(token);
               parseSyntax();
               break;
+            case "edition":
+              if (!head)
+                throw illegal(token);
+              parseEdition();
+              break;
             case "option":
               parseOption(ptr, token);
-              skip(";");
+              skip(";", true);
               break;
             default:
               if (parseCommon(ptr, token)) {
@@ -7424,12 +7759,12 @@ var LNReaderPlugin = (() => {
               throw illegal(token);
           }
         }
+        resolveFileFeatures();
         parse.filename = null;
         return {
           "package": pkg,
           "imports": imports,
           weakImports,
-          syntax,
           root
         };
       }
@@ -7871,10 +8206,12 @@ var LNReaderPlugin = (() => {
       fetchProto = /* @__PURE__ */ __name(async function(protoInit, url, init) {
         const protoRoot = (0, import_protobufjs.parse)(protoInit.proto).root;
         const RequestMessge = protoRoot.lookupType(protoInit.requestType);
-        if (RequestMessge.verify(protoInit.requestData)) {
+        if (RequestMessge.verify(protoInit.requestData || {})) {
           throw new Error("Invalid Proto");
         }
-        const encodedrequest = RequestMessge.encode(protoInit.requestData).finish();
+        const encodedrequest = RequestMessge.encode(
+          protoInit.requestData || {}
+        ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
           Array(5).fill(0).map((v, idx) => {
@@ -7966,23 +8303,23 @@ var LNReaderPlugin = (() => {
         "object" == typeof exports4 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
       }(exports4, function() {
         "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i = "second", s = "minute", u2 = "hour", a2 = "day", o2 = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $ = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
+        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s = "minute", u2 = "hour", a2 = "day", o2 = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $ = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
           var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
           return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
         }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
           var r3 = String(t3);
           return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
         }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i2 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i2, 2, "0");
+          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
+          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
         }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
           if (e3.date() < n3.date()) return -t3(n3, e3);
-          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i2 = e3.clone().add(r3, c), s2 = n3 - i2 < 0, u3 = e3.clone().add(r3 + (s2 ? -1 : 1), c);
-          return +(-(r3 + (n3 - i2) / (s2 ? i2 - u3 : u3 - i2)) || 0);
+          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c), s2 = n3 - i3 < 0, u3 = e3.clone().add(r3 + (s2 ? -1 : 1), c);
+          return +(-(r3 + (n3 - i3) / (s2 ? i3 - u3 : u3 - i3)) || 0);
         }, "t"), a: /* @__PURE__ */ __name(function(t3) {
           return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
         }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c, y: h, w: o2, d: a2, D: d, h: u2, m: s, s: i, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
+          return { M: c, y: h, w: o2, d: a2, D: d, h: u2, m: s, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
         }, "p"), u: /* @__PURE__ */ __name(function(t3) {
           return void 0 === t3;
         }, "u") }, g = "en", D = {};
@@ -7990,18 +8327,18 @@ var LNReaderPlugin = (() => {
         var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
           return t3 instanceof _ || !(!t3 || !t3[p]);
         }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
-          var i2;
+          var i3;
           if (!e3) return g;
           if ("string" == typeof e3) {
             var s2 = e3.toLowerCase();
-            D[s2] && (i2 = s2), n3 && (D[s2] = n3, i2 = s2);
+            D[s2] && (i3 = s2), n3 && (D[s2] = n3, i3 = s2);
             var u3 = e3.split("-");
-            if (!i2 && u3.length > 1) return t3(u3[0]);
+            if (!i3 && u3.length > 1) return t3(u3[0]);
           } else {
             var a3 = e3.name;
-            D[a3] = e3, i2 = a3;
+            D[a3] = e3, i3 = a3;
           }
-          return !r3 && i2 && (g = i2), i2 || !r3 && g;
+          return !r3 && i3 && (g = i3), i3 || !r3 && g;
         }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
           if (S(t3)) return t3.clone();
           var n3 = "object" == typeof e3 ? e3 : {};
@@ -8025,8 +8362,8 @@ var LNReaderPlugin = (() => {
               if ("string" == typeof e3 && !/Z$/i.test(e3)) {
                 var r3 = e3.match($);
                 if (r3) {
-                  var i2 = r3[2] - 1 || 0, s2 = (r3[7] || "0").substring(0, 3);
-                  return n3 ? new Date(Date.UTC(r3[1], i2, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2)) : new Date(r3[1], i2, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2);
+                  var i3 = r3[2] - 1 || 0, s2 = (r3[7] || "0").substring(0, 3);
+                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2);
                 }
               }
               return new Date(e3);
@@ -8053,8 +8390,8 @@ var LNReaderPlugin = (() => {
             return this.$d.getTime();
           }, m2.startOf = function(t3, e3) {
             var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i2 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
-              return r3 ? i2 : i2.endOf(a2);
+              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
+              return r3 ? i3 : i3.endOf(a2);
             }, "l"), $2 = /* @__PURE__ */ __name(function(t4, e4) {
               return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
             }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
@@ -8073,7 +8410,7 @@ var LNReaderPlugin = (() => {
                 return $2(v2 + "Minutes", 1);
               case s:
                 return $2(v2 + "Seconds", 2);
-              case i:
+              case i2:
                 return $2(v2 + "Milliseconds", 3);
               default:
                 return this.clone();
@@ -8081,7 +8418,7 @@ var LNReaderPlugin = (() => {
           }, m2.endOf = function(t3) {
             return this.startOf(t3, false);
           }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s] = f2 + "Minutes", n3[i] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $2 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
+            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $2 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
             if (o3 === c || o3 === h) {
               var y2 = this.clone().set(d, 1);
               y2.$d[l3]($2), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
@@ -8102,15 +8439,15 @@ var LNReaderPlugin = (() => {
             if ($2 === h) return this.set(h, this.$y + r3);
             if ($2 === a2) return y2(1);
             if ($2 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s] = e2, d2[u2] = n2, d2[i] = t2, d2)[$2] || 1, m3 = this.$d.getTime() + r3 * M3;
+            var M3 = (d2 = {}, d2[s] = e2, d2[u2] = n2, d2[i2] = t2, d2)[$2] || 1, m3 = this.$d.getTime() + r3 * M3;
             return b.w(m3, this);
           }, m2.subtract = function(t3, e3) {
             return this.add(-1 * t3, e3);
           }, m2.format = function(t3) {
             var e3 = this, n3 = this.$locale();
             if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i2 = b.z(this), s2 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c2 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i3, s3) {
-              return t4 && (t4[n4] || t4(e3, r3)) || i3[n4].slice(0, s3);
+            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s2 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c2 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s3) {
+              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s3);
             }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
               return b.s(s2 % 12 || 12, t4, "0");
             }, "d"), $2 = f2 || function(t4, e4, n4) {
@@ -8167,10 +8504,10 @@ var LNReaderPlugin = (() => {
                   case "SSS":
                     return b.s(e3.$ms, 3, "0");
                   case "Z":
-                    return i2;
+                    return i3;
                 }
                 return null;
-              }(t4) || i2.replace(":", "");
+              }(t4) || i3.replace(":", "");
             });
           }, m2.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
@@ -8200,7 +8537,7 @@ var LNReaderPlugin = (() => {
               case s:
                 $2 = g2 / e2;
                 break;
-              case i:
+              case i2:
                 $2 = g2 / t2;
                 break;
               default:
@@ -8227,7 +8564,7 @@ var LNReaderPlugin = (() => {
             return this.$d.toUTCString();
           }, M2;
         }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i], ["$m", s], ["$H", u2], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t3) {
+        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s], ["$H", u2], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t3) {
           k[t3[1]] = function(e3) {
             return this.$g(e3, t3[0], t3[1]);
           };
@@ -8248,7 +8585,7 @@ var LNReaderPlugin = (() => {
     return new (a2 || (a2 = Promise))(function(r2, n2) {
       function u2(e3) {
         try {
-          i(t2.next(e3));
+          i2(t2.next(e3));
         } catch (e4) {
           n2(e4);
         }
@@ -8256,20 +8593,20 @@ var LNReaderPlugin = (() => {
       __name(u2, "u");
       function o2(e3) {
         try {
-          i(t2.throw(e3));
+          i2(t2.throw(e3));
         } catch (e4) {
           n2(e4);
         }
       }
       __name(o2, "o");
-      function i(e3) {
+      function i2(e3) {
         var l3;
         e3.done ? r2(e3.value) : (l3 = e3.value, l3 instanceof a2 ? l3 : new a2(function(e4) {
           e4(l3);
         })).then(u2, o2);
       }
-      __name(i, "i");
-      i((t2 = t2.apply(e2, l2 || [])).next());
+      __name(i2, "i");
+      i2((t2 = t2.apply(e2, l2 || [])).next());
     });
   }, l = function(e2, l2) {
     var a2, t2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
@@ -8280,7 +8617,7 @@ var LNReaderPlugin = (() => {
       return this;
     }), u2;
     function o2(o3) {
-      return function(i) {
+      return function(i2) {
         return function(o4) {
           if (a2) throw new TypeError("Generator is already executing.");
           for (; u2 && (u2 = 0, o4[0] && (n2 = 0)), n2; ) try {
@@ -8326,20 +8663,20 @@ var LNReaderPlugin = (() => {
           }
           if (5 & o4[0]) throw o4[1];
           return { value: o4[0] ? o4[1] : void 0, done: true };
-        }([o3, i]);
+        }([o3, i2]);
       };
     }
     __name(o2, "o");
   }, a = function(e2) {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  var t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), n = a(require_dayjs_min()), u = { "User-Agent": "RuLateApp Android", "accept-encoding": "gzip" }, o = new (function() {
+  Object.defineProperty(exports, "__esModule", { value: true }), exports.RulatePlugin = void 0;
+  var t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), n = a(require_dayjs_min()), u = { "User-Agent": "RuLateApp Android", "accept-encoding": "gzip" }, o = function() {
     function a2(e2) {
       var l2 = this;
       this.resolveUrl = function(e3, a3) {
         return l2.site + "/book/" + e3 + (a3 ? "/" : "/ready_new");
-      }, this.id = e2.id, this.name = e2.sourceName + " (API)", this.icon = "multisrc/rulate/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite, this.version = "1.0." + (0 + e2.versionIncrements), this.filters = e2.filters, this.key = e2.key;
+      }, this.id = e2.id, this.name = e2.sourceName + " (API)", this.icon = "multisrc/rulate/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite, this.version = "1.0." + (1 + e2.versionIncrements), this.filters = e2.filters, this.key = e2.key;
     }
     __name(a2, "a");
     return a2.prototype.parseNovels = function(e2) {
@@ -8372,7 +8709,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, o2, i, s;
+        var e2, o2, i2, s;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
@@ -8389,7 +8726,7 @@ var LNReaderPlugin = (() => {
                 return e3.json();
               })];
             case 2:
-              return i = l2.sent(), s = [], i.response && Array.isArray(i.response) && i.response.forEach(function(e3) {
+              return i2 = l2.sent(), s = [], i2.response && Array.isArray(i2.response) && i2.response.forEach(function(e3) {
                 e3.can_read && 0 === e3.subscription && s.push({ name: e3.title + (e3.illustrated ? " \u{1F5BC}\uFE0F" : ""), path: a3 + "/" + e3.id, releaseTime: (0, n.default)(1e3 * e3.cdate).format("LLL"), chapterNumber: e3.ord });
               }), o2.chapters = s, [2, o2];
           }
@@ -8410,8 +8747,10 @@ var LNReaderPlugin = (() => {
         });
       });
     }, a2;
-  }())({ id: "erolate-api", sourceSite: "https://erolate.com", sourceName: "Erolate", versionIncrements: 0, key: "fpoiKLUues81werht039", filters: { sort: { label: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430:", value: "6", options: [{ label: "\u041F\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443", value: "6" }, { label: "\u041F\u043E \u0434\u0430\u0442\u0435 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u0430\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u0438", value: "4" }, { label: "\u041F\u043E \u0434\u0430\u0442\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F", value: "3" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0445 \u0433\u043B\u0430\u0432", value: "11" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0432 \u0437\u0430\u043A\u043B\u0430\u0434\u043A\u0430\u0445", value: "13" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0432 \u0438\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u043C", value: "14" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u043B\u0430\u0439\u043A\u043E\u0432", value: "8" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u043F\u0435\u0440\u0435\u0432\u0435\u0434\u0451\u043D\u043D\u044B\u0445 \u0433\u043B\u0430\u0432", value: "7" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439", value: "12" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0441\u0442\u0440\u0430\u043D\u0438\u0446", value: "10" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E \u043D\u0430 \u044F\u0437\u044B\u043A\u0435 \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B\u0430", value: "1" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E \u043D\u0430 \u044F\u0437\u044B\u043A\u0435 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0430", value: "2" }, { label: "\u041F\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430\u043C", value: "5" }, { label: "\u041F\u043E \u0441\u0442\u0435\u043F\u0435\u043D\u0438 \u0433\u043E\u0442\u043E\u0432\u043D\u043E\u0441\u0442\u0438", value: "0" }, { label: "\u0421\u043B\u0443\u0447\u0430\u0439\u043D\u043E", value: "9" }], type: "Picker" }, genres: { type: "Checkbox", label: "\u0416\u0430\u043D\u0440\u044B: \u0432\u0441\u0435 \u0436\u0430\u043D\u0440\u044B \u043B\u044E\u0431\u043E\u0439 \u0436\u0430\u043D\u0440", value: "", options: [{ label: "\u0430\u043D\u0430\u043B", value: "2" }, { label: "\u0410\u0440\u0442", value: "70" }, { label: "\u0431\u0434\u0441\u043C", value: "3" }, { label: "\u0411\u043E\u0435\u0432\u044B\u0435 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0430", value: "52" }, { label: "\u0431\u043E\u043B\u044C\u0448\u0430\u044F \u0433\u0440\u0443\u0434\u044C", value: "5" }, { label: "\u0431\u043E\u043B\u044C\u0448\u0430\u044F \u043F\u043E\u043F\u043A\u0430", value: "6" }, { label: "\u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u0447\u043B\u0435\u043D", value: "7" }, { label: "\u0431\u043E\u043D\u0434\u0430\u0436", value: "8" }, { label: "\u0432 \u043F\u0435\u0440\u0432\u044B\u0439 \u0440\u0430\u0437", value: "9" }, { label: "\u0432 \u0446\u0432\u0435\u0442\u0435", value: "10" }, { label: "\u0433\u0430\u0440\u0435\u043C", value: "11" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "71" }, { label: "\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u0430\u044F \u0438\u043D\u0442\u0440\u0438\u0433\u0430", value: "12" }, { label: "\u0413\u0435\u0440\u043E\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "57" }, { label: "\u0433\u0440\u0443\u043F\u043F\u043E\u0432\u043E\u0439 \u0441\u0435\u043A\u0441", value: "13" }, { label: "\u0434\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "39" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "50" }, { label: "\u0414\u0437\u0451\u0441\u044D\u0439", value: "45" }, { label: "\u0434\u0440\u0430\u043C\u0430", value: "14" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "46" }, { label: "\u0437\u0440\u0435\u043B\u044B\u0435 \u0436\u0435\u043D\u0449\u0438\u043D\u044B (milf)", value: "15" }, { label: "\u0438\u0437\u043C\u0435\u043D\u0430", value: "16" }, { label: "\u0438\u0437\u043D\u0430\u0441\u0438\u043B\u043E\u0432\u0430\u043D\u0438\u0435", value: "17" }, { label: "\u0438\u043D\u0446\u0435\u0441\u0442", value: "18" }, { label: "\u0438\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439", value: "19" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u044F", value: "62" }, { label: "\u043A\u043E\u043C\u0435\u0434\u0438\u044F", value: "20" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0438\u044F", value: "51" }, { label: "\u043A\u043E\u043D\u0442\u0440\u043E\u043B\u044C \u043D\u0430\u0434 \u0440\u0430\u0437\u0443\u043C\u043E\u043C", value: "35" }, { label: "\u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0430\u044F \u0433\u0440\u0443\u0434\u044C", value: "21" }, { label: "\u043C\u0438\u0441\u0442\u0438\u043A\u0430", value: "40" }, { label: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430", value: "66" }, { label: "\u041C\u0443\u0440\u0438\u043C", value: "54" }, { label: "\u043D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "22" }, { label: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "72" }, { label: "\u043D\u0435\u0442\u043E\u0440\u0430\u0440\u0435", value: "23" }, { label: "\u043E\u0440\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0435\u043A\u0441", value: "24" }, { label: "\u043F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "41" }, { label: "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "53" }, { label: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0442\u0438\u043A\u0430", value: "55" }, { label: "\u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "38" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "42" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0438\u044F", value: "63" }, { label: "\u043F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439 \u0441\u0435\u043A\u0441", value: "33" }, { label: "\u0440\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "25" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "47" }, { label: "\u0441 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F\u043C\u0438 ", value: "36" }, { label: "\u0441\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "34" }, { label: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "58" }, { label: "\u0421\u0451\u0434\u0437\u0451", value: "48" }, { label: "\u0421\u0451\u043D\u044D\u043D", value: "43" }, { label: "\u0441\u043C\u0430\u0442", value: "37" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "65" }, { label: "\u0421\u044D\u0439\u043D\u044D\u043D", value: "64" }, { label: "\u0442\u0435\u043D\u0442\u0430\u043A\u043B\u0438", value: "26" }, { label: "\u0442\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "27" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "61" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "69" }, { label: "\u0443\u0436\u0430\u0441\u044B", value: "28" }, { label: "\u0423\u0436\u0430\u0441\u044B", value: "68" }, { label: "\u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "32" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "60" }, { label: "\u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "29" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "44" }, { label: "\u0447\u0438\u043A\u0430\u043D", value: "30" }, { label: "\u0428\u043A\u043E\u043B\u044C\u043D\u0430\u044F \u0436\u0438\u0437\u043D\u044C", value: "59" }, { label: "\u042D\u043A\u0448\u0435\u043D", value: "49" }, { label: "\u042D\u0440\u043E\u0442\u0438\u043A\u0430", value: "56" }, { label: "\u044D\u0442\u0442\u0438", value: "31" }, { label: "\u042D\u0442\u0442\u0438", value: "67" }, { label: "ahegao", value: "1" }] } } });
-  exports.default = o;
+  }();
+  exports.RulatePlugin = o;
+  var i = new o({ id: "erolate-api", sourceSite: "https://erolate.com", sourceName: "Erolate", versionIncrements: 0, key: "fpoiKLUues81werht039", filters: { sort: { label: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430:", value: "6", options: [{ label: "\u041F\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443", value: "6" }, { label: "\u041F\u043E \u0434\u0430\u0442\u0435 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u0430\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u0438", value: "4" }, { label: "\u041F\u043E \u0434\u0430\u0442\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F", value: "3" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0445 \u0433\u043B\u0430\u0432", value: "11" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0432 \u0437\u0430\u043A\u043B\u0430\u0434\u043A\u0430\u0445", value: "13" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0432 \u0438\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u043C", value: "14" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u043B\u0430\u0439\u043A\u043E\u0432", value: "8" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u043F\u0435\u0440\u0435\u0432\u0435\u0434\u0451\u043D\u043D\u044B\u0445 \u0433\u043B\u0430\u0432", value: "7" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439", value: "12" }, { label: "\u041F\u043E \u043A\u043E\u043B-\u0432\u0443 \u0441\u0442\u0440\u0430\u043D\u0438\u0446", value: "10" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E \u043D\u0430 \u044F\u0437\u044B\u043A\u0435 \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B\u0430", value: "1" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E \u043D\u0430 \u044F\u0437\u044B\u043A\u0435 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0430", value: "2" }, { label: "\u041F\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430\u043C", value: "5" }, { label: "\u041F\u043E \u0441\u0442\u0435\u043F\u0435\u043D\u0438 \u0433\u043E\u0442\u043E\u0432\u043D\u043E\u0441\u0442\u0438", value: "0" }, { label: "\u0421\u043B\u0443\u0447\u0430\u0439\u043D\u043E", value: "9" }], type: "Picker" }, genres: { type: "Checkbox", label: "\u0416\u0430\u043D\u0440\u044B: \u0432\u0441\u0435 \u0436\u0430\u043D\u0440\u044B \u043B\u044E\u0431\u043E\u0439 \u0436\u0430\u043D\u0440", value: "", options: [{ label: "\u0430\u043D\u0430\u043B", value: "2" }, { label: "\u0410\u0440\u0442", value: "70" }, { label: "\u0431\u0434\u0441\u043C", value: "3" }, { label: "\u0411\u043E\u0435\u0432\u044B\u0435 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0430", value: "52" }, { label: "\u0431\u043E\u043B\u044C\u0448\u0430\u044F \u0433\u0440\u0443\u0434\u044C", value: "5" }, { label: "\u0431\u043E\u043B\u044C\u0448\u0430\u044F \u043F\u043E\u043F\u043A\u0430", value: "6" }, { label: "\u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u0447\u043B\u0435\u043D", value: "7" }, { label: "\u0431\u043E\u043D\u0434\u0430\u0436", value: "8" }, { label: "\u0432 \u043F\u0435\u0440\u0432\u044B\u0439 \u0440\u0430\u0437", value: "9" }, { label: "\u0432 \u0446\u0432\u0435\u0442\u0435", value: "10" }, { label: "\u0433\u0430\u0440\u0435\u043C", value: "11" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "71" }, { label: "\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u0430\u044F \u0438\u043D\u0442\u0440\u0438\u0433\u0430", value: "12" }, { label: "\u0413\u0435\u0440\u043E\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "57" }, { label: "\u0433\u0440\u0443\u043F\u043F\u043E\u0432\u043E\u0439 \u0441\u0435\u043A\u0441", value: "13" }, { label: "\u0434\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "39" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "50" }, { label: "\u0414\u0437\u0451\u0441\u044D\u0439", value: "45" }, { label: "\u0434\u0440\u0430\u043C\u0430", value: "14" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "46" }, { label: "\u0437\u0440\u0435\u043B\u044B\u0435 \u0436\u0435\u043D\u0449\u0438\u043D\u044B (milf)", value: "15" }, { label: "\u0438\u0437\u043C\u0435\u043D\u0430", value: "16" }, { label: "\u0438\u0437\u043D\u0430\u0441\u0438\u043B\u043E\u0432\u0430\u043D\u0438\u0435", value: "17" }, { label: "\u0438\u043D\u0446\u0435\u0441\u0442", value: "18" }, { label: "\u0438\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439", value: "19" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u044F", value: "62" }, { label: "\u043A\u043E\u043C\u0435\u0434\u0438\u044F", value: "20" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0438\u044F", value: "51" }, { label: "\u043A\u043E\u043D\u0442\u0440\u043E\u043B\u044C \u043D\u0430\u0434 \u0440\u0430\u0437\u0443\u043C\u043E\u043C", value: "35" }, { label: "\u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0430\u044F \u0433\u0440\u0443\u0434\u044C", value: "21" }, { label: "\u043C\u0438\u0441\u0442\u0438\u043A\u0430", value: "40" }, { label: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430", value: "66" }, { label: "\u041C\u0443\u0440\u0438\u043C", value: "54" }, { label: "\u043D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "22" }, { label: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "72" }, { label: "\u043D\u0435\u0442\u043E\u0440\u0430\u0440\u0435", value: "23" }, { label: "\u043E\u0440\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0435\u043A\u0441", value: "24" }, { label: "\u043F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "41" }, { label: "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "53" }, { label: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0442\u0438\u043A\u0430", value: "55" }, { label: "\u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "38" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "42" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0438\u044F", value: "63" }, { label: "\u043F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439 \u0441\u0435\u043A\u0441", value: "33" }, { label: "\u0440\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "25" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "47" }, { label: "\u0441 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F\u043C\u0438 ", value: "36" }, { label: "\u0441\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "34" }, { label: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "58" }, { label: "\u0421\u0451\u0434\u0437\u0451", value: "48" }, { label: "\u0421\u0451\u043D\u044D\u043D", value: "43" }, { label: "\u0441\u043C\u0430\u0442", value: "37" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "65" }, { label: "\u0421\u044D\u0439\u043D\u044D\u043D", value: "64" }, { label: "\u0442\u0435\u043D\u0442\u0430\u043A\u043B\u0438", value: "26" }, { label: "\u0442\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "27" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "61" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "69" }, { label: "\u0443\u0436\u0430\u0441\u044B", value: "28" }, { label: "\u0423\u0436\u0430\u0441\u044B", value: "68" }, { label: "\u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "32" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "60" }, { label: "\u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "29" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "44" }, { label: "\u0447\u0438\u043A\u0430\u043D", value: "30" }, { label: "\u0428\u043A\u043E\u043B\u044C\u043D\u0430\u044F \u0436\u0438\u0437\u043D\u044C", value: "59" }, { label: "\u042D\u043A\u0448\u0435\u043D", value: "49" }, { label: "\u042D\u0440\u043E\u0442\u0438\u043A\u0430", value: "56" }, { label: "\u044D\u0442\u0442\u0438", value: "31" }, { label: "\u042D\u0442\u0442\u0438", value: "67" }, { label: "ahegao", value: "1" }] } } });
+  exports.default = i;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

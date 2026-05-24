@@ -20269,7 +20269,7 @@ var LNReaderPlugin = (() => {
         object.onRemove(this);
         return clearCache(this);
       }, "remove");
-      Namespace.prototype.define = /* @__PURE__ */ __name(function define2(path, json) {
+      Namespace.prototype.define = /* @__PURE__ */ __name(function define(path, json) {
         if (util.isString(path))
           path = path.split(".");
         else if (!Array.isArray(path))
@@ -24240,473 +24240,283 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/dayjs/dayjs.min.js
-  var require_dayjs_min = __commonJS({
-    "node_modules/dayjs/dayjs.min.js"(exports4, module2) {
+  // src/types/constants.ts
+  var NovelStatus, defaultCover;
+  var init_constants = __esm({
+    "src/types/constants.ts"() {
+      "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      !function(t2, e2) {
-        "object" == typeof exports4 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
-      }(exports4, function() {
-        "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s = "minute", u = "hour", a2 = "day", o2 = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
-          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
-          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
-          var r3 = String(t3);
-          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
-        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
-          if (e3.date() < n3.date()) return -t3(n3, e3);
-          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c), s2 = n3 - i3 < 0, u2 = e3.clone().add(r3 + (s2 ? -1 : 1), c);
-          return +(-(r3 + (n3 - i3) / (s2 ? i3 - u2 : u2 - i3)) || 0);
-        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
-          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
-        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c, y: h, w: o2, d: a2, D: d, h: u, m: s, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
-        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
-          return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
-        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
-          return t3 instanceof _ || !(!t3 || !t3[p]);
-        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
-          var i3;
-          if (!e3) return g;
-          if ("string" == typeof e3) {
-            var s2 = e3.toLowerCase();
-            D[s2] && (i3 = s2), n3 && (D[s2] = n3, i3 = s2);
-            var u2 = e3.split("-");
-            if (!i3 && u2.length > 1) return t3(u2[0]);
-          } else {
-            var a3 = e3.name;
-            D[a3] = e3, i3 = a3;
-          }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
-        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
-          if (S(t3)) return t3.clone();
-          var n3 = "object" == typeof e3 ? e3 : {};
-          return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v;
-        b.l = w, b.i = S, b.w = function(t3, e3) {
-          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
-        };
-        var _ = function() {
-          function M2(t3) {
-            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
-          }
-          __name(M2, "M");
-          var m2 = M2.prototype;
-          return m2.parse = function(t3) {
-            this.$d = function(t4) {
-              var e3 = t4.date, n3 = t4.utc;
-              if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b.u(e3)) return /* @__PURE__ */ new Date();
-              if (e3 instanceof Date) return new Date(e3);
-              if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r3 = e3.match($2);
-                if (r3) {
-                  var i3 = r3[2] - 1 || 0, s2 = (r3[7] || "0").substring(0, 3);
-                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2);
-                }
-              }
-              return new Date(e3);
-            }(t3), this.init();
-          }, m2.init = function() {
-            var t3 = this.$d;
-            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
-          }, m2.$utils = function() {
-            return b;
-          }, m2.isValid = function() {
-            return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t3, e3) {
-            var n3 = O(t3);
-            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
-          }, m2.isAfter = function(t3, e3) {
-            return O(t3) < this.startOf(e3);
-          }, m2.isBefore = function(t3, e3) {
-            return this.endOf(e3) < O(t3);
-          }, m2.$g = function(t3, e3, n3) {
-            return b.u(t3) ? this[e3] : this.set(n3, t3);
-          }, m2.unix = function() {
-            return Math.floor(this.valueOf() / 1e3);
-          }, m2.valueOf = function() {
-            return this.$d.getTime();
-          }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
-              return r3 ? i3 : i3.endOf(a2);
-            }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
-              case h:
-                return r3 ? l3(1, 0) : l3(31, 11);
-              case c:
-                return r3 ? l3(1, M3) : l3(0, M3 + 1);
-              case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
-              case a2:
-              case d:
-                return $3(v2 + "Hours", 0);
-              case u:
-                return $3(v2 + "Minutes", 1);
-              case s:
-                return $3(v2 + "Seconds", 2);
-              case i2:
-                return $3(v2 + "Milliseconds", 3);
-              default:
-                return this.clone();
-            }
-          }, m2.endOf = function(t3) {
-            return this.startOf(t3, false);
-          }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u] = f2 + "Hours", n3[s] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
-            if (o3 === c || o3 === h) {
-              var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
-            } else l3 && this.$d[l3]($3);
-            return this.init(), this;
-          }, m2.set = function(t3, e3) {
-            return this.clone().$set(t3, e3);
-          }, m2.get = function(t3) {
-            return this[b.p(t3)]();
-          }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
-            r3 = Number(r3);
-            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
-              var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
-            }, "y");
-            if ($3 === c) return this.set(c, this.$M + r3);
-            if ($3 === h) return this.set(h, this.$y + r3);
-            if ($3 === a2) return y2(1);
-            if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s] = e2, d2[u] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
-            return b.w(m3, this);
-          }, m2.subtract = function(t3, e3) {
-            return this.add(-1 * t3, e3);
-          }, m2.format = function(t3) {
-            var e3 = this, n3 = this.$locale();
-            if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s2 = this.$H, u2 = this.$m, a3 = this.$M, o3 = n3.weekdays, c2 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s3) {
-              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s3);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
-              return b.s(s2 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
-              var r4 = t4 < 12 ? "AM" : "PM";
-              return n4 ? r4.toLowerCase() : r4;
-            };
-            return r3.replace(y, function(t4, r4) {
-              return r4 || function(t5) {
-                switch (t5) {
-                  case "YY":
-                    return String(e3.$y).slice(-2);
-                  case "YYYY":
-                    return b.s(e3.$y, 4, "0");
-                  case "M":
-                    return a3 + 1;
-                  case "MM":
-                    return b.s(a3 + 1, 2, "0");
-                  case "MMM":
-                    return h2(n3.monthsShort, a3, c2, 3);
-                  case "MMMM":
-                    return h2(c2, a3);
-                  case "D":
-                    return e3.$D;
-                  case "DD":
-                    return b.s(e3.$D, 2, "0");
-                  case "d":
-                    return String(e3.$W);
-                  case "dd":
-                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
-                  case "ddd":
-                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
-                  case "dddd":
-                    return o3[e3.$W];
-                  case "H":
-                    return String(s2);
-                  case "HH":
-                    return b.s(s2, 2, "0");
-                  case "h":
-                    return d2(1);
-                  case "hh":
-                    return d2(2);
-                  case "a":
-                    return $3(s2, u2, true);
-                  case "A":
-                    return $3(s2, u2, false);
-                  case "m":
-                    return String(u2);
-                  case "mm":
-                    return b.s(u2, 2, "0");
-                  case "s":
-                    return String(e3.$s);
-                  case "ss":
-                    return b.s(e3.$s, 2, "0");
-                  case "SSS":
-                    return b.s(e3.$ms, 3, "0");
-                  case "Z":
-                    return i3;
-                }
-                return null;
-              }(t4) || i3.replace(":", "");
-            });
-          }, m2.utcOffset = function() {
-            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b.m(y2, m3);
-            }, "D");
-            switch (M3) {
-              case h:
-                $3 = D2() / 12;
-                break;
-              case c:
-                $3 = D2();
-                break;
-              case f:
-                $3 = D2() / 3;
-                break;
-              case o2:
-                $3 = (g2 - v2) / 6048e5;
-                break;
-              case a2:
-                $3 = (g2 - v2) / 864e5;
-                break;
-              case u:
-                $3 = g2 / n2;
-                break;
-              case s:
-                $3 = g2 / e2;
-                break;
-              case i2:
-                $3 = g2 / t2;
-                break;
-              default:
-                $3 = g2;
-            }
-            return l3 ? $3 : b.a($3);
-          }, m2.daysInMonth = function() {
-            return this.endOf(c).$D;
-          }, m2.$locale = function() {
-            return D[this.$L];
-          }, m2.locale = function(t3, e3) {
-            if (!t3) return this.$L;
-            var n3 = this.clone(), r3 = w(t3, e3, true);
-            return r3 && (n3.$L = r3), n3;
-          }, m2.clone = function() {
-            return b.w(this.$d, this);
-          }, m2.toDate = function() {
-            return new Date(this.valueOf());
-          }, m2.toJSON = function() {
-            return this.isValid() ? this.toISOString() : null;
-          }, m2.toISOString = function() {
-            return this.$d.toISOString();
-          }, m2.toString = function() {
-            return this.$d.toUTCString();
-          }, M2;
-        }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s], ["$H", u], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t3) {
-          k[t3[1]] = function(e3) {
-            return this.$g(e3, t3[0], t3[1]);
-          };
-        }), O.extend = function(t3, e3) {
-          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
-        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
-          return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
-      });
+      NovelStatus = {
+        Unknown: "Unknown",
+        Ongoing: "Ongoing",
+        Completed: "Completed",
+        Licensed: "Licensed",
+        PublishingFinished: "Publishing Finished",
+        Cancelled: "Cancelled",
+        OnHiatus: "On Hiatus"
+      };
+      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
-  // .js/plugins/english/scribblehub.js
+  // src/libs/novelStatus.ts
+  var novelStatus_exports = {};
+  __export(novelStatus_exports, {
+    NovelStatus: () => NovelStatus
+  });
+  var init_novelStatus = __esm({
+    "src/libs/novelStatus.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_constants();
+    }
+  });
+
+  // .js/plugins/vietnamese/truyenss.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, a2, l2) {
-    return new (a2 || (a2 = Promise))(function(n2, r2) {
-      function i2(e3) {
-        try {
-          u(l2.next(e3));
-        } catch (e4) {
-          r2(e4);
-        }
-      }
-      __name(i2, "i");
+  var e = function(e2, t2, n2, r2) {
+    return new (n2 || (n2 = Promise))(function(i2, a2) {
       function o2(e3) {
         try {
-          u(l2.throw(e3));
+          u(r2.next(e3));
         } catch (e4) {
-          r2(e4);
+          a2(e4);
         }
       }
       __name(o2, "o");
+      function l2(e3) {
+        try {
+          u(r2.throw(e3));
+        } catch (e4) {
+          a2(e4);
+        }
+      }
+      __name(l2, "l");
       function u(e3) {
         var t3;
-        e3.done ? n2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
+        e3.done ? i2(e3.value) : (t3 = e3.value, t3 instanceof n2 ? t3 : new n2(function(e4) {
           e4(t3);
-        })).then(i2, o2);
+        })).then(o2, l2);
       }
       __name(u, "u");
-      u((l2 = l2.apply(e2, t2 || [])).next());
+      u((r2 = r2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
-    var a2, l2, n2, r2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & n2[0]) throw n2[1];
-      return n2[1];
-    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return i2.next = o2(0), i2.throw = o2(1), i2.return = o2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
+    var n2, r2, i2, a2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & i2[0]) throw i2[1];
+      return i2[1];
+    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return o2.next = l2(0), o2.throw = l2(1), o2.return = l2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
       return this;
-    }), i2;
-    function o2(o3) {
+    }), o2;
+    function l2(l3) {
       return function(u) {
-        return function(o4) {
-          if (a2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, o4[0] && (r2 = 0)), r2; ) try {
-            if (a2 = 1, l2 && (n2 = 2 & o4[0] ? l2.return : o4[0] ? l2.throw || ((n2 = l2.return) && n2.call(l2), 0) : l2.next) && !(n2 = n2.call(l2, o4[1])).done) return n2;
-            switch (l2 = 0, n2 && (o4 = [2 & o4[0], n2.value]), o4[0]) {
+        return function(l4) {
+          if (n2) throw new TypeError("Generator is already executing.");
+          for (; o2 && (o2 = 0, l4[0] && (a2 = 0)), a2; ) try {
+            if (n2 = 1, r2 && (i2 = 2 & l4[0] ? r2.return : l4[0] ? r2.throw || ((i2 = r2.return) && i2.call(r2), 0) : r2.next) && !(i2 = i2.call(r2, l4[1])).done) return i2;
+            switch (r2 = 0, i2 && (l4 = [2 & l4[0], i2.value]), l4[0]) {
               case 0:
               case 1:
-                n2 = o4;
+                i2 = l4;
                 break;
               case 4:
-                return r2.label++, { value: o4[1], done: false };
+                return a2.label++, { value: l4[1], done: false };
               case 5:
-                r2.label++, l2 = o4[1], o4 = [0];
+                a2.label++, r2 = l4[1], l4 = [0];
                 continue;
               case 7:
-                o4 = r2.ops.pop(), r2.trys.pop();
+                l4 = a2.ops.pop(), a2.trys.pop();
                 continue;
               default:
-                if (!(n2 = r2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
-                  r2 = 0;
+                if (!(i2 = a2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== l4[0] && 2 !== l4[0])) {
+                  a2 = 0;
                   continue;
                 }
-                if (3 === o4[0] && (!n2 || o4[1] > n2[0] && o4[1] < n2[3])) {
-                  r2.label = o4[1];
+                if (3 === l4[0] && (!i2 || l4[1] > i2[0] && l4[1] < i2[3])) {
+                  a2.label = l4[1];
                   break;
                 }
-                if (6 === o4[0] && r2.label < n2[1]) {
-                  r2.label = n2[1], n2 = o4;
+                if (6 === l4[0] && a2.label < i2[1]) {
+                  a2.label = i2[1], i2 = l4;
                   break;
                 }
-                if (n2 && r2.label < n2[2]) {
-                  r2.label = n2[2], r2.ops.push(o4);
+                if (i2 && a2.label < i2[2]) {
+                  a2.label = i2[2], a2.ops.push(l4);
                   break;
                 }
-                n2[2] && r2.ops.pop(), r2.trys.pop();
+                i2[2] && a2.ops.pop(), a2.trys.pop();
                 continue;
             }
-            o4 = t2.call(e2, r2);
+            l4 = t2.call(e2, a2);
           } catch (e3) {
-            o4 = [6, e3], l2 = 0;
+            l4 = [6, e3], r2 = 0;
           } finally {
-            a2 = n2 = 0;
+            n2 = i2 = 0;
           }
-          if (5 & o4[0]) throw o4[1];
-          return { value: o4[0] ? o4[1] : void 0, done: true };
-        }([o3, u]);
+          if (5 & l4[0]) throw l4[1];
+          return { value: l4[0] ? l4[1] : void 0, done: true };
+        }([l3, u]);
       };
     }
-    __name(o2, "o");
-  }, a = function(e2) {
-    return e2 && e2.__esModule ? e2 : { default: e2 };
+    __name(l2, "l");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var l = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = a(require_dayjs_min()), o = function() {
-    function a2() {
-      this.id = "scribblehub", this.name = "Scribble Hub", this.icon = "src/en/scribblehub/icon.png", this.site = "https://www.scribblehub.com/", this.version = "1.0.2", this.filters = { sort: { label: "Sort Results By", value: "ratings", options: [{ label: "Chapters", value: "chapters" }, { label: "Chapters per Week", value: "frequency" }, { label: "Date Added", value: "dateadded" }, { label: "Favorites", value: "favorites" }, { label: "Last Updated", value: "lastchdate" }, { label: "Number of Ratings", value: "numofrate" }, { label: "Pages", value: "pages" }, { label: "Pageviews", value: "pageviews" }, { label: "Ratings", value: "ratings" }, { label: "Readers", value: "readers" }, { label: "Reviews", value: "reviews" }, { label: "Total Words", value: "totalwords" }], type: r.FilterTypes.Picker }, order: { label: "Order By", value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: r.FilterTypes.Picker }, storyStatus: { label: "Story Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Completed", value: "completed" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }], type: r.FilterTypes.Picker }, genre_operator: { value: "and", label: "Genres (And/Or)", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: r.FilterTypes.Picker }, genres: { label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Action", value: "9" }, { label: "Adult", value: "902" }, { label: "Adventure", value: "8" }, { label: "Boys Love", value: "891" }, { label: "Comedy", value: "7" }, { label: "Drama", value: "903" }, { label: "Ecchi", value: "904" }, { label: "Fanfiction", value: "38" }, { label: "Fantasy", value: "19" }, { label: "Gender Bender", value: "905" }, { label: "Girls Love", value: "892" }, { label: "Harem", value: "1015" }, { label: "Historical", value: "21" }, { label: "Horror", value: "22" }, { label: "Isekai", value: "37" }, { label: "Josei", value: "906" }, { label: "LitRPG", value: "1180" }, { label: "Martial Arts", value: "907" }, { label: "Mature", value: "20" }, { label: "Mecha", value: "908" }, { label: "Mystery", value: "909" }, { label: "Psychological", value: "910" }, { label: "Romance", value: "6" }, { label: "School Life", value: "911" }, { label: "Sci-fi", value: "912" }, { label: "Seinen", value: "913" }, { label: "Slice of Life", value: "914" }, { label: "Smut", value: "915" }, { label: "Sports", value: "916" }, { label: "Supernatural", value: "5" }, { label: "Tragedy", value: "901" }], type: r.FilterTypes.ExcludableCheckboxGroup }, content_warning_operator: { value: "and", label: "Mature Content (And/Or)", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: r.FilterTypes.Picker }, content_warning: { value: { include: [], exclude: [] }, label: "Mature Content", options: [{ label: "Gore", value: "48" }, { label: "Sexual Content", value: "50" }, { label: "Strong Language", value: "49" }], type: r.FilterTypes.ExcludableCheckboxGroup } };
+  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = /^\/truyen\/([^/]+)\/chuong-(\d+)$/, l = function() {
+    function l2() {
+      this.id = "truyenss.com", this.name = "TruyenSS", this.icon = "src/vi/truyenss/icon.png", this.site = "https://truyenss.com", this.version = "1.0.0", this.imageRequestInit = { headers: { Referer: this.site + "/" } }, this.filters = { genre: { type: i.FilterTypes.Picker, label: "Th\u1EC3 lo\u1EA1i", value: "tien-hiep", options: [{ label: "Ti\xEAn Hi\u1EC7p", value: "tien-hiep" }, { label: "N\u1EEF C\u01B0\u1EDDng", value: "nu-cuong" }, { label: "Xuy\xEAn Kh\xF4ng", value: "xuyen-khong" }, { label: "\u0110i\u1EC1n V\u0103n", value: "dien-van" }, { label: "Th\xE1m Hi\u1EC3m", value: "tham-hiem" }, { label: "Linh D\u1ECB", value: "linh-di" }, { label: "Truy\u1EC7n Ng\u01B0\u1EE3c", value: "truyen-nguoc" }, { label: "Truy\u1EC7n S\u1EE7ng", value: "truyen-sung" }, { label: "\u0110\xF4ng Ph\u01B0\u01A1ng", value: "dong-phuong" }, { label: "H\xE0i H\u01B0\u1EDBc", value: "hai-huoc" }, { label: "Hi\u1EC7n \u0110\u1EA1i", value: "hien-dai" }, { label: "Qu\xE2n S\u1EF1", value: "quan-su" }, { label: "M\u1EA1t Th\u1EBF", value: "mat-the" }, { label: "Tr\u1ECDng Sinh", value: "trong-sinh" }, { label: "\u0110\u1ED3ng Nh\xE2n", value: "dong-nhan" }, { label: "Quan Tr\u01B0\u1EDDng", value: "quan-truong" }, { label: "C\u1ED5 \u0110\u1EA1i", value: "co-dai" }, { label: "H\u1EC7 Th\u1ED1ng", value: "he-thong" }, { label: "Ph\u01B0\u01A1ng T\xE2y", value: "phuong-tay" }, { label: "L\u1ECBch S\u1EED", value: "lich-su" }, { label: "Ng\xF4n T\xECnh", value: "ngon-tinh" }, { label: "Huy\u1EC1n Huy\u1EC5n", value: "huyen-huyen" }, { label: "Ki\u1EBFm Hi\u1EC7p", value: "kiem-hiep" }, { label: "V\xF5ng Du", value: "vong-du" }, { label: "Trinh Th\xE1m", value: "trinh-tham" }, { label: "Khoa Huy\u1EC5n", value: "khoa-huyen" }, { label: "D\u1ECB N\u0103ng", value: "di-nang" }, { label: "Gia \u0110\u1EA5u Cung \u0110\u1EA5u", value: "gia-dau-cung-dau" }, { label: "G\xF3c Nh\xECn N\u1EEF", value: "goc-nhin-nu" }, { label: "G\xF3c Nh\xECn Nam", value: "goc-nhin-nam" }] } };
     }
-    __name(a2, "a");
-    return a2.prototype.parseNovels = function(e2) {
-      var t2 = this, a3 = [];
-      return e2(".search_main_box").each(function(l2, n2) {
-        var r2 = e2(n2).find(".search_title > a").text(), i2 = e2(n2).find(".search_img > img").attr("src"), o2 = e2(n2).find(".search_title > a").attr("href");
-        if (o2) {
-          var u = { name: r2, cover: i2, path: o2.replace(t2.site, "") };
-          a3.push(u);
+    __name(l2, "l");
+    return Object.defineProperty(l2.prototype, "sitePlaceholderCover", { get: /* @__PURE__ */ __name(function() {
+      return "".concat(this.site, "/images/no_avatar.jpg");
+    }, "get"), enumerable: false, configurable: true }), l2.prototype.resolveCoverUrl = function(e2, t2) {
+      if (e2) {
+        var n2 = e2.trim();
+        if (n2 && !n2.startsWith("data:")) try {
+          return n2.startsWith("//") ? "https:" + n2 : n2.startsWith("http") ? n2 : new URL(n2, t2).href;
+        } catch (e3) {
+          return;
         }
-      }), a3;
-    }, a2.prototype.popularNovels = function(a3, r2) {
-      return e(this, arguments, void 0, function(e2, a4) {
-        var r3, i2, o2, u, s, c, d, v, p, h, b, f, g = a4.showLatestNovels, y = a4.filters;
+      }
+    }, l2.prototype.coverFromTruyenAnchor = function(e2, t2, n2) {
+      var r2 = this, i2 = e2(t2), a2 = /* @__PURE__ */ __name(function(e3) {
+        var t3 = e3.attr("data-src") || e3.attr("data-lazy-src") || e3.attr("data-original") || e3.attr("src");
+        return r2.resolveCoverUrl(t3, n2);
+      }, "a"), o2 = a2(i2.find("img").first());
+      if (o2) return o2;
+      var l3 = a2(i2.closest(".card").find("img").first());
+      if (l3) return l3;
+      var u = a2(i2.closest(".row").find("img").first());
+      return u || this.sitePlaceholderCover;
+    }, l2.prototype.collectTruyenLinks = function(e2, t2) {
+      var n2 = this, r2 = [], i2 = /* @__PURE__ */ new Set();
+      return e2('a[href^="/truyen/"]').each(function(a2, o2) {
+        var l3 = o2.attribs.href;
+        if (l3 && 3 === l3.split("/").length) {
+          var u = l3.split("?")[0];
+          if (!i2.has(u)) {
+            i2.add(u);
+            var c = e2(o2).text().replace(/\s+/g, " ").trim();
+            if (c) {
+              var s = n2.coverFromTruyenAnchor(e2, o2, t2);
+              r2.push({ path: u, name: c, cover: s });
+            }
+          }
+        }
+      }), r2;
+    }, l2.prototype.popularNovels = function(i2, a2) {
+      return e(this, arguments, void 0, function(e2, i3) {
+        var a3, o2, l3, u, c, s = i3.showLatestNovels, h = i3.filters;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return r3 = "".concat(this.site), g ? r3 += "latest-series/?pg=".concat(e2) : y ? (i2 = new URLSearchParams(), (null === (s = y.genres.value.include) || void 0 === s ? void 0 : s.length) && i2.append("gi", y.genres.value.include.join(",")), ((null === (c = y.genres.value.include) || void 0 === c ? void 0 : c.length) || (null === (d = y.genres.value.exclude) || void 0 === d ? void 0 : d.length)) && i2.append("mgi", y.genre_operator.value), (null === (v = y.genres.value.exclude) || void 0 === v ? void 0 : v.length) && i2.append("ge", y.genres.value.exclude.join(",")), (null === (p = y.content_warning.value.include) || void 0 === p ? void 0 : p.length) && i2.append("cti", y.content_warning.value.include.join(",")), ((null === (h = y.content_warning.value.include) || void 0 === h ? void 0 : h.length) || (null === (b = y.content_warning.value.exclude) || void 0 === b ? void 0 : b.length)) && i2.append("mct", y.content_warning_operator.value), (null === (f = y.content_warning.value.exclude) || void 0 === f ? void 0 : f.length) && i2.append("cte", y.content_warning.value.exclude.join(",")), i2.append("cp", y.storyStatus.value), i2.append("sort", y.sort.value), i2.append("order", y.order.value), i2.append("pg", e2.toString()), r3 += "series-finder/?sf=1&".concat(i2.toString())) : r3 += "series-finder/?sf=1&sort=ratings&order=desc&pg=".concat(e2), [4, (0, n.fetchApi)(r3).then(function(e3) {
+              return s ? e2 > 1 ? [2, []] : [4, (0, r.fetchApi)(this.site + "/").then(function(e3) {
+                return e3.text();
+              })] : [3, 2];
+            case 1:
+              return a3 = t2.sent(), [2, this.collectTruyenLinks((0, n.load)(a3), "".concat(this.site, "/"))];
+            case 2:
+              return o2 = null !== (c = null == h ? void 0 : h.genre.value) && void 0 !== c ? c : "tien-hiep", l3 = e2 <= 1 ? "".concat(this.site, "/").concat(o2) : "".concat(this.site, "/").concat(o2, "?page=").concat(e2), [4, (0, r.fetchApi)(l3).then(function(e3) {
+                return e3.text();
+              })];
+            case 3:
+              return u = t2.sent(), [2, this.collectTruyenLinks((0, n.load)(u), l3)];
+          }
+        });
+      });
+    }, l2.prototype.parseStatusLine = function(e2) {
+      var t2 = e2.toLowerCase();
+      return t2.includes("ho\xE0n") || t2.includes("full") ? a.NovelStatus.Completed : t2.includes("\u0111ang") || t2.includes("ra ch\u01B0\u01A1ng") ? a.NovelStatus.Ongoing : a.NovelStatus.Unknown;
+    }, l2.prototype.parseChapters = function(e2, t2) {
+      var n2 = [], r2 = e2("h2").filter(function(t3, n3) {
+        return e2(n3).text().includes("Danh S\xE1ch Ch\u01B0\u01A1ng");
+      }).first().next("div.position-relative");
+      return (r2.length ? r2.find('a[href^="#"]') : e2('#inner-page a[href^="#"]')).each(function(r3, i2) {
+        var a2 = i2.attribs.href;
+        if (null == a2 ? void 0 : a2.startsWith("#")) {
+          var o2 = Number(a2.slice(1));
+          if (Number.isFinite(o2) && !(o2 <= 0)) {
+            var l3 = e2(i2).text().replace(/\s+/g, " ").trim();
+            n2.push({ name: l3 || "Ch\u01B0\u01A1ng ".concat(o2), path: "".concat(t2, "/chuong-").concat(o2), chapterNumber: o2 });
+          }
+        }
+      }), n2.sort(function(e3, t3) {
+        var n3, r3;
+        return (null !== (n3 = e3.chapterNumber) && void 0 !== n3 ? n3 : 0) - (null !== (r3 = t3.chapterNumber) && void 0 !== r3 ? r3 : 0);
+      }), n2;
+    }, l2.prototype.parseNovel = function(i2) {
+      return e(this, void 0, void 0, function() {
+        var e2, a2, o2, l3, u, c, s, h, p, f, v, g, d;
+        return t(this, function(t2) {
+          switch (t2.label) {
+            case 0:
+              return e2 = i2, a2 = this.site + e2, [4, (0, r.fetchApi)(a2).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return o2 = t2.sent(), u = (0, l.load)(o2), [2, this.parseNovels(u)];
+              return o2 = t2.sent(), l3 = (0, n.load)(o2), u = { path: e2, name: l3("#inner-page > h1").first().text().trim() || l3("main#main h1").first().text().trim() || "Kh\xF4ng c\xF3 ti\xEAu \u0111\u1EC1", chapters: [] }, c = l3(".info_truyen img.avatar").attr("src"), u.cover = null !== (d = this.resolveCoverUrl(c, a2)) && void 0 !== d ? d : this.sitePlaceholderCover, s = l3(".info_truyen").first(), h = s.text(), (p = h.match(/Tác\s*Giả:\s*([^\n\r]+)/i)) && (u.author = p[1].trim()), (f = h.match(/Tình\s*Trạng:\s*([^\n\r]+)/i)) && (u.status = this.parseStatusLine(f[1])), u.genres = l3("p.tags a.badge").toArray().map(function(e3) {
+                return l3(e3).text().trim();
+              }).filter(Boolean).join(", "), (v = l3("#inner-page .position-relative.mt-4 .line-height-3").first()).length && ((g = v.clone()).find("script, style").remove(), g.find("br").replaceWith("\n"), g.find("p").before("\n").after("\n\n"), u.summary = g.text().split("\n").map(function(e3) {
+                return e3.replace(/\s+/g, " ").trim();
+              }).filter(Boolean).join("\n").replace(/\n{3,}/g, "\n\n").trim()), u.chapters = this.parseChapters(l3, e2), [2, u];
           }
         });
       });
-    }, a2.prototype.parseNovel = function(a3) {
+    }, l2.prototype.extractChapterBody = function(e2) {
+      var t2, n2;
+      e2("script, style").remove();
+      var r2 = "", i2 = 0;
+      return e2("div").each(function(t3, n3) {
+        var a2, o2 = e2(n3), l3 = o2.find("p").length;
+        l3 > i2 && (i2 = l3, r2 = null !== (a2 = o2.html()) && void 0 !== a2 ? a2 : "");
+      }), i2 >= 2 ? r2 : null !== (n2 = null !== (t2 = e2("body").html()) && void 0 !== t2 ? t2 : e2.root().html()) && void 0 !== n2 ? n2 : "";
+    }, l2.prototype.parseChapter = function(i2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, o2, u, s, c, d, v = this;
+        var e2, a2, l3, u, c, s, h;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + a3)];
+              if ((e2 = i2).startsWith(this.site) && (e2 = e2.slice(this.site.length)), !(a2 = e2.match(o))) throw new Error("TruyenSS: invalid chapter path: ".concat(e2));
+              return l3 = a2[1], u = a2[2], c = "".concat(this.site, "/truyen/").concat(l3), s = new URLSearchParams({ folder: l3, chuong: u }).toString(), [4, (0, r.fetchApi)("".concat(this.site, "/layout/xem-chuong.php?").concat(s), { headers: { "X-Requested-With": "XMLHttpRequest", Referer: c } }).then(function(e3) {
+                return e3.text();
+              })];
             case 1:
-              return [4, t2.sent().text()];
+              if (!(h = t2.sent()).trim()) throw new Error("TruyenSS: empty chapter response");
+              return [2, this.extractChapterBody((0, n.load)(h))];
+          }
+        });
+      });
+    }, l2.prototype.searchNovels = function(i2, a2) {
+      return e(this, void 0, void 0, function() {
+        var e2, o2, l3, u, c, s, h;
+        return t(this, function(t2) {
+          switch (t2.label) {
+            case 0:
+              if (!(e2 = encodeURIComponent(i2.trim()))) return [2, []];
+              o2 = ["".concat(this.site, "/tim-kiem?q=").concat(e2, "&page=").concat(a2), "".concat(this.site, "/tim-kiem/").concat(e2, "?page=").concat(a2), "".concat(this.site, "/tim-truyen?tu-khoa=").concat(e2, "&page=").concat(a2)], l3 = 0, u = o2, t2.label = 1;
+            case 1:
+              return l3 < u.length ? (c = u[l3], [4, (0, r.fetchApi)(c).then(function(e3) {
+                return e3.text();
+              })]) : [3, 4];
             case 2:
-              return e2 = t2.sent(), r2 = (0, l.load)(e2), (o2 = { path: a3, name: r2(".fic_title").text() || "Untitled", cover: r2(".fic_image > img").attr("src"), summary: r2(".wi_fic_desc").text(), author: r2(".auth_name_fic").text(), chapters: [] }).genres = r2(".fic_genre").map(function(e3, t3) {
-                return r2(t3).text();
-              }).toArray().join(","), o2.status = r2(".rnd_stats").next().text().includes("Ongoing") ? "Ongoing" : "Completed", (u = new FormData()).append("action", "wi_getreleases_pagination"), u.append("pagenum", "-1"), u.append("mypostid", a3.split("/")[1]), [4, (0, n.fetchApi)("".concat(this.site, "wp-admin/admin-ajax.php"), { method: "POST", body: u })];
+              if (s = t2.sent(), (h = this.collectTruyenLinks((0, n.load)(s), c)).length) return [2, h];
+              t2.label = 3;
             case 3:
-              return [4, t2.sent().text()];
+              return l3++, [3, 1];
             case 4:
-              return s = t2.sent(), r2 = (0, l.load)(s), c = [], d = /* @__PURE__ */ __name(function(e3) {
-                var t3;
-                if (e3.includes("ago")) {
-                  var a4 = (0, i.default)(/* @__PURE__ */ new Date()), l2 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", n2 = parseInt(l2, 10);
-                  return l2 ? ((e3.includes("hours ago") || e3.includes("hour ago")) && a4.subtract(n2, "hours"), (e3.includes("days ago") || e3.includes("day ago")) && a4.subtract(n2, "days"), (e3.includes("months ago") || e3.includes("month ago")) && a4.subtract(n2, "months"), a4.toISOString()) : null;
-                }
-                return null;
-              }, "d"), r2(".toc_w").each(function(e3, t3) {
-                var a4 = r2(t3).find(".toc_a").text(), l2 = r2(t3).find(".fic_date_pub").text(), n2 = r2(t3).find("a").attr("href");
-                n2 && c.push({ name: a4, releaseTime: d(l2), path: n2.replace(v.site, "") });
-              }), o2.chapters = c.reverse(), [2, o2];
+              return [2, []];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return [4, (0, n.fetchApi)(this.site + a3)];
-            case 1:
-              return [4, t2.sent().text()];
-            case 2:
-              return e2 = t2.sent(), r2 = (0, l.load)(e2), [2, r2("div.chp_raw").html() || ""];
-          }
-        });
-      });
-    }, a2.prototype.searchNovels = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2, i2;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              return e2 = "".concat(this.site, "?s=").concat(encodeURIComponent(a3), "&post_type=fictionposts"), [4, (0, n.fetchApi)(e2)];
-            case 1:
-              return [4, t2.sent().text()];
-            case 2:
-              return r2 = t2.sent(), i2 = (0, l.load)(r2), [2, this.parseNovels(i2)];
-          }
-        });
-      });
-    }, a2;
+    }, l2;
   }();
-  exports.default = new o();
+  exports.default = new l();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

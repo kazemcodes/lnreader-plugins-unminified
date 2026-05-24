@@ -831,10 +831,10 @@ var LNReaderPlugin = (() => {
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
       var d = isLE ? -1 : 1;
-      var s = buffer[offset + i2];
+      var s2 = buffer[offset + i2];
       i2 += d;
-      e2 = s & (1 << -nBits) - 1;
-      s >>= -nBits;
+      e2 = s2 & (1 << -nBits) - 1;
+      s2 >>= -nBits;
       nBits += eLen;
       for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
@@ -846,12 +846,12 @@ var LNReaderPlugin = (() => {
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s ? -1 : 1) * Infinity;
+        return m ? NaN : (s2 ? -1 : 1) * Infinity;
       } else {
         m = m + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
       var e2, m, c;
@@ -861,7 +861,7 @@ var LNReaderPlugin = (() => {
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
       var d = isLE ? 1 : -1;
-      var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+      var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
         m = isNaN(value) ? 1 : 0;
@@ -898,7 +898,7 @@ var LNReaderPlugin = (() => {
       eLen += mLen;
       for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s * 128;
+      buffer[offset + i2 - d] |= s2 * 128;
     };
     return exports$1;
   }
@@ -2599,10 +2599,10 @@ var LNReaderPlugin = (() => {
       }();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t2[p] = s[p];
+          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s2 = arguments[i2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
           return t2;
         };
@@ -4084,10 +4084,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t2[p] = s[p];
+          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s2 = arguments[i2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
           return t2;
         };
@@ -7017,7 +7017,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -7089,8 +7089,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = options.adapter;
           var opts = copyOptions(options);
           opts.relativeSelector = true;
-          var context = subselect.some(function(s) {
-            return s.some(sort_js_1.isTraversal);
+          var context = subselect.some(function(s2) {
+            return s2.some(sort_js_1.isTraversal);
           }) ? (
             // Used as a placeholder. Will be replaced with the actual element.
             [exports4.PLACEHOLDER_ELEMENT]
@@ -7621,14 +7621,14 @@ var LNReaderPlugin = (() => {
         "even",
         "odd"
       ]);
-      function isFilter(s) {
-        if (s.type !== "pseudo")
+      function isFilter(s2) {
+        if (s2.type !== "pseudo")
           return false;
-        if (exports4.filterNames.has(s.name))
+        if (exports4.filterNames.has(s2.name))
           return true;
-        if (s.name === "not" && Array.isArray(s.data)) {
-          return s.data.some(function(s2) {
-            return s2.some(isFilter);
+        if (s2.name === "not" && Array.isArray(s2.data)) {
+          return s2.data.some(function(s3) {
+            return s3.some(isFilter);
           });
         }
         return false;
@@ -7705,10 +7705,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t2[p] = s[p];
+          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s2 = arguments[i2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
           return t2;
         };
@@ -7742,7 +7742,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -20269,7 +20269,7 @@ var LNReaderPlugin = (() => {
         object.onRemove(this);
         return clearCache(this);
       }, "remove");
-      Namespace.prototype.define = /* @__PURE__ */ __name(function define2(path, json) {
+      Namespace.prototype.define = /* @__PURE__ */ __name(function define(path, json) {
         if (util.isString(path))
           path = path.split(".");
         else if (!Array.isArray(path))
@@ -21829,7 +21829,7 @@ var LNReaderPlugin = (() => {
       init_process2();
       var types = exports4;
       var util = require_util();
-      var s = [
+      var s2 = [
         "double",
         // 0
         "float",
@@ -21864,7 +21864,7 @@ var LNReaderPlugin = (() => {
       function bake(values, offset) {
         var i2 = 0, o2 = {};
         offset |= 0;
-        while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
+        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
         return o2;
       }
       __name(bake, "bake");
@@ -24206,507 +24206,231 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/filters.ts
-  var FilterTypes;
-  var init_filters = __esm({
-    "src/types/filters.ts"() {
+  // src/types/constants.ts
+  var NovelStatus, defaultCover;
+  var init_constants = __esm({
+    "src/types/constants.ts"() {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      FilterTypes = /* @__PURE__ */ ((FilterTypes2) => {
-        FilterTypes2["TextInput"] = "Text";
-        FilterTypes2["Picker"] = "Picker";
-        FilterTypes2["CheckboxGroup"] = "Checkbox";
-        FilterTypes2["Switch"] = "Switch";
-        FilterTypes2["ExcludableCheckboxGroup"] = "XCheckbox";
-        return FilterTypes2;
-      })(FilterTypes || {});
+      NovelStatus = {
+        Unknown: "Unknown",
+        Ongoing: "Ongoing",
+        Completed: "Completed",
+        Licensed: "Licensed",
+        PublishingFinished: "Publishing Finished",
+        Cancelled: "Cancelled",
+        OnHiatus: "On Hiatus"
+      };
+      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
-  // src/libs/filterInputs.ts
-  var filterInputs_exports = {};
-  __export(filterInputs_exports, {
-    FilterTypes: () => FilterTypes
+  // src/libs/novelStatus.ts
+  var novelStatus_exports = {};
+  __export(novelStatus_exports, {
+    NovelStatus: () => NovelStatus
   });
-  var init_filterInputs = __esm({
-    "src/libs/filterInputs.ts"() {
+  var init_novelStatus = __esm({
+    "src/libs/novelStatus.ts"() {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      init_filters();
+      init_constants();
     }
   });
 
-  // node_modules/dayjs/dayjs.min.js
-  var require_dayjs_min = __commonJS({
-    "node_modules/dayjs/dayjs.min.js"(exports4, module2) {
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      !function(t2, e2) {
-        "object" == typeof exports4 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
-      }(exports4, function() {
-        "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s = "minute", u = "hour", a2 = "day", o2 = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
-          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
-          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
-          var r3 = String(t3);
-          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
-        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
-          if (e3.date() < n3.date()) return -t3(n3, e3);
-          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c), s2 = n3 - i3 < 0, u2 = e3.clone().add(r3 + (s2 ? -1 : 1), c);
-          return +(-(r3 + (n3 - i3) / (s2 ? i3 - u2 : u2 - i3)) || 0);
-        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
-          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
-        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c, y: h, w: o2, d: a2, D: d, h: u, m: s, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
-        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
-          return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
-        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
-          return t3 instanceof _ || !(!t3 || !t3[p]);
-        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
-          var i3;
-          if (!e3) return g;
-          if ("string" == typeof e3) {
-            var s2 = e3.toLowerCase();
-            D[s2] && (i3 = s2), n3 && (D[s2] = n3, i3 = s2);
-            var u2 = e3.split("-");
-            if (!i3 && u2.length > 1) return t3(u2[0]);
-          } else {
-            var a3 = e3.name;
-            D[a3] = e3, i3 = a3;
-          }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
-        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
-          if (S(t3)) return t3.clone();
-          var n3 = "object" == typeof e3 ? e3 : {};
-          return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v;
-        b.l = w, b.i = S, b.w = function(t3, e3) {
-          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
-        };
-        var _ = function() {
-          function M2(t3) {
-            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
-          }
-          __name(M2, "M");
-          var m2 = M2.prototype;
-          return m2.parse = function(t3) {
-            this.$d = function(t4) {
-              var e3 = t4.date, n3 = t4.utc;
-              if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b.u(e3)) return /* @__PURE__ */ new Date();
-              if (e3 instanceof Date) return new Date(e3);
-              if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r3 = e3.match($2);
-                if (r3) {
-                  var i3 = r3[2] - 1 || 0, s2 = (r3[7] || "0").substring(0, 3);
-                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2);
-                }
-              }
-              return new Date(e3);
-            }(t3), this.init();
-          }, m2.init = function() {
-            var t3 = this.$d;
-            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
-          }, m2.$utils = function() {
-            return b;
-          }, m2.isValid = function() {
-            return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t3, e3) {
-            var n3 = O(t3);
-            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
-          }, m2.isAfter = function(t3, e3) {
-            return O(t3) < this.startOf(e3);
-          }, m2.isBefore = function(t3, e3) {
-            return this.endOf(e3) < O(t3);
-          }, m2.$g = function(t3, e3, n3) {
-            return b.u(t3) ? this[e3] : this.set(n3, t3);
-          }, m2.unix = function() {
-            return Math.floor(this.valueOf() / 1e3);
-          }, m2.valueOf = function() {
-            return this.$d.getTime();
-          }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
-              return r3 ? i3 : i3.endOf(a2);
-            }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
-              case h:
-                return r3 ? l3(1, 0) : l3(31, 11);
-              case c:
-                return r3 ? l3(1, M3) : l3(0, M3 + 1);
-              case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
-              case a2:
-              case d:
-                return $3(v2 + "Hours", 0);
-              case u:
-                return $3(v2 + "Minutes", 1);
-              case s:
-                return $3(v2 + "Seconds", 2);
-              case i2:
-                return $3(v2 + "Milliseconds", 3);
-              default:
-                return this.clone();
-            }
-          }, m2.endOf = function(t3) {
-            return this.startOf(t3, false);
-          }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u] = f2 + "Hours", n3[s] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
-            if (o3 === c || o3 === h) {
-              var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
-            } else l3 && this.$d[l3]($3);
-            return this.init(), this;
-          }, m2.set = function(t3, e3) {
-            return this.clone().$set(t3, e3);
-          }, m2.get = function(t3) {
-            return this[b.p(t3)]();
-          }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
-            r3 = Number(r3);
-            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
-              var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
-            }, "y");
-            if ($3 === c) return this.set(c, this.$M + r3);
-            if ($3 === h) return this.set(h, this.$y + r3);
-            if ($3 === a2) return y2(1);
-            if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s] = e2, d2[u] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
-            return b.w(m3, this);
-          }, m2.subtract = function(t3, e3) {
-            return this.add(-1 * t3, e3);
-          }, m2.format = function(t3) {
-            var e3 = this, n3 = this.$locale();
-            if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s2 = this.$H, u2 = this.$m, a3 = this.$M, o3 = n3.weekdays, c2 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s3) {
-              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s3);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
-              return b.s(s2 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
-              var r4 = t4 < 12 ? "AM" : "PM";
-              return n4 ? r4.toLowerCase() : r4;
-            };
-            return r3.replace(y, function(t4, r4) {
-              return r4 || function(t5) {
-                switch (t5) {
-                  case "YY":
-                    return String(e3.$y).slice(-2);
-                  case "YYYY":
-                    return b.s(e3.$y, 4, "0");
-                  case "M":
-                    return a3 + 1;
-                  case "MM":
-                    return b.s(a3 + 1, 2, "0");
-                  case "MMM":
-                    return h2(n3.monthsShort, a3, c2, 3);
-                  case "MMMM":
-                    return h2(c2, a3);
-                  case "D":
-                    return e3.$D;
-                  case "DD":
-                    return b.s(e3.$D, 2, "0");
-                  case "d":
-                    return String(e3.$W);
-                  case "dd":
-                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
-                  case "ddd":
-                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
-                  case "dddd":
-                    return o3[e3.$W];
-                  case "H":
-                    return String(s2);
-                  case "HH":
-                    return b.s(s2, 2, "0");
-                  case "h":
-                    return d2(1);
-                  case "hh":
-                    return d2(2);
-                  case "a":
-                    return $3(s2, u2, true);
-                  case "A":
-                    return $3(s2, u2, false);
-                  case "m":
-                    return String(u2);
-                  case "mm":
-                    return b.s(u2, 2, "0");
-                  case "s":
-                    return String(e3.$s);
-                  case "ss":
-                    return b.s(e3.$s, 2, "0");
-                  case "SSS":
-                    return b.s(e3.$ms, 3, "0");
-                  case "Z":
-                    return i3;
-                }
-                return null;
-              }(t4) || i3.replace(":", "");
-            });
-          }, m2.utcOffset = function() {
-            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b.m(y2, m3);
-            }, "D");
-            switch (M3) {
-              case h:
-                $3 = D2() / 12;
-                break;
-              case c:
-                $3 = D2();
-                break;
-              case f:
-                $3 = D2() / 3;
-                break;
-              case o2:
-                $3 = (g2 - v2) / 6048e5;
-                break;
-              case a2:
-                $3 = (g2 - v2) / 864e5;
-                break;
-              case u:
-                $3 = g2 / n2;
-                break;
-              case s:
-                $3 = g2 / e2;
-                break;
-              case i2:
-                $3 = g2 / t2;
-                break;
-              default:
-                $3 = g2;
-            }
-            return l3 ? $3 : b.a($3);
-          }, m2.daysInMonth = function() {
-            return this.endOf(c).$D;
-          }, m2.$locale = function() {
-            return D[this.$L];
-          }, m2.locale = function(t3, e3) {
-            if (!t3) return this.$L;
-            var n3 = this.clone(), r3 = w(t3, e3, true);
-            return r3 && (n3.$L = r3), n3;
-          }, m2.clone = function() {
-            return b.w(this.$d, this);
-          }, m2.toDate = function() {
-            return new Date(this.valueOf());
-          }, m2.toJSON = function() {
-            return this.isValid() ? this.toISOString() : null;
-          }, m2.toISOString = function() {
-            return this.$d.toISOString();
-          }, m2.toString = function() {
-            return this.$d.toUTCString();
-          }, M2;
-        }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s], ["$H", u], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t3) {
-          k[t3[1]] = function(e3) {
-            return this.$g(e3, t3[0], t3[1]);
-          };
-        }), O.extend = function(t3, e3) {
-          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
-        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
-          return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
-      });
-    }
-  });
-
-  // .js/plugins/english/scribblehub.js
+  // .js/plugins/english/CherryMistCafe[fictioneer].js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, a2, l2) {
-    return new (a2 || (a2 = Promise))(function(n2, r2) {
-      function i2(e3) {
+  var t = function(t2, e2, r2, n2) {
+    return new (r2 || (r2 = Promise))(function(i2, o2) {
+      function a2(t3) {
         try {
-          u(l2.next(e3));
-        } catch (e4) {
-          r2(e4);
+          c(n2.next(t3));
+        } catch (t4) {
+          o2(t4);
         }
       }
-      __name(i2, "i");
-      function o2(e3) {
+      __name(a2, "a");
+      function s2(t3) {
         try {
-          u(l2.throw(e3));
-        } catch (e4) {
-          r2(e4);
+          c(n2.throw(t3));
+        } catch (t4) {
+          o2(t4);
         }
       }
-      __name(o2, "o");
-      function u(e3) {
-        var t3;
-        e3.done ? n2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
-          e4(t3);
-        })).then(i2, o2);
+      __name(s2, "s");
+      function c(t3) {
+        var e3;
+        t3.done ? i2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
+          t4(e3);
+        })).then(a2, s2);
       }
-      __name(u, "u");
-      u((l2 = l2.apply(e2, t2 || [])).next());
+      __name(c, "c");
+      c((n2 = n2.apply(t2, e2 || [])).next());
     });
-  }, t = function(e2, t2) {
-    var a2, l2, n2, r2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & n2[0]) throw n2[1];
-      return n2[1];
-    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return i2.next = o2(0), i2.throw = o2(1), i2.return = o2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
+  }, e = function(t2, e2) {
+    var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & i2[0]) throw i2[1];
+      return i2[1];
+    }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return a2.next = s2(0), a2.throw = s2(1), a2.return = s2(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
       return this;
-    }), i2;
-    function o2(o3) {
-      return function(u) {
-        return function(o4) {
-          if (a2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, o4[0] && (r2 = 0)), r2; ) try {
-            if (a2 = 1, l2 && (n2 = 2 & o4[0] ? l2.return : o4[0] ? l2.throw || ((n2 = l2.return) && n2.call(l2), 0) : l2.next) && !(n2 = n2.call(l2, o4[1])).done) return n2;
-            switch (l2 = 0, n2 && (o4 = [2 & o4[0], n2.value]), o4[0]) {
+    }), a2;
+    function s2(s3) {
+      return function(c) {
+        return function(s4) {
+          if (r2) throw new TypeError("Generator is already executing.");
+          for (; a2 && (a2 = 0, s4[0] && (o2 = 0)), o2; ) try {
+            if (r2 = 1, n2 && (i2 = 2 & s4[0] ? n2.return : s4[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, s4[1])).done) return i2;
+            switch (n2 = 0, i2 && (s4 = [2 & s4[0], i2.value]), s4[0]) {
               case 0:
               case 1:
-                n2 = o4;
+                i2 = s4;
                 break;
               case 4:
-                return r2.label++, { value: o4[1], done: false };
+                return o2.label++, { value: s4[1], done: false };
               case 5:
-                r2.label++, l2 = o4[1], o4 = [0];
+                o2.label++, n2 = s4[1], s4 = [0];
                 continue;
               case 7:
-                o4 = r2.ops.pop(), r2.trys.pop();
+                s4 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(n2 = r2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
-                  r2 = 0;
+                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                  o2 = 0;
                   continue;
                 }
-                if (3 === o4[0] && (!n2 || o4[1] > n2[0] && o4[1] < n2[3])) {
-                  r2.label = o4[1];
+                if (3 === s4[0] && (!i2 || s4[1] > i2[0] && s4[1] < i2[3])) {
+                  o2.label = s4[1];
                   break;
                 }
-                if (6 === o4[0] && r2.label < n2[1]) {
-                  r2.label = n2[1], n2 = o4;
+                if (6 === s4[0] && o2.label < i2[1]) {
+                  o2.label = i2[1], i2 = s4;
                   break;
                 }
-                if (n2 && r2.label < n2[2]) {
-                  r2.label = n2[2], r2.ops.push(o4);
+                if (i2 && o2.label < i2[2]) {
+                  o2.label = i2[2], o2.ops.push(s4);
                   break;
                 }
-                n2[2] && r2.ops.pop(), r2.trys.pop();
+                i2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            o4 = t2.call(e2, r2);
-          } catch (e3) {
-            o4 = [6, e3], l2 = 0;
+            s4 = e2.call(t2, o2);
+          } catch (t3) {
+            s4 = [6, t3], n2 = 0;
           } finally {
-            a2 = n2 = 0;
+            r2 = i2 = 0;
           }
-          if (5 & o4[0]) throw o4[1];
-          return { value: o4[0] ? o4[1] : void 0, done: true };
-        }([o3, u]);
+          if (5 & s4[0]) throw s4[1];
+          return { value: s4[0] ? s4[1] : void 0, done: true };
+        }([s3, c]);
       };
     }
-    __name(o2, "o");
-  }, a = function(e2) {
-    return e2 && e2.__esModule ? e2 : { default: e2 };
+    __name(s2, "s");
+  }, r = function(t2, e2, r2) {
+    if (r2 || 2 === arguments.length) for (var n2, i2 = 0, o2 = e2.length; i2 < o2; i2++) !n2 && i2 in e2 || (n2 || (n2 = Array.prototype.slice.call(e2, 0, i2)), n2[i2] = e2[i2]);
+    return t2.concat(n2 || Array.prototype.slice.call(e2));
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  var l = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = a(require_dayjs_min()), o = function() {
-    function a2() {
-      this.id = "scribblehub", this.name = "Scribble Hub", this.icon = "src/en/scribblehub/icon.png", this.site = "https://www.scribblehub.com/", this.version = "1.0.2", this.filters = { sort: { label: "Sort Results By", value: "ratings", options: [{ label: "Chapters", value: "chapters" }, { label: "Chapters per Week", value: "frequency" }, { label: "Date Added", value: "dateadded" }, { label: "Favorites", value: "favorites" }, { label: "Last Updated", value: "lastchdate" }, { label: "Number of Ratings", value: "numofrate" }, { label: "Pages", value: "pages" }, { label: "Pageviews", value: "pageviews" }, { label: "Ratings", value: "ratings" }, { label: "Readers", value: "readers" }, { label: "Reviews", value: "reviews" }, { label: "Total Words", value: "totalwords" }], type: r.FilterTypes.Picker }, order: { label: "Order By", value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: r.FilterTypes.Picker }, storyStatus: { label: "Story Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Completed", value: "completed" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }], type: r.FilterTypes.Picker }, genre_operator: { value: "and", label: "Genres (And/Or)", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: r.FilterTypes.Picker }, genres: { label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Action", value: "9" }, { label: "Adult", value: "902" }, { label: "Adventure", value: "8" }, { label: "Boys Love", value: "891" }, { label: "Comedy", value: "7" }, { label: "Drama", value: "903" }, { label: "Ecchi", value: "904" }, { label: "Fanfiction", value: "38" }, { label: "Fantasy", value: "19" }, { label: "Gender Bender", value: "905" }, { label: "Girls Love", value: "892" }, { label: "Harem", value: "1015" }, { label: "Historical", value: "21" }, { label: "Horror", value: "22" }, { label: "Isekai", value: "37" }, { label: "Josei", value: "906" }, { label: "LitRPG", value: "1180" }, { label: "Martial Arts", value: "907" }, { label: "Mature", value: "20" }, { label: "Mecha", value: "908" }, { label: "Mystery", value: "909" }, { label: "Psychological", value: "910" }, { label: "Romance", value: "6" }, { label: "School Life", value: "911" }, { label: "Sci-fi", value: "912" }, { label: "Seinen", value: "913" }, { label: "Slice of Life", value: "914" }, { label: "Smut", value: "915" }, { label: "Sports", value: "916" }, { label: "Supernatural", value: "5" }, { label: "Tragedy", value: "901" }], type: r.FilterTypes.ExcludableCheckboxGroup }, content_warning_operator: { value: "and", label: "Mature Content (And/Or)", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: r.FilterTypes.Picker }, content_warning: { value: { include: [], exclude: [] }, label: "Mature Content", options: [{ label: "Gore", value: "48" }, { label: "Sexual Content", value: "50" }, { label: "Strong Language", value: "49" }], type: r.FilterTypes.ExcludableCheckboxGroup } };
+  Object.defineProperty(exports, "__esModule", { value: true }), exports.FictioneerPlugin = void 0;
+  var n = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = function() {
+    function a2(t2) {
+      var e2;
+      this.filters = void 0, this.id = t2.id, this.name = t2.sourceName, this.icon = "multisrc/fictioneer/".concat(t2.id.toLowerCase(), "/icon.png"), this.site = t2.sourceSite;
+      var r2 = (null === (e2 = t2.options) || void 0 === e2 ? void 0 : e2.versionIncrements) || 0;
+      this.version = "1.1.".concat(0 + r2), this.options = t2.options;
     }
     __name(a2, "a");
-    return a2.prototype.parseNovels = function(e2) {
-      var t2 = this, a3 = [];
-      return e2(".search_main_box").each(function(l2, n2) {
-        var r2 = e2(n2).find(".search_title > a").text(), i2 = e2(n2).find(".search_img > img").attr("src"), o2 = e2(n2).find(".search_title > a").attr("href");
-        if (o2) {
-          var u = { name: r2, cover: i2, path: o2.replace(t2.site, "") };
-          a3.push(u);
-        }
-      }), a3;
-    }, a2.prototype.popularNovels = function(a3, r2) {
-      return e(this, arguments, void 0, function(e2, a4) {
-        var r3, i2, o2, u, s, c, d, v, p, h, b, f, g = a4.showLatestNovels, y = a4.filters;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    return a2.prototype.parseNovels = function(t2, e2) {
+      var r2 = this;
+      return t2(e2).map(function(e3, n2) {
+        var i2 = t2(n2), o2 = i2.find("h3 > a").text(), a3 = i2.find("a.cell-img:has(img)").attr("href"), s2 = i2.find("h3 > a").attr("href");
+        if (s2) return { name: o2, cover: a3, path: new URL(s2, r2.site).pathname.substring(1) };
+      }).toArray();
+    }, a2.prototype.popularNovels = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2, o2;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              return r3 = "".concat(this.site), g ? r3 += "latest-series/?pg=".concat(e2) : y ? (i2 = new URLSearchParams(), (null === (s = y.genres.value.include) || void 0 === s ? void 0 : s.length) && i2.append("gi", y.genres.value.include.join(",")), ((null === (c = y.genres.value.include) || void 0 === c ? void 0 : c.length) || (null === (d = y.genres.value.exclude) || void 0 === d ? void 0 : d.length)) && i2.append("mgi", y.genre_operator.value), (null === (v = y.genres.value.exclude) || void 0 === v ? void 0 : v.length) && i2.append("ge", y.genres.value.exclude.join(",")), (null === (p = y.content_warning.value.include) || void 0 === p ? void 0 : p.length) && i2.append("cti", y.content_warning.value.include.join(",")), ((null === (h = y.content_warning.value.include) || void 0 === h ? void 0 : h.length) || (null === (b = y.content_warning.value.exclude) || void 0 === b ? void 0 : b.length)) && i2.append("mct", y.content_warning_operator.value), (null === (f = y.content_warning.value.exclude) || void 0 === f ? void 0 : f.length) && i2.append("cte", y.content_warning.value.exclude.join(",")), i2.append("cp", y.storyStatus.value), i2.append("sort", y.sort.value), i2.append("order", y.order.value), i2.append("pg", e2.toString()), r3 += "series-finder/?sf=1&".concat(i2.toString())) : r3 += "series-finder/?sf=1&sort=ratings&order=desc&pg=".concat(e2), [4, (0, n.fetchApi)(r3).then(function(e3) {
-                return e3.text();
-              })];
+              return [4, (0, i.fetchApi)(this.site + "/" + this.options.browsePage + "/" + (1 === r2 ? "" : "page/" + r2 + "/"))];
             case 1:
-              return o2 = t2.sent(), u = (0, l.load)(o2), [2, this.parseNovels(u)];
+              return [4, e2.sent().text()];
+            case 2:
+              return t2 = e2.sent(), o2 = (0, n.load)(t2), [2, this.parseNovels(o2, "#featured-list > li > div > div, #list-of-stories > li > div > div")];
           }
         });
       });
-    }, a2.prototype.parseNovel = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2, o2, u, s, c, d, v = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, a2.prototype.parseNovel = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a3, s2, c, u = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + a3)];
+              return [4, (0, i.fetchApi)(this.site + "/" + r2 + "/")];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, e2.sent().text()];
             case 2:
-              return e2 = t2.sent(), r2 = (0, l.load)(e2), (o2 = { path: a3, name: r2(".fic_title").text() || "Untitled", cover: r2(".fic_image > img").attr("src"), summary: r2(".wi_fic_desc").text(), author: r2(".auth_name_fic").text(), chapters: [] }).genres = r2(".fic_genre").map(function(e3, t3) {
-                return r2(t3).text();
-              }).toArray().join(","), o2.status = r2(".rnd_stats").next().text().includes("Ongoing") ? "Ongoing" : "Completed", (u = new FormData()).append("action", "wi_getreleases_pagination"), u.append("pagenum", "-1"), u.append("mypostid", a3.split("/")[1]), [4, (0, n.fetchApi)("".concat(this.site, "wp-admin/admin-ajax.php"), { method: "POST", body: u })];
-            case 3:
-              return [4, t2.sent().text()];
-            case 4:
-              return s = t2.sent(), r2 = (0, l.load)(s), c = [], d = /* @__PURE__ */ __name(function(e3) {
-                var t3;
-                if (e3.includes("ago")) {
-                  var a4 = (0, i.default)(/* @__PURE__ */ new Date()), l2 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", n2 = parseInt(l2, 10);
-                  return l2 ? ((e3.includes("hours ago") || e3.includes("hour ago")) && a4.subtract(n2, "hours"), (e3.includes("days ago") || e3.includes("day ago")) && a4.subtract(n2, "days"), (e3.includes("months ago") || e3.includes("month ago")) && a4.subtract(n2, "months"), a4.toISOString()) : null;
-                }
-                return null;
-              }, "d"), r2(".toc_w").each(function(e3, t3) {
-                var a4 = r2(t3).find(".toc_a").text(), l2 = r2(t3).find(".fic_date_pub").text(), n2 = r2(t3).find("a").attr("href");
-                n2 && c.push({ name: a4, releaseTime: d(l2), path: n2.replace(v.site, "") });
-              }), o2.chapters = c.reverse(), [2, o2];
+              return t2 = e2.sent(), a3 = (0, n.load)(t2), (s2 = { path: r2, name: a3("h1.story__identity-title").text() }).author = a3("div.story__identity-meta").text().split("|")[0].replace("Author: ", "").replace("by ", "").trim(), s2.cover = a3("figure.story__thumbnail > a").attr("href"), s2.genres = a3("div.tag-group > a, section.tag-group > a").map(function(t3, e3) {
+                return a3(e3).text();
+              }).toArray().join(","), a3("section.story__summary .related-stories-block").remove(), s2.summary = a3("section.story__summary").text(), s2.chapters = a3("li.chapter-group__list-item._publish").filter(function(t3, e3) {
+                return !e3.attribs.class.includes("_password");
+              }).filter(function(t3, e3) {
+                return !a3(e3).find("i").first().attr("class").includes("fa-lock");
+              }).map(function(t3, e3) {
+                var r3 = a3(e3).find("a").text(), n2 = a3(e3).find("a").attr("href");
+                if (n2) return { name: r3, path: new URL(n2, u.site).pathname.substring(1) };
+              }).toArray(), "Ongoing" === (c = a3("span.story__status").text().trim()) && (s2.status = o.NovelStatus.Ongoing), "Completed" === c && (s2.status = o.NovelStatus.Completed), "Cancelled" === c && (s2.status = o.NovelStatus.Cancelled), "Hiatus" === c && (s2.status = o.NovelStatus.OnHiatus), [2, s2];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, a2.prototype.parseChapter = function(o2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a3, s2, c, u, l, h, p, f;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + a3)];
+              return [4, (0, i.fetchApi)(this.site + "/" + o2 + "/")];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, e2.sent().text()];
             case 2:
-              return e2 = t2.sent(), r2 = (0, l.load)(e2), [2, r2("div.chp_raw").html() || ""];
+              return t2 = e2.sent(), a3 = (0, n.load)(t2), s2 = a3("script[id*=ghost]"), c = a3("#cherry-content-host"), s2.length && c.length && (u = s2.attr("data-poly"), (l = Array.from({ length: +s2.attr("data-total") || 0 }, function(t3, e3) {
+                return s2.attr("data-".concat(u, "-").concat(e3)) || "";
+              }).join("")) && (h = /* @__PURE__ */ __name(function(t3) {
+                return t3.replace(/[a-zA-Z]/g, function(t4) {
+                  var e3 = t4 <= "Z" ? 65 : 97, r2 = (t4.charCodeAt(0) - e3 + 13) % 26 + e3;
+                  return String.fromCharCode(r2);
+                });
+              }, "h"), c.replaceWith(decodeURIComponent(atob(h(l)))))), a3("script, ruby").remove(), a3('section#chapter-content p [data-fcnc-rev="1"]').each(function(t3, e3) {
+                var n2 = a3(e3).text().trim();
+                n2 && a3(e3).replaceWith(r([], n2, true).reverse().join(""));
+              }), [2, (null === (f = null === (p = a3("section#chapter-content > div").html()) || void 0 === p ? void 0 : p.replace(/\u00A0/g, " ")) || void 0 === f ? void 0 : f.replace(/[\u2060\u00AD\u202F\u2007\u200B]/g, "")) || ""];
           }
         });
       });
-    }, a2.prototype.searchNovels = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2, i2;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, a2.prototype.searchNovels = function(r2, o2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a3;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              return e2 = "".concat(this.site, "?s=").concat(encodeURIComponent(a3), "&post_type=fictionposts"), [4, (0, n.fetchApi)(e2)];
+              return [4, (0, i.fetchApi)(this.site + "/".concat(1 === o2 ? "" : "page/" + o2 + "/", "?s=").concat(encodeURIComponent(r2), "&post_type=fcn_story"))];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, e2.sent().text()];
             case 2:
-              return r2 = t2.sent(), i2 = (0, l.load)(r2), [2, this.parseNovels(i2)];
+              return t2 = e2.sent(), a3 = (0, n.load)(t2), [2, this.parseNovels(a3, "#search-result-list > li > div > div")];
           }
         });
       });
     }, a2;
   }();
-  exports.default = new o();
+  exports.FictioneerPlugin = a;
+  var s = new a({ id: "cherrymistcafe", sourceSite: "https://cherrymist.cafe/", sourceName: "Cherry Mist Cafe", options: { customJs: { chapterTransform: "custom/cherrymistcafe/chapterTransform.js" }, versionIncrements: 1, browsePage: "stories" } });
+  exports.default = s;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

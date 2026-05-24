@@ -4179,443 +4179,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/protobufjs/src/types.js
-  var require_types = __commonJS({
-    "node_modules/protobufjs/src/types.js"(exports4) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      var types = exports4;
-      var util = require_util();
-      var s = [
-        "double",
-        // 0
-        "float",
-        // 1
-        "int32",
-        // 2
-        "uint32",
-        // 3
-        "sint32",
-        // 4
-        "fixed32",
-        // 5
-        "sfixed32",
-        // 6
-        "int64",
-        // 7
-        "uint64",
-        // 8
-        "sint64",
-        // 9
-        "fixed64",
-        // 10
-        "sfixed64",
-        // 11
-        "bool",
-        // 12
-        "string",
-        // 13
-        "bytes"
-        // 14
-      ];
-      function bake(values, offset) {
-        var i2 = 0, o = {};
-        offset |= 0;
-        while (i2 < values.length) o[s[i2 + offset]] = values[i2++];
-        return o;
-      }
-      __name(bake, "bake");
-      types.basic = bake([
-        /* double   */
-        1,
-        /* float    */
-        5,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0,
-        /* string   */
-        2,
-        /* bytes    */
-        2
-      ]);
-      types.defaults = bake([
-        /* double   */
-        0,
-        /* float    */
-        0,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        0,
-        /* sfixed32 */
-        0,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        0,
-        /* sfixed64 */
-        0,
-        /* bool     */
-        false,
-        /* string   */
-        "",
-        /* bytes    */
-        util.emptyArray,
-        /* message  */
-        null
-      ]);
-      types.long = bake([
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1
-      ], 7);
-      types.mapKey = bake([
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0,
-        /* string   */
-        2
-      ], 2);
-      types.packed = bake([
-        /* double   */
-        1,
-        /* float    */
-        5,
-        /* int32    */
-        0,
-        /* uint32   */
-        0,
-        /* sint32   */
-        0,
-        /* fixed32  */
-        5,
-        /* sfixed32 */
-        5,
-        /* int64    */
-        0,
-        /* uint64   */
-        0,
-        /* sint64   */
-        0,
-        /* fixed64  */
-        1,
-        /* sfixed64 */
-        1,
-        /* bool     */
-        0
-      ]);
-    }
-  });
-
-  // node_modules/protobufjs/src/field.js
-  var require_field = __commonJS({
-    "node_modules/protobufjs/src/field.js"(exports4, module2) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      module2.exports = Field;
-      var ReflectionObject = require_object();
-      ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
-      var Enum = require_enum(), types = require_types(), util = require_util();
-      var Type;
-      var ruleRe = /^required|optional|repeated$/;
-      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
-        return new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
-      }, "fromJSON");
-      function Field(name, id, type, rule, extend, options, comment) {
-        if (util.isObject(rule)) {
-          comment = extend;
-          options = rule;
-          rule = extend = void 0;
-        } else if (util.isObject(extend)) {
-          comment = options;
-          options = extend;
-          extend = void 0;
-        }
-        ReflectionObject.call(this, name, options);
-        if (!util.isInteger(id) || id < 0)
-          throw TypeError("id must be a non-negative integer");
-        if (!util.isString(type))
-          throw TypeError("type must be a string");
-        if (rule !== void 0 && !ruleRe.test(rule = rule.toString().toLowerCase()))
-          throw TypeError("rule must be a string rule");
-        if (extend !== void 0 && !util.isString(extend))
-          throw TypeError("extend must be a string");
-        if (rule === "proto3_optional") {
-          rule = "optional";
-        }
-        this.rule = rule && rule !== "optional" ? rule : void 0;
-        this.type = type;
-        this.id = id;
-        this.extend = extend || void 0;
-        this.required = rule === "required";
-        this.optional = !this.required;
-        this.repeated = rule === "repeated";
-        this.map = false;
-        this.message = null;
-        this.partOf = null;
-        this.typeDefault = null;
-        this.defaultValue = null;
-        this.long = util.Long ? types.long[type] !== void 0 : (
-          /* istanbul ignore next */
-          false
-        );
-        this.bytes = type === "bytes";
-        this.resolvedType = null;
-        this.extensionField = null;
-        this.declaringField = null;
-        this._packed = null;
-        this.comment = comment;
-      }
-      __name(Field, "Field");
-      Object.defineProperty(Field.prototype, "packed", {
-        get: /* @__PURE__ */ __name(function() {
-          if (this._packed === null)
-            this._packed = this.getOption("packed") !== false;
-          return this._packed;
-        }, "get")
-      });
-      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
-        if (name === "packed")
-          this._packed = null;
-        return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
-      }, "setOption");
-      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
-        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
-        return util.toObject([
-          "rule",
-          this.rule !== "optional" && this.rule || void 0,
-          "type",
-          this.type,
-          "id",
-          this.id,
-          "extend",
-          this.extend,
-          "options",
-          this.options,
-          "comment",
-          keepComments ? this.comment : void 0
-        ]);
-      }, "toJSON");
-      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
-        if (this.resolved)
-          return this;
-        if ((this.typeDefault = types.defaults[this.type]) === void 0) {
-          this.resolvedType = (this.declaringField ? this.declaringField.parent : this.parent).lookupTypeOrEnum(this.type);
-          if (this.resolvedType instanceof Type)
-            this.typeDefault = null;
-          else
-            this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
-        } else if (this.options && this.options.proto3_optional) {
-          this.typeDefault = null;
-        }
-        if (this.options && this.options["default"] != null) {
-          this.typeDefault = this.options["default"];
-          if (this.resolvedType instanceof Enum && typeof this.typeDefault === "string")
-            this.typeDefault = this.resolvedType.values[this.typeDefault];
-        }
-        if (this.options) {
-          if (this.options.packed === true || this.options.packed !== void 0 && this.resolvedType && !(this.resolvedType instanceof Enum))
-            delete this.options.packed;
-          if (!Object.keys(this.options).length)
-            this.options = void 0;
-        }
-        if (this.long) {
-          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
-          if (Object.freeze)
-            Object.freeze(this.typeDefault);
-        } else if (this.bytes && typeof this.typeDefault === "string") {
-          var buf;
-          if (util.base64.test(this.typeDefault))
-            util.base64.decode(this.typeDefault, buf = util.newBuffer(util.base64.length(this.typeDefault)), 0);
-          else
-            util.utf8.write(this.typeDefault, buf = util.newBuffer(util.utf8.length(this.typeDefault)), 0);
-          this.typeDefault = buf;
-        }
-        if (this.map)
-          this.defaultValue = util.emptyObject;
-        else if (this.repeated)
-          this.defaultValue = util.emptyArray;
-        else
-          this.defaultValue = this.typeDefault;
-        if (this.parent instanceof Type)
-          this.parent.ctor.prototype[this.name] = this.defaultValue;
-        return ReflectionObject.prototype.resolve.call(this);
-      }, "resolve");
-      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
-        if (typeof fieldType === "function")
-          fieldType = util.decorateType(fieldType).name;
-        else if (fieldType && typeof fieldType === "object")
-          fieldType = util.decorateEnum(fieldType).name;
-        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
-          util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
-        }, "fieldDecorator");
-      }, "decorateField");
-      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
-        Type = Type_;
-      }, "configure");
-    }
-  });
-
-  // node_modules/protobufjs/src/oneof.js
-  var require_oneof = __commonJS({
-    "node_modules/protobufjs/src/oneof.js"(exports4, module2) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      module2.exports = OneOf;
-      var ReflectionObject = require_object();
-      ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
-      var Field = require_field(), util = require_util();
-      function OneOf(name, fieldNames, options, comment) {
-        if (!Array.isArray(fieldNames)) {
-          options = fieldNames;
-          fieldNames = void 0;
-        }
-        ReflectionObject.call(this, name, options);
-        if (!(fieldNames === void 0 || Array.isArray(fieldNames)))
-          throw TypeError("fieldNames must be an Array");
-        this.oneof = fieldNames || [];
-        this.fieldsArray = [];
-        this.comment = comment;
-      }
-      __name(OneOf, "OneOf");
-      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
-        return new OneOf(name, json.oneof, json.options, json.comment);
-      }, "fromJSON");
-      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
-        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
-        return util.toObject([
-          "options",
-          this.options,
-          "oneof",
-          this.oneof,
-          "comment",
-          keepComments ? this.comment : void 0
-        ]);
-      }, "toJSON");
-      function addFieldsToParent(oneof) {
-        if (oneof.parent) {
-          for (var i2 = 0; i2 < oneof.fieldsArray.length; ++i2)
-            if (!oneof.fieldsArray[i2].parent)
-              oneof.parent.add(oneof.fieldsArray[i2]);
-        }
-      }
-      __name(addFieldsToParent, "addFieldsToParent");
-      OneOf.prototype.add = /* @__PURE__ */ __name(function add2(field) {
-        if (!(field instanceof Field))
-          throw TypeError("field must be a Field");
-        if (field.parent && field.parent !== this.parent)
-          field.parent.remove(field);
-        this.oneof.push(field.name);
-        this.fieldsArray.push(field);
-        field.partOf = this;
-        addFieldsToParent(this);
-        return this;
-      }, "add");
-      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove2(field) {
-        if (!(field instanceof Field))
-          throw TypeError("field must be a Field");
-        var index2 = this.fieldsArray.indexOf(field);
-        if (index2 < 0)
-          throw Error(field + " is not a member of " + this);
-        this.fieldsArray.splice(index2, 1);
-        index2 = this.oneof.indexOf(field.name);
-        if (index2 > -1)
-          this.oneof.splice(index2, 1);
-        field.partOf = null;
-        return this;
-      }, "remove");
-      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent2) {
-        ReflectionObject.prototype.onAdd.call(this, parent2);
-        var self2 = this;
-        for (var i2 = 0; i2 < this.oneof.length; ++i2) {
-          var field = parent2.get(this.oneof[i2]);
-          if (field && !field.partOf) {
-            field.partOf = self2;
-            self2.fieldsArray.push(field);
-          }
-        }
-        addFieldsToParent(this);
-      }, "onAdd");
-      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent2) {
-        for (var i2 = 0, field; i2 < this.fieldsArray.length; ++i2)
-          if ((field = this.fieldsArray[i2]).parent)
-            field.parent.remove(field);
-        ReflectionObject.prototype.onRemove.call(this, parent2);
-      }, "onRemove");
-      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
-        var fieldNames = new Array(arguments.length), index2 = 0;
-        while (index2 < arguments.length)
-          fieldNames[index2] = arguments[index2++];
-        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
-          util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
-          Object.defineProperty(prototype, oneofName, {
-            get: util.oneOfGetter(fieldNames),
-            set: util.oneOfSetter(fieldNames)
-          });
-        }, "oneOfDecorator");
-      }, "decorateOneOf");
-    }
-  });
-
   // node_modules/protobufjs/src/namespace.js
   var require_namespace = __commonJS({
     "node_modules/protobufjs/src/namespace.js"(exports4, module2) {
@@ -4661,10 +4224,18 @@ var LNReaderPlugin = (() => {
         ReflectionObject.call(this, name, options);
         this.nested = void 0;
         this._nestedArray = null;
+        this._lookupCache = {};
+        this._needsRecursiveFeatureResolution = true;
+        this._needsRecursiveResolve = true;
       }
       __name(Namespace, "Namespace");
       function clearCache(namespace) {
         namespace._nestedArray = null;
+        namespace._lookupCache = {};
+        var parent2 = namespace;
+        while (parent2 = parent2.parent) {
+          parent2._lookupCache = {};
+        }
         return namespace;
       }
       __name(clearCache, "clearCache");
@@ -4723,6 +4294,18 @@ var LNReaderPlugin = (() => {
           }
         }
         this.nested[object.name] = object;
+        if (!(this instanceof Type || this instanceof Service || this instanceof Enum || this instanceof Field)) {
+          if (!object._edition) {
+            object._edition = object._defaultEdition;
+          }
+        }
+        this._needsRecursiveFeatureResolution = true;
+        this._needsRecursiveResolve = true;
+        var parent2 = this;
+        while (parent2 = parent2.parent) {
+          parent2._needsRecursiveFeatureResolution = true;
+          parent2._needsRecursiveResolve = true;
+        }
         object.onAdd(this);
         return clearCache(this);
       }, "add");
@@ -4759,14 +4342,28 @@ var LNReaderPlugin = (() => {
         return ptr;
       }, "define");
       Namespace.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
+        this._resolveFeaturesRecursive(this._edition);
         var nested = this.nestedArray, i2 = 0;
+        this.resolve();
         while (i2 < nested.length)
           if (nested[i2] instanceof Namespace)
             nested[i2++].resolveAll();
           else
             nested[i2++].resolve();
-        return this.resolve();
+        this._needsRecursiveResolve = false;
+        return this;
       }, "resolveAll");
+      Namespace.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        this._needsRecursiveFeatureResolution = false;
+        edition = this._edition || edition;
+        ReflectionObject.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.nestedArray.forEach((nested) => {
+          nested._resolveFeaturesRecursive(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Namespace.prototype.lookup = /* @__PURE__ */ __name(function lookup(path, filterTypes, parentAlreadyChecked) {
         if (typeof filterTypes === "boolean") {
           parentAlreadyChecked = filterTypes;
@@ -4779,22 +4376,49 @@ var LNReaderPlugin = (() => {
           path = path.split(".");
         } else if (!path.length)
           return this;
+        var flatPath = path.join(".");
         if (path[0] === "")
           return this.root.lookup(path.slice(1), filterTypes);
+        var found = this.root._fullyQualifiedObjects && this.root._fullyQualifiedObjects["." + flatPath];
+        if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+          return found;
+        }
+        found = this._lookupImpl(path, flatPath);
+        if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+          return found;
+        }
+        if (parentAlreadyChecked)
+          return null;
+        var current = this;
+        while (current.parent) {
+          found = current.parent._lookupImpl(path, flatPath);
+          if (found && (!filterTypes || filterTypes.indexOf(found.constructor) > -1)) {
+            return found;
+          }
+          current = current.parent;
+        }
+        return null;
+      }, "lookup");
+      Namespace.prototype._lookupImpl = /* @__PURE__ */ __name(function lookup(path, flatPath) {
+        if (Object.prototype.hasOwnProperty.call(this._lookupCache, flatPath)) {
+          return this._lookupCache[flatPath];
+        }
         var found = this.get(path[0]);
+        var exact = null;
         if (found) {
           if (path.length === 1) {
-            if (!filterTypes || filterTypes.indexOf(found.constructor) > -1)
-              return found;
-          } else if (found instanceof Namespace && (found = found.lookup(path.slice(1), filterTypes, true)))
-            return found;
-        } else
+            exact = found;
+          } else if (found instanceof Namespace) {
+            path = path.slice(1);
+            exact = found._lookupImpl(path, path.join("."));
+          }
+        } else {
           for (var i2 = 0; i2 < this.nestedArray.length; ++i2)
-            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2].lookup(path, filterTypes, true)))
-              return found;
-        if (this.parent === null || parentAlreadyChecked)
-          return null;
-        return this.parent.lookup(path, filterTypes);
+            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2]._lookupImpl(path, flatPath)))
+              exact = found;
+        }
+        this._lookupCache[flatPath] = exact;
+        return exact;
       }, "lookup");
       Namespace.prototype.lookupType = /* @__PURE__ */ __name(function lookupType(path) {
         var found = this.lookup(path, [Type]);
@@ -4983,13 +4607,18 @@ var LNReaderPlugin = (() => {
             service.add(Method.fromJSON(names[i2], json.methods[names[i2]]));
         if (json.nested)
           service.addJSON(json.nested);
+        if (json.edition)
+          service._edition = json.edition;
         service.comment = json.comment;
+        service._defaultEdition = "proto3";
         return service;
       }, "fromJSON");
       Service.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           inherited && inherited.options || void 0,
           "methods",
@@ -5015,11 +4644,22 @@ var LNReaderPlugin = (() => {
         return this.methods[name] || Namespace.prototype.get.call(this, name);
       }, "get");
       Service.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
+        Namespace.prototype.resolve.call(this);
         var methods = this.methodsArray;
         for (var i2 = 0; i2 < methods.length; ++i2)
           methods[i2].resolve();
-        return Namespace.prototype.resolve.call(this);
+        return this;
       }, "resolveAll");
+      Service.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        edition = this._edition || edition;
+        Namespace.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.methodsArray.forEach((method) => {
+          method._resolveFeaturesRecursive(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Service.prototype.add = /* @__PURE__ */ __name(function add2(object) {
         if (this.get(object.name))
           throw Error("duplicate name '" + object.name + "' in " + this);
@@ -5067,8 +4707,12 @@ var LNReaderPlugin = (() => {
       var util = require_minimal();
       function Message(properties) {
         if (properties)
-          for (var keys = Object.keys(properties), i2 = 0; i2 < keys.length; ++i2)
-            this[keys[i2]] = properties[keys[i2]];
+          for (var keys = Object.keys(properties), i2 = 0; i2 < keys.length; ++i2) {
+            var key = keys[i2];
+            if (key === "__proto__")
+              continue;
+            this[key] = properties[key];
+          }
       }
       __name(Message, "Message");
       Message.create = /* @__PURE__ */ __name(function create(properties) {
@@ -5115,11 +4759,9 @@ var LNReaderPlugin = (() => {
       }
       __name(missing, "missing");
       function decoder(mtype) {
-        var gen = util.codegen(["r", "l"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
+        var gen = util.codegen(["r", "l", "e"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
           return field2.map;
-        }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()");
-        if (mtype.group) gen("if((t&7)===4)")("break");
-        gen("switch(t>>>3){");
+        }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()")("if(t===e)")("break")("switch(t>>>3){");
         var i2 = 0;
         for (; i2 < /* initializes */
         mtype.fieldsArray.length; ++i2) {
@@ -5140,9 +4782,9 @@ var LNReaderPlugin = (() => {
           } else if (field.repeated) {
             gen("if(!(%s&&%s.length))", ref, ref)("%s=[]", ref);
             if (types.packed[type] !== void 0) gen("if((t&7)===2){")("var c2=r.uint32()+r.pos")("while(r.pos<c2)")("%s.push(r.%s())", ref, type)("}else");
-            if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s.push(types[%i].decode(r))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i2);
+            if (types.basic[type] === void 0) gen(field.delimited ? "%s.push(types[%i].decode(r,undefined,((t&~7)|4)))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i2);
             else gen("%s.push(r.%s())", ref, type);
-          } else if (types.basic[type] === void 0) gen(field.resolvedType.group ? "%s=types[%i].decode(r)" : "%s=types[%i].decode(r,r.uint32())", ref, i2);
+          } else if (types.basic[type] === void 0) gen(field.delimited ? "%s=types[%i].decode(r,undefined,((t&~7)|4))" : "%s=types[%i].decode(r,r.uint32())", ref, i2);
           else gen("%s=r.%s()", ref, type);
           gen("break")("}");
         }
@@ -5542,6 +5184,7 @@ var LNReaderPlugin = (() => {
       ((Type.prototype = Object.create(Namespace.prototype)).constructor = Type).className = "Type";
       var Enum = require_enum(), OneOf = require_oneof(), Field = require_field(), MapField = require_mapfield(), Service = require_service2(), Message = require_message(), Reader = require_reader(), Writer = require_writer(), util = require_util(), encoder = require_encoder(), decoder = require_decoder(), verifier = require_verifier(), converter = require_converter(), wrappers = require_wrappers();
       function Type(name, options) {
+        name = name.replace(/\W/g, "");
         Namespace.call(this, name, options);
         this.fields = {};
         this.oneofs = void 0;
@@ -5675,12 +5318,17 @@ var LNReaderPlugin = (() => {
           type.group = true;
         if (json.comment)
           type.comment = json.comment;
+        if (json.edition)
+          type._edition = json.edition;
+        type._defaultEdition = "proto3";
         return type;
       }, "fromJSON");
       Type.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var inherited = Namespace.prototype.toJSON.call(this, toJSONOptions);
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           inherited && inherited.options || void 0,
           "oneofs",
@@ -5702,15 +5350,29 @@ var LNReaderPlugin = (() => {
         ]);
       }, "toJSON");
       Type.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
-        var fields = this.fieldsArray, i2 = 0;
-        while (i2 < fields.length)
-          fields[i2++].resolve();
+        if (!this._needsRecursiveResolve) return this;
+        Namespace.prototype.resolveAll.call(this);
         var oneofs = this.oneofsArray;
         i2 = 0;
         while (i2 < oneofs.length)
           oneofs[i2++].resolve();
-        return Namespace.prototype.resolveAll.call(this);
+        var fields = this.fieldsArray, i2 = 0;
+        while (i2 < fields.length)
+          fields[i2++].resolve();
+        return this;
       }, "resolveAll");
+      Type.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        if (!this._needsRecursiveFeatureResolution) return this;
+        edition = this._edition || edition;
+        Namespace.prototype._resolveFeaturesRecursive.call(this, edition);
+        this.oneofsArray.forEach((oneof) => {
+          oneof._resolveFeatures(edition);
+        });
+        this.fieldsArray.forEach((field) => {
+          field._resolveFeatures(edition);
+        });
+        return this;
+      }, "_resolveFeaturesRecursive");
       Type.prototype.get = /* @__PURE__ */ __name(function get2(name) {
         return this.fields[name] || this.oneofs && this.oneofs[name] || this.nested && this.nested[name] || null;
       }, "get");
@@ -5855,6 +5517,8 @@ var LNReaderPlugin = (() => {
         Namespace.call(this, "", options);
         this.deferred = [];
         this.files = [];
+        this._edition = "proto2";
+        this._fullyQualifiedObjects = {};
       }
       __name(Root, "Root");
       Root.fromJSON = /* @__PURE__ */ __name(function fromJSON(json, root2) {
@@ -5862,7 +5526,7 @@ var LNReaderPlugin = (() => {
           root2 = new Root();
         if (json.options)
           root2.setOptions(json.options);
-        return root2.addJSON(json.nested);
+        return root2.addJSON(json.nested).resolveAll();
       }, "fromJSON");
       Root.prototype.resolvePath = util.path.resolve;
       Root.prototype.fetch = util.fetch;
@@ -5875,14 +5539,20 @@ var LNReaderPlugin = (() => {
           options = void 0;
         }
         var self2 = this;
-        if (!callback)
+        if (!callback) {
           return util.asPromise(load2, self2, filename, options);
+        }
         var sync = callback === SYNC;
         function finish(err, root2) {
-          if (!callback)
+          if (!callback) {
             return;
-          if (sync)
+          }
+          if (sync) {
             throw err;
+          }
+          if (root2) {
+            root2.resolveAll();
+          }
           var cb = callback;
           callback = null;
           cb(err, root2);
@@ -5920,19 +5590,21 @@ var LNReaderPlugin = (() => {
           } catch (err) {
             finish(err);
           }
-          if (!sync && !queued)
+          if (!sync && !queued) {
             finish(null, self2);
+          }
         }
         __name(process3, "process");
         function fetch2(filename2, weak) {
           filename2 = getBundledFileName(filename2) || filename2;
-          if (self2.files.indexOf(filename2) > -1)
+          if (self2.files.indexOf(filename2) > -1) {
             return;
+          }
           self2.files.push(filename2);
           if (filename2 in common) {
-            if (sync)
+            if (sync) {
               process3(filename2, common[filename2]);
-            else {
+            } else {
               ++queued;
               setTimeout(function() {
                 --queued;
@@ -5955,8 +5627,9 @@ var LNReaderPlugin = (() => {
             ++queued;
             self2.fetch(filename2, function(err, source2) {
               --queued;
-              if (!callback)
+              if (!callback) {
                 return;
+              }
               if (err) {
                 if (!weak)
                   finish(err);
@@ -5970,16 +5643,20 @@ var LNReaderPlugin = (() => {
         }
         __name(fetch2, "fetch");
         var queued = 0;
-        if (util.isString(filename))
+        if (util.isString(filename)) {
           filename = [filename];
+        }
         for (var i2 = 0, resolved; i2 < filename.length; ++i2)
           if (resolved = self2.resolvePath("", filename[i2]))
             fetch2(resolved);
-        if (sync)
+        if (sync) {
+          self2.resolveAll();
           return self2;
-        if (!queued)
+        }
+        if (!queued) {
           finish(null, self2);
-        return void 0;
+        }
+        return self2;
       }, "load");
       Root.prototype.loadSync = /* @__PURE__ */ __name(function loadSync(filename, options) {
         if (!util.isNode)
@@ -5987,6 +5664,7 @@ var LNReaderPlugin = (() => {
         return this.load(filename, options, SYNC);
       }, "loadSync");
       Root.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
+        if (!this._needsRecursiveResolve) return this;
         if (this.deferred.length)
           throw Error("unresolvable extensions: " + this.deferred.map(function(field) {
             return "'extend " + field.extend + "' in " + field.parent.fullName;
@@ -6035,6 +5713,9 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             object.parent[object.name] = object;
         }
+        if (object instanceof Type || object instanceof Enum || object instanceof Field) {
+          this._fullyQualifiedObjects[object.fullName] = object;
+        }
       }, "_handleAdd");
       Root.prototype._handleRemove = /* @__PURE__ */ __name(function _handleRemove(object) {
         if (object instanceof Field) {
@@ -6064,6 +5745,7 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             delete object.parent[object.name];
         }
+        delete this._fullyQualifiedObjects[object.fullName];
       }, "_handleRemove");
       Root._configure = function(Type_, parse_, common_) {
         Type = Type_;
@@ -6155,7 +5837,7 @@ var LNReaderPlugin = (() => {
         Object.defineProperty(object, "$type", { value: enm, enumerable: false });
         return enm;
       }, "decorateEnum");
-      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value) {
+      util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value, ifNotSet) {
         function setProp2(dst2, path2, value2) {
           var part = path2.shift();
           if (part === "__proto__" || part === "prototype") {
@@ -6165,6 +5847,8 @@ var LNReaderPlugin = (() => {
             dst2[part] = setProp2(dst2[part] || {}, path2, value2);
           } else {
             var prevValue = dst2[part];
+            if (prevValue && ifNotSet)
+              return dst2;
             if (prevValue)
               value2 = [].concat(prevValue).concat(value2);
             dst2[part] = value2;
@@ -6187,6 +5871,500 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // node_modules/protobufjs/src/types.js
+  var require_types = __commonJS({
+    "node_modules/protobufjs/src/types.js"(exports4) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      var types = exports4;
+      var util = require_util();
+      var s = [
+        "double",
+        // 0
+        "float",
+        // 1
+        "int32",
+        // 2
+        "uint32",
+        // 3
+        "sint32",
+        // 4
+        "fixed32",
+        // 5
+        "sfixed32",
+        // 6
+        "int64",
+        // 7
+        "uint64",
+        // 8
+        "sint64",
+        // 9
+        "fixed64",
+        // 10
+        "sfixed64",
+        // 11
+        "bool",
+        // 12
+        "string",
+        // 13
+        "bytes"
+        // 14
+      ];
+      function bake(values, offset) {
+        var i2 = 0, o = {};
+        offset |= 0;
+        while (i2 < values.length) o[s[i2 + offset]] = values[i2++];
+        return o;
+      }
+      __name(bake, "bake");
+      types.basic = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2,
+        /* bytes    */
+        2
+      ]);
+      types.defaults = bake([
+        /* double   */
+        0,
+        /* float    */
+        0,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        0,
+        /* sfixed32 */
+        0,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        0,
+        /* sfixed64 */
+        0,
+        /* bool     */
+        false,
+        /* string   */
+        "",
+        /* bytes    */
+        util.emptyArray,
+        /* message  */
+        null
+      ]);
+      types.long = bake([
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1
+      ], 7);
+      types.mapKey = bake([
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0,
+        /* string   */
+        2
+      ], 2);
+      types.packed = bake([
+        /* double   */
+        1,
+        /* float    */
+        5,
+        /* int32    */
+        0,
+        /* uint32   */
+        0,
+        /* sint32   */
+        0,
+        /* fixed32  */
+        5,
+        /* sfixed32 */
+        5,
+        /* int64    */
+        0,
+        /* uint64   */
+        0,
+        /* sint64   */
+        0,
+        /* fixed64  */
+        1,
+        /* sfixed64 */
+        1,
+        /* bool     */
+        0
+      ]);
+    }
+  });
+
+  // node_modules/protobufjs/src/field.js
+  var require_field = __commonJS({
+    "node_modules/protobufjs/src/field.js"(exports4, module2) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      module2.exports = Field;
+      var ReflectionObject = require_object();
+      ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
+      var Enum = require_enum(), types = require_types(), util = require_util();
+      var Type;
+      var ruleRe = /^required|optional|repeated$/;
+      Field.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        var field = new Field(name, json.id, json.type, json.rule, json.extend, json.options, json.comment);
+        if (json.edition)
+          field._edition = json.edition;
+        field._defaultEdition = "proto3";
+        return field;
+      }, "fromJSON");
+      function Field(name, id, type, rule, extend, options, comment) {
+        if (util.isObject(rule)) {
+          comment = extend;
+          options = rule;
+          rule = extend = void 0;
+        } else if (util.isObject(extend)) {
+          comment = options;
+          options = extend;
+          extend = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!util.isInteger(id) || id < 0)
+          throw TypeError("id must be a non-negative integer");
+        if (!util.isString(type))
+          throw TypeError("type must be a string");
+        if (rule !== void 0 && !ruleRe.test(rule = rule.toString().toLowerCase()))
+          throw TypeError("rule must be a string rule");
+        if (extend !== void 0 && !util.isString(extend))
+          throw TypeError("extend must be a string");
+        if (rule === "proto3_optional") {
+          rule = "optional";
+        }
+        this.rule = rule && rule !== "optional" ? rule : void 0;
+        this.type = type;
+        this.id = id;
+        this.extend = extend || void 0;
+        this.repeated = rule === "repeated";
+        this.map = false;
+        this.message = null;
+        this.partOf = null;
+        this.typeDefault = null;
+        this.defaultValue = null;
+        this.long = util.Long ? types.long[type] !== void 0 : (
+          /* istanbul ignore next */
+          false
+        );
+        this.bytes = type === "bytes";
+        this.resolvedType = null;
+        this.extensionField = null;
+        this.declaringField = null;
+        this.comment = comment;
+      }
+      __name(Field, "Field");
+      Object.defineProperty(Field.prototype, "required", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._features.field_presence === "LEGACY_REQUIRED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "optional", {
+        get: /* @__PURE__ */ __name(function() {
+          return !this.required;
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "delimited", {
+        get: /* @__PURE__ */ __name(function() {
+          return this.resolvedType instanceof Type && this._features.message_encoding === "DELIMITED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "packed", {
+        get: /* @__PURE__ */ __name(function() {
+          return this._features.repeated_field_encoding === "PACKED";
+        }, "get")
+      });
+      Object.defineProperty(Field.prototype, "hasPresence", {
+        get: /* @__PURE__ */ __name(function() {
+          if (this.repeated || this.map) {
+            return false;
+          }
+          return this.partOf || // oneofs
+          this.declaringField || this.extensionField || // extensions
+          this._features.field_presence !== "IMPLICIT";
+        }, "get")
+      });
+      Field.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+        return ReflectionObject.prototype.setOption.call(this, name, value, ifNotSet);
+      }, "setOption");
+      Field.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "edition",
+          this._editionToJSON(),
+          "rule",
+          this.rule !== "optional" && this.rule || void 0,
+          "type",
+          this.type,
+          "id",
+          this.id,
+          "extend",
+          this.extend,
+          "options",
+          this.options,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      Field.prototype.resolve = /* @__PURE__ */ __name(function resolve() {
+        if (this.resolved)
+          return this;
+        if ((this.typeDefault = types.defaults[this.type]) === void 0) {
+          this.resolvedType = (this.declaringField ? this.declaringField.parent : this.parent).lookupTypeOrEnum(this.type);
+          if (this.resolvedType instanceof Type)
+            this.typeDefault = null;
+          else
+            this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
+        } else if (this.options && this.options.proto3_optional) {
+          this.typeDefault = null;
+        }
+        if (this.options && this.options["default"] != null) {
+          this.typeDefault = this.options["default"];
+          if (this.resolvedType instanceof Enum && typeof this.typeDefault === "string")
+            this.typeDefault = this.resolvedType.values[this.typeDefault];
+        }
+        if (this.options) {
+          if (this.options.packed !== void 0 && this.resolvedType && !(this.resolvedType instanceof Enum))
+            delete this.options.packed;
+          if (!Object.keys(this.options).length)
+            this.options = void 0;
+        }
+        if (this.long) {
+          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
+          if (Object.freeze)
+            Object.freeze(this.typeDefault);
+        } else if (this.bytes && typeof this.typeDefault === "string") {
+          var buf;
+          if (util.base64.test(this.typeDefault))
+            util.base64.decode(this.typeDefault, buf = util.newBuffer(util.base64.length(this.typeDefault)), 0);
+          else
+            util.utf8.write(this.typeDefault, buf = util.newBuffer(util.utf8.length(this.typeDefault)), 0);
+          this.typeDefault = buf;
+        }
+        if (this.map)
+          this.defaultValue = util.emptyObject;
+        else if (this.repeated)
+          this.defaultValue = util.emptyArray;
+        else
+          this.defaultValue = this.typeDefault;
+        if (this.parent instanceof Type)
+          this.parent.ctor.prototype[this.name] = this.defaultValue;
+        return ReflectionObject.prototype.resolve.call(this);
+      }, "resolve");
+      Field.prototype._inferLegacyProtoFeatures = /* @__PURE__ */ __name(function _inferLegacyProtoFeatures(edition) {
+        if (edition !== "proto2" && edition !== "proto3") {
+          return {};
+        }
+        var features2 = {};
+        if (this.rule === "required") {
+          features2.field_presence = "LEGACY_REQUIRED";
+        }
+        if (this.parent && types.defaults[this.type] === void 0) {
+          var type = this.parent.get(this.type.split(".").pop());
+          if (type && type instanceof Type && type.group) {
+            features2.message_encoding = "DELIMITED";
+          }
+        }
+        if (this.getOption("packed") === true) {
+          features2.repeated_field_encoding = "PACKED";
+        } else if (this.getOption("packed") === false) {
+          features2.repeated_field_encoding = "EXPANDED";
+        }
+        return features2;
+      }, "_inferLegacyProtoFeatures");
+      Field.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        return ReflectionObject.prototype._resolveFeatures.call(this, this._edition || edition);
+      }, "_resolveFeatures");
+      Field.d = /* @__PURE__ */ __name(function decorateField(fieldId, fieldType, fieldRule, defaultValue) {
+        if (typeof fieldType === "function")
+          fieldType = util.decorateType(fieldType).name;
+        else if (fieldType && typeof fieldType === "object")
+          fieldType = util.decorateEnum(fieldType).name;
+        return /* @__PURE__ */ __name(function fieldDecorator(prototype, fieldName) {
+          util.decorateType(prototype.constructor).add(new Field(fieldName, fieldId, fieldType, fieldRule, { "default": defaultValue }));
+        }, "fieldDecorator");
+      }, "decorateField");
+      Field._configure = /* @__PURE__ */ __name(function configure(Type_) {
+        Type = Type_;
+      }, "configure");
+    }
+  });
+
+  // node_modules/protobufjs/src/oneof.js
+  var require_oneof = __commonJS({
+    "node_modules/protobufjs/src/oneof.js"(exports4, module2) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      module2.exports = OneOf;
+      var ReflectionObject = require_object();
+      ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
+      var Field = require_field(), util = require_util();
+      function OneOf(name, fieldNames, options, comment) {
+        if (!Array.isArray(fieldNames)) {
+          options = fieldNames;
+          fieldNames = void 0;
+        }
+        ReflectionObject.call(this, name, options);
+        if (!(fieldNames === void 0 || Array.isArray(fieldNames)))
+          throw TypeError("fieldNames must be an Array");
+        this.oneof = fieldNames || [];
+        this.fieldsArray = [];
+        this.comment = comment;
+      }
+      __name(OneOf, "OneOf");
+      OneOf.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+        return new OneOf(name, json.oneof, json.options, json.comment);
+      }, "fromJSON");
+      OneOf.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
+        var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
+        return util.toObject([
+          "options",
+          this.options,
+          "oneof",
+          this.oneof,
+          "comment",
+          keepComments ? this.comment : void 0
+        ]);
+      }, "toJSON");
+      function addFieldsToParent(oneof) {
+        if (oneof.parent) {
+          for (var i2 = 0; i2 < oneof.fieldsArray.length; ++i2)
+            if (!oneof.fieldsArray[i2].parent)
+              oneof.parent.add(oneof.fieldsArray[i2]);
+        }
+      }
+      __name(addFieldsToParent, "addFieldsToParent");
+      OneOf.prototype.add = /* @__PURE__ */ __name(function add2(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        if (field.parent && field.parent !== this.parent)
+          field.parent.remove(field);
+        this.oneof.push(field.name);
+        this.fieldsArray.push(field);
+        field.partOf = this;
+        addFieldsToParent(this);
+        return this;
+      }, "add");
+      OneOf.prototype.remove = /* @__PURE__ */ __name(function remove2(field) {
+        if (!(field instanceof Field))
+          throw TypeError("field must be a Field");
+        var index2 = this.fieldsArray.indexOf(field);
+        if (index2 < 0)
+          throw Error(field + " is not a member of " + this);
+        this.fieldsArray.splice(index2, 1);
+        index2 = this.oneof.indexOf(field.name);
+        if (index2 > -1)
+          this.oneof.splice(index2, 1);
+        field.partOf = null;
+        return this;
+      }, "remove");
+      OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent2) {
+        ReflectionObject.prototype.onAdd.call(this, parent2);
+        var self2 = this;
+        for (var i2 = 0; i2 < this.oneof.length; ++i2) {
+          var field = parent2.get(this.oneof[i2]);
+          if (field && !field.partOf) {
+            field.partOf = self2;
+            self2.fieldsArray.push(field);
+          }
+        }
+        addFieldsToParent(this);
+      }, "onAdd");
+      OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent2) {
+        for (var i2 = 0, field; i2 < this.fieldsArray.length; ++i2)
+          if ((field = this.fieldsArray[i2]).parent)
+            field.parent.remove(field);
+        ReflectionObject.prototype.onRemove.call(this, parent2);
+      }, "onRemove");
+      Object.defineProperty(OneOf.prototype, "isProto3Optional", {
+        get: /* @__PURE__ */ __name(function() {
+          if (this.fieldsArray == null || this.fieldsArray.length !== 1) {
+            return false;
+          }
+          var field = this.fieldsArray[0];
+          return field.options != null && field.options["proto3_optional"] === true;
+        }, "get")
+      });
+      OneOf.d = /* @__PURE__ */ __name(function decorateOneOf() {
+        var fieldNames = new Array(arguments.length), index2 = 0;
+        while (index2 < arguments.length)
+          fieldNames[index2] = arguments[index2++];
+        return /* @__PURE__ */ __name(function oneOfDecorator(prototype, oneofName) {
+          util.decorateType(prototype.constructor).add(new OneOf(oneofName, fieldNames));
+          Object.defineProperty(prototype, oneofName, {
+            get: util.oneOfGetter(fieldNames),
+            set: util.oneOfSetter(fieldNames)
+          });
+        }, "oneOfDecorator");
+      }, "decorateOneOf");
+    }
+  });
+
   // node_modules/protobufjs/src/object.js
   var require_object = __commonJS({
     "node_modules/protobufjs/src/object.js"(exports4, module2) {
@@ -6196,8 +6374,12 @@ var LNReaderPlugin = (() => {
       init_process2();
       module2.exports = ReflectionObject;
       ReflectionObject.className = "ReflectionObject";
+      var OneOf = require_oneof();
       var util = require_util();
       var Root;
+      var editions2023Defaults = { enum_type: "OPEN", field_presence: "EXPLICIT", json_format: "ALLOW", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "PACKED", utf8_validation: "VERIFY" };
+      var proto2Defaults = { enum_type: "CLOSED", field_presence: "EXPLICIT", json_format: "LEGACY_BEST_EFFORT", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "EXPANDED", utf8_validation: "NONE" };
+      var proto3Defaults = { enum_type: "OPEN", field_presence: "IMPLICIT", json_format: "ALLOW", message_encoding: "LENGTH_PREFIXED", repeated_field_encoding: "PACKED", utf8_validation: "VERIFY" };
       function ReflectionObject(name, options) {
         if (!util.isString(name))
           throw TypeError("name must be a string");
@@ -6206,6 +6388,10 @@ var LNReaderPlugin = (() => {
         this.options = options;
         this.parsedOptions = null;
         this.name = name;
+        this._edition = null;
+        this._defaultEdition = "proto2";
+        this._features = {};
+        this._featuresResolved = false;
         this.parent = null;
         this.resolved = false;
         this.comment = null;
@@ -6271,14 +6457,67 @@ var LNReaderPlugin = (() => {
           this.resolved = true;
         return this;
       }, "resolve");
+      ReflectionObject.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
+        return this._resolveFeatures(this._edition || edition);
+      }, "_resolveFeaturesRecursive");
+      ReflectionObject.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        if (this._featuresResolved) {
+          return;
+        }
+        var defaults = {};
+        if (!edition) {
+          throw new Error("Unknown edition for " + this.fullName);
+        }
+        var protoFeatures = Object.assign(
+          this.options ? Object.assign({}, this.options.features) : {},
+          this._inferLegacyProtoFeatures(edition)
+        );
+        if (this._edition) {
+          if (edition === "proto2") {
+            defaults = Object.assign({}, proto2Defaults);
+          } else if (edition === "proto3") {
+            defaults = Object.assign({}, proto3Defaults);
+          } else if (edition === "2023") {
+            defaults = Object.assign({}, editions2023Defaults);
+          } else {
+            throw new Error("Unknown edition: " + edition);
+          }
+          this._features = Object.assign(defaults, protoFeatures || {});
+          this._featuresResolved = true;
+          return;
+        }
+        if (this.partOf instanceof OneOf) {
+          var lexicalParentFeaturesCopy = Object.assign({}, this.partOf._features);
+          this._features = Object.assign(lexicalParentFeaturesCopy, protoFeatures || {});
+        } else if (this.declaringField) {
+        } else if (this.parent) {
+          var parentFeaturesCopy = Object.assign({}, this.parent._features);
+          this._features = Object.assign(parentFeaturesCopy, protoFeatures || {});
+        } else {
+          throw new Error("Unable to find a parent for " + this.fullName);
+        }
+        if (this.extensionField) {
+          this.extensionField._features = this._features;
+        }
+        this._featuresResolved = true;
+      }, "_resolveFeatures");
+      ReflectionObject.prototype._inferLegacyProtoFeatures = /* @__PURE__ */ __name(function _inferLegacyProtoFeatures() {
+        return {};
+      }, "_inferLegacyProtoFeatures");
       ReflectionObject.prototype.getOption = /* @__PURE__ */ __name(function getOption(name) {
         if (this.options)
           return this.options[name];
         return void 0;
       }, "getOption");
       ReflectionObject.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
-        if (!ifNotSet || !this.options || this.options[name] === void 0)
-          (this.options || (this.options = {}))[name] = value;
+        if (!this.options)
+          this.options = {};
+        if (/^features\./.test(name)) {
+          util.setProperty(this.options, name, value, ifNotSet);
+        } else if (!ifNotSet || this.options[name] === void 0) {
+          if (this.getOption(name) !== value) this.resolved = false;
+          this.options[name] = value;
+        }
         return this;
       }, "setOption");
       ReflectionObject.prototype.setParsedOption = /* @__PURE__ */ __name(function setParsedOption(name, value, propName) {
@@ -6317,6 +6556,12 @@ var LNReaderPlugin = (() => {
           return className + " " + fullName;
         return className;
       }, "toString");
+      ReflectionObject.prototype._editionToJSON = /* @__PURE__ */ __name(function _editionToJSON() {
+        if (!this._edition || this._edition === "proto3") {
+          return void 0;
+        }
+        return this._edition;
+      }, "_editionToJSON");
       ReflectionObject._configure = function(Root_) {
         Root = Root_;
       };
@@ -6343,6 +6588,7 @@ var LNReaderPlugin = (() => {
         this.comment = comment;
         this.comments = comments || {};
         this.valuesOptions = valuesOptions;
+        this._valuesFeatures = {};
         this.reserved = void 0;
         if (values) {
           for (var keys = Object.keys(values), i2 = 0; i2 < keys.length; ++i2)
@@ -6351,14 +6597,28 @@ var LNReaderPlugin = (() => {
         }
       }
       __name(Enum, "Enum");
+      Enum.prototype._resolveFeatures = /* @__PURE__ */ __name(function _resolveFeatures(edition) {
+        edition = this._edition || edition;
+        ReflectionObject.prototype._resolveFeatures.call(this, edition);
+        Object.keys(this.values).forEach((key) => {
+          var parentFeaturesCopy = Object.assign({}, this._features);
+          this._valuesFeatures[key] = Object.assign(parentFeaturesCopy, this.valuesOptions && this.valuesOptions[key] && this.valuesOptions[key].features);
+        });
+        return this;
+      }, "_resolveFeatures");
       Enum.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
         var enm = new Enum(name, json.values, json.options, json.comment, json.comments);
         enm.reserved = json.reserved;
+        if (json.edition)
+          enm._edition = json.edition;
+        enm._defaultEdition = "proto3";
         return enm;
       }, "fromJSON");
       Enum.prototype.toJSON = /* @__PURE__ */ __name(function toJSON(toJSONOptions) {
         var keepComments = toJSONOptions ? Boolean(toJSONOptions.keepComments) : false;
         return util.toObject([
+          "edition",
+          this._editionToJSON(),
           "options",
           this.options,
           "valuesOptions",
@@ -6430,7 +6690,7 @@ var LNReaderPlugin = (() => {
       module2.exports = encoder;
       var Enum = require_enum(), types = require_types(), util = require_util();
       function genTypePartial(gen, field, fieldIndex, ref) {
-        return field.resolvedType.group ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
+        return field.delimited ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
       }
       __name(genTypePartial, "genTypePartial");
       function encoder(mtype) {
@@ -6790,8 +7050,8 @@ var LNReaderPlugin = (() => {
       module2.exports = parse5;
       parse5.filename = null;
       parse5.defaults = { keepCase: false };
-      var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), types = require_types(), util = require_util();
-      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/, fqTypeRefRe = /^(?:\.[a-zA-Z_][a-zA-Z_0-9]*)+$/;
+      var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), ReflectionObject = require_object(), types = require_types(), util = require_util();
+      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/;
       function parse5(source, root2, options) {
         if (!(root2 instanceof Root)) {
           options = root2;
@@ -6801,11 +7061,23 @@ var LNReaderPlugin = (() => {
           options = parse5.defaults;
         var preferTrailingComment = options.preferTrailingComment || false;
         var tn = tokenize(source, options.alternateCommentMode || false), next2 = tn.next, push = tn.push, peek = tn.peek, skip = tn.skip, cmnt = tn.cmnt;
-        var head = true, pkg, imports, weakImports, syntax, isProto3 = false;
+        var head = true, pkg, imports, weakImports, edition = "proto2";
         var ptr = root2;
+        var topLevelObjects = [];
+        var topLevelOptions = {};
         var applyCase = options.keepCase ? function(name) {
           return name;
         } : util.camelCase;
+        function resolveFileFeatures() {
+          topLevelObjects.forEach((obj) => {
+            obj._edition = edition;
+            Object.keys(topLevelOptions).forEach((opt) => {
+              if (obj.getOption(opt) !== void 0) return;
+              obj.setOption(opt, topLevelOptions[opt], true);
+            });
+          });
+        }
+        __name(resolveFileFeatures, "resolveFileFeatures");
         function illegal(token2, name, insideTryCatch) {
           var filename = parse5.filename;
           if (!insideTryCatch)
@@ -6855,10 +7127,23 @@ var LNReaderPlugin = (() => {
         function readRanges(target, acceptStrings) {
           var token2, start;
           do {
-            if (acceptStrings && ((token2 = peek()) === '"' || token2 === "'"))
-              target.push(readString());
-            else
-              target.push([start = parseId(next2()), skip("to", true) ? parseId(next2()) : start]);
+            if (acceptStrings && ((token2 = peek()) === '"' || token2 === "'")) {
+              var str = readString();
+              target.push(str);
+              if (edition >= 2023) {
+                throw illegal(str, "id");
+              }
+            } else {
+              try {
+                target.push([start = parseId(next2()), skip("to", true) ? parseId(next2()) : start]);
+              } catch (err) {
+                if (acceptStrings && typeRefRe.test(token2) && edition >= 2023) {
+                  target.push(token2);
+                } else {
+                  throw err;
+                }
+              }
+            }
           } while (skip(",", true));
           var dummy = { options: void 0 };
           dummy.setOption = function(name, value) {
@@ -6962,14 +7247,21 @@ var LNReaderPlugin = (() => {
         __name(parseImport, "parseImport");
         function parseSyntax() {
           skip("=");
-          syntax = readString();
-          isProto3 = syntax === "proto3";
-          if (!isProto3 && syntax !== "proto2")
-            throw illegal(syntax, "syntax");
-          root2.setOption("syntax", syntax);
+          edition = readString();
+          if (edition < 2023)
+            throw illegal(edition, "syntax");
           skip(";");
         }
         __name(parseSyntax, "parseSyntax");
+        function parseEdition() {
+          skip("=");
+          edition = readString();
+          const supportedEditions = ["2023"];
+          if (!supportedEditions.includes(edition))
+            throw illegal(edition, "edition");
+          skip(";");
+        }
+        __name(parseEdition, "parseEdition");
         function parseCommon(parent2, token2) {
           switch (token2) {
             case "option":
@@ -7026,12 +7318,17 @@ var LNReaderPlugin = (() => {
                 parseMapField(type, token3);
                 break;
               case "required":
+                if (edition !== "proto2")
+                  throw illegal(token3);
+              /* eslint-disable no-fallthrough */
               case "repeated":
                 parseField(type, token3);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(type, "proto3_optional");
+                } else if (edition !== "proto2") {
+                  throw illegal(token3);
                 } else {
                   parseField(type, "optional");
                 }
@@ -7046,14 +7343,18 @@ var LNReaderPlugin = (() => {
                 readRanges(type.reserved || (type.reserved = []), true);
                 break;
               default:
-                if (!isProto3 || !typeRefRe.test(token3))
+                if (edition === "proto2" || !typeRefRe.test(token3)) {
                   throw illegal(token3);
+                }
                 push(token3);
                 parseField(type, "optional");
                 break;
             }
           }, "parseType_block"));
           parent2.add(type);
+          if (parent2 === ptr) {
+            topLevelObjects.push(type);
+          }
         }
         __name(parseType, "parseType");
         function parseField(parent2, rule, extend) {
@@ -7090,16 +7391,15 @@ var LNReaderPlugin = (() => {
           } else {
             parent2.add(field);
           }
-          if (!isProto3 && field.repeated && (types.packed[type] !== void 0 || types.basic[type] === void 0))
-            field.setOption(
-              "packed",
-              false,
-              /* ifNotSet */
-              true
-            );
+          if (parent2 === ptr) {
+            topLevelObjects.push(field);
+          }
         }
         __name(parseField, "parseField");
         function parseGroup(parent2, rule) {
+          if (edition >= 2023) {
+            throw illegal("group");
+          }
           var name = next2();
           if (!nameRe.test(name))
             throw illegal(name, "name");
@@ -7123,7 +7423,7 @@ var LNReaderPlugin = (() => {
                 parseField(type, token2);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(type, "proto3_optional");
                 } else {
                   parseField(type, "optional");
@@ -7134,6 +7434,9 @@ var LNReaderPlugin = (() => {
                 break;
               case "enum":
                 parseEnum(type, token2);
+                break;
+              case "reserved":
+                readRanges(type.reserved || (type.reserved = []), true);
                 break;
               /* istanbul ignore next */
               default:
@@ -7198,12 +7501,16 @@ var LNReaderPlugin = (() => {
                 break;
               case "reserved":
                 readRanges(enm.reserved || (enm.reserved = []), true);
+                if (enm.reserved === void 0) enm.reserved = [];
                 break;
               default:
                 parseEnumValue(enm, token3);
             }
           }, "parseEnum_block"));
           parent2.add(enm);
+          if (parent2 === ptr) {
+            topLevelObjects.push(enm);
+          }
         }
         __name(parseEnum, "parseEnum");
         function parseEnumValue(parent2, token2) {
@@ -7213,10 +7520,14 @@ var LNReaderPlugin = (() => {
           var value = parseId(next2(), true), dummy = {
             options: void 0
           };
+          dummy.getOption = function(name) {
+            return this.options[name];
+          };
           dummy.setOption = function(name, value2) {
-            if (this.options === void 0)
-              this.options = {};
-            this.options[name] = value2;
+            ReflectionObject.prototype.setOption.call(dummy, name, value2);
+          };
+          dummy.setParsedOption = function() {
+            return void 0;
           };
           ifBlock(dummy, /* @__PURE__ */ __name(function parseEnumValue_block(token3) {
             if (token3 === "option") {
@@ -7227,29 +7538,40 @@ var LNReaderPlugin = (() => {
           }, "parseEnumValue_block"), /* @__PURE__ */ __name(function parseEnumValue_line() {
             parseInlineOptions(dummy);
           }, "parseEnumValue_line"));
-          parent2.add(token2, value, dummy.comment, dummy.options);
+          parent2.add(token2, value, dummy.comment, dummy.parsedOptions || dummy.options);
         }
         __name(parseEnumValue, "parseEnumValue");
         function parseOption(parent2, token2) {
-          var isCustom = skip("(", true);
-          if (!typeRefRe.test(token2 = next2()))
-            throw illegal(token2, "name");
-          var name = token2;
-          var option = name;
+          var option;
           var propName;
-          if (isCustom) {
-            skip(")");
-            name = "(" + name + ")";
-            option = name;
-            token2 = peek();
-            if (fqTypeRefRe.test(token2)) {
-              propName = token2.slice(1);
-              name += token2;
-              next2();
-            }
+          var isOption = true;
+          if (token2 === "option") {
+            token2 = next2();
           }
-          skip("=");
+          while (token2 !== "=") {
+            if (token2 === "(") {
+              var parensValue = next2();
+              skip(")");
+              token2 = "(" + parensValue + ")";
+            }
+            if (isOption) {
+              isOption = false;
+              if (token2.includes(".") && !token2.includes("(")) {
+                var tokens = token2.split(".");
+                option = tokens[0] + ".";
+                token2 = tokens[1];
+                continue;
+              }
+              option = token2;
+            } else {
+              propName = propName ? propName += token2 : token2;
+            }
+            token2 = next2();
+          }
+          var name = propName ? option.concat(propName) : option;
           var optionValue = parseOptionValue(parent2, name);
+          propName = propName && propName[0] === "." ? propName.slice(1) : propName;
+          option = option && option[option.length - 1] === "." ? option.slice(0, -1) : option;
           setParsedOption(parent2, option, optionValue, propName);
         }
         __name(parseOption, "parseOption");
@@ -7266,9 +7588,9 @@ var LNReaderPlugin = (() => {
               var value;
               var propName = token;
               skip(":", true);
-              if (peek() === "{")
+              if (peek() === "{") {
                 value = parseOptionValue(parent2, name + "." + token);
-              else if (peek() === "[") {
+              } else if (peek() === "[") {
                 value = [];
                 var lastValue;
                 if (skip("[", true)) {
@@ -7300,6 +7622,10 @@ var LNReaderPlugin = (() => {
         }
         __name(parseOptionValue, "parseOptionValue");
         function setOption(parent2, name, value) {
+          if (ptr === parent2 && /^features\./.test(name)) {
+            topLevelOptions[name] = value;
+            return;
+          }
           if (parent2.setOption)
             parent2.setOption(name, value);
         }
@@ -7324,14 +7650,18 @@ var LNReaderPlugin = (() => {
             throw illegal(token2, "service name");
           var service = new Service(token2);
           ifBlock(service, /* @__PURE__ */ __name(function parseService_block(token3) {
-            if (parseCommon(service, token3))
+            if (parseCommon(service, token3)) {
               return;
+            }
             if (token3 === "rpc")
               parseMethod(service, token3);
             else
               throw illegal(token3);
           }, "parseService_block"));
           parent2.add(service);
+          if (parent2 === ptr) {
+            topLevelObjects.push(service);
+          }
         }
         __name(parseService, "parseService");
         function parseMethod(parent2, token2) {
@@ -7378,14 +7708,14 @@ var LNReaderPlugin = (() => {
                 parseField(parent2, token3, reference);
                 break;
               case "optional":
-                if (isProto3) {
+                if (edition === "proto3") {
                   parseField(parent2, "proto3_optional", reference);
                 } else {
                   parseField(parent2, "optional", reference);
                 }
                 break;
               default:
-                if (!isProto3 || !typeRefRe.test(token3))
+                if (edition === "proto2" || !typeRefRe.test(token3))
                   throw illegal(token3);
                 push(token3);
                 parseField(parent2, "optional", reference);
@@ -7412,9 +7742,14 @@ var LNReaderPlugin = (() => {
                 throw illegal(token);
               parseSyntax();
               break;
+            case "edition":
+              if (!head)
+                throw illegal(token);
+              parseEdition();
+              break;
             case "option":
               parseOption(ptr, token);
-              skip(";");
+              skip(";", true);
               break;
             default:
               if (parseCommon(ptr, token)) {
@@ -7424,12 +7759,12 @@ var LNReaderPlugin = (() => {
               throw illegal(token);
           }
         }
+        resolveFileFeatures();
         parse5.filename = null;
         return {
           "package": pkg,
           "imports": imports,
           weakImports,
-          syntax,
           root: root2
         };
       }
@@ -7871,10 +8206,12 @@ var LNReaderPlugin = (() => {
       fetchProto = /* @__PURE__ */ __name(async function(protoInit, url, init) {
         const protoRoot = (0, import_protobufjs.parse)(protoInit.proto).root;
         const RequestMessge = protoRoot.lookupType(protoInit.requestType);
-        if (RequestMessge.verify(protoInit.requestData)) {
+        if (RequestMessge.verify(protoInit.requestData || {})) {
           throw new Error("Invalid Proto");
         }
-        const encodedrequest = RequestMessge.encode(protoInit.requestData).finish();
+        const encodedrequest = RequestMessge.encode(
+          protoInit.requestData || {}
+        ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
           Array(5).fill(0).map((v2, idx) => {
@@ -7890,7 +8227,7 @@ var LNReaderPlugin = (() => {
           method: "POST",
           ...init,
           body: bodyArray
-        }).then((r) => r.arrayBuffer()).then((arr) => {
+        }).then((r2) => r2.arrayBuffer()).then((arr) => {
           const payload = new Uint8Array(arr);
           const length = Number(
             BigInt(payload[1] << 24) | BigInt(payload[2] << 16) | BigInt(payload[3] << 8) | BigInt(payload[4])
@@ -14439,8 +14776,8 @@ var LNReaderPlugin = (() => {
         if (selector && isCheerio(selector))
           return selector;
         const options2 = flattenOptions(opts, internalOpts);
-        const r = typeof root2 === "string" ? [parse5(root2, options2, false, null)] : "length" in root2 ? root2 : [root2];
-        const rootInstance = isCheerio(r) ? r : new LoadedCheerio(r, null, options2);
+        const r2 = typeof root2 === "string" ? [parse5(root2, options2, false, null)] : "length" in root2 ? root2 : [root2];
+        const rootInstance = isCheerio(r2) ? r2 : new LoadedCheerio(r2, null, options2);
         rootInstance._root = rootInstance;
         if (!selector) {
           return new LoadedCheerio(void 0, rootInstance, options2);
@@ -23915,30 +24252,30 @@ var LNReaderPlugin = (() => {
         "object" == typeof exports4 && "undefined" != typeof module2 ? module2.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
       }(exports4, function() {
         "use strict";
-        var t2 = 1e3, e2 = 6e4, n = 36e5, r = "millisecond", i2 = "second", s = "minute", u2 = "hour", a2 = "day", o = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
+        var t2 = 1e3, e2 = 6e4, n = 36e5, r2 = "millisecond", i2 = "second", s = "minute", u2 = "hour", a2 = "day", o = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
           var e3 = ["th", "st", "nd", "rd"], n2 = t3 % 100;
           return "[" + t3 + (e3[(n2 - 20) % 10] || e3[n2] || e3[0]) + "]";
         }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n2) {
-          var r2 = String(t3);
-          return !r2 || r2.length >= e3 ? t3 : "" + Array(e3 + 1 - r2.length).join(n2) + t3;
+          var r3 = String(t3);
+          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n2) + t3;
         }, "m"), v2 = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n2 = Math.abs(e3), r2 = Math.floor(n2 / 60), i3 = n2 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r2, 2, "0") + ":" + m(i3, 2, "0");
+          var e3 = -t3.utcOffset(), n2 = Math.abs(e3), r3 = Math.floor(n2 / 60), i3 = n2 % 60;
+          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
         }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n2) {
           if (e3.date() < n2.date()) return -t3(n2, e3);
-          var r2 = 12 * (n2.year() - e3.year()) + (n2.month() - e3.month()), i3 = e3.clone().add(r2, c), s2 = n2 - i3 < 0, u3 = e3.clone().add(r2 + (s2 ? -1 : 1), c);
-          return +(-(r2 + (n2 - i3) / (s2 ? i3 - u3 : u3 - i3)) || 0);
+          var r3 = 12 * (n2.year() - e3.year()) + (n2.month() - e3.month()), i3 = e3.clone().add(r3, c), s2 = n2 - i3 < 0, u3 = e3.clone().add(r3 + (s2 ? -1 : 1), c);
+          return +(-(r3 + (n2 - i3) / (s2 ? i3 - u3 : u3 - i3)) || 0);
         }, "t"), a: /* @__PURE__ */ __name(function(t3) {
           return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
         }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c, y: h, w: o, d: a2, D: d, h: u2, m: s, s: i2, ms: r, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
+          return { M: c, y: h, w: o, d: a2, D: d, h: u2, m: s, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
         }, "p"), u: /* @__PURE__ */ __name(function(t3) {
           return void 0 === t3;
         }, "u") }, g = "en", D = {};
         D[g] = M;
         var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
           return t3 instanceof _ || !(!t3 || !t3[p]);
-        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n2, r2) {
+        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n2, r3) {
           var i3;
           if (!e3) return g;
           if ("string" == typeof e3) {
@@ -23950,7 +24287,7 @@ var LNReaderPlugin = (() => {
             var a3 = e3.name;
             D[a3] = e3, i3 = a3;
           }
-          return !r2 && i3 && (g = i3), i3 || !r2 && g;
+          return !r3 && i3 && (g = i3), i3 || !r3 && g;
         }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
           if (S(t3)) return t3.clone();
           var n2 = "object" == typeof e3 ? e3 : {};
@@ -23972,10 +24309,10 @@ var LNReaderPlugin = (() => {
               if (b2.u(e3)) return /* @__PURE__ */ new Date();
               if (e3 instanceof Date) return new Date(e3);
               if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r2 = e3.match($2);
-                if (r2) {
-                  var i3 = r2[2] - 1 || 0, s2 = (r2[7] || "0").substring(0, 3);
-                  return n2 ? new Date(Date.UTC(r2[1], i3, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2)) : new Date(r2[1], i3, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2);
+                var r3 = e3.match($2);
+                if (r3) {
+                  var i3 = r3[2] - 1 || 0, s2 = (r3[7] || "0").substring(0, 3);
+                  return n2 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s2);
                 }
               }
               return new Date(e3);
@@ -24001,20 +24338,20 @@ var LNReaderPlugin = (() => {
           }, m2.valueOf = function() {
             return this.$d.getTime();
           }, m2.startOf = function(t3, e3) {
-            var n2 = this, r2 = !!b2.u(e3) || e3, f2 = b2.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
+            var n2 = this, r3 = !!b2.u(e3) || e3, f2 = b2.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
               var i3 = b2.w(n2.$u ? Date.UTC(n2.$y, e4, t4) : new Date(n2.$y, e4, t4), n2);
-              return r2 ? i3 : i3.endOf(a2);
+              return r3 ? i3 : i3.endOf(a2);
             }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b2.w(n2.toDate()[t4].apply(n2.toDate("s"), (r2 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n2);
+              return b2.w(n2.toDate()[t4].apply(n2.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n2);
             }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v3 = "set" + (this.$u ? "UTC" : "");
             switch (f2) {
               case h:
-                return r2 ? l3(1, 0) : l3(31, 11);
+                return r3 ? l3(1, 0) : l3(31, 11);
               case c:
-                return r2 ? l3(1, M3) : l3(0, M3 + 1);
+                return r3 ? l3(1, M3) : l3(0, M3 + 1);
               case o:
                 var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r2 ? m3 - D2 : m3 + (6 - D2), M3);
+                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
               case a2:
               case d:
                 return $3(v3 + "Hours", 0);
@@ -24030,7 +24367,7 @@ var LNReaderPlugin = (() => {
           }, m2.endOf = function(t3) {
             return this.startOf(t3, false);
           }, m2.$set = function(t3, e3) {
-            var n2, o2 = b2.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n2 = {}, n2[a2] = f2 + "Date", n2[d] = f2 + "Date", n2[c] = f2 + "Month", n2[h] = f2 + "FullYear", n2[u2] = f2 + "Hours", n2[s] = f2 + "Minutes", n2[i2] = f2 + "Seconds", n2[r] = f2 + "Milliseconds", n2)[o2], $3 = o2 === a2 ? this.$D + (e3 - this.$W) : e3;
+            var n2, o2 = b2.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n2 = {}, n2[a2] = f2 + "Date", n2[d] = f2 + "Date", n2[c] = f2 + "Month", n2[h] = f2 + "FullYear", n2[u2] = f2 + "Hours", n2[s] = f2 + "Minutes", n2[i2] = f2 + "Seconds", n2[r2] = f2 + "Milliseconds", n2)[o2], $3 = o2 === a2 ? this.$D + (e3 - this.$W) : e3;
             if (o2 === c || o2 === h) {
               var y2 = this.clone().set(d, 1);
               y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
@@ -24040,34 +24377,34 @@ var LNReaderPlugin = (() => {
             return this.clone().$set(t3, e3);
           }, m2.get = function(t3) {
             return this[b2.p(t3)]();
-          }, m2.add = function(r2, f2) {
+          }, m2.add = function(r3, f2) {
             var d2, l3 = this;
-            r2 = Number(r2);
+            r3 = Number(r3);
             var $3 = b2.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
               var e3 = O(l3);
-              return b2.w(e3.date(e3.date() + Math.round(t3 * r2)), l3);
+              return b2.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
             }, "y");
-            if ($3 === c) return this.set(c, this.$M + r2);
-            if ($3 === h) return this.set(h, this.$y + r2);
+            if ($3 === c) return this.set(c, this.$M + r3);
+            if ($3 === h) return this.set(h, this.$y + r3);
             if ($3 === a2) return y2(1);
             if ($3 === o) return y2(7);
-            var M3 = (d2 = {}, d2[s] = e2, d2[u2] = n, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r2 * M3;
+            var M3 = (d2 = {}, d2[s] = e2, d2[u2] = n, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
             return b2.w(m3, this);
           }, m2.subtract = function(t3, e3) {
             return this.add(-1 * t3, e3);
           }, m2.format = function(t3) {
             var e3 = this, n2 = this.$locale();
             if (!this.isValid()) return n2.invalidDate || l2;
-            var r2 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b2.z(this), s2 = this.$H, u3 = this.$m, a3 = this.$M, o2 = n2.weekdays, c2 = n2.months, f2 = n2.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n3, i4, s3) {
-              return t4 && (t4[n3] || t4(e3, r2)) || i4[n3].slice(0, s3);
+            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b2.z(this), s2 = this.$H, u3 = this.$m, a3 = this.$M, o2 = n2.weekdays, c2 = n2.months, f2 = n2.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n3, i4, s3) {
+              return t4 && (t4[n3] || t4(e3, r3)) || i4[n3].slice(0, s3);
             }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
               return b2.s(s2 % 12 || 12, t4, "0");
             }, "d"), $3 = f2 || function(t4, e4, n3) {
-              var r3 = t4 < 12 ? "AM" : "PM";
-              return n3 ? r3.toLowerCase() : r3;
+              var r4 = t4 < 12 ? "AM" : "PM";
+              return n3 ? r4.toLowerCase() : r4;
             };
-            return r2.replace(y, function(t4, r3) {
-              return r3 || function(t5) {
+            return r3.replace(y, function(t4, r4) {
+              return r4 || function(t5) {
                 switch (t5) {
                   case "YY":
                     return String(e3.$y).slice(-2);
@@ -24123,8 +24460,8 @@ var LNReaderPlugin = (() => {
             });
           }, m2.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r2, d2, l3) {
-            var $3, y2 = this, M3 = b2.p(d2), m3 = O(r2), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
+          }, m2.diff = function(r3, d2, l3) {
+            var $3, y2 = this, M3 = b2.p(d2), m3 = O(r3), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
               return b2.m(y2, m3);
             }, "D");
             switch (M3) {
@@ -24162,8 +24499,8 @@ var LNReaderPlugin = (() => {
             return D[this.$L];
           }, m2.locale = function(t3, e3) {
             if (!t3) return this.$L;
-            var n2 = this.clone(), r2 = w(t3, e3, true);
-            return r2 && (n2.$L = r2), n2;
+            var n2 = this.clone(), r3 = w(t3, e3, true);
+            return r3 && (n2.$L = r3), n2;
           }, m2.clone = function() {
             return b2.w(this.$d, this);
           }, m2.toDate = function() {
@@ -24176,7 +24513,7 @@ var LNReaderPlugin = (() => {
             return this.$d.toUTCString();
           }, M2;
         }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r], ["$s", i2], ["$m", s], ["$H", u2], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t3) {
+        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s], ["$H", u2], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t3) {
           k[t3[1]] = function(e3) {
             return this.$g(e3, t3[0], t3[1]);
           };
@@ -24197,7 +24534,7 @@ var LNReaderPlugin = (() => {
     return new (a2 || (a2 = Promise))(function(v2, b2) {
       function t2(l3) {
         try {
-          r(u2.next(l3));
+          r2(u2.next(l3));
         } catch (l4) {
           b2(l4);
         }
@@ -24205,20 +24542,20 @@ var LNReaderPlugin = (() => {
       __name(t2, "t");
       function i2(l3) {
         try {
-          r(u2.throw(l3));
+          r2(u2.throw(l3));
         } catch (l4) {
           b2(l4);
         }
       }
       __name(i2, "i");
-      function r(l3) {
+      function r2(l3) {
         var e3;
         l3.done ? v2(l3.value) : (e3 = l3.value, e3 instanceof a2 ? e3 : new a2(function(l4) {
           l4(e3);
         })).then(t2, i2);
       }
-      __name(r, "r");
-      r((u2 = u2.apply(l2, e2 || [])).next());
+      __name(r2, "r");
+      r2((u2 = u2.apply(l2, e2 || [])).next());
     });
   }, e = function(l2, e2) {
     var a2, u2, v2, b2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
@@ -24229,7 +24566,7 @@ var LNReaderPlugin = (() => {
       return this;
     }), t2;
     function i2(i3) {
-      return function(r) {
+      return function(r2) {
         return function(i4) {
           if (a2) throw new TypeError("Generator is already executing.");
           for (; t2 && (t2 = 0, i4[0] && (b2 = 0)), b2; ) try {
@@ -24275,29 +24612,29 @@ var LNReaderPlugin = (() => {
           }
           if (5 & i4[0]) throw i4[1];
           return { value: i4[0] ? i4[1] : void 0, done: true };
-        }([i3, r]);
+        }([i3, r2]);
       };
     }
     __name(i2, "i");
   }, a = function(l2) {
     return l2 && l2.__esModule ? l2 : { default: l2 };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  var u = (init_fetch2(), __toCommonJS(fetch_exports)), v = (init_novelStatus(), __toCommonJS(novelStatus_exports)), b = (init_browser(), __toCommonJS(browser_exports)), t = a(require_dayjs_min()), i = new (function() {
+  Object.defineProperty(exports, "__esModule", { value: true }), exports.ReadwnPlugin = void 0;
+  var u = (init_fetch2(), __toCommonJS(fetch_exports)), v = (init_novelStatus(), __toCommonJS(novelStatus_exports)), b = (init_browser(), __toCommonJS(browser_exports)), t = a(require_dayjs_min()), i = function() {
     function a2(l2) {
       var e2;
       this.id = l2.id, this.name = l2.sourceName, this.icon = "multisrc/readwn/".concat(l2.id.toLowerCase(), "/icon.png"), this.site = l2.sourceSite;
       var a3 = (null === (e2 = l2.options) || void 0 === e2 ? void 0 : e2.versionIncrements) || 0;
-      this.version = "1.0.".concat(2 + a3), this.filters = l2.filters;
+      this.version = "1.0.".concat(3 + a3), this.filters = l2.filters;
     }
     __name(a2, "a");
     return a2.prototype.popularNovels = function(a3, v2) {
       return l(this, arguments, void 0, function(l2, a4) {
-        var v3, t2, i2, r, o, n, s, c = this, d = a4.filters, m = a4.showLatestNovels;
+        var v3, t2, i2, r2, o, n, s, c = this, d = a4.filters, m = a4.showLatestNovels;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return v3 = this.site + "/list/", v3 += ((null === (r = null == d ? void 0 : d.genres) || void 0 === r ? void 0 : r.value) || "all") + "/", v3 += ((null === (o = null == d ? void 0 : d.status) || void 0 === o ? void 0 : o.value) || "all") + "-", v3 += m ? "lastdotime" : (null === (n = null == d ? void 0 : d.sort) || void 0 === n ? void 0 : n.value) || "newstime", v3 += "-" + (l2 - 1) + ".html", (null === (s = null == d ? void 0 : d.tags) || void 0 === s ? void 0 : s.value) && (v3 = this.site + "/tags/" + d.tags.value + "-0.html"), [4, (0, u.fetchApi)(v3).then(function(l3) {
+              return v3 = this.site + "/list/", v3 += ((null === (r2 = null == d ? void 0 : d.genres) || void 0 === r2 ? void 0 : r2.value) || "all") + "/", v3 += ((null === (o = null == d ? void 0 : d.status) || void 0 === o ? void 0 : o.value) || "all") + "-", v3 += m ? "lastdotime" : (null === (n = null == d ? void 0 : d.sort) || void 0 === n ? void 0 : n.value) || "newstime", v3 += "-" + (l2 - 1) + ".html", (null === (s = null == d ? void 0 : d.tags) || void 0 === s ? void 0 : s.value) && (v3 = this.site + "/tags/" + d.tags.value + "-0.html"), [4, (0, u.fetchApi)(v3).then(function(l3) {
                 return l3.text();
               })];
             case 1:
@@ -24311,7 +24648,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return l(this, void 0, void 0, function() {
-        var l2, i2, r, o, n, s, c, d;
+        var l2, i2, r2, o, n, s, c, d;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -24319,14 +24656,14 @@ var LNReaderPlugin = (() => {
                 return l3.text();
               })];
             case 1:
-              if (l2 = e2.sent(), i2 = (0, b.load)(l2), (r = { path: a3, name: i2("h1.novel-title").text() || "" }).author = i2("span[itemprop=author]").text(), r.cover = this.site + i2("figure.cover > img").attr("data-src"), r.summary = i2(".summary").text().replace("Summary", "").trim(), r.genres = i2("div.categories > ul > li").map(function(l3, e3) {
+              if (l2 = e2.sent(), i2 = (0, b.load)(l2), (r2 = { path: a3, name: i2("h1.novel-title").text() || "" }).author = i2("span[itemprop=author]").text(), r2.cover = this.site + i2("figure.cover > img").attr("data-src"), r2.summary = i2(".summary").text().replace("Summary", "").trim(), r2.genres = i2("div.categories > ul > li").map(function(l3, e3) {
                 var a4;
                 return null === (a4 = i2(e3).text()) || void 0 === a4 ? void 0 : a4.trim();
               }).get().join(","), i2("div.header-stats > span").each(function() {
-                "Status" === i2(this).find("small").text() && (r.status = "Ongoing" === i2(this).find("strong").text() ? v.NovelStatus.Ongoing : v.NovelStatus.Completed);
+                "Status" === i2(this).find("small").text() && (r2.status = "Ongoing" === i2(this).find("strong").text() ? v.NovelStatus.Ongoing : v.NovelStatus.Completed);
               }), o = parseInt(i2(".header-stats").find("span > strong").first().text().trim()), n = i2(".chapter-list li").map(function(l3, e3) {
-                var a4, u2, v2, b2 = i2(e3).find("a .chapter-title").text().trim(), r2 = null === (a4 = i2(e3).find("a").attr("href")) || void 0 === a4 ? void 0 : a4.trim();
-                if (!b2 || !r2) return null;
+                var a4, u2, v2, b2 = i2(e3).find("a .chapter-title").text().trim(), r3 = null === (a4 = i2(e3).find("a").attr("href")) || void 0 === a4 ? void 0 : a4.trim();
+                if (!b2 || !r3) return null;
                 var o2 = i2(e3).find("a .chapter-update").text().trim();
                 if (null === (u2 = null == o2 ? void 0 : o2.includes) || void 0 === u2 ? void 0 : u2.call(o2, "ago")) {
                   var n2 = (null === (v2 = o2.match(/\d+/)) || void 0 === v2 ? void 0 : v2[0]) || "0", s2 = parseInt(n2, 10);
@@ -24335,11 +24672,11 @@ var LNReaderPlugin = (() => {
                     (o2.includes("hours ago") || o2.includes("hour ago")) && c2.subtract(s2, "hours"), (o2.includes("days ago") || o2.includes("day ago")) && c2.subtract(s2, "days"), (o2.includes("months ago") || o2.includes("month ago")) && c2.subtract(s2, "months"), o2 = c2.format("LL");
                   }
                 }
-                return { name: b2, path: r2, releaseTime: o2, chapterNumber: l3 + 1 };
+                return { name: b2, path: r3, releaseTime: o2, chapterNumber: l3 + 1 };
               }).get().filter(function(l3) {
                 return l3;
               }), o > n.length) for (s = parseInt((null === (d = n[n.length - 1].path.match(/_(\d+)\.html/)) || void 0 === d ? void 0 : d[1]) || "", 10), c = (s || n.length) + 1; c <= o; c++) n.push({ name: "Chapter " + c, path: a3.replace(".html", "_" + c + ".html"), releaseTime: null, chapterNumber: c });
-              return r.chapters = n, [2, r];
+              return r2.chapters = n, [2, r2];
           }
         });
       });
@@ -24363,7 +24700,7 @@ var LNReaderPlugin = (() => {
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, (0, u.fetchApi)(this.site + "/e/search/index.php", { headers: { "Content-Type": "application/x-www-form-urlencoded", Referer: this.site + "/search.html", Origin: this.site }, method: "POST", body: new URLSearchParams({ show: "title", tempid: 1, tbname: "news", keyboard: a3 }).toString() }).then(function(l3) {
+              return [4, (0, u.fetchApi)(this.site + "/e/search/index.php", { headers: { "Content-Type": "application/x-www-form-urlencoded", Referer: this.site + "/search.html", Origin: this.site }, method: "POST", body: new URLSearchParams({ show: "title", tempid: "1", tbname: "news", keyboard: a3 }).toString() }).then(function(l3) {
                 return l3.text();
               })];
             case 1:
@@ -24376,8 +24713,10 @@ var LNReaderPlugin = (() => {
         });
       });
     }, a2;
-  }())({ id: "ltnovel", sourceSite: "https://www.ltnovels.com", sourceName: "Ltnovel", options: { versionIncrements: 1 }, filters: { sort: { type: "Picker", label: "Sort By", value: "onclick", options: [{ label: "New", value: "newstime" }, { label: "Popular", value: "onclick" }, { label: "Updates", value: "lastdotime" }] }, status: { type: "Picker", label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Completed", value: "Completed" }, { label: "Ongoing", value: "Ongoing" }] }, genres: { type: "Picker", label: "Genre / Category", value: "", options: [{ label: "All", value: "all" }, { label: "Action", value: "action" }, { label: "Adult", value: "adult" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Contemporary Romance", value: "contemporary-romance" }, { label: "Drama", value: "drama" }, { label: "Eastern Fantasy", value: "eastern-fantasy" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Fantasy Romance", value: "fantasy-romance" }, { label: "Game", value: "game" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Lolicon", value: "lolicon" }, { label: "Magical Realism", value: "magical-realism" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Video Games", value: "video-games" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }] }, tags: { type: "Picker", label: "Tags", value: "", options: [{ label: "NONE", value: "" }, { label: "action", value: "639" }, { label: "Adventure", value: "657" }, { label: "Academy", value: "43" }, { label: "Alchemy", value: "46" }, { label: "ArrogantCh", value: "4" }, { label: "Artifacts", value: "127" }, { label: "Apocalypse", value: "206" }, { label: "AntiheroPr", value: "173" }, { label: "AdaptedtoM", value: "2" }, { label: "AlternateW", value: "205" }, { label: "Aristocrac", value: "123" }, { label: "AdaptedtoM", value: "167" }, { label: "ArrangedMa", value: "126" }, { label: "AncientChi", value: "164" }, { label: "AgeProgres", value: "208" }, { label: "Adventurer", value: "171" }, { label: "ArmyBuildi", value: "105" }, { label: "Antihero", value: "858" }, { label: "Assassins", value: "107" }, { label: "Accelerate", value: "163" }, { label: "AncientTim", value: "193" }, { label: "Appearance", value: "23" }, { label: "Angels", value: "104" }, { label: "AdaptedtoM", value: "249" }, { label: "Aliens", value: "137" }, { label: "Acting", value: "1" }, { label: "Amnesia", value: "131" }, { label: "AdaptedtoA", value: "144" }, { label: "AbsentPare", value: "250" }, { label: "AbusiveCha", value: "196" }, { label: "Army", value: "125" }, { label: "ArtifactCr", value: "140" }, { label: "AbilitySte", value: "166" }, { label: "AdaptedtoD", value: "145" }, { label: "AbandonedC", value: "213" }, { label: "ApatheticP", value: "169" }, { label: "AgeRegress", value: "283" }, { label: "Archery", value: "24" }, { label: "AdoptedPro", value: "211" }, { label: "AdoptedChi", value: "326" }, { label: "AdaptedtoD", value: "170" }, { label: "Anl", value: "178" }, { label: "advancedte", value: "804" }, { label: "Androids", value: "408" }, { label: "Aggressive", value: "440" }, { label: "Adultery", value: "573" }, { label: "Alpha", value: "853" }, { label: "Abandoned", value: "910" }, { label: "AdaptedtoG", value: "225" }, { label: "AnimalRear", value: "409" }, { label: "AwkwardPro", value: "304" }, { label: "Affair", value: "217" }, { label: "Automatons", value: "236" }, { label: "AdaptedtoM", value: "479" }, { label: "Artists", value: "492" }, { label: "AntiqueSho", value: "493" }, { label: "AdaptedtoV", value: "485" }, { label: "Anti-Magic", value: "527" }, { label: "ArmsDealer", value: "569" }, { label: "Award-winn", value: "593" }, { label: "Angel", value: "955" }, { label: "ApartmentL", value: "327" }, { label: "AmusementP", value: "462" }, { label: "Angst", value: "617" }, { label: "All-GirlsS", value: "682" }, { label: "ADeadBody", value: "883" }, { label: "Anime", value: "952" }, { label: "Androgynou", value: "3" }, { label: "Average-lo", value: "49" }, { label: "Artificial", value: "106" }, { label: "Appearance", value: "122" }, { label: "AnimalChar", value: "172" }, { label: "Anti-socia", value: "194" }, { label: "Astrologer", value: "419" }, { label: "Autism", value: "555" }, { label: "Alchemist", value: "616" }, { label: "AkamegaKil", value: "703" }, { label: "AmoralityP", value: "711" }, { label: "Avatar&amp", value: "788" }, { label: "Attractive", value: "795" }, { label: "AbsoluteDu", value: "824" }, { label: "ASOIAF", value: "838" }, { label: "APsychicDe", value: "885" }, { label: "BeautifulF", value: "5" }, { label: "Betrayal", value: "6" }, { label: "BeastCompa", value: "27" }, { label: "Bloodlines", value: "32" }, { label: "BodyTemper", value: "34" }, { label: "BusinessMa", value: "121" }, { label: "Beasts", value: "29" }, { label: "BlackBelly", value: "129" }, { label: "Beastkin", value: "179" }, { label: "BrokenEnga", value: "120" }, { label: "BattleAcad", value: "146" }, { label: "Blacksmith", value: "192" }, { label: "BickeringC", value: "218" }, { label: "Businessme", value: "376" }, { label: "Brotherhoo", value: "293" }, { label: "BattleComp", value: "128" }, { label: "Bullying", value: "141" }, { label: "BrotherCom", value: "311" }, { label: "Buddhism", value: "209" }, { label: "Books", value: "54" }, { label: "Blackmail", value: "320" }, { label: "Bookworm", value: "56" }, { label: "Bodyguards", value: "431" }, { label: "BDSM", value: "508" }, { label: "Beasttamin", value: "859" }, { label: "Bloodpumpi", value: "860" }, { label: "Beauty", value: "898" }, { label: "BloodManip", value: "441" }, { label: "Brainwashi", value: "528" }, { label: "BisexualPr", value: "480" }, { label: "BeautifulC", value: "669" }, { label: "Badboy", value: "881" }, { label: "Butlers", value: "421" }, { label: "BreastFeti", value: "489" }, { label: "BodySwap", value: "628" }, { label: "BasedonanA", value: "719" }, { label: "Bl", value: "867" }, { label: "BlindProta", value: "358" }, { label: "Body-doubl", value: "533" }, { label: "Baby", value: "915" }, { label: "Biochip", value: "471" }, { label: "Basketball", value: "587" }, { label: "BasedonaVi", value: "644" }, { label: "BasedonaMo", value: "770" }, { label: "Bleach", value: "802" }, { label: "Businesswo", value: "901" }, { label: "Boss-Subor", value: "329" }, { label: "Bands", value: "565" }, { label: "Baseball", value: "585" }, { label: "BasedonaVi", value: "721" }, { label: "BasedonaSo", value: "726" }, { label: "Beatthemal", value: "871" }, { label: "Beatthefem", value: "872" }, { label: "Bigshot", value: "951" }, { label: "Billionair", value: "975" }, { label: "Chinese", value: "808" }, { label: "Cultivatio", value: "42" }, { label: "ChineseNov", value: "807" }, { label: "CalmProtag", value: "36" }, { label: "CleverProt", value: "11" }, { label: "Cheats", value: "60" }, { label: "CharacterG", value: "158" }, { label: "CunningPro", value: "45" }, { label: "Comedy", value: "584" }, { label: "ColdProtag", value: "38" }, { label: "CaringProt", value: "7" }, { label: "ConfidentP", value: "40" }, { label: "ComedicUnd", value: "264" }, { label: "ColdLoveIn", value: "165" }, { label: "CautiousPr", value: "157" }, { label: "Childcare", value: "9" }, { label: "Cooking", value: "245" }, { label: "CarefreePr", value: "219" }, { label: "Celebritie", value: "8" }, { label: "CharmingPr", value: "59" }, { label: "ChildhoodF", value: "240" }, { label: "Crafting", value: "108" }, { label: "CuteProtag", value: "248" }, { label: "CuteChildr", value: "14" }, { label: "CoupleGrow", value: "214" }, { label: "CEO", value: "623" }, { label: "CruelChara", value: "284" }, { label: "ChildProta", value: "210" }, { label: "Conquer", value: "863" }, { label: "Crime", value: "220" }, { label: "ClingyLove", value: "180" }, { label: "Contracts", value: "312" }, { label: "ClanBuildi", value: "159" }, { label: "ChildhoodL", value: "10" }, { label: "Campus", value: "927" }, { label: "Curses", value: "328" }, { label: "Cross-dres", value: "13" }, { label: "ChildAbuse", value: "331" }, { label: "Corruption", value: "138" }, { label: "CuteStory", value: "496" }, { label: "Cannibalis", value: "294" }, { label: "CollegeorU", value: "224" }, { label: "Cohabitati", value: "404" }, { label: "Clones", value: "61" }, { label: "CuriousPro", value: "720" }, { label: "ChatRooms", value: "383" }, { label: "CosmicWars", value: "422" }, { label: "Cnnilingus", value: "509" }, { label: "Criminals", value: "517" }, { label: "Conditiona", value: "490" }, { label: "CowardlyPr", value: "174" }, { label: "Chefs", value: "359" }, { label: "ChildishPr", value: "515" }, { label: "Cousins", value: "181" }, { label: "ComingofAg", value: "464" }, { label: "Clubs", value: "576" }, { label: "ChildhoodP", value: "318" }, { label: "Conflictin", value: "458" }, { label: "CourtOffic", value: "465" }, { label: "CardGames", value: "478" }, { label: "ClumsyLove", value: "499" }, { label: "Coma", value: "544" }, { label: "Co-Workers", value: "541" }, { label: "Cheat", value: "771" }, { label: "Crossover", value: "366" }, { label: "Chuunibyou", value: "474" }, { label: "CollegeUni", value: "536" }, { label: "Confinemen", value: "684" }, { label: "CharacterD", value: "742" }, { label: "Childhoods", value: "870" }, { label: "Crossdress", value: "933" }, { label: "ComplexFam", value: "12" }, { label: "Charismati", value: "58" }, { label: "Cryostasis", value: "553" }, { label: "Chatgroup", value: "608" }, { label: "ChaptersRe", value: "687" }, { label: "Charlotte(", value: "704" }, { label: "Cyberpunk", value: "792" }, { label: "Chivalryof", value: "823" }, { label: "CatchaGhos", value: "893" }, { label: "Crush", value: "919" }, { label: "Contractma", value: "930" }, { label: "Coolguy", value: "966" }, { label: "Counteratt", value: "968" }, { label: "ClassroomO", value: "969" }, { label: "Demons", value: "65" }, { label: "Dark", value: "317" }, { label: "Dragons", value: "48" }, { label: "DevotedLov", value: "70" }, { label: "Dungeons", value: "110" }, { label: "DenseProta", value: "67" }, { label: "DotingLove", value: "15" }, { label: "Depictions", value: "130" }, { label: "DeathofLov", value: "139" }, { label: "DemonLord", value: "147" }, { label: "Demi-Human", value: "226" }, { label: "Doctors", value: "72" }, { label: "Dwarfs", value: "111" }, { label: "Death", value: "406" }, { label: "DaoCompreh", value: "47" }, { label: "DotingPare", value: "360" }, { label: "DotingOlde", value: "227" }, { label: "Discrimina", value: "132" }, { label: "Dragon", value: "610" }, { label: "Detectives", value: "221" }, { label: "DomesticAf", value: "246" }, { label: "Destiny", value: "305" }, { label: "Divorce", value: "215" }, { label: "Disabiliti", value: "633" }, { label: "Depression", value: "306" }, { label: "DragonSlay", value: "361" }, { label: "DivineProt", value: "399" }, { label: "DungeonMas", value: "502" }, { label: "Daoism", value: "212" }, { label: "Devil", value: "934" }, { label: "DaoCompani", value: "168" }, { label: "Devils", value: "613" }, { label: "Dreams", value: "477" }, { label: "Delinquent", value: "675" }, { label: "Dramatic", value: "926" }, { label: "Divination", value: "384" }, { label: "Drugs", value: "390" }, { label: "Druids", value: "395" }, { label: "Debts", value: "562" }, { label: "Dystopia", value: "564" }, { label: "DishonestP", value: "643" }, { label: "DragonRide", value: "668" }, { label: "Doctor", value: "902" }, { label: "DollsorPup", value: "579" }, { label: "Disfigurem", value: "420" }, { label: "DeadProtag", value: "698" }, { label: "Determined", value: "109" }, { label: "DemonicCul", value: "195" }, { label: "Delusions", value: "443" }, { label: "DifferentS", value: "466" }, { label: "Dancers", value: "566" }, { label: "doppelgang", value: "625" }, { label: "Distrustfu", value: "653" }, { label: "Divination", value: "685" }, { label: "DoulouDalu", value: "700" }, { label: "Diplomacy", value: "728" }, { label: "Dwarves", value: "740" }, { label: "DouluoDalu", value: "787" }, { label: "DanMachi", value: "789" }, { label: "DragonBall", value: "791" }, { label: "Detailed", value: "900" }, { label: "Detective", value: "970" }, { label: "Evolution", value: "265" }, { label: "Elves", value: "113" }, { label: "EuropeanAm", value: "261" }, { label: "ElementalM", value: "160" }, { label: "EarlyRoman", value: "133" }, { label: "EvilProtag", value: "411" }, { label: "EasternSet", value: "597" }, { label: "EvilGods", value: "232" }, { label: "EyePowers", value: "51" }, { label: "EnemiesBec", value: "175" }, { label: "EideticMem", value: "50" }, { label: "Empires", value: "182" }, { label: "EnemiesBec", value: "134" }, { label: "EvilReligi", value: "161" }, { label: "EvilOrgani", value: "207" }, { label: "Economics", value: "112" }, { label: "Engagement", value: "307" }, { label: "Ecchi", value: "956" }, { label: "Episodic", value: "222" }, { label: "Exorcism", value: "646" }, { label: "Enemiestol", value: "875" }, { label: "EasyGoingL", value: "400" }, { label: "Egoist", value: "957" }, { label: "Entertainm", value: "830" }, { label: "e-Sports", value: "271" }, { label: "Exhibition", value: "511" }, { label: "Enlightenm", value: "75" }, { label: "EarthInvas", value: "423" }, { label: "ElderlyPro", value: "649" }, { label: "Engineer", value: "135" }, { label: "Emotionall", value: "321" }, { label: "Elementali", value: "622" }, { label: "Eunuch", value: "753" }, { label: "EvilSpirit", value: "892" }, { label: "Ex", value: "908" }, { label: "Esper", value: "976" }, { label: "FemaleProt", value: "16" }, { label: "FantasyWor", value: "136" }, { label: "FastCultiv", value: "78" }, { label: "Fanfiction", value: "282" }, { label: "Friendship", value: "177" }, { label: "First-time", value: "183" }, { label: "FamousProt", value: "176" }, { label: "FamilialLo", value: "347" }, { label: "FantasyCre", value: "115" }, { label: "faceslappi", value: "632" }, { label: "FastLearne", value: "80" }, { label: "Family", value: "354" }, { label: "Futuristic", value: "308" }, { label: "FirstLove", value: "279" }, { label: "Firearms", value: "17" }, { label: "FamilyConf", value: "335" }, { label: "Farming", value: "247" }, { label: "Fairies", value: "114" }, { label: "Fllatio", value: "184" }, { label: "FearlessPr", value: "497" }, { label: "FatedLover", value: "116" }, { label: "FamousPare", value: "438" }, { label: "Fastpaced", value: "938" }, { label: "ForcedMarr", value: "198" }, { label: "FattoFit", value: "488" }, { label: "Familiars", value: "556" }, { label: "Filipino", value: "813" }, { label: "Future", value: "868" }, { label: "FemaleMast", value: "510" }, { label: "FilipinoNo", value: "812" }, { label: "Fatedlove", value: "888" }, { label: "FamilyBusi", value: "437" }, { label: "Forbiddenl", value: "899" }, { label: "FormerHero", value: "627" }, { label: "FriendsBec", value: "407" }, { label: "FleetBattl", value: "424" }, { label: "Flashbacks", value: "459" }, { label: "FoxSpirits", value: "531" }, { label: "FatProtago", value: "567" }, { label: "FemaleLead", value: "575" }, { label: "FallenAnge", value: "618" }, { label: "FallenNobi", value: "619" }, { label: "Fantasy", value: "781" }, { label: "FairyTail", value: "674" }, { label: "FemaletoMa", value: "727" }, { label: "FantasyMag", value: "748" }, { label: "FengShui", value: "762" }, { label: "Friendstol", value: "903" }, { label: "Forcedinto", value: "197" }, { label: "Folklore", value: "460" }, { label: "Futanari", value: "512" }, { label: "FoodShopke", value: "592" }, { label: "Fellatio", value: "723" }, { label: "Fan-fictio", value: "755" }, { label: "First-time", value: "765" }, { label: "Fatestayni", value: "834" }, { label: "Fantasyrom", value: "939" }, { label: "Fastpace", value: "967" }, { label: "Fiction", value: "974" }, { label: "GameElemen", value: "117" }, { label: "GeniusProt", value: "143" }, { label: "Gods", value: "52" }, { label: "Guilds", value: "119" }, { label: "Gore", value: "237" }, { label: "Gamers", value: "272" }, { label: "Genius", value: "862" }, { label: "Ghosts", value: "367" }, { label: "Goddesses", value: "336" }, { label: "GatetoAnot", value: "337" }, { label: "GameRankin", value: "118" }, { label: "GodlyPower", value: "162" }, { label: "GodProtago", value: "287" }, { label: "GeneticMod", value: "295" }, { label: "Grinding", value: "377" }, { label: "Gangs", value: "142" }, { label: "Goblins", value: "346" }, { label: "Gunfighter", value: "482" }, { label: "Golems", value: "270" }, { label: "Generals", value: "369" }, { label: "Grimdark", value: "827" }, { label: "Gambling", value: "330" }, { label: "Gladiators", value: "534" }, { label: "GenderBend", value: "634" }, { label: "Galge", value: "741" }, { label: "Game", value: "769" }, { label: "GameofThro", value: "837" }, { label: "Gettingbac", value: "907" }, { label: "God-humanR", value: "185" }, { label: "GraveKeepe", value: "647" }, { label: "Genderless", value: "699" }, { label: "Girl&amp03", value: "746" }, { label: "Glasses-we", value: "778" }, { label: "GameLit", value: "844" }, { label: "GhostEvent", value: "886" }, { label: "HandsomeMa", value: "18" }, { label: "Harem", value: "650" }, { label: "HidingTrue", value: "57" }, { label: "HidingTrue", value: "251" }, { label: "HiddenAbil", value: "333" }, { label: "HumanoidPr", value: "289" }, { label: "Heroes", value: "288" }, { label: "Heartwarmi", value: "362" }, { label: "Hunters", value: "266" }, { label: "Historical", value: "874" }, { label: "Highiq", value: "920" }, { label: "HeavenlyTr", value: "148" }, { label: "HiddenGem", value: "538" }, { label: "HumanExper", value: "296" }, { label: "HighFantas", value: "821" }, { label: "Hackers", value: "216" }, { label: "HatedProta", value: "199" }, { label: "HonestProt", value: "385" }, { label: "Healers", value: "500" }, { label: "Hndjob", value: "187" }, { label: "Hell", value: "503" }, { label: "HarryPotte", value: "715" }, { label: "Healing", value: "760" }, { label: "Hypnotism", value: "392" }, { label: "HelpfulPro", value: "453" }, { label: "Heterochro", value: "55" }, { label: "HarshTrain", value: "309" }, { label: "Heaven", value: "620" }, { label: "HighSchool", value: "702" }, { label: "Hospital", value: "535" }, { label: "HumanWeapo", value: "310" }, { label: "Herbalist", value: "442" }, { label: "Horror", value: "971" }, { label: "Hard-Worki", value: "53" }, { label: "Harem-seek", value: "186" }, { label: "Half-human", value: "235" }, { label: "Human-Nonh", value: "391" }, { label: "Hot-bloode", value: "413" }, { label: "Hentai", value: "532" }, { label: "Handjob", value: "545" }, { label: "history", value: "724" }, { label: "Hokage", value: "756" }, { label: "Hunter\xD7Hu", value: "767" }, { label: "HardSci-fi", value: "839" }, { label: "Heartthrob", value: "911" }, { label: "Hiddenmarr", value: "943" }, { label: "Isekai", value: "833" }, { label: "Immortals", value: "252" }, { label: "Incest", value: "355" }, { label: "Inheritanc", value: "149" }, { label: "Immortal", value: "851" }, { label: "Invincible", value: "954" }, { label: "Industrial", value: "468" }, { label: "Interstell", value: "963" }, { label: "ImperialHa", value: "374" }, { label: "Indonesia", value: "819" }, { label: "Investigat", value: "223" }, { label: "Inscriptio", value: "150" }, { label: "IndonesiaN", value: "818" }, { label: "Insects", value: "338" }, { label: "Inferiorit", value: "447" }, { label: "Interconne", value: "290" }, { label: "Introverte", value: "291" }, { label: "Interdimen", value: "425" }, { label: "Invisibili", value: "641" }, { label: "Incubus", value: "663" }, { label: "IsItWrongt", value: "825" }, { label: "IdentityCr", value: "831" }, { label: "Imposter", value: "854" }, { label: "Japanese", value: "806" }, { label: "Jealousy", value: "124" }, { label: "JackofAllT", value: "82" }, { label: "Korean", value: "810" }, { label: "KingdomBui", value: "486" }, { label: "KoreanNove", value: "811" }, { label: "Kingdoms", value: "253" }, { label: "Knights", value: "188" }, { label: "Kidnapping", value: "285" }, { label: "KindLoveIn", value: "348" }, { label: "Killer", value: "856" }, { label: "Kuudere", value: "501" }, { label: "Kendo", value: "604" }, { label: "Karma", value: "614" }, { label: "Kakashi", value: "757" }, { label: "LightNovel", value: "809" }, { label: "LevelSyste", value: "239" }, { label: "LitRPG", value: "539" }, { label: "Levelup", value: "847" }, { label: "LuckyProta", value: "21" }, { label: "Loli", value: "189" }, { label: "LoyalSubor", value: "241" }, { label: "LazyProtag", value: "254" }, { label: "LateRomanc", value: "19" }, { label: "LackofComm", value: "439" }, { label: "Low-keyPro", value: "313" }, { label: "LongSepara", value: "190" }, { label: "Leadership", value: "238" }, { label: "LoveatFirs", value: "461" }, { label: "LoveTriang", value: "349" }, { label: "LonerProta", value: "426" }, { label: "Lovetriang", value: "905" }, { label: "Legends", value: "151" }, { label: "Library", value: "85" }, { label: "Lolicon", value: "286" }, { label: "LimitedLif", value: "86" }, { label: "Lottery", value: "563" }, { label: "LoversReun", value: "350" }, { label: "LGBTQA", value: "601" }, { label: "LoveRivals", value: "676" }, { label: "LowFantasy", value: "796" }, { label: "LoveIntere", value: "20" }, { label: "LostCivili", value: "455" }, { label: "LittleRoma", value: "581" }, { label: "Loneliness", value: "694" }, { label: "leonine", value: "695" }, { label: "LivingAlon", value: "733" }, { label: "Littlebun", value: "931" }, { label: "Loveafterm", value: "962" }, { label: "MaleProtag", value: "63" }, { label: "Magic", value: "292" }, { label: "ModernDay", value: "25" }, { label: "Monsters", value: "64" }, { label: "Mystery", value: "848" }, { label: "MultiplePO", value: "258" }, { label: "Misunderst", value: "22" }, { label: "ModernKnow", value: "274" }, { label: "MultipleRe", value: "66" }, { label: "Military", value: "257" }, { label: "MMORPG", value: "454" }, { label: "Marriage", value: "191" }, { label: "MagicBeast", value: "339" }, { label: "MoneyGrubb", value: "90" }, { label: "MagicalTec", value: "273" }, { label: "MagicForma", value: "62" }, { label: "Mythology", value: "469" }, { label: "MagicalSpa", value: "228" }, { label: "Mysterious", value: "298" }, { label: "MatureProt", value: "256" }, { label: "MythicalBe", value: "356" }, { label: "Medieval", value: "580" }, { label: "MonsterTam", value: "267" }, { label: "MedicalKno", value: "351" }, { label: "MutatedCre", value: "268" }, { label: "MaletoFema", value: "635" }, { label: "Maids", value: "255" }, { label: "Management", value: "487" }, { label: "Mafia", value: "877" }, { label: "Myth", value: "924" }, { label: "Music", value: "332" }, { label: "MaleYander", value: "401" }, { label: "MultiplePr", value: "655" }, { label: "MysterySol", value: "578" }, { label: "Mercenarie", value: "314" }, { label: "MultipleId", value: "345" }, { label: "Martialart", value: "549" }, { label: "Murders", value: "636" }, { label: "Movies", value: "26" }, { label: "Mutations", value: "297" }, { label: "Mecha", value: "394" }, { label: "Marvel", value: "651" }, { label: "Mutation", value: "945" }, { label: "Merchants", value: "557" }, { label: "MindContro", value: "577" }, { label: "MonsterGir", value: "664" }, { label: "Malaysian", value: "817" }, { label: "MartialSpi", value: "414" }, { label: "MagicalGir", value: "543" }, { label: "MobProtago", value: "734" }, { label: "ModernWorl", value: "686" }, { label: "ModernFant", value: "688" }, { label: "Mysterious", value: "526" }, { label: "Mpreg", value: "546" }, { label: "MuteCharac", value: "568" }, { label: "MagicAcade", value: "590" }, { label: "Msturbatio", value: "677" }, { label: "ManlyGayCo", value: "754" }, { label: "MaleLead", value: "797" }, { label: "Mythos", value: "799" }, { label: "MalaysianN", value: "816" }, { label: "Multiplele", value: "942" }, { label: "Manipulati", value: "87" }, { label: "Master-Dis", value: "88" }, { label: "Master-Ser", value: "89" }, { label: "Mysterious", value: "152" }, { label: "Models", value: "280" }, { label: "MultipleRe", value: "463" }, { label: "Masochisti", value: "523" }, { label: "MultipleTr", value: "558" }, { label: "Mage", value: "631" }, { label: "Masturbati", value: "671" }, { label: "Multiverse", value: "681" }, { label: "Marriageof", value: "718" }, { label: "MonsterSoc", value: "739" }, { label: "MyHeroAcad", value: "751" }, { label: "MultipleTi", value: "761" }, { label: "Massacre", value: "790" }, { label: "MultipleLe", value: "798" }, { label: "MultiplePe", value: "801" }, { label: "Mysterious", value: "882" }, { label: "Modern", value: "909" }, { label: "Marysue", value: "921" }, { label: "Mature", value: "928" }, { label: "Mag", value: "953" }, { label: "Monster", value: "960" }, { label: "ModernLife", value: "972" }, { label: "Nobles", value: "259" }, { label: "Non-humanP", value: "665" }, { label: "NaiveProta", value: "322" }, { label: "Nationalis", value: "262" }, { label: "Necromance", value: "315" }, { label: "NotHarem", value: "599" }, { label: "NA", value: "814" }, { label: "Nonhuman", value: "904" }, { label: "No-Harem", value: "935" }, { label: "Netori", value: "498" }, { label: "Naruto", value: "652" }, { label: "NoRomance", value: "642" }, { label: "Near-Death", value: "28" }, { label: "Ninjas", value: "521" }, { label: "NPC", value: "842" }, { label: "Nudity", value: "472" }, { label: "Netorare", value: "707" }, { label: "NoCheats", value: "845" }, { label: "Non-humano", value: "427" }, { label: "Narcissist", value: "432" }, { label: "NotYaoi", value: "691" }, { label: "Neet", value: "758" }, { label: "Nurses", value: "766" }, { label: "Non-Humanl", value: "822" }, { label: "Overpowere", value: "846" }, { label: "OlderLoveI", value: "396" }, { label: "Orphans", value: "397" }, { label: "Orcs", value: "363" }, { label: "OuterSpace", value: "378" }, { label: "OrganizedC", value: "380" }, { label: "OtomeGame", value: "735" }, { label: "ordinary", value: "747" }, { label: "OnePiece", value: "785" }, { label: "ObsessiveL", value: "494" }, { label: "OfficeRoma", value: "648" }, { label: "Overlord", value: "743" }, { label: "Onenightst", value: "917" }, { label: "Overpowere", value: "91" }, { label: "Outcasts", value: "583" }, { label: "Overprotec", value: "729" }, { label: "OriginalON", value: "793" }, { label: "Omegaverse", value: "918" }, { label: "Overpowere", value: "961" }, { label: "PoortoRich", value: "229" }, { label: "Polygamy", value: "71" }, { label: "PowerCoupl", value: "33" }, { label: "Politics", value: "242" }, { label: "Pregnancy", value: "35" }, { label: "Pets", value: "69" }, { label: "Possessive", value: "31" }, { label: "Post-apoca", value: "299" }, { label: "Possessive", value: "850" }, { label: "Powerfulco", value: "852" }, { label: "PastPlaysa", value: "200" }, { label: "PoorProtag", value: "476" }, { label: "ProactiveP", value: "316" }, { label: "Parody", value: "386" }, { label: "PreviousLi", value: "467" }, { label: "PervertedP", value: "448" }, { label: "PillConcoc", value: "92" }, { label: "PsychicPow", value: "260" }, { label: "Police", value: "518" }, { label: "ParallelWo", value: "507" }, { label: "PastTrauma", value: "201" }, { label: "Psychopath", value: "561" }, { label: "PragmaticP", value: "660" }, { label: "Princess", value: "879" }, { label: "Personalit", value: "68" }, { label: "Poisons", value: "93" }, { label: "Phoenixes", value: "153" }, { label: "Prison", value: "444" }, { label: "Pirates", value: "547" }, { label: "Priests", value: "654" }, { label: "PlayfulPro", value: "701" }, { label: "Pokemon", value: "779" }, { label: "PortalFant", value: "836" }, { label: "PopularLov", value: "30" }, { label: "Possession", value: "357" }, { label: "PowerStrug", value: "370" }, { label: "Progressio", value: "800" }, { label: "Positive", value: "948" }, { label: "ParentComp", value: "393" }, { label: "Prophecies", value: "572" }, { label: "Programmer", value: "667" }, { label: "Philosophi", value: "456" }, { label: "Protagonis", value: "705" }, { label: "Psychologi", value: "713" }, { label: "Priestesse", value: "717" }, { label: "Protagonis", value: "94" }, { label: "Protagonis", value: "381" }, { label: "Protagonis", value: "403" }, { label: "PillBasedC", value: "415" }, { label: "Polyandry", value: "519" }, { label: "PreviousLi", value: "529" }, { label: "Pharmacist", value: "574" }, { label: "Planets", value: "607" }, { label: "Parasites", value: "629" }, { label: "Playboys", value: "630" }, { label: "Paizuri", value: "670" }, { label: "Precogniti", value: "710" }, { label: "Protagonis", value: "737" }, { label: "PacifistPr", value: "744" }, { label: "Persistent", value: "749" }, { label: "Pilots", value: "780" }, { label: "Popular", value: "894" }, { label: "PrettyGirl", value: "895" }, { label: "QuirkyChar", value: "387" }, { label: "Reincarnat", value: "74" }, { label: "R18", value: "855" }, { label: "Romance", value: "638" }, { label: "R-18", value: "417" }, { label: "Revenge", value: "37" }, { label: "RomanticSu", value: "154" }, { label: "RuthlessPr", value: "76" }, { label: "Royalty", value: "243" }, { label: "Rpe", value: "203" }, { label: "Racism", value: "379" }, { label: "Rebirth", value: "491" }, { label: "Religions", value: "398" }, { label: "R-15", value: "559" }, { label: "Royalfamil", value: "873" }, { label: "Rarebloodl", value: "864" }, { label: "Rape", value: "530" }, { label: "Restaurant", value: "364" }, { label: "RighteousP", value: "540" }, { label: "Resurrecti", value: "552" }, { label: "RankSystem", value: "595" }, { label: "RaceChange", value: "73" }, { label: "ReverseRpe", value: "483" }, { label: "ReverseRap", value: "690" }, { label: "Rebellion", value: "750" }, { label: "RichProtag", value: "803" }, { label: "Richfamily", value: "889" }, { label: "Reincarnat", value: "95" }, { label: "RpeVictimB", value: "202" }, { label: "Returningf", value: "412" }, { label: "Reincarnat", value: "428" }, { label: "Raids", value: "436" }, { label: "ReverseHar", value: "520" }, { label: "Reincarnat", value: "605" }, { label: "Reincarnat", value: "689" }, { label: "ResolutePr", value: "697" }, { label: "Reincarnat", value: "722" }, { label: "RWBY", value: "829" }, { label: "Races", value: "841" }, { label: "Righteous", value: "947" }, { label: "System", value: "537" }, { label: "SpecialAbi", value: "269" }, { label: "SwordAndMa", value: "344" }, { label: "Superpower", value: "782" }, { label: "SliceofLif", value: "621" }, { label: "Survival", value: "302" }, { label: "SecondChan", value: "281" }, { label: "SystemAdmi", value: "277" }, { label: "StrongtoSt", value: "450" }, { label: "StrongLove", value: "156" }, { label: "SlowRomanc", value: "231" }, { label: "ShamelessP", value: "97" }, { label: "SecretIden", value: "96" }, { label: "SwordWield", value: "100" }, { label: "Showbiz", value: "39" }, { label: "SummoningM", value: "343" }, { label: "Strategist", value: "435" }, { label: "Smut", value: "516" }, { label: "Sweetlove", value: "865" }, { label: "SurvivalGa", value: "368" }, { label: "Spirits", value: "372" }, { label: "Sects", value: "410" }, { label: "SlowCultiv", value: "624" }, { label: "SkillAssim", value: "371" }, { label: "SkillCreat", value: "352" }, { label: "StrategicB", value: "373" }, { label: "Summons", value: "913" }, { label: "SuddenStre", value: "77" }, { label: "SlowGrowth", value: "341" }, { label: "SoulPower", value: "452" }, { label: "Spaceship", value: "600" }, { label: "Souls", value: "99" }, { label: "Saves", value: "300" }, { label: "StoreOwner", value: "276" }, { label: "SentientOb", value: "353" }, { label: "SectDevelo", value: "475" }, { label: "SecretOrga", value: "548" }, { label: "Space", value: "716" }, { label: "SummonedHe", value: "560" }, { label: "Sweet", value: "916" }, { label: "SmartCoupl", value: "41" }, { label: "SpatialMan", value: "233" }, { label: "Scientists", value: "388" }, { label: "SkillBooks", value: "434" }, { label: "Shapeshift", value: "944" }, { label: "ShyCharact", value: "98" }, { label: "SealedPowe", value: "155" }, { label: "SuddenWeal", value: "342" }, { label: "SelfishPro", value: "470" }, { label: "Siblings", value: "505" }, { label: "Slaves", value: "678" }, { label: "SuperHeroe", value: "725" }, { label: "Scary", value: "937" }, { label: "Singlefema", value: "946" }, { label: "SportsBask", value: "588" }, { label: "SpiritUser", value: "645" }, { label: "Sci-fi", value: "679" }, { label: "Superstar", value: "922" }, { label: "SxualAbuse", value: "204" }, { label: "Secrets", value: "319" }, { label: "SinglePare", value: "365" }, { label: "Soldiers", value: "449" }, { label: "Saints", value: "481" }, { label: "SpiritAdvi", value: "484" }, { label: "SpearWield", value: "524" }, { label: "Suicides", value: "656" }, { label: "Seduction", value: "672" }, { label: "Succubus", value: "673" }, { label: "Samurai", value: "683" }, { label: "SadisticCh", value: "692" }, { label: "SicklyChar", value: "712" }, { label: "SelflessPr", value: "738" }, { label: "Satire", value: "835" }, { label: "Serious", value: "936" }, { label: "Seductive", value: "949" }, { label: "Supernatur", value: "964" }, { label: "SexualCult", value: "230" }, { label: "SchemesAnd", value: "244" }, { label: "Sleeping", value: "275" }, { label: "Strength-b", value: "301" }, { label: "SiblingsNo", value: "340" }, { label: "SevenDeadl", value: "416" }, { label: "Sharp-tong", value: "457" }, { label: "StockholmS", value: "495" }, { label: "Student-Te", value: "513" }, { label: "Shapeshift", value: "525" }, { label: "Skyrim", value: "554" }, { label: "Sports", value: "586" }, { label: "SoundMagic", value: "591" }, { label: "Shounen-Ai", value: "596" }, { label: "Sci-Fantas", value: "606" }, { label: "slow-roman", value: "626" }, { label: "SecretRela", value: "658" }, { label: "SisterComp", value: "659" }, { label: "Shoujo-AiS", value: "661" }, { label: "SecretiveP", value: "708" }, { label: "sciencefic", value: "714" }, { label: "SexualAbus", value: "730" }, { label: "Spies", value: "731" }, { label: "StubbornPr", value: "736" }, { label: "SaveProtag", value: "772" }, { label: "Sibling&am", value: "774" }, { label: "SeeingThin", value: "776" }, { label: "SxFriends", value: "777" }, { label: "SharingABo", value: "783" }, { label: "SerialKill", value: "786" }, { label: "Singers", value: "832" }, { label: "SoftSci-fi", value: "840" }, { label: "Strategy", value: "843" }, { label: "Smartprota", value: "876" }, { label: "Strongfl", value: "878" }, { label: "Secretive", value: "890" }, { label: "SuperAbili", value: "891" }, { label: "Stepmom", value: "912" }, { label: "Secretary", value: "932" }, { label: "Studenttea", value: "940" }, { label: "Strongfema", value: "950" }, { label: "Sekai", value: "958" }, { label: "Signin", value: "977" }, { label: "Transmigra", value: "102" }, { label: "Tragedy", value: "794" }, { label: "TimeTravel", value: "389" }, { label: "Thestronga", value: "914" }, { label: "TimeSkip", value: "234" }, { label: "Technologi", value: "429" }, { label: "TragicPast", value: "44" }, { label: "Tsundere", value: "382" }, { label: "TimeManipu", value: "263" }, { label: "Thriller", value: "637" }, { label: "Teachers", value: "101" }, { label: "Twins", value: "506" }, { label: "Thieves", value: "514" }, { label: "Teamwork", value: "542" }, { label: "ThaiNovel", value: "815" }, { label: "TimeLoop", value: "696" }, { label: "Twisted", value: "906" }, { label: "TimeParado", value: "430" }, { label: "TimidProta", value: "473" }, { label: "Torture", value: "589" }, { label: "TwistedPer", value: "693" }, { label: "Threesome", value: "706" }, { label: "Teen", value: "857" }, { label: "Terrori", value: "884" }, { label: "Transporte", value: "103" }, { label: "Transporte", value: "278" }, { label: "Transporte", value: "375" }, { label: "Trap", value: "405" }, { label: "Transforma", value: "612" }, { label: "Tentacles", value: "666" }, { label: "Talesof\xA0D", value: "752" }, { label: "Transmigra", value: "764" }, { label: "Transplant", value: "768" }, { label: "Transporte", value: "784" }, { label: "TheAsteris", value: "826" }, { label: "TheGamer", value: "828" }, { label: "Trialmarri", value: "880" }, { label: "TheParanor", value: "887" }, { label: "TheMainCha", value: "896" }, { label: "TheDevil", value: "897" }, { label: "Urban", value: "522" }, { label: "Unprincipl", value: "923" }, { label: "UniqueWeap", value: "418" }, { label: "Undead", value: "965" }, { label: "UnluckyPro", value: "611" }, { label: "Unconditio", value: "445" }, { label: "Unreliable", value: "451" }, { label: "UglytoBeau", value: "550" }, { label: "Underestim", value: "79" }, { label: "UniqueCult", value: "81" }, { label: "UniqueWeap", value: "582" }, { label: "Villain", value: "861" }, { label: "VirtualRea", value: "433" }, { label: "Videogame", value: "925" }, { label: "Vampire", value: "602" }, { label: "Vampires", value: "323" }, { label: "Villainess", value: "680" }, { label: "VoiceActor", value: "446" }, { label: "Vietnamese", value: "820" }, { label: "Villainpro", value: "941" }, { label: "VideoGames", value: "973" }, { label: "WebNovel", value: "805" }, { label: "WeaktoStro", value: "83" }, { label: "Wars", value: "303" }, { label: "WealthyCha", value: "334" }, { label: "WorldTrave", value: "84" }, { label: "WorldHoppi", value: "504" }, { label: "Wizards", value: "571" }, { label: "Werewolf", value: "849" }, { label: "Werebeasts", value: "325" }, { label: "WeakProtag", value: "324" }, { label: "Witches", value: "570" }, { label: "WorldTree", value: "640" }, { label: "WeektoStro", value: "609" }, { label: "Wishes", value: "615" }, { label: "Writers", value: "662" }, { label: "WebnovelSp", value: "709" }, { label: "Warhammer4", value: "732" }, { label: "WarRecords", value: "745" }, { label: "Wuxia", value: "759" }, { label: "Worlds", value: "869" }, { label: "Weak-to-st", value: "959" }, { label: "Xianxia", value: "603" }, { label: "Xuanhuan", value: "773" }, { label: "Yandere", value: "402" }, { label: "Yuri", value: "929" }, { label: "Yaoi", value: "866" }, { label: "YoungerLov", value: "551" }, { label: "YoungerSis", value: "763" }, { label: "YoungerBro", value: "775" }, { label: "Zombies", value: "594" }, { label: "Zombie", value: "598" }] } } });
-  exports.default = i;
+  }();
+  exports.ReadwnPlugin = i;
+  var r = new i({ id: "ltnovel", sourceSite: "https://www.ltnovels.com", sourceName: "Ltnovel", options: { versionIncrements: 1 }, filters: { sort: { type: "Picker", label: "Sort By", value: "onclick", options: [{ label: "New", value: "newstime" }, { label: "Popular", value: "onclick" }, { label: "Updates", value: "lastdotime" }] }, status: { type: "Picker", label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Completed", value: "Completed" }, { label: "Ongoing", value: "Ongoing" }] }, genres: { type: "Picker", label: "Genre / Category", value: "", options: [{ label: "All", value: "all" }, { label: "Action", value: "action" }, { label: "Adult", value: "adult" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Contemporary Romance", value: "contemporary-romance" }, { label: "Drama", value: "drama" }, { label: "Eastern Fantasy", value: "eastern-fantasy" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Fantasy Romance", value: "fantasy-romance" }, { label: "Game", value: "game" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Lolicon", value: "lolicon" }, { label: "Magical Realism", value: "magical-realism" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Video Games", value: "video-games" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }] }, tags: { type: "Picker", label: "Tags", value: "", options: [{ label: "NONE", value: "" }, { label: "action", value: "639" }, { label: "Adventure", value: "657" }, { label: "Academy", value: "43" }, { label: "Alchemy", value: "46" }, { label: "ArrogantCh", value: "4" }, { label: "Artifacts", value: "127" }, { label: "Apocalypse", value: "206" }, { label: "AntiheroPr", value: "173" }, { label: "AdaptedtoM", value: "2" }, { label: "AlternateW", value: "205" }, { label: "Aristocrac", value: "123" }, { label: "AdaptedtoM", value: "167" }, { label: "ArrangedMa", value: "126" }, { label: "AncientChi", value: "164" }, { label: "AgeProgres", value: "208" }, { label: "Adventurer", value: "171" }, { label: "ArmyBuildi", value: "105" }, { label: "Antihero", value: "858" }, { label: "Assassins", value: "107" }, { label: "Accelerate", value: "163" }, { label: "AncientTim", value: "193" }, { label: "Appearance", value: "23" }, { label: "Angels", value: "104" }, { label: "AdaptedtoM", value: "249" }, { label: "Aliens", value: "137" }, { label: "Acting", value: "1" }, { label: "Amnesia", value: "131" }, { label: "AdaptedtoA", value: "144" }, { label: "AbsentPare", value: "250" }, { label: "AbusiveCha", value: "196" }, { label: "Army", value: "125" }, { label: "ArtifactCr", value: "140" }, { label: "AbilitySte", value: "166" }, { label: "AdaptedtoD", value: "145" }, { label: "AbandonedC", value: "213" }, { label: "ApatheticP", value: "169" }, { label: "AgeRegress", value: "283" }, { label: "Archery", value: "24" }, { label: "AdoptedPro", value: "211" }, { label: "AdoptedChi", value: "326" }, { label: "AdaptedtoD", value: "170" }, { label: "Anl", value: "178" }, { label: "advancedte", value: "804" }, { label: "Androids", value: "408" }, { label: "Aggressive", value: "440" }, { label: "Adultery", value: "573" }, { label: "Alpha", value: "853" }, { label: "Abandoned", value: "910" }, { label: "AdaptedtoG", value: "225" }, { label: "AnimalRear", value: "409" }, { label: "AwkwardPro", value: "304" }, { label: "Affair", value: "217" }, { label: "Automatons", value: "236" }, { label: "AdaptedtoM", value: "479" }, { label: "Artists", value: "492" }, { label: "AntiqueSho", value: "493" }, { label: "AdaptedtoV", value: "485" }, { label: "Anti-Magic", value: "527" }, { label: "ArmsDealer", value: "569" }, { label: "Award-winn", value: "593" }, { label: "Angel", value: "955" }, { label: "ApartmentL", value: "327" }, { label: "AmusementP", value: "462" }, { label: "Angst", value: "617" }, { label: "All-GirlsS", value: "682" }, { label: "ADeadBody", value: "883" }, { label: "Anime", value: "952" }, { label: "Androgynou", value: "3" }, { label: "Average-lo", value: "49" }, { label: "Artificial", value: "106" }, { label: "Appearance", value: "122" }, { label: "AnimalChar", value: "172" }, { label: "Anti-socia", value: "194" }, { label: "Astrologer", value: "419" }, { label: "Autism", value: "555" }, { label: "Alchemist", value: "616" }, { label: "AkamegaKil", value: "703" }, { label: "AmoralityP", value: "711" }, { label: "Avatar&amp", value: "788" }, { label: "Attractive", value: "795" }, { label: "AbsoluteDu", value: "824" }, { label: "ASOIAF", value: "838" }, { label: "APsychicDe", value: "885" }, { label: "BeautifulF", value: "5" }, { label: "Betrayal", value: "6" }, { label: "BeastCompa", value: "27" }, { label: "Bloodlines", value: "32" }, { label: "BodyTemper", value: "34" }, { label: "BusinessMa", value: "121" }, { label: "Beasts", value: "29" }, { label: "BlackBelly", value: "129" }, { label: "Beastkin", value: "179" }, { label: "BrokenEnga", value: "120" }, { label: "BattleAcad", value: "146" }, { label: "Blacksmith", value: "192" }, { label: "BickeringC", value: "218" }, { label: "Businessme", value: "376" }, { label: "Brotherhoo", value: "293" }, { label: "BattleComp", value: "128" }, { label: "Bullying", value: "141" }, { label: "BrotherCom", value: "311" }, { label: "Buddhism", value: "209" }, { label: "Books", value: "54" }, { label: "Blackmail", value: "320" }, { label: "Bookworm", value: "56" }, { label: "Bodyguards", value: "431" }, { label: "BDSM", value: "508" }, { label: "Beasttamin", value: "859" }, { label: "Bloodpumpi", value: "860" }, { label: "Beauty", value: "898" }, { label: "BloodManip", value: "441" }, { label: "Brainwashi", value: "528" }, { label: "BisexualPr", value: "480" }, { label: "BeautifulC", value: "669" }, { label: "Badboy", value: "881" }, { label: "Butlers", value: "421" }, { label: "BreastFeti", value: "489" }, { label: "BodySwap", value: "628" }, { label: "BasedonanA", value: "719" }, { label: "Bl", value: "867" }, { label: "BlindProta", value: "358" }, { label: "Body-doubl", value: "533" }, { label: "Baby", value: "915" }, { label: "Biochip", value: "471" }, { label: "Basketball", value: "587" }, { label: "BasedonaVi", value: "644" }, { label: "BasedonaMo", value: "770" }, { label: "Bleach", value: "802" }, { label: "Businesswo", value: "901" }, { label: "Boss-Subor", value: "329" }, { label: "Bands", value: "565" }, { label: "Baseball", value: "585" }, { label: "BasedonaVi", value: "721" }, { label: "BasedonaSo", value: "726" }, { label: "Beatthemal", value: "871" }, { label: "Beatthefem", value: "872" }, { label: "Bigshot", value: "951" }, { label: "Billionair", value: "975" }, { label: "Chinese", value: "808" }, { label: "Cultivatio", value: "42" }, { label: "ChineseNov", value: "807" }, { label: "CalmProtag", value: "36" }, { label: "CleverProt", value: "11" }, { label: "Cheats", value: "60" }, { label: "CharacterG", value: "158" }, { label: "CunningPro", value: "45" }, { label: "Comedy", value: "584" }, { label: "ColdProtag", value: "38" }, { label: "CaringProt", value: "7" }, { label: "ConfidentP", value: "40" }, { label: "ComedicUnd", value: "264" }, { label: "ColdLoveIn", value: "165" }, { label: "CautiousPr", value: "157" }, { label: "Childcare", value: "9" }, { label: "Cooking", value: "245" }, { label: "CarefreePr", value: "219" }, { label: "Celebritie", value: "8" }, { label: "CharmingPr", value: "59" }, { label: "ChildhoodF", value: "240" }, { label: "Crafting", value: "108" }, { label: "CuteProtag", value: "248" }, { label: "CuteChildr", value: "14" }, { label: "CoupleGrow", value: "214" }, { label: "CEO", value: "623" }, { label: "CruelChara", value: "284" }, { label: "ChildProta", value: "210" }, { label: "Conquer", value: "863" }, { label: "Crime", value: "220" }, { label: "ClingyLove", value: "180" }, { label: "Contracts", value: "312" }, { label: "ClanBuildi", value: "159" }, { label: "ChildhoodL", value: "10" }, { label: "Campus", value: "927" }, { label: "Curses", value: "328" }, { label: "Cross-dres", value: "13" }, { label: "ChildAbuse", value: "331" }, { label: "Corruption", value: "138" }, { label: "CuteStory", value: "496" }, { label: "Cannibalis", value: "294" }, { label: "CollegeorU", value: "224" }, { label: "Cohabitati", value: "404" }, { label: "Clones", value: "61" }, { label: "CuriousPro", value: "720" }, { label: "ChatRooms", value: "383" }, { label: "CosmicWars", value: "422" }, { label: "Cnnilingus", value: "509" }, { label: "Criminals", value: "517" }, { label: "Conditiona", value: "490" }, { label: "CowardlyPr", value: "174" }, { label: "Chefs", value: "359" }, { label: "ChildishPr", value: "515" }, { label: "Cousins", value: "181" }, { label: "ComingofAg", value: "464" }, { label: "Clubs", value: "576" }, { label: "ChildhoodP", value: "318" }, { label: "Conflictin", value: "458" }, { label: "CourtOffic", value: "465" }, { label: "CardGames", value: "478" }, { label: "ClumsyLove", value: "499" }, { label: "Coma", value: "544" }, { label: "Co-Workers", value: "541" }, { label: "Cheat", value: "771" }, { label: "Crossover", value: "366" }, { label: "Chuunibyou", value: "474" }, { label: "CollegeUni", value: "536" }, { label: "Confinemen", value: "684" }, { label: "CharacterD", value: "742" }, { label: "Childhoods", value: "870" }, { label: "Crossdress", value: "933" }, { label: "ComplexFam", value: "12" }, { label: "Charismati", value: "58" }, { label: "Cryostasis", value: "553" }, { label: "Chatgroup", value: "608" }, { label: "ChaptersRe", value: "687" }, { label: "Charlotte(", value: "704" }, { label: "Cyberpunk", value: "792" }, { label: "Chivalryof", value: "823" }, { label: "CatchaGhos", value: "893" }, { label: "Crush", value: "919" }, { label: "Contractma", value: "930" }, { label: "Coolguy", value: "966" }, { label: "Counteratt", value: "968" }, { label: "ClassroomO", value: "969" }, { label: "Demons", value: "65" }, { label: "Dark", value: "317" }, { label: "Dragons", value: "48" }, { label: "DevotedLov", value: "70" }, { label: "Dungeons", value: "110" }, { label: "DenseProta", value: "67" }, { label: "DotingLove", value: "15" }, { label: "Depictions", value: "130" }, { label: "DeathofLov", value: "139" }, { label: "DemonLord", value: "147" }, { label: "Demi-Human", value: "226" }, { label: "Doctors", value: "72" }, { label: "Dwarfs", value: "111" }, { label: "Death", value: "406" }, { label: "DaoCompreh", value: "47" }, { label: "DotingPare", value: "360" }, { label: "DotingOlde", value: "227" }, { label: "Discrimina", value: "132" }, { label: "Dragon", value: "610" }, { label: "Detectives", value: "221" }, { label: "DomesticAf", value: "246" }, { label: "Destiny", value: "305" }, { label: "Divorce", value: "215" }, { label: "Disabiliti", value: "633" }, { label: "Depression", value: "306" }, { label: "DragonSlay", value: "361" }, { label: "DivineProt", value: "399" }, { label: "DungeonMas", value: "502" }, { label: "Daoism", value: "212" }, { label: "Devil", value: "934" }, { label: "DaoCompani", value: "168" }, { label: "Devils", value: "613" }, { label: "Dreams", value: "477" }, { label: "Delinquent", value: "675" }, { label: "Dramatic", value: "926" }, { label: "Divination", value: "384" }, { label: "Drugs", value: "390" }, { label: "Druids", value: "395" }, { label: "Debts", value: "562" }, { label: "Dystopia", value: "564" }, { label: "DishonestP", value: "643" }, { label: "DragonRide", value: "668" }, { label: "Doctor", value: "902" }, { label: "DollsorPup", value: "579" }, { label: "Disfigurem", value: "420" }, { label: "DeadProtag", value: "698" }, { label: "Determined", value: "109" }, { label: "DemonicCul", value: "195" }, { label: "Delusions", value: "443" }, { label: "DifferentS", value: "466" }, { label: "Dancers", value: "566" }, { label: "doppelgang", value: "625" }, { label: "Distrustfu", value: "653" }, { label: "Divination", value: "685" }, { label: "DoulouDalu", value: "700" }, { label: "Diplomacy", value: "728" }, { label: "Dwarves", value: "740" }, { label: "DouluoDalu", value: "787" }, { label: "DanMachi", value: "789" }, { label: "DragonBall", value: "791" }, { label: "Detailed", value: "900" }, { label: "Detective", value: "970" }, { label: "Evolution", value: "265" }, { label: "Elves", value: "113" }, { label: "EuropeanAm", value: "261" }, { label: "ElementalM", value: "160" }, { label: "EarlyRoman", value: "133" }, { label: "EvilProtag", value: "411" }, { label: "EasternSet", value: "597" }, { label: "EvilGods", value: "232" }, { label: "EyePowers", value: "51" }, { label: "EnemiesBec", value: "175" }, { label: "EideticMem", value: "50" }, { label: "Empires", value: "182" }, { label: "EnemiesBec", value: "134" }, { label: "EvilReligi", value: "161" }, { label: "EvilOrgani", value: "207" }, { label: "Economics", value: "112" }, { label: "Engagement", value: "307" }, { label: "Ecchi", value: "956" }, { label: "Episodic", value: "222" }, { label: "Exorcism", value: "646" }, { label: "Enemiestol", value: "875" }, { label: "EasyGoingL", value: "400" }, { label: "Egoist", value: "957" }, { label: "Entertainm", value: "830" }, { label: "e-Sports", value: "271" }, { label: "Exhibition", value: "511" }, { label: "Enlightenm", value: "75" }, { label: "EarthInvas", value: "423" }, { label: "ElderlyPro", value: "649" }, { label: "Engineer", value: "135" }, { label: "Emotionall", value: "321" }, { label: "Elementali", value: "622" }, { label: "Eunuch", value: "753" }, { label: "EvilSpirit", value: "892" }, { label: "Ex", value: "908" }, { label: "Esper", value: "976" }, { label: "FemaleProt", value: "16" }, { label: "FantasyWor", value: "136" }, { label: "FastCultiv", value: "78" }, { label: "Fanfiction", value: "282" }, { label: "Friendship", value: "177" }, { label: "First-time", value: "183" }, { label: "FamousProt", value: "176" }, { label: "FamilialLo", value: "347" }, { label: "FantasyCre", value: "115" }, { label: "faceslappi", value: "632" }, { label: "FastLearne", value: "80" }, { label: "Family", value: "354" }, { label: "Futuristic", value: "308" }, { label: "FirstLove", value: "279" }, { label: "Firearms", value: "17" }, { label: "FamilyConf", value: "335" }, { label: "Farming", value: "247" }, { label: "Fairies", value: "114" }, { label: "Fllatio", value: "184" }, { label: "FearlessPr", value: "497" }, { label: "FatedLover", value: "116" }, { label: "FamousPare", value: "438" }, { label: "Fastpaced", value: "938" }, { label: "ForcedMarr", value: "198" }, { label: "FattoFit", value: "488" }, { label: "Familiars", value: "556" }, { label: "Filipino", value: "813" }, { label: "Future", value: "868" }, { label: "FemaleMast", value: "510" }, { label: "FilipinoNo", value: "812" }, { label: "Fatedlove", value: "888" }, { label: "FamilyBusi", value: "437" }, { label: "Forbiddenl", value: "899" }, { label: "FormerHero", value: "627" }, { label: "FriendsBec", value: "407" }, { label: "FleetBattl", value: "424" }, { label: "Flashbacks", value: "459" }, { label: "FoxSpirits", value: "531" }, { label: "FatProtago", value: "567" }, { label: "FemaleLead", value: "575" }, { label: "FallenAnge", value: "618" }, { label: "FallenNobi", value: "619" }, { label: "Fantasy", value: "781" }, { label: "FairyTail", value: "674" }, { label: "FemaletoMa", value: "727" }, { label: "FantasyMag", value: "748" }, { label: "FengShui", value: "762" }, { label: "Friendstol", value: "903" }, { label: "Forcedinto", value: "197" }, { label: "Folklore", value: "460" }, { label: "Futanari", value: "512" }, { label: "FoodShopke", value: "592" }, { label: "Fellatio", value: "723" }, { label: "Fan-fictio", value: "755" }, { label: "First-time", value: "765" }, { label: "Fatestayni", value: "834" }, { label: "Fantasyrom", value: "939" }, { label: "Fastpace", value: "967" }, { label: "Fiction", value: "974" }, { label: "GameElemen", value: "117" }, { label: "GeniusProt", value: "143" }, { label: "Gods", value: "52" }, { label: "Guilds", value: "119" }, { label: "Gore", value: "237" }, { label: "Gamers", value: "272" }, { label: "Genius", value: "862" }, { label: "Ghosts", value: "367" }, { label: "Goddesses", value: "336" }, { label: "GatetoAnot", value: "337" }, { label: "GameRankin", value: "118" }, { label: "GodlyPower", value: "162" }, { label: "GodProtago", value: "287" }, { label: "GeneticMod", value: "295" }, { label: "Grinding", value: "377" }, { label: "Gangs", value: "142" }, { label: "Goblins", value: "346" }, { label: "Gunfighter", value: "482" }, { label: "Golems", value: "270" }, { label: "Generals", value: "369" }, { label: "Grimdark", value: "827" }, { label: "Gambling", value: "330" }, { label: "Gladiators", value: "534" }, { label: "GenderBend", value: "634" }, { label: "Galge", value: "741" }, { label: "Game", value: "769" }, { label: "GameofThro", value: "837" }, { label: "Gettingbac", value: "907" }, { label: "God-humanR", value: "185" }, { label: "GraveKeepe", value: "647" }, { label: "Genderless", value: "699" }, { label: "Girl&amp03", value: "746" }, { label: "Glasses-we", value: "778" }, { label: "GameLit", value: "844" }, { label: "GhostEvent", value: "886" }, { label: "HandsomeMa", value: "18" }, { label: "Harem", value: "650" }, { label: "HidingTrue", value: "57" }, { label: "HidingTrue", value: "251" }, { label: "HiddenAbil", value: "333" }, { label: "HumanoidPr", value: "289" }, { label: "Heroes", value: "288" }, { label: "Heartwarmi", value: "362" }, { label: "Hunters", value: "266" }, { label: "Historical", value: "874" }, { label: "Highiq", value: "920" }, { label: "HeavenlyTr", value: "148" }, { label: "HiddenGem", value: "538" }, { label: "HumanExper", value: "296" }, { label: "HighFantas", value: "821" }, { label: "Hackers", value: "216" }, { label: "HatedProta", value: "199" }, { label: "HonestProt", value: "385" }, { label: "Healers", value: "500" }, { label: "Hndjob", value: "187" }, { label: "Hell", value: "503" }, { label: "HarryPotte", value: "715" }, { label: "Healing", value: "760" }, { label: "Hypnotism", value: "392" }, { label: "HelpfulPro", value: "453" }, { label: "Heterochro", value: "55" }, { label: "HarshTrain", value: "309" }, { label: "Heaven", value: "620" }, { label: "HighSchool", value: "702" }, { label: "Hospital", value: "535" }, { label: "HumanWeapo", value: "310" }, { label: "Herbalist", value: "442" }, { label: "Horror", value: "971" }, { label: "Hard-Worki", value: "53" }, { label: "Harem-seek", value: "186" }, { label: "Half-human", value: "235" }, { label: "Human-Nonh", value: "391" }, { label: "Hot-bloode", value: "413" }, { label: "Hentai", value: "532" }, { label: "Handjob", value: "545" }, { label: "history", value: "724" }, { label: "Hokage", value: "756" }, { label: "Hunter\xD7Hu", value: "767" }, { label: "HardSci-fi", value: "839" }, { label: "Heartthrob", value: "911" }, { label: "Hiddenmarr", value: "943" }, { label: "Isekai", value: "833" }, { label: "Immortals", value: "252" }, { label: "Incest", value: "355" }, { label: "Inheritanc", value: "149" }, { label: "Immortal", value: "851" }, { label: "Invincible", value: "954" }, { label: "Industrial", value: "468" }, { label: "Interstell", value: "963" }, { label: "ImperialHa", value: "374" }, { label: "Indonesia", value: "819" }, { label: "Investigat", value: "223" }, { label: "Inscriptio", value: "150" }, { label: "IndonesiaN", value: "818" }, { label: "Insects", value: "338" }, { label: "Inferiorit", value: "447" }, { label: "Interconne", value: "290" }, { label: "Introverte", value: "291" }, { label: "Interdimen", value: "425" }, { label: "Invisibili", value: "641" }, { label: "Incubus", value: "663" }, { label: "IsItWrongt", value: "825" }, { label: "IdentityCr", value: "831" }, { label: "Imposter", value: "854" }, { label: "Japanese", value: "806" }, { label: "Jealousy", value: "124" }, { label: "JackofAllT", value: "82" }, { label: "Korean", value: "810" }, { label: "KingdomBui", value: "486" }, { label: "KoreanNove", value: "811" }, { label: "Kingdoms", value: "253" }, { label: "Knights", value: "188" }, { label: "Kidnapping", value: "285" }, { label: "KindLoveIn", value: "348" }, { label: "Killer", value: "856" }, { label: "Kuudere", value: "501" }, { label: "Kendo", value: "604" }, { label: "Karma", value: "614" }, { label: "Kakashi", value: "757" }, { label: "LightNovel", value: "809" }, { label: "LevelSyste", value: "239" }, { label: "LitRPG", value: "539" }, { label: "Levelup", value: "847" }, { label: "LuckyProta", value: "21" }, { label: "Loli", value: "189" }, { label: "LoyalSubor", value: "241" }, { label: "LazyProtag", value: "254" }, { label: "LateRomanc", value: "19" }, { label: "LackofComm", value: "439" }, { label: "Low-keyPro", value: "313" }, { label: "LongSepara", value: "190" }, { label: "Leadership", value: "238" }, { label: "LoveatFirs", value: "461" }, { label: "LoveTriang", value: "349" }, { label: "LonerProta", value: "426" }, { label: "Lovetriang", value: "905" }, { label: "Legends", value: "151" }, { label: "Library", value: "85" }, { label: "Lolicon", value: "286" }, { label: "LimitedLif", value: "86" }, { label: "Lottery", value: "563" }, { label: "LoversReun", value: "350" }, { label: "LGBTQA", value: "601" }, { label: "LoveRivals", value: "676" }, { label: "LowFantasy", value: "796" }, { label: "LoveIntere", value: "20" }, { label: "LostCivili", value: "455" }, { label: "LittleRoma", value: "581" }, { label: "Loneliness", value: "694" }, { label: "leonine", value: "695" }, { label: "LivingAlon", value: "733" }, { label: "Littlebun", value: "931" }, { label: "Loveafterm", value: "962" }, { label: "MaleProtag", value: "63" }, { label: "Magic", value: "292" }, { label: "ModernDay", value: "25" }, { label: "Monsters", value: "64" }, { label: "Mystery", value: "848" }, { label: "MultiplePO", value: "258" }, { label: "Misunderst", value: "22" }, { label: "ModernKnow", value: "274" }, { label: "MultipleRe", value: "66" }, { label: "Military", value: "257" }, { label: "MMORPG", value: "454" }, { label: "Marriage", value: "191" }, { label: "MagicBeast", value: "339" }, { label: "MoneyGrubb", value: "90" }, { label: "MagicalTec", value: "273" }, { label: "MagicForma", value: "62" }, { label: "Mythology", value: "469" }, { label: "MagicalSpa", value: "228" }, { label: "Mysterious", value: "298" }, { label: "MatureProt", value: "256" }, { label: "MythicalBe", value: "356" }, { label: "Medieval", value: "580" }, { label: "MonsterTam", value: "267" }, { label: "MedicalKno", value: "351" }, { label: "MutatedCre", value: "268" }, { label: "MaletoFema", value: "635" }, { label: "Maids", value: "255" }, { label: "Management", value: "487" }, { label: "Mafia", value: "877" }, { label: "Myth", value: "924" }, { label: "Music", value: "332" }, { label: "MaleYander", value: "401" }, { label: "MultiplePr", value: "655" }, { label: "MysterySol", value: "578" }, { label: "Mercenarie", value: "314" }, { label: "MultipleId", value: "345" }, { label: "Martialart", value: "549" }, { label: "Murders", value: "636" }, { label: "Movies", value: "26" }, { label: "Mutations", value: "297" }, { label: "Mecha", value: "394" }, { label: "Marvel", value: "651" }, { label: "Mutation", value: "945" }, { label: "Merchants", value: "557" }, { label: "MindContro", value: "577" }, { label: "MonsterGir", value: "664" }, { label: "Malaysian", value: "817" }, { label: "MartialSpi", value: "414" }, { label: "MagicalGir", value: "543" }, { label: "MobProtago", value: "734" }, { label: "ModernWorl", value: "686" }, { label: "ModernFant", value: "688" }, { label: "Mysterious", value: "526" }, { label: "Mpreg", value: "546" }, { label: "MuteCharac", value: "568" }, { label: "MagicAcade", value: "590" }, { label: "Msturbatio", value: "677" }, { label: "ManlyGayCo", value: "754" }, { label: "MaleLead", value: "797" }, { label: "Mythos", value: "799" }, { label: "MalaysianN", value: "816" }, { label: "Multiplele", value: "942" }, { label: "Manipulati", value: "87" }, { label: "Master-Dis", value: "88" }, { label: "Master-Ser", value: "89" }, { label: "Mysterious", value: "152" }, { label: "Models", value: "280" }, { label: "MultipleRe", value: "463" }, { label: "Masochisti", value: "523" }, { label: "MultipleTr", value: "558" }, { label: "Mage", value: "631" }, { label: "Masturbati", value: "671" }, { label: "Multiverse", value: "681" }, { label: "Marriageof", value: "718" }, { label: "MonsterSoc", value: "739" }, { label: "MyHeroAcad", value: "751" }, { label: "MultipleTi", value: "761" }, { label: "Massacre", value: "790" }, { label: "MultipleLe", value: "798" }, { label: "MultiplePe", value: "801" }, { label: "Mysterious", value: "882" }, { label: "Modern", value: "909" }, { label: "Marysue", value: "921" }, { label: "Mature", value: "928" }, { label: "Mag", value: "953" }, { label: "Monster", value: "960" }, { label: "ModernLife", value: "972" }, { label: "Nobles", value: "259" }, { label: "Non-humanP", value: "665" }, { label: "NaiveProta", value: "322" }, { label: "Nationalis", value: "262" }, { label: "Necromance", value: "315" }, { label: "NotHarem", value: "599" }, { label: "NA", value: "814" }, { label: "Nonhuman", value: "904" }, { label: "No-Harem", value: "935" }, { label: "Netori", value: "498" }, { label: "Naruto", value: "652" }, { label: "NoRomance", value: "642" }, { label: "Near-Death", value: "28" }, { label: "Ninjas", value: "521" }, { label: "NPC", value: "842" }, { label: "Nudity", value: "472" }, { label: "Netorare", value: "707" }, { label: "NoCheats", value: "845" }, { label: "Non-humano", value: "427" }, { label: "Narcissist", value: "432" }, { label: "NotYaoi", value: "691" }, { label: "Neet", value: "758" }, { label: "Nurses", value: "766" }, { label: "Non-Humanl", value: "822" }, { label: "Overpowere", value: "846" }, { label: "OlderLoveI", value: "396" }, { label: "Orphans", value: "397" }, { label: "Orcs", value: "363" }, { label: "OuterSpace", value: "378" }, { label: "OrganizedC", value: "380" }, { label: "OtomeGame", value: "735" }, { label: "ordinary", value: "747" }, { label: "OnePiece", value: "785" }, { label: "ObsessiveL", value: "494" }, { label: "OfficeRoma", value: "648" }, { label: "Overlord", value: "743" }, { label: "Onenightst", value: "917" }, { label: "Overpowere", value: "91" }, { label: "Outcasts", value: "583" }, { label: "Overprotec", value: "729" }, { label: "OriginalON", value: "793" }, { label: "Omegaverse", value: "918" }, { label: "Overpowere", value: "961" }, { label: "PoortoRich", value: "229" }, { label: "Polygamy", value: "71" }, { label: "PowerCoupl", value: "33" }, { label: "Politics", value: "242" }, { label: "Pregnancy", value: "35" }, { label: "Pets", value: "69" }, { label: "Possessive", value: "31" }, { label: "Post-apoca", value: "299" }, { label: "Possessive", value: "850" }, { label: "Powerfulco", value: "852" }, { label: "PastPlaysa", value: "200" }, { label: "PoorProtag", value: "476" }, { label: "ProactiveP", value: "316" }, { label: "Parody", value: "386" }, { label: "PreviousLi", value: "467" }, { label: "PervertedP", value: "448" }, { label: "PillConcoc", value: "92" }, { label: "PsychicPow", value: "260" }, { label: "Police", value: "518" }, { label: "ParallelWo", value: "507" }, { label: "PastTrauma", value: "201" }, { label: "Psychopath", value: "561" }, { label: "PragmaticP", value: "660" }, { label: "Princess", value: "879" }, { label: "Personalit", value: "68" }, { label: "Poisons", value: "93" }, { label: "Phoenixes", value: "153" }, { label: "Prison", value: "444" }, { label: "Pirates", value: "547" }, { label: "Priests", value: "654" }, { label: "PlayfulPro", value: "701" }, { label: "Pokemon", value: "779" }, { label: "PortalFant", value: "836" }, { label: "PopularLov", value: "30" }, { label: "Possession", value: "357" }, { label: "PowerStrug", value: "370" }, { label: "Progressio", value: "800" }, { label: "Positive", value: "948" }, { label: "ParentComp", value: "393" }, { label: "Prophecies", value: "572" }, { label: "Programmer", value: "667" }, { label: "Philosophi", value: "456" }, { label: "Protagonis", value: "705" }, { label: "Psychologi", value: "713" }, { label: "Priestesse", value: "717" }, { label: "Protagonis", value: "94" }, { label: "Protagonis", value: "381" }, { label: "Protagonis", value: "403" }, { label: "PillBasedC", value: "415" }, { label: "Polyandry", value: "519" }, { label: "PreviousLi", value: "529" }, { label: "Pharmacist", value: "574" }, { label: "Planets", value: "607" }, { label: "Parasites", value: "629" }, { label: "Playboys", value: "630" }, { label: "Paizuri", value: "670" }, { label: "Precogniti", value: "710" }, { label: "Protagonis", value: "737" }, { label: "PacifistPr", value: "744" }, { label: "Persistent", value: "749" }, { label: "Pilots", value: "780" }, { label: "Popular", value: "894" }, { label: "PrettyGirl", value: "895" }, { label: "QuirkyChar", value: "387" }, { label: "Reincarnat", value: "74" }, { label: "R18", value: "855" }, { label: "Romance", value: "638" }, { label: "R-18", value: "417" }, { label: "Revenge", value: "37" }, { label: "RomanticSu", value: "154" }, { label: "RuthlessPr", value: "76" }, { label: "Royalty", value: "243" }, { label: "Rpe", value: "203" }, { label: "Racism", value: "379" }, { label: "Rebirth", value: "491" }, { label: "Religions", value: "398" }, { label: "R-15", value: "559" }, { label: "Royalfamil", value: "873" }, { label: "Rarebloodl", value: "864" }, { label: "Rape", value: "530" }, { label: "Restaurant", value: "364" }, { label: "RighteousP", value: "540" }, { label: "Resurrecti", value: "552" }, { label: "RankSystem", value: "595" }, { label: "RaceChange", value: "73" }, { label: "ReverseRpe", value: "483" }, { label: "ReverseRap", value: "690" }, { label: "Rebellion", value: "750" }, { label: "RichProtag", value: "803" }, { label: "Richfamily", value: "889" }, { label: "Reincarnat", value: "95" }, { label: "RpeVictimB", value: "202" }, { label: "Returningf", value: "412" }, { label: "Reincarnat", value: "428" }, { label: "Raids", value: "436" }, { label: "ReverseHar", value: "520" }, { label: "Reincarnat", value: "605" }, { label: "Reincarnat", value: "689" }, { label: "ResolutePr", value: "697" }, { label: "Reincarnat", value: "722" }, { label: "RWBY", value: "829" }, { label: "Races", value: "841" }, { label: "Righteous", value: "947" }, { label: "System", value: "537" }, { label: "SpecialAbi", value: "269" }, { label: "SwordAndMa", value: "344" }, { label: "Superpower", value: "782" }, { label: "SliceofLif", value: "621" }, { label: "Survival", value: "302" }, { label: "SecondChan", value: "281" }, { label: "SystemAdmi", value: "277" }, { label: "StrongtoSt", value: "450" }, { label: "StrongLove", value: "156" }, { label: "SlowRomanc", value: "231" }, { label: "ShamelessP", value: "97" }, { label: "SecretIden", value: "96" }, { label: "SwordWield", value: "100" }, { label: "Showbiz", value: "39" }, { label: "SummoningM", value: "343" }, { label: "Strategist", value: "435" }, { label: "Smut", value: "516" }, { label: "Sweetlove", value: "865" }, { label: "SurvivalGa", value: "368" }, { label: "Spirits", value: "372" }, { label: "Sects", value: "410" }, { label: "SlowCultiv", value: "624" }, { label: "SkillAssim", value: "371" }, { label: "SkillCreat", value: "352" }, { label: "StrategicB", value: "373" }, { label: "Summons", value: "913" }, { label: "SuddenStre", value: "77" }, { label: "SlowGrowth", value: "341" }, { label: "SoulPower", value: "452" }, { label: "Spaceship", value: "600" }, { label: "Souls", value: "99" }, { label: "Saves", value: "300" }, { label: "StoreOwner", value: "276" }, { label: "SentientOb", value: "353" }, { label: "SectDevelo", value: "475" }, { label: "SecretOrga", value: "548" }, { label: "Space", value: "716" }, { label: "SummonedHe", value: "560" }, { label: "Sweet", value: "916" }, { label: "SmartCoupl", value: "41" }, { label: "SpatialMan", value: "233" }, { label: "Scientists", value: "388" }, { label: "SkillBooks", value: "434" }, { label: "Shapeshift", value: "944" }, { label: "ShyCharact", value: "98" }, { label: "SealedPowe", value: "155" }, { label: "SuddenWeal", value: "342" }, { label: "SelfishPro", value: "470" }, { label: "Siblings", value: "505" }, { label: "Slaves", value: "678" }, { label: "SuperHeroe", value: "725" }, { label: "Scary", value: "937" }, { label: "Singlefema", value: "946" }, { label: "SportsBask", value: "588" }, { label: "SpiritUser", value: "645" }, { label: "Sci-fi", value: "679" }, { label: "Superstar", value: "922" }, { label: "SxualAbuse", value: "204" }, { label: "Secrets", value: "319" }, { label: "SinglePare", value: "365" }, { label: "Soldiers", value: "449" }, { label: "Saints", value: "481" }, { label: "SpiritAdvi", value: "484" }, { label: "SpearWield", value: "524" }, { label: "Suicides", value: "656" }, { label: "Seduction", value: "672" }, { label: "Succubus", value: "673" }, { label: "Samurai", value: "683" }, { label: "SadisticCh", value: "692" }, { label: "SicklyChar", value: "712" }, { label: "SelflessPr", value: "738" }, { label: "Satire", value: "835" }, { label: "Serious", value: "936" }, { label: "Seductive", value: "949" }, { label: "Supernatur", value: "964" }, { label: "SexualCult", value: "230" }, { label: "SchemesAnd", value: "244" }, { label: "Sleeping", value: "275" }, { label: "Strength-b", value: "301" }, { label: "SiblingsNo", value: "340" }, { label: "SevenDeadl", value: "416" }, { label: "Sharp-tong", value: "457" }, { label: "StockholmS", value: "495" }, { label: "Student-Te", value: "513" }, { label: "Shapeshift", value: "525" }, { label: "Skyrim", value: "554" }, { label: "Sports", value: "586" }, { label: "SoundMagic", value: "591" }, { label: "Shounen-Ai", value: "596" }, { label: "Sci-Fantas", value: "606" }, { label: "slow-roman", value: "626" }, { label: "SecretRela", value: "658" }, { label: "SisterComp", value: "659" }, { label: "Shoujo-AiS", value: "661" }, { label: "SecretiveP", value: "708" }, { label: "sciencefic", value: "714" }, { label: "SexualAbus", value: "730" }, { label: "Spies", value: "731" }, { label: "StubbornPr", value: "736" }, { label: "SaveProtag", value: "772" }, { label: "Sibling&am", value: "774" }, { label: "SeeingThin", value: "776" }, { label: "SxFriends", value: "777" }, { label: "SharingABo", value: "783" }, { label: "SerialKill", value: "786" }, { label: "Singers", value: "832" }, { label: "SoftSci-fi", value: "840" }, { label: "Strategy", value: "843" }, { label: "Smartprota", value: "876" }, { label: "Strongfl", value: "878" }, { label: "Secretive", value: "890" }, { label: "SuperAbili", value: "891" }, { label: "Stepmom", value: "912" }, { label: "Secretary", value: "932" }, { label: "Studenttea", value: "940" }, { label: "Strongfema", value: "950" }, { label: "Sekai", value: "958" }, { label: "Signin", value: "977" }, { label: "Transmigra", value: "102" }, { label: "Tragedy", value: "794" }, { label: "TimeTravel", value: "389" }, { label: "Thestronga", value: "914" }, { label: "TimeSkip", value: "234" }, { label: "Technologi", value: "429" }, { label: "TragicPast", value: "44" }, { label: "Tsundere", value: "382" }, { label: "TimeManipu", value: "263" }, { label: "Thriller", value: "637" }, { label: "Teachers", value: "101" }, { label: "Twins", value: "506" }, { label: "Thieves", value: "514" }, { label: "Teamwork", value: "542" }, { label: "ThaiNovel", value: "815" }, { label: "TimeLoop", value: "696" }, { label: "Twisted", value: "906" }, { label: "TimeParado", value: "430" }, { label: "TimidProta", value: "473" }, { label: "Torture", value: "589" }, { label: "TwistedPer", value: "693" }, { label: "Threesome", value: "706" }, { label: "Teen", value: "857" }, { label: "Terrori", value: "884" }, { label: "Transporte", value: "103" }, { label: "Transporte", value: "278" }, { label: "Transporte", value: "375" }, { label: "Trap", value: "405" }, { label: "Transforma", value: "612" }, { label: "Tentacles", value: "666" }, { label: "Talesof\xA0D", value: "752" }, { label: "Transmigra", value: "764" }, { label: "Transplant", value: "768" }, { label: "Transporte", value: "784" }, { label: "TheAsteris", value: "826" }, { label: "TheGamer", value: "828" }, { label: "Trialmarri", value: "880" }, { label: "TheParanor", value: "887" }, { label: "TheMainCha", value: "896" }, { label: "TheDevil", value: "897" }, { label: "Urban", value: "522" }, { label: "Unprincipl", value: "923" }, { label: "UniqueWeap", value: "418" }, { label: "Undead", value: "965" }, { label: "UnluckyPro", value: "611" }, { label: "Unconditio", value: "445" }, { label: "Unreliable", value: "451" }, { label: "UglytoBeau", value: "550" }, { label: "Underestim", value: "79" }, { label: "UniqueCult", value: "81" }, { label: "UniqueWeap", value: "582" }, { label: "Villain", value: "861" }, { label: "VirtualRea", value: "433" }, { label: "Videogame", value: "925" }, { label: "Vampire", value: "602" }, { label: "Vampires", value: "323" }, { label: "Villainess", value: "680" }, { label: "VoiceActor", value: "446" }, { label: "Vietnamese", value: "820" }, { label: "Villainpro", value: "941" }, { label: "VideoGames", value: "973" }, { label: "WebNovel", value: "805" }, { label: "WeaktoStro", value: "83" }, { label: "Wars", value: "303" }, { label: "WealthyCha", value: "334" }, { label: "WorldTrave", value: "84" }, { label: "WorldHoppi", value: "504" }, { label: "Wizards", value: "571" }, { label: "Werewolf", value: "849" }, { label: "Werebeasts", value: "325" }, { label: "WeakProtag", value: "324" }, { label: "Witches", value: "570" }, { label: "WorldTree", value: "640" }, { label: "WeektoStro", value: "609" }, { label: "Wishes", value: "615" }, { label: "Writers", value: "662" }, { label: "WebnovelSp", value: "709" }, { label: "Warhammer4", value: "732" }, { label: "WarRecords", value: "745" }, { label: "Wuxia", value: "759" }, { label: "Worlds", value: "869" }, { label: "Weak-to-st", value: "959" }, { label: "Xianxia", value: "603" }, { label: "Xuanhuan", value: "773" }, { label: "Yandere", value: "402" }, { label: "Yuri", value: "929" }, { label: "Yaoi", value: "866" }, { label: "YoungerLov", value: "551" }, { label: "YoungerSis", value: "763" }, { label: "YoungerBro", value: "775" }, { label: "Zombies", value: "594" }, { label: "Zombie", value: "598" }] } } });
+  exports.default = r;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
