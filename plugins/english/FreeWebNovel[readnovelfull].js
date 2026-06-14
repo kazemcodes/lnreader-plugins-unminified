@@ -24430,6 +24430,7 @@ var LNReaderPlugin = (() => {
                         return void N(n.Cover);
                       case "inner":
                       case "desc-text":
+                      case "desc-text desc-text-collapsed":
                         s2 === n.Cover && k(), N(n.Summary);
                         break;
                       case "info":

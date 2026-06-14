@@ -22,4 +22,4 @@ Each plugin includes polyfills for maximum compatibility:
 - **String** - includes, startsWith, endsWith, padStart, padEnd, repeat, trimStart, trimEnd
 - **Number** - isNaN, isFinite, isInteger
 
-**Total: 515 plugins**
+**Total: 518 plugins**

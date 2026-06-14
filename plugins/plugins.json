@@ -694,6 +694,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lnmtl/icon.png"
 	},
 	{
+		"id": "lnori",
+		"name": "LNORI",
+		"site": "https://lnori.com/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/lnori.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lnori/icon.png"
+	},
+	{
 		"id": "ltnovel",
 		"name": "Ltnovel",
 		"site": "https://www.ltnovels.com",
@@ -829,11 +838,20 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/noicetranslations/icon.png"
 	},
 	{
+		"id": "novelarrow",
+		"name": "Novel Arrow",
+		"site": "https://novelarrow.com/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelarrow.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelarrow/icon.png"
+	},
+	{
 		"id": "novelbin",
 		"name": "Novel Bin",
 		"site": "https://novelbin.com/",
 		"lang": "English",
-		"version": "2.2.1",
+		"version": "2.2.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelBin[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/novelbin/icon.png"
 	},
@@ -1440,6 +1458,15 @@
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/novhell.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/novhell/icon.png"
+	},
+	{
+		"id": "rezerowebnovelfr",
+		"name": "Re:Zero Web Novel FR",
+		"site": "https://rezerowebnovelfr.wordpress.com",
+		"lang": "Français",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/rezerowebnovelfr.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/rezerowebnovelfr/icon.png"
 	},
 	{
 		"id": "warriorlegendtrad",

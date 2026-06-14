@@ -24391,22 +24391,22 @@ var LNReaderPlugin = (() => {
       return p.write(t2), p.end(), s2;
     }, l2.prototype.popularNovels = function(e2, n2) {
       return t(this, arguments, void 0, function(e3, t2) {
-        var n3, r2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, C, k, P, x = t2.filters, L = t2.showLatestNovels;
+        var n3, r2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, C, k, x, P = t2.filters, L = t2.showLatestNovels;
         return a(this, function(t3) {
           switch (t3.label) {
             case 0:
-              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, i2 = n3.novelListing, l3 = n3.typeParam, c2 = void 0 === l3 ? "type" : l3, u = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, b = n3.noPages, m = void 0 === b ? [] : b, w = n3.pageAsPath, y = void 0 !== w && w, 1 !== e3 && !L && !x.genres.value.length && m.length > 0 && m.includes(x.type.value) ? [2, []] : (S = "", i2 ? (N = new URLSearchParams(), L ? N.append(c2, u) : x.genres.value.length ? (N.append(c2, p), N.append(d, x.genres.value)) : N.append(c2, x.type.value), f && g && N.append(f, g), N.append(s2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(N.toString())) : (C = L ? u : x.genres.value.length ? x.genres.value : x.type.value, S = y ? e3 > 1 ? "".concat(this.site).concat(C, "/").concat(e3.toString()) : "".concat(this.site).concat(C) : "".concat(this.site).concat(C, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
+              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, i2 = n3.novelListing, l3 = n3.typeParam, c2 = void 0 === l3 ? "type" : l3, u = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, b = n3.noPages, m = void 0 === b ? [] : b, w = n3.pageAsPath, y = void 0 !== w && w, 1 !== e3 && !L && !P.genres.value.length && m.length > 0 && m.includes(P.type.value) ? [2, []] : (S = "", i2 ? (N = new URLSearchParams(), L ? N.append(c2, u) : P.genres.value.length ? (N.append(c2, p), N.append(d, P.genres.value)) : N.append(c2, P.type.value), f && g && N.append(f, g), N.append(s2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(N.toString())) : (C = L ? u : P.genres.value.length ? P.genres.value : P.type.value, S = y ? e3 > 1 ? "".concat(this.site).concat(C, "/").concat(e3.toString()) : "".concat(this.site).concat(C) : "".concat(this.site).concat(C, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
             case 1:
               if (!(k = t3.sent()).ok) throw new Error("Could not reach site (".concat(k.status, ": ").concat(k.statusText, ") try to open in webview."));
               return [4, k.text()];
             case 2:
-              return P = t3.sent(), [2, this.parseNovels(P)];
+              return x = t3.sent(), [2, this.parseNovels(x)];
           }
         });
       });
     }, l2.prototype.parseNovel = function(i2) {
       return t(this, void 0, void 0, function() {
-        var t2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, C, k, P, x, L, A, j, I, H, R, E, G, M = this;
+        var t2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, C, k, x, P, L, A, j, I, H, R, E, G, M = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -24430,6 +24430,7 @@ var LNReaderPlugin = (() => {
                         return void N(n.Cover);
                       case "inner":
                       case "desc-text":
+                      case "desc-text desc-text-collapsed":
                         s2 === n.Cover && C(), N(n.Summary);
                         break;
                       case "info":
@@ -24554,7 +24555,7 @@ var LNReaderPlugin = (() => {
                 c2.summary = u.join("\n\n").trim();
               }, "onend") }), k.write(l3), k.end(), this.options.noAjax && f.length > 0 ? (c2.chapters = f, [3, 7]) : [3, 3];
             case 3:
-              return null === g ? [3, 7] : (P = this.options.chapterListing || "ajax/chapter-archive", x = this.options.chapterParam || "novelId", L = new URLSearchParams(((G = {})[x] = g, G)), A = "".concat(this.site).concat(P, "?").concat(L.toString()), [4, (0, o.fetchApi)(A)]);
+              return null === g ? [3, 7] : (x = this.options.chapterListing || "ajax/chapter-archive", P = this.options.chapterParam || "novelId", L = new URLSearchParams(((G = {})[P] = g, G)), A = "".concat(this.site).concat(x, "?").concat(L.toString()), [4, (0, o.fetchApi)(A)]);
             case 4:
               return (j = a2.sent()).ok ? [3, 5] : (console.error("Failed to fetch chapters: ".concat(j.status)), c2.chapters = [], [3, 7]);
             case 5:
