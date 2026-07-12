@@ -24391,22 +24391,22 @@ var LNReaderPlugin = (() => {
       return p.write(t2), p.end(), s2;
     }, l2.prototype.popularNovels = function(e2, n2) {
       return t(this, arguments, void 0, function(e3, t2) {
-        var n3, r2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, C, k, x, P = t2.filters, L = t2.showLatestNovels;
+        var n3, r2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, P, x = t2.filters, L = t2.showLatestNovels;
         return a(this, function(t3) {
           switch (t3.label) {
             case 0:
-              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, i2 = n3.novelListing, l3 = n3.typeParam, c2 = void 0 === l3 ? "type" : l3, u = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, b = n3.noPages, m = void 0 === b ? [] : b, w = n3.pageAsPath, y = void 0 !== w && w, 1 !== e3 && !L && !P.genres.value.length && m.length > 0 && m.includes(P.type.value) ? [2, []] : (S = "", i2 ? (N = new URLSearchParams(), L ? N.append(c2, u) : P.genres.value.length ? (N.append(c2, p), N.append(d, P.genres.value)) : N.append(c2, P.type.value), f && g && N.append(f, g), N.append(s2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(N.toString())) : (C = L ? u : P.genres.value.length ? P.genres.value : P.type.value, S = y ? e3 > 1 ? "".concat(this.site).concat(C, "/").concat(e3.toString()) : "".concat(this.site).concat(C) : "".concat(this.site).concat(C, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
+              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, i2 = n3.novelListing, l3 = n3.typeParam, c2 = void 0 === l3 ? "type" : l3, u = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, b = n3.noPages, m = void 0 === b ? [] : b, w = n3.pageAsPath, y = void 0 !== w && w, 1 !== e3 && !L && !x.genres.value.length && m.length > 0 && m.includes(x.type.value) ? [2, []] : (S = "", i2 ? (N = new URLSearchParams(), L ? N.append(c2, u) : x.genres.value.length ? (N.append(c2, p), N.append(d, x.genres.value)) : N.append(c2, x.type.value), f && g && N.append(f, g), N.append(s2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(N.toString())) : (k = L ? u : x.genres.value.length ? x.genres.value : x.type.value, S = y ? e3 > 1 ? "".concat(this.site).concat(k, "/").concat(e3.toString()) : "".concat(this.site).concat(k) : "".concat(this.site).concat(k, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
             case 1:
-              if (!(k = t3.sent()).ok) throw new Error("Could not reach site (".concat(k.status, ": ").concat(k.statusText, ") try to open in webview."));
-              return [4, k.text()];
+              if (!(C = t3.sent()).ok) throw new Error("Could not reach site (".concat(C.status, ": ").concat(C.statusText, ") try to open in webview."));
+              return [4, C.text()];
             case 2:
-              return x = t3.sent(), [2, this.parseNovels(x)];
+              return P = t3.sent(), [2, this.parseNovels(P)];
           }
         });
       });
     }, l2.prototype.parseNovel = function(i2) {
       return t(this, void 0, void 0, function() {
-        var t2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, C, k, x, P, L, A, j, I, H, R, E, G, M = this;
+        var t2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, P, x, L, A, j, I, H, R, E, G, M, O, T, U, _, q = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -24414,61 +24414,65 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, a2.sent().text()];
             case 2:
-              return l3 = a2.sent(), c2 = { path: i2, chapters: [] }, u = [], h = [], p = [], v = [], d = [], f = [], g = null, b = {}, m = 0, y = [n.Idle], S = /* @__PURE__ */ __name(function() {
-                return y[y.length - 1];
-              }, "S"), N = /* @__PURE__ */ __name(function(e2) {
-                return y.push(e2);
-              }, "N"), C = /* @__PURE__ */ __name(function() {
-                return y.length > 1 ? y.pop() : S();
-              }, "C"), k = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
-                var a3, r2, o2, s2 = S();
+              return l3 = a2.sent(), c2 = { path: i2, chapters: [] }, u = [], h = [], p = [], v = [], d = [], f = [], g = null, b = null, m = null, w = {}, y = 0, N = [n.Idle], k = /* @__PURE__ */ __name(function() {
+                return N[N.length - 1];
+              }, "k"), C = /* @__PURE__ */ __name(function(e2) {
+                return N.push(e2);
+              }, "C"), P = /* @__PURE__ */ __name(function() {
+                return N.length > 1 ? N.pop() : k();
+              }, "P"), x = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
+                var a3, r2, o2, s2, l4, h2 = k();
                 switch (e2) {
                   case "div":
                     switch (t3.class) {
                       case "books":
                       case "m-imgtxt":
-                        return void N(n.Cover);
+                        return void C(n.Cover);
                       case "inner":
                       case "desc-text":
                       case "desc-text desc-text-collapsed":
-                        s2 === n.Cover && C(), N(n.Summary);
+                        h2 === n.Cover && P(), C(n.Summary);
                         break;
                       case "info":
-                        N(n.Info), w = 0;
+                        C(n.Info), S = 0;
                     }
-                    M.options.noAjax || "rating" !== t3.id || (g = t3["data-novel-id"]), s2 === n.Info && w++;
+                    q.options.noAjax || "rating" !== t3.id || (g = t3["data-novel-id"]), h2 === n.Info && S++;
                     break;
                   case "img":
-                    if (s2 === n.Cover) {
-                      var l4 = null !== (r2 = null !== (a3 = t3.src) && void 0 !== a3 ? a3 : t3["data-cfsrc"]) && void 0 !== r2 ? r2 : t3["data-src"], h2 = t3.title;
-                      l4 && (c2.cover = new URL(l4, M.site).href), h2 ? c2.name = h2 : C();
+                    if (h2 === n.Cover) {
+                      var p2 = null !== (r2 = null !== (a3 = t3.src) && void 0 !== a3 ? a3 : t3["data-cfsrc"]) && void 0 !== r2 ? r2 : t3["data-src"], v2 = t3.title;
+                      p2 && (c2.cover = new URL(p2, q.site).href), v2 ? c2.name = v2 : P();
                     }
                     break;
                   case "h3":
-                    s2 === n.Cover && N(n.NovelName);
+                    h2 === n.Cover && C(n.NovelName);
                     break;
                   case "span":
-                    if (s2 === n.Cover && t3.title) {
-                      var p2 = { Genre: n.Genres, Author: n.Author, Status: n.Status }[t3.title];
-                      p2 && N(p2);
+                    if (h2 === n.Cover && t3.title) {
+                      var d2 = { Genre: n.Genres, Author: n.Author, Status: n.Status }[t3.title];
+                      d2 && C(d2);
                     }
+                    (null === (o2 = t3.class) || void 0 === o2 ? void 0 : o2.includes("disqus")) && (m = t3["data-disqus-identifier"]);
                     break;
                   case "br":
-                    s2 === n.Summary && u.push("\n");
+                    h2 === n.Summary && u.push("\n");
                     break;
                   case "ul":
-                    (null === (o2 = t3.class) || void 0 === o2 ? void 0 : o2.includes("info-meta")) && N(n.Info), M.options.noAjax && "idData" === t3.id && N(n.ChapterList);
+                    (null === (s2 = t3.class) || void 0 === s2 ? void 0 : s2.includes("info-meta")) && C(n.Info), q.options.noAjax && "idData" === t3.id && C(n.ChapterList);
                     break;
                   case "a":
-                    if (s2 === n.ChapterList) {
-                      m++;
-                      var v2 = t3.href;
-                      N(n.Chapter), b.name = t3.title || "Chapter ".concat(m), b.releaseTime = null, b.chapterNumber = m, b.path = (null == v2 ? void 0 : v2.substring(1)) || i2.replace(".html", "/chapter-".concat(m, ".html"));
+                    if ((null === (l4 = t3.class) || void 0 === l4 ? void 0 : l4.includes("set-case")) && (g = t3["data-articleid"]), h2 === n.ChapterList) {
+                      y++;
+                      var f2 = t3.href;
+                      C(n.Chapter), w.name = t3.title || "Chapter ".concat(y), w.releaseTime = null, w.chapterNumber = y, w.path = (null == f2 ? void 0 : f2.substring(1)) || i2.replace(".html", "/chapter-".concat(y, ".html"));
                     }
+                    break;
+                  case "script":
+                    C(n.Hidden);
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
                 var t3 = e2.trim();
-                if (t3) switch (S()) {
+                if (t3) switch (k()) {
                   case n.NovelName:
                     c2.name = (c2.name || "") + t3;
                     break;
@@ -24486,27 +24490,30 @@ var LNReaderPlugin = (() => {
                     break;
                   case n.Status:
                     h.push(t3);
+                    break;
+                  case n.Hidden:
+                    t3.includes("window.chapterPagination") ? b = Number(t3.match(/totalChapters:\s*(\d+)/)[1]) : t3.includes("sourceid") && (g = t3.match(/sourceid=(\d+)/)[1]);
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(t3) {
-                var a3 = S();
+                var a3 = k();
                 switch (t3) {
                   case "div":
                     switch (a3) {
                       case n.Info:
-                        w--, d.push("\n"), w < 0 && C();
+                        S--, d.push("\n"), S < 0 && P();
                         break;
                       case n.Genres:
                       case n.Author:
                       case n.Status:
                       case n.Summary:
-                        C();
+                        P();
                     }
                     break;
                   case "h3":
-                    a3 === n.NovelName && C();
+                    a3 === n.NovelName && P();
                     break;
                   case "a":
-                    a3 === n.Chapter && (b.name && b.path && f.push(e({}, b)), b = {}, C());
+                    a3 === n.Chapter && (w.name && w.path && f.push(e({}, w)), w = {}, P());
                     break;
                   case "li":
                     a3 === n.Info && d.push("\n");
@@ -24515,8 +24522,11 @@ var LNReaderPlugin = (() => {
                     switch (a3) {
                       case n.Info:
                       case n.ChapterList:
-                        C();
+                        P();
                     }
+                    break;
+                  case "script":
+                    a3 === n.Hidden && P();
                     break;
                   default:
                     return;
@@ -24553,26 +24563,31 @@ var LNReaderPlugin = (() => {
                   return e3.toUpperCase();
                 });
                 c2.summary = u.join("\n\n").trim();
-              }, "onend") }), k.write(l3), k.end(), this.options.noAjax && f.length > 0 ? (c2.chapters = f, [3, 7]) : [3, 3];
+              }, "onend") }), x.write(l3), x.end(), this.options.noAjax && f.length > 0 && !b ? (c2.chapters = f, [3, 7]) : [3, 3];
             case 3:
-              return null === g ? [3, 7] : (x = this.options.chapterListing || "ajax/chapter-archive", P = this.options.chapterParam || "novelId", L = new URLSearchParams(((G = {})[P] = g, G)), A = "".concat(this.site).concat(x, "?").concat(L.toString()), [4, (0, o.fetchApi)(A)]);
+              return null === g ? [3, 7] : (L = this.options.chapterListing || "ajax/chapter-archive", A = this.options.chapterParam || "novelId", j = new URLSearchParams(((_ = {})[A] = g, _)), I = void 0, H = void 0, b ? (I = "".concat(this.site).concat(L), j.set("acode", m || i2.split("/").pop()), j.set("cid", String(Math.floor(Math.random() * b))), H = { method: "POST", body: j.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } }) : I = "".concat(this.site).concat(L, "?").concat(j.toString()), [4, (0, o.fetchApi)(I, H)]);
             case 4:
-              return (j = a2.sent()).ok ? [3, 5] : (console.error("Failed to fetch chapters: ".concat(j.status)), c2.chapters = [], [3, 7]);
+              return (R = a2.sent()).ok ? [3, 5] : (console.error("Failed to fetch chapters: ".concat(R.status)), c2.chapters = [], [3, 7]);
             case 5:
-              return [4, j.text()];
+              return [4, R.text()];
             case 6:
-              I = a2.sent(), H = [], R = {}, (E = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
+              E = a2.sent(), G = E;
+              try {
+                "string" == typeof (M = JSON.parse(E)).html && (G = M.html);
+              } catch (e2) {
+              }
+              O = [], T = {}, (U = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
                 var a3, r2;
-                if ("a" === e2 && t3.href ? (a3 = t3.href, r2 = t3.title || "", N(n.Chapter)) : "option" === e2 && t3.value && (a3 = t3.value, r2 = "", N(n.Chapter)), void 0 !== a3) {
-                  var o2 = new URL(a3, M.site);
-                  R.path = o2.pathname.substring(1), R.name = r2;
+                if ("a" === e2 && t3.href ? (a3 = t3.href, r2 = t3.title || "", C(n.Chapter)) : "option" === e2 && t3.value && (a3 = t3.value, r2 = "", C(n.Chapter)), void 0 !== a3) {
+                  var o2 = new URL(a3, q.site);
+                  T.path = o2.pathname.substring(1), T.name = r2;
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
                 var t3 = e2.trim();
-                S() === n.Chapter && !R.name && t3 && (R.name += t3);
+                k() === n.Chapter && !T.name && t3 && (T.name += t3);
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(t3) {
-                "a" !== t3 && "option" !== t3 || S() !== n.Chapter || (R.name && R.path && (R.name = R.name.trim(), R.releaseTime = null, H.push(e({}, R))), R = {}, C());
-              }, "onclosetag") })).write(I), E.end(), c2.chapters = H, a2.label = 7;
+                "a" !== t3 && "option" !== t3 || k() !== n.Chapter || (T.name && T.path && (T.name = T.name.trim(), T.releaseTime = null, O.push(e({}, T))), T = {}, P());
+              }, "onclosetag") })).write(G), U.end(), c2.chapters = O, a2.label = 7;
             case 7:
               return [2, c2];
           }
@@ -24650,7 +24665,7 @@ var LNReaderPlugin = (() => {
       });
     }, l2.prototype.searchNovels = function(n2, r2) {
       return t(this, void 0, void 0, function() {
-        var t2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, C, k;
+        var t2, s2, i2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -24658,12 +24673,12 @@ var LNReaderPlugin = (() => {
             case 1:
               a2.sent(), a2.label = 2;
             case 2:
-              return s2 = this.options, i2 = s2.pageParam, l3 = void 0 === i2 ? "page" : i2, c2 = s2.searchKey, u = void 0 === c2 ? "keyword" : c2, h = s2.postSearch, p = s2.langParam, v = s2.urlLangCode, d = s2.searchPage, f = new URLSearchParams(e(e(((S = {})[u] = n2, S), p && v && ((N = {})[p] = v, N)), !h && ((C = {})[l3] = r2.toString(), C))), g = "".concat(this.site).concat(d).concat(h ? "" : "?".concat(f.toString())), b = h ? { method: "POST", body: f.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } } : void 0, [4, (0, o.fetchApi)(g, b)];
+              return s2 = this.options, i2 = s2.pageParam, l3 = void 0 === i2 ? "page" : i2, c2 = s2.searchKey, u = void 0 === c2 ? "keyword" : c2, h = s2.postSearch, p = s2.langParam, v = s2.urlLangCode, d = s2.searchPage, f = new URLSearchParams(e(e(((S = {})[u] = n2, S), p && v && ((N = {})[p] = v, N)), !h && ((k = {})[l3] = r2.toString(), k))), g = "".concat(this.site).concat(d).concat(h ? "" : "?".concat(f.toString())), b = h ? { method: "POST", body: f.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } } : void 0, [4, (0, o.fetchApi)(g, b)];
             case 3:
               if (m = a2.sent(), this.lastSearch = Date.now(), !m.ok) throw new Error("Could not reach site ('".concat(m.status, "') try to open in webview."));
               return [4, m.text()];
             case 4:
-              if (w = a2.sent(), y = (null === (k = w.match(/alert\((.*?)\)/)) || void 0 === k ? void 0 : k[1]) || "") throw new Error(y);
+              if (w = a2.sent(), y = (null === (C = w.match(/alert\((.*?)\)/)) || void 0 === C ? void 0 : C[1]) || "") throw new Error(y);
               return [2, this.parseNovels(w)];
           }
         });
@@ -24673,7 +24688,7 @@ var LNReaderPlugin = (() => {
   exports.ReadNovelFullPlugin = l, function(e2) {
     e2[e2.Idle = 0] = "Idle", e2[e2.Info = 1] = "Info", e2[e2.Cover = 2] = "Cover", e2[e2.Author = 3] = "Author", e2[e2.Genres = 4] = "Genres", e2[e2.Status = 5] = "Status", e2[e2.Hidden = 6] = "Hidden", e2[e2.Summary = 7] = "Summary", e2[e2.Stopped = 8] = "Stopped", e2[e2.Chapter = 9] = "Chapter", e2[e2.ChapterList = 10] = "ChapterList", e2[e2.NovelName = 11] = "NovelName", e2[e2.NovelList = 12] = "NovelList";
   }(n || (n = {}));
-  var c = new l({ id: "libread", sourceSite: "https://libread.com/", sourceName: "Lib Read", options: { latestPage: "sort/latest-novels", searchPage: "search", searchKey: "searchkey", postSearch: true, noAjax: true, noPages: ["sort/most-popular"], pageAsPath: true }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
+  var c = new l({ id: "libread", sourceSite: "https://libread.com/", sourceName: "Lib Read", options: { latestPage: "sort/latest-novels", searchPage: "search", searchKey: "searchkey", postSearch: true, noAjax: true, noPages: ["sort/most-popular"], pageAsPath: true, chapterListing: "api/chapterlist.php", chapterParam: "aid", versionIncrements: 2 }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
   exports.default = c;
 })();
 

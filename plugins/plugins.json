@@ -468,6 +468,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/foxteller/icon.png"
 	},
 	{
+		"id": "FuckNovelpia",
+		"name": "FuckNovelpia",
+		"site": "https://fucknovelpia.com/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/fucknovelpia.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/fucknovelpia/icon.png"
+	},
+	{
 		"id": "FWK.US",
 		"name": "Faq Wiki",
 		"site": "https://faqwiki.us/novel",
@@ -481,7 +490,7 @@
 		"name": "Free Web Novel",
 		"site": "https://freewebnovel.com/",
 		"lang": "English",
-		"version": "2.2.1",
+		"version": "2.2.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/FreeWebNovel[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/fwn.com/icon.png"
 	},
@@ -626,7 +635,7 @@
 		"name": "Lib Read",
 		"site": "https://libread.com/",
 		"lang": "English",
-		"version": "2.2.1",
+		"version": "2.2.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/LibRead[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/libread/icon.png"
 	},
