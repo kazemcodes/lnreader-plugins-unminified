@@ -373,8 +373,8 @@ var LNReaderPlugin = (() => {
   var __esm = (fn, res) => function __init() {
     return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
   };
-  var __commonJS = (cb, mod2) => function __require() {
-    return mod2 || (0, cb[__getOwnPropNames(cb)[0]])((mod2 = { exports: {} }).exports, mod2), mod2.exports;
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
   var __export = (target, all) => {
     for (var name in all)
@@ -388,15 +388,15 @@ var LNReaderPlugin = (() => {
     }
     return to;
   };
-  var __toESM = (mod2, isNodeMode, target) => (target = mod2 != null ? __create(__getProtoOf(mod2)) : {}, __copyProps(
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
     // If the importer is in node compatibility mode or this is not an ESM
     // file that has been converted to a CommonJS file using a Babel-
     // compatible transform (i.e. "__esModule" has not been set), then set
     // "default" to the CommonJS "module.exports" for node compatibility.
-    isNodeMode || !mod2 || !mod2.__esModule ? __defProp(target, "default", { value: mod2, enumerable: true }) : target,
-    mod2
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
   ));
-  var __toCommonJS = (mod2) => __copyProps(__defProp({}, "__esModule", { value: true }), mod2);
+  var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
   // ../node_modules/esbuild-plugin-polyfill-node/polyfills/__dirname.js
   var init_dirname = __esm({
@@ -493,12 +493,12 @@ var LNReaderPlugin = (() => {
     return [seconds, nanoseconds];
   }
   function on() {
-    return process2;
+    return process;
   }
   function listeners(name) {
     return [];
   }
-  var queue, draining, currentQueue, queueIndex, title, arch, platform, env, argv, execArgv, version, versions, emitWarning, binding, umask, cwd, chdir, release, browser, _rawDebug, moduleLoadList, domain, _exiting, config, reallyExit, _kill, cpuUsage, resourceUsage, memoryUsage, kill, exit, openStdin, allowedNodeEnvironmentFlags, features, _fatalExceptions, setUncaughtExceptionCaptureCallback, _tickCallback, _debugProcess, _debugEnd, _startProfilerIdleNotifier, _stopProfilerIdleNotifier, stdout, stderr, stdin, abort, pid, ppid, execPath, debugPort, argv0, _preload_modules, setSourceMapsEnabled, _performance, nanoPerSec, _maxListeners, _events, _eventsCount, addListener, once, off, removeListener, removeAllListeners, emit, prependListener, prependOnceListener, process2, nowOffset;
+  var queue, draining, currentQueue, queueIndex, title, arch, platform, env, argv, execArgv, version, versions, emitWarning, binding, umask, cwd, chdir, release, browser, _rawDebug, moduleLoadList, domain, _exiting, config, reallyExit, _kill, cpuUsage, resourceUsage, memoryUsage, kill, exit, openStdin, allowedNodeEnvironmentFlags, features, _fatalExceptions, setUncaughtExceptionCaptureCallback, _tickCallback, _debugProcess, _debugEnd, _startProfilerIdleNotifier, _stopProfilerIdleNotifier, stdout, stderr, stdin, abort, pid, ppid, execPath, debugPort, argv0, _preload_modules, setSourceMapsEnabled, _performance, nanoPerSec, _maxListeners, _events, _eventsCount, addListener, once, off, removeListener, removeAllListeners, emit, prependListener, prependOnceListener, process, nowOffset;
   var init_process = __esm({
     "../node_modules/@jspm/core/nodelibs/browser/process.js"() {
       init_dirname();
@@ -636,7 +636,7 @@ var LNReaderPlugin = (() => {
       prependListener = on;
       prependOnceListener = on;
       __name(listeners, "listeners");
-      process2 = {
+      process = {
         version,
         versions,
         arch,
@@ -908,13 +908,13 @@ var LNReaderPlugin = (() => {
     const base64 = dew$2();
     const ieee754 = dew$1();
     const customInspectSymbol = typeof Symbol === "function" && typeof Symbol["for"] === "function" ? Symbol["for"]("nodejs.util.inspect.custom") : null;
-    exports2.Buffer = Buffer2;
+    exports2.Buffer = Buffer3;
     exports2.SlowBuffer = SlowBuffer;
     exports2.INSPECT_MAX_BYTES = 50;
     const K_MAX_LENGTH = 2147483647;
     exports2.kMaxLength = K_MAX_LENGTH;
-    Buffer2.TYPED_ARRAY_SUPPORT = typedArraySupport();
-    if (!Buffer2.TYPED_ARRAY_SUPPORT && typeof console !== "undefined" && typeof console.error === "function") {
+    Buffer3.TYPED_ARRAY_SUPPORT = typedArraySupport();
+    if (!Buffer3.TYPED_ARRAY_SUPPORT && typeof console !== "undefined" && typeof console.error === "function") {
       console.error("This browser lacks typed array (Uint8Array) support which is required by `buffer` v5.x. Use `buffer` v4.x if you require old browser support.");
     }
     function typedArraySupport() {
@@ -933,17 +933,17 @@ var LNReaderPlugin = (() => {
       }
     }
     __name(typedArraySupport, "typedArraySupport");
-    Object.defineProperty(Buffer2.prototype, "parent", {
+    Object.defineProperty(Buffer3.prototype, "parent", {
       enumerable: true,
       get: /* @__PURE__ */ __name(function() {
-        if (!Buffer2.isBuffer(this)) return void 0;
+        if (!Buffer3.isBuffer(this)) return void 0;
         return this.buffer;
       }, "get")
     });
-    Object.defineProperty(Buffer2.prototype, "offset", {
+    Object.defineProperty(Buffer3.prototype, "offset", {
       enumerable: true,
       get: /* @__PURE__ */ __name(function() {
-        if (!Buffer2.isBuffer(this)) return void 0;
+        if (!Buffer3.isBuffer(this)) return void 0;
         return this.byteOffset;
       }, "get")
     });
@@ -952,11 +952,11 @@ var LNReaderPlugin = (() => {
         throw new RangeError('The value "' + length + '" is invalid for option "size"');
       }
       const buf = new Uint8Array(length);
-      Object.setPrototypeOf(buf, Buffer2.prototype);
+      Object.setPrototypeOf(buf, Buffer3.prototype);
       return buf;
     }
     __name(createBuffer, "createBuffer");
-    function Buffer2(arg, encodingOrOffset, length) {
+    function Buffer3(arg, encodingOrOffset, length) {
       if (typeof arg === "number") {
         if (typeof encodingOrOffset === "string") {
           throw new TypeError('The "string" argument must be of type string. Received type number');
@@ -965,11 +965,11 @@ var LNReaderPlugin = (() => {
       }
       return from(arg, encodingOrOffset, length);
     }
-    __name(Buffer2, "Buffer");
-    Buffer2.poolSize = 8192;
+    __name(Buffer3, "Buffer");
+    Buffer3.poolSize = 8192;
     function from(value, encodingOrOffset, length) {
       if (typeof value === "string") {
-        return fromString(value, encodingOrOffset);
+        return fromString2(value, encodingOrOffset);
       }
       if (ArrayBuffer.isView(value)) {
         return fromArrayView(value);
@@ -988,21 +988,21 @@ var LNReaderPlugin = (() => {
       }
       const valueOf = value.valueOf && value.valueOf();
       if (valueOf != null && valueOf !== value) {
-        return Buffer2.from(valueOf, encodingOrOffset, length);
+        return Buffer3.from(valueOf, encodingOrOffset, length);
       }
       const b = fromObject(value);
       if (b) return b;
       if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function") {
-        return Buffer2.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
+        return Buffer3.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
       }
       throw new TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value);
     }
     __name(from, "from");
-    Buffer2.from = function(value, encodingOrOffset, length) {
+    Buffer3.from = function(value, encodingOrOffset, length) {
       return from(value, encodingOrOffset, length);
     };
-    Object.setPrototypeOf(Buffer2.prototype, Uint8Array.prototype);
-    Object.setPrototypeOf(Buffer2, Uint8Array);
+    Object.setPrototypeOf(Buffer3.prototype, Uint8Array.prototype);
+    Object.setPrototypeOf(Buffer3, Uint8Array);
     function assertSize(size) {
       if (typeof size !== "number") {
         throw new TypeError('"size" argument must be of type number');
@@ -1022,7 +1022,7 @@ var LNReaderPlugin = (() => {
       return createBuffer(size);
     }
     __name(alloc, "alloc");
-    Buffer2.alloc = function(size, fill, encoding) {
+    Buffer3.alloc = function(size, fill, encoding) {
       return alloc(size, fill, encoding);
     };
     function allocUnsafe(size) {
@@ -1030,17 +1030,17 @@ var LNReaderPlugin = (() => {
       return createBuffer(size < 0 ? 0 : checked(size) | 0);
     }
     __name(allocUnsafe, "allocUnsafe");
-    Buffer2.allocUnsafe = function(size) {
+    Buffer3.allocUnsafe = function(size) {
       return allocUnsafe(size);
     };
-    Buffer2.allocUnsafeSlow = function(size) {
+    Buffer3.allocUnsafeSlow = function(size) {
       return allocUnsafe(size);
     };
-    function fromString(string, encoding) {
+    function fromString2(string, encoding) {
       if (typeof encoding !== "string" || encoding === "") {
         encoding = "utf8";
       }
-      if (!Buffer2.isEncoding(encoding)) {
+      if (!Buffer3.isEncoding(encoding)) {
         throw new TypeError("Unknown encoding: " + encoding);
       }
       const length = byteLength(string, encoding) | 0;
@@ -1051,7 +1051,7 @@ var LNReaderPlugin = (() => {
       }
       return buf;
     }
-    __name(fromString, "fromString");
+    __name(fromString2, "fromString");
     function fromArrayLike(array) {
       const length = array.length < 0 ? 0 : checked(array.length) | 0;
       const buf = createBuffer(length);
@@ -1084,12 +1084,12 @@ var LNReaderPlugin = (() => {
       } else {
         buf = new Uint8Array(array, byteOffset, length);
       }
-      Object.setPrototypeOf(buf, Buffer2.prototype);
+      Object.setPrototypeOf(buf, Buffer3.prototype);
       return buf;
     }
     __name(fromArrayBuffer, "fromArrayBuffer");
     function fromObject(obj) {
-      if (Buffer2.isBuffer(obj)) {
+      if (Buffer3.isBuffer(obj)) {
         const len = checked(obj.length) | 0;
         const buf = createBuffer(len);
         if (buf.length === 0) {
@@ -1120,16 +1120,16 @@ var LNReaderPlugin = (() => {
       if (+length != length) {
         length = 0;
       }
-      return Buffer2.alloc(+length);
+      return Buffer3.alloc(+length);
     }
     __name(SlowBuffer, "SlowBuffer");
-    Buffer2.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
-      return b != null && b._isBuffer === true && b !== Buffer2.prototype;
+    Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
+      return b != null && b._isBuffer === true && b !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer2.compare = /* @__PURE__ */ __name(function compare(a2, b) {
-      if (isInstance(a2, Uint8Array)) a2 = Buffer2.from(a2, a2.offset, a2.byteLength);
-      if (isInstance(b, Uint8Array)) b = Buffer2.from(b, b.offset, b.byteLength);
-      if (!Buffer2.isBuffer(a2) || !Buffer2.isBuffer(b)) {
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
+      if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
+      if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
+      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
       if (a2 === b) return 0;
@@ -1146,7 +1146,7 @@ var LNReaderPlugin = (() => {
       if (y < x) return 1;
       return 0;
     }, "compare");
-    Buffer2.isEncoding = /* @__PURE__ */ __name(function isEncoding(encoding) {
+    Buffer3.isEncoding = /* @__PURE__ */ __name(function isEncoding(encoding) {
       switch (String(encoding).toLowerCase()) {
         case "hex":
         case "utf8":
@@ -1164,12 +1164,12 @@ var LNReaderPlugin = (() => {
           return false;
       }
     }, "isEncoding");
-    Buffer2.concat = /* @__PURE__ */ __name(function concat(list, length) {
+    Buffer3.concat = /* @__PURE__ */ __name(function concat(list, length) {
       if (!Array.isArray(list)) {
         throw new TypeError('"list" argument must be an Array of Buffers');
       }
       if (list.length === 0) {
-        return Buffer2.alloc(0);
+        return Buffer3.alloc(0);
       }
       let i2;
       if (length === void 0) {
@@ -1178,18 +1178,18 @@ var LNReaderPlugin = (() => {
           length += list[i2].length;
         }
       }
-      const buffer = Buffer2.allocUnsafe(length);
+      const buffer = Buffer3.allocUnsafe(length);
       let pos = 0;
       for (i2 = 0; i2 < list.length; ++i2) {
         let buf = list[i2];
         if (isInstance(buf, Uint8Array)) {
           if (pos + buf.length > buffer.length) {
-            if (!Buffer2.isBuffer(buf)) buf = Buffer2.from(buf);
+            if (!Buffer3.isBuffer(buf)) buf = Buffer3.from(buf);
             buf.copy(buffer, pos);
           } else {
             Uint8Array.prototype.set.call(buffer, buf, pos);
           }
-        } else if (!Buffer2.isBuffer(buf)) {
+        } else if (!Buffer3.isBuffer(buf)) {
           throw new TypeError('"list" argument must be an Array of Buffers');
         } else {
           buf.copy(buffer, pos);
@@ -1199,7 +1199,7 @@ var LNReaderPlugin = (() => {
       return buffer;
     }, "concat");
     function byteLength(string, encoding) {
-      if (Buffer2.isBuffer(string)) {
+      if (Buffer3.isBuffer(string)) {
         return string.length;
       }
       if (ArrayBuffer.isView(string) || isInstance(string, ArrayBuffer)) {
@@ -1240,7 +1240,7 @@ var LNReaderPlugin = (() => {
       }
     }
     __name(byteLength, "byteLength");
-    Buffer2.byteLength = byteLength;
+    Buffer3.byteLength = byteLength;
     function slowToString(encoding, start, end2) {
       let loweredCase = false;
       if (start === void 0 || start < 0) {
@@ -1288,14 +1288,14 @@ var LNReaderPlugin = (() => {
       }
     }
     __name(slowToString, "slowToString");
-    Buffer2.prototype._isBuffer = true;
+    Buffer3.prototype._isBuffer = true;
     function swap(b, n2, m) {
       const i2 = b[n2];
       b[n2] = b[m];
       b[m] = i2;
     }
     __name(swap, "swap");
-    Buffer2.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
+    Buffer3.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
       const len = this.length;
       if (len % 2 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 16-bits");
@@ -1305,7 +1305,7 @@ var LNReaderPlugin = (() => {
       }
       return this;
     }, "swap16");
-    Buffer2.prototype.swap32 = /* @__PURE__ */ __name(function swap32() {
+    Buffer3.prototype.swap32 = /* @__PURE__ */ __name(function swap32() {
       const len = this.length;
       if (len % 4 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 32-bits");
@@ -1316,7 +1316,7 @@ var LNReaderPlugin = (() => {
       }
       return this;
     }, "swap32");
-    Buffer2.prototype.swap64 = /* @__PURE__ */ __name(function swap64() {
+    Buffer3.prototype.swap64 = /* @__PURE__ */ __name(function swap64() {
       const len = this.length;
       if (len % 8 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 64-bits");
@@ -1329,19 +1329,19 @@ var LNReaderPlugin = (() => {
       }
       return this;
     }, "swap64");
-    Buffer2.prototype.toString = /* @__PURE__ */ __name(function toString2() {
+    Buffer3.prototype.toString = /* @__PURE__ */ __name(function toString3() {
       const length = this.length;
       if (length === 0) return "";
       if (arguments.length === 0) return utf8Slice(this, 0, length);
       return slowToString.apply(this, arguments);
     }, "toString");
-    Buffer2.prototype.toLocaleString = Buffer2.prototype.toString;
-    Buffer2.prototype.equals = /* @__PURE__ */ __name(function equals(b) {
-      if (!Buffer2.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
+    Buffer3.prototype.toLocaleString = Buffer3.prototype.toString;
+    Buffer3.prototype.equals = /* @__PURE__ */ __name(function equals2(b) {
+      if (!Buffer3.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
       if (this === b) return true;
-      return Buffer2.compare(this, b) === 0;
+      return Buffer3.compare(this, b) === 0;
     }, "equals");
-    Buffer2.prototype.inspect = /* @__PURE__ */ __name(function inspect() {
+    Buffer3.prototype.inspect = /* @__PURE__ */ __name(function inspect() {
       let str = "";
       const max = exports2.INSPECT_MAX_BYTES;
       str = this.toString("hex", 0, max).replace(/(.{2})/g, "$1 ").trim();
@@ -1349,13 +1349,13 @@ var LNReaderPlugin = (() => {
       return "<Buffer " + str + ">";
     }, "inspect");
     if (customInspectSymbol) {
-      Buffer2.prototype[customInspectSymbol] = Buffer2.prototype.inspect;
+      Buffer3.prototype[customInspectSymbol] = Buffer3.prototype.inspect;
     }
-    Buffer2.prototype.compare = /* @__PURE__ */ __name(function compare(target, start, end2, thisStart, thisEnd) {
+    Buffer3.prototype.compare = /* @__PURE__ */ __name(function compare2(target, start, end2, thisStart, thisEnd) {
       if (isInstance(target, Uint8Array)) {
-        target = Buffer2.from(target, target.offset, target.byteLength);
+        target = Buffer3.from(target, target.offset, target.byteLength);
       }
-      if (!Buffer2.isBuffer(target)) {
+      if (!Buffer3.isBuffer(target)) {
         throw new TypeError('The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof target);
       }
       if (start === void 0) {
@@ -1426,9 +1426,9 @@ var LNReaderPlugin = (() => {
         else return -1;
       }
       if (typeof val2 === "string") {
-        val2 = Buffer2.from(val2, encoding);
+        val2 = Buffer3.from(val2, encoding);
       }
-      if (Buffer2.isBuffer(val2)) {
+      if (Buffer3.isBuffer(val2)) {
         if (val2.length === 0) {
           return -1;
         }
@@ -1499,13 +1499,13 @@ var LNReaderPlugin = (() => {
       return -1;
     }
     __name(arrayIndexOf, "arrayIndexOf");
-    Buffer2.prototype.includes = /* @__PURE__ */ __name(function includes(val2, byteOffset, encoding) {
+    Buffer3.prototype.includes = /* @__PURE__ */ __name(function includes(val2, byteOffset, encoding) {
       return this.indexOf(val2, byteOffset, encoding) !== -1;
     }, "includes");
-    Buffer2.prototype.indexOf = /* @__PURE__ */ __name(function indexOf(val2, byteOffset, encoding) {
+    Buffer3.prototype.indexOf = /* @__PURE__ */ __name(function indexOf(val2, byteOffset, encoding) {
       return bidirectionalIndexOf(this, val2, byteOffset, encoding, true);
     }, "indexOf");
-    Buffer2.prototype.lastIndexOf = /* @__PURE__ */ __name(function lastIndexOf(val2, byteOffset, encoding) {
+    Buffer3.prototype.lastIndexOf = /* @__PURE__ */ __name(function lastIndexOf(val2, byteOffset, encoding) {
       return bidirectionalIndexOf(this, val2, byteOffset, encoding, false);
     }, "lastIndexOf");
     function hexWrite(buf, string, offset, length) {
@@ -1548,7 +1548,7 @@ var LNReaderPlugin = (() => {
       return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length);
     }
     __name(ucs2Write, "ucs2Write");
-    Buffer2.prototype.write = /* @__PURE__ */ __name(function write(string, offset, length, encoding) {
+    Buffer3.prototype.write = /* @__PURE__ */ __name(function write(string, offset, length, encoding) {
       if (offset === void 0) {
         encoding = "utf8";
         length = this.length;
@@ -1601,7 +1601,7 @@ var LNReaderPlugin = (() => {
         }
       }
     }, "write");
-    Buffer2.prototype.toJSON = /* @__PURE__ */ __name(function toJSON() {
+    Buffer3.prototype.toJSON = /* @__PURE__ */ __name(function toJSON() {
       return {
         type: "Buffer",
         data: Array.prototype.slice.call(this._arr || this, 0)
@@ -1728,7 +1728,7 @@ var LNReaderPlugin = (() => {
       return res;
     }
     __name(utf16leSlice, "utf16leSlice");
-    Buffer2.prototype.slice = /* @__PURE__ */ __name(function slice2(start, end2) {
+    Buffer3.prototype.slice = /* @__PURE__ */ __name(function slice2(start, end2) {
       const len = this.length;
       start = ~~start;
       end2 = end2 === void 0 ? len : ~~end2;
@@ -1746,7 +1746,7 @@ var LNReaderPlugin = (() => {
       }
       if (end2 < start) end2 = start;
       const newBuf = this.subarray(start, end2);
-      Object.setPrototypeOf(newBuf, Buffer2.prototype);
+      Object.setPrototypeOf(newBuf, Buffer3.prototype);
       return newBuf;
     }, "slice");
     function checkOffset(offset, ext, length) {
@@ -1754,7 +1754,7 @@ var LNReaderPlugin = (() => {
       if (offset + ext > length) throw new RangeError("Trying to access beyond buffer length");
     }
     __name(checkOffset, "checkOffset");
-    Buffer2.prototype.readUintLE = Buffer2.prototype.readUIntLE = /* @__PURE__ */ __name(function readUIntLE(offset, byteLength2, noAssert) {
+    Buffer3.prototype.readUintLE = Buffer3.prototype.readUIntLE = /* @__PURE__ */ __name(function readUIntLE(offset, byteLength2, noAssert) {
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1766,7 +1766,7 @@ var LNReaderPlugin = (() => {
       }
       return val2;
     }, "readUIntLE");
-    Buffer2.prototype.readUintBE = Buffer2.prototype.readUIntBE = /* @__PURE__ */ __name(function readUIntBE(offset, byteLength2, noAssert) {
+    Buffer3.prototype.readUintBE = Buffer3.prototype.readUIntBE = /* @__PURE__ */ __name(function readUIntBE(offset, byteLength2, noAssert) {
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) {
@@ -1779,32 +1779,32 @@ var LNReaderPlugin = (() => {
       }
       return val2;
     }, "readUIntBE");
-    Buffer2.prototype.readUint8 = Buffer2.prototype.readUInt8 = /* @__PURE__ */ __name(function readUInt8(offset, noAssert) {
+    Buffer3.prototype.readUint8 = Buffer3.prototype.readUInt8 = /* @__PURE__ */ __name(function readUInt8(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 1, this.length);
       return this[offset];
     }, "readUInt8");
-    Buffer2.prototype.readUint16LE = Buffer2.prototype.readUInt16LE = /* @__PURE__ */ __name(function readUInt16LE(offset, noAssert) {
+    Buffer3.prototype.readUint16LE = Buffer3.prototype.readUInt16LE = /* @__PURE__ */ __name(function readUInt16LE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 2, this.length);
       return this[offset] | this[offset + 1] << 8;
     }, "readUInt16LE");
-    Buffer2.prototype.readUint16BE = Buffer2.prototype.readUInt16BE = /* @__PURE__ */ __name(function readUInt16BE(offset, noAssert) {
+    Buffer3.prototype.readUint16BE = Buffer3.prototype.readUInt16BE = /* @__PURE__ */ __name(function readUInt16BE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 2, this.length);
       return this[offset] << 8 | this[offset + 1];
     }, "readUInt16BE");
-    Buffer2.prototype.readUint32LE = Buffer2.prototype.readUInt32LE = /* @__PURE__ */ __name(function readUInt32LE(offset, noAssert) {
+    Buffer3.prototype.readUint32LE = Buffer3.prototype.readUInt32LE = /* @__PURE__ */ __name(function readUInt32LE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 4, this.length);
       return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 16777216;
     }, "readUInt32LE");
-    Buffer2.prototype.readUint32BE = Buffer2.prototype.readUInt32BE = /* @__PURE__ */ __name(function readUInt32BE(offset, noAssert) {
+    Buffer3.prototype.readUint32BE = Buffer3.prototype.readUInt32BE = /* @__PURE__ */ __name(function readUInt32BE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 4, this.length);
       return this[offset] * 16777216 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
     }, "readUInt32BE");
-    Buffer2.prototype.readBigUInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigUInt64LE(offset) {
+    Buffer3.prototype.readBigUInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigUInt64LE(offset) {
       offset = offset >>> 0;
       validateNumber(offset, "offset");
       const first2 = this[offset];
@@ -1816,7 +1816,7 @@ var LNReaderPlugin = (() => {
       const hi = this[++offset] + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + last2 * 2 ** 24;
       return BigInt(lo) + (BigInt(hi) << BigInt(32));
     }, "readBigUInt64LE"));
-    Buffer2.prototype.readBigUInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigUInt64BE(offset) {
+    Buffer3.prototype.readBigUInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigUInt64BE(offset) {
       offset = offset >>> 0;
       validateNumber(offset, "offset");
       const first2 = this[offset];
@@ -1828,7 +1828,7 @@ var LNReaderPlugin = (() => {
       const lo = this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last2;
       return (BigInt(hi) << BigInt(32)) + BigInt(lo);
     }, "readBigUInt64BE"));
-    Buffer2.prototype.readIntLE = /* @__PURE__ */ __name(function readIntLE(offset, byteLength2, noAssert) {
+    Buffer3.prototype.readIntLE = /* @__PURE__ */ __name(function readIntLE(offset, byteLength2, noAssert) {
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1842,7 +1842,7 @@ var LNReaderPlugin = (() => {
       if (val2 >= mul) val2 -= Math.pow(2, 8 * byteLength2);
       return val2;
     }, "readIntLE");
-    Buffer2.prototype.readIntBE = /* @__PURE__ */ __name(function readIntBE(offset, byteLength2, noAssert) {
+    Buffer3.prototype.readIntBE = /* @__PURE__ */ __name(function readIntBE(offset, byteLength2, noAssert) {
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1856,35 +1856,35 @@ var LNReaderPlugin = (() => {
       if (val2 >= mul) val2 -= Math.pow(2, 8 * byteLength2);
       return val2;
     }, "readIntBE");
-    Buffer2.prototype.readInt8 = /* @__PURE__ */ __name(function readInt8(offset, noAssert) {
+    Buffer3.prototype.readInt8 = /* @__PURE__ */ __name(function readInt8(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 1, this.length);
       if (!(this[offset] & 128)) return this[offset];
       return (255 - this[offset] + 1) * -1;
     }, "readInt8");
-    Buffer2.prototype.readInt16LE = /* @__PURE__ */ __name(function readInt16LE(offset, noAssert) {
+    Buffer3.prototype.readInt16LE = /* @__PURE__ */ __name(function readInt16LE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 2, this.length);
       const val2 = this[offset] | this[offset + 1] << 8;
       return val2 & 32768 ? val2 | 4294901760 : val2;
     }, "readInt16LE");
-    Buffer2.prototype.readInt16BE = /* @__PURE__ */ __name(function readInt16BE(offset, noAssert) {
+    Buffer3.prototype.readInt16BE = /* @__PURE__ */ __name(function readInt16BE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 2, this.length);
       const val2 = this[offset + 1] | this[offset] << 8;
       return val2 & 32768 ? val2 | 4294901760 : val2;
     }, "readInt16BE");
-    Buffer2.prototype.readInt32LE = /* @__PURE__ */ __name(function readInt32LE(offset, noAssert) {
+    Buffer3.prototype.readInt32LE = /* @__PURE__ */ __name(function readInt32LE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 4, this.length);
       return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
     }, "readInt32LE");
-    Buffer2.prototype.readInt32BE = /* @__PURE__ */ __name(function readInt32BE(offset, noAssert) {
+    Buffer3.prototype.readInt32BE = /* @__PURE__ */ __name(function readInt32BE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 4, this.length);
       return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
     }, "readInt32BE");
-    Buffer2.prototype.readBigInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigInt64LE(offset) {
+    Buffer3.prototype.readBigInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigInt64LE(offset) {
       offset = offset >>> 0;
       validateNumber(offset, "offset");
       const first2 = this[offset];
@@ -1895,7 +1895,7 @@ var LNReaderPlugin = (() => {
       const val2 = this[offset + 4] + this[offset + 5] * 2 ** 8 + this[offset + 6] * 2 ** 16 + (last2 << 24);
       return (BigInt(val2) << BigInt(32)) + BigInt(first2 + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24);
     }, "readBigInt64LE"));
-    Buffer2.prototype.readBigInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigInt64BE(offset) {
+    Buffer3.prototype.readBigInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function readBigInt64BE(offset) {
       offset = offset >>> 0;
       validateNumber(offset, "offset");
       const first2 = this[offset];
@@ -1907,33 +1907,33 @@ var LNReaderPlugin = (() => {
       this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + this[++offset];
       return (BigInt(val2) << BigInt(32)) + BigInt(this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last2);
     }, "readBigInt64BE"));
-    Buffer2.prototype.readFloatLE = /* @__PURE__ */ __name(function readFloatLE(offset, noAssert) {
+    Buffer3.prototype.readFloatLE = /* @__PURE__ */ __name(function readFloatLE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 4, this.length);
       return ieee754.read(this, offset, true, 23, 4);
     }, "readFloatLE");
-    Buffer2.prototype.readFloatBE = /* @__PURE__ */ __name(function readFloatBE(offset, noAssert) {
+    Buffer3.prototype.readFloatBE = /* @__PURE__ */ __name(function readFloatBE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 4, this.length);
       return ieee754.read(this, offset, false, 23, 4);
     }, "readFloatBE");
-    Buffer2.prototype.readDoubleLE = /* @__PURE__ */ __name(function readDoubleLE(offset, noAssert) {
+    Buffer3.prototype.readDoubleLE = /* @__PURE__ */ __name(function readDoubleLE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 8, this.length);
       return ieee754.read(this, offset, true, 52, 8);
     }, "readDoubleLE");
-    Buffer2.prototype.readDoubleBE = /* @__PURE__ */ __name(function readDoubleBE(offset, noAssert) {
+    Buffer3.prototype.readDoubleBE = /* @__PURE__ */ __name(function readDoubleBE(offset, noAssert) {
       offset = offset >>> 0;
       if (!noAssert) checkOffset(offset, 8, this.length);
       return ieee754.read(this, offset, false, 52, 8);
     }, "readDoubleBE");
     function checkInt(buf, value, offset, ext, max, min) {
-      if (!Buffer2.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
+      if (!Buffer3.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
       if (value > max || value < min) throw new RangeError('"value" argument is out of bounds');
       if (offset + ext > buf.length) throw new RangeError("Index out of range");
     }
     __name(checkInt, "checkInt");
-    Buffer2.prototype.writeUintLE = Buffer2.prototype.writeUIntLE = /* @__PURE__ */ __name(function writeUIntLE(value, offset, byteLength2, noAssert) {
+    Buffer3.prototype.writeUintLE = Buffer3.prototype.writeUIntLE = /* @__PURE__ */ __name(function writeUIntLE(value, offset, byteLength2, noAssert) {
       value = +value;
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
@@ -1949,7 +1949,7 @@ var LNReaderPlugin = (() => {
       }
       return offset + byteLength2;
     }, "writeUIntLE");
-    Buffer2.prototype.writeUintBE = Buffer2.prototype.writeUIntBE = /* @__PURE__ */ __name(function writeUIntBE(value, offset, byteLength2, noAssert) {
+    Buffer3.prototype.writeUintBE = Buffer3.prototype.writeUIntBE = /* @__PURE__ */ __name(function writeUIntBE(value, offset, byteLength2, noAssert) {
       value = +value;
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
@@ -1965,14 +1965,14 @@ var LNReaderPlugin = (() => {
       }
       return offset + byteLength2;
     }, "writeUIntBE");
-    Buffer2.prototype.writeUint8 = Buffer2.prototype.writeUInt8 = /* @__PURE__ */ __name(function writeUInt8(value, offset, noAssert) {
+    Buffer3.prototype.writeUint8 = Buffer3.prototype.writeUInt8 = /* @__PURE__ */ __name(function writeUInt8(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 1, 255, 0);
       this[offset] = value & 255;
       return offset + 1;
     }, "writeUInt8");
-    Buffer2.prototype.writeUint16LE = Buffer2.prototype.writeUInt16LE = /* @__PURE__ */ __name(function writeUInt16LE(value, offset, noAssert) {
+    Buffer3.prototype.writeUint16LE = Buffer3.prototype.writeUInt16LE = /* @__PURE__ */ __name(function writeUInt16LE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 2, 65535, 0);
@@ -1980,7 +1980,7 @@ var LNReaderPlugin = (() => {
       this[offset + 1] = value >>> 8;
       return offset + 2;
     }, "writeUInt16LE");
-    Buffer2.prototype.writeUint16BE = Buffer2.prototype.writeUInt16BE = /* @__PURE__ */ __name(function writeUInt16BE(value, offset, noAssert) {
+    Buffer3.prototype.writeUint16BE = Buffer3.prototype.writeUInt16BE = /* @__PURE__ */ __name(function writeUInt16BE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 2, 65535, 0);
@@ -1988,7 +1988,7 @@ var LNReaderPlugin = (() => {
       this[offset + 1] = value & 255;
       return offset + 2;
     }, "writeUInt16BE");
-    Buffer2.prototype.writeUint32LE = Buffer2.prototype.writeUInt32LE = /* @__PURE__ */ __name(function writeUInt32LE(value, offset, noAssert) {
+    Buffer3.prototype.writeUint32LE = Buffer3.prototype.writeUInt32LE = /* @__PURE__ */ __name(function writeUInt32LE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 4, 4294967295, 0);
@@ -1998,7 +1998,7 @@ var LNReaderPlugin = (() => {
       this[offset] = value & 255;
       return offset + 4;
     }, "writeUInt32LE");
-    Buffer2.prototype.writeUint32BE = Buffer2.prototype.writeUInt32BE = /* @__PURE__ */ __name(function writeUInt32BE(value, offset, noAssert) {
+    Buffer3.prototype.writeUint32BE = Buffer3.prototype.writeUInt32BE = /* @__PURE__ */ __name(function writeUInt32BE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 4, 4294967295, 0);
@@ -2050,13 +2050,13 @@ var LNReaderPlugin = (() => {
       return offset + 8;
     }
     __name(wrtBigUInt64BE, "wrtBigUInt64BE");
-    Buffer2.prototype.writeBigUInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigUInt64LE(value, offset = 0) {
+    Buffer3.prototype.writeBigUInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigUInt64LE(value, offset = 0) {
       return wrtBigUInt64LE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
     }, "writeBigUInt64LE"));
-    Buffer2.prototype.writeBigUInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigUInt64BE(value, offset = 0) {
+    Buffer3.prototype.writeBigUInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigUInt64BE(value, offset = 0) {
       return wrtBigUInt64BE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
     }, "writeBigUInt64BE"));
-    Buffer2.prototype.writeIntLE = /* @__PURE__ */ __name(function writeIntLE(value, offset, byteLength2, noAssert) {
+    Buffer3.prototype.writeIntLE = /* @__PURE__ */ __name(function writeIntLE(value, offset, byteLength2, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) {
@@ -2075,7 +2075,7 @@ var LNReaderPlugin = (() => {
       }
       return offset + byteLength2;
     }, "writeIntLE");
-    Buffer2.prototype.writeIntBE = /* @__PURE__ */ __name(function writeIntBE(value, offset, byteLength2, noAssert) {
+    Buffer3.prototype.writeIntBE = /* @__PURE__ */ __name(function writeIntBE(value, offset, byteLength2, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) {
@@ -2094,7 +2094,7 @@ var LNReaderPlugin = (() => {
       }
       return offset + byteLength2;
     }, "writeIntBE");
-    Buffer2.prototype.writeInt8 = /* @__PURE__ */ __name(function writeInt8(value, offset, noAssert) {
+    Buffer3.prototype.writeInt8 = /* @__PURE__ */ __name(function writeInt8(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 1, 127, -128);
@@ -2102,7 +2102,7 @@ var LNReaderPlugin = (() => {
       this[offset] = value & 255;
       return offset + 1;
     }, "writeInt8");
-    Buffer2.prototype.writeInt16LE = /* @__PURE__ */ __name(function writeInt16LE(value, offset, noAssert) {
+    Buffer3.prototype.writeInt16LE = /* @__PURE__ */ __name(function writeInt16LE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 2, 32767, -32768);
@@ -2110,7 +2110,7 @@ var LNReaderPlugin = (() => {
       this[offset + 1] = value >>> 8;
       return offset + 2;
     }, "writeInt16LE");
-    Buffer2.prototype.writeInt16BE = /* @__PURE__ */ __name(function writeInt16BE(value, offset, noAssert) {
+    Buffer3.prototype.writeInt16BE = /* @__PURE__ */ __name(function writeInt16BE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 2, 32767, -32768);
@@ -2118,7 +2118,7 @@ var LNReaderPlugin = (() => {
       this[offset + 1] = value & 255;
       return offset + 2;
     }, "writeInt16BE");
-    Buffer2.prototype.writeInt32LE = /* @__PURE__ */ __name(function writeInt32LE(value, offset, noAssert) {
+    Buffer3.prototype.writeInt32LE = /* @__PURE__ */ __name(function writeInt32LE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 4, 2147483647, -2147483648);
@@ -2128,7 +2128,7 @@ var LNReaderPlugin = (() => {
       this[offset + 3] = value >>> 24;
       return offset + 4;
     }, "writeInt32LE");
-    Buffer2.prototype.writeInt32BE = /* @__PURE__ */ __name(function writeInt32BE(value, offset, noAssert) {
+    Buffer3.prototype.writeInt32BE = /* @__PURE__ */ __name(function writeInt32BE(value, offset, noAssert) {
       value = +value;
       offset = offset >>> 0;
       if (!noAssert) checkInt(this, value, offset, 4, 2147483647, -2147483648);
@@ -2139,10 +2139,10 @@ var LNReaderPlugin = (() => {
       this[offset + 3] = value & 255;
       return offset + 4;
     }, "writeInt32BE");
-    Buffer2.prototype.writeBigInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigInt64LE(value, offset = 0) {
+    Buffer3.prototype.writeBigInt64LE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigInt64LE(value, offset = 0) {
       return wrtBigUInt64LE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
     }, "writeBigInt64LE"));
-    Buffer2.prototype.writeBigInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigInt64BE(value, offset = 0) {
+    Buffer3.prototype.writeBigInt64BE = defineBigIntMethod(/* @__PURE__ */ __name(function writeBigInt64BE(value, offset = 0) {
       return wrtBigUInt64BE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
     }, "writeBigInt64BE"));
     function checkIEEE754(buf, value, offset, ext, max, min) {
@@ -2160,10 +2160,10 @@ var LNReaderPlugin = (() => {
       return offset + 4;
     }
     __name(writeFloat, "writeFloat");
-    Buffer2.prototype.writeFloatLE = /* @__PURE__ */ __name(function writeFloatLE(value, offset, noAssert) {
+    Buffer3.prototype.writeFloatLE = /* @__PURE__ */ __name(function writeFloatLE(value, offset, noAssert) {
       return writeFloat(this, value, offset, true, noAssert);
     }, "writeFloatLE");
-    Buffer2.prototype.writeFloatBE = /* @__PURE__ */ __name(function writeFloatBE(value, offset, noAssert) {
+    Buffer3.prototype.writeFloatBE = /* @__PURE__ */ __name(function writeFloatBE(value, offset, noAssert) {
       return writeFloat(this, value, offset, false, noAssert);
     }, "writeFloatBE");
     function writeDouble(buf, value, offset, littleEndian, noAssert) {
@@ -2176,14 +2176,14 @@ var LNReaderPlugin = (() => {
       return offset + 8;
     }
     __name(writeDouble, "writeDouble");
-    Buffer2.prototype.writeDoubleLE = /* @__PURE__ */ __name(function writeDoubleLE(value, offset, noAssert) {
+    Buffer3.prototype.writeDoubleLE = /* @__PURE__ */ __name(function writeDoubleLE(value, offset, noAssert) {
       return writeDouble(this, value, offset, true, noAssert);
     }, "writeDoubleLE");
-    Buffer2.prototype.writeDoubleBE = /* @__PURE__ */ __name(function writeDoubleBE(value, offset, noAssert) {
+    Buffer3.prototype.writeDoubleBE = /* @__PURE__ */ __name(function writeDoubleBE(value, offset, noAssert) {
       return writeDouble(this, value, offset, false, noAssert);
     }, "writeDoubleBE");
-    Buffer2.prototype.copy = /* @__PURE__ */ __name(function copy(target, targetStart, start, end2) {
-      if (!Buffer2.isBuffer(target)) throw new TypeError("argument should be a Buffer");
+    Buffer3.prototype.copy = /* @__PURE__ */ __name(function copy(target, targetStart, start, end2) {
+      if (!Buffer3.isBuffer(target)) throw new TypeError("argument should be a Buffer");
       if (!start) start = 0;
       if (!end2 && end2 !== 0) end2 = this.length;
       if (targetStart >= target.length) targetStart = target.length;
@@ -2208,7 +2208,7 @@ var LNReaderPlugin = (() => {
       }
       return len;
     }, "copy");
-    Buffer2.prototype.fill = /* @__PURE__ */ __name(function fill(val2, start, end2, encoding) {
+    Buffer3.prototype.fill = /* @__PURE__ */ __name(function fill(val2, start, end2, encoding) {
       if (typeof val2 === "string") {
         if (typeof start === "string") {
           encoding = start;
@@ -2221,7 +2221,7 @@ var LNReaderPlugin = (() => {
         if (encoding !== void 0 && typeof encoding !== "string") {
           throw new TypeError("encoding must be a string");
         }
-        if (typeof encoding === "string" && !Buffer2.isEncoding(encoding)) {
+        if (typeof encoding === "string" && !Buffer3.isEncoding(encoding)) {
           throw new TypeError("Unknown encoding: " + encoding);
         }
         if (val2.length === 1) {
@@ -2250,7 +2250,7 @@ var LNReaderPlugin = (() => {
           this[i2] = val2;
         }
       } else {
-        const bytes = Buffer2.isBuffer(val2) ? val2 : Buffer2.from(val2, encoding);
+        const bytes = Buffer3.isBuffer(val2) ? val2 : Buffer3.from(val2, encoding);
         const len = bytes.length;
         if (len === 0) {
           throw new TypeError('The value "' + val2 + '" is invalid for argument "value"');
@@ -2507,7 +2507,7 @@ var LNReaderPlugin = (() => {
   });
 
   // ../node_modules/@jspm/core/nodelibs/browser/buffer.js
-  var exports3, Buffer, INSPECT_MAX_BYTES, kMaxLength;
+  var exports3, Buffer2, INSPECT_MAX_BYTES, kMaxLength;
   var init_buffer = __esm({
     "../node_modules/@jspm/core/nodelibs/browser/buffer.js"() {
       init_dirname();
@@ -2519,7 +2519,7 @@ var LNReaderPlugin = (() => {
       exports3["SlowBuffer"];
       exports3["INSPECT_MAX_BYTES"];
       exports3["kMaxLength"];
-      Buffer = exports3.Buffer;
+      Buffer2 = exports3.Buffer;
       INSPECT_MAX_BYTES = exports3.INSPECT_MAX_BYTES;
       kMaxLength = exports3.kMaxLength;
     }
@@ -2660,17 +2660,17 @@ var LNReaderPlugin = (() => {
       } : function(o2, v) {
         o2["default"] = v;
       });
-      var __importStar = exports4 && exports4.__importStar || function(mod2) {
-        if (mod2 && mod2.__esModule) return mod2;
+      var __importStar = exports4 && exports4.__importStar || function(mod) {
+        if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod2 != null) {
-          for (var k in mod2) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod2, k)) __createBinding(result, mod2, k);
+        if (mod != null) {
+          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         }
-        __setModuleDefault(result, mod2);
+        __setModuleDefault(result, mod);
         return result;
       };
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.decodeXML = exports4.decodeHTMLStrict = exports4.decodeHTMLAttribute = exports4.decodeHTML = exports4.determineBranch = exports4.EntityDecoder = exports4.DecodingMode = exports4.BinTrieFlags = exports4.fromCodePoint = exports4.replaceCodePoint = exports4.decodeCodePoint = exports4.xmlDecodeTree = exports4.htmlDecodeTree = void 0;
@@ -3714,13 +3714,13 @@ var LNReaderPlugin = (() => {
       } : function(o2, v) {
         o2["default"] = v;
       });
-      var __importStar = exports4 && exports4.__importStar || function(mod2) {
-        if (mod2 && mod2.__esModule) return mod2;
+      var __importStar = exports4 && exports4.__importStar || function(mod) {
+        if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod2 != null) {
-          for (var k in mod2) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod2, k)) __createBinding(result, mod2, k);
+        if (mod != null) {
+          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         }
-        __setModuleDefault(result, mod2);
+        __setModuleDefault(result, mod);
         return result;
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
@@ -4889,8 +4889,8 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.encodeNonAsciiHTML = exports4.encodeHTML = void 0;
@@ -5231,13 +5231,13 @@ var LNReaderPlugin = (() => {
       } : function(o2, v) {
         o2["default"] = v;
       });
-      var __importStar = exports4 && exports4.__importStar || function(mod2) {
-        if (mod2 && mod2.__esModule) return mod2;
+      var __importStar = exports4 && exports4.__importStar || function(mod) {
+        if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod2 != null) {
-          for (var k in mod2) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod2, k)) __createBinding(result, mod2, k);
+        if (mod != null) {
+          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         }
-        __setModuleDefault(result, mod2);
+        __setModuleDefault(result, mod);
         return result;
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
@@ -5414,8 +5414,8 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.innerText = exports4.textContent = exports4.getText = exports4.getInnerHTML = exports4.getOuterHTML = void 0;
@@ -6220,17 +6220,17 @@ var LNReaderPlugin = (() => {
       } : function(o2, v) {
         o2["default"] = v;
       });
-      var __importStar = exports4 && exports4.__importStar || function(mod2) {
-        if (mod2 && mod2.__esModule) return mod2;
+      var __importStar = exports4 && exports4.__importStar || function(mod) {
+        if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod2 != null) {
-          for (var k in mod2) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod2, k)) __createBinding(result, mod2, k);
+        if (mod != null) {
+          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         }
-        __setModuleDefault(result, mod2);
+        __setModuleDefault(result, mod);
         return result;
       };
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.DomUtils = exports4.parseFeed = exports4.getFeed = exports4.ElementType = exports4.QuoteType = exports4.Tokenizer = exports4.createDomStream = exports4.createDocumentStream = exports4.parseDOM = exports4.parseDocument = exports4.DefaultHandler = exports4.DomHandler = exports4.Parser = void 0;
@@ -6301,12 +6301,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/@protobufjs/aspromise/index.js
   var require_aspromise = __commonJS({
-    "node_modules/@protobufjs/aspromise/index.js"(exports4, module2) {
+    "node_modules/@protobufjs/aspromise/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = asPromise;
+      module.exports = asPromise;
       function asPromise(fn, ctx) {
         var params = new Array(arguments.length - 1), offset = 0, index2 = 2, pending = true;
         while (index2 < arguments.length)
@@ -6444,14 +6444,14 @@ var LNReaderPlugin = (() => {
 
   // node_modules/@protobufjs/eventemitter/index.js
   var require_eventemitter = __commonJS({
-    "node_modules/@protobufjs/eventemitter/index.js"(exports4, module2) {
+    "node_modules/@protobufjs/eventemitter/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = EventEmitter;
+      module.exports = EventEmitter;
       function EventEmitter() {
-        this._listeners = {};
+        this._listeners = /* @__PURE__ */ Object.create(null);
       }
       __name(EventEmitter, "EventEmitter");
       EventEmitter.prototype.on = /* @__PURE__ */ __name(function on2(evt, fn, ctx) {
@@ -6463,12 +6463,14 @@ var LNReaderPlugin = (() => {
       }, "on");
       EventEmitter.prototype.off = /* @__PURE__ */ __name(function off2(evt, fn) {
         if (evt === void 0)
-          this._listeners = {};
+          this._listeners = /* @__PURE__ */ Object.create(null);
         else {
           if (fn === void 0)
             this._listeners[evt] = [];
           else {
             var listeners2 = this._listeners[evt];
+            if (!listeners2)
+              return this;
             for (var i2 = 0; i2 < listeners2.length; )
               if (listeners2[i2].fn === fn)
                 listeners2.splice(i2, 1);
@@ -6494,12 +6496,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/@protobufjs/float/index.js
   var require_float = __commonJS({
-    "node_modules/@protobufjs/float/index.js"(exports4, module2) {
+    "node_modules/@protobufjs/float/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = factory(factory);
+      module.exports = factory(factory);
       function factory(exports5) {
         if (typeof Float32Array !== "undefined") (function() {
           var f32 = new Float32Array([-0]), f8b = new Uint8Array(f32.buffer), le = f8b[3] === 128;
@@ -6706,27 +6708,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/@protobufjs/inquire/index.js
-  var require_inquire = __commonJS({
-    "node_modules/@protobufjs/inquire/index.js"(exports, module) {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      module.exports = inquire;
-      function inquire(moduleName) {
-        try {
-          var mod = eval("quire".replace(/^/, "re"))(moduleName);
-          if (mod && (mod.length || Object.keys(mod).length))
-            return mod;
-        } catch (e2) {
-        }
-        return null;
-      }
-      __name(inquire, "inquire");
-    }
-  });
-
   // node_modules/@protobufjs/utf8/index.js
   var require_utf8 = __commonJS({
     "node_modules/@protobufjs/utf8/index.js"(exports4) {
@@ -6734,7 +6715,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var utf8 = exports4;
+      var utf8 = exports4, replacementCharCode = 65533;
       utf8.length = /* @__PURE__ */ __name(function utf8_length(string) {
         var len = 0, c2 = 0;
         for (var i2 = 0; i2 < string.length; ++i2) {
@@ -6752,24 +6733,31 @@ var LNReaderPlugin = (() => {
         return len;
       }, "utf8_length");
       utf8.read = /* @__PURE__ */ __name(function utf8_read(buffer, start, end2) {
-        var len = end2 - start;
-        if (len < 1)
+        if (end2 - start < 1)
           return "";
-        var parts = null, chunk = [], i2 = 0, t2;
+        var parts = null, chunk = [], i2 = 0, t2, t22, c2, c3;
         while (start < end2) {
           t2 = buffer[start++];
-          if (t2 < 128)
+          if (t2 <= 127) {
             chunk[i2++] = t2;
-          else if (t2 > 191 && t2 < 224)
-            chunk[i2++] = (t2 & 31) << 6 | buffer[start++] & 63;
-          else if (t2 > 239 && t2 < 365) {
-            t2 = ((t2 & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63) - 65536;
-            chunk[i2++] = 55296 + (t2 >> 10);
-            chunk[i2++] = 56320 + (t2 & 1023);
-          } else
-            chunk[i2++] = (t2 & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
+          } else if (t2 >= 192 && t2 < 224) {
+            c2 = (t2 & 31) << 6 | buffer[start++] & 63;
+            chunk[i2++] = c2 >= 128 ? c2 : replacementCharCode;
+          } else if (t2 >= 224 && t2 < 240) {
+            c3 = (t2 & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
+            chunk[i2++] = c3 >= 2048 ? c3 : replacementCharCode;
+          } else if (t2 >= 240) {
+            t22 = (t2 & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
+            if (t22 < 65536 || t22 > 1114111)
+              chunk[i2++] = replacementCharCode;
+            else {
+              t22 -= 65536;
+              chunk[i2++] = 55296 + (t22 >> 10);
+              chunk[i2++] = 56320 + (t22 & 1023);
+            }
+          }
           if (i2 > 8191) {
-            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
+            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
             i2 = 0;
           }
         }
@@ -6809,12 +6797,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/@protobufjs/pool/index.js
   var require_pool = __commonJS({
-    "node_modules/@protobufjs/pool/index.js"(exports4, module2) {
+    "node_modules/@protobufjs/pool/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = pool;
+      module.exports = pool;
       function pool(alloc, slice2, size) {
         var SIZE = size || 8192;
         var MAX = SIZE >>> 1;
@@ -6839,12 +6827,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/util/longbits.js
   var require_longbits = __commonJS({
-    "node_modules/protobufjs/src/util/longbits.js"(exports4, module2) {
+    "node_modules/protobufjs/src/util/longbits.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = LongBits;
+      module.exports = LongBits;
       var util = require_minimal();
       function LongBits(lo, hi) {
         this.lo = lo >>> 0;
@@ -6862,7 +6850,7 @@ var LNReaderPlugin = (() => {
         return 1;
       };
       var zeroHash = LongBits.zeroHash = "\0\0\0\0\0\0\0\0";
-      LongBits.fromNumber = /* @__PURE__ */ __name(function fromNumber(value) {
+      LongBits.fromNumber = /* @__PURE__ */ __name(function fromNumber2(value) {
         if (value === 0)
           return zero;
         var sign = value < 0;
@@ -6891,7 +6879,7 @@ var LNReaderPlugin = (() => {
         }
         return value.low || value.high ? new LongBits(value.low >>> 0, value.high >>> 0) : zero;
       }, "from");
-      LongBits.prototype.toNumber = /* @__PURE__ */ __name(function toNumber(unsigned) {
+      LongBits.prototype.toNumber = /* @__PURE__ */ __name(function toNumber2(unsigned) {
         if (!unsigned && this.hi >>> 31) {
           var lo = ~this.lo + 1 >>> 0, hi = ~this.hi >>> 0;
           if (!lo)
@@ -6943,6 +6931,966 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // node_modules/long/index.js
+  var long_exports = {};
+  __export(long_exports, {
+    default: () => long_default
+  });
+  function Long(low, high, unsigned) {
+    this.low = low | 0;
+    this.high = high | 0;
+    this.unsigned = !!unsigned;
+  }
+  function isLong(obj) {
+    return (obj && obj["__isLong__"]) === true;
+  }
+  function ctz32(value) {
+    var c2 = Math.clz32(value & -value);
+    return value ? 31 - c2 : c2;
+  }
+  function fromInt(value, unsigned) {
+    var obj, cachedObj, cache;
+    if (unsigned) {
+      value >>>= 0;
+      if (cache = 0 <= value && value < 256) {
+        cachedObj = UINT_CACHE[value];
+        if (cachedObj) return cachedObj;
+      }
+      obj = fromBits(value, 0, true);
+      if (cache) UINT_CACHE[value] = obj;
+      return obj;
+    } else {
+      value |= 0;
+      if (cache = -128 <= value && value < 128) {
+        cachedObj = INT_CACHE[value];
+        if (cachedObj) return cachedObj;
+      }
+      obj = fromBits(value, value < 0 ? -1 : 0, false);
+      if (cache) INT_CACHE[value] = obj;
+      return obj;
+    }
+  }
+  function fromNumber(value, unsigned) {
+    if (isNaN(value)) return unsigned ? UZERO : ZERO;
+    if (unsigned) {
+      if (value < 0) return UZERO;
+      if (value >= TWO_PWR_64_DBL) return MAX_UNSIGNED_VALUE;
+    } else {
+      if (value <= -TWO_PWR_63_DBL) return MIN_VALUE;
+      if (value + 1 >= TWO_PWR_63_DBL) return MAX_VALUE;
+    }
+    if (value < 0) return fromNumber(-value, unsigned).neg();
+    return fromBits(
+      value % TWO_PWR_32_DBL | 0,
+      value / TWO_PWR_32_DBL | 0,
+      unsigned
+    );
+  }
+  function fromBits(lowBits, highBits, unsigned) {
+    return new Long(lowBits, highBits, unsigned);
+  }
+  function fromString(str, unsigned, radix) {
+    if (str.length === 0) throw Error("empty string");
+    if (typeof unsigned === "number") {
+      radix = unsigned;
+      unsigned = false;
+    } else {
+      unsigned = !!unsigned;
+    }
+    if (str === "NaN" || str === "Infinity" || str === "+Infinity" || str === "-Infinity")
+      return unsigned ? UZERO : ZERO;
+    radix = radix || 10;
+    if (radix < 2 || 36 < radix) throw RangeError("radix");
+    var p;
+    if ((p = str.indexOf("-")) > 0) throw Error("interior hyphen");
+    else if (p === 0) {
+      return fromString(str.substring(1), unsigned, radix).neg();
+    }
+    var radixToPower = fromNumber(pow_dbl(radix, 8));
+    var result = ZERO;
+    for (var i2 = 0; i2 < str.length; i2 += 8) {
+      var size = Math.min(8, str.length - i2), value = parseInt(str.substring(i2, i2 + size), radix);
+      if (size < 8) {
+        var power = fromNumber(pow_dbl(radix, size));
+        result = result.mul(power).add(fromNumber(value));
+      } else {
+        result = result.mul(radixToPower);
+        result = result.add(fromNumber(value));
+      }
+    }
+    result.unsigned = unsigned;
+    return result;
+  }
+  function fromValue(val2, unsigned) {
+    if (typeof val2 === "number") return fromNumber(val2, unsigned);
+    if (typeof val2 === "string") return fromString(val2, unsigned);
+    return fromBits(
+      val2.low,
+      val2.high,
+      typeof unsigned === "boolean" ? unsigned : val2.unsigned
+    );
+  }
+  var wasm, INT_CACHE, UINT_CACHE, pow_dbl, TWO_PWR_16_DBL, TWO_PWR_24_DBL, TWO_PWR_32_DBL, TWO_PWR_64_DBL, TWO_PWR_63_DBL, TWO_PWR_24, ZERO, UZERO, ONE, UONE, NEG_ONE, MAX_VALUE, MAX_UNSIGNED_VALUE, MIN_VALUE, LongPrototype, long_default;
+  var init_long = __esm({
+    "node_modules/long/index.js"() {
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      /**
+       * @license
+       * Copyright 2009 The Closure Library Authors
+       * Copyright 2020 Daniel Wirtz / The long.js Authors.
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       *     http://www.apache.org/licenses/LICENSE-2.0
+       *
+       * Unless required by applicable law or agreed to in writing, software
+       * distributed under the License is distributed on an "AS IS" BASIS,
+       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       * See the License for the specific language governing permissions and
+       * limitations under the License.
+       *
+       * SPDX-License-Identifier: Apache-2.0
+       */
+      wasm = null;
+      try {
+        wasm = new WebAssembly.Instance(
+          new WebAssembly.Module(
+            new Uint8Array([
+              // \0asm
+              0,
+              97,
+              115,
+              109,
+              // version 1
+              1,
+              0,
+              0,
+              0,
+              // section "type"
+              1,
+              13,
+              2,
+              // 0, () => i32
+              96,
+              0,
+              1,
+              127,
+              // 1, (i32, i32, i32, i32) => i32
+              96,
+              4,
+              127,
+              127,
+              127,
+              127,
+              1,
+              127,
+              // section "function"
+              3,
+              7,
+              6,
+              // 0, type 0
+              0,
+              // 1, type 1
+              1,
+              // 2, type 1
+              1,
+              // 3, type 1
+              1,
+              // 4, type 1
+              1,
+              // 5, type 1
+              1,
+              // section "global"
+              6,
+              6,
+              1,
+              // 0, "high", mutable i32
+              127,
+              1,
+              65,
+              0,
+              11,
+              // section "export"
+              7,
+              50,
+              6,
+              // 0, "mul"
+              3,
+              109,
+              117,
+              108,
+              0,
+              1,
+              // 1, "div_s"
+              5,
+              100,
+              105,
+              118,
+              95,
+              115,
+              0,
+              2,
+              // 2, "div_u"
+              5,
+              100,
+              105,
+              118,
+              95,
+              117,
+              0,
+              3,
+              // 3, "rem_s"
+              5,
+              114,
+              101,
+              109,
+              95,
+              115,
+              0,
+              4,
+              // 4, "rem_u"
+              5,
+              114,
+              101,
+              109,
+              95,
+              117,
+              0,
+              5,
+              // 5, "get_high"
+              8,
+              103,
+              101,
+              116,
+              95,
+              104,
+              105,
+              103,
+              104,
+              0,
+              0,
+              // section "code"
+              10,
+              191,
+              1,
+              6,
+              // 0, "get_high"
+              4,
+              0,
+              35,
+              0,
+              11,
+              // 1, "mul"
+              36,
+              1,
+              1,
+              126,
+              32,
+              0,
+              173,
+              32,
+              1,
+              173,
+              66,
+              32,
+              134,
+              132,
+              32,
+              2,
+              173,
+              32,
+              3,
+              173,
+              66,
+              32,
+              134,
+              132,
+              126,
+              34,
+              4,
+              66,
+              32,
+              135,
+              167,
+              36,
+              0,
+              32,
+              4,
+              167,
+              11,
+              // 2, "div_s"
+              36,
+              1,
+              1,
+              126,
+              32,
+              0,
+              173,
+              32,
+              1,
+              173,
+              66,
+              32,
+              134,
+              132,
+              32,
+              2,
+              173,
+              32,
+              3,
+              173,
+              66,
+              32,
+              134,
+              132,
+              127,
+              34,
+              4,
+              66,
+              32,
+              135,
+              167,
+              36,
+              0,
+              32,
+              4,
+              167,
+              11,
+              // 3, "div_u"
+              36,
+              1,
+              1,
+              126,
+              32,
+              0,
+              173,
+              32,
+              1,
+              173,
+              66,
+              32,
+              134,
+              132,
+              32,
+              2,
+              173,
+              32,
+              3,
+              173,
+              66,
+              32,
+              134,
+              132,
+              128,
+              34,
+              4,
+              66,
+              32,
+              135,
+              167,
+              36,
+              0,
+              32,
+              4,
+              167,
+              11,
+              // 4, "rem_s"
+              36,
+              1,
+              1,
+              126,
+              32,
+              0,
+              173,
+              32,
+              1,
+              173,
+              66,
+              32,
+              134,
+              132,
+              32,
+              2,
+              173,
+              32,
+              3,
+              173,
+              66,
+              32,
+              134,
+              132,
+              129,
+              34,
+              4,
+              66,
+              32,
+              135,
+              167,
+              36,
+              0,
+              32,
+              4,
+              167,
+              11,
+              // 5, "rem_u"
+              36,
+              1,
+              1,
+              126,
+              32,
+              0,
+              173,
+              32,
+              1,
+              173,
+              66,
+              32,
+              134,
+              132,
+              32,
+              2,
+              173,
+              32,
+              3,
+              173,
+              66,
+              32,
+              134,
+              132,
+              130,
+              34,
+              4,
+              66,
+              32,
+              135,
+              167,
+              36,
+              0,
+              32,
+              4,
+              167,
+              11
+            ])
+          ),
+          {}
+        ).exports;
+      } catch {
+      }
+      __name(Long, "Long");
+      Long.prototype.__isLong__;
+      Object.defineProperty(Long.prototype, "__isLong__", { value: true });
+      __name(isLong, "isLong");
+      __name(ctz32, "ctz32");
+      Long.isLong = isLong;
+      INT_CACHE = {};
+      UINT_CACHE = {};
+      __name(fromInt, "fromInt");
+      Long.fromInt = fromInt;
+      __name(fromNumber, "fromNumber");
+      Long.fromNumber = fromNumber;
+      __name(fromBits, "fromBits");
+      Long.fromBits = fromBits;
+      pow_dbl = Math.pow;
+      __name(fromString, "fromString");
+      Long.fromString = fromString;
+      __name(fromValue, "fromValue");
+      Long.fromValue = fromValue;
+      TWO_PWR_16_DBL = 1 << 16;
+      TWO_PWR_24_DBL = 1 << 24;
+      TWO_PWR_32_DBL = TWO_PWR_16_DBL * TWO_PWR_16_DBL;
+      TWO_PWR_64_DBL = TWO_PWR_32_DBL * TWO_PWR_32_DBL;
+      TWO_PWR_63_DBL = TWO_PWR_64_DBL / 2;
+      TWO_PWR_24 = fromInt(TWO_PWR_24_DBL);
+      ZERO = fromInt(0);
+      Long.ZERO = ZERO;
+      UZERO = fromInt(0, true);
+      Long.UZERO = UZERO;
+      ONE = fromInt(1);
+      Long.ONE = ONE;
+      UONE = fromInt(1, true);
+      Long.UONE = UONE;
+      NEG_ONE = fromInt(-1);
+      Long.NEG_ONE = NEG_ONE;
+      MAX_VALUE = fromBits(4294967295 | 0, 2147483647 | 0, false);
+      Long.MAX_VALUE = MAX_VALUE;
+      MAX_UNSIGNED_VALUE = fromBits(4294967295 | 0, 4294967295 | 0, true);
+      Long.MAX_UNSIGNED_VALUE = MAX_UNSIGNED_VALUE;
+      MIN_VALUE = fromBits(0, 2147483648 | 0, false);
+      Long.MIN_VALUE = MIN_VALUE;
+      LongPrototype = Long.prototype;
+      LongPrototype.toInt = /* @__PURE__ */ __name(function toInt() {
+        return this.unsigned ? this.low >>> 0 : this.low;
+      }, "toInt");
+      LongPrototype.toNumber = /* @__PURE__ */ __name(function toNumber() {
+        if (this.unsigned)
+          return (this.high >>> 0) * TWO_PWR_32_DBL + (this.low >>> 0);
+        return this.high * TWO_PWR_32_DBL + (this.low >>> 0);
+      }, "toNumber");
+      LongPrototype.toString = /* @__PURE__ */ __name(function toString(radix) {
+        radix = radix || 10;
+        if (radix < 2 || 36 < radix) throw RangeError("radix");
+        if (this.isZero()) return "0";
+        if (this.isNegative()) {
+          if (this.eq(MIN_VALUE)) {
+            var radixLong = fromNumber(radix), div = this.div(radixLong), rem1 = div.mul(radixLong).sub(this);
+            return div.toString(radix) + rem1.toInt().toString(radix);
+          } else return "-" + this.neg().toString(radix);
+        }
+        var radixToPower = fromNumber(pow_dbl(radix, 6), this.unsigned), rem = this;
+        var result = "";
+        while (true) {
+          var remDiv = rem.div(radixToPower), intval = rem.sub(remDiv.mul(radixToPower)).toInt() >>> 0, digits = intval.toString(radix);
+          rem = remDiv;
+          if (rem.isZero()) return digits + result;
+          else {
+            while (digits.length < 6) digits = "0" + digits;
+            result = "" + digits + result;
+          }
+        }
+      }, "toString");
+      LongPrototype.getHighBits = /* @__PURE__ */ __name(function getHighBits() {
+        return this.high;
+      }, "getHighBits");
+      LongPrototype.getHighBitsUnsigned = /* @__PURE__ */ __name(function getHighBitsUnsigned() {
+        return this.high >>> 0;
+      }, "getHighBitsUnsigned");
+      LongPrototype.getLowBits = /* @__PURE__ */ __name(function getLowBits() {
+        return this.low;
+      }, "getLowBits");
+      LongPrototype.getLowBitsUnsigned = /* @__PURE__ */ __name(function getLowBitsUnsigned() {
+        return this.low >>> 0;
+      }, "getLowBitsUnsigned");
+      LongPrototype.getNumBitsAbs = /* @__PURE__ */ __name(function getNumBitsAbs() {
+        if (this.isNegative())
+          return this.eq(MIN_VALUE) ? 64 : this.neg().getNumBitsAbs();
+        var val2 = this.high != 0 ? this.high : this.low;
+        for (var bit = 31; bit > 0; bit--) if ((val2 & 1 << bit) != 0) break;
+        return this.high != 0 ? bit + 33 : bit + 1;
+      }, "getNumBitsAbs");
+      LongPrototype.isSafeInteger = /* @__PURE__ */ __name(function isSafeInteger() {
+        var top11Bits = this.high >> 21;
+        if (!top11Bits) return true;
+        if (this.unsigned) return false;
+        return top11Bits === -1 && !(this.low === 0 && this.high === -2097152);
+      }, "isSafeInteger");
+      LongPrototype.isZero = /* @__PURE__ */ __name(function isZero() {
+        return this.high === 0 && this.low === 0;
+      }, "isZero");
+      LongPrototype.eqz = LongPrototype.isZero;
+      LongPrototype.isNegative = /* @__PURE__ */ __name(function isNegative() {
+        return !this.unsigned && this.high < 0;
+      }, "isNegative");
+      LongPrototype.isPositive = /* @__PURE__ */ __name(function isPositive() {
+        return this.unsigned || this.high >= 0;
+      }, "isPositive");
+      LongPrototype.isOdd = /* @__PURE__ */ __name(function isOdd() {
+        return (this.low & 1) === 1;
+      }, "isOdd");
+      LongPrototype.isEven = /* @__PURE__ */ __name(function isEven() {
+        return (this.low & 1) === 0;
+      }, "isEven");
+      LongPrototype.equals = /* @__PURE__ */ __name(function equals(other) {
+        if (!isLong(other)) other = fromValue(other);
+        if (this.unsigned !== other.unsigned && this.high >>> 31 === 1 && other.high >>> 31 === 1)
+          return false;
+        return this.high === other.high && this.low === other.low;
+      }, "equals");
+      LongPrototype.eq = LongPrototype.equals;
+      LongPrototype.notEquals = /* @__PURE__ */ __name(function notEquals(other) {
+        return !this.eq(
+          /* validates */
+          other
+        );
+      }, "notEquals");
+      LongPrototype.neq = LongPrototype.notEquals;
+      LongPrototype.ne = LongPrototype.notEquals;
+      LongPrototype.lessThan = /* @__PURE__ */ __name(function lessThan(other) {
+        return this.comp(
+          /* validates */
+          other
+        ) < 0;
+      }, "lessThan");
+      LongPrototype.lt = LongPrototype.lessThan;
+      LongPrototype.lessThanOrEqual = /* @__PURE__ */ __name(function lessThanOrEqual(other) {
+        return this.comp(
+          /* validates */
+          other
+        ) <= 0;
+      }, "lessThanOrEqual");
+      LongPrototype.lte = LongPrototype.lessThanOrEqual;
+      LongPrototype.le = LongPrototype.lessThanOrEqual;
+      LongPrototype.greaterThan = /* @__PURE__ */ __name(function greaterThan(other) {
+        return this.comp(
+          /* validates */
+          other
+        ) > 0;
+      }, "greaterThan");
+      LongPrototype.gt = LongPrototype.greaterThan;
+      LongPrototype.greaterThanOrEqual = /* @__PURE__ */ __name(function greaterThanOrEqual(other) {
+        return this.comp(
+          /* validates */
+          other
+        ) >= 0;
+      }, "greaterThanOrEqual");
+      LongPrototype.gte = LongPrototype.greaterThanOrEqual;
+      LongPrototype.ge = LongPrototype.greaterThanOrEqual;
+      LongPrototype.compare = /* @__PURE__ */ __name(function compare(other) {
+        if (!isLong(other)) other = fromValue(other);
+        if (this.eq(other)) return 0;
+        var thisNeg = this.isNegative(), otherNeg = other.isNegative();
+        if (thisNeg && !otherNeg) return -1;
+        if (!thisNeg && otherNeg) return 1;
+        if (!this.unsigned) return this.sub(other).isNegative() ? -1 : 1;
+        return other.high >>> 0 > this.high >>> 0 || other.high === this.high && other.low >>> 0 > this.low >>> 0 ? -1 : 1;
+      }, "compare");
+      LongPrototype.comp = LongPrototype.compare;
+      LongPrototype.negate = /* @__PURE__ */ __name(function negate() {
+        if (!this.unsigned && this.eq(MIN_VALUE)) return MIN_VALUE;
+        return this.not().add(ONE);
+      }, "negate");
+      LongPrototype.neg = LongPrototype.negate;
+      LongPrototype.add = /* @__PURE__ */ __name(function add(addend) {
+        if (!isLong(addend)) addend = fromValue(addend);
+        var a48 = this.high >>> 16;
+        var a32 = this.high & 65535;
+        var a16 = this.low >>> 16;
+        var a00 = this.low & 65535;
+        var b48 = addend.high >>> 16;
+        var b32 = addend.high & 65535;
+        var b16 = addend.low >>> 16;
+        var b00 = addend.low & 65535;
+        var c48 = 0, c32 = 0, c16 = 0, c00 = 0;
+        c00 += a00 + b00;
+        c16 += c00 >>> 16;
+        c00 &= 65535;
+        c16 += a16 + b16;
+        c32 += c16 >>> 16;
+        c16 &= 65535;
+        c32 += a32 + b32;
+        c48 += c32 >>> 16;
+        c32 &= 65535;
+        c48 += a48 + b48;
+        c48 &= 65535;
+        return fromBits(c16 << 16 | c00, c48 << 16 | c32, this.unsigned);
+      }, "add");
+      LongPrototype.subtract = /* @__PURE__ */ __name(function subtract(subtrahend) {
+        if (!isLong(subtrahend)) subtrahend = fromValue(subtrahend);
+        return this.add(subtrahend.neg());
+      }, "subtract");
+      LongPrototype.sub = LongPrototype.subtract;
+      LongPrototype.multiply = /* @__PURE__ */ __name(function multiply(multiplier) {
+        if (this.isZero()) return this;
+        if (!isLong(multiplier)) multiplier = fromValue(multiplier);
+        if (wasm) {
+          var low = wasm["mul"](this.low, this.high, multiplier.low, multiplier.high);
+          return fromBits(low, wasm["get_high"](), this.unsigned);
+        }
+        if (multiplier.isZero()) return this.unsigned ? UZERO : ZERO;
+        if (this.eq(MIN_VALUE)) return multiplier.isOdd() ? MIN_VALUE : ZERO;
+        if (multiplier.eq(MIN_VALUE)) return this.isOdd() ? MIN_VALUE : ZERO;
+        if (this.isNegative()) {
+          if (multiplier.isNegative()) return this.neg().mul(multiplier.neg());
+          else return this.neg().mul(multiplier).neg();
+        } else if (multiplier.isNegative()) return this.mul(multiplier.neg()).neg();
+        if (this.lt(TWO_PWR_24) && multiplier.lt(TWO_PWR_24))
+          return fromNumber(this.toNumber() * multiplier.toNumber(), this.unsigned);
+        var a48 = this.high >>> 16;
+        var a32 = this.high & 65535;
+        var a16 = this.low >>> 16;
+        var a00 = this.low & 65535;
+        var b48 = multiplier.high >>> 16;
+        var b32 = multiplier.high & 65535;
+        var b16 = multiplier.low >>> 16;
+        var b00 = multiplier.low & 65535;
+        var c48 = 0, c32 = 0, c16 = 0, c00 = 0;
+        c00 += a00 * b00;
+        c16 += c00 >>> 16;
+        c00 &= 65535;
+        c16 += a16 * b00;
+        c32 += c16 >>> 16;
+        c16 &= 65535;
+        c16 += a00 * b16;
+        c32 += c16 >>> 16;
+        c16 &= 65535;
+        c32 += a32 * b00;
+        c48 += c32 >>> 16;
+        c32 &= 65535;
+        c32 += a16 * b16;
+        c48 += c32 >>> 16;
+        c32 &= 65535;
+        c32 += a00 * b32;
+        c48 += c32 >>> 16;
+        c32 &= 65535;
+        c48 += a48 * b00 + a32 * b16 + a16 * b32 + a00 * b48;
+        c48 &= 65535;
+        return fromBits(c16 << 16 | c00, c48 << 16 | c32, this.unsigned);
+      }, "multiply");
+      LongPrototype.mul = LongPrototype.multiply;
+      LongPrototype.divide = /* @__PURE__ */ __name(function divide(divisor) {
+        if (!isLong(divisor)) divisor = fromValue(divisor);
+        if (divisor.isZero()) throw Error("division by zero");
+        if (wasm) {
+          if (!this.unsigned && this.high === -2147483648 && divisor.low === -1 && divisor.high === -1) {
+            return this;
+          }
+          var low = (this.unsigned ? wasm["div_u"] : wasm["div_s"])(
+            this.low,
+            this.high,
+            divisor.low,
+            divisor.high
+          );
+          return fromBits(low, wasm["get_high"](), this.unsigned);
+        }
+        if (this.isZero()) return this.unsigned ? UZERO : ZERO;
+        var approx, rem, res;
+        if (!this.unsigned) {
+          if (this.eq(MIN_VALUE)) {
+            if (divisor.eq(ONE) || divisor.eq(NEG_ONE))
+              return MIN_VALUE;
+            else if (divisor.eq(MIN_VALUE)) return ONE;
+            else {
+              var halfThis = this.shr(1);
+              approx = halfThis.div(divisor).shl(1);
+              if (approx.eq(ZERO)) {
+                return divisor.isNegative() ? ONE : NEG_ONE;
+              } else {
+                rem = this.sub(divisor.mul(approx));
+                res = approx.add(rem.div(divisor));
+                return res;
+              }
+            }
+          } else if (divisor.eq(MIN_VALUE)) return this.unsigned ? UZERO : ZERO;
+          if (this.isNegative()) {
+            if (divisor.isNegative()) return this.neg().div(divisor.neg());
+            return this.neg().div(divisor).neg();
+          } else if (divisor.isNegative()) return this.div(divisor.neg()).neg();
+          res = ZERO;
+        } else {
+          if (!divisor.unsigned) divisor = divisor.toUnsigned();
+          if (divisor.gt(this)) return UZERO;
+          if (divisor.gt(this.shru(1)))
+            return UONE;
+          res = UZERO;
+        }
+        rem = this;
+        while (rem.gte(divisor)) {
+          approx = Math.max(1, Math.floor(rem.toNumber() / divisor.toNumber()));
+          var log2 = Math.ceil(Math.log(approx) / Math.LN2), delta = log2 <= 48 ? 1 : pow_dbl(2, log2 - 48), approxRes = fromNumber(approx), approxRem = approxRes.mul(divisor);
+          while (approxRem.isNegative() || approxRem.gt(rem)) {
+            approx -= delta;
+            approxRes = fromNumber(approx, this.unsigned);
+            approxRem = approxRes.mul(divisor);
+          }
+          if (approxRes.isZero()) approxRes = ONE;
+          res = res.add(approxRes);
+          rem = rem.sub(approxRem);
+        }
+        return res;
+      }, "divide");
+      LongPrototype.div = LongPrototype.divide;
+      LongPrototype.modulo = /* @__PURE__ */ __name(function modulo(divisor) {
+        if (!isLong(divisor)) divisor = fromValue(divisor);
+        if (wasm) {
+          var low = (this.unsigned ? wasm["rem_u"] : wasm["rem_s"])(
+            this.low,
+            this.high,
+            divisor.low,
+            divisor.high
+          );
+          return fromBits(low, wasm["get_high"](), this.unsigned);
+        }
+        return this.sub(this.div(divisor).mul(divisor));
+      }, "modulo");
+      LongPrototype.mod = LongPrototype.modulo;
+      LongPrototype.rem = LongPrototype.modulo;
+      LongPrototype.not = /* @__PURE__ */ __name(function not() {
+        return fromBits(~this.low, ~this.high, this.unsigned);
+      }, "not");
+      LongPrototype.countLeadingZeros = /* @__PURE__ */ __name(function countLeadingZeros() {
+        return this.high ? Math.clz32(this.high) : Math.clz32(this.low) + 32;
+      }, "countLeadingZeros");
+      LongPrototype.clz = LongPrototype.countLeadingZeros;
+      LongPrototype.countTrailingZeros = /* @__PURE__ */ __name(function countTrailingZeros() {
+        return this.low ? ctz32(this.low) : ctz32(this.high) + 32;
+      }, "countTrailingZeros");
+      LongPrototype.ctz = LongPrototype.countTrailingZeros;
+      LongPrototype.and = /* @__PURE__ */ __name(function and(other) {
+        if (!isLong(other)) other = fromValue(other);
+        return fromBits(this.low & other.low, this.high & other.high, this.unsigned);
+      }, "and");
+      LongPrototype.or = /* @__PURE__ */ __name(function or(other) {
+        if (!isLong(other)) other = fromValue(other);
+        return fromBits(this.low | other.low, this.high | other.high, this.unsigned);
+      }, "or");
+      LongPrototype.xor = /* @__PURE__ */ __name(function xor(other) {
+        if (!isLong(other)) other = fromValue(other);
+        return fromBits(this.low ^ other.low, this.high ^ other.high, this.unsigned);
+      }, "xor");
+      LongPrototype.shiftLeft = /* @__PURE__ */ __name(function shiftLeft(numBits) {
+        if (isLong(numBits)) numBits = numBits.toInt();
+        if ((numBits &= 63) === 0) return this;
+        else if (numBits < 32)
+          return fromBits(
+            this.low << numBits,
+            this.high << numBits | this.low >>> 32 - numBits,
+            this.unsigned
+          );
+        else return fromBits(0, this.low << numBits - 32, this.unsigned);
+      }, "shiftLeft");
+      LongPrototype.shl = LongPrototype.shiftLeft;
+      LongPrototype.shiftRight = /* @__PURE__ */ __name(function shiftRight(numBits) {
+        if (isLong(numBits)) numBits = numBits.toInt();
+        if ((numBits &= 63) === 0) return this;
+        else if (numBits < 32)
+          return fromBits(
+            this.low >>> numBits | this.high << 32 - numBits,
+            this.high >> numBits,
+            this.unsigned
+          );
+        else
+          return fromBits(
+            this.high >> numBits - 32,
+            this.high >= 0 ? 0 : -1,
+            this.unsigned
+          );
+      }, "shiftRight");
+      LongPrototype.shr = LongPrototype.shiftRight;
+      LongPrototype.shiftRightUnsigned = /* @__PURE__ */ __name(function shiftRightUnsigned(numBits) {
+        if (isLong(numBits)) numBits = numBits.toInt();
+        if ((numBits &= 63) === 0) return this;
+        if (numBits < 32)
+          return fromBits(
+            this.low >>> numBits | this.high << 32 - numBits,
+            this.high >>> numBits,
+            this.unsigned
+          );
+        if (numBits === 32) return fromBits(this.high, 0, this.unsigned);
+        return fromBits(this.high >>> numBits - 32, 0, this.unsigned);
+      }, "shiftRightUnsigned");
+      LongPrototype.shru = LongPrototype.shiftRightUnsigned;
+      LongPrototype.shr_u = LongPrototype.shiftRightUnsigned;
+      LongPrototype.rotateLeft = /* @__PURE__ */ __name(function rotateLeft(numBits) {
+        var b;
+        if (isLong(numBits)) numBits = numBits.toInt();
+        if ((numBits &= 63) === 0) return this;
+        if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
+        if (numBits < 32) {
+          b = 32 - numBits;
+          return fromBits(
+            this.low << numBits | this.high >>> b,
+            this.high << numBits | this.low >>> b,
+            this.unsigned
+          );
+        }
+        numBits -= 32;
+        b = 32 - numBits;
+        return fromBits(
+          this.high << numBits | this.low >>> b,
+          this.low << numBits | this.high >>> b,
+          this.unsigned
+        );
+      }, "rotateLeft");
+      LongPrototype.rotl = LongPrototype.rotateLeft;
+      LongPrototype.rotateRight = /* @__PURE__ */ __name(function rotateRight(numBits) {
+        var b;
+        if (isLong(numBits)) numBits = numBits.toInt();
+        if ((numBits &= 63) === 0) return this;
+        if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
+        if (numBits < 32) {
+          b = 32 - numBits;
+          return fromBits(
+            this.high << b | this.low >>> numBits,
+            this.low << b | this.high >>> numBits,
+            this.unsigned
+          );
+        }
+        numBits -= 32;
+        b = 32 - numBits;
+        return fromBits(
+          this.low << b | this.high >>> numBits,
+          this.high << b | this.low >>> numBits,
+          this.unsigned
+        );
+      }, "rotateRight");
+      LongPrototype.rotr = LongPrototype.rotateRight;
+      LongPrototype.toSigned = /* @__PURE__ */ __name(function toSigned() {
+        if (!this.unsigned) return this;
+        return fromBits(this.low, this.high, false);
+      }, "toSigned");
+      LongPrototype.toUnsigned = /* @__PURE__ */ __name(function toUnsigned() {
+        if (this.unsigned) return this;
+        return fromBits(this.low, this.high, true);
+      }, "toUnsigned");
+      LongPrototype.toBytes = /* @__PURE__ */ __name(function toBytes(le) {
+        return le ? this.toBytesLE() : this.toBytesBE();
+      }, "toBytes");
+      LongPrototype.toBytesLE = /* @__PURE__ */ __name(function toBytesLE() {
+        var hi = this.high, lo = this.low;
+        return [
+          lo & 255,
+          lo >>> 8 & 255,
+          lo >>> 16 & 255,
+          lo >>> 24,
+          hi & 255,
+          hi >>> 8 & 255,
+          hi >>> 16 & 255,
+          hi >>> 24
+        ];
+      }, "toBytesLE");
+      LongPrototype.toBytesBE = /* @__PURE__ */ __name(function toBytesBE() {
+        var hi = this.high, lo = this.low;
+        return [
+          hi >>> 24,
+          hi >>> 16 & 255,
+          hi >>> 8 & 255,
+          hi & 255,
+          lo >>> 24,
+          lo >>> 16 & 255,
+          lo >>> 8 & 255,
+          lo & 255
+        ];
+      }, "toBytesBE");
+      Long.fromBytes = /* @__PURE__ */ __name(function fromBytes(bytes, unsigned, le) {
+        return le ? Long.fromBytesLE(bytes, unsigned) : Long.fromBytesBE(bytes, unsigned);
+      }, "fromBytes");
+      Long.fromBytesLE = /* @__PURE__ */ __name(function fromBytesLE(bytes, unsigned) {
+        return new Long(
+          bytes[0] | bytes[1] << 8 | bytes[2] << 16 | bytes[3] << 24,
+          bytes[4] | bytes[5] << 8 | bytes[6] << 16 | bytes[7] << 24,
+          unsigned
+        );
+      }, "fromBytesLE");
+      Long.fromBytesBE = /* @__PURE__ */ __name(function fromBytesBE(bytes, unsigned) {
+        return new Long(
+          bytes[4] << 24 | bytes[5] << 16 | bytes[6] << 8 | bytes[7],
+          bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | bytes[3],
+          unsigned
+        );
+      }, "fromBytesBE");
+      if (typeof BigInt === "function") {
+        Long.fromBigInt = /* @__PURE__ */ __name(function fromBigInt(value, unsigned) {
+          var lowBits = Number(BigInt.asIntN(32, value));
+          var highBits = Number(BigInt.asIntN(32, value >> BigInt(32)));
+          return fromBits(lowBits, highBits, unsigned);
+        }, "fromBigInt");
+        Long.fromValue = /* @__PURE__ */ __name(function fromValueWithBigInt(value, unsigned) {
+          if (typeof value === "bigint") return Long.fromBigInt(value, unsigned);
+          return fromValue(value, unsigned);
+        }, "fromValueWithBigInt");
+        LongPrototype.toBigInt = /* @__PURE__ */ __name(function toBigInt() {
+          var lowBigInt = BigInt(this.low >>> 0);
+          var highBigInt = BigInt(this.unsigned ? this.high >>> 0 : this.high);
+          return highBigInt << BigInt(32) | lowBigInt;
+        }, "toBigInt");
+      }
+      long_default = Long;
+    }
+  });
+
   // node_modules/protobufjs/src/util/minimal.js
   var require_minimal = __commonJS({
     "node_modules/protobufjs/src/util/minimal.js"(exports4) {
@@ -6955,10 +7903,14 @@ var LNReaderPlugin = (() => {
       util.base64 = require_base64();
       util.EventEmitter = require_eventemitter();
       util.float = require_float();
-      util.inquire = require_inquire();
       util.utf8 = require_utf8();
       util.pool = require_pool();
       util.LongBits = require_longbits();
+      function isUnsafeProperty(key) {
+        return key === "__proto__" || key === "prototype" || key === "constructor";
+      }
+      __name(isUnsafeProperty, "isUnsafeProperty");
+      util.isUnsafeProperty = isUnsafeProperty;
       util.isNode = Boolean(typeof global !== "undefined" && global && global.process && global.process.versions && global.process.versions.node);
       util.global = util.isNode && global || typeof window !== "undefined" && window || typeof self !== "undefined" && self || exports4;
       util.emptyArray = Object.freeze ? Object.freeze([]) : (
@@ -6987,14 +7939,14 @@ var LNReaderPlugin = (() => {
        */
       util.isSet = /* @__PURE__ */ __name(function isSet(obj, prop2) {
         var value = obj[prop2];
-        if (value != null && obj.hasOwnProperty(prop2))
+        if (value != null && Object.hasOwnProperty.call(obj, prop2))
           return typeof value !== "object" || (Array.isArray(value) ? value.length : Object.keys(value).length) > 0;
         return false;
       }, "isSet");
       util.Buffer = function() {
         try {
-          var Buffer2 = util.inquire("buffer").Buffer;
-          return Buffer2.prototype.utf8Write ? Buffer2 : (
+          var Buffer3 = util.global.Buffer;
+          return Buffer3.prototype.utf8Write ? Buffer3 : (
             /* istanbul ignore next */
             null
           );
@@ -7011,7 +7963,14 @@ var LNReaderPlugin = (() => {
       util.Long = /* istanbul ignore next */
       util.global.dcodeIO && /* istanbul ignore next */
       util.global.dcodeIO.Long || /* istanbul ignore next */
-      util.global.Long || util.inquire("long");
+      util.global.Long || function() {
+        try {
+          var Long2 = (init_long(), __toCommonJS(long_exports));
+          return Long2 && Long2.isLong ? Long2 : null;
+        } catch (e2) {
+          return null;
+        }
+      }();
       util.key2Re = /^true|false|0|1$/;
       util.key32Re = /^-?(?:0|[1-9][0-9]*)$/;
       util.key64Re = /^(?:[\\x00-\\xff]{8}|-?(?:0|[1-9][0-9]*))$/;
@@ -7024,14 +7983,30 @@ var LNReaderPlugin = (() => {
           return util.Long.fromBits(bits.lo, bits.hi, unsigned);
         return bits.toNumber(Boolean(unsigned));
       }, "longFromHash");
-      function merge2(dst, src, ifNotSet) {
-        for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
-          if (dst[keys[i2]] === void 0 || !ifNotSet)
-            dst[keys[i2]] = src[keys[i2]];
+      function merge2(dst) {
+        var ifNotSet = typeof arguments[arguments.length - 1] === "boolean", limit = ifNotSet ? arguments.length - 1 : arguments.length;
+        ifNotSet = ifNotSet && arguments[arguments.length - 1];
+        for (var a2 = 1; a2 < limit; ++a2) {
+          var src = arguments[a2];
+          if (!src)
+            continue;
+          for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
+            if (!isUnsafeProperty(keys[i2]) && (dst[keys[i2]] === void 0 || !ifNotSet))
+              dst[keys[i2]] = src[keys[i2]];
+        }
         return dst;
       }
       __name(merge2, "merge");
       util.merge = merge2;
+      util.nestingLimit = 32;
+      util.recursionLimit = 100;
+      util.makeProp = /* @__PURE__ */ __name(function makeProp(obj, key) {
+        Object.defineProperty(obj, key, {
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      }, "makeProp");
       util.lcFirst = /* @__PURE__ */ __name(function lcFirst(str) {
         return str.charAt(0).toLowerCase() + str.substring(1);
       }, "lcFirst");
@@ -7107,18 +8082,18 @@ var LNReaderPlugin = (() => {
         json: true
       };
       util._configure = function() {
-        var Buffer2 = util.Buffer;
-        if (!Buffer2) {
+        var Buffer3 = util.Buffer;
+        if (!Buffer3) {
           util._Buffer_from = util._Buffer_allocUnsafe = null;
           return;
         }
-        util._Buffer_from = Buffer2.from !== Uint8Array.from && Buffer2.from || /* istanbul ignore next */
+        util._Buffer_from = Buffer3.from !== Uint8Array.from && Buffer3.from || /* istanbul ignore next */
         /* @__PURE__ */ __name(function Buffer_from(value, encoding) {
-          return new Buffer2(value, encoding);
+          return new Buffer3(value, encoding);
         }, "Buffer_from");
-        util._Buffer_allocUnsafe = Buffer2.allocUnsafe || /* istanbul ignore next */
+        util._Buffer_allocUnsafe = Buffer3.allocUnsafe || /* istanbul ignore next */
         /* @__PURE__ */ __name(function Buffer_allocUnsafe(size) {
-          return new Buffer2(size);
+          return new Buffer3(size);
         }, "Buffer_allocUnsafe");
       };
     }
@@ -7126,12 +8101,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/writer.js
   var require_writer = __commonJS({
-    "node_modules/protobufjs/src/writer.js"(exports4, module2) {
+    "node_modules/protobufjs/src/writer.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Writer;
+      module.exports = Writer;
       var util = require_minimal();
       var BufferWriter;
       var LongBits = util.LongBits, base64 = util.base64, utf8 = util.utf8;
@@ -7207,22 +8182,23 @@ var LNReaderPlugin = (() => {
         return this;
       }, "write_uint32");
       Writer.prototype.int32 = /* @__PURE__ */ __name(function write_int32(value) {
-        return value < 0 ? this._push(writeVarint64, 10, LongBits.fromNumber(value)) : this.uint32(value);
+        return (value |= 0) < 0 ? this._push(writeVarint64, 10, LongBits.fromNumber(value)) : this.uint32(value);
       }, "write_int32");
       Writer.prototype.sint32 = /* @__PURE__ */ __name(function write_sint32(value) {
         return this.uint32((value << 1 ^ value >> 31) >>> 0);
       }, "write_sint32");
       function writeVarint64(val2, buf, pos) {
-        while (val2.hi) {
-          buf[pos++] = val2.lo & 127 | 128;
-          val2.lo = (val2.lo >>> 7 | val2.hi << 25) >>> 0;
-          val2.hi >>>= 7;
+        var lo = val2.lo, hi = val2.hi;
+        while (hi) {
+          buf[pos++] = lo & 127 | 128;
+          lo = (lo >>> 7 | hi << 25) >>> 0;
+          hi >>>= 7;
         }
-        while (val2.lo > 127) {
-          buf[pos++] = val2.lo & 127 | 128;
-          val2.lo = val2.lo >>> 7;
+        while (lo > 127) {
+          buf[pos++] = lo & 127 | 128;
+          lo = lo >>> 7;
         }
-        buf[pos++] = val2.lo;
+        buf[pos++] = lo;
       }
       __name(writeVarint64, "writeVarint64");
       Writer.prototype.uint64 = /* @__PURE__ */ __name(function write_uint64(value) {
@@ -7327,12 +8303,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/writer_buffer.js
   var require_writer_buffer = __commonJS({
-    "node_modules/protobufjs/src/writer_buffer.js"(exports4, module2) {
+    "node_modules/protobufjs/src/writer_buffer.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = BufferWriter;
+      module.exports = BufferWriter;
       var Writer = require_writer();
       (BufferWriter.prototype = Object.create(Writer.prototype)).constructor = BufferWriter;
       var util = require_minimal();
@@ -7382,12 +8358,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/reader.js
   var require_reader = __commonJS({
-    "node_modules/protobufjs/src/reader.js"(exports4, module2) {
+    "node_modules/protobufjs/src/reader.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Reader;
+      module.exports = Reader;
       var util = require_minimal();
       var BufferReader;
       var LongBits = util.LongBits, utf8 = util.utf8;
@@ -7557,7 +8533,11 @@ var LNReaderPlugin = (() => {
         }
         return this;
       }, "skip");
-      Reader.prototype.skipType = function(wireType) {
+      Reader.recursionLimit = util.recursionLimit;
+      Reader.prototype.skipType = function(wireType, depth) {
+        if (depth === void 0) depth = 0;
+        if (depth > Reader.recursionLimit)
+          throw Error("maximum nesting depth exceeded");
         switch (wireType) {
           case 0:
             this.skip();
@@ -7570,7 +8550,7 @@ var LNReaderPlugin = (() => {
             break;
           case 3:
             while ((wireType = this.uint32() & 7) !== 4) {
-              this.skipType(wireType);
+              this.skipType(wireType, depth + 1);
             }
             break;
           case 5:
@@ -7613,12 +8593,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/reader_buffer.js
   var require_reader_buffer = __commonJS({
-    "node_modules/protobufjs/src/reader_buffer.js"(exports4, module2) {
+    "node_modules/protobufjs/src/reader_buffer.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = BufferReader;
+      module.exports = BufferReader;
       var Reader = require_reader();
       (BufferReader.prototype = Object.create(Reader.prototype)).constructor = BufferReader;
       var util = require_minimal();
@@ -7640,12 +8620,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/rpc/service.js
   var require_service = __commonJS({
-    "node_modules/protobufjs/src/rpc/service.js"(exports4, module2) {
+    "node_modules/protobufjs/src/rpc/service.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Service;
+      module.exports = Service;
       var util = require_minimal();
       (Service.prototype = Object.create(util.EventEmitter.prototype)).constructor = Service;
       function Service(rpcImpl, requestDelimited, responseDelimited) {
@@ -7731,12 +8711,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/roots.js
   var require_roots = __commonJS({
-    "node_modules/protobufjs/src/roots.js"(exports4, module2) {
+    "node_modules/protobufjs/src/roots.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = {};
+      module.exports = /* @__PURE__ */ Object.create(null);
     }
   });
 
@@ -7769,12 +8749,13 @@ var LNReaderPlugin = (() => {
 
   // node_modules/@protobufjs/codegen/index.js
   var require_codegen = __commonJS({
-    "node_modules/@protobufjs/codegen/index.js"(exports4, module2) {
+    "node_modules/@protobufjs/codegen/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = codegen;
+      module.exports = codegen;
+      var reservedRe = /^(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$/;
       function codegen(functionParams, functionName) {
         if (typeof functionParams === "string") {
           functionName = functionParams;
@@ -7783,7 +8764,7 @@ var LNReaderPlugin = (() => {
         var body = [];
         function Codegen(formatStringOrScope) {
           if (typeof formatStringOrScope !== "string") {
-            var source = toString2();
+            var source = toString3();
             if (codegen.verbose)
               console.log("codegen: " + source);
             source = "return " + source;
@@ -7823,28 +8804,65 @@ var LNReaderPlugin = (() => {
           return Codegen;
         }
         __name(Codegen, "Codegen");
-        function toString2(functionNameOverride) {
-          return "function " + (functionNameOverride || functionName || "") + "(" + (functionParams && functionParams.join(",") || "") + "){\n  " + body.join("\n  ") + "\n}";
+        function toString3(functionNameOverride) {
+          return "function " + safeFunctionName(functionNameOverride || functionName) + "(" + (functionParams && functionParams.join(",") || "") + "){\n  " + body.join("\n  ") + "\n}";
         }
-        __name(toString2, "toString");
-        Codegen.toString = toString2;
+        __name(toString3, "toString");
+        Codegen.toString = toString3;
         return Codegen;
       }
       __name(codegen, "codegen");
       codegen.verbose = false;
+      function safeFunctionName(name) {
+        if (!name)
+          return "";
+        name = String(name).replace(/[^\w$]/g, "");
+        if (!name)
+          return "";
+        if (/^\d/.test(name))
+          name = "_" + name;
+        return reservedRe.test(name) ? name + "_" : name;
+      }
+      __name(safeFunctionName, "safeFunctionName");
+    }
+  });
+
+  // (disabled):fs
+  var require_fs = __commonJS({
+    "(disabled):fs"() {
+      init_dirname();
+      init_buffer2();
+      init_process2();
+    }
+  });
+
+  // node_modules/@protobufjs/fetch/util/fs.js
+  var require_fs2 = __commonJS({
+    "node_modules/@protobufjs/fetch/util/fs.js"(exports4, module) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      var fs = null;
+      try {
+        fs = require_fs();
+        if (!fs || !fs.readFile || !fs.readFileSync)
+          fs = null;
+      } catch (e2) {
+      }
+      module.exports = fs;
     }
   });
 
   // node_modules/@protobufjs/fetch/index.js
   var require_fetch = __commonJS({
-    "node_modules/@protobufjs/fetch/index.js"(exports4, module2) {
+    "node_modules/@protobufjs/fetch/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = fetch2;
-      var asPromise = require_aspromise(), inquire2 = require_inquire();
-      var fs = inquire2("fs");
+      module.exports = fetch2;
+      var asPromise = require_aspromise(), fs = require_fs2();
       function fetch2(filename, options, callback) {
         if (typeof options === "function") {
           callback = options;
@@ -7946,20 +8964,53 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/protobufjs/src/namespace.js
-  var require_namespace = __commonJS({
-    "node_modules/protobufjs/src/namespace.js"(exports4, module2) {
+  // node_modules/protobufjs/src/util/patterns.js
+  var require_patterns = __commonJS({
+    "node_modules/protobufjs/src/util/patterns.js"(exports4) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Namespace;
+      var patterns = exports4;
+      patterns.numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/;
+      patterns.typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/;
+      patterns.reservedRe = /^(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$/;
+    }
+  });
+
+  // node_modules/protobufjs/src/util/fs.js
+  var require_fs3 = __commonJS({
+    "node_modules/protobufjs/src/util/fs.js"(exports4, module) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      var fs = null;
+      try {
+        fs = require_fs();
+        if (!fs || !fs.readFile || !fs.readFileSync)
+          fs = null;
+      } catch (e2) {
+      }
+      module.exports = fs;
+    }
+  });
+
+  // node_modules/protobufjs/src/namespace.js
+  var require_namespace = __commonJS({
+    "node_modules/protobufjs/src/namespace.js"(exports4, module) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      module.exports = Namespace;
       var ReflectionObject = require_object();
       ((Namespace.prototype = Object.create(ReflectionObject.prototype)).constructor = Namespace).className = "Namespace";
       var Field = require_field(), util = require_util(), OneOf = require_oneof();
       var Type, Service, Enum;
-      Namespace.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
-        return new Namespace(name, json.options).addJSON(json.nested);
+      Namespace.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json, depth) {
+        depth = util.checkDepth(depth);
+        return new Namespace(name, json.options).addJSON(json.nested, depth);
       }, "fromJSON");
       function arrayToJSON(array, toJSONOptions) {
         if (!(array && array.length))
@@ -7991,17 +9042,17 @@ var LNReaderPlugin = (() => {
         ReflectionObject.call(this, name, options);
         this.nested = void 0;
         this._nestedArray = null;
-        this._lookupCache = {};
+        this._lookupCache = /* @__PURE__ */ Object.create(null);
         this._needsRecursiveFeatureResolution = true;
         this._needsRecursiveResolve = true;
       }
       __name(Namespace, "Namespace");
       function clearCache(namespace) {
         namespace._nestedArray = null;
-        namespace._lookupCache = {};
+        namespace._lookupCache = /* @__PURE__ */ Object.create(null);
         var parent2 = namespace;
         while (parent2 = parent2.parent) {
-          parent2._lookupCache = {};
+          parent2._lookupCache = /* @__PURE__ */ Object.create(null);
         }
         return namespace;
       }
@@ -8019,30 +9070,33 @@ var LNReaderPlugin = (() => {
           arrayToJSON(this.nestedArray, toJSONOptions)
         ]);
       }, "toJSON");
-      Namespace.prototype.addJSON = /* @__PURE__ */ __name(function addJSON(nestedJson) {
+      Namespace.prototype.addJSON = /* @__PURE__ */ __name(function addJSON(nestedJson, depth) {
+        depth = util.checkDepth(depth);
         var ns = this;
         if (nestedJson) {
           for (var names = Object.keys(nestedJson), i2 = 0, nested; i2 < names.length; ++i2) {
             nested = nestedJson[names[i2]];
             ns.add(
               // most to least likely
-              (nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : nested.id !== void 0 ? Field.fromJSON : Namespace.fromJSON)(names[i2], nested)
+              (nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : nested.id !== void 0 ? Field.fromJSON : Namespace.fromJSON)(names[i2], nested, depth + 1)
             );
           }
         }
         return this;
       }, "addJSON");
       Namespace.prototype.get = /* @__PURE__ */ __name(function get2(name) {
-        return this.nested && this.nested[name] || null;
+        return this.nested && Object.prototype.hasOwnProperty.call(this.nested, name) ? this.nested[name] : null;
       }, "get");
       Namespace.prototype.getEnum = /* @__PURE__ */ __name(function getEnum(name) {
-        if (this.nested && this.nested[name] instanceof Enum)
+        if (this.nested && Object.prototype.hasOwnProperty.call(this.nested, name) && this.nested[name] instanceof Enum)
           return this.nested[name].values;
         throw Error("no such enum: " + name);
       }, "getEnum");
-      Namespace.prototype.add = /* @__PURE__ */ __name(function add2(object) {
+      Namespace.prototype.add = /* @__PURE__ */ __name(function add3(object) {
         if (!(object instanceof Field && object.extend !== void 0 || object instanceof Type || object instanceof OneOf || object instanceof Enum || object instanceof Service || object instanceof Namespace))
           throw TypeError("object must be a valid nested object");
+        if (object.name === "__proto__")
+          return this;
         if (!this.nested)
           this.nested = {};
         else {
@@ -8094,6 +9148,8 @@ var LNReaderPlugin = (() => {
           throw TypeError("illegal path");
         if (path && path.length && path[0] === "")
           throw Error("path must be relative");
+        if (path.length > util.recursionLimit)
+          throw Error("max depth exceeded");
         var ptr = this;
         while (path.length > 0) {
           var part = path.shift();
@@ -8181,8 +9237,10 @@ var LNReaderPlugin = (() => {
           }
         } else {
           for (var i2 = 0; i2 < this.nestedArray.length; ++i2)
-            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2]._lookupImpl(path, flatPath)))
+            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2]._lookupImpl(path, flatPath))) {
               exact = found;
+              break;
+            }
         }
         this._lookupCache[flatPath] = exact;
         return exact;
@@ -8221,12 +9279,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/mapfield.js
   var require_mapfield = __commonJS({
-    "node_modules/protobufjs/src/mapfield.js"(exports4, module2) {
+    "node_modules/protobufjs/src/mapfield.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = MapField;
+      module.exports = MapField;
       var Field = require_field();
       ((MapField.prototype = Object.create(Field.prototype)).constructor = MapField).className = "MapField";
       var types = require_types(), util = require_util();
@@ -8280,12 +9338,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/method.js
   var require_method = __commonJS({
-    "node_modules/protobufjs/src/method.js"(exports4, module2) {
+    "node_modules/protobufjs/src/method.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Method;
+      module.exports = Method;
       var ReflectionObject = require_object();
       ((Method.prototype = Object.create(ReflectionObject.prototype)).constructor = Method).className = "Method";
       var util = require_util();
@@ -8352,12 +9410,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/service.js
   var require_service2 = __commonJS({
-    "node_modules/protobufjs/src/service.js"(exports4, module2) {
+    "node_modules/protobufjs/src/service.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Service;
+      module.exports = Service;
       var Namespace = require_namespace();
       ((Service.prototype = Object.create(Namespace.prototype)).constructor = Service).className = "Service";
       var Method = require_method(), util = require_util(), rpc = require_rpc();
@@ -8367,13 +9425,14 @@ var LNReaderPlugin = (() => {
         this._methodsArray = null;
       }
       __name(Service, "Service");
-      Service.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Service.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json, depth) {
+        depth = util.checkDepth(depth);
         var service = new Service(name, json.options);
         if (json.methods)
           for (var names = Object.keys(json.methods), i2 = 0; i2 < names.length; ++i2)
             service.add(Method.fromJSON(names[i2], json.methods[names[i2]]));
         if (json.nested)
-          service.addJSON(json.nested);
+          service.addJSON(json.nested, depth);
         if (json.edition)
           service._edition = json.edition;
         service.comment = json.comment;
@@ -8408,7 +9467,7 @@ var LNReaderPlugin = (() => {
       }
       __name(clearCache, "clearCache");
       Service.prototype.get = /* @__PURE__ */ __name(function get2(name) {
-        return this.methods[name] || Namespace.prototype.get.call(this, name);
+        return Object.prototype.hasOwnProperty.call(this.methods, name) ? this.methods[name] : Namespace.prototype.get.call(this, name);
       }, "get");
       Service.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
         if (!this._needsRecursiveResolve) return this;
@@ -8427,10 +9486,12 @@ var LNReaderPlugin = (() => {
         });
         return this;
       }, "_resolveFeaturesRecursive");
-      Service.prototype.add = /* @__PURE__ */ __name(function add2(object) {
+      Service.prototype.add = /* @__PURE__ */ __name(function add3(object) {
         if (this.get(object.name))
           throw Error("duplicate name '" + object.name + "' in " + this);
         if (object instanceof Method) {
+          if (object.name === "__proto__")
+            return this;
           this.methods[object.name] = object;
           object.parent = this;
           return clearCache(this);
@@ -8452,11 +9513,11 @@ var LNReaderPlugin = (() => {
         for (var i2 = 0, method; i2 < /* initializes */
         this.methodsArray.length; ++i2) {
           var methodName = util.lcFirst((method = this._methodsArray[i2]).resolve().name).replace(/[^$\w_]/g, "");
-          rpcService[methodName] = util.codegen(["r", "c"], util.isReserved(methodName) ? methodName + "_" : methodName)("return this.rpcCall(m,q,s,r,c)")({
-            m: method,
-            q: method.resolvedRequestType.ctor,
-            s: method.resolvedResponseType.ctor
-          });
+          rpcService[methodName] = /* @__PURE__ */ function(method2, requestType, responseType) {
+            return /* @__PURE__ */ __name(function rpcMethod(request, callback) {
+              return rpc.Service.prototype.rpcCall.call(this, method2, requestType, responseType, request, callback);
+            }, "rpcMethod");
+          }(method, method.resolvedRequestType.ctor, method.resolvedResponseType.ctor);
         }
         return rpcService;
       }, "create");
@@ -8465,12 +9526,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/message.js
   var require_message = __commonJS({
-    "node_modules/protobufjs/src/message.js"(exports4, module2) {
+    "node_modules/protobufjs/src/message.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Message;
+      module.exports = Message;
       var util = require_minimal();
       function Message(properties) {
         if (properties)
@@ -8514,19 +9575,19 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/decoder.js
   var require_decoder = __commonJS({
-    "node_modules/protobufjs/src/decoder.js"(exports4, module2) {
+    "node_modules/protobufjs/src/decoder.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = decoder;
+      module.exports = decoder;
       var Enum = require_enum(), types = require_types(), util = require_util();
       function missing(field) {
         return "missing required '" + field.name + "'";
       }
       __name(missing, "missing");
       function decoder(mtype) {
-        var gen = util.codegen(["r", "l", "e"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
+        var gen = util.codegen(["r", "l", "e", "n"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("if(n===undefined)n=0")("if(n>Reader.recursionLimit)")('throw Error("maximum nesting depth exceeded")')("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
           return field2.map;
         }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()")("if(t===e)")("break")("switch(t>>>3){");
         var i2 = 0;
@@ -8541,24 +9602,27 @@ var LNReaderPlugin = (() => {
             if (types.defaults[type] !== void 0) gen("value=%j", types.defaults[type]);
             else gen("value=null");
             gen("while(r.pos<c2){")("var tag2=r.uint32()")("switch(tag2>>>3){")("case 1: k=r.%s(); break", field.keyType)("case 2:");
-            if (types.basic[type] === void 0) gen("value=types[%i].decode(r,r.uint32())", i2);
+            if (types.basic[type] === void 0) gen("value=types[%i].decode(r,r.uint32(),undefined,n+1)", i2);
             else gen("value=r.%s()", type);
-            gen("break")("default:")("r.skipType(tag2&7)")("break")("}")("}");
+            gen("break")("default:")("r.skipType(tag2&7,n)")("break")("}")("}");
             if (types.long[field.keyType] !== void 0) gen('%s[typeof k==="object"?util.longToHash(k):k]=value', ref);
-            else gen("%s[k]=value", ref);
+            else {
+              if (field.keyType === "string") gen('if(k==="__proto__")')("util.makeProp(%s,k)", ref);
+              gen("%s[k]=value", ref);
+            }
           } else if (field.repeated) {
             gen("if(!(%s&&%s.length))", ref, ref)("%s=[]", ref);
             if (types.packed[type] !== void 0) gen("if((t&7)===2){")("var c2=r.uint32()+r.pos")("while(r.pos<c2)")("%s.push(r.%s())", ref, type)("}else");
-            if (types.basic[type] === void 0) gen(field.delimited ? "%s.push(types[%i].decode(r,undefined,((t&~7)|4)))" : "%s.push(types[%i].decode(r,r.uint32()))", ref, i2);
+            if (types.basic[type] === void 0) gen(field.delimited ? "%s.push(types[%i].decode(r,undefined,((t&~7)|4),n+1))" : "%s.push(types[%i].decode(r,r.uint32(),undefined,n+1))", ref, i2);
             else gen("%s.push(r.%s())", ref, type);
-          } else if (types.basic[type] === void 0) gen(field.delimited ? "%s=types[%i].decode(r,undefined,((t&~7)|4))" : "%s=types[%i].decode(r,r.uint32())", ref, i2);
+          } else if (types.basic[type] === void 0) gen(field.delimited ? "%s=types[%i].decode(r,undefined,((t&~7)|4),n+1)" : "%s=types[%i].decode(r,r.uint32(),undefined,n+1)", ref, i2);
           else gen("%s=r.%s()", ref, type);
           gen("break")("}");
         }
-        gen("default:")("r.skipType(t&7)")("break")("}")("}");
+        gen("default:")("r.skipType(t&7,n)")("break")("}")("}");
         for (i2 = 0; i2 < mtype._fieldsArray.length; ++i2) {
           var rfield = mtype._fieldsArray[i2];
-          if (rfield.required) gen("if(!m.hasOwnProperty(%j))", rfield.name)("throw util.ProtocolError(%j,{instance:m})", missing(rfield));
+          if (rfield.required) gen("if(!Object.hasOwnProperty.call(m,%j))", rfield.name)("throw util.ProtocolError(%j,{instance:m})", missing(rfield));
         }
         return gen("return m");
       }
@@ -8568,12 +9632,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/verifier.js
   var require_verifier = __commonJS({
-    "node_modules/protobufjs/src/verifier.js"(exports4, module2) {
+    "node_modules/protobufjs/src/verifier.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = verifier;
+      module.exports = verifier;
       var Enum = require_enum(), util = require_util();
       function invalid(field, expected) {
         return field.name + ": " + expected + (field.repeated && expected !== "array" ? "[]" : field.map && expected !== "object" ? "{k:" + field.keyType + "}" : "") + " expected";
@@ -8586,7 +9650,7 @@ var LNReaderPlugin = (() => {
             for (var keys = Object.keys(field.resolvedType.values), j = 0; j < keys.length; ++j) gen("case %i:", field.resolvedType.values[keys[j]]);
             gen("break")("}");
           } else {
-            gen("{")("var e=types[%i].verify(%s);", fieldIndex, ref)("if(e)")("return%j+e", field.name + ".")("}");
+            gen("{")("var e=types[%i].verify(%s,n+1);", fieldIndex, ref)("if(e)")("return%j+e", field.name + ".")("}");
           }
         } else {
           switch (field.type) {
@@ -8646,13 +9710,13 @@ var LNReaderPlugin = (() => {
       }
       __name(genVerifyKey, "genVerifyKey");
       function verifier(mtype) {
-        var gen = util.codegen(["m"], mtype.name + "$verify")('if(typeof m!=="object"||m===null)')("return%j", "object expected");
+        var gen = util.codegen(["m", "n"], mtype.name + "$verify")('if(typeof m!=="object"||m===null)')("return%j", "object expected")("if(n===undefined)n=0")("if(n>util.recursionLimit)")("return%j", "maximum nesting depth exceeded");
         var oneofs = mtype.oneofsArray, seenFirstField = {};
         if (oneofs.length) gen("var p={}");
         for (var i2 = 0; i2 < /* initializes */
         mtype.fieldsArray.length; ++i2) {
           var field = mtype._fieldsArray[i2].resolve(), ref = "m" + util.safeProp(field.name);
-          if (field.optional) gen("if(%s!=null&&m.hasOwnProperty(%j)){", ref, field.name);
+          if (field.optional) gen("if(%s!=null&&Object.hasOwnProperty.call(m,%j)){", ref, field.name);
           if (field.map) {
             gen("if(!util.isObject(%s))", ref)("return%j", invalid(field, "object"))("var k=Object.keys(%s)", ref)("for(var i=0;i<k.length;++i){");
             genVerifyKey(gen, field, "k[i]");
@@ -8700,7 +9764,7 @@ var LNReaderPlugin = (() => {
               gen("case%j:", keys[i2])("case %i:", values[keys[i2]])("m%s=%j", prop2, values[keys[i2]])("break");
             }
             gen("}");
-          } else gen('if(typeof d%s!=="object")', prop2)("throw TypeError(%j)", field.fullName + ": object expected")("m%s=types[%i].fromObject(d%s)", prop2, fieldIndex, prop2);
+          } else gen("if(!util.isObject(d%s))", prop2)("throw TypeError(%j)", field.fullName + ": object expected")("m%s=types[%i].fromObject(d%s,n+1)", prop2, fieldIndex, prop2);
         } else {
           var isUnsigned = false;
           switch (field.type) {
@@ -8718,13 +9782,13 @@ var LNReaderPlugin = (() => {
               gen("m%s=d%s|0", prop2, prop2);
               break;
             case "uint64":
+            case "fixed64":
               isUnsigned = true;
             // eslint-disable-next-line no-fallthrough
             case "int64":
             case "sint64":
-            case "fixed64":
             case "sfixed64":
-              gen("if(util.Long)")("(m%s=util.Long.fromValue(d%s)).unsigned=%j", prop2, prop2, isUnsigned)('else if(typeof d%s==="string")', prop2)("m%s=parseInt(d%s,10)", prop2, prop2)('else if(typeof d%s==="number")', prop2)("m%s=d%s", prop2, prop2)('else if(typeof d%s==="object")', prop2)("m%s=new util.LongBits(d%s.low>>>0,d%s.high>>>0).toNumber(%s)", prop2, prop2, prop2, isUnsigned ? "true" : "");
+              gen("if(util.Long)")("m%s=util.Long.fromValue(d%s,%j)", prop2, prop2, isUnsigned)('else if(typeof d%s==="string")', prop2)("m%s=parseInt(d%s,10)", prop2, prop2)('else if(typeof d%s==="number")', prop2)("m%s=d%s", prop2, prop2)('else if(typeof d%s==="object")', prop2)("m%s=new util.LongBits(d%s.low>>>0,d%s.high>>>0).toNumber(%s)", prop2, prop2, prop2, isUnsigned ? "true" : "");
               break;
             case "bytes":
               gen('if(typeof d%s==="string")', prop2)("util.base64.decode(d%s,m%s=util.newBuffer(util.base64.length(d%s)),0)", prop2, prop2, prop2)("else if(d%s.length >= 0)", prop2)("m%s=d%s", prop2, prop2);
@@ -8742,13 +9806,15 @@ var LNReaderPlugin = (() => {
       __name(genValuePartial_fromObject, "genValuePartial_fromObject");
       converter.fromObject = /* @__PURE__ */ __name(function fromObject(mtype) {
         var fields = mtype.fieldsArray;
-        var gen = util.codegen(["d"], mtype.name + "$fromObject")("if(d instanceof this.ctor)")("return d");
+        var gen = util.codegen(["d", "n"], mtype.name + "$fromObject")("if(d instanceof this.ctor)")("return d");
         if (!fields.length) return gen("return new this.ctor");
+        gen("if(!util.isObject(d))")("throw TypeError(%j)", mtype.fullName + ": object expected")("if(n===undefined)n=0")("if(n>util.recursionLimit)")('throw Error("maximum nesting depth exceeded")');
         gen("var m=new this.ctor");
         for (var i2 = 0; i2 < fields.length; ++i2) {
           var field = fields[i2].resolve(), prop2 = util.safeProp(field.name);
           if (field.map) {
-            gen("if(d%s){", prop2)('if(typeof d%s!=="object")', prop2)("throw TypeError(%j)", field.fullName + ": object expected")("m%s={}", prop2)("for(var ks=Object.keys(d%s),i=0;i<ks.length;++i){", prop2);
+            gen("if(d%s){", prop2)("if(!util.isObject(d%s))", prop2)("throw TypeError(%j)", field.fullName + ": object expected")("m%s={}", prop2)("for(var ks=Object.keys(d%s),i=0;i<ks.length;++i){", prop2);
+            gen('if(ks[i]==="__proto__")')("util.makeProp(m%s,ks[i])", prop2);
             genValuePartial_fromObject(
               gen,
               field,
@@ -8782,7 +9848,7 @@ var LNReaderPlugin = (() => {
       function genValuePartial_toObject(gen, field, fieldIndex, prop2) {
         if (field.resolvedType) {
           if (field.resolvedType instanceof Enum) gen("d%s=o.enums===String?(types[%i].values[m%s]===undefined?m%s:types[%i].values[m%s]):m%s", prop2, fieldIndex, prop2, prop2, fieldIndex, prop2, prop2);
-          else gen("d%s=types[%i].toObject(m%s,o)", prop2, fieldIndex, prop2);
+          else gen("d%s=types[%i].toObject(m%s,o,q+1)", prop2, fieldIndex, prop2);
         } else {
           var isUnsigned = false;
           switch (field.type) {
@@ -8791,13 +9857,13 @@ var LNReaderPlugin = (() => {
               gen("d%s=o.json&&!isFinite(m%s)?String(m%s):m%s", prop2, prop2, prop2, prop2);
               break;
             case "uint64":
+            case "fixed64":
               isUnsigned = true;
             // eslint-disable-next-line no-fallthrough
             case "int64":
             case "sint64":
-            case "fixed64":
             case "sfixed64":
-              gen('if(typeof m%s==="number")', prop2)("d%s=o.longs===String?String(m%s):m%s", prop2, prop2, prop2)("else")("d%s=o.longs===String?util.Long.prototype.toString.call(m%s):o.longs===Number?new util.LongBits(m%s.low>>>0,m%s.high>>>0).toNumber(%s):m%s", prop2, prop2, prop2, prop2, isUnsigned ? "true" : "", prop2);
+              gen('if(typeof BigInt!=="undefined"&&o.longs===BigInt)')('d%s=typeof m%s==="number"?BigInt(m%s):util.Long.fromBits(m%s.low>>>0,m%s.high>>>0,%j).toBigInt()', prop2, prop2, prop2, prop2, prop2, isUnsigned)('else if(typeof m%s==="number")', prop2)("d%s=o.longs===String?String(m%s):m%s", prop2, prop2, prop2)("else")("d%s=o.longs===String?util.Long.prototype.toString.call(m%s):o.longs===Number?new util.LongBits(m%s.low>>>0,m%s.high>>>0).toNumber(%s):m%s", prop2, prop2, prop2, prop2, isUnsigned ? "true" : "", prop2);
               break;
             case "bytes":
               gen("d%s=o.bytes===String?util.base64.encode(m%s,0,m%s.length):o.bytes===Array?Array.prototype.slice.call(m%s):m%s", prop2, prop2, prop2, prop2, prop2);
@@ -8814,7 +9880,7 @@ var LNReaderPlugin = (() => {
         var fields = mtype.fieldsArray.slice().sort(util.compareFieldsById);
         if (!fields.length)
           return util.codegen()("return {}");
-        var gen = util.codegen(["m", "o"], mtype.name + "$toObject")("if(!o)")("o={}")("var d={}");
+        var gen = util.codegen(["m", "o", "q"], mtype.name + "$toObject")("if(!o)")("o={}")("if(q===undefined)q=0")("if(q>util.recursionLimit)")('throw Error("max depth exceeded")')("var d={}");
         var repeatedFields = [], mapFields = [], normalFields = [], i2 = 0;
         for (; i2 < fields.length; ++i2)
           if (!fields[i2].partOf)
@@ -8834,10 +9900,10 @@ var LNReaderPlugin = (() => {
           for (i2 = 0; i2 < normalFields.length; ++i2) {
             var field = normalFields[i2], prop2 = util.safeProp(field.name);
             if (field.resolvedType instanceof Enum) gen("d%s=o.enums===String?%j:%j", prop2, field.resolvedType.valuesById[field.typeDefault], field.typeDefault);
-            else if (field.long) gen("if(util.Long){")("var n=new util.Long(%i,%i,%j)", field.typeDefault.low, field.typeDefault.high, field.typeDefault.unsigned)("d%s=o.longs===String?n.toString():o.longs===Number?n.toNumber():n", prop2)("}else")("d%s=o.longs===String?%j:%i", prop2, field.typeDefault.toString(), field.typeDefault.toNumber());
+            else if (field.long) gen("if(util.Long){")("var n=new util.Long(%i,%i,%j)", field.typeDefault.low, field.typeDefault.high, field.typeDefault.unsigned)('d%s=o.longs===String?n.toString():o.longs===Number?n.toNumber():typeof BigInt!=="undefined"&&o.longs===BigInt?n.toBigInt():n', prop2)("}else")('d%s=o.longs===String?%j:typeof BigInt!=="undefined"&&o.longs===BigInt?BigInt(%j):%i', prop2, field.typeDefault.toString(), field.typeDefault.toString(), field.typeDefault.toNumber());
             else if (field.bytes) {
-              var arrayDefault = "[" + Array.prototype.slice.call(field.typeDefault).join(",") + "]";
-              gen("if(o.bytes===String)d%s=%j", prop2, String.fromCharCode.apply(String, field.typeDefault))("else{")("d%s=%s", prop2, arrayDefault)("if(o.bytes!==Array)d%s=util.newBuffer(d%s)", prop2, prop2)("}");
+              var arrayDefault = Array.prototype.slice.call(field.typeDefault);
+              gen("if(o.bytes===String)d%s=%j", prop2, String.fromCharCode.apply(String, field.typeDefault))("else{")("d%s=%j", prop2, arrayDefault)("if(o.bytes!==Array)d%s=util.newBuffer(d%s)", prop2, prop2)("}");
             } else gen("d%s=%j", prop2, field.typeDefault);
           }
           gen("}");
@@ -8851,6 +9917,7 @@ var LNReaderPlugin = (() => {
               gen("var ks2");
             }
             gen("if(m%s&&(ks2=Object.keys(m%s)).length){", prop2, prop2)("d%s={}", prop2)("for(var j=0;j<ks2.length;++j){");
+            gen('if(ks2[j]==="__proto__")')("util.makeProp(d%s,ks2[j])", prop2);
             genValuePartial_toObject(
               gen,
               field,
@@ -8868,7 +9935,7 @@ var LNReaderPlugin = (() => {
               prop2 + "[j]"
             )("}");
           } else {
-            gen("if(m%s!=null&&m.hasOwnProperty(%j)){", prop2, field.name);
+            gen("if(m%s!=null&&Object.hasOwnProperty.call(m,%j)){", prop2, field.name);
             genValuePartial_toObject(
               gen,
               field,
@@ -8893,9 +9960,9 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var wrappers = exports4;
-      var Message = require_message();
+      var Message = require_message(), util = require_minimal();
       wrappers[".google.protobuf.Any"] = {
-        fromObject: /* @__PURE__ */ __name(function(object) {
+        fromObject: /* @__PURE__ */ __name(function(object, depth) {
           if (object && object["@type"]) {
             var name = object["@type"].substring(object["@type"].lastIndexOf("/") + 1);
             var type = this.lookup(name);
@@ -8906,13 +9973,17 @@ var LNReaderPlugin = (() => {
               }
               return this.create({
                 type_url,
-                value: type.encode(type.fromObject(object)).finish()
+                value: type.encode(type.fromObject(object, depth === void 0 ? 1 : depth + 1)).finish()
               });
             }
           }
-          return this.fromObject(object);
+          return this.fromObject(object, depth);
         }, "fromObject"),
-        toObject: /* @__PURE__ */ __name(function(message, options) {
+        toObject: /* @__PURE__ */ __name(function(message, options, depth) {
+          if (depth === void 0)
+            depth = 0;
+          if (depth > util.recursionLimit)
+            throw Error("max depth exceeded");
           var googleApi = "type.googleapis.com/";
           var prefix = "";
           var name = "";
@@ -8921,10 +9992,10 @@ var LNReaderPlugin = (() => {
             prefix = message.type_url.substring(0, message.type_url.lastIndexOf("/") + 1);
             var type = this.lookup(name);
             if (type)
-              message = type.decode(message.value);
+              message = type.decode(message.value, void 0, void 0, depth + 1);
           }
           if (!(message instanceof this.ctor) && message instanceof Message) {
-            var object = message.$type.toObject(message, options);
+            var object = message.$type.toObject(message, options, depth + 1);
             var messageName = message.$type.fullName[0] === "." ? message.$type.fullName.slice(1) : message.$type.fullName;
             if (prefix === "") {
               prefix = googleApi;
@@ -8933,7 +10004,7 @@ var LNReaderPlugin = (() => {
             object["@type"] = name;
             return object;
           }
-          return this.toObject(message, options);
+          return this.toObject(message, options, depth);
         }, "toObject")
       };
     }
@@ -8941,12 +10012,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/type.js
   var require_type = __commonJS({
-    "node_modules/protobufjs/src/type.js"(exports4, module2) {
+    "node_modules/protobufjs/src/type.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Type;
+      module.exports = Type;
       var Namespace = require_namespace();
       ((Type.prototype = Object.create(Namespace.prototype)).constructor = Type).className = "Type";
       var Enum = require_enum(), OneOf = require_oneof(), Field = require_field(), MapField = require_mapfield(), Service = require_service2(), Message = require_message(), Reader = require_reader(), Writer = require_writer(), util = require_util(), encoder = require_encoder(), decoder = require_decoder(), verifier = require_verifier(), converter = require_converter(), wrappers = require_wrappers();
@@ -9047,7 +10118,7 @@ var LNReaderPlugin = (() => {
         for (var i2 = 0, field; i2 < mtype.fieldsArray.length; ++i2)
           if ((field = mtype._fieldsArray[i2]).map) gen("this%s={}", util.safeProp(field.name));
           else if (field.repeated) gen("this%s=[]", util.safeProp(field.name));
-        return gen("if(p)for(var ks=Object.keys(p),i=0;i<ks.length;++i)if(p[ks[i]]!=null)")("this[ks[i]]=p[ks[i]]");
+        return gen('if(p)for(var ks=Object.keys(p),i=0;i<ks.length;++i)if(p[ks[i]]!=null&&ks[i]!=="__proto__")')("this[ks[i]]=p[ks[i]]");
       }, "generateConstructor");
       function clearCache(type) {
         type._fieldsById = type._fieldsArray = type._oneofsArray = null;
@@ -9057,7 +10128,11 @@ var LNReaderPlugin = (() => {
         return type;
       }
       __name(clearCache, "clearCache");
-      Type.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json) {
+      Type.fromJSON = /* @__PURE__ */ __name(function fromJSON(name, json, depth) {
+        if (depth === void 0)
+          depth = 0;
+        if (depth > util.nestingLimit)
+          throw Error("max depth exceeded");
         var type = new Type(name, json.options);
         type.extensions = json.extensions;
         type.reserved = json.reserved;
@@ -9074,7 +10149,7 @@ var LNReaderPlugin = (() => {
             var nested = json.nested[names[i2]];
             type.add(
               // most to least likely
-              (nested.id !== void 0 ? Field.fromJSON : nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : Namespace.fromJSON)(names[i2], nested)
+              (nested.id !== void 0 ? Field.fromJSON : nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : Namespace.fromJSON)(names[i2], nested, depth + 1)
             );
           }
         if (json.extensions && json.extensions.length)
@@ -9141,9 +10216,15 @@ var LNReaderPlugin = (() => {
         return this;
       }, "_resolveFeaturesRecursive");
       Type.prototype.get = /* @__PURE__ */ __name(function get2(name) {
-        return this.fields[name] || this.oneofs && this.oneofs[name] || this.nested && this.nested[name] || null;
+        if (Object.prototype.hasOwnProperty.call(this.fields, name))
+          return this.fields[name];
+        if (this.oneofs && Object.prototype.hasOwnProperty.call(this.oneofs, name))
+          return this.oneofs[name];
+        if (this.nested && Object.prototype.hasOwnProperty.call(this.nested, name))
+          return this.nested[name];
+        return null;
       }, "get");
-      Type.prototype.add = /* @__PURE__ */ __name(function add2(object) {
+      Type.prototype.add = /* @__PURE__ */ __name(function add3(object) {
         if (this.get(object.name))
           throw Error("duplicate name '" + object.name + "' in " + this);
         if (object instanceof Field && object.extend === void 0) {
@@ -9154,8 +10235,10 @@ var LNReaderPlugin = (() => {
             throw Error("duplicate id " + object.id + " in " + this);
           if (this.isReservedId(object.id))
             throw Error("id " + object.id + " is reserved in " + this);
-          if (this.isReservedName(object.name))
+          if (this.isReservedName(object.name) || object.name.charAt(0) === "$")
             throw Error("name '" + object.name + "' is reserved in " + this);
+          if (object.name === "__proto__")
+            return this;
           if (object.parent)
             object.parent.remove(object);
           this.fields[object.name] = object;
@@ -9164,6 +10247,10 @@ var LNReaderPlugin = (() => {
           return clearCache(this);
         }
         if (object instanceof OneOf) {
+          if (object.name.charAt(0) === "$")
+            throw Error("name '" + object.name + "' is reserved in " + this);
+          if (object.name === "__proto__")
+            return this;
           if (!this.oneofs)
             this.oneofs = {};
           this.oneofs[object.name] = object;
@@ -9238,27 +10325,27 @@ var LNReaderPlugin = (() => {
         return this;
       }, "setup");
       Type.prototype.encode = /* @__PURE__ */ __name(function encode_setup(message, writer) {
-        return this.setup().encode(message, writer);
+        return this.setup().encode.apply(this, arguments);
       }, "encode_setup");
       Type.prototype.encodeDelimited = /* @__PURE__ */ __name(function encodeDelimited(message, writer) {
         return this.encode(message, writer && writer.len ? writer.fork() : writer).ldelim();
       }, "encodeDelimited");
-      Type.prototype.decode = /* @__PURE__ */ __name(function decode_setup(reader, length) {
-        return this.setup().decode(reader, length);
+      Type.prototype.decode = /* @__PURE__ */ __name(function decode_setup(reader, length, end2, depth) {
+        return this.setup().decode(reader, length, end2, depth);
       }, "decode_setup");
       Type.prototype.decodeDelimited = /* @__PURE__ */ __name(function decodeDelimited(reader) {
         if (!(reader instanceof Reader))
           reader = Reader.create(reader);
         return this.decode(reader, reader.uint32());
       }, "decodeDelimited");
-      Type.prototype.verify = /* @__PURE__ */ __name(function verify_setup(message) {
-        return this.setup().verify(message);
+      Type.prototype.verify = /* @__PURE__ */ __name(function verify_setup(message, depth) {
+        return this.setup().verify(message, depth);
       }, "verify_setup");
-      Type.prototype.fromObject = /* @__PURE__ */ __name(function fromObject(object) {
-        return this.setup().fromObject(object);
+      Type.prototype.fromObject = /* @__PURE__ */ __name(function fromObject(object, depth) {
+        return this.setup().fromObject(object, depth);
       }, "fromObject");
       Type.prototype.toObject = /* @__PURE__ */ __name(function toObject(message, options) {
-        return this.setup().toObject(message, options);
+        return this.setup().toObject.apply(this, arguments);
       }, "toObject");
       Type.d = /* @__PURE__ */ __name(function decorateType(typeName) {
         return /* @__PURE__ */ __name(function typeDecorator(target) {
@@ -9270,12 +10357,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/root.js
   var require_root = __commonJS({
-    "node_modules/protobufjs/src/root.js"(exports4, module2) {
+    "node_modules/protobufjs/src/root.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Root;
+      module.exports = Root;
       var Namespace = require_namespace();
       ((Root.prototype = Object.create(Namespace.prototype)).constructor = Root).className = "Root";
       var Field = require_field(), Enum = require_enum(), OneOf = require_oneof(), util = require_util();
@@ -9288,12 +10375,13 @@ var LNReaderPlugin = (() => {
         this._fullyQualifiedObjects = {};
       }
       __name(Root, "Root");
-      Root.fromJSON = /* @__PURE__ */ __name(function fromJSON(json, root2) {
+      Root.fromJSON = /* @__PURE__ */ __name(function fromJSON(json, root2, depth) {
+        depth = util.checkDepth(depth);
         if (!root2)
           root2 = new Root();
         if (json.options)
           root2.setOptions(json.options);
-        return root2.addJSON(json.nested).resolveAll();
+        return root2.addJSON(json.nested, depth).resolveAll();
       }, "fromJSON");
       Root.prototype.resolvePath = util.path.resolve;
       Root.prototype.fetch = util.fetch;
@@ -9334,8 +10422,12 @@ var LNReaderPlugin = (() => {
           return null;
         }
         __name(getBundledFileName, "getBundledFileName");
-        function process3(filename2, source) {
+        function process2(filename2, source, depth) {
+          if (depth === void 0)
+            depth = 0;
           try {
+            if (depth > util.recursionLimit)
+              throw Error("max depth exceeded");
             if (util.isString(source) && source.charAt(0) === "{")
               source = JSON.parse(source);
             if (!util.isString(source))
@@ -9346,12 +10438,12 @@ var LNReaderPlugin = (() => {
               if (parsed.imports) {
                 for (; i3 < parsed.imports.length; ++i3)
                   if (resolved2 = getBundledFileName(parsed.imports[i3]) || self2.resolvePath(filename2, parsed.imports[i3]))
-                    fetch2(resolved2);
+                    fetch2(resolved2, false, depth + 1);
               }
               if (parsed.weakImports) {
                 for (i3 = 0; i3 < parsed.weakImports.length; ++i3)
                   if (resolved2 = getBundledFileName(parsed.weakImports[i3]) || self2.resolvePath(filename2, parsed.weakImports[i3]))
-                    fetch2(resolved2, true);
+                    fetch2(resolved2, true, depth + 1);
               }
             }
           } catch (err) {
@@ -9361,8 +10453,10 @@ var LNReaderPlugin = (() => {
             finish(null, self2);
           }
         }
-        __name(process3, "process");
-        function fetch2(filename2, weak) {
+        __name(process2, "process");
+        function fetch2(filename2, weak, depth) {
+          if (depth === void 0)
+            depth = 0;
           filename2 = getBundledFileName(filename2) || filename2;
           if (self2.files.indexOf(filename2) > -1) {
             return;
@@ -9370,12 +10464,12 @@ var LNReaderPlugin = (() => {
           self2.files.push(filename2);
           if (filename2 in common) {
             if (sync) {
-              process3(filename2, common[filename2]);
+              process2(filename2, common[filename2], depth);
             } else {
               ++queued;
               setTimeout(function() {
                 --queued;
-                process3(filename2, common[filename2]);
+                process2(filename2, common[filename2], depth);
               });
             }
             return;
@@ -9389,7 +10483,7 @@ var LNReaderPlugin = (() => {
                 finish(err);
               return;
             }
-            process3(filename2, source);
+            process2(filename2, source, depth);
           } else {
             ++queued;
             self2.fetch(filename2, function(err, source2) {
@@ -9404,7 +10498,7 @@ var LNReaderPlugin = (() => {
                   finish(null, self2);
                 return;
               }
-              process3(filename2, source2);
+              process2(filename2, source2, depth);
             });
           }
         }
@@ -9524,18 +10618,27 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/util.js
   var require_util = __commonJS({
-    "node_modules/protobufjs/src/util.js"(exports4, module2) {
+    "node_modules/protobufjs/src/util.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      var util = module2.exports = require_minimal();
+      var util = module.exports = require_minimal();
       var roots = require_roots();
       var Type, Enum;
       util.codegen = require_codegen();
       util.fetch = require_fetch();
       util.path = require_path();
-      util.fs = util.inquire("fs");
+      util.patterns = require_patterns();
+      var reservedRe = util.patterns.reservedRe;
+      util.fs = require_fs3();
+      util.checkDepth = /* @__PURE__ */ __name(function checkDepth(depth) {
+        if (depth === void 0)
+          depth = 0;
+        if (depth > util.recursionLimit)
+          throw Error("max depth exceeded");
+        return depth;
+      }, "checkDepth");
       util.toArray = /* @__PURE__ */ __name(function toArray2(object) {
         if (object) {
           var keys = Object.keys(object), array = new Array(keys.length), index2 = 0;
@@ -9554,13 +10657,12 @@ var LNReaderPlugin = (() => {
         }
         return object;
       }, "toObject");
-      var safePropBackslashRe = /\\/g, safePropQuoteRe = /"/g;
       util.isReserved = /* @__PURE__ */ __name(function isReserved(name) {
-        return /^(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$/.test(name);
+        return reservedRe.test(name);
       }, "isReserved");
       util.safeProp = /* @__PURE__ */ __name(function safeProp(prop2) {
-        if (!/^[$\w_]+$/.test(prop2) || util.isReserved(prop2))
-          return '["' + prop2.replace(safePropBackslashRe, "\\\\").replace(safePropQuoteRe, '\\"') + '"]';
+        if (!/^[$\w_]+$/.test(prop2) || reservedRe.test(prop2))
+          return "[" + JSON.stringify(prop2) + "]";
         return "." + prop2;
       }, "safeProp");
       util.ucFirst = /* @__PURE__ */ __name(function ucFirst(str) {
@@ -9607,9 +10709,8 @@ var LNReaderPlugin = (() => {
       util.setProperty = /* @__PURE__ */ __name(function setProperty(dst, path, value, ifNotSet) {
         function setProp2(dst2, path2, value2) {
           var part = path2.shift();
-          if (part === "__proto__" || part === "prototype") {
+          if (util.isUnsafeProperty(part))
             return dst2;
-          }
           if (path2.length > 0) {
             dst2[part] = setProp2(dst2[part] || {}, path2, value2);
           } else {
@@ -9628,6 +10729,8 @@ var LNReaderPlugin = (() => {
         if (!path)
           throw TypeError("path must be specified");
         path = path.split(".");
+        if (path.length > util.recursionLimit)
+          throw Error("max depth exceeded");
         return setProp2(dst, path, value);
       }, "setProperty");
       Object.defineProperty(util, "decorateRoot", {
@@ -9680,7 +10783,7 @@ var LNReaderPlugin = (() => {
         // 14
       ];
       function bake(values, offset) {
-        var i2 = 0, o2 = {};
+        var i2 = 0, o2 = /* @__PURE__ */ Object.create(null);
         offset |= 0;
         while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
         return o2;
@@ -9823,12 +10926,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/field.js
   var require_field = __commonJS({
-    "node_modules/protobufjs/src/field.js"(exports4, module2) {
+    "node_modules/protobufjs/src/field.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Field;
+      module.exports = Field;
       var ReflectionObject = require_object();
       ((Field.prototype = Object.create(ReflectionObject.prototype)).constructor = Field).className = "Field";
       var Enum = require_enum(), types = require_types(), util = require_util();
@@ -9960,7 +11063,7 @@ var LNReaderPlugin = (() => {
             this.options = void 0;
         }
         if (this.long) {
-          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type.charAt(0) === "u");
+          this.typeDefault = util.Long.fromNumber(this.typeDefault, this.type === "uint64" || this.type === "fixed64");
           if (Object.freeze)
             Object.freeze(this.typeDefault);
         } else if (this.bytes && typeof this.typeDefault === "string") {
@@ -10022,12 +11125,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/oneof.js
   var require_oneof = __commonJS({
-    "node_modules/protobufjs/src/oneof.js"(exports4, module2) {
+    "node_modules/protobufjs/src/oneof.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = OneOf;
+      module.exports = OneOf;
       var ReflectionObject = require_object();
       ((OneOf.prototype = Object.create(ReflectionObject.prototype)).constructor = OneOf).className = "OneOf";
       var Field = require_field(), util = require_util();
@@ -10066,7 +11169,7 @@ var LNReaderPlugin = (() => {
         }
       }
       __name(addFieldsToParent, "addFieldsToParent");
-      OneOf.prototype.add = /* @__PURE__ */ __name(function add2(field) {
+      OneOf.prototype.add = /* @__PURE__ */ __name(function add3(field) {
         if (!(field instanceof Field))
           throw TypeError("field must be a Field");
         if (field.parent && field.parent !== this.parent)
@@ -10134,12 +11237,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/object.js
   var require_object = __commonJS({
-    "node_modules/protobufjs/src/object.js"(exports4, module2) {
+    "node_modules/protobufjs/src/object.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = ReflectionObject;
+      module.exports = ReflectionObject;
       ReflectionObject.className = "ReflectionObject";
       var OneOf = require_oneof();
       var util = require_util();
@@ -10235,8 +11338,9 @@ var LNReaderPlugin = (() => {
         if (!edition) {
           throw new Error("Unknown edition for " + this.fullName);
         }
-        var protoFeatures = Object.assign(
-          this.options ? Object.assign({}, this.options.features) : {},
+        var protoFeatures = util.merge(
+          {},
+          this.options && this.options.features,
           this._inferLegacyProtoFeatures(edition)
         );
         if (this._edition) {
@@ -10249,17 +11353,17 @@ var LNReaderPlugin = (() => {
           } else {
             throw new Error("Unknown edition: " + edition);
           }
-          this._features = Object.assign(defaults, protoFeatures || {});
+          this._features = util.merge(defaults, protoFeatures);
           this._featuresResolved = true;
           return;
         }
         if (this.partOf instanceof OneOf) {
-          var lexicalParentFeaturesCopy = Object.assign({}, this.partOf._features);
-          this._features = Object.assign(lexicalParentFeaturesCopy, protoFeatures || {});
+          var lexicalParentFeaturesCopy = util.merge({}, this.partOf._features);
+          this._features = util.merge(lexicalParentFeaturesCopy, protoFeatures);
         } else if (this.declaringField) {
         } else if (this.parent) {
-          var parentFeaturesCopy = Object.assign({}, this.parent._features);
-          this._features = Object.assign(parentFeaturesCopy, protoFeatures || {});
+          var parentFeaturesCopy = util.merge({}, this.parent._features);
+          this._features = util.merge(parentFeaturesCopy, protoFeatures);
         } else {
           throw new Error("Unable to find a parent for " + this.fullName);
         }
@@ -10277,6 +11381,8 @@ var LNReaderPlugin = (() => {
         return void 0;
       }, "getOption");
       ReflectionObject.prototype.setOption = /* @__PURE__ */ __name(function setOption(name, value, ifNotSet) {
+        if (name === "__proto__")
+          return this;
         if (!this.options)
           this.options = {};
         if (/^features\./.test(name)) {
@@ -10288,6 +11394,8 @@ var LNReaderPlugin = (() => {
         return this;
       }, "setOption");
       ReflectionObject.prototype.setParsedOption = /* @__PURE__ */ __name(function setParsedOption(name, value, propName) {
+        if (name === "__proto__")
+          return this;
         if (!this.parsedOptions) {
           this.parsedOptions = [];
         }
@@ -10317,7 +11425,7 @@ var LNReaderPlugin = (() => {
             this.setOption(keys[i2], options[keys[i2]], ifNotSet);
         return this;
       }, "setOptions");
-      ReflectionObject.prototype.toString = /* @__PURE__ */ __name(function toString2() {
+      ReflectionObject.prototype.toString = /* @__PURE__ */ __name(function toString3() {
         var className = this.constructor.className, fullName = this.fullName;
         if (fullName.length)
           return className + " " + fullName;
@@ -10337,12 +11445,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/enum.js
   var require_enum = __commonJS({
-    "node_modules/protobufjs/src/enum.js"(exports4, module2) {
+    "node_modules/protobufjs/src/enum.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = Enum;
+      module.exports = Enum;
       var ReflectionObject = require_object();
       ((Enum.prototype = Object.create(ReflectionObject.prototype)).constructor = Enum).className = "Enum";
       var Namespace = require_namespace(), util = require_util();
@@ -10359,7 +11467,7 @@ var LNReaderPlugin = (() => {
         this.reserved = void 0;
         if (values) {
           for (var keys = Object.keys(values), i2 = 0; i2 < keys.length; ++i2)
-            if (typeof values[keys[i2]] === "number")
+            if (keys[i2] !== "__proto__" && typeof values[keys[i2]] === "number")
               this.valuesById[this.values[keys[i2]] = values[keys[i2]]] = keys[i2];
         }
       }
@@ -10368,8 +11476,8 @@ var LNReaderPlugin = (() => {
         edition = this._edition || edition;
         ReflectionObject.prototype._resolveFeatures.call(this, edition);
         Object.keys(this.values).forEach((key) => {
-          var parentFeaturesCopy = Object.assign({}, this._features);
-          this._valuesFeatures[key] = Object.assign(parentFeaturesCopy, this.valuesOptions && this.valuesOptions[key] && this.valuesOptions[key].features);
+          var parentFeaturesCopy = util.merge({}, this._features);
+          this._valuesFeatures[key] = util.merge(parentFeaturesCopy, this.valuesOptions && this.valuesOptions[key] && this.valuesOptions[key].features || {});
         });
         return this;
       }, "_resolveFeatures");
@@ -10400,11 +11508,13 @@ var LNReaderPlugin = (() => {
           keepComments ? this.comments : void 0
         ]);
       }, "toJSON");
-      Enum.prototype.add = /* @__PURE__ */ __name(function add2(name, id, comment, options) {
+      Enum.prototype.add = /* @__PURE__ */ __name(function add3(name, id, comment, options) {
         if (!util.isString(name))
           throw TypeError("name must be a string");
         if (!util.isInteger(id))
           throw TypeError("id must be an integer");
+        if (name === "__proto__")
+          return this;
         if (this.values[name] !== void 0)
           throw Error("duplicate name '" + name + "' in " + this);
         if (this.isReservedId(id))
@@ -10449,19 +11559,19 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/encoder.js
   var require_encoder = __commonJS({
-    "node_modules/protobufjs/src/encoder.js"(exports4, module2) {
+    "node_modules/protobufjs/src/encoder.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = encoder;
+      module.exports = encoder;
       var Enum = require_enum(), types = require_types(), util = require_util();
       function genTypePartial(gen, field, fieldIndex, ref) {
-        return field.delimited ? gen("types[%i].encode(%s,w.uint32(%i)).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork()).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
+        return field.delimited ? gen("types[%i].encode(%s,w.uint32(%i),q+1).uint32(%i)", fieldIndex, ref, (field.id << 3 | 3) >>> 0, (field.id << 3 | 4) >>> 0) : gen("types[%i].encode(%s,w.uint32(%i).fork(),q+1).ldelim()", fieldIndex, ref, (field.id << 3 | 2) >>> 0);
       }
       __name(genTypePartial, "genTypePartial");
       function encoder(mtype) {
-        var gen = util.codegen(["m", "w"], mtype.name + "$encode")("if(!w)")("w=Writer.create()");
+        var gen = util.codegen(["m", "w", "q"], mtype.name + "$encode")("if(!w)")("w=Writer.create()")("if(q===undefined)q=0")("if(q>util.recursionLimit)")('throw Error("max depth exceeded")');
         var i2, ref;
         var fields = (
           /* initializes */
@@ -10472,7 +11582,7 @@ var LNReaderPlugin = (() => {
           ref = "m" + util.safeProp(field.name);
           if (field.map) {
             gen("if(%s!=null&&Object.hasOwnProperty.call(m,%j)){", ref, field.name)("for(var ks=Object.keys(%s),i=0;i<ks.length;++i){", ref)("w.uint32(%i).fork().uint32(%i).%s(ks[i])", (field.id << 3 | 2) >>> 0, 8 | types.mapKey[field.keyType], field.keyType);
-            if (wireType === void 0) gen("types[%i].encode(%s[ks[i]],w.uint32(18).fork()).ldelim().ldelim()", index2, ref);
+            if (wireType === void 0) gen("types[%i].encode(%s[ks[i]],w.uint32(18).fork(),q+1).ldelim().ldelim()", index2, ref);
             else gen(".uint32(%i).%s(%s[ks[i]]).ldelim()", 16 | wireType, type, ref);
             gen("}")("}");
           } else if (field.repeated) {
@@ -10501,12 +11611,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/index-light.js
   var require_index_light = __commonJS({
-    "node_modules/protobufjs/src/index-light.js"(exports4, module2) {
+    "node_modules/protobufjs/src/index-light.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      var protobuf = module2.exports = require_index_minimal();
+      var protobuf = module.exports = require_index_minimal();
       protobuf.build = "light";
       function load2(filename, root2, callback) {
         if (typeof root2 === "function") {
@@ -10552,12 +11662,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/tokenize.js
   var require_tokenize = __commonJS({
-    "node_modules/protobufjs/src/tokenize.js"(exports4, module2) {
+    "node_modules/protobufjs/src/tokenize.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = tokenize;
+      module.exports = tokenize;
       var delimRe = /[\s{}=;:[\],'"()<>]/g, stringDoubleRe = /(?:"([^"\\]*(?:\\.[^"\\]*)*)")/g, stringSingleRe = /(?:'([^'\\]*(?:\\.[^'\\]*)*)')/g;
       var setCommentRe = /^ *[*/]+ */, setCommentAltRe = /^\s*\*?\/*/, setCommentSplitRe = /\n/g, whitespaceRe = /\s/, unescapeRe = /\\(.?)/g;
       var unescapeMap = {
@@ -10759,8 +11869,8 @@ var LNReaderPlugin = (() => {
         }
         __name(peek, "peek");
         function skip(expected, optional) {
-          var actual = peek(), equals = actual === expected;
-          if (equals) {
+          var actual = peek(), equals2 = actual === expected;
+          if (equals2) {
             next2();
             return true;
           }
@@ -10809,16 +11919,16 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/parse.js
   var require_parse = __commonJS({
-    "node_modules/protobufjs/src/parse.js"(exports4, module2) {
+    "node_modules/protobufjs/src/parse.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = parse5;
+      module.exports = parse5;
       parse5.filename = null;
       parse5.defaults = { keepCase: false };
       var tokenize = require_tokenize(), Root = require_root(), Type = require_type(), Field = require_field(), MapField = require_mapfield(), OneOf = require_oneof(), Enum = require_enum(), Service = require_service2(), Method = require_method(), ReflectionObject = require_object(), types = require_types(), util = require_util();
-      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = /^(?![eE])[0-9]*(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?$/, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/;
+      var base10Re = /^[1-9][0-9]*$/, base10NegRe = /^-?[1-9][0-9]*$/, base16Re = /^0[x][0-9a-fA-F]+$/, base16NegRe = /^-?0[x][0-9a-fA-F]+$/, base8Re = /^0[0-7]+$/, base8NegRe = /^-?0[0-7]+$/, numberRe = util.patterns.numberRe, nameRe = /^[a-zA-Z_][a-zA-Z_0-9]*$/, typeRefRe = util.patterns.typeRefRe;
       function parse5(source, root2, options) {
         if (!(root2 instanceof Root)) {
           options = root2;
@@ -11029,23 +12139,25 @@ var LNReaderPlugin = (() => {
           skip(";");
         }
         __name(parseEdition, "parseEdition");
-        function parseCommon(parent2, token2) {
+        function parseCommon(parent2, token2, depth) {
+          if (depth === void 0)
+            depth = 0;
           switch (token2) {
             case "option":
               parseOption(parent2, token2);
               skip(";");
               return true;
             case "message":
-              parseType(parent2, token2);
+              parseType(parent2, token2, depth + 1);
               return true;
             case "enum":
               parseEnum(parent2, token2);
               return true;
             case "service":
-              parseService(parent2, token2);
+              parseService(parent2, token2, depth + 1);
               return true;
             case "extend":
-              parseExtension(parent2, token2);
+              parseExtension(parent2, token2, depth);
               return true;
           }
           return false;
@@ -11073,12 +12185,16 @@ var LNReaderPlugin = (() => {
           }
         }
         __name(ifBlock, "ifBlock");
-        function parseType(parent2, token2) {
+        function parseType(parent2, token2, depth) {
+          if (depth === void 0)
+            depth = 0;
+          if (depth > util.nestingLimit)
+            throw Error("max depth exceeded");
           if (!nameRe.test(token2 = next2()))
             throw illegal(token2, "type name");
           var type = new Type(token2);
           ifBlock(type, /* @__PURE__ */ __name(function parseType_block(token3) {
-            if (parseCommon(type, token3))
+            if (parseCommon(type, token3, depth))
               return;
             switch (token3) {
               case "map":
@@ -11089,19 +12205,19 @@ var LNReaderPlugin = (() => {
                   throw illegal(token3);
               /* eslint-disable no-fallthrough */
               case "repeated":
-                parseField(type, token3);
+                parseField(type, token3, void 0, depth + 1);
                 break;
               case "optional":
                 if (edition === "proto3") {
-                  parseField(type, "proto3_optional");
+                  parseField(type, "proto3_optional", void 0, depth + 1);
                 } else if (edition !== "proto2") {
                   throw illegal(token3);
                 } else {
-                  parseField(type, "optional");
+                  parseField(type, "optional", void 0, depth + 1);
                 }
                 break;
               case "oneof":
-                parseOneOf(type, token3);
+                parseOneOf(type, token3, depth + 1);
                 break;
               case "extensions":
                 readRanges(type.extensions || (type.extensions = []));
@@ -11114,7 +12230,7 @@ var LNReaderPlugin = (() => {
                   throw illegal(token3);
                 }
                 push(token3);
-                parseField(type, "optional");
+                parseField(type, "optional", void 0, depth + 1);
                 break;
             }
           }, "parseType_block"));
@@ -11124,10 +12240,10 @@ var LNReaderPlugin = (() => {
           }
         }
         __name(parseType, "parseType");
-        function parseField(parent2, rule, extend) {
+        function parseField(parent2, rule, extend, depth) {
           var type = next2();
           if (type === "group") {
-            parseGroup(parent2, rule);
+            parseGroup(parent2, rule, depth);
             return;
           }
           while (type.endsWith(".") || peek().startsWith(".")) {
@@ -11163,7 +12279,11 @@ var LNReaderPlugin = (() => {
           }
         }
         __name(parseField, "parseField");
-        function parseGroup(parent2, rule) {
+        function parseGroup(parent2, rule, depth) {
+          if (depth === void 0)
+            depth = 0;
+          if (depth > util.nestingLimit)
+            throw Error("max depth exceeded");
           if (edition >= 2023) {
             throw illegal("group");
           }
@@ -11187,17 +12307,17 @@ var LNReaderPlugin = (() => {
                 break;
               case "required":
               case "repeated":
-                parseField(type, token2);
+                parseField(type, token2, void 0, depth + 1);
                 break;
               case "optional":
                 if (edition === "proto3") {
-                  parseField(type, "proto3_optional");
+                  parseField(type, "proto3_optional", void 0, depth + 1);
                 } else {
-                  parseField(type, "optional");
+                  parseField(type, "optional", void 0, depth + 1);
                 }
                 break;
               case "message":
-                parseType(type, token2);
+                parseType(type, token2, depth + 1);
                 break;
               case "enum":
                 parseEnum(type, token2);
@@ -11240,7 +12360,7 @@ var LNReaderPlugin = (() => {
           parent2.add(field);
         }
         __name(parseMapField, "parseMapField");
-        function parseOneOf(parent2, token2) {
+        function parseOneOf(parent2, token2, depth) {
           if (!nameRe.test(token2 = next2()))
             throw illegal(token2, "name");
           var oneof = new OneOf(applyCase(token2));
@@ -11250,7 +12370,7 @@ var LNReaderPlugin = (() => {
               skip(";");
             } else {
               push(token3);
-              parseField(oneof, "optional");
+              parseField(oneof, "optional", void 0, depth);
             }
           }, "parseOneOf_block"));
           parent2.add(oneof);
@@ -11316,6 +12436,9 @@ var LNReaderPlugin = (() => {
             token2 = next2();
           }
           while (token2 !== "=") {
+            if (token2 === null) {
+              throw illegal(token2, "end of input");
+            }
             if (token2 === "(") {
               var parensValue = next2();
               skip(")");
@@ -11342,7 +12465,11 @@ var LNReaderPlugin = (() => {
           setParsedOption(parent2, option, optionValue, propName);
         }
         __name(parseOption, "parseOption");
-        function parseOptionValue(parent2, name) {
+        function parseOptionValue(parent2, name, depth) {
+          if (depth === void 0)
+            depth = 0;
+          if (depth > util.recursionLimit)
+            throw Error("max depth exceeded");
           if (skip("{", true)) {
             var objectResult = {};
             while (!skip("}", true)) {
@@ -11356,7 +12483,7 @@ var LNReaderPlugin = (() => {
               var propName = token;
               skip(":", true);
               if (peek() === "{") {
-                value = parseOptionValue(parent2, name + "." + token);
+                value = parseOptionValue(parent2, name + "." + token, depth + 1);
               } else if (peek() === "[") {
                 value = [];
                 var lastValue;
@@ -11377,7 +12504,8 @@ var LNReaderPlugin = (() => {
               var prevValue = objectResult[propName];
               if (prevValue)
                 value = [].concat(prevValue).concat(value);
-              objectResult[propName] = value;
+              if (propName !== "__proto__")
+                objectResult[propName] = value;
               skip(",", true);
               skip(";", true);
             }
@@ -11412,12 +12540,16 @@ var LNReaderPlugin = (() => {
           return parent2;
         }
         __name(parseInlineOptions, "parseInlineOptions");
-        function parseService(parent2, token2) {
+        function parseService(parent2, token2, depth) {
+          if (depth === void 0)
+            depth = 0;
+          if (depth > util.recursionLimit)
+            throw Error("max depth exceeded");
           if (!nameRe.test(token2 = next2()))
             throw illegal(token2, "service name");
           var service = new Service(token2);
           ifBlock(service, /* @__PURE__ */ __name(function parseService_block(token3) {
-            if (parseCommon(service, token3)) {
+            if (parseCommon(service, token3, depth)) {
               return;
             }
             if (token3 === "rpc")
@@ -11464,7 +12596,7 @@ var LNReaderPlugin = (() => {
           parent2.add(method);
         }
         __name(parseMethod, "parseMethod");
-        function parseExtension(parent2, token2) {
+        function parseExtension(parent2, token2, depth) {
           if (!typeRefRe.test(token2 = next2()))
             throw illegal(token2, "reference");
           var reference = token2;
@@ -11472,20 +12604,20 @@ var LNReaderPlugin = (() => {
             switch (token3) {
               case "required":
               case "repeated":
-                parseField(parent2, token3, reference);
+                parseField(parent2, token3, reference, depth + 1);
                 break;
               case "optional":
                 if (edition === "proto3") {
-                  parseField(parent2, "proto3_optional", reference);
+                  parseField(parent2, "proto3_optional", reference, depth + 1);
                 } else {
-                  parseField(parent2, "optional", reference);
+                  parseField(parent2, "optional", reference, depth + 1);
                 }
                 break;
               default:
                 if (edition === "proto2" || !typeRefRe.test(token3))
                   throw illegal(token3);
                 push(token3);
-                parseField(parent2, "optional", reference);
+                parseField(parent2, "optional", reference, depth + 1);
                 break;
             }
           }, "parseExtension_block"));
@@ -11519,7 +12651,7 @@ var LNReaderPlugin = (() => {
               skip(";", true);
               break;
             default:
-              if (parseCommon(ptr, token)) {
+              if (parseCommon(ptr, token, 0)) {
                 head = false;
                 continue;
               }
@@ -11541,12 +12673,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/common.js
   var require_common = __commonJS({
-    "node_modules/protobufjs/src/common.js"(exports4, module2) {
+    "node_modules/protobufjs/src/common.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = common;
+      module.exports = common;
       var commonRe = /\/|\./;
       function common(name, json) {
         if (!commonRe.test(name)) {
@@ -11877,12 +13009,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/src/index.js
   var require_src = __commonJS({
-    "node_modules/protobufjs/src/index.js"(exports4, module2) {
+    "node_modules/protobufjs/src/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      var protobuf = module2.exports = require_index_light();
+      var protobuf = module.exports = require_index_light();
       protobuf.build = "full";
       protobuf.tokenize = require_tokenize();
       protobuf.parse = require_parse();
@@ -11893,12 +13025,12 @@ var LNReaderPlugin = (() => {
 
   // node_modules/protobufjs/index.js
   var require_protobufjs = __commonJS({
-    "node_modules/protobufjs/index.js"(exports4, module2) {
+    "node_modules/protobufjs/index.js"(exports4, module) {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = require_src();
+      module.exports = require_src();
     }
   });
 
@@ -11951,7 +13083,7 @@ var LNReaderPlugin = (() => {
           const res = await fetch(url, init);
           if (!res.ok) return "";
           const arrayBuffer = await res.arrayBuffer();
-          return Buffer.from(arrayBuffer).toString("base64");
+          return Buffer2.from(arrayBuffer).toString("base64");
         } catch (e2) {
           return "";
         }
@@ -13224,11 +14356,11 @@ var LNReaderPlugin = (() => {
 
   // node_modules/boolbase/index.js
   var require_boolbase = __commonJS({
-    "node_modules/boolbase/index.js"(exports4, module2) {
+    "node_modules/boolbase/index.js"(exports4, module) {
       init_dirname();
       init_buffer2();
       init_process2();
-      module2.exports = {
+      module.exports = {
         trueFunc: /* @__PURE__ */ __name(function trueFunc() {
           return true;
         }, "trueFunc"),
@@ -13325,8 +14457,8 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.attributeRules = void 0;
@@ -13531,7 +14663,7 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.parse = void 0;
       var whitespace = /* @__PURE__ */ new Set([9, 10, 12, 13, 32]);
-      var ZERO = "0".charCodeAt(0);
+      var ZERO2 = "0".charCodeAt(0);
       var NINE = "9".charCodeAt(0);
       function parse5(formula) {
         formula = formula.trim().toLowerCase();
@@ -13574,8 +14706,8 @@ var LNReaderPlugin = (() => {
         function readNumber() {
           var start = idx;
           var value = 0;
-          while (idx < formula.length && formula.charCodeAt(idx) >= ZERO && formula.charCodeAt(idx) <= NINE) {
-            value = value * 10 + (formula.charCodeAt(idx) - ZERO);
+          while (idx < formula.length && formula.charCodeAt(idx) >= ZERO2 && formula.charCodeAt(idx) <= NINE) {
+            value = value * 10 + (formula.charCodeAt(idx) - ZERO2);
             idx++;
           }
           return idx === start ? null : value;
@@ -13600,8 +14732,8 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.generate = exports4.compile = void 0;
@@ -13709,8 +14841,8 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.filters = void 0;
@@ -13739,7 +14871,7 @@ var LNReaderPlugin = (() => {
         }, "icontains"),
         // Location specific methods
         "nth-child": /* @__PURE__ */ __name(function(next2, rule, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
@@ -13749,7 +14881,7 @@ var LNReaderPlugin = (() => {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
             for (var i2 = 0; i2 < siblings2.length; i2++) {
-              if (equals(elem, siblings2[i2]))
+              if (equals2(elem, siblings2[i2]))
                 break;
               if (adapter2.isTag(siblings2[i2])) {
                 pos++;
@@ -13759,7 +14891,7 @@ var LNReaderPlugin = (() => {
           }, "nthChild");
         }, "nth-child"),
         "nth-last-child": /* @__PURE__ */ __name(function(next2, rule, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
@@ -13769,7 +14901,7 @@ var LNReaderPlugin = (() => {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
             for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
-              if (equals(elem, siblings2[i2]))
+              if (equals2(elem, siblings2[i2]))
                 break;
               if (adapter2.isTag(siblings2[i2])) {
                 pos++;
@@ -13779,7 +14911,7 @@ var LNReaderPlugin = (() => {
           }, "nthLastChild");
         }, "nth-last-child"),
         "nth-of-type": /* @__PURE__ */ __name(function(next2, rule, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
@@ -13790,7 +14922,7 @@ var LNReaderPlugin = (() => {
             var pos = 0;
             for (var i2 = 0; i2 < siblings2.length; i2++) {
               var currentSibling = siblings2[i2];
-              if (equals(elem, currentSibling))
+              if (equals2(elem, currentSibling))
                 break;
               if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === adapter2.getName(elem)) {
                 pos++;
@@ -13800,7 +14932,7 @@ var LNReaderPlugin = (() => {
           }, "nthOfType");
         }, "nth-of-type"),
         "nth-last-of-type": /* @__PURE__ */ __name(function(next2, rule, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var func = (0, nth_check_1.default)(rule);
           if (func === boolbase_1.default.falseFunc)
             return boolbase_1.default.falseFunc;
@@ -13811,7 +14943,7 @@ var LNReaderPlugin = (() => {
             var pos = 0;
             for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
               var currentSibling = siblings2[i2];
-              if (equals(elem, currentSibling))
+              if (equals2(elem, currentSibling))
                 break;
               if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === adapter2.getName(elem)) {
                 pos++;
@@ -13829,13 +14961,13 @@ var LNReaderPlugin = (() => {
           };
         }, "root"),
         scope: /* @__PURE__ */ __name(function(next2, rule, options, context) {
-          var equals = options.equals;
+          var equals2 = options.equals;
           if (!context || context.length === 0) {
             return exports4.filters["root"](next2, rule, options);
           }
           if (context.length === 1) {
             return function(elem) {
-              return equals(context[0], elem) && next2(elem);
+              return equals2(context[0], elem) && next2(elem);
             };
           }
           return function(elem) {
@@ -13879,20 +15011,20 @@ var LNReaderPlugin = (() => {
           });
         }, "empty"),
         "first-child": /* @__PURE__ */ __name(function(elem, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           if (adapter2.prevElementSibling) {
             return adapter2.prevElementSibling(elem) == null;
           }
           var firstChild = adapter2.getSiblings(elem).find(function(elem2) {
             return adapter2.isTag(elem2);
           });
-          return firstChild != null && equals(elem, firstChild);
+          return firstChild != null && equals2(elem, firstChild);
         }, "first-child"),
         "last-child": /* @__PURE__ */ __name(function(elem, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
-            if (equals(elem, siblings2[i2]))
+            if (equals2(elem, siblings2[i2]))
               return true;
             if (adapter2.isTag(siblings2[i2]))
               break;
@@ -13900,12 +15032,12 @@ var LNReaderPlugin = (() => {
           return false;
         }, "last-child"),
         "first-of-type": /* @__PURE__ */ __name(function(elem, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           var elemName = adapter2.getName(elem);
           for (var i2 = 0; i2 < siblings2.length; i2++) {
             var currentSibling = siblings2[i2];
-            if (equals(elem, currentSibling))
+            if (equals2(elem, currentSibling))
               return true;
             if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === elemName) {
               break;
@@ -13914,12 +15046,12 @@ var LNReaderPlugin = (() => {
           return false;
         }, "first-of-type"),
         "last-of-type": /* @__PURE__ */ __name(function(elem, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           var elemName = adapter2.getName(elem);
           for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
             var currentSibling = siblings2[i2];
-            if (equals(elem, currentSibling))
+            if (equals2(elem, currentSibling))
               return true;
             if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === elemName) {
               break;
@@ -13928,16 +15060,16 @@ var LNReaderPlugin = (() => {
           return false;
         }, "last-of-type"),
         "only-of-type": /* @__PURE__ */ __name(function(elem, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           var elemName = adapter2.getName(elem);
           return adapter2.getSiblings(elem).every(function(sibling) {
-            return equals(elem, sibling) || !adapter2.isTag(sibling) || adapter2.getName(sibling) !== elemName;
+            return equals2(elem, sibling) || !adapter2.isTag(sibling) || adapter2.getName(sibling) !== elemName;
           });
         }, "only-of-type"),
         "only-child": /* @__PURE__ */ __name(function(elem, _a) {
-          var adapter2 = _a.adapter, equals = _a.equals;
+          var adapter2 = _a.adapter, equals2 = _a.equals;
           return adapter2.getSiblings(elem).every(function(sibling) {
-            return equals(elem, sibling) || !adapter2.isTag(sibling);
+            return equals2(elem, sibling) || !adapter2.isTag(sibling);
           });
         }, "only-child")
       };
@@ -14010,8 +15142,8 @@ var LNReaderPlugin = (() => {
         }
         return to.concat(ar || Array.prototype.slice.call(from));
       };
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.subselects = exports4.getNextSiblings = exports4.ensureIsTag = exports4.PLACEHOLDER_ELEMENT = void 0;
@@ -14188,7 +15320,7 @@ var LNReaderPlugin = (() => {
       }
       __name(getElementParent, "getElementParent");
       function compileGeneralSelector(next2, selector, options, context, compileToken) {
-        var adapter2 = options.adapter, equals = options.equals;
+        var adapter2 = options.adapter, equals2 = options.equals;
         switch (selector.type) {
           case css_what_1.SelectorType.PseudoElement: {
             throw new Error("Pseudo-elements are not supported by css-select");
@@ -14276,7 +15408,7 @@ var LNReaderPlugin = (() => {
               var siblings2 = adapter2.getSiblings(elem);
               for (var i2 = 0; i2 < siblings2.length; i2++) {
                 var currentSibling = siblings2[i2];
-                if (equals(elem, currentSibling))
+                if (equals2(elem, currentSibling))
                   break;
                 if (adapter2.isTag(currentSibling) && next2(currentSibling)) {
                   return true;
@@ -14297,7 +15429,7 @@ var LNReaderPlugin = (() => {
               var lastElement;
               for (var i2 = 0; i2 < siblings2.length; i2++) {
                 var currentSibling = siblings2[i2];
-                if (equals(elem, currentSibling))
+                if (equals2(elem, currentSibling))
                   break;
                 if (adapter2.isTag(currentSibling)) {
                   lastElement = currentSibling;
@@ -14344,17 +15476,17 @@ var LNReaderPlugin = (() => {
       } : function(o2, v) {
         o2["default"] = v;
       });
-      var __importStar = exports4 && exports4.__importStar || function(mod2) {
-        if (mod2 && mod2.__esModule) return mod2;
+      var __importStar = exports4 && exports4.__importStar || function(mod) {
+        if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod2 != null) {
-          for (var k in mod2) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod2, k)) __createBinding(result, mod2, k);
+        if (mod != null) {
+          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         }
-        __setModuleDefault(result, mod2);
+        __setModuleDefault(result, mod);
         return result;
       };
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.compileToken = exports4.compileUnsafe = exports4.compile = void 0;
@@ -14486,17 +15618,17 @@ var LNReaderPlugin = (() => {
       } : function(o2, v) {
         o2["default"] = v;
       });
-      var __importStar = exports4 && exports4.__importStar || function(mod2) {
-        if (mod2 && mod2.__esModule) return mod2;
+      var __importStar = exports4 && exports4.__importStar || function(mod) {
+        if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod2 != null) {
-          for (var k in mod2) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod2, k)) __createBinding(result, mod2, k);
+        if (mod != null) {
+          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         }
-        __setModuleDefault(result, mod2);
+        __setModuleDefault(result, mod);
         return result;
       };
-      var __importDefault = exports4 && exports4.__importDefault || function(mod2) {
-        return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+      var __importDefault = exports4 && exports4.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.aliases = exports4.pseudos = exports4.filters = exports4.is = exports4.selectOne = exports4.selectAll = exports4.prepareContext = exports4._compileToken = exports4._compileUnsafe = exports4.compile = void 0;
@@ -14717,13 +15849,13 @@ var LNReaderPlugin = (() => {
       } : function(o2, v) {
         o2["default"] = v;
       });
-      var __importStar = exports4 && exports4.__importStar || function(mod2) {
-        if (mod2 && mod2.__esModule) return mod2;
+      var __importStar = exports4 && exports4.__importStar || function(mod) {
+        if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod2 != null) {
-          for (var k in mod2) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod2, k)) __createBinding(result, mod2, k);
+        if (mod != null) {
+          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         }
-        __setModuleDefault(result, mod2);
+        __setModuleDefault(result, mod);
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
@@ -14981,7 +16113,7 @@ var LNReaderPlugin = (() => {
   var traversing_exports = {};
   __export(traversing_exports, {
     _findBySelector: () => _findBySelector,
-    add: () => add,
+    add: () => add2,
     addBack: () => addBack,
     children: () => children,
     closest: () => closest,
@@ -15002,7 +16134,7 @@ var LNReaderPlugin = (() => {
     next: () => next,
     nextAll: () => nextAll,
     nextUntil: () => nextUntil,
-    not: () => not,
+    not: () => not2,
     parent: () => parent,
     parents: () => parents,
     parentsUntil: () => parentsUntil,
@@ -15149,7 +16281,7 @@ var LNReaderPlugin = (() => {
     const nodes = this.toArray();
     return typeof selector === "string" ? select.some(nodes.filter(import_domhandler2.isTag), selector, this.options) : selector ? nodes.some(getFilterFn(selector)) : false;
   }
-  function not(match) {
+  function not2(match) {
     let nodes = this.toArray();
     if (typeof match === "string") {
       const matches = new Set(select.filter(match, nodes, this.options));
@@ -15212,7 +16344,7 @@ var LNReaderPlugin = (() => {
     var _a;
     return (_a = this.prevObject) !== null && _a !== void 0 ? _a : this._make([]);
   }
-  function add(other, context) {
+  function add2(other, context) {
     const selection = this._make(other, context);
     const contents2 = (0, import_domutils3.uniqueSort)([...this.get(), ...selection.get()]);
     return this._make(contents2);
@@ -15298,7 +16430,7 @@ var LNReaderPlugin = (() => {
       __name(filter, "filter");
       __name(filterArray, "filterArray");
       __name(is, "is");
-      __name(not, "not");
+      __name(not2, "not");
       __name(has, "has");
       __name(first, "first");
       __name(last, "last");
@@ -15308,7 +16440,7 @@ var LNReaderPlugin = (() => {
       __name(index, "index");
       __name(slice, "slice");
       __name(end, "end");
-      __name(add, "add");
+      __name(add2, "add");
       __name(addBack, "addBack");
     }
   });
@@ -15316,7 +16448,7 @@ var LNReaderPlugin = (() => {
   // node_modules/cheerio/dist/browser/parse.js
   function getParse(parser) {
     return /* @__PURE__ */ __name(function parse5(content, options, isDocument3, context) {
-      if (typeof Buffer !== "undefined" && Buffer.isBuffer(content)) {
+      if (typeof Buffer2 !== "undefined" && Buffer2.isBuffer(content)) {
         content = content.toString();
       }
       if (typeof content === "string") {
@@ -15384,7 +16516,7 @@ var LNReaderPlugin = (() => {
     remove: () => remove,
     replaceWith: () => replaceWith,
     text: () => text2,
-    toString: () => toString,
+    toString: () => toString2,
     unwrap: () => unwrap,
     wrap: () => wrap,
     wrapAll: () => wrapAll,
@@ -15659,7 +16791,7 @@ var LNReaderPlugin = (() => {
       update(content, el);
     });
   }
-  function toString() {
+  function toString2() {
     return this._render(this);
   }
   function text2(str) {
@@ -15735,7 +16867,7 @@ var LNReaderPlugin = (() => {
       __name(replaceWith, "replaceWith");
       __name(empty, "empty");
       __name(html2, "html");
-      __name(toString, "toString");
+      __name(toString2, "toString");
       __name(text2, "text");
       __name(clone, "clone");
     }
@@ -24406,7 +25538,7 @@ var LNReaderPlugin = (() => {
       });
     }, l2.prototype.parseNovel = function(i2) {
       return t(this, void 0, void 0, function() {
-        var t2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, x, P, L, A, I, j, H, R, E, G, M, O, T, _, U, q = this;
+        var t2, l3, c2, u, h, p, v, d, f, g, b, m, w, y, S, N, k, C, x, P, L, A, I, j, H, R, M, E, G, O, T, _, q, U = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -24436,12 +25568,12 @@ var LNReaderPlugin = (() => {
                       case "info":
                         C(n.Info), S = 0;
                     }
-                    q.options.noAjax || "rating" !== t3.id || (g = t3["data-novel-id"]), h2 === n.Info && S++;
+                    U.options.noAjax || "rating" !== t3.id || (g = t3["data-novel-id"]), "indexListPage" === t3.id && (g = t3["data-novel-id"], b = Number(t3["data-total-chapters"])), h2 === n.Info && S++;
                     break;
                   case "img":
                     if (h2 === n.Cover) {
                       var p2 = null !== (r2 = null !== (a3 = t3.src) && void 0 !== a3 ? a3 : t3["data-cfsrc"]) && void 0 !== r2 ? r2 : t3["data-src"], v2 = t3.title;
-                      p2 && (c2.cover = new URL(p2, q.site).href), v2 ? c2.name = v2 : x();
+                      p2 && (c2.cover = new URL(p2, U.site).href), v2 ? c2.name = v2 : x();
                     }
                     break;
                   case "h3":
@@ -24458,7 +25590,7 @@ var LNReaderPlugin = (() => {
                     h2 === n.Summary && u.push("\n");
                     break;
                   case "ul":
-                    (null === (s2 = t3.class) || void 0 === s2 ? void 0 : s2.includes("info-meta")) && C(n.Info), q.options.noAjax && "idData" === t3.id && C(n.ChapterList);
+                    (null === (s2 = t3.class) || void 0 === s2 ? void 0 : s2.includes("info-meta")) && C(n.Info), U.options.noAjax && "idData" === t3.id && C(n.ChapterList);
                     break;
                   case "a":
                     if ((null === (l4 = t3.class) || void 0 === l4 ? void 0 : l4.includes("set-case")) && (g = t3["data-articleid"]), h2 === n.ChapterList) {
@@ -24565,29 +25697,29 @@ var LNReaderPlugin = (() => {
                 c2.summary = u.join("\n\n").trim();
               }, "onend") }), P.write(l3), P.end(), this.options.noAjax && f.length > 0 && !b ? (c2.chapters = f, [3, 7]) : [3, 3];
             case 3:
-              return null === g ? [3, 7] : (L = this.options.chapterListing || "ajax/chapter-archive", A = this.options.chapterParam || "novelId", I = new URLSearchParams(((U = {})[A] = g, U)), j = void 0, H = void 0, b ? (j = "".concat(this.site).concat(L), I.set("acode", m || i2.split("/").pop()), I.set("cid", String(Math.floor(Math.random() * b))), H = { method: "POST", body: I.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } }) : j = "".concat(this.site).concat(L, "?").concat(I.toString()), [4, (0, o.fetchApi)(j, H)]);
+              return null === g ? [3, 7] : (L = this.options.chapterListing || "ajax/chapter-archive", A = this.options.chapterParam || "novelId", I = new URLSearchParams(((q = {})[A] = g, q)), j = void 0, H = void 0, b ? (j = "".concat(this.site).concat(L), I.set("acode", m || i2.split("/").pop()), I.set("cid", String(Math.floor(Math.random() * b))), H = { method: "POST", body: I.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" } }) : j = "".concat(this.site).concat(L, "?").concat(I.toString()), [4, (0, o.fetchApi)(j, H)]);
             case 4:
               return (R = a2.sent()).ok ? [3, 5] : (console.error("Failed to fetch chapters: ".concat(R.status)), c2.chapters = [], [3, 7]);
             case 5:
               return [4, R.text()];
             case 6:
-              E = a2.sent(), G = E;
+              M = a2.sent(), E = M;
               try {
-                "string" == typeof (M = JSON.parse(E)).html && (G = M.html);
+                "string" == typeof (G = JSON.parse(M)).html && (E = G.html);
               } catch (e2) {
               }
               O = [], T = {}, (_ = new r.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
                 var a3, r2;
                 if ("a" === e2 && t3.href ? (a3 = t3.href, r2 = t3.title || "", C(n.Chapter)) : "option" === e2 && t3.value && (a3 = t3.value, r2 = "", C(n.Chapter)), void 0 !== a3) {
-                  var o2 = new URL(a3, q.site);
-                  T.path = o2.pathname.substring(1), T.name = r2;
+                  var o2 = a3.startsWith("/") ? a3.slice(1) : a3.replace(U.site + "/", "");
+                  T.path = o2, T.name = r2;
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
                 var t3 = e2.trim();
                 k() === n.Chapter && !T.name && t3 && (T.name += t3);
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(t3) {
                 "a" !== t3 && "option" !== t3 || k() !== n.Chapter || (T.name && T.path && (T.name = T.name.trim(), T.releaseTime = null, O.push(e({}, T))), T = {}, x());
-              }, "onclosetag") })).write(G), _.end(), c2.chapters = O, a2.label = 7;
+              }, "onclosetag") })).write(E), _.end(), c2.chapters = O, a2.label = 7;
             case 7:
               return [2, c2];
           }
@@ -24692,7 +25824,7 @@ var LNReaderPlugin = (() => {
   exports.ReadNovelFullPlugin = l, function(e2) {
     e2[e2.Idle = 0] = "Idle", e2[e2.Info = 1] = "Info", e2[e2.Cover = 2] = "Cover", e2[e2.Author = 3] = "Author", e2[e2.Genres = 4] = "Genres", e2[e2.Status = 5] = "Status", e2[e2.Hidden = 6] = "Hidden", e2[e2.Summary = 7] = "Summary", e2[e2.Stopped = 8] = "Stopped", e2[e2.Chapter = 9] = "Chapter", e2[e2.ChapterList = 10] = "ChapterList", e2[e2.NovelName = 11] = "NovelName", e2[e2.NovelList = 12] = "NovelList";
   }(n || (n = {}));
-  var c = new l({ id: "FWN.com", sourceSite: "https://freewebnovel.com/", sourceName: "Free Web Novel", options: { latestPage: "sort/latest-novels", searchPage: "search", searchKey: "searchkey", postSearch: true, noAjax: true, noPages: ["sort/most-popular"], pageAsPath: true, chapterListing: "api/chapterlist.php", chapterParam: "aid", versionIncrements: 2, customJs: "$('.txt, #chr-content, #chapter-content').find('*').addBack().contents().filter((_, el) => el.type === 'text').each((_, el) => { el.data = el.data.replace(/(?:\u{1D41F}|\u1D6E|\u{1D453}|\u{1D487}|\u{1D4BB}|\u{1D4EF}|\u{1D523}|\u{1D557}|\u{1D5BF}|\u{1D5F3}|\u{1D65B}|\u{1D68F}|\uAB35|\uA799|\u1E9D|\u{1D58B}|\u24D5|\uFF46|\u0192|\u1E1F|\u0283|\u0562|\u1DA0|\u24A1|\u017F|\uA2B0|\u0284|\u2231|\u1D82|\u{1D627}|\\bf)(?:\u{1D69B}|\uAB47|\u18F4|\u213E|\u{1D6AA}|\u{1D6E4}|\u{1D71E}|\u{1D758}|\u{1D792}|\u2C84|\u0413|\u13B1|\u14A5|\uAB48|\u2C85|\uAB81|\u24E1|\uFF52|\u0155|\u1E59|\u0159|\u0211|\u0213|\u1E5B|\u1E5D|\u0157|\u0433|\u0550|\u027E|\u196C|\u1E5F|\u024D|\u02B3|\u24AD|\u027C|\u0453|\u1D26|\u1D89|\u{1D42B}|\u{1D45F}|\u{1D493}|\u{1D4C7}|\u{1D4FB}|\u{1D52F}|\u{1D563}|\u{1D597}|\u{1D5CB}|\u{1D5FF}|\u{1D633}|\u{1D667}|\u1D72|\u0491|\u1D63|r)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)+(?:\u{1D430}|\uA761|\u{1D464}|\u{1D498}|\u{1D4CC}|\u{1D500}|\u{1D534}|\u{1D568}|\u{1D59C}|\u{1D5D0}|\u{1D604}|\u{1D638}|\u{1D66C}|\u{1D6A0}|\u0561|\u1E81|\uAB83|\u1E83|\u24E6|\u2375|\u0175|\u1E87|\u1E85|\u1E98|\u1E89|\u2C73|\u1F7C|\u1F60|\u1F61|\u1F62|\u1F63|\u03C9|\u1F64|\u1F65|\u1F66|\u1F67|\u1FF2|\u1FF3|\u1FF4|\u1FF6|\u1FF7|\u2C72|\u0461|\u051D|\u1D21|\u1F7D|\u1FA0|\u1FA1|\u1FA2|\u1FA3|\u1FA4|\u1FA5|\u1FA6|\u026F|\u{1D755}|\u{1D7C9}|\u{1D78F}|w)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\uAB9F|\u13CF|\u{1D41B}|\u{1D623}|\u{1D4B7}|\u{1D51F}|\u{1D4EB}|\u{1D587}|\u{1D5BB}|\u{1D44F}|\u{1D657}|\u{1D553}|\u{1D483}|\u{1D5EF}|\u{1D68B}|\u266D|\u1473|\u1488|\uFF42|\u159A|\u1579|\u157A|\u24D1|\u1E03|\u1E05|\u048D|\u044A|\u1E07|\u0183|\u0253|\u0185|\u15AF|\u0184|\u042C|\u1472|\xFE|\u0182|\u249D|\u042A|\u1D80|\u147F|\u1480|\u1482|\u1481|\u147E|\u044C|\u0180|\u048C|\u0462|\u0463|\u150E |b)(?:\u0578|\u057C|\u05D7|\u{1D48F}|\u{1D4F7}|\u{1D663}|\u{1D45B}|\u{1D593}|\u{1D52B}|\u{1D5C7}|\u{1D697}|\u{1D5FB}|\u1952|\u24DD|\u03AE|\uFF4E|\u01F9|\u1D12|\u0144|\xF1|\u1F97|\u03B7|\u1E45|\u0148|\u1E47|\u0272|\u0146|\u1E4B|\u1E49|\u0572|\u0E96|\u054C|\u019E|\u014B|\u24A9|\u0E20|\u0E01|\u0273|\u043F|\u0149|\u043B|\u0509|\u0220|\u1F20|\u1F21|\u1FC3|\u0564|\u1F90|\u1F91|\u1F92|\u1F93|\u1F94|\u1F95|\u1F96|\u1FC4|\u1FC6|\u1FC7|\u1FC2|\u1F22|\u1F23|\u1F24|\u1F25|\u1F26|\u1F27|\u1F74|\u1F75|\u1260|\u1261|\u1262|\u1263|\u1264|\u1265|\u1266|\u0235|\u{1D6C8}|\u{1D702}|\u{1D73C}|\u{1D776}|\u{1D7B0}|\u{1D55F}|\u{1D62F}|\u{1D427}|\u{1D4C3}|\u1D87|\u1D70|\u1965|\u2229|n)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u2228|\u2304|\u22C1|\u2174|\u{1D42F}|\u{1D463}|\u{1D497}|\u{1D4CB}|\u{1D533}|\u{1D567}|\u{1D59B}|\u{1D5CF}|\uABA9|\u1200|\u24E5|\uFF56|\u{1D710}|\u{1D74A}|\u1E7D|\u1E7F|\u0C6E|\u0E07|\u0475|\u05E2|\u1D20|\u03BD|\u05D8|\u1D65|\u0477|\u17F4|\u1601|\u{1D66B}|\u{1D69F}|\u{1D6CE}|\u{1D708}|\u{1D742}|\u{1D77C}|\u{1D7B6}|\u{1D637}|\u{1D603}|\u{1D4FF}|v)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\u24DB|\uFF4C|\u0140|\u013A|\u013E|\u1E37|\u1E39|\u013C|\u04C0|\u2113|\u1E3D|\u1E3B|\u0142|\uFF9A|\u026D|\u019A|\u026B|\u2C61|\\||\u0196|\u24A7|\u0285|\u01C0|\u05D5|\u05DF|\u0399|\u0406|\uFF5C|\u1DA9|\u04CF|\u{1D4D8}|\u{1D540}|\u{1D5A8}|\u{1D5DC}|\u{1D610}|\u{1D425}|\u{1D459}|\u{1D48D}|\u{1D4C1}|\u{1D529}|\u{1D55D}|\u{1D591}|\u{1D5C5}|\u{1D5F9}|\u{1D62D}|\u{1D695}|\u{1D724}|\u{1D75E}|\u0131|\u{1D6A4}|\u0269|\u1FBE|\u{1D6CA}|\u{1D704}|\u{1D73E}|\u{1D7B2}|I|l)(?:.?(?:\u{1F74C}|\uFF43|\u217D|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u1D04|\u03F2|\u2CA5|\u0441|\uABAF|\u{1043D}|\u2CA5|\u{1043D}|\uABAF|\u0109|\uFF43|\u24D2|\u0107|\u010D|\u010B|\xE7|\u0481|\u0188|\u1E09|\u023C|\u2184|\u0441|\u122D|\u1D04|\u03F2|\u04AB|\uA49D|\u03C2|\u027D|\u03DB|\u{1D672}|\u1466|\u19DA|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u20B5|\u{1F1E8}|\u1974|\u14BC|\u217D|c)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u20A5|\u1D6F|\u{1D592}|\u{1D426}|\u{1D5C6}|\u{1D52A}|\u{1D55E}|\u{1D4C2}|\u24DC|\uFF4D|\u0D28|\u1662|\u0D69|\u1E3F|\u1E41|\u217F|\u03FB|\u1E43|\u1320|\u0271|\u17F3|\u1D86|\u{1D48E}|\u{1D662}|\u{1D4F6}|\u{1D696}|\u{1D45A}|\u{1D5FA}|\u19D5|\u19D7|m))?/g, ''); });" }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
+  var c = new l({ id: "FWN.com", sourceSite: "https://freewebnovel.com/", sourceName: "Free Web Novel", options: { latestPage: "sort/latest-novels", searchPage: "search", searchKey: "searchkey", postSearch: true, noAjax: true, noPages: ["sort/most-popular"], pageAsPath: true, chapterListing: "api/chapterlist.php", chapterParam: "aid", versionIncrements: 3, customJs: "$('.txt, #chr-content, #chapter-content').find('*').addBack().contents().filter((_, el) => el.type === 'text').each((_, el) => { el.data = el.data.replace(/(?:\u{1D41F}|\u1D6E|\u{1D453}|\u{1D487}|\u{1D4BB}|\u{1D4EF}|\u{1D523}|\u{1D557}|\u{1D5BF}|\u{1D5F3}|\u{1D65B}|\u{1D68F}|\uAB35|\uA799|\u1E9D|\u{1D58B}|\u24D5|\uFF46|\u0192|\u1E1F|\u0283|\u0562|\u1DA0|\u24A1|\u017F|\uA2B0|\u0284|\u2231|\u1D82|\u{1D627}|\\bf)(?:\u{1D69B}|\uAB47|\u18F4|\u213E|\u{1D6AA}|\u{1D6E4}|\u{1D71E}|\u{1D758}|\u{1D792}|\u2C84|\u0413|\u13B1|\u14A5|\uAB48|\u2C85|\uAB81|\u24E1|\uFF52|\u0155|\u1E59|\u0159|\u0211|\u0213|\u1E5B|\u1E5D|\u0157|\u0433|\u0550|\u027E|\u196C|\u1E5F|\u024D|\u02B3|\u24AD|\u027C|\u0453|\u1D26|\u1D89|\u{1D42B}|\u{1D45F}|\u{1D493}|\u{1D4C7}|\u{1D4FB}|\u{1D52F}|\u{1D563}|\u{1D597}|\u{1D5CB}|\u{1D5FF}|\u{1D633}|\u{1D667}|\u1D72|\u0491|\u1D63|r)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)+(?:\u{1D430}|\uA761|\u{1D464}|\u{1D498}|\u{1D4CC}|\u{1D500}|\u{1D534}|\u{1D568}|\u{1D59C}|\u{1D5D0}|\u{1D604}|\u{1D638}|\u{1D66C}|\u{1D6A0}|\u0561|\u1E81|\uAB83|\u1E83|\u24E6|\u2375|\u0175|\u1E87|\u1E85|\u1E98|\u1E89|\u2C73|\u1F7C|\u1F60|\u1F61|\u1F62|\u1F63|\u03C9|\u1F64|\u1F65|\u1F66|\u1F67|\u1FF2|\u1FF3|\u1FF4|\u1FF6|\u1FF7|\u2C72|\u0461|\u051D|\u1D21|\u1F7D|\u1FA0|\u1FA1|\u1FA2|\u1FA3|\u1FA4|\u1FA5|\u1FA6|\u026F|\u{1D755}|\u{1D7C9}|\u{1D78F}|w)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\uAB9F|\u13CF|\u{1D41B}|\u{1D623}|\u{1D4B7}|\u{1D51F}|\u{1D4EB}|\u{1D587}|\u{1D5BB}|\u{1D44F}|\u{1D657}|\u{1D553}|\u{1D483}|\u{1D5EF}|\u{1D68B}|\u266D|\u1473|\u1488|\uFF42|\u159A|\u1579|\u157A|\u24D1|\u1E03|\u1E05|\u048D|\u044A|\u1E07|\u0183|\u0253|\u0185|\u15AF|\u0184|\u042C|\u1472|\xFE|\u0182|\u249D|\u042A|\u1D80|\u147F|\u1480|\u1482|\u1481|\u147E|\u044C|\u0180|\u048C|\u0462|\u0463|\u150E |b)(?:\u0578|\u057C|\u05D7|\u{1D48F}|\u{1D4F7}|\u{1D663}|\u{1D45B}|\u{1D593}|\u{1D52B}|\u{1D5C7}|\u{1D697}|\u{1D5FB}|\u1952|\u24DD|\u03AE|\uFF4E|\u01F9|\u1D12|\u0144|\xF1|\u1F97|\u03B7|\u1E45|\u0148|\u1E47|\u0272|\u0146|\u1E4B|\u1E49|\u0572|\u0E96|\u054C|\u019E|\u014B|\u24A9|\u0E20|\u0E01|\u0273|\u043F|\u0149|\u043B|\u0509|\u0220|\u1F20|\u1F21|\u1FC3|\u0564|\u1F90|\u1F91|\u1F92|\u1F93|\u1F94|\u1F95|\u1F96|\u1FC4|\u1FC6|\u1FC7|\u1FC2|\u1F22|\u1F23|\u1F24|\u1F25|\u1F26|\u1F27|\u1F74|\u1F75|\u1260|\u1261|\u1262|\u1263|\u1264|\u1265|\u1266|\u0235|\u{1D6C8}|\u{1D702}|\u{1D73C}|\u{1D776}|\u{1D7B0}|\u{1D55F}|\u{1D62F}|\u{1D427}|\u{1D4C3}|\u1D87|\u1D70|\u1965|\u2229|n)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u2228|\u2304|\u22C1|\u2174|\u{1D42F}|\u{1D463}|\u{1D497}|\u{1D4CB}|\u{1D533}|\u{1D567}|\u{1D59B}|\u{1D5CF}|\uABA9|\u1200|\u24E5|\uFF56|\u{1D710}|\u{1D74A}|\u1E7D|\u1E7F|\u0C6E|\u0E07|\u0475|\u05E2|\u1D20|\u03BD|\u05D8|\u1D65|\u0477|\u17F4|\u1601|\u{1D66B}|\u{1D69F}|\u{1D6CE}|\u{1D708}|\u{1D742}|\u{1D77C}|\u{1D7B6}|\u{1D637}|\u{1D603}|\u{1D4FF}|v)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\u24DB|\uFF4C|\u0140|\u013A|\u013E|\u1E37|\u1E39|\u013C|\u04C0|\u2113|\u1E3D|\u1E3B|\u0142|\uFF9A|\u026D|\u019A|\u026B|\u2C61|\\||\u0196|\u24A7|\u0285|\u01C0|\u05D5|\u05DF|\u0399|\u0406|\uFF5C|\u1DA9|\u04CF|\u{1D4D8}|\u{1D540}|\u{1D5A8}|\u{1D5DC}|\u{1D610}|\u{1D425}|\u{1D459}|\u{1D48D}|\u{1D4C1}|\u{1D529}|\u{1D55D}|\u{1D591}|\u{1D5C5}|\u{1D5F9}|\u{1D62D}|\u{1D695}|\u{1D724}|\u{1D75E}|\u0131|\u{1D6A4}|\u0269|\u1FBE|\u{1D6CA}|\u{1D704}|\u{1D73E}|\u{1D7B2}|I|l)(?:.?(?:\u{1F74C}|\uFF43|\u217D|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u1D04|\u03F2|\u2CA5|\u0441|\uABAF|\u{1043D}|\u2CA5|\u{1043D}|\uABAF|\u0109|\uFF43|\u24D2|\u0107|\u010D|\u010B|\xE7|\u0481|\u0188|\u1E09|\u023C|\u2184|\u0441|\u122D|\u1D04|\u03F2|\u04AB|\uA49D|\u03C2|\u027D|\u03DB|\u{1D672}|\u1466|\u19DA|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u20B5|\u{1F1E8}|\u1974|\u14BC|\u217D|c)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u20A5|\u1D6F|\u{1D592}|\u{1D426}|\u{1D5C6}|\u{1D52A}|\u{1D55E}|\u{1D4C2}|\u24DC|\uFF4D|\u0D28|\u1662|\u0D69|\u1E3F|\u1E41|\u217F|\u03FB|\u1E43|\u1320|\u0271|\u17F3|\u1D86|\u{1D48E}|\u{1D662}|\u{1D4F6}|\u{1D696}|\u{1D45A}|\u{1D5FA}|\u19D5|\u19D7|m))?/g, ''); });" }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
   exports.default = c;
 })();
 

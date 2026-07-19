@@ -36,6 +36,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/freekolnovel/icon.png"
 	},
 	{
+		"id": "galaxynovels",
+		"name": "Galaxy Novels",
+		"site": "https://galaxynovels.com/",
+		"lang": "‎العربية",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/galaxynovels.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/galaxynovels/icon.png"
+	},
+	{
 		"id": "hizomanga",
 		"name": "HizoManga",
 		"site": "https://hizomanga.net/",
@@ -99,6 +108,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/rewayatclub/icon.png"
 	},
 	{
+		"id": "rewayatfans",
+		"name": "روايات فانز",
+		"site": "https://rewayatfans.com/",
+		"lang": "‎العربية",
+		"version": "3.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/rewayatfans.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/rewayatfans/icon.png"
+	},
+	{
 		"id": "riwyat",
 		"name": "Riwyat",
 		"site": "https://cenele.com/",
@@ -106,6 +124,15 @@
 		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/Riwyat[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/riwyat/icon.png"
+	},
+	{
+		"id": "seanovel",
+		"name": "Seanovel",
+		"site": "https://seanovel.org/",
+		"lang": "‎العربية",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/seanovel.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/seanovel/icon.png"
 	},
 	{
 		"id": "sunovels",
@@ -243,6 +270,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/bellereservoir/icon.png"
 	},
 	{
+		"id": "blumeverse",
+		"name": "BlumeVerse",
+		"site": "https://blume-verse.com/",
+		"lang": "English",
+		"version": "1.1.10",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/BlumeVerse[lightnovelwp].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/blumeverse/icon.png"
+	},
+	{
 		"id": "boxnovel",
 		"name": "BoxNovel",
 		"site": "https://novelnice.com/",
@@ -378,6 +414,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/dreambigtl/icon.png"
 	},
 	{
+		"id": "dreamyTranslations",
+		"name": "Dreamy Translations",
+		"site": "https://dreamy-translations.com",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/dreamyTranslations.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/dreamyTranslations/icon.png"
+	},
+	{
 		"id": "duskblossoms",
 		"name": "Dusk Blossoms",
 		"site": "https://duskblossoms.com/",
@@ -472,7 +517,7 @@
 		"name": "FuckNovelpia",
 		"site": "https://fucknovelpia.com/",
 		"lang": "English",
-		"version": "1.0.0",
+		"version": "1.1.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/fucknovelpia.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/fucknovelpia/icon.png"
 	},
@@ -490,7 +535,7 @@
 		"name": "Free Web Novel",
 		"site": "https://freewebnovel.com/",
 		"lang": "English",
-		"version": "2.2.3",
+		"version": "2.2.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/FreeWebNovel[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/fwn.com/icon.png"
 	},
@@ -860,7 +905,7 @@
 		"name": "Novel Arrow",
 		"site": "https://novelarrow.com/",
 		"lang": "English",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelarrow.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelarrow/icon.png"
 	},
@@ -876,9 +921,9 @@
 	{
 		"id": "novelbuddy",
 		"name": "NovelBuddy",
-		"site": "https://novelbuddy.com/",
+		"site": "https://novelbuddy.me/",
 		"lang": "English",
-		"version": "2.1.2",
+		"version": "2.1.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelbuddy.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelbuddy/icon.png"
 	},
@@ -1482,7 +1527,7 @@
 		"name": "Re:Zero Web Novel FR",
 		"site": "https://rezerowebnovelfr.wordpress.com",
 		"lang": "Français",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/rezerowebnovelfr.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/rezerowebnovelfr/icon.png"
 	},
@@ -1725,7 +1770,7 @@
 		"name": "Novel Mania",
 		"site": "https://novelmania.com.br",
 		"lang": "Português",
-		"version": "1.0.1",
+		"version": "2.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/portuguese/novelmania.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/pt-br/novelmania/icon.png"
 	},
@@ -1878,7 +1923,7 @@
 		"name": "RanobeHub",
 		"site": "https://ranobehub.org",
 		"lang": "Русский",
-		"version": "1.0.2",
+		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/ranobehub.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ranobehub/icon.png"
 	},
@@ -2247,7 +2292,7 @@
 		"name": "Hako",
 		"site": "https://ln.hako.vn",
 		"lang": "Tiếng Việt",
-		"version": "1.1.0",
+		"version": "1.1.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/vietnamese/LNHako.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/vi/hakolightnovel/icon.png"
 	},
