@@ -25502,7 +25502,7 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = function() {
     function i2() {
-      this.id = "galaxynovels", this.name = "Galaxy Novels", this.version = "1.0.0", this.icon = "src/ar/galaxynovels/icon.png", this.site = "https://galaxynovels.com/", this.filters = { sort: { label: "Sort By", value: "popular", options: [{ label: "Most Popular", value: "popular" }, { label: "Newest", value: "new" }, { label: "Recently Updated", value: "recent" }], type: o.FilterTypes.Picker }, period: { label: "Period", value: "month", options: [{ label: "Month", value: "month" }, { label: "Week", value: "week" }, { label: "All Time", value: "all" }], type: o.FilterTypes.Picker } }, this.baseUrl = "https://galaxynovels.com";
+      this.id = "galaxynovels", this.name = "Galaxy Novels", this.version = "1.1.0", this.icon = "src/ar/galaxynovels/icon.png", this.site = "https://galaxynovels.com/", this.filters = { sort: { label: "Sort By", value: "popular", options: [{ label: "Most Popular", value: "popular" }, { label: "Newest", value: "new" }, { label: "Recently Updated", value: "recent" }], type: o.FilterTypes.Picker }, period: { label: "Period", value: "month", options: [{ label: "Month", value: "month" }, { label: "Week", value: "week" }, { label: "All Time", value: "all" }], type: o.FilterTypes.Picker } }, this.baseUrl = "https://galaxynovels.com";
     }
     __name(i2, "i");
     return i2.prototype.fetchHtml = function(r2) {
@@ -25551,7 +25551,7 @@ var LNReaderPlugin = (() => {
       });
     }, i2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, i3, c, s, l, u, h, p, f, v, d, m, w, b, y, g, x = this;
+        var t2, o2, i3, c, s, l, u, h, p, f, v, d, m, w, b, y, x, g = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25564,9 +25564,9 @@ var LNReaderPlugin = (() => {
             case 2:
               return e2.trys.push([2, 4, , 5]), y = w.startsWith("http") ? w : "".concat(this.baseUrl).concat(w), [4, this.fetchJson(y)];
             case 3:
-              return g = e2.sent(), b = g.chapters.map(function(t3) {
+              return x = e2.sent(), b = x.chapters.map(function(t3) {
                 var e3;
-                return { name: t3.label + (t3.title ? ": ".concat(t3.title) : ""), path: "".concat(n2, "chapter-").concat(t3.id, "/"), chapterNumber: t3.position, releaseTime: (null === (e3 = t3.date_iso) || void 0 === e3 ? void 0 : e3.split("T")[0]) || "", page: String(t3.id) };
+                return { name: t3.label + (t3.title ? ": ".concat(t3.title) : ""), path: "".concat(n2, "chapter-").concat(t3.id, "/"), chapterNumber: t3.position, releaseTime: (null === (e3 = t3.date_iso) || void 0 === e3 ? void 0 : e3.split("T")[0]) || "" };
               }), [3, 5];
             case 4:
               return e2.sent(), [3, 5];
@@ -25574,8 +25574,8 @@ var LNReaderPlugin = (() => {
               return 0 === b.length && i3("article.wor-novel-chapter-item").each(function(t3, e3) {
                 var r2, a2 = i3(e3), o3 = a2.find("h3 a").attr("href") || a2.find("a.wor-novel-chapter-item__num").attr("href"), c2 = a2.find("h3 a").text().trim() || a2.find("a.wor-novel-chapter-item__num").text().trim(), s2 = a2.attr("data-chapter-id"), l2 = (null === (r2 = a2.find("time").attr("datetime")) || void 0 === r2 ? void 0 : r2.split("T")[0]) || "";
                 if (o3) {
-                  var u2 = s2 ? "".concat(n2, "chapter-").concat(s2, "/") : new URL(o3, x.site).pathname, h2 = u2.match(/chapter-(\d+)/), p2 = h2 ? parseInt(h2[1]) : 0;
-                  b.push({ name: c2, path: u2, chapterNumber: p2, releaseTime: l2, page: s2 || "" });
+                  var u2 = s2 ? "".concat(n2, "chapter-").concat(s2, "/") : new URL(o3, g.site).pathname, h2 = u2.match(/chapter-(\d+)/), p2 = h2 ? parseInt(h2[1]) : 0;
+                  b.push({ name: c2, path: u2, chapterNumber: p2, releaseTime: l2 });
                 }
               }), [2, { path: n2, name: c, cover: l, author: u || "Unknown", genres: p.join(", "), summary: h, status: d, chapters: b }];
           }

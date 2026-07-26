@@ -40,7 +40,7 @@
 		"name": "Galaxy Novels",
 		"site": "https://galaxynovels.com/",
 		"lang": "‎العربية",
-		"version": "1.0.0",
+		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/galaxynovels.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/galaxynovels/icon.png"
 	},
@@ -112,7 +112,7 @@
 		"name": "روايات فانز",
 		"site": "https://rewayatfans.com/",
 		"lang": "‎العربية",
-		"version": "3.0.0",
+		"version": "4.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/rewayatfans.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/rewayatfans/icon.png"
 	},
@@ -481,7 +481,7 @@
 		"name": "Fenrir Realm",
 		"site": "https://fenrirealm.com",
 		"lang": "English",
-		"version": "1.1.0",
+		"version": "1.1.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/fenrirrealm.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/fenrirrealm/icon.png"
 	},
@@ -535,7 +535,7 @@
 		"name": "Free Web Novel",
 		"site": "https://freewebnovel.com/",
 		"lang": "English",
-		"version": "2.2.4",
+		"version": "2.2.5",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/FreeWebNovel[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/fwn.com/icon.png"
 	},
@@ -658,6 +658,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/knoxt/icon.png"
 	},
 	{
+		"id": "konkon",
+		"name": "Konkon",
+		"site": "https://konkon.ink",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/konkon.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/konkon/icon.png"
+	},
+	{
 		"id": "lazygirltranslations",
 		"name": "Lazy Girl Translations",
 		"site": "https://lazygirltranslations.com",
@@ -728,6 +737,15 @@
 		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/LightNovelUpdates[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/lightnovelupdates/icon.png"
+	},
+	{
+		"id": "lightnovelworld",
+		"name": "LightNovelWorld",
+		"site": "https://lightnovelworld.org/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/lightnovelworld.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lightnovelworld/icon.png"
 	},
 	{
 		"id": "lilyonthevalley",
@@ -1365,7 +1383,7 @@
 		"name": "WTR-LAB",
 		"site": "https://wtr-lab.com/",
 		"lang": "English",
-		"version": "1.1.4",
+		"version": "1.1.5",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/wtrlab.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/wtrlab/icon.png"
 	},

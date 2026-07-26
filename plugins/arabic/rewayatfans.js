@@ -1126,18 +1126,18 @@ var LNReaderPlugin = (() => {
     Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
       return b != null && b._isBuffer === true && b !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
-      if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a, b) {
+      if (isInstance(a, Uint8Array)) a = Buffer3.from(a, a.offset, a.byteLength);
       if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
+      if (!Buffer3.isBuffer(a) || !Buffer3.isBuffer(b)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b) return 0;
-      let x = a2.length;
+      if (a === b) return 0;
+      let x = a.length;
       let y = b.length;
       for (let i = 0, len = Math.min(x, y); i < len; ++i) {
-        if (a2[i] !== b[i]) {
-          x = a2[i];
+        if (a[i] !== b[i]) {
+          x = a[i];
           y = b[i];
           break;
         }
@@ -3033,7 +3033,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -3041,10 +3041,10 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
         for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
@@ -3299,7 +3299,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -3307,15 +3307,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -4093,7 +4093,7 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -4101,15 +4101,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -4707,9 +4707,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a2, b) {
+      function combineFuncs(a, b) {
         return function(elem) {
-          return a2(elem) || b(elem);
+          return a(elem) || b(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -4853,8 +4853,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i, arr) {
           return !arr.includes(node, i + 1);
         });
-        nodes.sort(function(a2, b) {
-          var relative = compareDocumentPosition(a2, b);
+        nodes.sort(function(a, b) {
+          var relative = compareDocumentPosition(a, b);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -5028,7 +5028,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -5036,10 +5036,10 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
         for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
@@ -6556,12 +6556,12 @@ var LNReaderPlugin = (() => {
           return [2, 1];
         }
         var idx = 0;
-        var a2 = 0;
+        var a = 0;
         var sign = readSign();
         var number = readNumber();
         if (idx < formula.length && formula.charAt(idx) === "n") {
           idx++;
-          a2 = sign * (number !== null && number !== void 0 ? number : 1);
+          a = sign * (number !== null && number !== void 0 ? number : 1);
           skipWhitespace();
           if (idx < formula.length) {
             sign = readSign();
@@ -6574,7 +6574,7 @@ var LNReaderPlugin = (() => {
         if (number === null || idx < formula.length) {
           throw new Error("n-th rule couldn't be parsed ('".concat(formula, "')"));
         }
-        return [a2, sign * number];
+        return [a, sign * number];
         function readSign() {
           if (formula.charAt(idx) === "-") {
             idx++;
@@ -6622,25 +6622,25 @@ var LNReaderPlugin = (() => {
       exports4.generate = exports4.compile = void 0;
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
-        var a2 = parsed[0];
+        var a = parsed[0];
         var b = parsed[1] - 1;
-        if (b < 0 && a2 <= 0)
+        if (b < 0 && a <= 0)
           return boolbase_1.default.falseFunc;
-        if (a2 === -1)
+        if (a === -1)
           return function(index2) {
             return index2 <= b;
           };
-        if (a2 === 0)
+        if (a === 0)
           return function(index2) {
             return index2 === b;
           };
-        if (a2 === 1)
+        if (a === 1)
           return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
             return index2 >= b;
           };
-        var absA = Math.abs(a2);
+        var absA = Math.abs(a);
         var bMod = (b % absA + absA) % absA;
-        return a2 > 1 ? function(index2) {
+        return a > 1 ? function(index2) {
           return index2 >= b && index2 % absA === bMod;
         } : function(index2) {
           return index2 <= b && index2 % absA === bMod;
@@ -6649,18 +6649,18 @@ var LNReaderPlugin = (() => {
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
-        var a2 = parsed[0];
+        var a = parsed[0];
         var b = parsed[1] - 1;
         var n2 = 0;
-        if (a2 < 0) {
-          var aPos_1 = -a2;
+        if (a < 0) {
+          var aPos_1 = -a;
           var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
           return function() {
             var val2 = minValue_1 + aPos_1 * n2++;
             return val2 > b ? null : val2;
           };
         }
-        if (a2 === 0)
+        if (a === 0)
           return b < 0 ? (
             // There are no result — always return `null`
             function() {
@@ -6673,10 +6673,10 @@ var LNReaderPlugin = (() => {
             }
           );
         if (b < 0) {
-          b += a2 * Math.ceil(-b / a2);
+          b += a * Math.ceil(-b / a);
         }
         return function() {
-          return a2 * n2++ + b;
+          return a * n2++ + b;
         };
       }
       __name(generate, "generate");
@@ -7341,7 +7341,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7349,15 +7349,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7461,15 +7461,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a2, b) {
-        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
-          return a2;
+      function reduceRules(a, b) {
+        if (b === boolbase_1.default.falseFunc || a === boolbase_1.default.trueFunc) {
+          return a;
         }
-        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
+        if (a === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
           return b;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a2(elem) || b(elem);
+          return a(elem) || b(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -7483,7 +7483,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7491,15 +7491,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7519,8 +7519,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
-        return a2 === b;
+      var defaultEquals = /* @__PURE__ */ __name(function(a, b) {
+        return a === b;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -7714,7 +7714,7 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7722,15 +7722,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7913,8 +7913,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
-          return __spreadArray(__spreadArray([], a2, true), b, true);
+        return DomUtils.uniqueSort(results.reduce(function(a, b) {
+          return __spreadArray(__spreadArray([], a, true), b, true);
         }));
       }
       __name(select3, "select");
@@ -17911,7 +17911,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -17919,15 +17919,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18350,7 +18350,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -18358,15 +18358,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -20168,8 +20168,8 @@ var LNReaderPlugin = (() => {
       function merge2(dst) {
         var ifNotSet = typeof arguments[arguments.length - 1] === "boolean", limit = ifNotSet ? arguments.length - 1 : arguments.length;
         ifNotSet = ifNotSet && arguments[arguments.length - 1];
-        for (var a2 = 1; a2 < limit; ++a2) {
-          var src = arguments[a2];
+        for (var a = 1; a < limit; ++a) {
+          var src = arguments[a];
           if (!src)
             continue;
           for (var keys = Object.keys(src), i = 0; i < keys.length; ++i)
@@ -22856,8 +22856,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
-        return a2.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a, b) {
+        return a.id - b.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -22965,10 +22965,10 @@ var LNReaderPlugin = (() => {
         // 14
       ];
       function bake(values, offset) {
-        var i = 0, o = /* @__PURE__ */ Object.create(null);
+        var i = 0, o2 = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i < values.length) o[s[i + offset]] = values[i++];
-        return o;
+        while (i < values.length) o2[s[i + offset]] = values[i++];
+        return o2;
       }
       __name(bake, "bake");
       types.basic = bake([
@@ -25342,37 +25342,37 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, n2, r2) {
-    return new (n2 || (n2 = Promise))(function(a2, o) {
+  var e = function(e2, t2, r2, n2) {
+    return new (r2 || (r2 = Promise))(function(o2, a) {
       function s(e3) {
         try {
-          i(r2.next(e3));
+          i(n2.next(e3));
         } catch (e4) {
-          o(e4);
+          a(e4);
         }
       }
       __name(s, "s");
       function c(e3) {
         try {
-          i(r2.throw(e3));
+          i(n2.throw(e3));
         } catch (e4) {
-          o(e4);
+          a(e4);
         }
       }
       __name(c, "c");
       function i(e3) {
         var t3;
-        e3.done ? a2(e3.value) : (t3 = e3.value, t3 instanceof n2 ? t3 : new n2(function(e4) {
+        e3.done ? o2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2(function(e4) {
           e4(t3);
         })).then(s, c);
       }
       __name(i, "i");
-      i((r2 = r2.apply(e2, t2 || [])).next());
+      i((n2 = n2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
-    var n2, r2, a2, o = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & a2[0]) throw a2[1];
-      return a2[1];
+    var r2, n2, o2, a = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & o2[0]) throw o2[1];
+      return o2[1];
     }, "sent"), trys: [], ops: [] }, s = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
     return s.next = c(0), s.throw = c(1), s.return = c(2), "function" == typeof Symbol && (s[Symbol.iterator] = function() {
       return this;
@@ -25380,47 +25380,47 @@ var LNReaderPlugin = (() => {
     function c(c2) {
       return function(i) {
         return function(c3) {
-          if (n2) throw new TypeError("Generator is already executing.");
-          for (; s && (s = 0, c3[0] && (o = 0)), o; ) try {
-            if (n2 = 1, r2 && (a2 = 2 & c3[0] ? r2.return : c3[0] ? r2.throw || ((a2 = r2.return) && a2.call(r2), 0) : r2.next) && !(a2 = a2.call(r2, c3[1])).done) return a2;
-            switch (r2 = 0, a2 && (c3 = [2 & c3[0], a2.value]), c3[0]) {
+          if (r2) throw new TypeError("Generator is already executing.");
+          for (; s && (s = 0, c3[0] && (a = 0)), a; ) try {
+            if (r2 = 1, n2 && (o2 = 2 & c3[0] ? n2.return : c3[0] ? n2.throw || ((o2 = n2.return) && o2.call(n2), 0) : n2.next) && !(o2 = o2.call(n2, c3[1])).done) return o2;
+            switch (n2 = 0, o2 && (c3 = [2 & c3[0], o2.value]), c3[0]) {
               case 0:
               case 1:
-                a2 = c3;
+                o2 = c3;
                 break;
               case 4:
-                return o.label++, { value: c3[1], done: false };
+                return a.label++, { value: c3[1], done: false };
               case 5:
-                o.label++, r2 = c3[1], c3 = [0];
+                a.label++, n2 = c3[1], c3 = [0];
                 continue;
               case 7:
-                c3 = o.ops.pop(), o.trys.pop();
+                c3 = a.ops.pop(), a.trys.pop();
                 continue;
               default:
-                if (!(a2 = o.trys, (a2 = a2.length > 0 && a2[a2.length - 1]) || 6 !== c3[0] && 2 !== c3[0])) {
-                  o = 0;
+                if (!(o2 = a.trys, (o2 = o2.length > 0 && o2[o2.length - 1]) || 6 !== c3[0] && 2 !== c3[0])) {
+                  a = 0;
                   continue;
                 }
-                if (3 === c3[0] && (!a2 || c3[1] > a2[0] && c3[1] < a2[3])) {
-                  o.label = c3[1];
+                if (3 === c3[0] && (!o2 || c3[1] > o2[0] && c3[1] < o2[3])) {
+                  a.label = c3[1];
                   break;
                 }
-                if (6 === c3[0] && o.label < a2[1]) {
-                  o.label = a2[1], a2 = c3;
+                if (6 === c3[0] && a.label < o2[1]) {
+                  a.label = o2[1], o2 = c3;
                   break;
                 }
-                if (a2 && o.label < a2[2]) {
-                  o.label = a2[2], o.ops.push(c3);
+                if (o2 && a.label < o2[2]) {
+                  a.label = o2[2], a.ops.push(c3);
                   break;
                 }
-                a2[2] && o.ops.pop(), o.trys.pop();
+                o2[2] && a.ops.pop(), a.trys.pop();
                 continue;
             }
-            c3 = t2.call(e2, o);
+            c3 = t2.call(e2, a);
           } catch (e3) {
-            c3 = [6, e3], r2 = 0;
+            c3 = [6, e3], n2 = 0;
           } finally {
-            n2 = a2 = 0;
+            r2 = o2 = 0;
           }
           if (5 & c3[0]) throw c3[1];
           return { value: c3[0] ? c3[1] : void 0, done: true };
@@ -25430,126 +25430,109 @@ var LNReaderPlugin = (() => {
     __name(c, "c");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), a = function() {
-    function a2() {
-      this.id = "rewayatfans", this.name = "\u0631\u0648\u0627\u064A\u0627\u062A \u0641\u0627\u0646\u0632", this.version = "3.0.0", this.icon = "src/ar/rewayatfans/icon.png", this.site = "https://rewayatfans.com/";
+  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), o = function() {
+    function o2() {
+      this.id = "rewayatfans", this.name = "\u0631\u0648\u0627\u064A\u0627\u062A \u0641\u0627\u0646\u0632", this.version = "4.2.0", this.icon = "src/ar/rewayatfans/icon.png", this.site = "https://rewayatfans.com/";
     }
-    __name(a2, "a");
-    return a2.prototype.fetchJson = function(n2) {
+    __name(o2, "o");
+    return o2.prototype.fetchJson = function(r2) {
       return e(this, void 0, void 0, function() {
         var e2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(n2)];
+              return [4, (0, n.fetchApi)(r2)];
             case 1:
               if (!(e2 = t2.sent()).ok) throw new Error("Request failed: ".concat(e2.status));
               return [2, e2.json()];
           }
         });
       });
-    }, a2.prototype.fetchHtml = function(n2) {
+    }, o2.prototype.fetchHtml = function(r2) {
       return e(this, void 0, void 0, function() {
         var e2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(n2)];
+              return [4, (0, n.fetchApi)(r2)];
             case 1:
               if (!(e2 = t2.sent()).ok) throw new Error("Request failed: ".concat(e2.status));
               return [2, e2.text()];
           }
         });
       });
-    }, a2.prototype.popularNovels = function(n2, r2) {
-      return e(this, arguments, void 0, function(e2, n3) {
-        var r3, a3, o = this, s = n3.showLatestNovels;
+    }, o2.prototype.getCover = function(e2) {
+      var t2, r2, n2;
+      return (null === (n2 = null === (r2 = null === (t2 = e2._embedded) || void 0 === t2 ? void 0 : t2["wp:featuredmedia"]) || void 0 === r2 ? void 0 : r2[0]) || void 0 === n2 ? void 0 : n2.source_url) || "";
+    }, o2.prototype.popularNovels = function(r2, n2) {
+      return e(this, arguments, void 0, function(e2, r3) {
+        var n3, o3, a, s, c, i, u;
+        r3.showLatestNovels;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return s ? [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?per_page=20&page=").concat(e2, "&orderby=date&order=desc&_fields=slug,title"))] : [3, 2];
+              return [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?per_page=20&page=").concat(e2, "&orderby=date&order=desc&_embed"))];
             case 1:
-              return [2, t2.sent().map(function(e3) {
-                return { name: o.extractNovelName(e3.title.rendered), path: e3.slug, cover: "" };
-              })];
-            case 2:
-              return [4, this.getAllNovels()];
-            case 3:
-              return r3 = t2.sent(), a3 = 20 * (e2 - 1), [2, r3.slice(a3, a3 + 20)];
+              for (n3 = t2.sent(), o3 = /* @__PURE__ */ new Set(), a = [], s = 0, c = n3; s < c.length; s++) i = c[s], (u = this.extractNovelName(i.title.rendered)) && !o3.has(u) && (o3.add(u), a.push({ name: u, path: i.slug, cover: this.getCover(i) }));
+              return [2, a];
           }
         });
       });
-    }, a2.prototype.getAllNovels = function() {
+    }, o2.prototype.parseNovel = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2, r2, a3, o, s, c, i, l;
+        var e2, n2, o3, a, s, c, i, u, l, h, p, d, f, v, m;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              e2 = /* @__PURE__ */ new Set(), n2 = [], r2 = 1, a3 = true, t2.label = 1;
+              e2 = { path: r2, name: "", chapters: [] }, n2 = r2.replace(/\/$/, "").split("/").pop() || r2, o3 = n2.replace(/-\d+$/, ""), a = o3.replace(/-/g, " "), c = (s = /* @__PURE__ */ __name(function(e3) {
+                return e3.toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+              }, "s"))(a), i = 1, u = true, t2.label = 1;
             case 1:
-              return a3 ? [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?per_page=100&page=").concat(r2, "&_fields=slug,title"))] : [3, 3];
+              return u ? [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?search=").concat(encodeURIComponent(a), "&per_page=100&page=").concat(i, "&_fields=slug,title,date"))] : [3, 3];
             case 2:
-              if (0 === (o = t2.sent()).length) return a3 = false, [3, 3];
-              for (s = 0, c = o; s < c.length; s++) i = c[s], (l = this.extractNovelName(i.title.rendered)) && !e2.has(l) && (e2.add(l), n2.push({ name: l, path: i.slug, cover: "" }));
-              return o.length < 100 && (a3 = false), r2++, [3, 1];
+              if (0 === (l = t2.sent()).length) return u = false, [3, 3];
+              for (h = 0, p = l; h < p.length; h++) d = p[h], f = s(d.title.rendered), (d.slug.startsWith(o3) || f.startsWith(c)) && (e2.name || (e2.name = this.extractNovelName(d.title.rendered)), v = d.title.rendered.match(/(\d+)\s*$/), m = v ? parseInt(v[1], 10) : 0, e2.chapters.push({ name: d.title.rendered, path: d.slug, chapterNumber: m, releaseTime: d.date }));
+              return l.length < 100 && (u = false), i++, [3, 1];
             case 3:
-              return [2, n2];
-          }
-        });
-      });
-    }, a2.prototype.parseNovel = function(n2) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2, a3, o, s, c, i, l, u, h, p, f;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              e2 = { path: n2, name: "", chapters: [] }, r2 = n2.replace(/\/$/, "").split("/").pop() || n2, a3 = r2.replace(/-\d+$/, "").replace(/-/g, " "), o = 1, s = true, t2.label = 1;
-            case 1:
-              return s ? [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?search=").concat(encodeURIComponent(a3), "&per_page=100&page=").concat(o, "&_fields=slug,title,date"))] : [3, 3];
-            case 2:
-              if (0 === (c = t2.sent()).length) return s = false, [3, 3];
-              for (i = 0, l = c; i < l.length; i++) u = l[i], (h = u.slug).startsWith(r2.replace(/-\d+$/, "")) && (e2.name || (e2.name = this.extractNovelName(u.title.rendered)), p = h.match(/(\d+)$/), f = p ? parseInt(p[1], 10) : 0, e2.chapters.push({ name: u.title.rendered, path: h, chapterNumber: f, releaseTime: u.date }));
-              return c.length < 100 && (s = false), o++, [3, 1];
-            case 3:
-              return e2.chapters.length > 0 && (e2.chapters.sort(function(e3, t3) {
+              return e2.chapters.sort(function(e3, t3) {
                 return (e3.chapterNumber || 0) - (t3.chapterNumber || 0);
-              }), !e2.name && e2.chapters.length > 0 && (e2.name = this.extractNovelName(e2.chapters[0].name))), [2, e2];
+              }), !e2.name && e2.chapters.length > 0 && (e2.name = this.extractNovelName(e2.chapters[0].name)), [2, e2];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(r2) {
+    }, o2.prototype.parseChapter = function(n2) {
       return e(this, void 0, void 0, function() {
-        var e2, a3, o, s, c, i;
+        var e2, o3, a, s, c, i;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?slug=").concat(r2, "&_fields=content"))];
+              return [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?slug=").concat(n2, "&_fields=content"))];
             case 1:
-              return e2 = t2.sent(), (a3 = Array.isArray(e2) ? e2 : [e2]).length > 0 && (null === (i = a3[0].content) || void 0 === i ? void 0 : i.rendered) ? ((o = (0, n.load)(a3[0].content.rendered))("script, style, .sharedaddy, .jp-relatedposts, .wp-block-spacer").remove(), [2, o.html()]) : [4, this.fetchHtml("".concat(this.site).concat(r2, "/"))];
+              return e2 = t2.sent(), (o3 = Array.isArray(e2) ? e2 : [e2]).length > 0 && (null === (i = o3[0].content) || void 0 === i ? void 0 : i.rendered) ? ((a = (0, r.load)(o3[0].content.rendered))("script, style, .sharedaddy, .jp-relatedposts, .wp-block-spacer").remove(), [2, a.html()]) : [4, this.fetchHtml("".concat(this.site).concat(n2, "/"))];
             case 2:
-              return s = t2.sent(), c = (0, n.load)(s), [2, c("article .entry-content, .post-content, .entry-content").html() || "" || "<p>\u0627\u0644\u0645\u062D\u062A\u0648\u0649 \u063A\u064A\u0631 \u0645\u062A\u0627\u062D.</p>"];
+              return s = t2.sent(), c = (0, r.load)(s), [2, c("article .entry-content, .post-content, .entry-content").html() || "" || "<p>\u0627\u0644\u0645\u062D\u062A\u0648\u0649 \u063A\u064A\u0631 \u0645\u062A\u0627\u062D.</p>"];
           }
         });
       });
-    }, a2.prototype.searchNovels = function(n2, r2) {
+    }, o2.prototype.searchNovels = function(r2, n2) {
       return e(this, void 0, void 0, function() {
-        var e2, a3, o, s, c, i, l;
+        var e2, o3, a, s, c, i, u;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?search=").concat(encodeURIComponent(n2), "&per_page=20&page=").concat(r2, "&_fields=slug,title"))];
+              return [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?search=").concat(encodeURIComponent(r2), "&per_page=20&page=").concat(n2, "&_embed"))];
             case 1:
-              for (e2 = t2.sent(), a3 = /* @__PURE__ */ new Set(), o = [], s = 0, c = e2; s < c.length; s++) i = c[s], (l = this.extractNovelName(i.title.rendered)) && !a3.has(l) && (a3.add(l), o.push({ name: l, path: i.slug, cover: "" }));
-              return [2, o];
+              for (e2 = t2.sent(), o3 = /* @__PURE__ */ new Set(), a = [], s = 0, c = e2; s < c.length; s++) i = c[s], (u = this.extractNovelName(i.title.rendered)) && !o3.has(u) && (o3.add(u), a.push({ name: u, path: i.slug, cover: this.getCover(i) }));
+              return [2, a];
           }
         });
       });
-    }, a2.prototype.extractNovelName = function(e2) {
+    }, o2.prototype.extractNovelName = function(e2) {
       var t2 = e2.match(/^(.+?)\s+\d+$/);
       return t2 ? t2[1].trim() : e2.trim();
-    }, a2;
+    }, o2;
   }();
-  exports.default = new a();
+  exports.default = new o();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
