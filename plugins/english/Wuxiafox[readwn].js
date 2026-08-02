@@ -9404,7 +9404,9 @@ var LNReaderPlugin = (() => {
         Licensed: "Licensed",
         PublishingFinished: "Publishing Finished",
         Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus"
+        OnHiatus: "On Hiatus",
+        STUB: "STUB",
+        Inactive: "Inactive"
       };
       defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
