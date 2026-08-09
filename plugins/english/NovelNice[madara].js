@@ -25770,89 +25770,89 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // .js/plugins/english/NitroManga[madara].js
+  // .js/plugins/english/NovelNice[madara].js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, a2, r2) {
-    return new (a2 || (a2 = Promise))(function(n2, l2) {
-      function i2(e3) {
+  var e = function(e2, t2, a2, n2) {
+    return new (a2 || (a2 = Promise))(function(r2, i2) {
+      function l2(e3) {
         try {
-          s2(r2.next(e3));
+          s2(n2.next(e3));
         } catch (e4) {
-          l2(e4);
+          i2(e4);
         }
       }
-      __name(i2, "i");
+      __name(l2, "l");
       function o2(e3) {
         try {
-          s2(r2.throw(e3));
+          s2(n2.throw(e3));
         } catch (e4) {
-          l2(e4);
+          i2(e4);
         }
       }
       __name(o2, "o");
       function s2(e3) {
         var t3;
-        e3.done ? n2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
+        e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
           e4(t3);
-        })).then(i2, o2);
+        })).then(l2, o2);
       }
       __name(s2, "s");
-      s2((r2 = r2.apply(e2, t2 || [])).next());
+      s2((n2 = n2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
-    var a2, r2, n2, l2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & n2[0]) throw n2[1];
-      return n2[1];
-    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return i2.next = o2(0), i2.throw = o2(1), i2.return = o2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
+    var a2, n2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & r2[0]) throw r2[1];
+      return r2[1];
+    }, "sent"), trys: [], ops: [] }, l2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return l2.next = o2(0), l2.throw = o2(1), l2.return = o2(2), "function" == typeof Symbol && (l2[Symbol.iterator] = function() {
       return this;
-    }), i2;
+    }), l2;
     function o2(o3) {
       return function(s2) {
         return function(o4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, o4[0] && (l2 = 0)), l2; ) try {
-            if (a2 = 1, r2 && (n2 = 2 & o4[0] ? r2.return : o4[0] ? r2.throw || ((n2 = r2.return) && n2.call(r2), 0) : r2.next) && !(n2 = n2.call(r2, o4[1])).done) return n2;
-            switch (r2 = 0, n2 && (o4 = [2 & o4[0], n2.value]), o4[0]) {
+          for (; l2 && (l2 = 0, o4[0] && (i2 = 0)), i2; ) try {
+            if (a2 = 1, n2 && (r2 = 2 & o4[0] ? n2.return : o4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, o4[1])).done) return r2;
+            switch (n2 = 0, r2 && (o4 = [2 & o4[0], r2.value]), o4[0]) {
               case 0:
               case 1:
-                n2 = o4;
+                r2 = o4;
                 break;
               case 4:
-                return l2.label++, { value: o4[1], done: false };
+                return i2.label++, { value: o4[1], done: false };
               case 5:
-                l2.label++, r2 = o4[1], o4 = [0];
+                i2.label++, n2 = o4[1], o4 = [0];
                 continue;
               case 7:
-                o4 = l2.ops.pop(), l2.trys.pop();
+                o4 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(n2 = l2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
-                  l2 = 0;
+                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
+                  i2 = 0;
                   continue;
                 }
-                if (3 === o4[0] && (!n2 || o4[1] > n2[0] && o4[1] < n2[3])) {
-                  l2.label = o4[1];
+                if (3 === o4[0] && (!r2 || o4[1] > r2[0] && o4[1] < r2[3])) {
+                  i2.label = o4[1];
                   break;
                 }
-                if (6 === o4[0] && l2.label < n2[1]) {
-                  l2.label = n2[1], n2 = o4;
+                if (6 === o4[0] && i2.label < r2[1]) {
+                  i2.label = r2[1], r2 = o4;
                   break;
                 }
-                if (n2 && l2.label < n2[2]) {
-                  l2.label = n2[2], l2.ops.push(o4);
+                if (r2 && i2.label < r2[2]) {
+                  i2.label = r2[2], i2.ops.push(o4);
                   break;
                 }
-                n2[2] && l2.ops.pop(), l2.trys.pop();
+                r2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
-            o4 = t2.call(e2, l2);
+            o4 = t2.call(e2, i2);
           } catch (e3) {
-            o4 = [6, e3], r2 = 0;
+            o4 = [6, e3], n2 = 0;
           } finally {
-            a2 = n2 = 0;
+            a2 = r2 = 0;
           }
           if (5 & o4[0]) throw o4[1];
           return { value: o4[0] ? o4[1] : void 0, done: true };
@@ -25864,80 +25864,80 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = a(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(e2, t2) {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), l = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = a(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(e2, t2) {
     return new RegExp(t2.join("|")).test(e2);
   }, "u"), c = function() {
     function a2(e2) {
       var t2, a3;
       this.hideLocked = s.storage.get("hideLocked"), this.parseData = function(e3) {
-        var t3, a4 = (0, o.default)(), r3 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", n2 = parseInt(r3, 10);
-        if (!r3) return e3;
-        if (u(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a4 = a4.subtract(n2, "second");
-        else if (u(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a4 = a4.subtract(n2, "minute");
-        else if (u(e3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) a4 = a4.subtract(n2, "hours");
-        else if (u(e3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) a4 = a4.subtract(n2, "days");
-        else if (u(e3, ["week", "semana"])) a4 = a4.subtract(n2, "week");
-        else if (u(e3, ["month", "mes"])) a4 = a4.subtract(n2, "month");
+        var t3, a4 = (0, o.default)(), n3 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", r2 = parseInt(n3, 10);
+        if (!n3) return e3;
+        if (u(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a4 = a4.subtract(r2, "second");
+        else if (u(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a4 = a4.subtract(r2, "minute");
+        else if (u(e3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) a4 = a4.subtract(r2, "hours");
+        else if (u(e3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) a4 = a4.subtract(r2, "days");
+        else if (u(e3, ["week", "semana"])) a4 = a4.subtract(r2, "week");
+        else if (u(e3, ["month", "mes"])) a4 = a4.subtract(r2, "month");
         else {
           if (!u(e3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, o.default)(e3).format("LL") ? (0, o.default)(e3).format("LL") : e3;
-          a4 = a4.subtract(n2, "year");
+          a4 = a4.subtract(r2, "year");
         }
         return a4.format("LL");
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
-      var r2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.2.".concat(r2), this.options = e2.options, this.filters = e2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
+      this.version = "2.2.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(a2, "a");
     return a2.prototype.translateDragontea = function(e2) {
       var t2;
       if ("dragontea" !== this.id) return e2;
-      var a3 = (0, n.load)((null === (t2 = e2.html()) || void 0 === t2 ? void 0 : t2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
+      var a3 = (0, r.load)((null === (t2 = e2.html()) || void 0 === t2 ? void 0 : t2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
       return e2.html(a3.html()), e2.find("*").addBack().contents().filter(function(e3, t3) {
         return 3 === t3.nodeType;
       }).each(function(e3, t3) {
-        var r2 = a3(t3), n2 = r2.text().normalize("NFD").split("").map(function(e4) {
+        var n2 = a3(t3), r2 = n2.text().normalize("NFD").split("").map(function(e4) {
           var t4 = e4.normalize("NFC"), a4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(t4);
           return a4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[a4] + e4.slice(t4.length) : e4;
         }).join("");
-        r2.replaceWith(n2.replace("\n", "<br>"));
+        n2.replaceWith(r2.replace("\n", "<br>"));
       }), e2;
     }, a2.prototype.getHostname = function(e2) {
       var t2 = (e2 = e2.split("/")[2]).split(".");
       return t2.pop(), t2.join(".");
-    }, a2.prototype.getCheerio = function(a3, l2) {
+    }, a2.prototype.getCheerio = function(a3, i2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, o2, s2;
+        var e2, l2, o2, s2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(a3)];
+              return [4, (0, n.fetchApi)(a3)];
             case 1:
-              if (!(e2 = t2.sent()).ok && 1 != l2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
-              return o2 = n.load, [4, e2.text()];
+              if (!(e2 = t2.sent()).ok && 1 != i2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
+              return o2 = r.load, [4, e2.text()];
             case 2:
-              if (i2 = o2.apply(void 0, [t2.sent()]), s2 = i2("title").text().trim(), this.getHostname(a3) != this.getHostname(e2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
-              return [2, i2];
+              if (l2 = o2.apply(void 0, [t2.sent()]), s2 = l2("title").text().trim(), this.getHostname(a3) != this.getHostname(e2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
+              return [2, l2];
           }
         });
       });
     }, a2.prototype.parseNovels = function(e2) {
       var t2 = [];
-      return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(a3, r2) {
-        var n2 = e2(r2).find(".post-title").text().trim(), i2 = e2(r2).find(".post-title").find("a").attr("href") || "";
-        if (n2 && i2) {
-          var o2 = e2(r2).find("img"), s2 = { name: n2, cover: o2.attr("data-src") || o2.attr("src") || o2.attr("data-lazy-srcset") || l.defaultCover, path: i2.replace(/https?:\/\/.*?\//, "") };
+      return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(a3, n2) {
+        var r2 = e2(n2).find(".post-title").text().trim(), l2 = e2(n2).find(".post-title").find("a").attr("href") || "";
+        if (r2 && l2) {
+          var o2 = e2(n2).find("img"), s2 = { name: r2, cover: o2.attr("data-src") || o2.attr("src") || o2.attr("data-lazy-srcset") || i.defaultCover, path: l2.replace(/https?:\/\/.*?\//, "") };
           t2.push(s2);
         }
       }), t2;
-    }, a2.prototype.popularNovels = function(a3, r2) {
+    }, a2.prototype.popularNovels = function(a3, n2) {
       return e(this, arguments, void 0, function(e2, a4) {
-        var r3, n2, l2, i2, o2, s2, u2 = a4.filters, c2 = a4.showLatestNovels;
+        var n3, r2, i2, l2, o2, s2, u2 = a4.filters, c2 = a4.showLatestNovels;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              for (n2 in r3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), c2 && (r3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[n2].value) for (l2 = 0, i2 = u2[n2].value; l2 < i2.length; l2++) o2 = i2[l2], r3 += "&".concat(n2, "=").concat(o2);
-              else u2[n2].value && (r3 += "&".concat(n2, "=").concat(u2[n2].value));
-              return [4, this.getCheerio(r3, 1 != e2)];
+              for (r2 in n3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), c2 && (n3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[r2].value) for (i2 = 0, l2 = u2[r2].value; i2 < l2.length; i2++) o2 = l2[i2], n3 += "&".concat(r2, "=").concat(o2);
+              else u2[r2].value && (n3 += "&".concat(r2, "=").concat(u2[r2].value));
+              return [4, this.getCheerio(n3, 1 != e2)];
             case 1:
               return s2 = t2.sent(), [2, this.parseNovels(s2)];
           }
@@ -25945,13 +25945,13 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, u2, c2, h2, p, v, m, d, b, f, g, y, x, w, k, C = this;
+        var e2, s2, u2, c2, h2, p, v, m, d, f, b, g, y, x, w, S, k = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return [4, this.getCheerio(this.site + a3, false)];
             case 1:
-              return (e2 = t2.sent())(".manga-title-badges, #manga-title span").remove(), (s2 = { path: a3, name: e2(".post-title h1").text().trim() || e2("#manga-title h1").text().trim() || e2(".manga-title").text().trim() || "" }).cover = e2(".summary_image > a > img").attr("data-lazy-src") || e2(".summary_image > a > img").attr("data-src") || e2(".summary_image > a > img").attr("src") || l.defaultCover, e2(".post-content_item, .post-content").each(function() {
+              return (e2 = t2.sent())(".manga-title-badges, #manga-title span").remove(), (s2 = { path: a3, name: e2(".post-title h1").text().trim() || e2("#manga-title h1").text().trim() || e2(".manga-title").text().trim() || "" }).cover = e2(".summary_image > a > img").attr("data-lazy-src") || e2(".summary_image > a > img").attr("data-src") || e2(".summary_image > a > img").attr("src") || i.defaultCover, e2(".post-content_item, .post-content").each(function() {
                 var t3 = e2(this).find("h5").text().trim(), a4 = e2(this).find(".summary-content") || e2(this).find(".summary_content");
                 switch (t3) {
                   case "Genre(s)":
@@ -25979,82 +25979,82 @@ var LNReaderPlugin = (() => {
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    s2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed;
+                    s2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? l.NovelStatus.Ongoing : l.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
                     s2.artist = a4.text().trim();
                 }
-              }), s2.genres || (s2.genres = e2(".genres-content").text().trim()), s2.status || (s2.status = e2(".manga-status").text().trim().includes("OnGoing") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed), s2.author || (s2.author = e2(".manga-author a").text().trim()), s2.rating || (s2.rating = parseFloat(e2(".post-rating span").text().trim())), s2.author || (s2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), s2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(t3, a4) {
+              }), s2.genres || (s2.genres = e2(".genres-content").text().trim()), s2.status || (s2.status = e2(".manga-status").text().trim().includes("OnGoing") ? l.NovelStatus.Ongoing : l.NovelStatus.Completed), s2.author || (s2.author = e2(".manga-author a").text().trim()), s2.rating || (s2.rating = parseFloat(e2(".post-rating span").text().trim())), s2.author || (s2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), s2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(t3, a4) {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-summary p").map(function(t3, a4) {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
                 return e2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (S = this.options) || void 0 === S ? void 0 : S.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 7];
             case 2:
-              if (c2 = t2.sent(), h2 = (0, n.load)(c2), !((p = h2(".pagination a[data-page]")).length > 0)) return [3, 6];
+              if (c2 = t2.sent(), h2 = (0, r.load)(c2), !((p = h2(".pagination a[data-page]")).length > 0)) return [3, 6];
               if (v = Math.max.apply(Math, p.map(function(e3, t3) {
                 return parseInt(h2(t3).attr("data-page") || "1", 10);
               }).get()), m = p.last().attr("href") || "", -1 === (d = m.indexOf("?"))) return [3, 6];
-              b = m.slice(d).replace(/\d+$/, ""), f = 2, t2.label = 3;
+              f = m.slice(d).replace(/\d+$/, ""), b = 2, t2.label = 3;
             case 3:
-              return f <= v ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + b + f, { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              return b <= v ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/" + f + b, { method: "POST", referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 6];
             case 4:
               (g = t2.sent()) && "0" !== g && (c2 += g), t2.label = 5;
             case 5:
-              return f++, [3, 3];
+              return b++, [3, 3];
             case 6:
               return [3, 9];
             case 7:
-              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
+              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
                 return e3.text();
               })];
             case 8:
               c2 = t2.sent(), t2.label = 9;
             case 9:
-              return "0" !== c2 && (e2 = (0, n.load)(c2)), w = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
-                var r2 = e2(a4).find("a").text().trim(), n2 = a4.attribs.class.includes("premium-block");
-                n2 && (r2 = "\u{1F512} " + r2);
-                var l2 = e2(a4).find("span.chapter-release-date").text().trim();
-                l2 = l2 ? C.parseData(l2) : (0, o.default)().format("LL");
-                var i2 = e2(a4).find("a").attr("href") || "";
-                !i2 || "#" == i2 || n2 && C.hideLocked || u2.push({ name: r2, path: i2.replace(/https?:\/\/.*?\//, ""), releaseTime: l2 || null, chapterNumber: w - t3 });
+              return "0" !== c2 && (e2 = (0, r.load)(c2)), w = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
+                var n2 = e2(a4).find("a").text().trim(), r2 = a4.attribs.class.includes("premium-block");
+                r2 && (n2 = "\u{1F512} " + n2);
+                var i2 = e2(a4).find("span.chapter-release-date").text().trim();
+                i2 = i2 ? k.parseData(i2) : (0, o.default)().format("LL");
+                var l2 = e2(a4).find("a").attr("href") || "";
+                !l2 || "#" == l2 || r2 && k.hideLocked || u2.push({ name: n2, path: l2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: w - t3 });
               }), s2.chapters = u2.reverse(), [2, s2];
           }
         });
       });
     }, a2.prototype.parseChapter = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, n2;
+        var e2, n2, r2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return [4, this.getCheerio(this.site + a3, false)];
             case 1:
-              return e2 = t2.sent(), r2 = e2(".text-left") || e2(".text-right") || e2(".entry-content") || e2(".c-blog-post > div > div:nth-child(2)"), null === (n2 = this.options) || void 0 === n2 || n2.customJs, [2, this.translateDragontea(r2).html() || ""];
+              return e2 = t2.sent(), n2 = e2(".text-left") || e2(".text-right") || e2(".entry-content") || e2(".c-blog-post > div > div:nth-child(2)"), null === (r2 = this.options) || void 0 === r2 || r2.customJs, [2, this.translateDragontea(n2).html() || ""];
           }
         });
       });
-    }, a2.prototype.searchNovels = function(a3, r2) {
+    }, a2.prototype.searchNovels = function(a3, n2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2;
+        var e2, r2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = this.site + "/page/" + r2 + "/?s=" + encodeURIComponent(a3) + "&post_type=wp-manga", [4, this.getCheerio(e2, true)];
+              return e2 = this.site + "/page/" + n2 + "/?s=" + encodeURIComponent(a3) + "&post_type=wp-manga", [4, this.getCheerio(e2, true)];
             case 1:
-              return n2 = t2.sent(), [2, this.parseNovels(n2)];
+              return r2 = t2.sent(), [2, this.parseNovels(r2)];
           }
         });
       });
     }, a2;
   }();
   exports.MadaraPlugin = c;
-  var h = new c({ id: "nitromanga", sourceSite: "https://nitromanga.com/", sourceName: "Nitro Manga", options: { useNewChapterEndpoint: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Apocalyptic", value: "apocalyptic" }, { label: "Beasts", value: "beasts" }, { label: "Cheat Systems", value: "cheat-systems" }, { label: "Comedy", value: "comedy" }, { label: "Completed", value: "completed" }, { label: "Crime", value: "crime" }, { label: "Cultivation", value: "cultivation" }, { label: "Demons", value: "demons" }, { label: "Drama", value: "drama" }, { label: "Dungeons", value: "dungeons" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Game", value: "game" }, { label: "Genius MC", value: "genius-mc" }, { label: "Ghosts", value: "ghosts" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Hunter", value: "hunter" }, { label: "Isekai", value: "isekai" }, { label: "Magic", value: "magic" }, { label: "Manga", value: "manga" }, { label: "Manhua", value: "manhua" }, { label: "Manhwa", value: "manhwa" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Medical", value: "medical" }, { label: "Monsters", value: "monsters" }, { label: "Murim", value: "murim" }, { label: "Mystery", value: "mystery" }, { label: "Novel", value: "novel" }, { label: "Overpowered", value: "overpowered" }, { label: "Psychological", value: "psychological" }, { label: "Rebirth", value: "rebirth" }, { label: "Regression", value: "regression" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Revenge", value: "revenge" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shounen", value: "shounen" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Sports", value: "sports" }, { label: "Super Power", value: "super-power" }, { label: "Supernatural", value: "supernatural" }, { label: "System", value: "system" }, { label: "Time Travel", value: "time-travel" }, { label: "Tragedy", value: "tragedy" }, { label: "Video Games", value: "video-games" }, { label: "Webtoon", value: "webtoon" }, { label: "Wuxia", value: "wuxia" }, { label: "Zombie", value: "zombie" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
+  var h = new c({ id: "novelnice", sourceSite: "https://novelnice.com/", sourceName: "Novel Nice", options: { lang: "English", useNewChapterEndpoint: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Anime & Comics", value: "anime-comics" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Eastern", value: "eastern" }, { label: "Fan-fiction", value: "fan-fiction" }, { label: "Fanfiction", value: "fanfiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Game", value: "game" }, { label: "Games", value: "games" }, { label: "Gender Bender", value: "gender-bender" }, { label: "General", value: "general" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Isekai", value: "isekai" }, { label: "Josei", value: "josei" }, { label: "LitRPG", value: "litrpg" }, { label: "Magic", value: "magic" }, { label: "Magical Realism", value: "magical-realism" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Modern Life", value: "modern-life" }, { label: "Mystery", value: "mystery" }, { label: "Other", value: "other" }, { label: "Psychological", value: "psychological" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "System", value: "system" }, { label: "Thriller", value: "thriller" }, { label: "Tragedy", value: "tragedy" }, { label: "Urban", value: "urban" }, { label: "Urban Life", value: "urban-life" }, { label: "Video Games", value: "video-games" }, { label: "War", value: "war" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
   exports.default = h;
 })();
 

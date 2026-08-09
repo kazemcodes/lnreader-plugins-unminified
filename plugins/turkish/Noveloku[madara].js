@@ -25776,27 +25776,27 @@ var LNReaderPlugin = (() => {
   init_process2();
   var e = function(e2, t2, a2, n2) {
     return new (a2 || (a2 = Promise))(function(r2, i2) {
-      function o2(e3) {
+      function l2(e3) {
         try {
           s2(n2.next(e3));
         } catch (e4) {
           i2(e4);
         }
       }
-      __name(o2, "o");
-      function l2(e3) {
+      __name(l2, "l");
+      function o2(e3) {
         try {
           s2(n2.throw(e3));
         } catch (e4) {
           i2(e4);
         }
       }
-      __name(l2, "l");
+      __name(o2, "o");
       function s2(e3) {
         var t3;
         e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
           e4(t3);
-        })).then(o2, l2);
+        })).then(l2, o2);
       }
       __name(s2, "s");
       s2((n2 = n2.apply(e2, t2 || [])).next());
@@ -25805,72 +25805,72 @@ var LNReaderPlugin = (() => {
     var a2, n2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & r2[0]) throw r2[1];
       return r2[1];
-    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return o2.next = l2(0), o2.throw = l2(1), o2.return = l2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, l2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return l2.next = o2(0), l2.throw = o2(1), l2.return = o2(2), "function" == typeof Symbol && (l2[Symbol.iterator] = function() {
       return this;
-    }), o2;
-    function l2(l3) {
+    }), l2;
+    function o2(o3) {
       return function(s2) {
-        return function(l4) {
+        return function(o4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; o2 && (o2 = 0, l4[0] && (i2 = 0)), i2; ) try {
-            if (a2 = 1, n2 && (r2 = 2 & l4[0] ? n2.return : l4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, l4[1])).done) return r2;
-            switch (n2 = 0, r2 && (l4 = [2 & l4[0], r2.value]), l4[0]) {
+          for (; l2 && (l2 = 0, o4[0] && (i2 = 0)), i2; ) try {
+            if (a2 = 1, n2 && (r2 = 2 & o4[0] ? n2.return : o4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, o4[1])).done) return r2;
+            switch (n2 = 0, r2 && (o4 = [2 & o4[0], r2.value]), o4[0]) {
               case 0:
               case 1:
-                r2 = l4;
+                r2 = o4;
                 break;
               case 4:
-                return i2.label++, { value: l4[1], done: false };
+                return i2.label++, { value: o4[1], done: false };
               case 5:
-                i2.label++, n2 = l4[1], l4 = [0];
+                i2.label++, n2 = o4[1], o4 = [0];
                 continue;
               case 7:
-                l4 = i2.ops.pop(), i2.trys.pop();
+                o4 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== l4[0] && 2 !== l4[0])) {
+                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
                   i2 = 0;
                   continue;
                 }
-                if (3 === l4[0] && (!r2 || l4[1] > r2[0] && l4[1] < r2[3])) {
-                  i2.label = l4[1];
+                if (3 === o4[0] && (!r2 || o4[1] > r2[0] && o4[1] < r2[3])) {
+                  i2.label = o4[1];
                   break;
                 }
-                if (6 === l4[0] && i2.label < r2[1]) {
-                  i2.label = r2[1], r2 = l4;
+                if (6 === o4[0] && i2.label < r2[1]) {
+                  i2.label = r2[1], r2 = o4;
                   break;
                 }
                 if (r2 && i2.label < r2[2]) {
-                  i2.label = r2[2], i2.ops.push(l4);
+                  i2.label = r2[2], i2.ops.push(o4);
                   break;
                 }
                 r2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
-            l4 = t2.call(e2, i2);
+            o4 = t2.call(e2, i2);
           } catch (e3) {
-            l4 = [6, e3], n2 = 0;
+            o4 = [6, e3], n2 = 0;
           } finally {
             a2 = r2 = 0;
           }
-          if (5 & l4[0]) throw l4[1];
-          return { value: l4[0] ? l4[1] : void 0, done: true };
-        }([l3, s2]);
+          if (5 & o4[0]) throw o4[1];
+          return { value: o4[0] ? o4[1] : void 0, done: true };
+        }([o3, s2]);
       };
     }
-    __name(l2, "l");
+    __name(o2, "o");
   }, a = function(e2) {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = a(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(e2, t2) {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), l = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = a(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(e2, t2) {
     return new RegExp(t2.join("|")).test(e2);
   }, "u"), c = function() {
     function a2(e2) {
       var t2, a3;
       this.hideLocked = s.storage.get("hideLocked"), this.parseData = function(e3) {
-        var t3, a4 = (0, l.default)(), n3 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", r2 = parseInt(n3, 10);
+        var t3, a4 = (0, o.default)(), n3 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", r2 = parseInt(n3, 10);
         if (!n3) return e3;
         if (u(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a4 = a4.subtract(r2, "second");
         else if (u(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a4 = a4.subtract(r2, "minute");
@@ -25879,7 +25879,7 @@ var LNReaderPlugin = (() => {
         else if (u(e3, ["week", "semana"])) a4 = a4.subtract(r2, "week");
         else if (u(e3, ["month", "mes"])) a4 = a4.subtract(r2, "month");
         else {
-          if (!u(e3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, l.default)(e3).format("LL") ? (0, l.default)(e3).format("LL") : e3;
+          if (!u(e3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, o.default)(e3).format("LL") ? (0, o.default)(e3).format("LL") : e3;
           a4 = a4.subtract(r2, "year");
         }
         return a4.format("LL");
@@ -25906,36 +25906,36 @@ var LNReaderPlugin = (() => {
       return t2.pop(), t2.join(".");
     }, a2.prototype.getCheerio = function(a3, i2) {
       return e(this, void 0, void 0, function() {
-        var e2, o2, l2, s2;
+        var e2, l2, o2, s2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return [4, (0, n.fetchApi)(a3)];
             case 1:
               if (!(e2 = t2.sent()).ok && 1 != i2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
-              return l2 = r.load, [4, e2.text()];
+              return o2 = r.load, [4, e2.text()];
             case 2:
-              if (o2 = l2.apply(void 0, [t2.sent()]), s2 = o2("title").text().trim(), this.getHostname(a3) != this.getHostname(e2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
-              return [2, o2];
+              if (l2 = o2.apply(void 0, [t2.sent()]), s2 = l2("title").text().trim(), this.getHostname(a3) != this.getHostname(e2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
+              return [2, l2];
           }
         });
       });
     }, a2.prototype.parseNovels = function(e2) {
       var t2 = [];
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(a3, n2) {
-        var r2 = e2(n2).find(".post-title").text().trim(), o2 = e2(n2).find(".post-title").find("a").attr("href") || "";
-        if (r2 && o2) {
-          var l2 = e2(n2).find("img"), s2 = { name: r2, cover: l2.attr("data-src") || l2.attr("src") || l2.attr("data-lazy-srcset") || i.defaultCover, path: o2.replace(/https?:\/\/.*?\//, "") };
+        var r2 = e2(n2).find(".post-title").text().trim(), l2 = e2(n2).find(".post-title").find("a").attr("href") || "";
+        if (r2 && l2) {
+          var o2 = e2(n2).find("img"), s2 = { name: r2, cover: o2.attr("data-src") || o2.attr("src") || o2.attr("data-lazy-srcset") || i.defaultCover, path: l2.replace(/https?:\/\/.*?\//, "") };
           t2.push(s2);
         }
       }), t2;
     }, a2.prototype.popularNovels = function(a3, n2) {
       return e(this, arguments, void 0, function(e2, a4) {
-        var n3, r2, i2, o2, l2, s2, u2 = a4.filters, c2 = a4.showLatestNovels;
+        var n3, r2, i2, l2, o2, s2, u2 = a4.filters, c2 = a4.showLatestNovels;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              for (r2 in n3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), c2 && (n3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[r2].value) for (i2 = 0, o2 = u2[r2].value; i2 < o2.length; i2++) l2 = o2[i2], n3 += "&".concat(r2, "=").concat(l2);
+              for (r2 in n3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), c2 && (n3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[r2].value) for (i2 = 0, l2 = u2[r2].value; i2 < l2.length; i2++) o2 = l2[i2], n3 += "&".concat(r2, "=").concat(o2);
               else u2[r2].value && (n3 += "&".concat(r2, "=").concat(u2[r2].value));
               return [4, this.getCheerio(n3, 1 != e2)];
             case 1:
@@ -25945,7 +25945,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, u2, c2, h2, p, d, m, v = this;
+        var e2, s2, u2, c2, h2, p, d, m, v, f, b, g, y, x, w, k, S = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25979,36 +25979,50 @@ var LNReaderPlugin = (() => {
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    s2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
+                    s2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? l.NovelStatus.Ongoing : l.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
                     s2.artist = a4.text().trim();
                 }
-              }), s2.genres || (s2.genres = e2(".genres-content").text().trim()), s2.status || (s2.status = e2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), s2.author || (s2.author = e2(".manga-author a").text().trim()), s2.rating || (s2.rating = parseFloat(e2(".post-rating span").text().trim())), s2.author || (s2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), s2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(t3, a4) {
+              }), s2.genres || (s2.genres = e2(".genres-content").text().trim()), s2.status || (s2.status = e2(".manga-status").text().trim().includes("OnGoing") ? l.NovelStatus.Ongoing : l.NovelStatus.Completed), s2.author || (s2.author = e2(".manga-author a").text().trim()), s2.rating || (s2.rating = parseFloat(e2(".post-rating span").text().trim())), s2.author || (s2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), s2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(t3, a4) {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-summary p").map(function(t3, a4) {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
                 return e2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (m = this.options) || void 0 === m ? void 0 : m.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
-              })] : [3, 3];
+              })] : [3, 7];
             case 2:
-              return c2 = t2.sent(), [3, 5];
+              if (c2 = t2.sent(), h2 = (0, r.load)(c2), !((p = h2(".pagination a[data-page]")).length > 0)) return [3, 6];
+              if (d = Math.max.apply(Math, p.map(function(e3, t3) {
+                return parseInt(h2(t3).attr("data-page") || "1", 10);
+              }).get()), m = p.last().attr("href") || "", -1 === (v = m.indexOf("?"))) return [3, 6];
+              f = m.slice(v).replace(/\d+$/, ""), b = 2, t2.label = 3;
             case 3:
-              return h2 = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (p = new FormData()).append("action", "manga_get_chapters"), p.append("manga", h2), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: p }).then(function(e3) {
+              return b <= d ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/" + f + b, { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+                return e3.text();
+              })] : [3, 6];
+            case 4:
+              (g = t2.sent()) && "0" !== g && (c2 += g), t2.label = 5;
+            case 5:
+              return b++, [3, 3];
+            case 6:
+              return [3, 9];
+            case 7:
+              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
                 return e3.text();
               })];
-            case 4:
-              c2 = t2.sent(), t2.label = 5;
-            case 5:
-              return "0" !== c2 && (e2 = (0, r.load)(c2)), d = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
+            case 8:
+              c2 = t2.sent(), t2.label = 9;
+            case 9:
+              return "0" !== c2 && (e2 = (0, r.load)(c2)), w = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
                 var n2 = e2(a4).find("a").text().trim(), r2 = a4.attribs.class.includes("premium-block");
                 r2 && (n2 = "\u{1F512} " + n2);
                 var i2 = e2(a4).find("span.chapter-release-date").text().trim();
-                i2 = i2 ? v.parseData(i2) : (0, l.default)().format("LL");
-                var o2 = e2(a4).find("a").attr("href") || "";
-                !o2 || "#" == o2 || r2 && v.hideLocked || u2.push({ name: n2, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: d - t3 });
+                i2 = i2 ? S.parseData(i2) : (0, o.default)().format("LL");
+                var l2 = e2(a4).find("a").attr("href") || "";
+                !l2 || "#" == l2 || r2 && S.hideLocked || u2.push({ name: n2, path: l2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: w - t3 });
               }), s2.chapters = u2.reverse(), [2, s2];
           }
         });

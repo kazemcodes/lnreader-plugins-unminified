@@ -25945,7 +25945,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, l2, u2, c2, h2, p, d, m, v = this;
+        var e2, l2, u2, c2, h2, p, d, m, v, f, g, b, y, x, w, k, _ = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25990,25 +25990,39 @@ var LNReaderPlugin = (() => {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
                 return e2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (m = this.options) || void 0 === m ? void 0 : m.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
-              })] : [3, 3];
+              })] : [3, 7];
             case 2:
-              return c2 = t2.sent(), [3, 5];
+              if (c2 = t2.sent(), h2 = (0, n.load)(c2), !((p = h2(".pagination a[data-page]")).length > 0)) return [3, 6];
+              if (d = Math.max.apply(Math, p.map(function(e3, t3) {
+                return parseInt(h2(t3).attr("data-page") || "1", 10);
+              }).get()), m = p.last().attr("href") || "", -1 === (v = m.indexOf("?"))) return [3, 6];
+              f = m.slice(v).replace(/\d+$/, ""), g = 2, t2.label = 3;
             case 3:
-              return h2 = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (p = new FormData()).append("action", "manga_get_chapters"), p.append("manga", h2), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: p }).then(function(e3) {
+              return g <= d ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + f + g, { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+                return e3.text();
+              })] : [3, 6];
+            case 4:
+              (b = t2.sent()) && "0" !== b && (c2 += b), t2.label = 5;
+            case 5:
+              return g++, [3, 3];
+            case 6:
+              return [3, 9];
+            case 7:
+              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
                 return e3.text();
               })];
-            case 4:
-              c2 = t2.sent(), t2.label = 5;
-            case 5:
-              return "0" !== c2 && (e2 = (0, n.load)(c2)), d = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
+            case 8:
+              c2 = t2.sent(), t2.label = 9;
+            case 9:
+              return "0" !== c2 && (e2 = (0, n.load)(c2)), w = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(t3, a4) {
                 var r2 = e2(a4).find("a").text().trim(), n2 = a4.attribs.class.includes("premium-block");
                 n2 && (r2 = "\u{1F512} " + r2);
                 var i2 = e2(a4).find("span.chapter-release-date").text().trim();
-                i2 = i2 ? v.parseData(i2) : (0, s.default)().format("LL");
+                i2 = i2 ? _.parseData(i2) : (0, s.default)().format("LL");
                 var o2 = e2(a4).find("a").attr("href") || "";
-                !o2 || "#" == o2 || n2 && v.hideLocked || u2.push({ name: r2, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: d - t3 });
+                !o2 || "#" == o2 || n2 && _.hideLocked || u2.push({ name: r2, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: w - t3 });
               }), l2.chapters = u2.reverse(), [2, l2];
           }
         });

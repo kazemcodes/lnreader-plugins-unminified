@@ -218,9 +218,9 @@
 	{
 		"id": "allnovel",
 		"name": "AllNovel",
-		"site": "https://allnovel.org/",
+		"site": "https://novelfull.com/",
 		"lang": "English",
-		"version": "2.2.1",
+		"version": "2.2.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/AllNovel[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/allnovel/icon.png"
 	},
@@ -259,6 +259,15 @@
 		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/SrankManga[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/asuralightnovel/icon.png"
+	},
+	{
+		"id": "bakatsuki",
+		"name": "Baka-Tsuki",
+		"site": "https://www.baka-tsuki.org/project/",
+		"lang": "English",
+		"version": "1.1.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/bakaTsuki.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/bakatsuki/icon.png"
 	},
 	{
 		"id": "bellereservoir",
@@ -743,7 +752,7 @@
 		"name": "LightNovelWorld",
 		"site": "https://lightnovelworld.org/",
 		"lang": "English",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/lightnovelworld.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lightnovelworld/icon.png"
 	},
@@ -960,8 +969,8 @@
 		"site": "https://novelfire.net/",
 		"lang": "English",
 		"version": "1.4.3",
-		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novelfire.js",
-		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelfire/icon.png"
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelFire[novelfire].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/novelfire/novelfire/icon.png"
 	},
 	{
 		"id": "novelfull",
@@ -1018,6 +1027,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelmultiverse/icon.png"
 	},
 	{
+		"id": "novelnice",
+		"name": "Novel Nice",
+		"site": "https://novelnice.com/",
+		"lang": "English",
+		"version": "2.2.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelNice[madara].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelnice/icon.png"
+	},
+	{
 		"id": "novelninja",
 		"name": "Novel Ninja",
 		"site": "https://novelninja.xyz/",
@@ -1025,6 +1043,15 @@
 		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelNinja[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelninja/icon.png"
+	},
+	{
+		"id": "novelphoenix",
+		"name": "Novel Phoenix",
+		"site": "https://novelphoenix.com/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelPhoenix[novelfire].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/novelfire/novelphoenix/icon.png"
 	},
 	{
 		"id": "novelrest",
@@ -1089,6 +1116,15 @@
 		"version": "2.1.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/pawread.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/pawread/icon.png"
+	},
+	{
+		"id": "peachpuff",
+		"name": "Peach Puff Translations",
+		"site": "https://peachpuff.in/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/peachpuff.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/english/peachpuff/icon.png"
 	},
 	{
 		"id": "penguinsquad",
@@ -1536,7 +1572,7 @@
 		"name": "NovelFrance",
 		"site": "https://novelfrance.fr/",
 		"lang": "Français",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/novelfrance.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/novelfrance/icon.png"
 	},

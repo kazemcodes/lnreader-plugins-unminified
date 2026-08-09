@@ -25774,185 +25774,185 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var t = function(t2, e2, r2, n2) {
-    return new (r2 || (r2 = Promise))(function(a2, i2) {
-      function o2(t3) {
-        try {
-          c2(n2.next(t3));
-        } catch (t4) {
-          i2(t4);
-        }
-      }
-      __name(o2, "o");
+  var t = function(t2, e2, a2, r2) {
+    return new (a2 || (a2 = Promise))(function(n2, i2) {
       function s2(t3) {
         try {
-          c2(n2.throw(t3));
+          c2(r2.next(t3));
         } catch (t4) {
           i2(t4);
         }
       }
       __name(s2, "s");
+      function o2(t3) {
+        try {
+          c2(r2.throw(t3));
+        } catch (t4) {
+          i2(t4);
+        }
+      }
+      __name(o2, "o");
       function c2(t3) {
         var e3;
-        t3.done ? a2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
+        t3.done ? n2(t3.value) : (e3 = t3.value, e3 instanceof a2 ? e3 : new a2(function(t4) {
           t4(e3);
-        })).then(o2, s2);
+        })).then(s2, o2);
       }
       __name(c2, "c");
-      c2((n2 = n2.apply(t2, e2 || [])).next());
+      c2((r2 = r2.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
-    var r2, n2, a2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & a2[0]) throw a2[1];
-      return a2[1];
-    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return o2.next = s2(0), o2.throw = s2(1), o2.return = s2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
+    var a2, r2, n2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & n2[0]) throw n2[1];
+      return n2[1];
+    }, "sent"), trys: [], ops: [] }, s2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return s2.next = o2(0), s2.throw = o2(1), s2.return = o2(2), "function" == typeof Symbol && (s2[Symbol.iterator] = function() {
       return this;
-    }), o2;
-    function s2(s3) {
+    }), s2;
+    function o2(o3) {
       return function(c2) {
-        return function(s4) {
-          if (r2) throw new TypeError("Generator is already executing.");
-          for (; o2 && (o2 = 0, s4[0] && (i2 = 0)), i2; ) try {
-            if (r2 = 1, n2 && (a2 = 2 & s4[0] ? n2.return : s4[0] ? n2.throw || ((a2 = n2.return) && a2.call(n2), 0) : n2.next) && !(a2 = a2.call(n2, s4[1])).done) return a2;
-            switch (n2 = 0, a2 && (s4 = [2 & s4[0], a2.value]), s4[0]) {
+        return function(o4) {
+          if (a2) throw new TypeError("Generator is already executing.");
+          for (; s2 && (s2 = 0, o4[0] && (i2 = 0)), i2; ) try {
+            if (a2 = 1, r2 && (n2 = 2 & o4[0] ? r2.return : o4[0] ? r2.throw || ((n2 = r2.return) && n2.call(r2), 0) : r2.next) && !(n2 = n2.call(r2, o4[1])).done) return n2;
+            switch (r2 = 0, n2 && (o4 = [2 & o4[0], n2.value]), o4[0]) {
               case 0:
               case 1:
-                a2 = s4;
+                n2 = o4;
                 break;
               case 4:
-                return i2.label++, { value: s4[1], done: false };
+                return i2.label++, { value: o4[1], done: false };
               case 5:
-                i2.label++, n2 = s4[1], s4 = [0];
+                i2.label++, r2 = o4[1], o4 = [0];
                 continue;
               case 7:
-                s4 = i2.ops.pop(), i2.trys.pop();
+                o4 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(a2 = i2.trys, (a2 = a2.length > 0 && a2[a2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                if (!(n2 = i2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
                   i2 = 0;
                   continue;
                 }
-                if (3 === s4[0] && (!a2 || s4[1] > a2[0] && s4[1] < a2[3])) {
-                  i2.label = s4[1];
+                if (3 === o4[0] && (!n2 || o4[1] > n2[0] && o4[1] < n2[3])) {
+                  i2.label = o4[1];
                   break;
                 }
-                if (6 === s4[0] && i2.label < a2[1]) {
-                  i2.label = a2[1], a2 = s4;
+                if (6 === o4[0] && i2.label < n2[1]) {
+                  i2.label = n2[1], n2 = o4;
                   break;
                 }
-                if (a2 && i2.label < a2[2]) {
-                  i2.label = a2[2], i2.ops.push(s4);
+                if (n2 && i2.label < n2[2]) {
+                  i2.label = n2[2], i2.ops.push(o4);
                   break;
                 }
-                a2[2] && i2.ops.pop(), i2.trys.pop();
+                n2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
-            s4 = e2.call(t2, i2);
+            o4 = e2.call(t2, i2);
           } catch (t3) {
-            s4 = [6, t3], n2 = 0;
+            o4 = [6, t3], r2 = 0;
           } finally {
-            r2 = a2 = 0;
+            a2 = n2 = 0;
           }
-          if (5 & s4[0]) throw s4[1];
-          return { value: s4[0] ? s4[1] : void 0, done: true };
-        }([s3, c2]);
+          if (5 & o4[0]) throw o4[1];
+          return { value: o4[0] ? o4[1] : void 0, done: true };
+        }([o3, c2]);
       };
     }
-    __name(s2, "s");
-  }, r = function(t2) {
+    __name(o2, "o");
+  }, a = function(t2) {
     return t2 && t2.__esModule ? t2 : { default: t2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = r(require_dayjs_min()), c = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(t2, e2) {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = a(require_dayjs_min()), c = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(t2, e2) {
     return new RegExp(e2.join("|")).test(t2);
   }, "u"), l = function() {
-    function r2(t2) {
-      var e2, r3;
+    function a2(t2) {
+      var e2, a3;
       this.hideLocked = c.storage.get("hideLocked"), this.parseData = function(t3) {
-        var e3, r4 = (0, s.default)(), n3 = (null === (e3 = t3.match(/\d+/)) || void 0 === e3 ? void 0 : e3[0]) || "", a2 = parseInt(n3, 10);
-        if (!n3) return t3;
-        if (u(t3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) r4 = r4.subtract(a2, "second");
-        else if (u(t3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) r4 = r4.subtract(a2, "minute");
-        else if (u(t3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) r4 = r4.subtract(a2, "hours");
-        else if (u(t3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) r4 = r4.subtract(a2, "days");
-        else if (u(t3, ["week", "semana"])) r4 = r4.subtract(a2, "week");
-        else if (u(t3, ["month", "mes"])) r4 = r4.subtract(a2, "month");
+        var e3, a4 = (0, o.default)(), r3 = (null === (e3 = t3.match(/\d+/)) || void 0 === e3 ? void 0 : e3[0]) || "", n2 = parseInt(r3, 10);
+        if (!r3) return t3;
+        if (u(t3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a4 = a4.subtract(n2, "second");
+        else if (u(t3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a4 = a4.subtract(n2, "minute");
+        else if (u(t3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) a4 = a4.subtract(n2, "hours");
+        else if (u(t3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) a4 = a4.subtract(n2, "days");
+        else if (u(t3, ["week", "semana"])) a4 = a4.subtract(n2, "week");
+        else if (u(t3, ["month", "mes"])) a4 = a4.subtract(n2, "month");
         else {
-          if (!u(t3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, s.default)(t3).format("LL") ? (0, s.default)(t3).format("LL") : t3;
-          r4 = r4.subtract(a2, "year");
+          if (!u(t3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, o.default)(t3).format("LL") ? (0, o.default)(t3).format("LL") : t3;
+          a4 = a4.subtract(n2, "year");
         }
-        return r4.format("LL");
+        return a4.format("LL");
       }, this.id = t2.id, this.name = t2.sourceName, this.icon = "multisrc/madara/".concat(t2.id.toLowerCase(), "/icon.png"), this.site = t2.sourceSite;
-      var n2 = (null === (e2 = t2.options) || void 0 === e2 ? void 0 : e2.versionIncrements) || 0;
-      this.version = "2.2.".concat(n2), this.options = t2.options, this.filters = t2.filters, (null === (r3 = this.options) || void 0 === r3 ? void 0 : r3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      var r2 = (null === (e2 = t2.options) || void 0 === e2 ? void 0 : e2.versionIncrements) || 0;
+      this.version = "2.2.".concat(r2), this.options = t2.options, this.filters = t2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
-    __name(r2, "r");
-    return r2.prototype.translateDragontea = function(t2) {
+    __name(a2, "a");
+    return a2.prototype.translateDragontea = function(t2) {
       var e2;
       if ("dragontea" !== this.id) return t2;
-      var r3 = (0, a.load)((null === (e2 = t2.html()) || void 0 === e2 ? void 0 : e2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
-      return t2.html(r3.html()), t2.find("*").addBack().contents().filter(function(t3, e3) {
+      var a3 = (0, n.load)((null === (e2 = t2.html()) || void 0 === e2 ? void 0 : e2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
+      return t2.html(a3.html()), t2.find("*").addBack().contents().filter(function(t3, e3) {
         return 3 === e3.nodeType;
       }).each(function(t3, e3) {
-        var n2 = r3(e3), a2 = n2.text().normalize("NFD").split("").map(function(t4) {
-          var e4 = t4.normalize("NFC"), r4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(e4);
-          return r4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[r4] + t4.slice(e4.length) : t4;
+        var r2 = a3(e3), n2 = r2.text().normalize("NFD").split("").map(function(t4) {
+          var e4 = t4.normalize("NFC"), a4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(e4);
+          return a4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[a4] + t4.slice(e4.length) : t4;
         }).join("");
-        n2.replaceWith(a2.replace("\n", "<br>"));
+        r2.replaceWith(n2.replace("\n", "<br>"));
       }), t2;
-    }, r2.prototype.getHostname = function(t2) {
+    }, a2.prototype.getHostname = function(t2) {
       var e2 = (t2 = t2.split("/")[2]).split(".");
       return e2.pop(), e2.join(".");
-    }, r2.prototype.getCheerio = function(r3, i2) {
+    }, a2.prototype.getCheerio = function(a3, i2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, s2, c2;
+        var t2, s2, o2, c2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(r3)];
+              return [4, (0, r.fetchApi)(a3)];
             case 1:
               if (!(t2 = e2.sent()).ok && 1 != i2) throw new Error("Could not reach site (" + t2.status + ") try to open in webview.");
-              return s2 = a.load, [4, t2.text()];
+              return o2 = n.load, [4, t2.text()];
             case 2:
-              if (o2 = s2.apply(void 0, [e2.sent()]), c2 = o2("title").text().trim(), this.getHostname(r3) != this.getHostname(t2.url) || "Bot Verification" == c2 || "You are being redirected..." == c2 || "Un instant..." == c2 || "Just a moment..." == c2 || "Redirecting..." == c2) throw new Error("Captcha error, please open in webview");
-              return [2, o2];
+              if (s2 = o2.apply(void 0, [e2.sent()]), c2 = s2("title").text().trim(), this.getHostname(a3) != this.getHostname(t2.url) || "Bot Verification" == c2 || "You are being redirected..." == c2 || "Un instant..." == c2 || "Just a moment..." == c2 || "Redirecting..." == c2) throw new Error("Captcha error, please open in webview");
+              return [2, s2];
           }
         });
       });
-    }, r2.prototype.parseNovels = function(t2) {
+    }, a2.prototype.parseNovels = function(t2) {
       var e2 = [];
-      return t2(".manga-title-badges").remove(), t2(".page-item-detail, .c-tabs-item__content").each(function(r3, n2) {
-        var a2 = t2(n2).find(".post-title").text().trim(), o2 = t2(n2).find(".post-title").find("a").attr("href") || "";
-        if (a2 && o2) {
-          var s2 = t2(n2).find("img"), c2 = { name: a2, cover: s2.attr("data-src") || s2.attr("src") || s2.attr("data-lazy-srcset") || i.defaultCover, path: o2.replace(/https?:\/\/.*?\//, "") };
+      return t2(".manga-title-badges").remove(), t2(".page-item-detail, .c-tabs-item__content").each(function(a3, r2) {
+        var n2 = t2(r2).find(".post-title").text().trim(), s2 = t2(r2).find(".post-title").find("a").attr("href") || "";
+        if (n2 && s2) {
+          var o2 = t2(r2).find("img"), c2 = { name: n2, cover: o2.attr("data-src") || o2.attr("src") || o2.attr("data-lazy-srcset") || i.defaultCover, path: s2.replace(/https?:\/\/.*?\//, "") };
           e2.push(c2);
         }
       }), e2;
-    }, r2.prototype.popularNovels = function(r3, n2) {
-      return t(this, arguments, void 0, function(t2, r4) {
-        var n3, a2, i2, o2, s2, c2, u2 = r4.filters, l2 = r4.showLatestNovels;
+    }, a2.prototype.popularNovels = function(a3, r2) {
+      return t(this, arguments, void 0, function(t2, a4) {
+        var r3, n2, i2, s2, o2, c2, u2 = a4.filters, l2 = a4.showLatestNovels;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              for (a2 in n3 = this.site + "/page/" + t2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), l2 && (n3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[a2].value) for (i2 = 0, o2 = u2[a2].value; i2 < o2.length; i2++) s2 = o2[i2], n3 += "&".concat(a2, "=").concat(s2);
-              else u2[a2].value && (n3 += "&".concat(a2, "=").concat(u2[a2].value));
-              return [4, this.getCheerio(n3, 1 != t2)];
+              for (n2 in r3 = this.site + "/page/" + t2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), l2 && (r3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[n2].value) for (i2 = 0, s2 = u2[n2].value; i2 < s2.length; i2++) o2 = s2[i2], r3 += "&".concat(n2, "=").concat(o2);
+              else u2[n2].value && (r3 += "&".concat(n2, "=").concat(u2[n2].value));
+              return [4, this.getCheerio(r3, 1 != t2)];
             case 1:
               return c2 = e2.sent(), [2, this.parseNovels(c2)];
           }
         });
       });
-    }, r2.prototype.parseNovel = function(r3) {
+    }, a2.prototype.parseNovel = function(a3) {
       return t(this, void 0, void 0, function() {
-        var t2, c2, u2, l2, h2, p, m, d, f = this;
+        var t2, c2, u2, l2, h2, p, d, m, f, g, v, b, y, x, w, _, k = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, this.getCheerio(this.site + r3, false)];
+              return [4, this.getCheerio(this.site + a3, false)];
             case 1:
-              return (t2 = e2.sent())(".manga-title-badges, #manga-title span").remove(), (c2 = { path: r3, name: t2(".post-title h1").text().trim() || t2("#manga-title h1").text().trim() || t2(".manga-title").text().trim() || "" }).cover = t2(".summary_image > a > img").attr("data-lazy-src") || t2(".summary_image > a > img").attr("data-src") || t2(".summary_image > a > img").attr("src") || i.defaultCover, t2(".post-content_item, .post-content").each(function() {
-                var e3 = t2(this).find("h5").text().trim(), r4 = t2(this).find(".summary-content") || t2(this).find(".summary_content");
+              return (t2 = e2.sent())(".manga-title-badges, #manga-title span").remove(), (c2 = { path: a3, name: t2(".post-title h1").text().trim() || t2("#manga-title h1").text().trim() || t2(".manga-title").text().trim() || "" }).cover = t2(".summary_image > a > img").attr("data-lazy-src") || t2(".summary_image > a > img").attr("data-src") || t2(".summary_image > a > img").attr("src") || i.defaultCover, t2(".post-content_item, .post-content").each(function() {
+                var e3 = t2(this).find("h5").text().trim(), a4 = t2(this).find(".summary-content") || t2(this).find(".summary_content");
                 switch (e3) {
                   case "Genre(s)":
                   case "Genre":
@@ -25962,10 +25962,10 @@ var LNReaderPlugin = (() => {
                   case "G\xE9nero(s)":
                   case "Kategori":
                   case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
-                    c2.genres ? c2.genres += ", " + r4.find("a").map(function(e4, r5) {
-                      return t2(r5).text();
-                    }).get().join(", ") : c2.genres = r4.find("a").map(function(e4, r5) {
-                      return t2(r5).text();
+                    c2.genres ? c2.genres += ", " + a4.find("a").map(function(e4, a5) {
+                      return t2(a5).text();
+                    }).get().join(", ") : c2.genres = a4.find("a").map(function(e4, a5) {
+                      return t2(a5).text();
                     }).get().join(", ");
                     break;
                   case "Author(s)":
@@ -25973,71 +25973,85 @@ var LNReaderPlugin = (() => {
                   case "Autor(es)":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
-                    c2.author = r4.text().trim();
+                    c2.author = a4.text().trim();
                     break;
                   case "Status":
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    c2.status = r4.text().trim().includes("OnGoing") || r4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
+                    c2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? s.NovelStatus.Ongoing : s.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
-                    c2.artist = r4.text().trim();
+                    c2.artist = a4.text().trim();
                 }
-              }), c2.genres || (c2.genres = t2(".genres-content").text().trim()), c2.status || (c2.status = t2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), c2.author || (c2.author = t2(".manga-author a").text().trim()), c2.rating || (c2.rating = parseFloat(t2(".post-rating span").text().trim())), c2.author || (c2.author = t2(".manga-authors").text().trim()), t2("div.summary__content .code-block,script,noscript").remove(), c2.summary = this.translateDragontea(t2("div.summary__content")).text().trim() || t2("#tab-manga-about").text().trim() || t2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, r4) {
-                return t2(r4).text();
-              }).get().join("\n\n").trim() || t2(".manga-summary p").map(function(e3, r4) {
-                return t2(r4).text();
-              }).get().join("\n\n").trim() || t2(".manga-excerpt p").map(function(e3, r4) {
-                return t2(r4).text();
-              }).get().join("\n\n").trim(), u2 = [], l2 = "", (null === (d = this.options) || void 0 === d ? void 0 : d.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + r3 + "ajax/chapters/", { method: "POST", referrer: this.site + r3 }).then(function(t3) {
+              }), c2.genres || (c2.genres = t2(".genres-content").text().trim()), c2.status || (c2.status = t2(".manga-status").text().trim().includes("OnGoing") ? s.NovelStatus.Ongoing : s.NovelStatus.Completed), c2.author || (c2.author = t2(".manga-author a").text().trim()), c2.rating || (c2.rating = parseFloat(t2(".post-rating span").text().trim())), c2.author || (c2.author = t2(".manga-authors").text().trim()), t2("div.summary__content .code-block,script,noscript").remove(), c2.summary = this.translateDragontea(t2("div.summary__content")).text().trim() || t2("#tab-manga-about").text().trim() || t2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, a4) {
+                return t2(a4).text();
+              }).get().join("\n\n").trim() || t2(".manga-summary p").map(function(e3, a4) {
+                return t2(a4).text();
+              }).get().join("\n\n").trim() || t2(".manga-excerpt p").map(function(e3, a4) {
+                return t2(a4).text();
+              }).get().join("\n\n").trim(), u2 = [], l2 = "", (null === (_ = this.options) || void 0 === _ ? void 0 : _.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(t3) {
                 return t3.text();
-              })] : [3, 3];
+              })] : [3, 7];
             case 2:
-              return l2 = e2.sent(), [3, 5];
+              if (l2 = e2.sent(), h2 = (0, n.load)(l2), !((p = h2(".pagination a[data-page]")).length > 0)) return [3, 6];
+              if (d = Math.max.apply(Math, p.map(function(t3, e3) {
+                return parseInt(h2(e3).attr("data-page") || "1", 10);
+              }).get()), m = p.last().attr("href") || "", -1 === (f = m.indexOf("?"))) return [3, 6];
+              g = m.slice(f).replace(/\d+$/, ""), v = 2, e2.label = 3;
             case 3:
-              return h2 = t2(".rating-post-id").attr("value") || t2("#manga-chapters-holder").attr("data-id") || "", (p = new FormData()).append("action", "manga_get_chapters"), p.append("manga", h2), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: p }).then(function(t3) {
+              return v <= d ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + g + v, { method: "POST", referrer: this.site + a3 }).then(function(t3) {
+                return t3.text();
+              })] : [3, 6];
+            case 4:
+              (b = e2.sent()) && "0" !== b && (l2 += b), e2.label = 5;
+            case 5:
+              return v++, [3, 3];
+            case 6:
+              return [3, 9];
+            case 7:
+              return y = t2(".rating-post-id").attr("value") || t2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(t3) {
                 return t3.text();
               })];
-            case 4:
-              l2 = e2.sent(), e2.label = 5;
-            case 5:
-              return "0" !== l2 && (t2 = (0, a.load)(l2)), m = t2(".wp-manga-chapter").length, t2(".wp-manga-chapter").each(function(e3, r4) {
-                var n2 = t2(r4).find("a").text().trim(), a2 = r4.attribs.class.includes("premium-block");
-                a2 && (n2 = "\u{1F512} " + n2);
-                var i2 = t2(r4).find("span.chapter-release-date").text().trim();
-                i2 = i2 ? f.parseData(i2) : (0, s.default)().format("LL");
-                var o2 = t2(r4).find("a").attr("href") || "";
-                !o2 || "#" == o2 || a2 && f.hideLocked || u2.push({ name: n2, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: m - e3 });
+            case 8:
+              l2 = e2.sent(), e2.label = 9;
+            case 9:
+              return "0" !== l2 && (t2 = (0, n.load)(l2)), w = t2(".wp-manga-chapter").length, t2(".wp-manga-chapter").each(function(e3, a4) {
+                var r2 = t2(a4).find("a").text().trim(), n2 = a4.attribs.class.includes("premium-block");
+                n2 && (r2 = "\u{1F512} " + r2);
+                var i2 = t2(a4).find("span.chapter-release-date").text().trim();
+                i2 = i2 ? k.parseData(i2) : (0, o.default)().format("LL");
+                var s2 = t2(a4).find("a").attr("href") || "";
+                !s2 || "#" == s2 || n2 && k.hideLocked || u2.push({ name: r2, path: s2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: w - e3 });
               }), c2.chapters = u2.reverse(), [2, c2];
           }
         });
       });
-    }, r2.prototype.parseChapter = function(r3) {
+    }, a2.prototype.parseChapter = function(a3) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, a2;
+        var t2, r2, n2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, this.getCheerio(this.site + r3, false)];
+              return [4, this.getCheerio(this.site + a3, false)];
             case 1:
-              return t2 = e2.sent(), n2 = t2(".text-left") || t2(".text-right") || t2(".entry-content") || t2(".c-blog-post > div > div:nth-child(2)"), null === (a2 = this.options) || void 0 === a2 || a2.customJs, [2, this.translateDragontea(n2).html() || ""];
+              return t2 = e2.sent(), r2 = t2(".text-left") || t2(".text-right") || t2(".entry-content") || t2(".c-blog-post > div > div:nth-child(2)"), null === (n2 = this.options) || void 0 === n2 || n2.customJs, [2, this.translateDragontea(r2).html() || ""];
           }
         });
       });
-    }, r2.prototype.searchNovels = function(r3, n2) {
+    }, a2.prototype.searchNovels = function(a3, r2) {
       return t(this, void 0, void 0, function() {
-        var t2, a2;
+        var t2, n2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = this.site + "/page/" + n2 + "/?s=" + encodeURIComponent(r3) + "&post_type=wp-manga", [4, this.getCheerio(t2, true)];
+              return t2 = this.site + "/page/" + r2 + "/?s=" + encodeURIComponent(a3) + "&post_type=wp-manga", [4, this.getCheerio(t2, true)];
             case 1:
-              return a2 = e2.sent(), [2, this.parseNovels(a2)];
+              return n2 = e2.sent(), [2, this.parseNovels(n2)];
           }
         });
       });
-    }, r2;
+    }, a2;
   }();
   exports.MadaraPlugin = l;
   var h = new l({ id: "AnimesHoy12", sourceSite: "https://animeshoy12.com/", sourceName: "AnimesHoy12", options: { lang: "Spanish", down: true, downSince: 1768289212951 } });
