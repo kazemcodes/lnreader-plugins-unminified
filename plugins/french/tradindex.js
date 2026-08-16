@@ -7017,7 +7017,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -7742,7 +7742,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -18481,6 +18481,44 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // src/types/constants.ts
+  var NovelStatus, defaultCover;
+  var init_constants = __esm({
+    "src/types/constants.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      NovelStatus = {
+        Unknown: "Unknown",
+        Ongoing: "Ongoing",
+        Completed: "Completed",
+        Licensed: "Licensed",
+        PublishingFinished: "Publishing Finished",
+        Cancelled: "Cancelled",
+        OnHiatus: "On Hiatus",
+        STUB: "STUB",
+        Inactive: "Inactive"
+      };
+      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
+    }
+  });
+
+  // src/libs/defaultCover.ts
+  var defaultCover_exports = {};
+  __export(defaultCover_exports, {
+    defaultCover: () => defaultCover
+  });
+  var init_defaultCover = __esm({
+    "src/libs/defaultCover.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_constants();
+    }
+  });
+
   // node_modules/@protobufjs/aspromise/index.js
   var require_aspromise = __commonJS({
     "node_modules/@protobufjs/aspromise/index.js"(exports4, module) {
@@ -21323,7 +21361,7 @@ var LNReaderPlugin = (() => {
         object.onRemove(this);
         return clearCache(this);
       }, "remove");
-      Namespace.prototype.define = /* @__PURE__ */ __name(function define2(path, json) {
+      Namespace.prototype.define = /* @__PURE__ */ __name(function define(path, json) {
         if (util.isString(path))
           path = path.split(".");
         else if (!Array.isArray(path))
@@ -25338,44 +25376,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // src/libs/novelStatus.ts
   var novelStatus_exports = {};
   __export(novelStatus_exports, {
@@ -25391,558 +25391,303 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/dayjs/dayjs.min.js
-  var require_dayjs_min = __commonJS({
-    "node_modules/dayjs/dayjs.min.js"(exports4, module) {
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      !function(t2, e2) {
-        "object" == typeof exports4 && "undefined" != typeof module ? module.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
-      }(exports4, function() {
-        "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
-          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
-          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
-          var r3 = String(t3);
-          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
-        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
-          if (e3.date() < n3.date()) return -t3(n3, e3);
-          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c2), s3 = n3 - i3 < 0, u3 = e3.clone().add(r3 + (s3 ? -1 : 1), c2);
-          return +(-(r3 + (n3 - i3) / (s3 ? i3 - u3 : u3 - i3)) || 0);
-        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
-          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
-        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c2, y: h, w: o2, d: a2, D: d, h: u2, m: s2, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
-        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
-          return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
-        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
-          return t3 instanceof _ || !(!t3 || !t3[p]);
-        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
-          var i3;
-          if (!e3) return g;
-          if ("string" == typeof e3) {
-            var s3 = e3.toLowerCase();
-            D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
-            var u3 = e3.split("-");
-            if (!i3 && u3.length > 1) return t3(u3[0]);
-          } else {
-            var a3 = e3.name;
-            D[a3] = e3, i3 = a3;
-          }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
-        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
-          if (S(t3)) return t3.clone();
-          var n3 = "object" == typeof e3 ? e3 : {};
-          return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v;
-        b.l = w, b.i = S, b.w = function(t3, e3) {
-          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
-        };
-        var _ = function() {
-          function M2(t3) {
-            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
-          }
-          __name(M2, "M");
-          var m2 = M2.prototype;
-          return m2.parse = function(t3) {
-            this.$d = function(t4) {
-              var e3 = t4.date, n3 = t4.utc;
-              if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b.u(e3)) return /* @__PURE__ */ new Date();
-              if (e3 instanceof Date) return new Date(e3);
-              if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r3 = e3.match($2);
-                if (r3) {
-                  var i3 = r3[2] - 1 || 0, s3 = (r3[7] || "0").substring(0, 3);
-                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3);
-                }
-              }
-              return new Date(e3);
-            }(t3), this.init();
-          }, m2.init = function() {
-            var t3 = this.$d;
-            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
-          }, m2.$utils = function() {
-            return b;
-          }, m2.isValid = function() {
-            return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t3, e3) {
-            var n3 = O(t3);
-            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
-          }, m2.isAfter = function(t3, e3) {
-            return O(t3) < this.startOf(e3);
-          }, m2.isBefore = function(t3, e3) {
-            return this.endOf(e3) < O(t3);
-          }, m2.$g = function(t3, e3, n3) {
-            return b.u(t3) ? this[e3] : this.set(n3, t3);
-          }, m2.unix = function() {
-            return Math.floor(this.valueOf() / 1e3);
-          }, m2.valueOf = function() {
-            return this.$d.getTime();
-          }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
-              return r3 ? i3 : i3.endOf(a2);
-            }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
-              case h:
-                return r3 ? l3(1, 0) : l3(31, 11);
-              case c2:
-                return r3 ? l3(1, M3) : l3(0, M3 + 1);
-              case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
-              case a2:
-              case d:
-                return $3(v2 + "Hours", 0);
-              case u2:
-                return $3(v2 + "Minutes", 1);
-              case s2:
-                return $3(v2 + "Seconds", 2);
-              case i2:
-                return $3(v2 + "Milliseconds", 3);
-              default:
-                return this.clone();
-            }
-          }, m2.endOf = function(t3) {
-            return this.startOf(t3, false);
-          }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c2] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
-            if (o3 === c2 || o3 === h) {
-              var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
-            } else l3 && this.$d[l3]($3);
-            return this.init(), this;
-          }, m2.set = function(t3, e3) {
-            return this.clone().$set(t3, e3);
-          }, m2.get = function(t3) {
-            return this[b.p(t3)]();
-          }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
-            r3 = Number(r3);
-            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
-              var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
-            }, "y");
-            if ($3 === c2) return this.set(c2, this.$M + r3);
-            if ($3 === h) return this.set(h, this.$y + r3);
-            if ($3 === a2) return y2(1);
-            if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s2] = e2, d2[u2] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
-            return b.w(m3, this);
-          }, m2.subtract = function(t3, e3) {
-            return this.add(-1 * t3, e3);
-          }, m2.format = function(t3) {
-            var e3 = this, n3 = this.$locale();
-            if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
-              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
-              return b.s(s3 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
-              var r4 = t4 < 12 ? "AM" : "PM";
-              return n4 ? r4.toLowerCase() : r4;
-            };
-            return r3.replace(y, function(t4, r4) {
-              return r4 || function(t5) {
-                switch (t5) {
-                  case "YY":
-                    return String(e3.$y).slice(-2);
-                  case "YYYY":
-                    return b.s(e3.$y, 4, "0");
-                  case "M":
-                    return a3 + 1;
-                  case "MM":
-                    return b.s(a3 + 1, 2, "0");
-                  case "MMM":
-                    return h2(n3.monthsShort, a3, c3, 3);
-                  case "MMMM":
-                    return h2(c3, a3);
-                  case "D":
-                    return e3.$D;
-                  case "DD":
-                    return b.s(e3.$D, 2, "0");
-                  case "d":
-                    return String(e3.$W);
-                  case "dd":
-                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
-                  case "ddd":
-                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
-                  case "dddd":
-                    return o3[e3.$W];
-                  case "H":
-                    return String(s3);
-                  case "HH":
-                    return b.s(s3, 2, "0");
-                  case "h":
-                    return d2(1);
-                  case "hh":
-                    return d2(2);
-                  case "a":
-                    return $3(s3, u3, true);
-                  case "A":
-                    return $3(s3, u3, false);
-                  case "m":
-                    return String(u3);
-                  case "mm":
-                    return b.s(u3, 2, "0");
-                  case "s":
-                    return String(e3.$s);
-                  case "ss":
-                    return b.s(e3.$s, 2, "0");
-                  case "SSS":
-                    return b.s(e3.$ms, 3, "0");
-                  case "Z":
-                    return i3;
-                }
-                return null;
-              }(t4) || i3.replace(":", "");
-            });
-          }, m2.utcOffset = function() {
-            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b.m(y2, m3);
-            }, "D");
-            switch (M3) {
-              case h:
-                $3 = D2() / 12;
-                break;
-              case c2:
-                $3 = D2();
-                break;
-              case f:
-                $3 = D2() / 3;
-                break;
-              case o2:
-                $3 = (g2 - v2) / 6048e5;
-                break;
-              case a2:
-                $3 = (g2 - v2) / 864e5;
-                break;
-              case u2:
-                $3 = g2 / n2;
-                break;
-              case s2:
-                $3 = g2 / e2;
-                break;
-              case i2:
-                $3 = g2 / t2;
-                break;
-              default:
-                $3 = g2;
-            }
-            return l3 ? $3 : b.a($3);
-          }, m2.daysInMonth = function() {
-            return this.endOf(c2).$D;
-          }, m2.$locale = function() {
-            return D[this.$L];
-          }, m2.locale = function(t3, e3) {
-            if (!t3) return this.$L;
-            var n3 = this.clone(), r3 = w(t3, e3, true);
-            return r3 && (n3.$L = r3), n3;
-          }, m2.clone = function() {
-            return b.w(this.$d, this);
-          }, m2.toDate = function() {
-            return new Date(this.valueOf());
-          }, m2.toJSON = function() {
-            return this.isValid() ? this.toISOString() : null;
-          }, m2.toISOString = function() {
-            return this.$d.toISOString();
-          }, m2.toString = function() {
-            return this.$d.toUTCString();
-          }, M2;
-        }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s2], ["$H", u2], ["$W", a2], ["$M", c2], ["$y", h], ["$D", d]].forEach(function(t3) {
-          k[t3[1]] = function(e3) {
-            return this.$g(e3, t3[0], t3[1]);
-          };
-        }), O.extend = function(t3, e3) {
-          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
-        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
-          return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
-      });
-    }
-  });
-
-  // .js/plugins/french/wuxialnscantrad.js
+  // .js/plugins/french/tradindex.js
   init_dirname();
   init_buffer2();
   init_process2();
   var t = function(t2, e2, r2, n2) {
-    return new (r2 || (r2 = Promise))(function(i2, o2) {
+    return new (r2 || (r2 = Promise))(function(a2, o2) {
+      function i2(t3) {
+        try {
+          c2(n2.next(t3));
+        } catch (t4) {
+          o2(t4);
+        }
+      }
+      __name(i2, "i");
       function s2(t3) {
         try {
-          u2(n2.next(t3));
+          c2(n2.throw(t3));
         } catch (t4) {
           o2(t4);
         }
       }
       __name(s2, "s");
-      function a2(t3) {
-        try {
-          u2(n2.throw(t3));
-        } catch (t4) {
-          o2(t4);
-        }
-      }
-      __name(a2, "a");
-      function u2(t3) {
+      function c2(t3) {
         var e3;
-        t3.done ? i2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
+        t3.done ? a2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
           t4(e3);
-        })).then(s2, a2);
+        })).then(i2, s2);
       }
-      __name(u2, "u");
-      u2((n2 = n2.apply(t2, e2 || [])).next());
+      __name(c2, "c");
+      c2((n2 = n2.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
-    var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & i2[0]) throw i2[1];
-      return i2[1];
-    }, "sent"), trys: [], ops: [] }, s2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return s2.next = a2(0), s2.throw = a2(1), s2.return = a2(2), "function" == typeof Symbol && (s2[Symbol.iterator] = function() {
+    var r2, n2, a2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & a2[0]) throw a2[1];
+      return a2[1];
+    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return i2.next = s2(0), i2.throw = s2(1), i2.return = s2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
       return this;
-    }), s2;
-    function a2(a3) {
-      return function(u2) {
-        return function(a4) {
+    }), i2;
+    function s2(s3) {
+      return function(c2) {
+        return function(s4) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; s2 && (s2 = 0, a4[0] && (o2 = 0)), o2; ) try {
-            if (r2 = 1, n2 && (i2 = 2 & a4[0] ? n2.return : a4[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, a4[1])).done) return i2;
-            switch (n2 = 0, i2 && (a4 = [2 & a4[0], i2.value]), a4[0]) {
+          for (; i2 && (i2 = 0, s4[0] && (o2 = 0)), o2; ) try {
+            if (r2 = 1, n2 && (a2 = 2 & s4[0] ? n2.return : s4[0] ? n2.throw || ((a2 = n2.return) && a2.call(n2), 0) : n2.next) && !(a2 = a2.call(n2, s4[1])).done) return a2;
+            switch (n2 = 0, a2 && (s4 = [2 & s4[0], a2.value]), s4[0]) {
               case 0:
               case 1:
-                i2 = a4;
+                a2 = s4;
                 break;
               case 4:
-                return o2.label++, { value: a4[1], done: false };
+                return o2.label++, { value: s4[1], done: false };
               case 5:
-                o2.label++, n2 = a4[1], a4 = [0];
+                o2.label++, n2 = s4[1], s4 = [0];
                 continue;
               case 7:
-                a4 = o2.ops.pop(), o2.trys.pop();
+                s4 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== a4[0] && 2 !== a4[0])) {
+                if (!(a2 = o2.trys, (a2 = a2.length > 0 && a2[a2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
                   o2 = 0;
                   continue;
                 }
-                if (3 === a4[0] && (!i2 || a4[1] > i2[0] && a4[1] < i2[3])) {
-                  o2.label = a4[1];
+                if (3 === s4[0] && (!a2 || s4[1] > a2[0] && s4[1] < a2[3])) {
+                  o2.label = s4[1];
                   break;
                 }
-                if (6 === a4[0] && o2.label < i2[1]) {
-                  o2.label = i2[1], i2 = a4;
+                if (6 === s4[0] && o2.label < a2[1]) {
+                  o2.label = a2[1], a2 = s4;
                   break;
                 }
-                if (i2 && o2.label < i2[2]) {
-                  o2.label = i2[2], o2.ops.push(a4);
+                if (a2 && o2.label < a2[2]) {
+                  o2.label = a2[2], o2.ops.push(s4);
                   break;
                 }
-                i2[2] && o2.ops.pop(), o2.trys.pop();
+                a2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            a4 = e2.call(t2, o2);
+            s4 = e2.call(t2, o2);
           } catch (t3) {
-            a4 = [6, t3], n2 = 0;
+            s4 = [6, t3], n2 = 0;
           } finally {
-            r2 = i2 = 0;
+            r2 = a2 = 0;
           }
-          if (5 & a4[0]) throw a4[1];
-          return { value: a4[0] ? a4[1] : void 0, done: true };
-        }([a3, u2]);
+          if (5 & s4[0]) throw s4[1];
+          return { value: s4[0] ? s4[1] : void 0, done: true };
+        }([s3, c2]);
       };
     }
-    __name(a2, "a");
-  }, r = function(t2) {
-    return t2 && t2.__esModule ? t2 : { default: t2 };
+    __name(s2, "s");
+  }, r = function(t2, e2, r2) {
+    if (r2 || 2 === arguments.length) for (var n2, a2 = 0, o2 = e2.length; a2 < o2; a2++) !n2 && a2 in e2 || (n2 || (n2 = Array.prototype.slice.call(e2, 0, a2)), n2[a2] = e2[a2]);
+    return t2.concat(n2 || Array.prototype.slice.call(e2));
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = r(require_dayjs_min()), u = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
-  function c(r2, n2) {
-    return t(this, void 0, void 0, function() {
-      var t2, o2, s2, a2, c2;
-      return e(this, function(e2) {
-        switch (e2.label) {
-          case 0:
-            return [4, (0, i.fetchApi)(r2, n2)];
-          case 1:
-            if (!(t2 = e2.sent()).ok) throw new Error("HTTP ".concat(t2.status, " while loading ").concat(r2));
-            return [4, t2.text()];
-          case 2:
-            if (o2 = e2.sent(), (s2 = null === (c2 = null === (a2 = o2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === a2 ? void 0 : a2[1]) || void 0 === c2 ? void 0 : c2.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && u.has(s2)) throw new Error("Bot challenge while loading ".concat(r2));
-            return [2, o2];
-        }
-      });
-    });
-  }
-  __name(c, "c");
-  var l = function() {
-    function r2() {
-      this.id = "wuxialnscantrad", this.name = "WuxiaLnScantrad", this.icon = "src/fr/wuxialnscantrad/icon.png", this.site = "https://wuxialnscantrad.wordpress.com", this.version = "1.0.4";
+  var n = (init_browser(), __toCommonJS(browser_exports)), a = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = ["Web Novel", "Light Novel", "Manhwa"], c = /^(?:https?:\/\/trad-index\.com)?\/oeuvre\/([^/?#]+)\/chapitre\/(\d+(?:[.,]\d+)?)/, u = function() {
+    function u2() {
+      this.id = "tradindex", this.name = "Trad-Index", this.icon = "src/fr/tradindex/icon.png", this.site = "https://trad-index.com/", this.version = "1.0.8", this.browserHeaders = { Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36" };
     }
-    __name(r2, "r");
-    return r2.prototype.findMovedChapter = function(r3) {
-      return t(this, void 0, void 0, function() {
-        var t2, n2, o2, s2, a2, u2, c2, l2, h;
-        return e(this, function(e2) {
-          switch (e2.label) {
+    __name(u2, "u");
+    return u2.prototype.resolveUrl = function(t2, e2) {
+      void 0 === e2 && (e2 = false);
+      var r2 = new URL(t2, this.site);
+      if (r2.origin !== new URL(this.site).origin) throw new Error("Cannot resolve a foreign origin");
+      var n2 = r2.pathname.replace(/^\/+|\/+$/g, "").replace(/^oeuvre\//, "");
+      if (e2) return new URL("/oeuvre/".concat(n2), this.site).href;
+      var a2 = n2.replace(/\/chapitre\//, "/").split("/"), o2 = a2[0], i2 = a2[1];
+      return new URL("/oeuvre/".concat(o2, "/chapitre/").concat(i2), this.site).href;
+    }, u2.prototype.retryDelay = function(t2, e2) {
+      var r2 = t2.headers.get("retry-after");
+      if (r2) {
+        var n2 = Number(r2);
+        if (Number.isFinite(n2) && n2 >= 0) return 1e3 * n2;
+        var a2 = Date.parse(r2);
+        if (!Number.isNaN(a2)) return Math.max(a2 - Date.now(), 0);
+      }
+      return 100 * (e2 + 1);
+    }, u2.prototype.fetchHtml = function(r2) {
+      return t(this, arguments, void 0, function(t2, r3) {
+        var n2, a2, i2, s2, c2, u3, l = this;
+        return void 0 === r3 && (r3 = false), e(this, function(h) {
+          switch (h.label) {
             case 0:
-              return t2 = r3.split("/").filter(Boolean).pop() || "", (n2 = t2.match(/^(.*?)-chapitre-(\d+)/i)) ? (o2 = n2[1].split("-").filter(Boolean).slice(0, 3).join(" "), s2 = "".concat(o2, " chapitre ").concat(n2[2]), [4, (0, i.fetchApi)("https://public-api.wordpress.com/wp/v2/sites/wuxialnscantrad.wordpress.com/search?search=".concat(encodeURIComponent(s2), "&type=post&subtype=post&per_page=20"))]) : [2, null];
-            case 1:
-              return (a2 = e2.sent()).ok ? [4, a2.json()] : [2, null];
-            case 2:
-              return u2 = e2.sent(), (c2 = null === (h = u2.find(function(t3) {
-                return new RegExp("chapitre\\D*".concat(n2[2], "(?:\\D|$)"), "i").test(t3.title || "");
-              })) || void 0 === h ? void 0 : h.url) ? [2, (l2 = new URL(c2, this.site)).origin === new URL(this.site).origin ? l2.toString() : null] : [2, null];
-          }
-        });
-      });
-    }, r2.prototype.getCheerio = function(r3) {
-      return t(this, void 0, void 0, function() {
-        var t2;
-        return e(this, function(e2) {
-          switch (e2.label) {
-            case 0:
-              return t2 = n.load, [4, c(r3, { headers: { "Accept-Encoding": "deflate" } })];
-            case 1:
-              return [2, t2.apply(void 0, [e2.sent()])];
-          }
-        });
-      });
-    }, r2.prototype.popularNovels = function(r3) {
-      return t(this, void 0, void 0, function() {
-        var n2, i2, s2, a2, u2 = this;
-        return e(this, function(c2) {
-          switch (c2.label) {
-            case 0:
-              return r3 > 1 ? [2, []] : (n2 = [], s2 = this.site, [4, this.getCheerio(s2)]);
-            case 1:
-              return (a2 = c2.sent())("#menu-item-2210 ul li").each(function(t2, e2) {
-                var r4 = a2(e2).first().text().trim(), s3 = a2(e2).find("a").attr("href");
-                s3 && r4 && (i2 = { name: r4, cover: o.defaultCover, path: s3.replace(u2.site, "") }, n2.push(i2));
-              }), [4, Promise.all(n2.map(function(r4) {
-                return t(u2, void 0, void 0, function() {
-                  var t2;
-                  return e(this, function(e2) {
-                    switch (e2.label) {
-                      case 0:
-                        return [4, this.getCheerio(this.site + r4.path)];
-                      case 1:
-                        return t2 = e2.sent(), r4.cover = t2(".entry-content p strong img").first().attr("src") || t2(".entry-content p img").first().attr("src") || o.defaultCover, [2];
-                    }
-                  });
-                });
-              }))];
-            case 2:
-              return c2.sent(), [2, n2];
-          }
-        });
-      });
-    }, r2.prototype.parseNovel = function(r3) {
-      return t(this, void 0, void 0, function() {
-        var t2, n2, i2, o2, s2, u2, c2 = this;
-        return e(this, function(e2) {
-          switch (e2.label) {
-            case 0:
-              return t2 = { path: r3, name: "Sans titre" }, [4, this.getCheerio(this.site + r3)];
-            case 1:
-              return n2 = e2.sent(), t2.name = n2(".entry-title").text().trim(), t2.cover = n2(".entry-content p strong img").first().attr("src") || n2(".entry-content p img").first().attr("src"), i2 = n2(".entry-content").text(), t2.author = this.getAuthor(i2), t2.genres = this.getGenres(i2), t2.artist = this.getArtist(i2), t2.summary = this.getSummary(i2), t2.status = this.getStatus(i2), o2 = n2(".entry-content ul").first().children("li"), s2 = [], u2 = /* @__PURE__ */ new Set(), o2.each(function(t3, e3) {
-                var r4 = n2(e3).text().trim(), i3 = n2(e3).find("a").attr("href");
-                if (i3 && i3.includes(c2.site) && r4) {
-                  var o3 = i3.replace(c2.site, "");
-                  if (!u2.has(o3)) {
-                    u2.add(o3);
-                    var l2 = (0, a.default)(null == i3 ? void 0 : i3.substring(c2.site.length + 1, c2.site.length + 11)).format("YYYY-MM-DD");
-                    s2.push({ name: r4, path: o3, releaseTime: l2 });
+              n2 = r3 ? 4 : 1, a2 = new URL(t2, this.site).href, i2 = /* @__PURE__ */ __name(function(i3) {
+                var c3;
+                return e(this, function(e2) {
+                  switch (e2.label) {
+                    case 0:
+                      return [4, (0, o.fetchApi)(a2, { headers: s2.browserHeaders })];
+                    case 1:
+                      if ((c3 = e2.sent()).ok) return [2, { value: c3.text() }];
+                      if (!r3 || 429 !== c3.status && c3.status < 500 || i3 === n2 - 1) throw new Error("Failed to load ".concat(t2));
+                      return [4, new Promise(function(t3) {
+                        return setTimeout(t3, l.retryDelay(c3, i3));
+                      })];
+                    case 2:
+                      return e2.sent(), [2];
                   }
-                }
-              }), t2.chapters = s2, [2, t2];
+                });
+              }, "i"), s2 = this, c2 = 0, h.label = 1;
+            case 1:
+              return c2 < n2 ? [5, i2(c2)] : [3, 4];
+            case 2:
+              if ("object" == typeof (u3 = h.sent())) return [2, u3.value];
+              h.label = 3;
+            case 3:
+              return c2 += 1, [3, 1];
+            case 4:
+              throw new Error("Failed to load ".concat(t2));
           }
         });
       });
-    }, r2.prototype.getAuthor = function(t2) {
-      var e2 = /Auteur\(s\):\s*(.*)/.exec(t2), r3 = "";
-      return null !== e2 && (r3 = e2[1].trim()), r3;
-    }, r2.prototype.getGenres = function(t2) {
-      var e2 = /Genres:\s*(.*)/.exec(t2), r3 = "";
-      return null !== e2 && (r3 = e2[1].trim()), r3;
-    }, r2.prototype.getArtist = function(t2) {
-      var e2 = /Artiste\(s\):\s*(.*)Genres/.exec(t2), r3 = "";
-      return null !== e2 && (r3 = e2[1].trim()), r3;
-    }, r2.prototype.getSummary = function(t2) {
-      for (var e2 = 0, r3 = [/Synopsis :([\s\S]*)Chapitres disponibles/, /Sypnopsis([\s\S]*)Sypnopsis officiel/, /Synopsis([\s\S]*)Chapitres disponibles/]; e2 < r3.length; e2++) {
-        var n2 = r3[e2].exec(t2);
-        if (null !== n2) return n2[1].trim();
-      }
-      return "";
-    }, r2.prototype.getStatus = function(t2) {
-      var e2 = /Statut:\s*(.*)/.exec(t2), r3 = "";
-      switch (null !== e2 && (r3 = e2[1].trim()), r3) {
-        case "En cours":
-          return s.NovelStatus.Ongoing;
-        case "Arr\xEAt\xE9":
-          return s.NovelStatus.Cancelled;
-        case "Termin\xE9":
-          return s.NovelStatus.Completed;
-        default:
-          return s.NovelStatus.Unknown;
-      }
-    }, r2.prototype.parseChapter = function(r3) {
+    }, u2.prototype.catalogueSections = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, s2, a2, u2, l2;
+        var t2, n2, a2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              t2 = { headers: { "Accept-Encoding": "deflate" } }, e2.label = 1;
+              return [4, Promise.allSettled(r2.map(function(t3) {
+                return a2.fetchHtml(t3);
+              }))];
             case 1:
-              return e2.trys.push([1, 3, , 6]), [4, c(this.site + r3, t2)];
-            case 2:
-              return i2 = e2.sent(), [3, 6];
-            case 3:
-              return o2 = e2.sent(), [4, this.findMovedChapter(r3)];
-            case 4:
-              if (!(s2 = e2.sent())) throw o2;
-              return [4, c(s2, t2)];
-            case 5:
-              return i2 = e2.sent(), [3, 6];
-            case 6:
-              if (a2 = (0, n.load)(i2), u2 = "", a2(".entry-content").contents().each(function() {
-                var t3, e3, r4, n2;
-                if (null === (t3 = a2(this).html()) || void 0 === t3 ? void 0 : t3.includes("<script")) return false;
-                (null === (e3 = a2(this).html()) || void 0 === e3 ? void 0 : e3.includes('data-attachment-id="480')) || (null === (r4 = a2.html(this)) || void 0 === r4 ? void 0 : r4.includes("<hr>")) || (null === (n2 = a2.html(this)) || void 0 === n2 ? void 0 : n2.includes("<p>&nbsp;</p>")) || (u2 += a2.html(this));
-              }), (l2 = (0, n.load)(u2)).text().replace(/\s+/g, " ").trim().length < 200 && !l2("img").length) throw new Error("No readable chapter content found");
-              return [2, u2];
+              if (t2 = e2.sent(), !(n2 = t2.flatMap(function(t3) {
+                return "fulfilled" === t3.status ? [t3.value] : [];
+              })).length) throw new Error("Failed to load catalogue");
+              return [2, n2];
           }
         });
       });
-    }, r2.prototype.searchNovels = function(r3, n2) {
+    }, u2.prototype.parseCards = function(t2) {
+      var e2 = this, r2 = (0, n.load)(t2), o2 = /* @__PURE__ */ new Map();
+      return r2("a[href]").each(function(t3, n2) {
+        var i2 = (r2(n2).attr("href") || "").match(/^(?:https?:\/\/trad-index\.com)?\/oeuvre\/([^/?#]+)\/?$/);
+        if (i2) {
+          var s2 = r2(n2).find('[class*="line-clamp"]').first().text().trim();
+          if (s2) {
+            var c2 = r2(n2).find("img").first().attr("src");
+            o2.set(i2[1], { name: s2, path: i2[1], cover: c2 ? new URL(c2, e2.site).href : a.defaultCover });
+          }
+        }
+      }), Array.from(o2.values());
+    }, u2.prototype.cataloguePath = function(t2, e2, r2) {
+      var n2 = r2 ? "&q=".concat(encodeURIComponent(r2)) : "";
+      return "/catalogue?type=".concat(encodeURIComponent(t2)).concat(n2, "&page=").concat(e2);
+    }, u2.prototype.chapterItems = function(t2, e2) {
+      var r2 = (0, n.load)(t2), a2 = /* @__PURE__ */ new Map();
+      return r2("a[href]").each(function(t3, n2) {
+        var o2 = (r2(n2).attr("href") || "").match(c);
+        if (o2 && o2[1] === e2) {
+          var i2 = Number(o2[2].replace(",", "."));
+          if (Number.isFinite(i2)) {
+            var s2 = "".concat(e2, "/").concat(o2[2]);
+            a2.set(s2, { name: r2(n2).text().trim() || "Chapitre ".concat(o2[2]), path: s2, chapterNumber: i2 });
+          }
+        }
+      }), Array.from(a2.values());
+    }, u2.prototype.fetchChapterPages = function(a2, o2) {
       return t(this, void 0, void 0, function() {
-        return e(this, function(t2) {
-          switch (t2.label) {
+        var t2, i2, s2, c2, u3, l, h, f, p, v, d = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              return 1 !== n2 ? [2, []] : [4, this.popularNovels(1)];
+              return t2 = (0, n.load)(a2), i2 = 1, t2('a[href*="onglet=chapitres"]').each(function(e3, r2) {
+                var n2 = t2(r2).attr("href");
+                if (n2) {
+                  var a3 = Number(new URL(n2, d.resolveUrl(o2, true)).searchParams.get("page"));
+                  Number.isInteger(a3) && (i2 = Math.max(i2, a3));
+                }
+              }), [4, Promise.all(Array.from({ length: i2 - 1 }, function(t3, e3) {
+                return d.fetchHtml("/oeuvre/".concat(o2, "?onglet=chapitres&tri=desc&page=").concat(e3 + 2), true);
+              }))];
             case 1:
-              return [2, t2.sent().filter(function(t3) {
-                return t3.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().includes(r3.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim());
+              for (s2 = e2.sent(), c2 = /* @__PURE__ */ new Map(), u3 = 0, l = r([a2], s2, true); u3 < l.length; u3++) for (h = l[u3], f = 0, p = this.chapterItems(h, o2); f < p.length; f++) v = p[f], c2.set(v.path, v);
+              return [2, Array.from(c2.values()).sort(function(t3, e3) {
+                return (t3.chapterNumber || 0) - (e3.chapterNumber || 0);
               })];
           }
         });
       });
-    }, r2;
+    }, u2.prototype.popularNovels = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2, n2, a2, o2 = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return t2 = Math.max(1, r2), [4, this.catalogueSections(s.map(function(e3) {
+                return o2.cataloguePath(e3, t2);
+              }))];
+            case 1:
+              if (n2 = e2.sent(), a2 = Array.from(new Map(n2.flat().flatMap(function(t3) {
+                return o2.parseCards(t3);
+              }).map(function(t3) {
+                return [t3.path, t3];
+              })).values()), 1 === t2 && !a2.length) throw new Error("Trad-Index catalogue returned no work cards");
+              return [2, a2];
+          }
+        });
+      });
+    }, u2.prototype.searchNovels = function(r2, n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a2 = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, this.catalogueSections(s.map(function(t3) {
+                return a2.cataloguePath(t3, n2, r2);
+              }))];
+            case 1:
+              return t2 = e2.sent(), [2, Array.from(new Map(t2.flatMap(function(t3) {
+                return a2.parseCards(t3);
+              }).map(function(t3) {
+                return [t3.path, t3];
+              })).values())];
+          }
+        });
+      });
+    }, u2.prototype.parseNovel = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2, o2, s2, c2, u3, l, h, f, p;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return t2 = this.resolveUrl(r2, true), o2 = new URL(t2).pathname.replace(/^\/oeuvre\//, ""), [4, this.fetchHtml(t2, true)];
+            case 1:
+              return s2 = e2.sent(), c2 = (0, n.load)(s2), u3 = c2("body").text().replace(/\s+/g, " "), l = u3.match(/(Web Novel|Light Novel|Manhwa)\s*·\s*([^\n]+)/i), h = /* @__PURE__ */ __name(function(t3) {
+                var e3;
+                return c2("*").each(function(r3, n2) {
+                  var a2 = c2(n2).text().trim().match(new RegExp("^".concat(t3, "\\s*:\\s*(.+)$"), "i"));
+                  if (a2) return e3 = a2[1].trim(), false;
+                }), e3;
+              }, "h"), f = c2("h1,h2,h3").filter(function(t3, e3) {
+                return "synopsis" === c2(e3).text().trim().toLowerCase();
+              }).first(), p = { path: o2, name: c2("h1").first().text().trim(), cover: c2('img[alt^="Couverture de"]').first().attr("src") ? new URL(c2('img[alt^="Couverture de"]').first().attr("src"), this.site).href : a.defaultCover, summary: f.nextAll("p").first().text().trim() || void 0, author: h("Auteur"), artist: h("Traducteur"), genres: h("Genres"), status: /terminé/i.test((null == l ? void 0 : l[2]) || "") ? i.NovelStatus.Completed : /en cours/i.test((null == l ? void 0 : l[2]) || "") ? i.NovelStatus.Ongoing : i.NovelStatus.Unknown }, [4, this.fetchChapterPages(s2, o2)];
+            case 2:
+              return [2, (p.chapters = e2.sent(), p)];
+          }
+        });
+      });
+    }, u2.prototype.parseChapter = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a2, o2, i2, s2, c2, u3;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, this.fetchHtml(this.resolveUrl(r2).replace(this.site.slice(0, -1), ""))];
+            case 1:
+              if (t2 = e2.sent(), a2 = (0, n.load)(t2), o2 = a2("main").first(), i2 = /traduit par|traducteur|navigation|partager|signaler|commentaires?/i, s2 = false, c2 = [], o2.find('h1, h2, h3, h4, h5, h6, p, nav, form, [class*="comment"], [class*="share"], [class*="report"], [class*="translator"]').each(function(t3, e3) {
+                var r3 = a2(e3);
+                return !s2 && (i2.test(r3.text()) ? (s2 = true, false) : void ("p" === e3.tagName && (r3.hasClass("narration") || r3.hasClass("dialogue")) && c2.push(a2.html(e3))));
+              }), u3 = c2.join(""), (0, n.load)(u3).text().trim().length < 200) throw new Error("No readable chapter content found");
+              return [2, u3];
+          }
+        });
+      });
+    }, u2;
   }();
-  exports.default = new l();
+  exports.default = new u();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

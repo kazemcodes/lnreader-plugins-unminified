@@ -1126,18 +1126,18 @@ var LNReaderPlugin = (() => {
     Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
       return b != null && b._isBuffer === true && b !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a, b) {
-      if (isInstance(a, Uint8Array)) a = Buffer3.from(a, a.offset, a.byteLength);
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
+      if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
       if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a) || !Buffer3.isBuffer(b)) {
+      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a === b) return 0;
-      let x = a.length;
+      if (a2 === b) return 0;
+      let x = a2.length;
       let y = b.length;
       for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a[i2] !== b[i2]) {
-          x = a[i2];
+        if (a2[i2] !== b[i2]) {
+          x = a2[i2];
           y = b[i2];
           break;
         }
@@ -4707,9 +4707,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a, b) {
+      function combineFuncs(a2, b) {
         return function(elem) {
-          return a(elem) || b(elem);
+          return a2(elem) || b(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -4853,8 +4853,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i2, arr) {
           return !arr.includes(node, i2 + 1);
         });
-        nodes.sort(function(a, b) {
-          var relative = compareDocumentPosition(a, b);
+        nodes.sort(function(a2, b) {
+          var relative = compareDocumentPosition(a2, b);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -6556,12 +6556,12 @@ var LNReaderPlugin = (() => {
           return [2, 1];
         }
         var idx = 0;
-        var a = 0;
+        var a2 = 0;
         var sign = readSign();
         var number = readNumber();
         if (idx < formula.length && formula.charAt(idx) === "n") {
           idx++;
-          a = sign * (number !== null && number !== void 0 ? number : 1);
+          a2 = sign * (number !== null && number !== void 0 ? number : 1);
           skipWhitespace();
           if (idx < formula.length) {
             sign = readSign();
@@ -6574,7 +6574,7 @@ var LNReaderPlugin = (() => {
         if (number === null || idx < formula.length) {
           throw new Error("n-th rule couldn't be parsed ('".concat(formula, "')"));
         }
-        return [a, sign * number];
+        return [a2, sign * number];
         function readSign() {
           if (formula.charAt(idx) === "-") {
             idx++;
@@ -6622,25 +6622,25 @@ var LNReaderPlugin = (() => {
       exports4.generate = exports4.compile = void 0;
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
-        var a = parsed[0];
+        var a2 = parsed[0];
         var b = parsed[1] - 1;
-        if (b < 0 && a <= 0)
+        if (b < 0 && a2 <= 0)
           return boolbase_1.default.falseFunc;
-        if (a === -1)
+        if (a2 === -1)
           return function(index2) {
             return index2 <= b;
           };
-        if (a === 0)
+        if (a2 === 0)
           return function(index2) {
             return index2 === b;
           };
-        if (a === 1)
+        if (a2 === 1)
           return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
             return index2 >= b;
           };
-        var absA = Math.abs(a);
+        var absA = Math.abs(a2);
         var bMod = (b % absA + absA) % absA;
-        return a > 1 ? function(index2) {
+        return a2 > 1 ? function(index2) {
           return index2 >= b && index2 % absA === bMod;
         } : function(index2) {
           return index2 <= b && index2 % absA === bMod;
@@ -6649,18 +6649,18 @@ var LNReaderPlugin = (() => {
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
-        var a = parsed[0];
+        var a2 = parsed[0];
         var b = parsed[1] - 1;
         var n2 = 0;
-        if (a < 0) {
-          var aPos_1 = -a;
+        if (a2 < 0) {
+          var aPos_1 = -a2;
           var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
           return function() {
             var val2 = minValue_1 + aPos_1 * n2++;
             return val2 > b ? null : val2;
           };
         }
-        if (a === 0)
+        if (a2 === 0)
           return b < 0 ? (
             // There are no result — always return `null`
             function() {
@@ -6673,10 +6673,10 @@ var LNReaderPlugin = (() => {
             }
           );
         if (b < 0) {
-          b += a * Math.ceil(-b / a);
+          b += a2 * Math.ceil(-b / a2);
         }
         return function() {
-          return a * n2++ + b;
+          return a2 * n2++ + b;
         };
       }
       __name(generate, "generate");
@@ -7461,15 +7461,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a, b) {
-        if (b === boolbase_1.default.falseFunc || a === boolbase_1.default.trueFunc) {
-          return a;
+      function reduceRules(a2, b) {
+        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
+          return a2;
         }
-        if (a === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
+        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
           return b;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a(elem) || b(elem);
+          return a2(elem) || b(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -7519,8 +7519,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a, b) {
-        return a === b;
+      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
+        return a2 === b;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -7913,8 +7913,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a, b) {
-          return __spreadArray(__spreadArray([], a, true), b, true);
+        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
+          return __spreadArray(__spreadArray([], a2, true), b, true);
         }));
       }
       __name(select3, "select");
@@ -20168,8 +20168,8 @@ var LNReaderPlugin = (() => {
       function merge2(dst) {
         var ifNotSet = typeof arguments[arguments.length - 1] === "boolean", limit = ifNotSet ? arguments.length - 1 : arguments.length;
         ifNotSet = ifNotSet && arguments[arguments.length - 1];
-        for (var a = 1; a < limit; ++a) {
-          var src = arguments[a];
+        for (var a2 = 1; a2 < limit; ++a2) {
+          var src = arguments[a2];
           if (!src)
             continue;
           for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
@@ -22856,8 +22856,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a, b) {
-        return a.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
+        return a2.id - b.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -25397,151 +25397,168 @@ var LNReaderPlugin = (() => {
   init_process2();
   var e = function(e2, t2, r2, n2) {
     return new (r2 || (r2 = Promise))(function(i2, o2) {
+      function a2(e3) {
+        try {
+          u2(n2.next(e3));
+        } catch (e4) {
+          o2(e4);
+        }
+      }
+      __name(a2, "a");
       function s2(e3) {
         try {
-          u(n2.next(e3));
+          u2(n2.throw(e3));
         } catch (e4) {
           o2(e4);
         }
       }
       __name(s2, "s");
-      function a(e3) {
-        try {
-          u(n2.throw(e3));
-        } catch (e4) {
-          o2(e4);
-        }
-      }
-      __name(a, "a");
-      function u(e3) {
+      function u2(e3) {
         var t3;
         e3.done ? i2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2(function(e4) {
           e4(t3);
-        })).then(s2, a);
+        })).then(a2, s2);
       }
-      __name(u, "u");
-      u((n2 = n2.apply(e2, t2 || [])).next());
+      __name(u2, "u");
+      u2((n2 = n2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
     var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & i2[0]) throw i2[1];
       return i2[1];
-    }, "sent"), trys: [], ops: [] }, s2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return s2.next = a(0), s2.throw = a(1), s2.return = a(2), "function" == typeof Symbol && (s2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return a2.next = s2(0), a2.throw = s2(1), a2.return = s2(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
       return this;
-    }), s2;
-    function a(a2) {
-      return function(u) {
-        return function(a3) {
+    }), a2;
+    function s2(s3) {
+      return function(u2) {
+        return function(s4) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; s2 && (s2 = 0, a3[0] && (o2 = 0)), o2; ) try {
-            if (r2 = 1, n2 && (i2 = 2 & a3[0] ? n2.return : a3[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, a3[1])).done) return i2;
-            switch (n2 = 0, i2 && (a3 = [2 & a3[0], i2.value]), a3[0]) {
+          for (; a2 && (a2 = 0, s4[0] && (o2 = 0)), o2; ) try {
+            if (r2 = 1, n2 && (i2 = 2 & s4[0] ? n2.return : s4[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, s4[1])).done) return i2;
+            switch (n2 = 0, i2 && (s4 = [2 & s4[0], i2.value]), s4[0]) {
               case 0:
               case 1:
-                i2 = a3;
+                i2 = s4;
                 break;
               case 4:
-                return o2.label++, { value: a3[1], done: false };
+                return o2.label++, { value: s4[1], done: false };
               case 5:
-                o2.label++, n2 = a3[1], a3 = [0];
+                o2.label++, n2 = s4[1], s4 = [0];
                 continue;
               case 7:
-                a3 = o2.ops.pop(), o2.trys.pop();
+                s4 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== a3[0] && 2 !== a3[0])) {
+                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
                   o2 = 0;
                   continue;
                 }
-                if (3 === a3[0] && (!i2 || a3[1] > i2[0] && a3[1] < i2[3])) {
-                  o2.label = a3[1];
+                if (3 === s4[0] && (!i2 || s4[1] > i2[0] && s4[1] < i2[3])) {
+                  o2.label = s4[1];
                   break;
                 }
-                if (6 === a3[0] && o2.label < i2[1]) {
-                  o2.label = i2[1], i2 = a3;
+                if (6 === s4[0] && o2.label < i2[1]) {
+                  o2.label = i2[1], i2 = s4;
                   break;
                 }
                 if (i2 && o2.label < i2[2]) {
-                  o2.label = i2[2], o2.ops.push(a3);
+                  o2.label = i2[2], o2.ops.push(s4);
                   break;
                 }
                 i2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            a3 = t2.call(e2, o2);
+            s4 = t2.call(e2, o2);
           } catch (e3) {
-            a3 = [6, e3], n2 = 0;
+            s4 = [6, e3], n2 = 0;
           } finally {
             r2 = i2 = 0;
           }
-          if (5 & a3[0]) throw a3[1];
-          return { value: a3[0] ? a3[1] : void 0, done: true };
-        }([a2, u]);
+          if (5 & s4[0]) throw s4[1];
+          return { value: s4[0] ? s4[1] : void 0, done: true };
+        }([s3, u2]);
       };
     }
-    __name(a, "a");
+    __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = function() {
-    function s2() {
-      this.id = "xiaowaz", this.name = "Xiaowaz", this.icon = "src/fr/xiaowaz/icon.png", this.site = "https://xiaowaz.fr", this.version = "1.0.2";
+  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
+  function s(r2, i2) {
+    return e(this, void 0, void 0, function() {
+      var e2, o2, s2, u2, c;
+      return t(this, function(t2) {
+        switch (t2.label) {
+          case 0:
+            return [4, (0, n.fetchApi)(r2, i2)];
+          case 1:
+            if (!(e2 = t2.sent()).ok) throw new Error("HTTP ".concat(e2.status, " while loading ").concat(r2));
+            return [4, e2.text()];
+          case 2:
+            if (o2 = t2.sent(), (s2 = null === (c = null === (u2 = o2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === u2 ? void 0 : u2[1]) || void 0 === c ? void 0 : c.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && a.has(s2)) throw new Error("Bot challenge while loading ".concat(r2));
+            return [2, o2];
+        }
+      });
+    });
+  }
+  __name(s, "s");
+  var u = function() {
+    function n2() {
+      this.id = "xiaowaz", this.name = "Xiaowaz", this.icon = "src/fr/xiaowaz/icon.png", this.site = "https://xiaowaz.fr", this.version = "1.0.5";
     }
-    __name(s2, "s");
-    return s2.prototype.getCheerio = function(i2) {
+    __name(n2, "n");
+    return n2.prototype.getCheerio = function(n3) {
       return e(this, void 0, void 0, function() {
-        var e2, o2, s3, a;
+        var e2, i2, o2, a2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               e2 = 5, t2.label = 1;
             case 1:
-              if (!(e2 > 0)) return [3, 8];
+              if (!(e2 > 0)) return [3, 7];
               t2.label = 2;
             case 2:
-              return t2.trys.push([2, 5, , 7]), [4, (0, n.fetchApi)(i2)];
+              return t2.trys.push([2, 4, , 6]), o2 = r.load, [4, s(n3)];
             case 3:
-              return [4, t2.sent().text()];
+              return [2, o2.apply(void 0, [t2.sent()])];
             case 4:
-              return s3 = t2.sent(), [2, (0, r.load)(s3)];
-            case 5:
-              return a = t2.sent(), console.error(a), o2 = a, e2--, [4, new Promise(function(e3) {
+              return a2 = t2.sent(), console.error(a2), i2 = a2, e2--, [4, new Promise(function(e3) {
                 return setTimeout(e3, 1e3);
               })];
+            case 5:
+              return t2.sent(), [3, 6];
             case 6:
-              return t2.sent(), [3, 7];
-            case 7:
               return [3, 1];
-            case 8:
-              throw new Error(o2 ? String(o2) : "Error fetching the page");
+            case 7:
+              throw new Error(i2 ? String(i2) : "Error fetching the page");
           }
         });
       });
-    }, s2.prototype.getAllNovels = function() {
+    }, n2.prototype.getAllNovels = function() {
       return e(this, void 0, void 0, function() {
-        var e2, r2, n2, i2 = this;
+        var e2, r2, n3, i2 = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return e2 = [], [4, this.getCheerio(this.site)];
             case 1:
-              return n2 = t2.sent(), [n2("li.page_item").find('a:contains("S\xE9ries")').parent(), n2("li.page_item").find('a:contains("Cr\xE9ations")').parent(), n2("li.page_item").find('a:contains("\u2020")').parent()].forEach(function(t3) {
+              return n3 = t2.sent(), [n3("li.page_item").find('a:contains("S\xE9ries")').parent(), n3("li.page_item").find('a:contains("Cr\xE9ations")').parent(), n3("li.page_item").find('a:contains("\u2020")').parent()].forEach(function(t3) {
                 t3.find("ul.children li").each(function(t4, o2) {
-                  var s3 = n2(o2).first().text().trim().replace("\u2714", ""), a = n2(o2).find("a").attr("href");
-                  a && s3 && "Douluo Dalu" !== s3 && (r2 = { name: s3, path: a.replace(i2.site, "") }, e2.push(r2));
+                  var a2 = n3(o2).first().text().trim().replace("\u2714", ""), s2 = n3(o2).find("a").attr("href");
+                  s2 && a2 && "Douluo Dalu" !== a2 && (r2 = { name: a2, path: s2.replace(i2.site, "") }, e2.push(r2));
                 });
               }), [2, e2];
           }
         });
       });
-    }, s2.prototype.getNovelsCovers = function(r2) {
+    }, n2.prototype.getNovelsCovers = function(r2) {
       return e(this, void 0, void 0, function() {
-        var n2 = this;
+        var n3 = this;
         return t(this, function(o2) {
           switch (o2.label) {
             case 0:
               return [4, Promise.all(r2.map(function(r3) {
-                return e(n2, void 0, void 0, function() {
+                return e(n3, void 0, void 0, function() {
                   var e2;
                   return t(this, function(t2) {
                     switch (t2.label) {
@@ -25558,88 +25575,92 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.popularNovels = function(r2) {
+    }, n2.prototype.popularNovels = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2, i2, o2;
+        var e2, i2, o2, a2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = 5, s2.novels ? [3, 2] : (n2 = s2, [4, this.getAllNovels()]);
+              return e2 = 5, n2.novels ? [3, 2] : (i2 = n2, [4, this.getAllNovels()]);
             case 1:
-              n2.novels = t2.sent(), t2.label = 2;
+              i2.novels = t2.sent(), t2.label = 2;
             case 2:
-              return i2 = s2.novels, o2 = Math.ceil(i2.length / e2), r2 > o2 ? [2, []] : (i2 = i2.slice(e2 * (r2 - 1), e2 * r2), [4, this.getNovelsCovers(i2)]);
+              return o2 = n2.novels, a2 = Math.ceil(o2.length / e2), r2 > a2 ? [2, []] : (o2 = o2.slice(e2 * (r2 - 1), e2 * r2), [4, this.getNovelsCovers(o2)]);
             case 3:
               return [2, t2.sent()];
           }
         });
       });
-    }, s2.prototype.parseNovel = function(r2) {
+    }, n2.prototype.parseNovel = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2, s3, a, u, c, l, h = this;
+        var e2, n3, a2, s2, u2, c, l, h, f = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return e2 = { path: r2, name: "Sans titre" }, [4, this.getCheerio(this.site + r2)];
             case 1:
-              return n2 = t2.sent(), e2.name = n2(".card_title").text().trim(), e2.cover = n2('img[fetchpriority = "high"]').first().attr("src") || n2("img.aligncenter").first().attr("src") || i.defaultCover, e2.status = o.NovelStatus.Ongoing, "\u2714" === e2.name.charAt(e2.name.length - 1) ? (e2.status = o.NovelStatus.Completed, e2.name = e2.name.slice(0, -1)) : r2.startsWith("/series-abandonnees") && (e2.status = o.NovelStatus.Cancelled), s3 = n2(".entry-content").text(), e2.author = this.getAuthor(s3), e2.genres = this.getGenres(s3), r2.startsWith("/oeuvres-originales") && (e2.genres += e2.genres ? ", Oeuvre originale" : "Oeuvre originale"), a = [], u = ["\xC9crit par", "Ecrit par", "Sorties r\xE9guli\xE8res", "Auteur\xA0:", "Statut VO\xA0:", "Nom utilis\xE9\xA0:", "Auteur original\xA0:", "Auteur original de l\u2019oeuvre", "851 chapitres en", "Index\xA0:"], n2(".entry-content > p").each(function(e3, t3) {
-                var r3 = n2(t3);
+              return n3 = t2.sent(), e2.name = n3(".card_title").text().trim(), e2.cover = n3('img[fetchpriority = "high"]').first().attr("src") || n3("img.aligncenter").first().attr("src") || i.defaultCover, e2.status = o.NovelStatus.Ongoing, "\u2714" === e2.name.charAt(e2.name.length - 1) ? (e2.status = o.NovelStatus.Completed, e2.name = e2.name.slice(0, -1)) : r2.startsWith("/series-abandonnees") && (e2.status = o.NovelStatus.Cancelled), a2 = n3(".entry-content").text(), e2.author = this.getAuthor(a2), e2.genres = this.getGenres(a2), r2.startsWith("/oeuvres-originales") && (e2.genres += e2.genres ? ", Oeuvre originale" : "Oeuvre originale"), s2 = [], u2 = ["\xC9crit par", "Ecrit par", "Sorties r\xE9guli\xE8res", "Auteur\xA0:", "Statut VO\xA0:", "Nom utilis\xE9\xA0:", "Auteur original\xA0:", "Auteur original de l\u2019oeuvre", "851 chapitres en", "Index\xA0:"], n3(".entry-content > p").each(function(e3, t3) {
+                var r3 = n3(t3);
                 if (0 !== r3.find('a[href*="xiaowaz.fr/articles"]').length) return false;
                 var i2 = r3.text();
-                if (u.some(function(e4) {
+                if (u2.some(function(e4) {
                   return i2.includes(e4);
                 })) return false;
-                i2.includes("Genre") || i2.includes("Synopsis") || i2.includes("\u91CD\u751F\u4E4B\u8CCA\u884C\u5929\u4E0B") || i2.includes("Rebirth of The Thief Who Roamed The World") || i2.includes("Romance, Com\xE9die, Action, VRMMO, R\xE9incarnation, Futuriste") || a.push(i2);
-              }), e2.summary = a.join("\n").trim(), 0 === (c = n2(".entry-content ul li a")).length && (c = n2(".entry-content p a")), l = [], c.each(function(e3, t3) {
-                var r3 = n2(t3).text().trim(), i2 = n2(t3).attr("href");
-                i2 && i2.includes(h.site) && r3 && l.push({ name: r3, path: i2.replace(h.site, "") });
+                i2.includes("Genre") || i2.includes("Synopsis") || i2.includes("\u91CD\u751F\u4E4B\u8CCA\u884C\u5929\u4E0B") || i2.includes("Rebirth of The Thief Who Roamed The World") || i2.includes("Romance, Com\xE9die, Action, VRMMO, R\xE9incarnation, Futuriste") || s2.push(i2);
+              }), e2.summary = s2.join("\n").trim(), 0 === (c = n3(".entry-content ul li a")).length && (c = n3(".entry-content p a")), l = [], h = /* @__PURE__ */ new Set(), c.each(function(e3, t3) {
+                var r3 = n3(t3).text().trim(), i2 = n3(t3).attr("href");
+                if (i2 && i2.includes(f.site) && !/\.pdf(?:$|[?#])/i.test(i2) && r3) {
+                  var o2 = i2.replace(f.site, "");
+                  if (h.has(o2)) return;
+                  h.add(o2), l.push({ name: r3, path: o2 });
+                }
               }), e2.chapters = l, [2, e2];
           }
         });
       });
-    }, s2.prototype.getAuthor = function(e2) {
+    }, n2.prototype.getAuthor = function(e2) {
       for (var t2 = 0, r2 = [/Écrit par([^\n]*). Traduction/i, /Écrit par([^\n]*)./i, /Auteur original de l’œuvre\u00A0:([^\n]*)VO/i, /Auteur\u00A0:([^\n]*)sur/, /Auteur\u00A0:([^\n]*)/, /Auteure\u00A0:\u00A0([^\n]*)/, /Auteur original de l’oeuvre\u00A0:([^\n]*)/i, /Auteur original\u00A0:([^\n]*)/i]; t2 < r2.length; t2++) {
-        var n2 = r2[t2].exec(e2);
-        if (null !== n2) return n2[1].trim();
+        var n3 = r2[t2].exec(e2);
+        if (null !== n3) return n3[1].trim();
       }
       return "";
-    }, s2.prototype.getGenres = function(e2) {
+    }, n2.prototype.getGenres = function(e2) {
       var t2 = /Genre((?:.*?\n)*?)\s*Synopsis\s*/.exec(e2), r2 = "";
       return null !== t2 && (r2 = t2[1].replace("\xA0", " ").replace("s :", "").replace(":", "").trim()).startsWith("s\n") && (r2 = r2.replace(/^./, "").trim()), r2;
-    }, s2.prototype.parseChapter = function(r2) {
+    }, n2.prototype.parseChapter = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2, i2, o2, s3, a, u;
+        var e2, n3, i2, o2, a2, s2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return [4, this.getCheerio(this.site + r2)];
             case 1:
-              if (e2 = t2.sent(), n2 = e2(".wp-post-navigation"), i2 = e2(".abh_box.abh_box_down.abh_box_business"), o2 = [], s3 = null, n2.length > 0 && i2.length > 0) for (a = n2.next(); a.length > 0 && !a.is(i2) && !(a.find('p > a[href="https://ko-fi.com/wazouille"]').length > 0); ) a.hasClass("footnote_container_prepare") ? s3 = e2.html(a) : (u = "<p>&nbsp;</p>" === (u = e2.html(a)) ? "<p/>" : u, o2.push(u)), a = a.next();
-              return s3 && o2.push(s3), [2, o2.join("\n").trim()];
+              if (e2 = t2.sent(), n3 = e2(".entry-content .wp-post-navigation").first(), i2 = [], o2 = null, n3.length > 0) for (a2 = n3.next(); a2.length > 0 && !a2.hasClass("wp-post-navigation") && !a2.is(".abh_box.abh_box_down.abh_box_business") && !(a2.find('p > a[href="https://ko-fi.com/wazouille"]').length > 0); ) a2.hasClass("footnote_container_prepare") ? o2 = e2.html(a2) : (s2 = "<p>&nbsp;</p>" === (s2 = e2.html(a2)) ? "<p/>" : s2, i2.push(s2)), a2 = a2.next();
+              return o2 && i2.push(o2), [2, i2.join("\n").trim()];
           }
         });
       });
-    }, s2.prototype.searchNovels = function(r2, n2) {
+    }, n2.prototype.searchNovels = function(r2, i2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, o2;
+        var e2, o2, a2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return 1 !== n2 ? [2, []] : s2.novels ? [3, 2] : (e2 = s2, [4, this.getAllNovels()]);
+              return 1 !== i2 ? [2, []] : n2.novels ? [3, 2] : (e2 = n2, [4, this.getAllNovels()]);
             case 1:
               e2.novels = t2.sent(), t2.label = 2;
             case 2:
-              return i2 = s2.novels, o2 = i2.filter(function(e3) {
+              return o2 = n2.novels, a2 = o2.filter(function(e3) {
                 return e3.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().includes(r2.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim());
-              }), [4, this.getNovelsCovers(o2)];
+              }), [4, this.getNovelsCovers(a2)];
             case 3:
               return [2, t2.sent()];
           }
         });
       });
-    }, s2;
+    }, n2;
   }();
-  exports.default = new s();
+  exports.default = new u();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

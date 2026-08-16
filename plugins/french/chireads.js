@@ -21323,7 +21323,7 @@ var LNReaderPlugin = (() => {
         object.onRemove(this);
         return clearCache(this);
       }, "remove");
-      Namespace.prototype.define = /* @__PURE__ */ __name(function define2(path, json) {
+      Namespace.prototype.define = /* @__PURE__ */ __name(function define(path, json) {
         if (util.isString(path))
           path = path.split(".");
         else if (!Array.isArray(path))
@@ -25372,290 +25372,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/dayjs/dayjs.min.js
-  var require_dayjs_min = __commonJS({
-    "node_modules/dayjs/dayjs.min.js"(exports4, module) {
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      !function(t2, e2) {
-        "object" == typeof exports4 && "undefined" != typeof module ? module.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
-      }(exports4, function() {
-        "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
-          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
-          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
-          var r3 = String(t3);
-          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
-        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
-          if (e3.date() < n3.date()) return -t3(n3, e3);
-          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c), s3 = n3 - i3 < 0, u3 = e3.clone().add(r3 + (s3 ? -1 : 1), c);
-          return +(-(r3 + (n3 - i3) / (s3 ? i3 - u3 : u3 - i3)) || 0);
-        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
-          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
-        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c, y: h, w: o2, d: a2, D: d, h: u2, m: s2, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
-        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
-          return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
-        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
-          return t3 instanceof _ || !(!t3 || !t3[p]);
-        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
-          var i3;
-          if (!e3) return g;
-          if ("string" == typeof e3) {
-            var s3 = e3.toLowerCase();
-            D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
-            var u3 = e3.split("-");
-            if (!i3 && u3.length > 1) return t3(u3[0]);
-          } else {
-            var a3 = e3.name;
-            D[a3] = e3, i3 = a3;
-          }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
-        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
-          if (S(t3)) return t3.clone();
-          var n3 = "object" == typeof e3 ? e3 : {};
-          return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v;
-        b.l = w, b.i = S, b.w = function(t3, e3) {
-          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
-        };
-        var _ = function() {
-          function M2(t3) {
-            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
-          }
-          __name(M2, "M");
-          var m2 = M2.prototype;
-          return m2.parse = function(t3) {
-            this.$d = function(t4) {
-              var e3 = t4.date, n3 = t4.utc;
-              if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b.u(e3)) return /* @__PURE__ */ new Date();
-              if (e3 instanceof Date) return new Date(e3);
-              if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r3 = e3.match($2);
-                if (r3) {
-                  var i3 = r3[2] - 1 || 0, s3 = (r3[7] || "0").substring(0, 3);
-                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3);
-                }
-              }
-              return new Date(e3);
-            }(t3), this.init();
-          }, m2.init = function() {
-            var t3 = this.$d;
-            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
-          }, m2.$utils = function() {
-            return b;
-          }, m2.isValid = function() {
-            return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t3, e3) {
-            var n3 = O(t3);
-            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
-          }, m2.isAfter = function(t3, e3) {
-            return O(t3) < this.startOf(e3);
-          }, m2.isBefore = function(t3, e3) {
-            return this.endOf(e3) < O(t3);
-          }, m2.$g = function(t3, e3, n3) {
-            return b.u(t3) ? this[e3] : this.set(n3, t3);
-          }, m2.unix = function() {
-            return Math.floor(this.valueOf() / 1e3);
-          }, m2.valueOf = function() {
-            return this.$d.getTime();
-          }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
-              return r3 ? i3 : i3.endOf(a2);
-            }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
-              case h:
-                return r3 ? l3(1, 0) : l3(31, 11);
-              case c:
-                return r3 ? l3(1, M3) : l3(0, M3 + 1);
-              case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
-              case a2:
-              case d:
-                return $3(v2 + "Hours", 0);
-              case u2:
-                return $3(v2 + "Minutes", 1);
-              case s2:
-                return $3(v2 + "Seconds", 2);
-              case i2:
-                return $3(v2 + "Milliseconds", 3);
-              default:
-                return this.clone();
-            }
-          }, m2.endOf = function(t3) {
-            return this.startOf(t3, false);
-          }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
-            if (o3 === c || o3 === h) {
-              var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
-            } else l3 && this.$d[l3]($3);
-            return this.init(), this;
-          }, m2.set = function(t3, e3) {
-            return this.clone().$set(t3, e3);
-          }, m2.get = function(t3) {
-            return this[b.p(t3)]();
-          }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
-            r3 = Number(r3);
-            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
-              var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
-            }, "y");
-            if ($3 === c) return this.set(c, this.$M + r3);
-            if ($3 === h) return this.set(h, this.$y + r3);
-            if ($3 === a2) return y2(1);
-            if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s2] = e2, d2[u2] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
-            return b.w(m3, this);
-          }, m2.subtract = function(t3, e3) {
-            return this.add(-1 * t3, e3);
-          }, m2.format = function(t3) {
-            var e3 = this, n3 = this.$locale();
-            if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c2 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
-              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
-              return b.s(s3 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
-              var r4 = t4 < 12 ? "AM" : "PM";
-              return n4 ? r4.toLowerCase() : r4;
-            };
-            return r3.replace(y, function(t4, r4) {
-              return r4 || function(t5) {
-                switch (t5) {
-                  case "YY":
-                    return String(e3.$y).slice(-2);
-                  case "YYYY":
-                    return b.s(e3.$y, 4, "0");
-                  case "M":
-                    return a3 + 1;
-                  case "MM":
-                    return b.s(a3 + 1, 2, "0");
-                  case "MMM":
-                    return h2(n3.monthsShort, a3, c2, 3);
-                  case "MMMM":
-                    return h2(c2, a3);
-                  case "D":
-                    return e3.$D;
-                  case "DD":
-                    return b.s(e3.$D, 2, "0");
-                  case "d":
-                    return String(e3.$W);
-                  case "dd":
-                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
-                  case "ddd":
-                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
-                  case "dddd":
-                    return o3[e3.$W];
-                  case "H":
-                    return String(s3);
-                  case "HH":
-                    return b.s(s3, 2, "0");
-                  case "h":
-                    return d2(1);
-                  case "hh":
-                    return d2(2);
-                  case "a":
-                    return $3(s3, u3, true);
-                  case "A":
-                    return $3(s3, u3, false);
-                  case "m":
-                    return String(u3);
-                  case "mm":
-                    return b.s(u3, 2, "0");
-                  case "s":
-                    return String(e3.$s);
-                  case "ss":
-                    return b.s(e3.$s, 2, "0");
-                  case "SSS":
-                    return b.s(e3.$ms, 3, "0");
-                  case "Z":
-                    return i3;
-                }
-                return null;
-              }(t4) || i3.replace(":", "");
-            });
-          }, m2.utcOffset = function() {
-            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b.m(y2, m3);
-            }, "D");
-            switch (M3) {
-              case h:
-                $3 = D2() / 12;
-                break;
-              case c:
-                $3 = D2();
-                break;
-              case f:
-                $3 = D2() / 3;
-                break;
-              case o2:
-                $3 = (g2 - v2) / 6048e5;
-                break;
-              case a2:
-                $3 = (g2 - v2) / 864e5;
-                break;
-              case u2:
-                $3 = g2 / n2;
-                break;
-              case s2:
-                $3 = g2 / e2;
-                break;
-              case i2:
-                $3 = g2 / t2;
-                break;
-              default:
-                $3 = g2;
-            }
-            return l3 ? $3 : b.a($3);
-          }, m2.daysInMonth = function() {
-            return this.endOf(c).$D;
-          }, m2.$locale = function() {
-            return D[this.$L];
-          }, m2.locale = function(t3, e3) {
-            if (!t3) return this.$L;
-            var n3 = this.clone(), r3 = w(t3, e3, true);
-            return r3 && (n3.$L = r3), n3;
-          }, m2.clone = function() {
-            return b.w(this.$d, this);
-          }, m2.toDate = function() {
-            return new Date(this.valueOf());
-          }, m2.toJSON = function() {
-            return this.isValid() ? this.toISOString() : null;
-          }, m2.toISOString = function() {
-            return this.$d.toISOString();
-          }, m2.toString = function() {
-            return this.$d.toUTCString();
-          }, M2;
-        }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s2], ["$H", u2], ["$W", a2], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t3) {
-          k[t3[1]] = function(e3) {
-            return this.$g(e3, t3[0], t3[1]);
-          };
-        }), O.extend = function(t3, e3) {
-          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
-        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
-          return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
-      });
-    }
-  });
-
   // src/types/constants.ts
   var NovelStatus, defaultCover;
   var init_constants = __esm({
@@ -25713,216 +25429,273 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, a2, r2) {
-    return new (a2 || (a2 = Promise))(function(i2, l2) {
-      function n2(e3) {
+  var e = function() {
+    return e = Object.assign || function(e2) {
+      for (var t2, a2 = 1, r2 = arguments.length; a2 < r2; a2++) for (var n2 in t2 = arguments[a2]) Object.prototype.hasOwnProperty.call(t2, n2) && (e2[n2] = t2[n2]);
+      return e2;
+    }, e.apply(this, arguments);
+  }, t = function(e2, t2, a2, r2) {
+    return new (a2 || (a2 = Promise))(function(n2, i2) {
+      function l2(e3) {
         try {
-          u2(r2.next(e3));
+          o2(r2.next(e3));
         } catch (e4) {
-          l2(e4);
+          i2(e4);
         }
       }
-      __name(n2, "n");
+      __name(l2, "l");
       function s2(e3) {
         try {
-          u2(r2.throw(e3));
+          o2(r2.throw(e3));
         } catch (e4) {
-          l2(e4);
+          i2(e4);
         }
       }
       __name(s2, "s");
-      function u2(e3) {
+      function o2(e3) {
         var t3;
-        e3.done ? i2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
+        e3.done ? n2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
           e4(t3);
-        })).then(n2, s2);
+        })).then(l2, s2);
       }
-      __name(u2, "u");
-      u2((r2 = r2.apply(e2, t2 || [])).next());
+      __name(o2, "o");
+      o2((r2 = r2.apply(e2, t2 || [])).next());
     });
-  }, t = function(e2, t2) {
-    var a2, r2, i2, l2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & i2[0]) throw i2[1];
-      return i2[1];
-    }, "sent"), trys: [], ops: [] }, n2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return n2.next = s2(0), n2.throw = s2(1), n2.return = s2(2), "function" == typeof Symbol && (n2[Symbol.iterator] = function() {
+  }, a = function(e2, t2) {
+    var a2, r2, n2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & n2[0]) throw n2[1];
+      return n2[1];
+    }, "sent"), trys: [], ops: [] }, l2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return l2.next = s2(0), l2.throw = s2(1), l2.return = s2(2), "function" == typeof Symbol && (l2[Symbol.iterator] = function() {
       return this;
-    }), n2;
+    }), l2;
     function s2(s3) {
-      return function(u2) {
+      return function(o2) {
         return function(s4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; n2 && (n2 = 0, s4[0] && (l2 = 0)), l2; ) try {
-            if (a2 = 1, r2 && (i2 = 2 & s4[0] ? r2.return : s4[0] ? r2.throw || ((i2 = r2.return) && i2.call(r2), 0) : r2.next) && !(i2 = i2.call(r2, s4[1])).done) return i2;
-            switch (r2 = 0, i2 && (s4 = [2 & s4[0], i2.value]), s4[0]) {
+          for (; l2 && (l2 = 0, s4[0] && (i2 = 0)), i2; ) try {
+            if (a2 = 1, r2 && (n2 = 2 & s4[0] ? r2.return : s4[0] ? r2.throw || ((n2 = r2.return) && n2.call(r2), 0) : r2.next) && !(n2 = n2.call(r2, s4[1])).done) return n2;
+            switch (r2 = 0, n2 && (s4 = [2 & s4[0], n2.value]), s4[0]) {
               case 0:
               case 1:
-                i2 = s4;
+                n2 = s4;
                 break;
               case 4:
-                return l2.label++, { value: s4[1], done: false };
+                return i2.label++, { value: s4[1], done: false };
               case 5:
-                l2.label++, r2 = s4[1], s4 = [0];
+                i2.label++, r2 = s4[1], s4 = [0];
                 continue;
               case 7:
-                s4 = l2.ops.pop(), l2.trys.pop();
+                s4 = i2.ops.pop(), i2.trys.pop();
                 continue;
               default:
-                if (!(i2 = l2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
-                  l2 = 0;
+                if (!(n2 = i2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                  i2 = 0;
                   continue;
                 }
-                if (3 === s4[0] && (!i2 || s4[1] > i2[0] && s4[1] < i2[3])) {
-                  l2.label = s4[1];
+                if (3 === s4[0] && (!n2 || s4[1] > n2[0] && s4[1] < n2[3])) {
+                  i2.label = s4[1];
                   break;
                 }
-                if (6 === s4[0] && l2.label < i2[1]) {
-                  l2.label = i2[1], i2 = s4;
+                if (6 === s4[0] && i2.label < n2[1]) {
+                  i2.label = n2[1], n2 = s4;
                   break;
                 }
-                if (i2 && l2.label < i2[2]) {
-                  l2.label = i2[2], l2.ops.push(s4);
+                if (n2 && i2.label < n2[2]) {
+                  i2.label = n2[2], i2.ops.push(s4);
                   break;
                 }
-                i2[2] && l2.ops.pop(), l2.trys.pop();
+                n2[2] && i2.ops.pop(), i2.trys.pop();
                 continue;
             }
-            s4 = t2.call(e2, l2);
+            s4 = t2.call(e2, i2);
           } catch (e3) {
             s4 = [6, e3], r2 = 0;
           } finally {
-            a2 = i2 = 0;
+            a2 = n2 = 0;
           }
           if (5 & s4[0]) throw s4[1];
           return { value: s4[0] ? s4[1] : void 0, done: true };
-        }([s3, u2]);
+        }([s3, o2]);
       };
     }
     __name(s2, "s");
-  }, a = function(e2) {
-    return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), l = (init_filterInputs(), __toCommonJS(filterInputs_exports)), n = a(require_dayjs_min()), s = (init_defaultCover(), __toCommonJS(defaultCover_exports)), u = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = function() {
-    function a2() {
-      this.id = "chireads", this.name = "Chireads", this.icon = "src/fr/chireads/icon.png", this.site = "https://chireads.com", this.version = "1.0.2", this.filters = { tag: { type: l.FilterTypes.Picker, label: "Tag", value: "all", options: [{ label: "Tous", value: "all" }, { label: "Arts martiaux", value: "arts-martiaux" }, { label: "De faible \xE0 fort", value: "de-faible-a-fort" }, { label: "Adapt\xE9 en manhua", value: "adapte-en-manhua" }, { label: "Cultivation", value: "cultivation" }, { label: "Action", value: "action" }, { label: "Aventure", value: "aventure" }, { label: "Monstres", value: "monstres" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Fantastique", value: "fantastique" }, { label: "Adapt\xE9 en Anim\xE9", value: "adapte-en-anime" }, { label: "Alchimie", value: "alchimie" }, { label: "\xC9l\xE9ments de jeux", value: "elements-de-jeux" }, { label: "Calme Protagoniste", value: "calme-protagoniste" }, { label: "Protagoniste intelligent", value: "protagoniste-intelligent" }, { label: "Polygamie", value: "polygamie" }, { label: "Belle femelle Lea", value: "belle-femelle-lea" }, { label: "Personnages arrogants", value: "personnages-arrogants" }, { label: "Syst\xE8me de niveau", value: "systeme-de-niveau" }, { label: "Cheat", value: "cheat" }, { label: "Protagoniste g\xE9nie", value: "protagoniste-genie" }, { label: "Com\xE9die", value: "comedie" }, { label: "Gamer", value: "gamer" }, { label: "Mariage", value: "mariage" }, { label: "seeking Protag", value: "seeking-protag" }, { label: "Romance pr\xE9coce", value: "romance-precoce" }, { label: "Croissance acc\xE9l\xE9r\xE9e", value: "croissance-acceleree" }, { label: "Artefacts", value: "artefacts" }, { label: "Intelligence artificielle", value: "intelligence-artificielle" }, { label: "Mariage arrang\xE9", value: "mariage-arrange" }, { label: "Mature", value: "mature" }, { label: "Adulte", value: "adulte" }, { label: "Administrateur de syst\xE8me", value: "administrateur-de-systeme" }, { label: "Beau protagoniste", value: "beau-protagoniste" }, { label: "Protagoniste charismatique", value: "protagoniste-charismatique" }, { label: "Protagoniste masculin", value: "protagoniste-masculin" }, { label: "D\xE9mons", value: "demons" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Acad\xE9mie", value: "academie" }, { label: "Cacher les vraies capacit\xE9s", value: "cacher-les-vraies-capacites" }, { label: "Protagoniste surpuissant", value: "protagoniste-surpuissant" }, { label: "Joueur", value: "joueur" }, { label: "Protagoniste fort d\xE8s le d\xE9part", value: "protagoniste-fort-des-le-depart" }, { label: "Immortels", value: "immortels" }, { label: "Cultivation rapide", value: "cultivation-rapide" }, { label: "Harem", value: "harem" }, { label: "Assasins", value: "assasins" }, { label: "De pauvre \xE0 riche", value: "de-pauvre-a-riche" }, { label: "Syst\xE8me de classement de jeux", value: "systeme-de-classement-de-jeux" }, { label: "Capacit\xE9s sp\xE9ciales", value: "capacites-speciales" }, { label: "Vengeance", value: "vengeance" }] } };
+  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = function() {
+    function o2() {
+      this.id = "chireads", this.name = "Chireads", this.icon = "src/fr/chireads/icon.png", this.site = "https://chireads.com", this.version = "2.3.4", this.browserHeaders = { Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36" }, this.restHeaders = { Accept: "application/json, */*;q=0.8", "User-Agent": this.browserHeaders["User-Agent"] }, this.filters = { tag: { type: i.FilterTypes.Picker, label: "Tag", value: "all", options: [{ label: "Tous", value: "all" }, { label: "Arts martiaux", value: "arts-martiaux" }, { label: "De faible \xE0 fort", value: "de-faible-a-fort" }, { label: "Adapt\xE9 en manhua", value: "adapte-en-manhua" }, { label: "Cultivation", value: "cultivation" }, { label: "Action", value: "action" }, { label: "Aventure", value: "aventure" }, { label: "Monstres", value: "monstres" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Fantastique", value: "fantastique" }, { label: "Adapt\xE9 en Anim\xE9", value: "adapte-en-anime" }, { label: "Alchimie", value: "alchimie" }, { label: "\xC9l\xE9ments de jeux", value: "elements-de-jeux" }, { label: "Calme Protagoniste", value: "calme-protagoniste" }, { label: "Protagoniste intelligent", value: "protagoniste-intelligent" }, { label: "Polygamie", value: "polygamie" }, { label: "Belle femelle Lea", value: "belle-femelle-lea" }, { label: "Personnages arrogants", value: "personnages-arrogants" }, { label: "Syst\xE8me de niveau", value: "systeme-de-niveau" }, { label: "Cheat", value: "cheat" }, { label: "Protagoniste g\xE9nie", value: "protagoniste-genie" }, { label: "Com\xE9die", value: "comedie" }, { label: "Gamer", value: "gamer" }, { label: "Mariage", value: "mariage" }, { label: "seeking Protag", value: "seeking-protag" }, { label: "Romance pr\xE9coce", value: "romance-precoce" }, { label: "Croissance acc\xE9l\xE9r\xE9e", value: "croissance-acceleree" }, { label: "Artefacts", value: "artefacts" }, { label: "Intelligence artificielle", value: "intelligence-artificielle" }, { label: "Mariage arrang\xE9", value: "mariage-arrange" }, { label: "Mature", value: "mature" }, { label: "Adulte", value: "adulte" }, { label: "Administrateur de syst\xE8me", value: "administrateur-de-systeme" }, { label: "Beau protagoniste", value: "beau-protagoniste" }, { label: "Protagoniste charismatique", value: "protagoniste-charismatique" }, { label: "Protagoniste masculin", value: "protagoniste-masculin" }, { label: "D\xE9mons", value: "demons" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Acad\xE9mie", value: "academie" }, { label: "Cacher les vraies capacit\xE9s", value: "cacher-les-vraies-capacites" }, { label: "Protagoniste surpuissant", value: "protagoniste-surpuissant" }, { label: "Joueur", value: "joueur" }, { label: "Protagoniste fort d\xE8s le d\xE9part", value: "protagoniste-fort-des-le-depart" }, { label: "Immortels", value: "immortels" }, { label: "Cultivation rapide", value: "cultivation-rapide" }, { label: "Harem", value: "harem" }, { label: "Assasins", value: "assasins" }, { label: "De pauvre \xE0 riche", value: "de-pauvre-a-riche" }, { label: "Syst\xE8me de classement de jeux", value: "systeme-de-classement-de-jeux" }, { label: "Capacit\xE9s sp\xE9ciales", value: "capacites-speciales" }, { label: "Vengeance", value: "vengeance" }] } };
     }
-    __name(a2, "a");
-    return a2.prototype.getCheerio = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    __name(o2, "o");
+    return o2.prototype.getCheerio = function(e2) {
+      return t(this, void 0, void 0, function() {
+        var t2, i2;
+        return a(this, function(a2) {
+          switch (a2.label) {
             case 0:
-              return [4, (0, i.fetchApi)(a3, { headers: { "Accept-Encoding": "deflate" } })];
+              return [4, (0, n.fetchApi)(e2, { headers: this.browserHeaders })];
             case 1:
-              return [4, t2.sent().text()];
+              if (!(t2 = a2.sent()).ok) throw new Error("HTTP ".concat(t2.status, " while loading ").concat(e2));
+              return [4, t2.text()];
             case 2:
-              return e2 = t2.sent(), [2, (0, r.load)(e2)];
+              return i2 = a2.sent(), [2, (0, r.load)(i2)];
           }
         });
       });
-    }, a2.prototype.popularNovels = function(a3, r2) {
-      return e(this, arguments, void 0, function(e2, a4) {
-        var r3, i2, l2, n2, u2, o2, c, f, v, h, p, d, m, b = this, g = a4.filters, y = a4.showLatestNovels;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, o2.prototype.absoluteUrl = function(e2) {
+      if (!e2) return l.defaultCover;
+      try {
+        var t2 = new URL(e2, this.site);
+        return /^https?:$/.test(t2.protocol) ? t2.href : l.defaultCover;
+      } catch (e3) {
+        return l.defaultCover;
+      }
+    }, o2.prototype.toPath = function(e2) {
+      if (!e2) return "";
+      var t2 = new URL(e2, this.site);
+      return /(?:^|\.)chireads\.com$/i.test(t2.hostname) ? "".concat(t2.pathname).concat(t2.search) : "";
+    }, o2.prototype.compactChapterPath = function(e2) {
+      if (!e2) return "";
+      var t2 = new URL(e2, this.site);
+      if (!/(?:^|\.)chireads\.com$/i.test(t2.hostname)) return "";
+      var a2 = t2.pathname.split("/").filter(Boolean);
+      if ("c" === a2[0] && a2[1]) return "/c/".concat(a2[1], "/");
+      var r2 = /* @__PURE__ */ __name(function(e3) {
+        return a2[a2.length - e3];
+      }, "r"), n2 = /^\d{4}$/.test(r2(3) || "") && /^\d{1,2}$/.test(r2(2) || "") && /^\d{1,2}$/.test(r2(1) || ""), i2 = r2(n2 ? 4 : 1);
+      return i2 ? "/c/".concat(i2, "/") : "";
+    }, o2.prototype.parseCards = function(e2) {
+      var t2 = this, a2 = [], r2 = /* @__PURE__ */ new Set();
+      return e2("ul.refresh-card-grid li.refresh-card").each(function(n2, i2) {
+        var l2 = e2(i2).find(".refresh-card-title a").attr("href");
+        l2 && !r2.has(l2) && (r2.add(l2), a2.push({ name: e2(i2).find(".refresh-card-title a").text().trim(), cover: t2.absoluteUrl(e2(i2).find(".refresh-card-cover img").attr("src")), path: t2.toPath(l2) }));
+      }), a2;
+    }, o2.prototype.popularNovels = function(r2, n2) {
+      return t(this, arguments, void 0, function(r3, n3) {
+        var i2, s2, o3, c, u, h, f, p, d, v, m, b, g, y, w, C, x, P, A, S, j = this, k = n3.filters, q = n3.showLatestNovels;
+        return a(this, function(n4) {
+          switch (n4.label) {
             case 0:
-              if (r3 = this.site, i2 = "all", y) r3 += "/category/translatedtales/page/" + e2;
-              else if (g && "string" == typeof g.tag.value && "all" !== g.tag.value && (i2 = g.tag.value), "all" !== i2) r3 += "/tag/" + i2 + "/page/" + e2;
-              else if (e2 > 1) return [2, []];
-              return [4, this.getCheerio(r3)];
+              return q ? 1 !== r3 ? [2, []] : [4, this.getCheerio(this.site)] : [3, 3];
             case 1:
-              if (l2 = t2.sent(), n2 = [], !y && "all" === i2) return [3, 7];
-              o2 = 1, y && (o2 = 2), c = 0, t2.label = 2;
+              return i2 = n4.sent(), s2 = [], o3 = /* @__PURE__ */ new Set(), i2(".dernieres-tabel tbody tr").each(function(e2, t2) {
+                var a2 = i2(t2).find("td").first().find("a").attr("href");
+                a2 && !o3.has(a2) && (o3.add(a2), s2.push({ name: i2(t2).find("td").first().find("a").text().trim().replace(/^\[[TO]\]\s*/, ""), cover: l.defaultCover, path: j.toPath(a2) }));
+              }), [4, Promise.allSettled(s2.map(function(e2) {
+                return t(j, void 0, void 0, function() {
+                  var t2, r4;
+                  return a(this, function(a2) {
+                    switch (a2.label) {
+                      case 0:
+                        return [4, this.getCheerio(this.site + e2.path)];
+                      case 1:
+                        return t2 = a2.sent(), [2, (r4 = t2(".refresh-detail-cover img").attr("src") || t2(".refresh-detail-cover img").attr("data-src")) ? this.absoluteUrl(r4) : l.defaultCover];
+                    }
+                  });
+                });
+              }))];
             case 2:
-              return c < o2 ? 1 !== c ? [3, 4] : [4, this.getCheerio(this.site + "/category/original/page/" + e2)] : [3, 6];
+              return c = n4.sent(), [2, s2.map(function(t2, a2) {
+                var r4;
+                return e(e({}, t2), { cover: "fulfilled" === (null === (r4 = c[a2]) || void 0 === r4 ? void 0 : r4.status) ? c[a2].value : l.defaultCover });
+              })];
             case 3:
-              l2 = t2.sent(), t2.label = 4;
+              return u = null === (S = null == k ? void 0 : k.tag) || void 0 === S ? void 0 : S.value, f = (h = "string" != typeof u || "" === u || "all" === u) ? ["/category/translatedtales", "/category/original"] : ["/tag/".concat(u)], h ? [4, Promise.allSettled(f.map(function(e2) {
+                return j.getCheerio("".concat(j.site).concat(e2, "/page/").concat(r3));
+              }))] : [3, 5];
             case 4:
-              (f = l2(".romans-content li")).length || (f = l2("#content li")), f.each(function(e3, t3) {
-                var a5 = l2(t3).contents().find("div").first().text().trim(), r4 = l2(t3).find("div").first().find("img").attr("src"), i3 = l2(t3).find("div").first().find("a").attr("href");
-                i3 && (u2 = { name: a5, cover: r4, path: i3.replace(b.site, "") }, n2.push(u2));
-              }), t2.label = 5;
+              return d = n4.sent(), [3, 7];
             case 5:
-              return c++, [3, 2];
+              return A = { status: "fulfilled" }, [4, this.getCheerio("".concat(this.site).concat(f[0], "/page/").concat(r3))];
             case 6:
-              return [3, 8];
+              d = [(A.value = n4.sent(), A)], n4.label = 7;
             case 7:
-              12 === (v = l2(':contains("Populaire")').last().parent().next().find("li > div")).length ? v.each(function(e3, t3) {
-                if (e3 % 2 == 0) h = l2(t3).find("img").attr("src");
-                else {
-                  if (p = l2(t3).text().trim(), !(d = l2(t3).find("a").attr("href"))) return;
-                  u2 = { name: p, cover: h || s.defaultCover, path: d.replace(b.site, "") }, n2.push(u2);
+              if (p = d, h && p.every(function(e2) {
+                return "rejected" === e2.status;
+              })) throw new Error("All catalogue pages failed");
+              for (v = [], m = /* @__PURE__ */ new Set(), b = 0, g = p; b < g.length; b++) if ("fulfilled" === (y = g[b]).status) for (w = y.value, C = 0, x = this.parseCards(w); C < x.length; C++) P = x[C], m.has(P.path) || (m.add(P.path), v.push(P));
+              return [2, v];
+          }
+        });
+      });
+    }, o2.prototype.parseNovel = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2, n2, i2, l2 = this;
+        return a(this, function(a2) {
+          switch (a2.label) {
+            case 0:
+              return t2 = { path: this.toPath(r2), name: "" }, [4, this.getCheerio(this.site + t2.path)];
+            case 1:
+              return n2 = a2.sent(), t2.name = n2("h1.refresh-detail-title").first().text().trim(), t2.cover = this.absoluteUrl(n2(".refresh-detail-cover img").attr("src") || n2(".refresh-detail-cover img").attr("data-src")), t2.summary = n2(".refresh-detail-summary-content").text().trim(), n2(".refresh-detail-meta > div").each(function(e2, a3) {
+                var r3 = n2(a3).find("dt").text().trim(), i3 = n2(a3).find("dd").text().trim();
+                if (r3.includes("Auteur")) t2.author = i3;
+                else if (r3.includes("Statut")) {
+                  var l3 = i3.toLowerCase();
+                  l3.includes("en pause") || l3.includes("hiatus") ? t2.status = s.NovelStatus.OnHiatus : l3.includes("complet") || l3.includes("termin") ? t2.status = s.NovelStatus.Completed : t2.status = s.NovelStatus.Ongoing;
                 }
-              }) : (m = v.find("div.popular-list-img img"), v.find("div.popular-list-name").each(function(e3, t3) {
-                var a5 = l2(t3).text().trim(), r4 = l2(m[e3]).attr("src"), i3 = l2(t3).find("a").attr("href");
-                i3 && (u2 = { name: a5, cover: r4, path: i3.replace(b.site, "") }, n2.push(u2));
-              })), t2.label = 8;
-            case 8:
-              return [2, n2];
+              }), i2 = /* @__PURE__ */ new Map(), n2(".refresh-detail-chapter-list a").each(function(t3, a3) {
+                var r3 = n2(a3).attr("href"), s2 = l2.compactChapterPath(r3);
+                if (s2 && !i2.has(s2)) {
+                  var o3 = n2(a3).text().trim(), c = o3.match(/^Chapitre\s+(\d+(?:[.,]\d+)?)\s*(?:(?:–|-|:)\s*)?(.*)$/i), u = new URL(r3, l2.site).pathname.split("/").filter(Boolean).slice(-3), h = /^\d{4}$/.test(u[0] || "") && /^\d{1,2}$/.test(u[1] || "") && /^\d{1,2}$/.test(u[2] || "");
+                  i2.set(s2, e(e({ name: c ? "".concat(c[1]).concat(c[2] ? " - ".concat(c[2].trim()) : "") : o3, path: s2 }, c ? { chapterNumber: Number(c[1].replace(",", ".")) } : {}), h ? { releaseTime: "".concat(u[0], "-").concat(u[1].padStart(2, "0"), "-").concat(u[2].padStart(2, "0")) } : {}));
+                }
+              }), t2.chapters = Array.from(i2.values()), [2, t2];
           }
         });
       });
-    }, a2.prototype.parseNovel = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2, r2, i2, l2, o2, c = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, o2.prototype.parseChapter = function(e2) {
+      return t(this, void 0, void 0, function() {
+        var t2, r2;
+        return a(this, function(a2) {
+          switch (a2.label) {
             case 0:
-              return e2 = { path: a3, name: "Sans titre" }, [4, this.getCheerio(this.site + a3)];
+              return [4, this.getCheerio(this.site + this.compactChapterPath(e2))];
             case 1:
-              switch (r2 = t2.sent(), e2.name = r2(".inform-product-txt").first().text().trim() || r2(".inform-title").text().trim(), e2.cover = r2(".inform-product img").attr("src") || r2(".inform-product-img img").attr("src") || s.defaultCover, e2.summary = r2(".inform-inform-txt").text().trim() || r2(".inform-intr-txt").text().trim(), (i2 = r2("div.inform-product-txt > div.inform-intr-col").text().trim() || r2("div.inform-inform-data > h6").text().trim()).includes("Auteur : ") ? e2.author = i2.substring(i2.indexOf("Auteur : ") + 9, i2.indexOf("Statut de Parution : ")).trim() : i2.includes("Fantrad : ") ? e2.author = i2.substring(i2.indexOf("Fantrad : ") + 10, i2.indexOf("Statut de Parution : ")).trim() : e2.author = "Inconnu", i2.substring(i2.indexOf("Statut de Parution : ") + 21).toLowerCase()) {
-                case "en pause":
-                  e2.status = u.NovelStatus.OnHiatus;
-                  break;
-                case "complet":
-                  e2.status = u.NovelStatus.Completed;
-                  break;
-                default:
-                  e2.status = u.NovelStatus.Ongoing;
-              }
-              return l2 = [], (o2 = r2(".chapitre-table a")).length || (r2("div.inform-annexe-list").first().remove(), o2 = r2(".inform-annexe-list").find("a")), o2.each(function(e3, t3) {
-                var a4 = r2(t3).text().trim(), i3 = r2(t3).attr("href"), s2 = (0, n.default)(null == i3 ? void 0 : i3.substring(i3.length - 11, i3.length - 1)).format("DD MMMM YYYY");
-                i3 && l2.push({ name: a4, releaseTime: s2, path: i3.replace(c.site, "") });
-              }), e2.chapters = l2, [2, e2];
+              if (t2 = a2.sent(), (r2 = t2("#content").first()).find("script, style, iframe, form, nav, footer, .sharedaddy, .ads").remove(), r2.text().replace(/\s+/g, " ").trim().length < 200) throw new Error("Chapter content is not readable");
+              return [2, r2.html() || ""];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(a3) {
-      return e(this, void 0, void 0, function() {
-        var e2;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, o2.prototype.searchNovels = function(e2, r2) {
+      return t(this, void 0, void 0, function() {
+        var i2, s2, o3, c = this;
+        return a(this, function(u) {
+          switch (u.label) {
             case 0:
-              return [4, this.getCheerio(this.site + a3)];
+              return [4, Promise.allSettled([2, 811].map(function(i3) {
+                return t(c, void 0, void 0, function() {
+                  var t2, l2;
+                  return a(this, function(a2) {
+                    switch (a2.label) {
+                      case 0:
+                        return [4, (0, n.fetchApi)("".concat(this.site, "/wp-json/wp/v2/categories?parent=").concat(i3, "&search=").concat(encodeURIComponent(e2), "&per_page=100&page=").concat(r2), { headers: this.restHeaders })];
+                      case 1:
+                        if (!(t2 = a2.sent()).ok) throw new Error("Search parent ".concat(i3, " failed"));
+                        return [4, t2.json()];
+                      case 2:
+                        if (l2 = a2.sent(), !Array.isArray(l2) || !l2.every(function(e3) {
+                          return null !== e3 && "object" == typeof e3 && "string" == typeof e3.name && "string" == typeof e3.link;
+                        })) throw new Error("Search parent ".concat(i3, " returned invalid data"));
+                        return [2, l2];
+                    }
+                  });
+                });
+              }))];
             case 1:
-              return e2 = t2.sent(), [2, e2("#content").html() || ""];
-          }
-        });
-      });
-    }, a2.prototype.searchNovels = function(a3, r2) {
-      return e(this, void 0, void 0, function() {
-        var e2, i2, l2;
-        return t(this, function(t2) {
-          switch (t2.label) {
-            case 0:
-              if (1 !== r2) return [2, []];
-              e2 = [], i2 = 1, l2 = false, t2.label = 1;
-            case 1:
-              return l2 ? [3, 3] : [4, this.popularNovels(i2, { showLatestNovels: true, filters: void 0 }).then(function(t3) {
-                0 === t3.length && (l2 = true), e2.push.apply(e2, t3);
-              })];
-            case 2:
-              return t2.sent(), i2++, [3, 1];
-            case 3:
-              return [2, e2 = e2.filter(function(e3) {
-                return e3.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(a3.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+              if (i2 = u.sent(), s2 = i2.flatMap(function(e3) {
+                return "fulfilled" === e3.status ? e3.value : [];
+              }), i2.every(function(e3) {
+                return "rejected" === e3.status;
+              })) throw new Error("Chireads search failed for all category parents");
+              return o3 = /* @__PURE__ */ new Set(), [2, s2.map(function(e3) {
+                return { name: e3.name, cover: l.defaultCover, path: c.toPath(e3.link) };
+              }).filter(function(e3) {
+                return (e3.path.startsWith("/category/translatedtales/") || e3.path.startsWith("/category/original/")) && !o3.has(e3.path) && Boolean(o3.add(e3.path));
               })];
           }
         });
       });
-    }, a2;
+    }, o2;
   }();
   exports.default = new o();
 })();

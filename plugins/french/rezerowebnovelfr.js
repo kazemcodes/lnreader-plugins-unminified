@@ -2582,7 +2582,7 @@ var LNReaderPlugin = (() => {
           extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
             d2.__proto__ = b2;
           } || function(d2, b2) {
-            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d2[p2] = b2[p2];
           };
           return extendStatics(d, b);
         }, "extendStatics");
@@ -2601,8 +2601,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
@@ -3047,7 +3047,7 @@ var LNReaderPlugin = (() => {
         o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
+        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.DomHandler = void 0;
@@ -4086,8 +4086,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
@@ -5042,7 +5042,7 @@ var LNReaderPlugin = (() => {
         o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
+        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.hasChildren = exports4.isDocument = exports4.isComment = exports4.isText = exports4.isCDATA = exports4.isTag = void 0;
@@ -7707,8 +7707,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
@@ -13627,214 +13627,214 @@ var LNReaderPlugin = (() => {
   });
 
   // node_modules/parse5/dist/parser/index.js
-  function aaObtainFormattingElementEntry(p, token) {
-    let formattingElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
+  function aaObtainFormattingElementEntry(p2, token) {
+    let formattingElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
     if (formattingElementEntry) {
-      if (!p.openElements.contains(formattingElementEntry.element)) {
-        p.activeFormattingElements.removeEntry(formattingElementEntry);
+      if (!p2.openElements.contains(formattingElementEntry.element)) {
+        p2.activeFormattingElements.removeEntry(formattingElementEntry);
         formattingElementEntry = null;
-      } else if (!p.openElements.hasInScope(token.tagID)) {
+      } else if (!p2.openElements.hasInScope(token.tagID)) {
         formattingElementEntry = null;
       }
     } else {
-      genericEndTagInBody(p, token);
+      genericEndTagInBody(p2, token);
     }
     return formattingElementEntry;
   }
-  function aaObtainFurthestBlock(p, formattingElementEntry) {
+  function aaObtainFurthestBlock(p2, formattingElementEntry) {
     let furthestBlock = null;
-    let idx = p.openElements.stackTop;
+    let idx = p2.openElements.stackTop;
     for (; idx >= 0; idx--) {
-      const element = p.openElements.items[idx];
+      const element = p2.openElements.items[idx];
       if (element === formattingElementEntry.element) {
         break;
       }
-      if (p._isSpecialElement(element, p.openElements.tagIDs[idx])) {
+      if (p2._isSpecialElement(element, p2.openElements.tagIDs[idx])) {
         furthestBlock = element;
       }
     }
     if (!furthestBlock) {
-      p.openElements.shortenToLength(idx < 0 ? 0 : idx);
-      p.activeFormattingElements.removeEntry(formattingElementEntry);
+      p2.openElements.shortenToLength(idx < 0 ? 0 : idx);
+      p2.activeFormattingElements.removeEntry(formattingElementEntry);
     }
     return furthestBlock;
   }
-  function aaInnerLoop(p, furthestBlock, formattingElement) {
+  function aaInnerLoop(p2, furthestBlock, formattingElement) {
     let lastElement = furthestBlock;
-    let nextElement = p.openElements.getCommonAncestor(furthestBlock);
+    let nextElement = p2.openElements.getCommonAncestor(furthestBlock);
     for (let i2 = 0, element = nextElement; element !== formattingElement; i2++, element = nextElement) {
-      nextElement = p.openElements.getCommonAncestor(element);
-      const elementEntry = p.activeFormattingElements.getElementEntry(element);
+      nextElement = p2.openElements.getCommonAncestor(element);
+      const elementEntry = p2.activeFormattingElements.getElementEntry(element);
       const counterOverflow = elementEntry && i2 >= AA_INNER_LOOP_ITER;
       const shouldRemoveFromOpenElements = !elementEntry || counterOverflow;
       if (shouldRemoveFromOpenElements) {
         if (counterOverflow) {
-          p.activeFormattingElements.removeEntry(elementEntry);
+          p2.activeFormattingElements.removeEntry(elementEntry);
         }
-        p.openElements.remove(element);
+        p2.openElements.remove(element);
       } else {
-        element = aaRecreateElementFromEntry(p, elementEntry);
+        element = aaRecreateElementFromEntry(p2, elementEntry);
         if (lastElement === furthestBlock) {
-          p.activeFormattingElements.bookmark = elementEntry;
+          p2.activeFormattingElements.bookmark = elementEntry;
         }
-        p.treeAdapter.detachNode(lastElement);
-        p.treeAdapter.appendChild(element, lastElement);
+        p2.treeAdapter.detachNode(lastElement);
+        p2.treeAdapter.appendChild(element, lastElement);
         lastElement = element;
       }
     }
     return lastElement;
   }
-  function aaRecreateElementFromEntry(p, elementEntry) {
-    const ns = p.treeAdapter.getNamespaceURI(elementEntry.element);
-    const newElement = p.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
-    p.openElements.replace(elementEntry.element, newElement);
+  function aaRecreateElementFromEntry(p2, elementEntry) {
+    const ns = p2.treeAdapter.getNamespaceURI(elementEntry.element);
+    const newElement = p2.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
+    p2.openElements.replace(elementEntry.element, newElement);
     elementEntry.element = newElement;
     return newElement;
   }
-  function aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement) {
-    const tn = p.treeAdapter.getTagName(commonAncestor);
+  function aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement) {
+    const tn = p2.treeAdapter.getTagName(commonAncestor);
     const tid = getTagID(tn);
-    if (p._isElementCausesFosterParenting(tid)) {
-      p._fosterParentElement(lastElement);
+    if (p2._isElementCausesFosterParenting(tid)) {
+      p2._fosterParentElement(lastElement);
     } else {
-      const ns = p.treeAdapter.getNamespaceURI(commonAncestor);
+      const ns = p2.treeAdapter.getNamespaceURI(commonAncestor);
       if (tid === TAG_ID.TEMPLATE && ns === NS.HTML) {
-        commonAncestor = p.treeAdapter.getTemplateContent(commonAncestor);
+        commonAncestor = p2.treeAdapter.getTemplateContent(commonAncestor);
       }
-      p.treeAdapter.appendChild(commonAncestor, lastElement);
+      p2.treeAdapter.appendChild(commonAncestor, lastElement);
     }
   }
-  function aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry) {
-    const ns = p.treeAdapter.getNamespaceURI(formattingElementEntry.element);
+  function aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry) {
+    const ns = p2.treeAdapter.getNamespaceURI(formattingElementEntry.element);
     const { token } = formattingElementEntry;
-    const newElement = p.treeAdapter.createElement(token.tagName, ns, token.attrs);
-    p._adoptNodes(furthestBlock, newElement);
-    p.treeAdapter.appendChild(furthestBlock, newElement);
-    p.activeFormattingElements.insertElementAfterBookmark(newElement, token);
-    p.activeFormattingElements.removeEntry(formattingElementEntry);
-    p.openElements.remove(formattingElementEntry.element);
-    p.openElements.insertAfter(furthestBlock, newElement, token.tagID);
+    const newElement = p2.treeAdapter.createElement(token.tagName, ns, token.attrs);
+    p2._adoptNodes(furthestBlock, newElement);
+    p2.treeAdapter.appendChild(furthestBlock, newElement);
+    p2.activeFormattingElements.insertElementAfterBookmark(newElement, token);
+    p2.activeFormattingElements.removeEntry(formattingElementEntry);
+    p2.openElements.remove(formattingElementEntry.element);
+    p2.openElements.insertAfter(furthestBlock, newElement, token.tagID);
   }
-  function callAdoptionAgency(p, token) {
+  function callAdoptionAgency(p2, token) {
     for (let i2 = 0; i2 < AA_OUTER_LOOP_ITER; i2++) {
-      const formattingElementEntry = aaObtainFormattingElementEntry(p, token);
+      const formattingElementEntry = aaObtainFormattingElementEntry(p2, token);
       if (!formattingElementEntry) {
         break;
       }
-      const furthestBlock = aaObtainFurthestBlock(p, formattingElementEntry);
+      const furthestBlock = aaObtainFurthestBlock(p2, formattingElementEntry);
       if (!furthestBlock) {
         break;
       }
-      p.activeFormattingElements.bookmark = formattingElementEntry;
-      const lastElement = aaInnerLoop(p, furthestBlock, formattingElementEntry.element);
-      const commonAncestor = p.openElements.getCommonAncestor(formattingElementEntry.element);
-      p.treeAdapter.detachNode(lastElement);
+      p2.activeFormattingElements.bookmark = formattingElementEntry;
+      const lastElement = aaInnerLoop(p2, furthestBlock, formattingElementEntry.element);
+      const commonAncestor = p2.openElements.getCommonAncestor(formattingElementEntry.element);
+      p2.treeAdapter.detachNode(lastElement);
       if (commonAncestor)
-        aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement);
-      aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry);
+        aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement);
+      aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry);
     }
   }
-  function appendComment(p, token) {
-    p._appendCommentNode(token, p.openElements.currentTmplContentOrNode);
+  function appendComment(p2, token) {
+    p2._appendCommentNode(token, p2.openElements.currentTmplContentOrNode);
   }
-  function appendCommentToRootHtmlElement(p, token) {
-    p._appendCommentNode(token, p.openElements.items[0]);
+  function appendCommentToRootHtmlElement(p2, token) {
+    p2._appendCommentNode(token, p2.openElements.items[0]);
   }
-  function appendCommentToDocument(p, token) {
-    p._appendCommentNode(token, p.document);
+  function appendCommentToDocument(p2, token) {
+    p2._appendCommentNode(token, p2.document);
   }
-  function stopParsing(p, token) {
-    p.stopped = true;
+  function stopParsing(p2, token) {
+    p2.stopped = true;
     if (token.location) {
-      const target = p.fragmentContext ? 0 : 2;
-      for (let i2 = p.openElements.stackTop; i2 >= target; i2--) {
-        p._setEndLocation(p.openElements.items[i2], token);
+      const target = p2.fragmentContext ? 0 : 2;
+      for (let i2 = p2.openElements.stackTop; i2 >= target; i2--) {
+        p2._setEndLocation(p2.openElements.items[i2], token);
       }
-      if (!p.fragmentContext && p.openElements.stackTop >= 0) {
-        const htmlElement = p.openElements.items[0];
-        const htmlLocation = p.treeAdapter.getNodeSourceCodeLocation(htmlElement);
+      if (!p2.fragmentContext && p2.openElements.stackTop >= 0) {
+        const htmlElement = p2.openElements.items[0];
+        const htmlLocation = p2.treeAdapter.getNodeSourceCodeLocation(htmlElement);
         if (htmlLocation && !htmlLocation.endTag) {
-          p._setEndLocation(htmlElement, token);
-          if (p.openElements.stackTop >= 1) {
-            const bodyElement = p.openElements.items[1];
-            const bodyLocation = p.treeAdapter.getNodeSourceCodeLocation(bodyElement);
+          p2._setEndLocation(htmlElement, token);
+          if (p2.openElements.stackTop >= 1) {
+            const bodyElement = p2.openElements.items[1];
+            const bodyLocation = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement);
             if (bodyLocation && !bodyLocation.endTag) {
-              p._setEndLocation(bodyElement, token);
+              p2._setEndLocation(bodyElement, token);
             }
           }
         }
       }
     }
   }
-  function doctypeInInitialMode(p, token) {
-    p._setDocumentType(token);
+  function doctypeInInitialMode(p2, token) {
+    p2._setDocumentType(token);
     const mode = token.forceQuirks ? DOCUMENT_MODE.QUIRKS : getDocumentMode(token);
     if (!isConforming(token)) {
-      p._err(token, ERR.nonConformingDoctype);
+      p2._err(token, ERR.nonConformingDoctype);
     }
-    p.treeAdapter.setDocumentMode(p.document, mode);
-    p.insertionMode = InsertionMode.BEFORE_HTML;
+    p2.treeAdapter.setDocumentMode(p2.document, mode);
+    p2.insertionMode = InsertionMode.BEFORE_HTML;
   }
-  function tokenInInitialMode(p, token) {
-    p._err(token, ERR.missingDoctype, true);
-    p.treeAdapter.setDocumentMode(p.document, DOCUMENT_MODE.QUIRKS);
-    p.insertionMode = InsertionMode.BEFORE_HTML;
-    p._processToken(token);
+  function tokenInInitialMode(p2, token) {
+    p2._err(token, ERR.missingDoctype, true);
+    p2.treeAdapter.setDocumentMode(p2.document, DOCUMENT_MODE.QUIRKS);
+    p2.insertionMode = InsertionMode.BEFORE_HTML;
+    p2._processToken(token);
   }
-  function startTagBeforeHtml(p, token) {
+  function startTagBeforeHtml(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p._insertElement(token, NS.HTML);
-      p.insertionMode = InsertionMode.BEFORE_HEAD;
+      p2._insertElement(token, NS.HTML);
+      p2.insertionMode = InsertionMode.BEFORE_HEAD;
     } else {
-      tokenBeforeHtml(p, token);
+      tokenBeforeHtml(p2, token);
     }
   }
-  function endTagBeforeHtml(p, token) {
+  function endTagBeforeHtml(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HTML || tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.BR) {
-      tokenBeforeHtml(p, token);
+      tokenBeforeHtml(p2, token);
     }
   }
-  function tokenBeforeHtml(p, token) {
-    p._insertFakeRootElement();
-    p.insertionMode = InsertionMode.BEFORE_HEAD;
-    p._processToken(token);
+  function tokenBeforeHtml(p2, token) {
+    p2._insertFakeRootElement();
+    p2.insertionMode = InsertionMode.BEFORE_HEAD;
+    p2._processToken(token);
   }
-  function startTagBeforeHead(p, token) {
+  function startTagBeforeHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.HEAD: {
-        p._insertElement(token, NS.HTML);
-        p.headElement = p.openElements.current;
-        p.insertionMode = InsertionMode.IN_HEAD;
+        p2._insertElement(token, NS.HTML);
+        p2.headElement = p2.openElements.current;
+        p2.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       default: {
-        tokenBeforeHead(p, token);
+        tokenBeforeHead(p2, token);
       }
     }
   }
-  function endTagBeforeHead(p, token) {
+  function endTagBeforeHead(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.HTML || tn === TAG_ID.BR) {
-      tokenBeforeHead(p, token);
+      tokenBeforeHead(p2, token);
     } else {
-      p._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenBeforeHead(p, token) {
-    p._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
-    p.headElement = p.openElements.current;
-    p.insertionMode = InsertionMode.IN_HEAD;
-    p._processToken(token);
+  function tokenBeforeHead(p2, token) {
+    p2._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
+    p2.headElement = p2.openElements.current;
+    p2.insertionMode = InsertionMode.IN_HEAD;
+    p2._processToken(token);
   }
-  function startTagInHead(p, token) {
+  function startTagInHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASE:
@@ -13842,94 +13842,94 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.LINK:
       case TAG_ID.META: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TITLE: {
-        p._switchToTextParsing(token, TokenizerMode.RCDATA);
+        p2._switchToTextParsing(token, TokenizerMode.RCDATA);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p.options.scriptingEnabled) {
-          p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        if (p2.options.scriptingEnabled) {
+          p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         } else {
-          p._insertElement(token, NS.HTML);
-          p.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
+          p2._insertElement(token, NS.HTML);
+          p2.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
         }
         break;
       }
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         break;
       }
       case TAG_ID.SCRIPT: {
-        p._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
+        p2._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        p._insertTemplate(token);
-        p.activeFormattingElements.insertMarker();
-        p.framesetOk = false;
-        p.insertionMode = InsertionMode.IN_TEMPLATE;
-        p.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
+        p2._insertTemplate(token);
+        p2.activeFormattingElements.insertMarker();
+        p2.framesetOk = false;
+        p2.insertionMode = InsertionMode.IN_TEMPLATE;
+        p2.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
         break;
       }
       case TAG_ID.HEAD: {
-        p._err(token, ERR.misplacedStartTagForHeadElement);
+        p2._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenInHead(p, token);
+        tokenInHead(p2, token);
       }
     }
   }
-  function endTagInHead(p, token) {
+  function endTagInHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HEAD: {
-        p.openElements.pop();
-        p.insertionMode = InsertionMode.AFTER_HEAD;
+        p2.openElements.pop();
+        p2.insertionMode = InsertionMode.AFTER_HEAD;
         break;
       }
       case TAG_ID.BODY:
       case TAG_ID.BR:
       case TAG_ID.HTML: {
-        tokenInHead(p, token);
+        tokenInHead(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function templateEndTagInHead(p, token) {
-    if (p.openElements.tmplCount > 0) {
-      p.openElements.generateImpliedEndTagsThoroughly();
-      if (p.openElements.currentTagId !== TAG_ID.TEMPLATE) {
-        p._err(token, ERR.closingOfElementWithOpenChildElements);
+  function templateEndTagInHead(p2, token) {
+    if (p2.openElements.tmplCount > 0) {
+      p2.openElements.generateImpliedEndTagsThoroughly();
+      if (p2.openElements.currentTagId !== TAG_ID.TEMPLATE) {
+        p2._err(token, ERR.closingOfElementWithOpenChildElements);
       }
-      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p.activeFormattingElements.clearToLastMarker();
-      p.tmplInsertionModeStack.shift();
-      p._resetInsertionMode();
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p2.activeFormattingElements.clearToLastMarker();
+      p2.tmplInsertionModeStack.shift();
+      p2._resetInsertionMode();
     } else {
-      p._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenInHead(p, token) {
-    p.openElements.pop();
-    p.insertionMode = InsertionMode.AFTER_HEAD;
-    p._processToken(token);
+  function tokenInHead(p2, token) {
+    p2.openElements.pop();
+    p2.insertionMode = InsertionMode.AFTER_HEAD;
+    p2._processToken(token);
   }
-  function startTagInHeadNoScript(p, token) {
+  function startTagInHeadNoScript(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASEFONT:
@@ -13939,56 +13939,56 @@ var LNReaderPlugin = (() => {
       case TAG_ID.META:
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        p._err(token, ERR.nestedNoscriptInHead);
+        p2._err(token, ERR.nestedNoscriptInHead);
         break;
       }
       default: {
-        tokenInHeadNoScript(p, token);
+        tokenInHeadNoScript(p2, token);
       }
     }
   }
-  function endTagInHeadNoScript(p, token) {
+  function endTagInHeadNoScript(p2, token) {
     switch (token.tagID) {
       case TAG_ID.NOSCRIPT: {
-        p.openElements.pop();
-        p.insertionMode = InsertionMode.IN_HEAD;
+        p2.openElements.pop();
+        p2.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       case TAG_ID.BR: {
-        tokenInHeadNoScript(p, token);
+        tokenInHeadNoScript(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenInHeadNoScript(p, token) {
+  function tokenInHeadNoScript(p2, token) {
     const errCode = token.type === TokenType.EOF ? ERR.openElementsLeftAfterEof : ERR.disallowedContentInNoscriptInHead;
-    p._err(token, errCode);
-    p.openElements.pop();
-    p.insertionMode = InsertionMode.IN_HEAD;
-    p._processToken(token);
+    p2._err(token, errCode);
+    p2.openElements.pop();
+    p2.insertionMode = InsertionMode.IN_HEAD;
+    p2._processToken(token);
   }
-  function startTagAfterHead(p, token) {
+  function startTagAfterHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BODY: {
-        p._insertElement(token, NS.HTML);
-        p.framesetOk = false;
-        p.insertionMode = InsertionMode.IN_BODY;
+        p2._insertElement(token, NS.HTML);
+        p2.framesetOk = false;
+        p2.insertionMode = InsertionMode.IN_BODY;
         break;
       }
       case TAG_ID.FRAMESET: {
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_FRAMESET;
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_FRAMESET;
         break;
       }
       case TAG_ID.BASE:
@@ -14001,321 +14001,321 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        p._err(token, ERR.abandonedHeadElementChild);
-        p.openElements.push(p.headElement, TAG_ID.HEAD);
-        startTagInHead(p, token);
-        p.openElements.remove(p.headElement);
+        p2._err(token, ERR.abandonedHeadElementChild);
+        p2.openElements.push(p2.headElement, TAG_ID.HEAD);
+        startTagInHead(p2, token);
+        p2.openElements.remove(p2.headElement);
         break;
       }
       case TAG_ID.HEAD: {
-        p._err(token, ERR.misplacedStartTagForHeadElement);
+        p2._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenAfterHead(p, token);
+        tokenAfterHead(p2, token);
       }
     }
   }
-  function endTagAfterHead(p, token) {
+  function endTagAfterHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.BODY:
       case TAG_ID.HTML:
       case TAG_ID.BR: {
-        tokenAfterHead(p, token);
+        tokenAfterHead(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenAfterHead(p, token) {
-    p._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterHead(p2, token) {
+    p2._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function modeInBody(p, token) {
+  function modeInBody(p2, token) {
     switch (token.type) {
       case TokenType.CHARACTER: {
-        characterInBody(p, token);
+        characterInBody(p2, token);
         break;
       }
       case TokenType.WHITESPACE_CHARACTER: {
-        whitespaceCharacterInBody(p, token);
+        whitespaceCharacterInBody(p2, token);
         break;
       }
       case TokenType.COMMENT: {
-        appendComment(p, token);
+        appendComment(p2, token);
         break;
       }
       case TokenType.START_TAG: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TokenType.END_TAG: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
         break;
       }
       case TokenType.EOF: {
-        eofInBody(p, token);
+        eofInBody(p2, token);
         break;
       }
       default:
     }
   }
-  function whitespaceCharacterInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertCharacters(token);
+  function whitespaceCharacterInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertCharacters(token);
   }
-  function characterInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertCharacters(token);
-    p.framesetOk = false;
+  function characterInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertCharacters(token);
+    p2.framesetOk = false;
   }
-  function htmlStartTagInBody(p, token) {
-    if (p.openElements.tmplCount === 0) {
-      p.treeAdapter.adoptAttributes(p.openElements.items[0], token.attrs);
+  function htmlStartTagInBody(p2, token) {
+    if (p2.openElements.tmplCount === 0) {
+      p2.treeAdapter.adoptAttributes(p2.openElements.items[0], token.attrs);
     }
   }
-  function bodyStartTagInBody(p, token) {
-    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
-    if (bodyElement && p.openElements.tmplCount === 0) {
-      p.framesetOk = false;
-      p.treeAdapter.adoptAttributes(bodyElement, token.attrs);
+  function bodyStartTagInBody(p2, token) {
+    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+    if (bodyElement && p2.openElements.tmplCount === 0) {
+      p2.framesetOk = false;
+      p2.treeAdapter.adoptAttributes(bodyElement, token.attrs);
     }
   }
-  function framesetStartTagInBody(p, token) {
-    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
-    if (p.framesetOk && bodyElement) {
-      p.treeAdapter.detachNode(bodyElement);
-      p.openElements.popAllUpToHtmlElement();
-      p._insertElement(token, NS.HTML);
-      p.insertionMode = InsertionMode.IN_FRAMESET;
+  function framesetStartTagInBody(p2, token) {
+    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+    if (p2.framesetOk && bodyElement) {
+      p2.treeAdapter.detachNode(bodyElement);
+      p2.openElements.popAllUpToHtmlElement();
+      p2._insertElement(token, NS.HTML);
+      p2.insertionMode = InsertionMode.IN_FRAMESET;
     }
   }
-  function addressStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function addressStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function numberedHeaderStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function numberedHeaderStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    if (NUMBERED_HEADERS.has(p.openElements.currentTagId)) {
-      p.openElements.pop();
+    if (NUMBERED_HEADERS.has(p2.openElements.currentTagId)) {
+      p2.openElements.pop();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function preStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function preStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.skipNextNewLine = true;
-    p.framesetOk = false;
+    p2._insertElement(token, NS.HTML);
+    p2.skipNextNewLine = true;
+    p2.framesetOk = false;
   }
-  function formStartTagInBody(p, token) {
-    const inTemplate = p.openElements.tmplCount > 0;
-    if (!p.formElement || inTemplate) {
-      if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-        p._closePElement();
+  function formStartTagInBody(p2, token) {
+    const inTemplate = p2.openElements.tmplCount > 0;
+    if (!p2.formElement || inTemplate) {
+      if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+        p2._closePElement();
       }
-      p._insertElement(token, NS.HTML);
+      p2._insertElement(token, NS.HTML);
       if (!inTemplate) {
-        p.formElement = p.openElements.current;
+        p2.formElement = p2.openElements.current;
       }
     }
   }
-  function listItemStartTagInBody(p, token) {
-    p.framesetOk = false;
+  function listItemStartTagInBody(p2, token) {
+    p2.framesetOk = false;
     const tn = token.tagID;
-    for (let i2 = p.openElements.stackTop; i2 >= 0; i2--) {
-      const elementId = p.openElements.tagIDs[i2];
+    for (let i2 = p2.openElements.stackTop; i2 >= 0; i2--) {
+      const elementId = p2.openElements.tagIDs[i2];
       if (tn === TAG_ID.LI && elementId === TAG_ID.LI || (tn === TAG_ID.DD || tn === TAG_ID.DT) && (elementId === TAG_ID.DD || elementId === TAG_ID.DT)) {
-        p.openElements.generateImpliedEndTagsWithExclusion(elementId);
-        p.openElements.popUntilTagNamePopped(elementId);
+        p2.openElements.generateImpliedEndTagsWithExclusion(elementId);
+        p2.openElements.popUntilTagNamePopped(elementId);
         break;
       }
-      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p._isSpecialElement(p.openElements.items[i2], elementId)) {
+      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p2._isSpecialElement(p2.openElements.items[i2], elementId)) {
         break;
       }
     }
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function plaintextStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function plaintextStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.tokenizer.state = TokenizerMode.PLAINTEXT;
+    p2._insertElement(token, NS.HTML);
+    p2.tokenizer.state = TokenizerMode.PLAINTEXT;
   }
-  function buttonStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BUTTON)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
+  function buttonStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BUTTON)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
   }
-  function aStartTagInBody(p, token) {
-    const activeElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
+  function aStartTagInBody(p2, token) {
+    const activeElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
     if (activeElementEntry) {
-      callAdoptionAgency(p, token);
-      p.openElements.remove(activeElementEntry.element);
-      p.activeFormattingElements.removeEntry(activeElementEntry);
+      callAdoptionAgency(p2, token);
+      p2.openElements.remove(activeElementEntry.element);
+      p2.activeFormattingElements.removeEntry(activeElementEntry);
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function bStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+  function bStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function nobrStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    if (p.openElements.hasInScope(TAG_ID.NOBR)) {
-      callAdoptionAgency(p, token);
-      p._reconstructActiveFormattingElements();
+  function nobrStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    if (p2.openElements.hasInScope(TAG_ID.NOBR)) {
+      callAdoptionAgency(p2, token);
+      p2._reconstructActiveFormattingElements();
     }
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function appletStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.insertMarker();
-    p.framesetOk = false;
+  function appletStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.insertMarker();
+    p2.framesetOk = false;
   }
-  function tableStartTagInBody(p, token) {
-    if (p.treeAdapter.getDocumentMode(p.document) !== DOCUMENT_MODE.QUIRKS && p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function tableStartTagInBody(p2, token) {
+    if (p2.treeAdapter.getDocumentMode(p2.document) !== DOCUMENT_MODE.QUIRKS && p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
-    p.insertionMode = InsertionMode.IN_TABLE;
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
+    p2.insertionMode = InsertionMode.IN_TABLE;
   }
-  function areaStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._appendElement(token, NS.HTML);
-    p.framesetOk = false;
+  function areaStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._appendElement(token, NS.HTML);
+    p2.framesetOk = false;
     token.ackSelfClosing = true;
   }
   function isHiddenInput(token) {
     const inputType = getTokenAttr(token, ATTRS.TYPE);
     return inputType != null && inputType.toLowerCase() === HIDDEN_INPUT_TYPE;
   }
-  function inputStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._appendElement(token, NS.HTML);
+  function inputStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._appendElement(token, NS.HTML);
     if (!isHiddenInput(token)) {
-      p.framesetOk = false;
+      p2.framesetOk = false;
     }
     token.ackSelfClosing = true;
   }
-  function paramStartTagInBody(p, token) {
-    p._appendElement(token, NS.HTML);
+  function paramStartTagInBody(p2, token) {
+    p2._appendElement(token, NS.HTML);
     token.ackSelfClosing = true;
   }
-  function hrStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function hrStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._appendElement(token, NS.HTML);
-    p.framesetOk = false;
+    p2._appendElement(token, NS.HTML);
+    p2.framesetOk = false;
     token.ackSelfClosing = true;
   }
-  function imageStartTagInBody(p, token) {
+  function imageStartTagInBody(p2, token) {
     token.tagName = TAG_NAMES.IMG;
     token.tagID = TAG_ID.IMG;
-    areaStartTagInBody(p, token);
+    areaStartTagInBody(p2, token);
   }
-  function textareaStartTagInBody(p, token) {
-    p._insertElement(token, NS.HTML);
-    p.skipNextNewLine = true;
-    p.tokenizer.state = TokenizerMode.RCDATA;
-    p.originalInsertionMode = p.insertionMode;
-    p.framesetOk = false;
-    p.insertionMode = InsertionMode.TEXT;
+  function textareaStartTagInBody(p2, token) {
+    p2._insertElement(token, NS.HTML);
+    p2.skipNextNewLine = true;
+    p2.tokenizer.state = TokenizerMode.RCDATA;
+    p2.originalInsertionMode = p2.insertionMode;
+    p2.framesetOk = false;
+    p2.insertionMode = InsertionMode.TEXT;
   }
-  function xmpStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function xmpStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._reconstructActiveFormattingElements();
-    p.framesetOk = false;
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+    p2._reconstructActiveFormattingElements();
+    p2.framesetOk = false;
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function iframeStartTagInBody(p, token) {
-    p.framesetOk = false;
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function iframeStartTagInBody(p2, token) {
+    p2.framesetOk = false;
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function rawTextStartTagInBody(p, token) {
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function rawTextStartTagInBody(p2, token) {
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function selectStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
-    p.insertionMode = p.insertionMode === InsertionMode.IN_TABLE || p.insertionMode === InsertionMode.IN_CAPTION || p.insertionMode === InsertionMode.IN_TABLE_BODY || p.insertionMode === InsertionMode.IN_ROW || p.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
+  function selectStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
+    p2.insertionMode = p2.insertionMode === InsertionMode.IN_TABLE || p2.insertionMode === InsertionMode.IN_CAPTION || p2.insertionMode === InsertionMode.IN_TABLE_BODY || p2.insertionMode === InsertionMode.IN_ROW || p2.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
   }
-  function optgroupStartTagInBody(p, token) {
-    if (p.openElements.currentTagId === TAG_ID.OPTION) {
-      p.openElements.pop();
+  function optgroupStartTagInBody(p2, token) {
+    if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+      p2.openElements.pop();
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
   }
-  function rbStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
-      p.openElements.generateImpliedEndTags();
+  function rbStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
+      p2.openElements.generateImpliedEndTags();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function rtStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
+  function rtStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function mathStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
+  function mathStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
     adjustTokenMathMLAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p._appendElement(token, NS.MATHML);
+      p2._appendElement(token, NS.MATHML);
     } else {
-      p._insertElement(token, NS.MATHML);
+      p2._insertElement(token, NS.MATHML);
     }
     token.ackSelfClosing = true;
   }
-  function svgStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
+  function svgStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
     adjustTokenSVGAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p._appendElement(token, NS.SVG);
+      p2._appendElement(token, NS.SVG);
     } else {
-      p._insertElement(token, NS.SVG);
+      p2._insertElement(token, NS.SVG);
     }
     token.ackSelfClosing = true;
   }
-  function genericStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
+  function genericStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
   }
-  function startTagInBody(p, token) {
+  function startTagInBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.I:
       case TAG_ID.S:
@@ -14329,11 +14329,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        bStartTagInBody(p, token);
+        bStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.A: {
-        aStartTagInBody(p, token);
+        aStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.H1:
@@ -14342,7 +14342,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderStartTagInBody(p, token);
+        numberedHeaderStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.P:
@@ -14370,13 +14370,13 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressStartTagInBody(p, token);
+        addressStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.LI:
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        listItemStartTagInBody(p, token);
+        listItemStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BR:
@@ -14385,38 +14385,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.AREA:
       case TAG_ID.EMBED:
       case TAG_ID.KEYGEN: {
-        areaStartTagInBody(p, token);
+        areaStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.HR: {
-        hrStartTagInBody(p, token);
+        hrStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.RB:
       case TAG_ID.RTC: {
-        rbStartTagInBody(p, token);
+        rbStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.RT:
       case TAG_ID.RP: {
-        rtStartTagInBody(p, token);
+        rtStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.PRE:
       case TAG_ID.LISTING: {
-        preStartTagInBody(p, token);
+        preStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.XMP: {
-        xmpStartTagInBody(p, token);
+        xmpStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.SVG: {
-        svgStartTagInBody(p, token);
+        svgStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlStartTagInBody(p, token);
+        htmlStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASE:
@@ -14428,89 +14428,89 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.BASEFONT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.BODY: {
-        bodyStartTagInBody(p, token);
+        bodyStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInBody(p, token);
+        formStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOBR: {
-        nobrStartTagInBody(p, token);
+        nobrStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.MATH: {
-        mathStartTagInBody(p, token);
+        mathStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInBody(p, token);
+        tableStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInBody(p, token);
+        inputStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.PARAM:
       case TAG_ID.TRACK:
       case TAG_ID.SOURCE: {
-        paramStartTagInBody(p, token);
+        paramStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.IMAGE: {
-        imageStartTagInBody(p, token);
+        imageStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BUTTON: {
-        buttonStartTagInBody(p, token);
+        buttonStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletStartTagInBody(p, token);
+        appletStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.IFRAME: {
-        iframeStartTagInBody(p, token);
+        iframeStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.SELECT: {
-        selectStartTagInBody(p, token);
+        selectStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.OPTION:
       case TAG_ID.OPTGROUP: {
-        optgroupStartTagInBody(p, token);
+        optgroupStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOEMBED:
       case TAG_ID.NOFRAMES: {
-        rawTextStartTagInBody(p, token);
+        rawTextStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        framesetStartTagInBody(p, token);
+        framesetStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.TEXTAREA: {
-        textareaStartTagInBody(p, token);
+        textareaStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p.options.scriptingEnabled) {
-          rawTextStartTagInBody(p, token);
+        if (p2.options.scriptingEnabled) {
+          rawTextStartTagInBody(p2, token);
         } else {
-          genericStartTagInBody(p, token);
+          genericStartTagInBody(p2, token);
         }
         break;
       }
       case TAG_ID.PLAINTEXT: {
-        plaintextStartTagInBody(p, token);
+        plaintextStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.COL:
@@ -14527,106 +14527,106 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        genericStartTagInBody(p, token);
+        genericStartTagInBody(p2, token);
       }
     }
   }
-  function bodyEndTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BODY)) {
-      p.insertionMode = InsertionMode.AFTER_BODY;
-      if (p.options.sourceCodeLocationInfo) {
-        const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
+  function bodyEndTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
+      p2.insertionMode = InsertionMode.AFTER_BODY;
+      if (p2.options.sourceCodeLocationInfo) {
+        const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
         if (bodyElement) {
-          p._setEndLocation(bodyElement, token);
+          p2._setEndLocation(bodyElement, token);
         }
       }
     }
   }
-  function htmlEndTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BODY)) {
-      p.insertionMode = InsertionMode.AFTER_BODY;
-      endTagAfterBody(p, token);
+  function htmlEndTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
+      p2.insertionMode = InsertionMode.AFTER_BODY;
+      endTagAfterBody(p2, token);
     }
   }
-  function addressEndTagInBody(p, token) {
+  function addressEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(tn);
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function formEndTagInBody(p) {
-    const inTemplate = p.openElements.tmplCount > 0;
-    const { formElement } = p;
+  function formEndTagInBody(p2) {
+    const inTemplate = p2.openElements.tmplCount > 0;
+    const { formElement } = p2;
     if (!inTemplate) {
-      p.formElement = null;
+      p2.formElement = null;
     }
-    if ((formElement || inTemplate) && p.openElements.hasInScope(TAG_ID.FORM)) {
-      p.openElements.generateImpliedEndTags();
+    if ((formElement || inTemplate) && p2.openElements.hasInScope(TAG_ID.FORM)) {
+      p2.openElements.generateImpliedEndTags();
       if (inTemplate) {
-        p.openElements.popUntilTagNamePopped(TAG_ID.FORM);
+        p2.openElements.popUntilTagNamePopped(TAG_ID.FORM);
       } else if (formElement) {
-        p.openElements.remove(formElement);
+        p2.openElements.remove(formElement);
       }
     }
   }
-  function pEndTagInBody(p) {
-    if (!p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
+  function pEndTagInBody(p2) {
+    if (!p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
     }
-    p._closePElement();
+    p2._closePElement();
   }
-  function liEndTagInBody(p) {
-    if (p.openElements.hasInListItemScope(TAG_ID.LI)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
-      p.openElements.popUntilTagNamePopped(TAG_ID.LI);
+  function liEndTagInBody(p2) {
+    if (p2.openElements.hasInListItemScope(TAG_ID.LI)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
+      p2.openElements.popUntilTagNamePopped(TAG_ID.LI);
     }
   }
-  function ddEndTagInBody(p, token) {
+  function ddEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(tn);
-      p.openElements.popUntilTagNamePopped(tn);
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(tn);
+      p2.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function numberedHeaderEndTagInBody(p) {
-    if (p.openElements.hasNumberedHeaderInScope()) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilNumberedHeaderPopped();
+  function numberedHeaderEndTagInBody(p2) {
+    if (p2.openElements.hasNumberedHeaderInScope()) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilNumberedHeaderPopped();
     }
   }
-  function appletEndTagInBody(p, token) {
+  function appletEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(tn);
-      p.activeFormattingElements.clearToLastMarker();
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(tn);
+      p2.activeFormattingElements.clearToLastMarker();
     }
   }
-  function brEndTagInBody(p) {
-    p._reconstructActiveFormattingElements();
-    p._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
-    p.openElements.pop();
-    p.framesetOk = false;
+  function brEndTagInBody(p2) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
+    p2.openElements.pop();
+    p2.framesetOk = false;
   }
-  function genericEndTagInBody(p, token) {
+  function genericEndTagInBody(p2, token) {
     const tn = token.tagName;
     const tid = token.tagID;
-    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
-      const element = p.openElements.items[i2];
-      const elementId = p.openElements.tagIDs[i2];
-      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p.treeAdapter.getTagName(element) === tn)) {
-        p.openElements.generateImpliedEndTagsWithExclusion(tid);
-        if (p.openElements.stackTop >= i2)
-          p.openElements.shortenToLength(i2);
+    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
+      const element = p2.openElements.items[i2];
+      const elementId = p2.openElements.tagIDs[i2];
+      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p2.treeAdapter.getTagName(element) === tn)) {
+        p2.openElements.generateImpliedEndTagsWithExclusion(tid);
+        if (p2.openElements.stackTop >= i2)
+          p2.openElements.shortenToLength(i2);
         break;
       }
-      if (p._isSpecialElement(element, elementId)) {
+      if (p2._isSpecialElement(element, elementId)) {
         break;
       }
     }
   }
-  function endTagInBody(p, token) {
+  function endTagInBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.A:
       case TAG_ID.B:
@@ -14642,11 +14642,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        callAdoptionAgency(p, token);
+        callAdoptionAgency(p2, token);
         break;
       }
       case TAG_ID.P: {
-        pEndTagInBody(p);
+        pEndTagInBody(p2);
         break;
       }
       case TAG_ID.DL:
@@ -14676,16 +14676,16 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressEndTagInBody(p, token);
+        addressEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.LI: {
-        liEndTagInBody(p);
+        liEndTagInBody(p2);
         break;
       }
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        ddEndTagInBody(p, token);
+        ddEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.H1:
@@ -14694,191 +14694,191 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderEndTagInBody(p);
+        numberedHeaderEndTagInBody(p2);
         break;
       }
       case TAG_ID.BR: {
-        brEndTagInBody(p);
+        brEndTagInBody(p2);
         break;
       }
       case TAG_ID.BODY: {
-        bodyEndTagInBody(p, token);
+        bodyEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlEndTagInBody(p, token);
+        htmlEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formEndTagInBody(p);
+        formEndTagInBody(p2);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletEndTagInBody(p, token);
+        appletEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        genericEndTagInBody(p, token);
+        genericEndTagInBody(p2, token);
       }
     }
   }
-  function eofInBody(p, token) {
-    if (p.tmplInsertionModeStack.length > 0) {
-      eofInTemplate(p, token);
+  function eofInBody(p2, token) {
+    if (p2.tmplInsertionModeStack.length > 0) {
+      eofInTemplate(p2, token);
     } else {
-      stopParsing(p, token);
+      stopParsing(p2, token);
     }
   }
-  function endTagInText(p, token) {
+  function endTagInText(p2, token) {
     var _a;
     if (token.tagID === TAG_ID.SCRIPT) {
-      (_a = p.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p, p.openElements.current);
+      (_a = p2.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p2, p2.openElements.current);
     }
-    p.openElements.pop();
-    p.insertionMode = p.originalInsertionMode;
+    p2.openElements.pop();
+    p2.insertionMode = p2.originalInsertionMode;
   }
-  function eofInText(p, token) {
-    p._err(token, ERR.eofInElementThatCanContainOnlyText);
-    p.openElements.pop();
-    p.insertionMode = p.originalInsertionMode;
-    p.onEof(token);
+  function eofInText(p2, token) {
+    p2._err(token, ERR.eofInElementThatCanContainOnlyText);
+    p2.openElements.pop();
+    p2.insertionMode = p2.originalInsertionMode;
+    p2.onEof(token);
   }
-  function characterInTable(p, token) {
-    if (TABLE_STRUCTURE_TAGS.has(p.openElements.currentTagId)) {
-      p.pendingCharacterTokens.length = 0;
-      p.hasNonWhitespacePendingCharacterToken = false;
-      p.originalInsertionMode = p.insertionMode;
-      p.insertionMode = InsertionMode.IN_TABLE_TEXT;
+  function characterInTable(p2, token) {
+    if (TABLE_STRUCTURE_TAGS.has(p2.openElements.currentTagId)) {
+      p2.pendingCharacterTokens.length = 0;
+      p2.hasNonWhitespacePendingCharacterToken = false;
+      p2.originalInsertionMode = p2.insertionMode;
+      p2.insertionMode = InsertionMode.IN_TABLE_TEXT;
       switch (token.type) {
         case TokenType.CHARACTER: {
-          characterInTableText(p, token);
+          characterInTableText(p2, token);
           break;
         }
         case TokenType.WHITESPACE_CHARACTER: {
-          whitespaceCharacterInTableText(p, token);
+          whitespaceCharacterInTableText(p2, token);
           break;
         }
       }
     } else {
-      tokenInTable(p, token);
+      tokenInTable(p2, token);
     }
   }
-  function captionStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p.activeFormattingElements.insertMarker();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_CAPTION;
+  function captionStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2.activeFormattingElements.insertMarker();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_CAPTION;
   }
-  function colgroupStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+  function colgroupStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
   }
-  function colStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
-    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-    startTagInColumnGroup(p, token);
+  function colStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
+    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+    startTagInColumnGroup(p2, token);
   }
-  function tbodyStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_TABLE_BODY;
+  function tbodyStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
   }
-  function tdStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
-    p.insertionMode = InsertionMode.IN_TABLE_BODY;
-    startTagInTableBody(p, token);
+  function tdStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
+    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+    startTagInTableBody(p2, token);
   }
-  function tableStartTagInTable(p, token) {
-    if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-      p._resetInsertionMode();
-      p._processStartTag(token);
+  function tableStartTagInTable(p2, token) {
+    if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+      p2._resetInsertionMode();
+      p2._processStartTag(token);
     }
   }
-  function inputStartTagInTable(p, token) {
+  function inputStartTagInTable(p2, token) {
     if (isHiddenInput(token)) {
-      p._appendElement(token, NS.HTML);
+      p2._appendElement(token, NS.HTML);
     } else {
-      tokenInTable(p, token);
+      tokenInTable(p2, token);
     }
     token.ackSelfClosing = true;
   }
-  function formStartTagInTable(p, token) {
-    if (!p.formElement && p.openElements.tmplCount === 0) {
-      p._insertElement(token, NS.HTML);
-      p.formElement = p.openElements.current;
-      p.openElements.pop();
+  function formStartTagInTable(p2, token) {
+    if (!p2.formElement && p2.openElements.tmplCount === 0) {
+      p2._insertElement(token, NS.HTML);
+      p2.formElement = p2.openElements.current;
+      p2.openElements.pop();
     }
   }
-  function startTagInTable(p, token) {
+  function startTagInTable(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TD:
       case TAG_ID.TH:
       case TAG_ID.TR: {
-        tdStartTagInTable(p, token);
+        tdStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.STYLE:
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        colStartTagInTable(p, token);
+        colStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInTable(p, token);
+        formStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInTable(p, token);
+        tableStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        tbodyStartTagInTable(p, token);
+        tbodyStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInTable(p, token);
+        inputStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.CAPTION: {
-        captionStartTagInTable(p, token);
+        captionStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.COLGROUP: {
-        colgroupStartTagInTable(p, token);
+        colgroupStartTagInTable(p2, token);
         break;
       }
       default: {
-        tokenInTable(p, token);
+        tokenInTable(p2, token);
       }
     }
   }
-  function endTagInTable(p, token) {
+  function endTagInTable(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+          p2._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       case TAG_ID.BODY:
@@ -14895,63 +14895,63 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        tokenInTable(p, token);
+        tokenInTable(p2, token);
       }
     }
   }
-  function tokenInTable(p, token) {
-    const savedFosterParentingState = p.fosterParentingEnabled;
-    p.fosterParentingEnabled = true;
-    modeInBody(p, token);
-    p.fosterParentingEnabled = savedFosterParentingState;
+  function tokenInTable(p2, token) {
+    const savedFosterParentingState = p2.fosterParentingEnabled;
+    p2.fosterParentingEnabled = true;
+    modeInBody(p2, token);
+    p2.fosterParentingEnabled = savedFosterParentingState;
   }
-  function whitespaceCharacterInTableText(p, token) {
-    p.pendingCharacterTokens.push(token);
+  function whitespaceCharacterInTableText(p2, token) {
+    p2.pendingCharacterTokens.push(token);
   }
-  function characterInTableText(p, token) {
-    p.pendingCharacterTokens.push(token);
-    p.hasNonWhitespacePendingCharacterToken = true;
+  function characterInTableText(p2, token) {
+    p2.pendingCharacterTokens.push(token);
+    p2.hasNonWhitespacePendingCharacterToken = true;
   }
-  function tokenInTableText(p, token) {
+  function tokenInTableText(p2, token) {
     let i2 = 0;
-    if (p.hasNonWhitespacePendingCharacterToken) {
-      for (; i2 < p.pendingCharacterTokens.length; i2++) {
-        tokenInTable(p, p.pendingCharacterTokens[i2]);
+    if (p2.hasNonWhitespacePendingCharacterToken) {
+      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
+        tokenInTable(p2, p2.pendingCharacterTokens[i2]);
       }
     } else {
-      for (; i2 < p.pendingCharacterTokens.length; i2++) {
-        p._insertCharacters(p.pendingCharacterTokens[i2]);
+      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
+        p2._insertCharacters(p2.pendingCharacterTokens[i2]);
       }
     }
-    p.insertionMode = p.originalInsertionMode;
-    p._processToken(token);
+    p2.insertionMode = p2.originalInsertionMode;
+    p2._processToken(token);
   }
-  function startTagInCaption(p, token) {
+  function startTagInCaption(p2, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-        p.openElements.generateImpliedEndTags();
-        p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-        p.activeFormattingElements.clearToLastMarker();
-        p.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p, token);
+      if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+        p2.openElements.generateImpliedEndTags();
+        p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+        p2.activeFormattingElements.clearToLastMarker();
+        p2.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p2, token);
       }
     } else {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     }
   }
-  function endTagInCaption(p, token) {
+  function endTagInCaption(p2, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.CAPTION:
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-          p.openElements.generateImpliedEndTags();
-          p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-          p.activeFormattingElements.clearToLastMarker();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+          p2.openElements.generateImpliedEndTags();
+          p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+          p2.activeFormattingElements.clearToLastMarker();
+          p2.insertionMode = InsertionMode.IN_TABLE;
           if (tn === TAG_ID.TABLE) {
-            endTagInTable(p, token);
+            endTagInTable(p2, token);
           }
         }
         break;
@@ -14969,72 +14969,72 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
       }
     }
   }
-  function startTagInColumnGroup(p, token) {
+  function startTagInColumnGroup(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default: {
-        tokenInColumnGroup(p, token);
+        tokenInColumnGroup(p2, token);
       }
     }
   }
-  function endTagInColumnGroup(p, token) {
+  function endTagInColumnGroup(p2, token) {
     switch (token.tagID) {
       case TAG_ID.COLGROUP: {
-        if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       case TAG_ID.COL: {
         break;
       }
       default: {
-        tokenInColumnGroup(p, token);
+        tokenInColumnGroup(p2, token);
       }
     }
   }
-  function tokenInColumnGroup(p, token) {
-    if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
-      p.openElements.pop();
-      p.insertionMode = InsertionMode.IN_TABLE;
-      p._processToken(token);
+  function tokenInColumnGroup(p2, token) {
+    if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
+      p2.openElements.pop();
+      p2.insertionMode = InsertionMode.IN_TABLE;
+      p2._processToken(token);
     }
   }
-  function startTagInTableBody(p, token) {
+  function startTagInTableBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        p.openElements.clearBackToTableBodyContext();
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_ROW;
+        p2.openElements.clearBackToTableBodyContext();
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_ROW;
         break;
       }
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p.openElements.clearBackToTableBodyContext();
-        p._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
-        p.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p, token);
+        p2.openElements.clearBackToTableBodyContext();
+        p2._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
+        p2.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p2, token);
         break;
       }
       case TAG_ID.CAPTION:
@@ -15043,38 +15043,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasTableBodyContextInTableScope()) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
-          startTagInTable(p, token);
+        if (p2.openElements.hasTableBodyContextInTableScope()) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
+          startTagInTable(p2, token);
         }
         break;
       }
       default: {
-        startTagInTable(p, token);
+        startTagInTable(p2, token);
       }
     }
   }
-  function endTagInTableBody(p, token) {
+  function endTagInTableBody(p2, token) {
     const tn = token.tagID;
     switch (token.tagID) {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p.openElements.hasTableBodyContextInTableScope()) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
-          endTagInTable(p, token);
+        if (p2.openElements.hasTableBodyContextInTableScope()) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
+          endTagInTable(p2, token);
         }
         break;
       }
@@ -15089,18 +15089,18 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p, token);
+        endTagInTable(p2, token);
       }
     }
   }
-  function startTagInRow(p, token) {
+  function startTagInRow(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p.openElements.clearBackToTableRowContext();
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_CELL;
-        p.activeFormattingElements.insertMarker();
+        p2.openElements.clearBackToTableRowContext();
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_CELL;
+        p2.activeFormattingElements.insertMarker();
         break;
       }
       case TAG_ID.CAPTION:
@@ -15110,46 +15110,46 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          startTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          startTagInTableBody(p2, token);
         }
         break;
       }
       default: {
-        startTagInTable(p, token);
+        startTagInTable(p2, token);
       }
     }
   }
-  function endTagInRow(p, token) {
+  function endTagInRow(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p2, token);
         }
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasInTableScope(token.tagID) || p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(token.tagID) || p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p2, token);
         }
         break;
       }
@@ -15163,31 +15163,31 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p, token);
+        endTagInTable(p2, token);
       }
     }
   }
-  function startTagInCell(p, token) {
+  function startTagInCell(p2, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p.openElements.hasInTableScope(TAG_ID.TD) || p.openElements.hasInTableScope(TAG_ID.TH)) {
-        p._closeTableCell();
-        startTagInRow(p, token);
+      if (p2.openElements.hasInTableScope(TAG_ID.TD) || p2.openElements.hasInTableScope(TAG_ID.TH)) {
+        p2._closeTableCell();
+        startTagInRow(p2, token);
       }
     } else {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     }
   }
-  function endTagInCell(p, token) {
+  function endTagInCell(p2, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p.openElements.generateImpliedEndTags();
-          p.openElements.popUntilTagNamePopped(tn);
-          p.activeFormattingElements.clearToLastMarker();
-          p.insertionMode = InsertionMode.IN_ROW;
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2.openElements.generateImpliedEndTags();
+          p2.openElements.popUntilTagNamePopped(tn);
+          p2.activeFormattingElements.clearToLastMarker();
+          p2.insertionMode = InsertionMode.IN_ROW;
         }
         break;
       }
@@ -15196,9 +15196,9 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p._closeTableCell();
-          endTagInRow(p, token);
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2._closeTableCell();
+          endTagInRow(p2, token);
         }
         break;
       }
@@ -15210,41 +15210,41 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
       }
     }
   }
-  function startTagInSelect(p, token) {
+  function startTagInSelect(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.OPTION: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.OPTGROUP: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.HR: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
@@ -15252,77 +15252,77 @@ var LNReaderPlugin = (() => {
       case TAG_ID.KEYGEN:
       case TAG_ID.TEXTAREA:
       case TAG_ID.SELECT: {
-        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p2._resetInsertionMode();
           if (token.tagID !== TAG_ID.SELECT) {
-            p._processStartTag(token);
+            p2._processStartTag(token);
           }
         }
         break;
       }
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagInSelect(p, token) {
+  function endTagInSelect(p2, token) {
     switch (token.tagID) {
       case TAG_ID.OPTGROUP: {
-        if (p.openElements.stackTop > 0 && p.openElements.currentTagId === TAG_ID.OPTION && p.openElements.tagIDs[p.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.stackTop > 0 && p2.openElements.currentTagId === TAG_ID.OPTION && p2.openElements.tagIDs[p2.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
         break;
       }
       case TAG_ID.OPTION: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
         break;
       }
       case TAG_ID.SELECT: {
-        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p2._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function startTagInSelectInTable(p, token) {
+  function startTagInSelectInTable(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-      p._resetInsertionMode();
-      p._processStartTag(token);
+      p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+      p2._resetInsertionMode();
+      p2._processStartTag(token);
     } else {
-      startTagInSelect(p, token);
+      startTagInSelect(p2, token);
     }
   }
-  function endTagInSelectInTable(p, token) {
+  function endTagInSelectInTable(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      if (p.openElements.hasInTableScope(tn)) {
-        p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-        p._resetInsertionMode();
-        p.onEndTag(token);
+      if (p2.openElements.hasInTableScope(tn)) {
+        p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+        p2._resetInsertionMode();
+        p2.onEndTag(token);
       }
     } else {
-      endTagInSelect(p, token);
+      endTagInSelect(p2, token);
     }
   }
-  function startTagInTemplate(p, token) {
+  function startTagInTemplate(p2, token) {
     switch (token.tagID) {
       // First, handle tags that can start without a mode change
       case TAG_ID.BASE:
@@ -15335,7 +15335,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       // Re-process the token in the appropriate mode
@@ -15344,173 +15344,173 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
-        p.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
+        p2.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
-        p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-        startTagInColumnGroup(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
+        p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+        startTagInColumnGroup(p2, token);
         break;
       }
       case TAG_ID.TR: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
-        p.insertionMode = InsertionMode.IN_TABLE_BODY;
-        startTagInTableBody(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
+        p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+        startTagInTableBody(p2, token);
         break;
       }
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
-        p.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
+        p2.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p2, token);
         break;
       }
       default: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
-        p.insertionMode = InsertionMode.IN_BODY;
-        startTagInBody(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
+        p2.insertionMode = InsertionMode.IN_BODY;
+        startTagInBody(p2, token);
       }
     }
   }
-  function endTagInTemplate(p, token) {
+  function endTagInTemplate(p2, token) {
     if (token.tagID === TAG_ID.TEMPLATE) {
-      templateEndTagInHead(p, token);
+      templateEndTagInHead(p2, token);
     }
   }
-  function eofInTemplate(p, token) {
-    if (p.openElements.tmplCount > 0) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p.activeFormattingElements.clearToLastMarker();
-      p.tmplInsertionModeStack.shift();
-      p._resetInsertionMode();
-      p.onEof(token);
+  function eofInTemplate(p2, token) {
+    if (p2.openElements.tmplCount > 0) {
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p2.activeFormattingElements.clearToLastMarker();
+      p2.tmplInsertionModeStack.shift();
+      p2._resetInsertionMode();
+      p2.onEof(token);
     } else {
-      stopParsing(p, token);
+      stopParsing(p2, token);
     }
   }
-  function startTagAfterBody(p, token) {
+  function startTagAfterBody(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     } else {
-      tokenAfterBody(p, token);
+      tokenAfterBody(p2, token);
     }
   }
-  function endTagAfterBody(p, token) {
+  function endTagAfterBody(p2, token) {
     var _a;
     if (token.tagID === TAG_ID.HTML) {
-      if (!p.fragmentContext) {
-        p.insertionMode = InsertionMode.AFTER_AFTER_BODY;
+      if (!p2.fragmentContext) {
+        p2.insertionMode = InsertionMode.AFTER_AFTER_BODY;
       }
-      if (p.options.sourceCodeLocationInfo && p.openElements.tagIDs[0] === TAG_ID.HTML) {
-        p._setEndLocation(p.openElements.items[0], token);
-        const bodyElement = p.openElements.items[1];
-        if (bodyElement && !((_a = p.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
-          p._setEndLocation(bodyElement, token);
+      if (p2.options.sourceCodeLocationInfo && p2.openElements.tagIDs[0] === TAG_ID.HTML) {
+        p2._setEndLocation(p2.openElements.items[0], token);
+        const bodyElement = p2.openElements.items[1];
+        if (bodyElement && !((_a = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
+          p2._setEndLocation(bodyElement, token);
         }
       }
     } else {
-      tokenAfterBody(p, token);
+      tokenAfterBody(p2, token);
     }
   }
-  function tokenAfterBody(p, token) {
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterBody(p2, token) {
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function startTagInFrameset(p, token) {
+  function startTagInFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.FRAME: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagInFrameset(p, token) {
-    if (token.tagID === TAG_ID.FRAMESET && !p.openElements.isRootHtmlElementCurrent()) {
-      p.openElements.pop();
-      if (!p.fragmentContext && p.openElements.currentTagId !== TAG_ID.FRAMESET) {
-        p.insertionMode = InsertionMode.AFTER_FRAMESET;
+  function endTagInFrameset(p2, token) {
+    if (token.tagID === TAG_ID.FRAMESET && !p2.openElements.isRootHtmlElementCurrent()) {
+      p2.openElements.pop();
+      if (!p2.fragmentContext && p2.openElements.currentTagId !== TAG_ID.FRAMESET) {
+        p2.insertionMode = InsertionMode.AFTER_FRAMESET;
       }
     }
   }
-  function startTagAfterFrameset(p, token) {
+  function startTagAfterFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagAfterFrameset(p, token) {
+  function endTagAfterFrameset(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
+      p2.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
     }
   }
-  function startTagAfterAfterBody(p, token) {
+  function startTagAfterAfterBody(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     } else {
-      tokenAfterAfterBody(p, token);
+      tokenAfterAfterBody(p2, token);
     }
   }
-  function tokenAfterAfterBody(p, token) {
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterAfterBody(p2, token) {
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function startTagAfterAfterFrameset(p, token) {
+  function startTagAfterAfterFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function nullCharacterInForeignContent(p, token) {
+  function nullCharacterInForeignContent(p2, token) {
     token.chars = REPLACEMENT_CHARACTER;
-    p._insertCharacters(token);
+    p2._insertCharacters(token);
   }
-  function characterInForeignContent(p, token) {
-    p._insertCharacters(token);
-    p.framesetOk = false;
+  function characterInForeignContent(p2, token) {
+    p2._insertCharacters(token);
+    p2.framesetOk = false;
   }
-  function popUntilHtmlOrIntegrationPoint(p) {
-    while (p.treeAdapter.getNamespaceURI(p.openElements.current) !== NS.HTML && !p._isIntegrationPoint(p.openElements.currentTagId, p.openElements.current)) {
-      p.openElements.pop();
+  function popUntilHtmlOrIntegrationPoint(p2) {
+    while (p2.treeAdapter.getNamespaceURI(p2.openElements.current) !== NS.HTML && !p2._isIntegrationPoint(p2.openElements.currentTagId, p2.openElements.current)) {
+      p2.openElements.pop();
     }
   }
-  function startTagInForeignContent(p, token) {
+  function startTagInForeignContent(p2, token) {
     if (causesExit(token)) {
-      popUntilHtmlOrIntegrationPoint(p);
-      p._startTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p2);
+      p2._startTagOutsideForeignContent(token);
     } else {
-      const current = p._getAdjustedCurrentElement();
-      const currentNs = p.treeAdapter.getNamespaceURI(current);
+      const current = p2._getAdjustedCurrentElement();
+      const currentNs = p2.treeAdapter.getNamespaceURI(current);
       if (currentNs === NS.MATHML) {
         adjustTokenMathMLAttrs(token);
       } else if (currentNs === NS.SVG) {
@@ -15519,29 +15519,29 @@ var LNReaderPlugin = (() => {
       }
       adjustTokenXMLAttrs(token);
       if (token.selfClosing) {
-        p._appendElement(token, currentNs);
+        p2._appendElement(token, currentNs);
       } else {
-        p._insertElement(token, currentNs);
+        p2._insertElement(token, currentNs);
       }
       token.ackSelfClosing = true;
     }
   }
-  function endTagInForeignContent(p, token) {
+  function endTagInForeignContent(p2, token) {
     if (token.tagID === TAG_ID.P || token.tagID === TAG_ID.BR) {
-      popUntilHtmlOrIntegrationPoint(p);
-      p._endTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p2);
+      p2._endTagOutsideForeignContent(token);
       return;
     }
-    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
-      const element = p.openElements.items[i2];
-      if (p.treeAdapter.getNamespaceURI(element) === NS.HTML) {
-        p._endTagOutsideForeignContent(token);
+    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
+      const element = p2.openElements.items[i2];
+      if (p2.treeAdapter.getNamespaceURI(element) === NS.HTML) {
+        p2._endTagOutsideForeignContent(token);
         break;
       }
-      const tagName = p.treeAdapter.getTagName(element);
+      const tagName = p2.treeAdapter.getTagName(element);
       if (tagName.toLowerCase() === token.tagName) {
         token.tagName = tagName;
-        p.openElements.shortenToLength(i2);
+        p2.openElements.shortenToLength(i2);
         break;
       }
     }
@@ -18530,11 +18530,11 @@ var LNReaderPlugin = (() => {
       init_process2();
       var base64 = exports4;
       base64.length = /* @__PURE__ */ __name(function length(string) {
-        var p = string.length;
-        if (!p)
+        var p2 = string.length;
+        if (!p2)
           return 0;
         var n2 = 0;
-        while (--p % 4 > 1 && string.charAt(p) === "=")
+        while (--p2 % 4 > 1 && string.charAt(p2) === "=")
           ++n2;
         return Math.ceil(string.length * 3) / 4 - n2;
       }, "length");
@@ -19183,9 +19183,9 @@ var LNReaderPlugin = (() => {
       return unsigned ? UZERO : ZERO;
     radix = radix || 10;
     if (radix < 2 || 36 < radix) throw RangeError("radix");
-    var p;
-    if ((p = str.indexOf("-")) > 0) throw Error("interior hyphen");
-    else if (p === 0) {
+    var p2;
+    if ((p2 = str.indexOf("-")) > 0) throw Error("interior hyphen");
+    else if (p2 === 0) {
       return fromString(str.substring(1), unsigned, radix).neg();
     }
     var radixToPower = fromNumber(pow_dbl(radix, 8));
@@ -25473,71 +25473,87 @@ var LNReaderPlugin = (() => {
     __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_browser(), __toCommonJS(browser_exports)), t = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), c = { "/histoire-principale/": { name: "Re:Zero - Histoire Principale", summary: "Histoire principale de Re:Zero traduite en fran\xE7ais." }, "/histoires-annexes/": { name: "Re:Zero - Histoires Annexes", summary: "Histoires annexes (Side Stories) de Re:Zero traduites en fran\xE7ais." }, "/if-stories/": { name: "Re:Zero - IF Stories", summary: "Histoires alternatives (IF Stories) de Re:Zero traduites en fran\xE7ais." } }, s = "https://rezerowebnovelfr.wordpress.com/wp-content/uploads/2021/03/sans-titre-1.png", o = { "/2021/06/12/arc-i-chapitre-4-compensation-pour-un-oreiller/": "SNUserTL", "/2021/06/12/arc-i-prologue-la-chaleur-residuelle-du-commencement/": "SNUserTL", "/2021/06/12/arc-i-chapitre-3-premiere-rencontre-avec-la-magie/": "SNUserTL", "/2021/06/13/arc-i-chapitre-7-des-retrouvailles-incomprehensibles/": "SNUserTL", "/2021/07/14/arc-i-interlude-la-lune-observe/": "SNUserTL", "/2021/06/28/arc-i-chapitre-20-le-groupe-est-au-complet/": "SNUserTL", "/2021/07/14/arc-i-chapitre-21-la-puissance-du-maitre-epeiste/": "SNUserTL", "/2021/06/24/arc-i-chapitre-13-fin-et-commencement/": "SNUserTL", "/2021/06/15/arc-i-chapitre-12-les-retrouvailles-avec-la-sorciere/": "SNUserTL", "/2021/06/24/arc-i-chapitre-14-la-quatrieme-fois-est-la-bonne/": "SNUserTL", "/2021/06/13/arc-i-chapitre-9-atout/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-2-la-gardienne-de-la-bibliotheque-interdite-et-les-servantes-jumelles/": "Eminent Translations", "/2021/06/12/arc-i-chapitre-5-ton-nom/": "SNUserTL", "/2021/06/12/arc-i-chapitre-1-linutile-piece-de-10-yens-striee/": "SNUserTL", "/2021/06/12/arc-i-chapitre-6-la-fin-du-commencement/": "SNUserTL", "/2021/06/26/arc-i-chapitre-17-negociation-dans-la-maison-du-receleur/": "SNUserTL", "/2021/07/14/arc-i-chapitre-22-vivre-dans-un-autre-monde-a-partir-de-zero/": "SNUserTL", "/2021/06/12/arc-i-chapitre-2-ne-temporte-pas-declara-dieu/": "SNUserTL", "/2021/06/28/arc-i-chapitre-19-bataille-dun-spiritualiste/": "SNUserTL", "/2021/06/24/arc-i-chapitre-15-parce-quil-est-le-saint-de-lepee/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-3-je-ne-peux-plus-etre-une-mariee/": "Eminent Translations", "/2021/06/13/arc-i-chapitre-8-le-gout-amer-de-lalcool/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-4-seance-dentrainement-dans-un-autre-monde/": "Eminent Translations", "/2021/06/15/arc-i-chapitre-11-une-lutte-trop-tardive/": "SNUserTL", "/2021/06/26/arc-i-chapitre-16-negociation-dans-les-bidonvilles/": "SNUserTL", "/2021/07/30/arc-ii-chapitre-6-le-retour-du-margrave/": "Eminent Translations", "/2021/07/29/arc-ii-chapitre-1-le-plafond-inconnu-le-couloir-sans-fin/": "Eminent Translations", "/2021/06/15/arc-i-chapitre-10-les-consequences-pour-ceux-qui-ne-savent-pas-tenir-leur-langue/": "SNUserTL", "/2021/06/26/arc-i-chapitre-18-bataille-dans-la-maison-du-receleur/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-5-prise-de-conscience-des-emotions/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-11-le-rassemblement-harmonieux-de-lapres-repas/": "Eminent Translations", "/2021/06/10/arc-iii-interlude-chapitre-1-scene-a-bord-dun-chariot-draconique/": "Ankaa Burner", "/2022/05/31/arc-ii-chapitre-13-le-matin-promis-est-lointain/": "Eminent Translations", "/2021/06/10/arc-iii-interlude-chapitre-2-que-le-festin-commence/": "Ankaa Burner", "/2023/09/24/arc-ii-chapitre-19-les-resultats-de-la-lecture-et-de-lecriture/": "Eminent Translations", "/2020/10/22/arc-4-interlude-chapitre-4-la-naissance-du-ministre-des-affaires-interieures-de-la-faction-emilia/": "Ankaa Burner", "/2020/11/26/arc-5-chapitre-1-ca-commence-toujours-avec-un-visiteur/": "Summary Anon", "/2020/11/05/arc-4-interlude-chapitre-6-une-derniere-chose/": "Ankaa Burner", "/2021/02/04/arc-5-chapitre-3-a-chacun-son-point-de-vue/": "Summary Anon", "/2022/05/31/arc-ii-chapitre-16-la-confusion-de-la-deuxieme-boucle/": "Eminent Translations", "/2022/08/13/arc-ii-chapitre-17-le-son-dune-chaine/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-15-la-deuxieme-erreur-de-jugement-et-la-trahison-des-attentes/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-12-le-duo-compatible-et-pourtant-incompatible/": "Eminent Translations", "/2021/07/30/arc-ii-chapitre-8-la-situation-du-pays-et-la-position-de-cette-fille/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-14-declaration-de-rebellion/": "Eminent Translations", "/2020/10/08/arc-4-interlude-chapitre-2-jeunes-ames-et-spectateur/": "Ankaa Burner", "/2021/02/25/arc-5-chapitre-5-1-2-pristella-la-cite-aqueuse/": "Summary Anon", "/2021/07/30/arc-ii-chapitre-9-les-fruits-de-la-triple-mort/": "Eminent Translations", "/2020/11/19/arc-4-interlude-chapitre-final-une-danse-absurde-au-clair-de-lune/": "Ankaa Burner", "/2020/10/29/arc-4-interlude-chapitre-5-le-piege-danne-rose-et-les-relations-fraternelles/": "Ankaa Burner", "/2023/07/17/arc-ii-chapitre-18-les-troisiemes-retrouvailles/": "Eminent Translations", "/2021/02/18/arc-5-chapitre-4-sur-la-route/": "Summary Anon", "/2021/07/30/arc-ii-chapitre-10-une-negociation-a-double-face/": "Eminent Translations", "/2021/07/30/arc-ii-chapitre-7-la-reunion-conviviale-au-manoir-de-roswaal/": "Eminent Translations", "/2020/10/15/arc-4-interlude-chapitre-3-belle-fille-belle-femme-belle-grand-mere/": "Ankaa Burner", "/2021/06/10/arc-iii-interlude-chapitre-3-chacun-ses-serments/": "Ankaa Burner", "/2021/03/18/arc-5-chapitre-6-deux-chevaliers-spirituels-deux-marchands-avides-et-un-ange-desinteresse/": "DiscountAnon/Nanashi-tan", "/2021/01/21/arc-5-chapitre-2-lignee-du-becheur/": "Summary Anon", "/2020/10/01/arc-4-interlude-chapitre-1-la-relation-de-ces-soeurs/": "Ankaa Burner", "/2021/03/25/arc-iv-annexe-avenement/": "Ankaa Burner", "/2021/05/22/arc-v-chapitre-13-paisible-diner/": "Nanashi-tan", "/2021/08/07/arc-v-chapitre-22-une-reponse-desinvolte/": "Nanashi-tan", "/2021/05/03/arc-v-chapitre-11-une-reunion-surprenante-une-reunion-destinee-et-une-reunion-inattendue/": "Nanashi-tan", "/2021/08/15/arc-v-chapitre-23-situation-perturbee/": "Nanashi-tan", "/2021/07/24/arc-v-chapitre-20-empathie-partagee/": "Nanashi-tan", "/2021/06/05/arc-v-chapitre-14-la-lame-demoniaque-au-clair-de-lune/": "Nanashi-tan", "/2021/10/30/arc-v-chapitre-32-reunion-pour-la-conquete-de-lhotel-de-ville/": "Nanashi-tan", "/2021/12/25/arc-v-chapitre-36-le-commencement-et-la-conclusion-de-lamour/": "Nanashi-tan", "/2021/04/22/arc-v-chapitre-10-les-coutumes-de-la-cite-de-leau/": "Nanashi-tan", "/2021/03/25/arc-5-chapitre-7-le-pecheur-met-les-voiles/": "Discount Anon/Nanashi-tan", "/2021/10/03/arc-v-chapitre-29-gorgeous-tiger/": "Nanashi-tan", "/2021/07/03/arc-v-chapitre-17-cette-armure-toujours-presente/": "Nanashi-tan", "/2021/07/10/arc-v-chapitre-18-un-temps-pour-le-chant-et-la-danse/": "Nanashi-tan", "/2021/09/04/arc-v-chapitre-26-lance-damour/": "Nanashi-tan", "/2021/07/18/arc-v-chapitre-19-le-theatre-de-la-malice/": "Nanashi-tan", "/2021/10/09/arc-5-chapitre-30-tigre-et-chat-sous-la-lune/": "Nanashi-tan", "/2021/11/20/arc-v-chapitre-35-embuscades-et-surprises/": "Nanashi-tan", "/2021/04/08/1427/": "Discount Anon/Nanashi-tan", "/2021/05/15/arc-v-chapitre-12-latmosphere-ecrasante-du-salon-de-the/": "Nanashi-tan", "/2021/11/15/arc-v-chapitre-34-maniement-a-lepee-et-melee/": "Nanashi-tan", "/2021/06/19/arc-v-chapitre-15-un-silence-assourdissant/": "Nanashi-tan", "/2021/06/26/arc-v-chapitre-16-invites-imprevus/": "Nanashi-tan", "/2021/07/31/arc-v-chapitre-21-solution-optimale/": "Nanashi-tan", "/2021/04/15/arc-v-chapitre-9-la-valeur-dune-diva/": "Nanashi-tan", "/2021/08/28/arc-v-chapitre-25-le-theatre-de-leo/": "Nanashi-tan", "/2021/09/11/arc-v-chapitre-27-bruit/": "Nanashi-tan", "/2021/11/08/arc-v-chapitre-33-bataille-pour-la-conquete-de-lhotel-de-ville/": "Nanashi-tan", "/2021/08/21/arc-v-chapitre-24-resolution-de-glace-et-de-feu/": "Nanashi-tan", "/2021/09/19/arc-v-chapitre-28-une-reunion-strategique-couverte-de-blessures/": "Nanashi-tan", "/2021/10/17/arc-v-chapitre-31-le-prix-dune-erreur/": "Nanashi-tan", "/2022/07/30/arc-v-chapitre-59-regulus-corneas/": "Nanashi-tan et Ringo", "/2022/01/15/arc-v-chapitre-39-chevalerie-et-le-retardataire/": "Nanashi-tan", "/2022/06/11/arc-v-chapitre-52-les-etoiles-et-les-archeveques-du-peche/": "Nanashi-tan, Ringo, Frr et Paper", "/2022/03/05/arc-v-chapitre-44-rien-nest-laisse-sous-silence/": "TranslationChicken", "/2022/07/23/arc-v-chapitre-58-foi/": "Nanashi-tan", "/2022/01/08/arc-v-chapitre-38-les-demandes-du-culte-de-la-sorciere/": "Nanashi-tan", "/2022/09/03/arc-v-chapitre-64-le-decouragement-de-liliana-masquerade/": "Nanashi-tan", "/2022/08/13/arc-v-chapitre-61-victime-du-territoire/": "Nanashi-tan", "/2022/08/05/arc-v-chapitre-60-une-conclusion-une-bataille/": "Nanashi-tan et Ringo", "/2022/08/27/arc-v-chapitre-63-la-passion-de-liliana-masquerade/": "Nanashi-tan", "/2022/07/16/arc-v-chapitre-57-la-ou-le-coeur-reside/": "Nanashi-tan", "/2022/01/01/arc-v-chapitre-37-gestion-de-la-defaite/": "Nanashi-tan", "/2022/01/29/arc-v-chapitre-41-reveries-heroiques/": "TranslationChicken", "/2022/09/17/arc-v-chapitre-66-la-scene-de-liliana-masquerade/": "Nanashi-tan", "/2022/02/12/arc-v-chapitre-43-avant-le-rendez-vous/": "Fr", "/2022/05/21/arc-v-chapitre-49-ainsi-debute-la-croisade-contre-lavarice/": "Nanashi-tan", "/2022/09/11/arc-v-chapitre-65-le-regret-de-liliana-masquerade/": "Nanashi-tan", "/2022/06/18/arc-v-chapitre-53-une-ville-de-luttes/": "Ringo et Nanashi-tan", "/2022/06/26/arc-v-chapitre-54-la-puissance-de-combat-des-non-combattants/": "Ringo et Nanashi-tan", "/2022/03/12/arc-v-chapitre-45-une-malediction-inexorable/": "Fr", "/2022/07/02/arc-v-chapitre-55-ladversaire-du-dieu-de-la-guerre/": "Nanashi-tan", "/2022/06/05/arc-v-chapitre-51-la-malice-dans-la-tromperie/": "Nanashi-tan et Ringo", "/2022/01/22/arc-v-chapitre-40-corrosion-de-la-colere/": "Nanashi-tan", "/2022/03/27/arc-v-chapitre-47-lavant-poste-de-la-strategie-de-reconquete-de-la-ville/": "Fr", "/2022/05/14/arc-v-chapitre-48-la-personne-dont-je-tomberai-un-jour-amoureuse/": "TranslationChicken", "/2022/05/28/arc-v-chapitre-50-les-chaines-de-lamour/": "Nanashi-tan", "/2022/07/09/arc-v-chapitre-56-signature-dun-divorce/": "Nanashi-tan", "/2022/02/07/arc-v-chapitre-42-le-plus-recent-des-heros-et-le-plus-ancien-des-heros-%ef%bf%bc/": "TranslationChicken", "/2022/03/19/arc-v-chapitre-46-un-etat-desprit/": "TranslationChicken", "/2022/08/20/arc-v-chapitre-62-leloge-du-guerrier/": "Nanashi-tan et Ringo", "/2022/10/08/arc-v-chapitre-69-un-banquet-repugnant/": "Ringo", "/2022/10/23/arc-v-chapitre-70-eclipse/": "Ringo", "/2022/10/29/arc-v-chapitre-71-la-lame-demoniaque-contre-lancienne-maitre-epeiste/": "Ringo", "/2023/03/11/arc-vi-chapitre-9-percee-dans-le-temps-du-sable/": "Remonwater", "/2022/10/01/arc-v-chapitre-68-mangeur-de-nom-gourmet/": "Ringo", "/2023/02/04/arc-vi-chapitre-4-une-raison-de-temmener-hors-dici/": "Remonwater", "/2023/01/21/arc-vi-chapitre-2-sa-facon-doffrir-un-accueil-chaleureux/": "Remonwater", "/2023/02/18/arc-vi-chapitre-6-la-denomination-juukulius/": "Remonwater", "/2023/02/11/arc-vi-chapitre-5-a-chacun-son-mal-etre/": "Remonwater", "/2023/03/25/arc-vi-chapitre-11-une-voix-audible-et-larmoyante/": "Ringo", "/2023/03/18/arc-vi-chapitre-10-en-un-eclair/": "Ringo", "/2022/11/13/arc-v-chapitre-74-les-consequences-de-la-bataille-pour-pristella-1/": "Gracedharperd et Ice", "/2023/04/03/arc-vi-chapitre-12-le-bapteme-de-la-tour-de-guet/": "Mahubrobin", "/2023/01/14/arc-vi-chapitre-1-le-chemin-du-retour-du-carrosse-draconique/": "Remonwater", "/2023/02/25/arc-vi-chapitre-7-cap-vers-la-mer-de-sable/": "Remonwater", "/2022/12/24/arc-v-chapitre-81-ceux-qui-comblent-le-receptacle-de-lavarice/": "Ice et Gracedharperd", "/2023/01/28/arc-vi-chapitre-3-la-cellule-de-la-petite-fille/": "Remonwater", "/2022/11/19/arc-v-chapitre-75-les-consequences-de-la-bataille-pour-pristella-2/": "Ice et Graced", "/2022/12/17/arc-v-chapitre-80-laissant-derriere-des-ondulations-a-la-surface-de-leau/": "Ice", "/2022/09/24/arc-v-chapitre-67-liliana-masquerade/": "Nanashi-tan", "/2022/12/10/arc-v-chapitre-79-la-tour-de-guet-du-sage/": "Ice", "/2022/11/26/arc-v-chapitre-77-un-chevalier-sans-nom/": "Ringo", "/2022/12/24/arc-v-interlude-i-les-conditions-requises-du-couple/": "Heretic Translations", "/2022/12/24/arc-v-interlude-iii-nom-de-la-chaleur/": "Heretic Translations", "/2023/03/04/arc-vi-chapitre-8-le-bapteme-des-dunes-de-sable/": "Remonwater", "/2022/11/19/arc-v-chapitre-76-les-consequences-de-la-bataille-pour-pristella-3/": "Ice et Graced", "/2022/11/05/arc-v-chapitre-73-theresia-van-astrea/": "Ringo", "/2022/12/24/arc-v-interlude-ii-talent-inexploite/": "Heretic Translations", "/2022/10/29/arc-v-chapitre-72-maitre-epeiste-contre-maitre-epeiste-de-la-generation-precedente/": "Ringo", "/2022/12/03/arc-v-chapitre-78-les-derniers-remous-de-la-cite-aqueuse/": "Ice", "/2023/04/17/arc-vi-chapitre-14-une-foi-batie-sur-le-sable/": "Ice", "/2023/06/26/arc-vi-chapitre-24-un-examinateur-contrariant/": "Hedge", "/2023/07/10/arc-vi-chapitre-26-manieur-de-baton/": "Hedge et Ringo", "/2023/06/10/arc-vi-chapitre-22-lasterisme-du-ciel-blanc-etoile/": "Ice", "/2023/04/08/arc-vi-chapitre-13-le-ridicule-du-sable/": "Mahubrobin", "/2023/04/22/arc-vi-chapitre-15-eparpilles-sur-le-sable/": "Ice", "/2023/09/24/arc-vi-chapitre-37-un-reve-en-papier-mache/": "Ice", "/2023/04/29/arc-vi-chapitre-16-des-restes-maches/": "Mahubrobin", "/2023/08/19/arc-vi-chapitre-32-qui-au-juste/": "Ringo", "/2023/07/31/arc-vi-chapitre-29-loser/": "Ice", "/2023/06/03/arc-vi-chapitre-21-le-defi-du-monolithe/": "Ice", "/2023/05/13/arc-vi-chapitre-18-la-gardienne-de-la-tour-de-sable/": "Ice et Furuta", "/2023/10/09/arc-vi-chapitre-39-ruines/": "Ice et Jaerek", "/2023/06/16/arc-vi-chapitre-23-le-troisieme-etage-de-la-bibliotheque-linspection-de-taygete/": "Nana et Ringo", "/2023/08/12/arc-vi-chapitre-31-un-encouragement-a-la-cooperation-dans-la-tour/": "Hedge", "/2023/08/28/arc-vi-chapitre-33-%e2%96%a0%e2%96%a0%e2%96%a0-%e2%97%8f-%e2%96%a0%e2%96%a0%e2%96%a0/": "TranslationChicken", "/2023/07/15/arc-vi-chapitre-27-le-mur-delectre/": "Ice et Ringo", "/2023/05/27/arc-vi-chapitre-20-shaula-%e2%89%a0-sage-flugel/": "Ice", "/2023/07/22/arc-vi-chapitre-28-julius-juukulius/": "Gracedharperd et Paper", "/2023/10/15/arc-vi-chapitre-40-delaisse-par-les-etoiles/": "Ice", "/2023/09/10/arc-vi-chapitre-35-relations-tendues/": "TranslationChicken", "/2023/09/16/arc-vi-chapitre-36-un-lieu-de-soulagement/": "Ice", "/2023/05/20/arc-vi-chapitre-19-quen-est-il-du-sage/": "Ice et Ringo", "/2023/10/23/arc-vi-chapitre-41-un-parfum-apaisant/": "Ice", "/2023/09/30/arc-vi-chapitre-38-qui-es-tu/": "Ice et Jaerek", "/2023/11/04/arc-vi-chapitre-42-la-tour-des-morts/": "Ice", "/2023/08/05/arc-vi-chapitre-30-la-strategie-de-capture-post-mortem-du-deuxieme-etage/": "Hedge et Nanashi", "/2023/09/02/arc-vi-chapitre-34-au-dehors-de-la-superette-se-trouvait-un-monde-merveilleux/": "TranslationChicken", "/2023/05/07/arc-vi-chapitre-17-le-roi-de-la-mer-de-sable/": "Ice et u/WintryOne", "/2023/07/03/arc-vi-chapitre-25-lhomme-qui-attend-au-deuxieme-etage-electre/": "Hedge", "/2023/12/30/arc-vi-chapitre-51-la-tour-des-vivants-partie-2/": "Ice, Nana et Furuta", "/2023/12/11/arc-vi-chapitre-48-le-meurtre-est-une-habitude/": "Ice, Furuta, Jaerek et Ringo", "/2024/01/13/arc-vi-chapitre-53-%e2%80%95%e2%80%95une-voix-carillonna/": "Ringo", "/2023/11/25/arc-vi-chapitre-46-meili-portroute/": "Ice, Furuta, Ringo et Paperlightning", "/2023/12/23/arc-vi-chapitre-50-a-toi-labsolue-pietre-imitation/": "Ice et PaperLightning", "/2023/12/03/arc-vi-chapitre-47-je-ne-te-pardonnerai-pas/": "Ice", "/2024/02/03/arc-vi-chapitre-56-parlons-de-ce-qui-nous-attend/": "Ringo", "/2023/11/11/arc-vi-chapitre-44-medaille-de-sang/": "Ice", "/2024/01/30/arc-vi-chapitre-55-toi-qui-attends-la-fonte-des-neiges/": "Ringo", "/2024/02/24/arc-vi-chapitre-59-ce-qui-sourit-dans-le-monde-blanc/": "Ringo", "/2023/11/04/arc-vi-chapitre-43-la-tour-des-vivants/": "Ice", "/2024/03/18/arc-vi-chapitre-62-les-tremblements-de-leffondrement/": "Ringo", "/2024/04/23/arc-vi-chapitre-67-petit-roi/": "Ringo", "/2024/02/12/arc-vi-chapitre-57-nen-tenons-pas-compte-pour-linstant/": "Ringo", "/2023/12/16/arc-vi-chapitre-49-a-toi-la-pietre-imitation/": "Ice", "/2024/01/08/arc-vi-chapitre-52-dieu-sil-te-plait-pardonne-moi/": "Furuta, Paper, Ice, Ringo et Nanashi", "/2024/02/17/arc-vi-chapitre-58-ceci-est-ceci-cela-est-cela/": "Ringo", "/2024/05/19/arc-vi-chapitre-71-count-one/": "Ringo", "/2024/03/02/arc-vi-chapitre-60-un-seul-rayon-de-soleil/": "Ringo", "/2024/03/30/arc-vi-chapitre-64-le-deuxieme-obstacle/": "Ringo", "/2024/05/04/arc-vi-chapitre-69-labsurde-marteau-de-fer-de-lepee/": "Ringo", "/2024/03/23/arc-vi-chapitre-63-cinq-obstacles/": "Ringo", "/2024/01/21/arc-vi-chapitre-54-revivre-dans-un-autre-monde-a-partir-de-zero/": "Ice", "/2024/04/13/arc-vi-chapitre-66-deuxieme-chance-jusquau-denouement/": "Ringo", "/2024/04/27/arc-vi-chapitre-68-la-femme-de-scorpius/": "Ringo", "/2024/03/11/arc-vi-chapitre-61-%e2%80%95%e2%80%95leve-toi/": "Ringo", "/2024/05/25/arc-vi-chapitre-72/": "Ringo", "/2024/04/06/arc-vi-chapitre-65-le-deuxieme-le-cinquieme-suivis-de%e2%80%95%e2%80%95/": "Ringo", "/2023/11/20/arc-vi-chapitre-45-letreinte-de-la-culpabilite/": "Ice, Furuta, Ringo et Paperlightning", "/2024/05/11/arc-vi-chapitre-70-letoile-sincere/": "Ringo", "/2024/07/02/arc-vi-chapitre-77-le-flambeau-de-la-contre-attaque/": "Ringo", "/2024/06/18/arc-vi-chapitre-75-rui-arneb/": "Ringo", "/2024/09/15/arc-vi-chapitre-86-converser-a-propos-de-ce-que-hier-recelait/": "Ringo", "/2024/06/01/arc-vi-chapitre-73-natsuki-subaru/": "Ringo", "/2024/07/07/arc-vi-chapitre-78-quatre-coins/": "Auteur anonyme", "/2024/06/23/arc-vi-chapitre-76-lenfer-qui-porte-le-nom-de-soi-meme/": "Ringo", "/2024/09/18/arc-vi-chapitre-87-regard-distant/": "Ringo et Hedge", "/2024/07/20/arc-vi-chapitre-80-mort-de-lesprit/": "Ringo", "/2024/08/04/arc-vi-chapitre-82-une-bataille-sous-entraves/": "Ringo", "/2024/08/20/arc-vi-chapitre-84-ho-hisse-ho-hisse/": "Ringo", "/2024/07/27/arc-vi-chapitre-81-%e2%80%95%e2%80%95enchante-de-vous-rencontrer/": "Ringo", "/2024/07/13/arc-vi-chapitre-79-a-vos-marques-prets-partez/": "Ice et Ringo", "/2024/09/21/arc-vi-chapitre-88-%e2%80%95%e2%80%95je-sollicite-ta-volonte/": "Ringo et Hedge", "/2024/08/12/arc-vi-chapitre-83-ram/": "Ringo", "/2024/09/01/arc-vi-chapitre-85-good-loser/": "Ringo", "/2025/01/12/arc-vii-chapitre-7-cetait-dur-detre-un-homme/": "Ice et Negi", "/2024/09/28/arc-vi-chapitre-89-shaula/": "Eminent", "/2024/12/28/arc-vii-chapitre-3-contre-rem/": "Negi", "/2025/01/05/arc-vii-chapitre-5-cest-dur-detre-un-homme/": "Negi", "/2025/02/01/arc-vii-chapitre-12-lempire-de-vollachia/": "Ice, Hedge, Negi, Kobosuhito et Taurace", "/2024/12/22/arc-vii-chapitre-2-animal-tracking/": "Negi", "/2025/01/11/arc-vii-chapitre-6-une-terre-lointaine-au-sud/": "Ice et Erifuru", "/2024/12/21/arc-vii-chapitre-1-bapteme/": "Ice, Hedge, Ringo et Negi", "/2025/01/18/arc-vii-chapitre-8-nom/": "Ice, Negi, Kobosuhito et Taurace", "/2024/06/08/arc-vi-chapitre-74-natsuki-subaru/": "Ringo", "/2024/10/13/arc-vi-chapitre-90-heros/": "Eminent", "/2025/01/04/arc-vii-chapitre-4-un-choix-courageux/": "Negi et Ice", "/2025/01/26/arc-vii-chapitre-11-le-rituel-du-serment-de-sang/": "Ice, Hedge, Negi, Kobosuhito et Taurace", "/2025/01/25/arc-vii-chapitre-10-le-peuple-de-shudraq/": "Negi, Kobosuhito et Taurace", "/2025/01/19/arc-vii-chapitre-9-la-facon-de-faire-de-lempire/": "Ice, Negi, Kobosuhito et Taurace", "/2025/03/09/arc-vii-chapitre-21-zikr-osman/": "Kobosuhito et Taurace", "/2025/03/09/arc-vii-chapitre-22-le-plan-de-reddition-sans-effusion-de-sang/": "Kobosuhito, Taurace et Polaris", "/2025/08/19/arc-vii-chapitre-28-conditions-de-victoire/": "Witch Cult Translation", "/2025/08/12/arc-vii-chapitre-27-ceux-qui-ont-et-ceux-qui-nont-pas/": "Witch Cult Translation", "/2025/02/09/arc-vii-chapitre-14-des-valeurs-inconciliables/": "Negi, Kobosuhito et Taurace", "/2025/08/30/arc-vii-chapitre-32-la-voie-a-suivre/": "Witch Cult Translation", "/2025/09/14/arc-vii-chapitre-37-le-seigneur-du-chateau-du-lapis-ecarlate/": "Witch Cult Translation", "/2025/08/20/arc-vii-chapitre-29-a-chacun-sa-posture/": "Witch Cult Translation", "/2025/08/01/arc-vii-chapitre-26-la-reunion-dansante-de-la-table-ronde/": "Witch Cult Translation", "/2025/08/31/arc-vii-chapitre-33-en-avant-vers-la-cite-demoniaque/": "Witch Cult Translation", "/2025/08/23/arc-vii-chapitre-31-une-conversation-entre-compatriotes/": "Witch Cult Translation", "/2025/09/13/arc-vii-chapitre-36-la-cite-demoniaque-chaotique/": "Witch Cult Translation", "/2025/09/21/arc-vii-chapitre-39-scelerat/": "Witch Cult Translation", "/2025/02/18/arc-vii-chapitre-15-ceux-que-je-veux-proteger/": "Negi, Kobosuhito et Taurace", "/2025/02/09/arc-vii-chapitre-13-en-tant-que-mortel/": "Negi et Kobosuhito", "/2025/02/27/arc-vii-chapitre-17-une-menace-imminente/": "Negi, Kobosuhito, Taurace et Polaris", "/2025/09/21/arc-vii-chapitre-38-une-recompense-au-terme-de-huit-annees/": "Witch Cult Translation", "/2025/10/04/arc-vii-chapitre-40-natchuki-shubaru/": "Witch Cult Translation", "/2025/04/12/arc-vii-chapitre-25-des-retrouvailles-a-faire-bouillir-le-sang/": "Witch Cult Translation", "/2025/10/05/arc-vii-chapitre-41-une-discussion-autour-dun-the/": "Witch Cult Translation", "/2025/10/12/arc-vii-chapitre-42-un-monstre-dambition/": "Witch Cult Translation", "/2025/09/06/arc-vii-chapitre-34-une-querelle-dans-le-carrosse/": "Witch Cult Translation", "/2025/02/22/arc-vii-chapitre-16-la-situation-dans-lempire/": "Negi, Kobosuhito, Taurace, Polaris, Ice et FriedHedgehog", "/2025/03/02/arc-vii-chapitre-19-des-retrouvailles-exasperantes/": "Negi, Kobosuhito et Taurace", "/2025/03/31/arc-vii-chapitre-24-arrogance/": "Witch Cult Translation", "/2025/03/30/arc-vii-chapitre-23-la-musicienne-natsumi-schwartz/": "Witch Cult Translation", "/2025/09/07/arc-vii-chapitre-35-une-nuit-pour-discuter/": "Witch Cult Translation", "/2025/03/08/arc-vii-chapitre-20-empereur-marchand-natsuki-subaru/": "Kobosuhito et Taurace", "/2025/08/22/arc-vii-chapitre-30-natsuki-subaru-le-heros-autoproclame/": "Witch Cult Translation", "/2025/03/01/arc-vii-chapitre-18-bataille-dans-la-ville-fortifiee-de-guaral/": "Negi, Kobosuhito, Taurace et Polaris", "/2025/11/02/arc-vii-chapitre-48-des-objectifs-entremeles-dans-la-cite-demoniaque/": "Witch Cult Translation", "/2026/02/01/arc-vii-chapitre-59-taritta-shudraq/": "Witch Cult Translation", "/2025/11/17/arc-vii-chapitre-51-la-maitresse-de-la-cite-demoniaque/": "Witch Cult Translation", "/2026/02/21/arc-vii-chapitre-55b-la-rhapsodie-de-la-ville-fortifiee/": "Witch Cult Translation", "/2025/10/19/arc-vii-chapitre-44-vision-retrecie/": "Witch Cult Translation", "/2026/02/23/arc-vii-chapitre-56b-le-cataclysme-des-dragons-aeriens/": "Witch Cult Translation", "/2026/02/25/arc-vii-chapitre-57b-ca-mest-egal-quon-me-traite-de-cretin/": "Witch Cult Translation", "/2026/04/02/arc-vii-chapitre-63-sparka/": "Witch Cult Translation", "/2026/01/26/arc-vii-chapitre-58-ceux-qui-nont-nulle-part-ou-aller/": "Witch Cult Translation", "/2025/11/01/arc-vii-chapitre-47-une-%e2%96%a0%e2%96%a0-imperissable/": "Witch Cult Translation", "/2025/12/05/arc-vii-chapitre-54-lutopie-de-chaosflame/": "Witch Cult Translation", "/2025/10/18/arc-vii-chapitre-43-dans-lenvers-des-paupieres/": "Witch Cult Translation", "/2026/03/22/arc-vii-chapitre-61-bienvenue-sur-lile-des-gladiateurs/": "Witch Cult Translation", "/2026/01/11/arc-vii-chapitre-55-la-rhapsodie-de-la-cite-demoniaque/": "Witch Cult Translation", "/2026/02/04/arc-vii-chapitre-60-les-graines-du-tumulte/": "Witch Cult Translation", "/2025/11/19/arc-vii-chapitre-52-lamour-ne-saurait-se-ceder/": "Witch Cult Translation", "/2025/10/26/arc-vii-chapitre-46-temerite-enfantine/": "Witch Cult Translation", "/2026/04/12/arc-vii-chapitre-66-hian-yatz/": "Capella et Akira", "/2025/11/09/arc-vii-chapitre-49-les-etoiles-se-sont-alignees/": "Witch Cult Translation", "/2025/10/25/arc-vii-chapitre-45-konkon/": "Witch Cult Translation", "/2026/04/03/arc-vii-chapitre-64-des-mots-magiques/": "Witch Cult Translation", "/2026/04/09/arc-vii-chapitre-65-le-guerrier-des-repas-scolaires/": "Witch Cult Translation", "/2026/01/13/arc-vii-chapitre-56-le-grand-desastre/": "Witch Cult Translation", "/2025/11/10/arc-vii-chapitre-50-un-trou-avec-une-belle-vue/": "Witch Cult Translation", "/2025/11/22/arc-vii-chapitre-53-au-dela-de-la-onzieme-seconde/": "Witch Cult Translation", "/2026/02/16/arc-vii-chapitre-54b-recouvrant-le-ciel-azur/": "Witch Cult Translation", "/2026/01/26/arc-vii-chapitre-57-je-ne-peux-pas-vivre-avec-sagesse/": "Witch Cult Translation", "/2026/03/25/arc-vii-chapitre-62-lordre-de-lile/": "Witch Cult Translation", "/2026/03/04/arc-vii-chapitre-59b-flop-oconnell/": "Witch Cult Translation", "/2026/02/28/arc-vii-chapitre-58b-ceux-qui-ne-possedent-aucun-refuge/": "Witch Cult Translation", "/2026/05/06/arc-vii-chapitre-72-des-rumeurs-absurdes/": "Witch Cult Translation", "/2025/12/24/histoire-annexe-rem-rencontre-subaru/": "Remonwater", "/2025/12/22/histoire-annexe-le-cours-du-ciel-etoile-demilia/": "Reddagh", "/2026/04/18/arc-vii-chapitre-68-la-providence-du-loup-empale/": "Witch Cult Translation", "/2026/04/27/arc-vii-chapitre-71-eau/": "Witch Cult Translation", "/2026/01/04/histoire-annexe-les-liens-geles-prelude-des-jours-glaces/": "Wakaran", "/2024/11/03/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-divertissement/": "Xrakix et WintryOne", "/2026/01/07/histoire-annexe-lafter-tea-party-de-la-sorciere-le-debrief-des-sorcieres/": "Ice", "/2024/12/09/histoire-annexe-le-loup-solitaire-des-bidonvilles-les-journees-agitees-de-felt/": "Eminent", "/2026/04/21/arc-vii-chapitre-69-en-provenance-de-la-capitale-imperiale/": "Witch Cult Translation", "/2025/03/12/histoire-annexe-my-fair-bad-lady/": "Remonwater", "/2024/12/24/histoire-annexe-lhistoire-damour-de-la-lame-demoniaque-le-pere-de-la-mariee/": "Eminent", "/2024/11/02/histoire-annexe-another-memory-snow/": "SNUserTL", "/2025/10/29/histoire-annexe-la-chronique-touristique-demilia-a-la-capitale/": "SNUserTL", "/2026/03/20/histoire-annexe-le-grand-debrief-du-camp-demilia/": "SNUserTL", "/2024/10/26/histoire-annexe-al-visual-complete/": "Ice", "/2025/01/03/histoire-annexe-lhistoire-damour-de-la-lame-demoniaque-les-coulisses-de-la-lune-de-miel/": "Eminent", "/2025/01/02/histoire-annexe-lhistoire-damour-de-la-lame-demoniaque-la-capitale-des-dragons-terrestres-flandres/": "Eminent", "/2024/12/30/histoire-annexe-lafter-tea-party-de-la-sorciere/": "Eminent", "/2024/11/17/histoire-annexe-la-lumiere-du-soleil-illuminant-la-surface-de-leau/": "Negi", "/2025/12/24/histoire-annexe-le-premier-rencard-demilia/": "SnuserTL", "/2024/11/24/histoire-annexe-orgueil-prejuges-et-zombies/": "Negi", "/2024/11/11/histoire-annexe-le-jour-ou-jai-renonce-a-etre-une-etoile-suivante/": "Xrakix", "/2026/05/11/arc-vii-chapitre-73-weitz-rogen/": "Witch Cult Translation", "/2026/01/05/histoire-annexe-lafter-tea-party-de-la-sorciere-les-conditions-pour-devenir-une-sorciere/": "Ice", "/2026/01/01/histoire-annexe-les-liens-geles/": "SNUserTL", "/2026/04/13/arc-vii-chapitre-67-derriere-les-molaires/": "Witch Cult Translation", "/2026/04/23/arc-vii-chapitre-70-une-chose/": "Witch Cult Translation", "/2026/05/18/arc-vii-chapitre-75-i-know/": "Witch Cult Translation", "/2026/05/14/arc-vii-chapitre-74-idra-missanga/": "Witch Cult Translation", "/2024/12/11/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-pressentiments-du-chaos/": "Ice", "/2025/08/29/histoire-annexe-la-ballade-guerriere-de-la-lame-demoniaque-le-dernier-acte-des-huit-bras/": "Ringo", "/2024/11/30/histoire-annexe-la-ligue-ecarlate/": "Eminent", "/2025/03/14/histoire-annexe-la-ballade-guerriere-de-la-lame-demoniaque-le-champ-de-fleurs-de-ce-jour-la/": "Garmadoncar", "/2024/12/07/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-ombres-de-la-conspiration/": "Ice", "/2024/11/25/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-pere-alcoolique/": "Ice", "/2025/03/14/histoire-annexe-la-ballade-guerriere-de-la-lame-demoniaque-lheritier-astrea/": "Garmadoncar", "/2024/12/12/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-zero-arakiya/": "Eminent", "/2024/12/10/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-declaration-de-guerre/": "Ice", "/2024/12/18/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-zero-vincent/": "Erifuru", "/2026/05/24/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-6/": "Eminent", "/2024/05/25/histoire-annexe-la-deuxieme-encyclopedie-prudente-de-joshua-juukulius/": "Ringo, Nanashi-tan et Frr", "/2024/10/01/histoire-annexe-la-malice-avant-le-theatre/": "Ringo et Garcar", "/2024/12/17/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-zero-priscilla/": "Eminent", "/2025/04/02/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-2/": "PaperKaminari", "/2026/03/08/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-5/": "Eminent", "/2025/12/21/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-4/": "Erifuru", "/2025/02/02/histoire-annexe-la-paranoia-provisoire-de-rem-les-mots-creux-dune-oni/": "PaperKaminari", "/2025/09/27/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-3/": "Ice", "/2026/05/24/histoire-annexe-la-paranoia-provisoire-de-rem-oni-ou-serpents-qui-sait-ce-qui-sy-cache/": "PaperKaminari", "/2025/12/06/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-4/": "Eminent", "/2025/09/27/histoire-annexe-la-paranoia-provisoire-de-rem-une-batte-en-metal-pour-une-oni/": "PaperKaminari", "/2025/04/04/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-2/": "Eminent", "/2025/02/02/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-1/": "Eminent", "/2026/03/10/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-5/": "Erifuru", "/2025/04/03/histoire-annexe-la-paranoia-provisoire-de-rem-le-desarroi-dune-oni/": "Hedgehog", "/2025/02/02/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-1/": "Ice", "/2025/09/27/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-3/": "Erifuru", "/2025/12/07/histoire-annexe-la-paranoia-provisoire-de-rem-il-ny-a-pas-doni-dans-le-monde-entier/": "PaperKaminari", "/2026/03/09/histoire-annexe-la-paranoia-provisoire-de-rem-profiter-de-labsence-de-loni-pour-faire-la-lessive/": "PaperKaminari", "/2025/12/21/histoire-annexe-stand-by-me-pleiades-2/": "Eminent", "/2024/06/02/rezero-academie/": "Eminent", "/2023/01/31/ayamatsu-if-resegarer-dans-un-autre-monde-a-partir-de-zero/": "Ankaa Burner", "/2026/03/16/histoire-annexe-stand-by-me-pleiades-3/": "Eminent", "/2025/04/06/histoire-annexe-stand-by-me-pleiades-1/": "Eminent", "/2022/06/21/kasaneru-if-reaccumuler-dans-un-autre-monde-a-partir-de-zero/": "Ice", "/2024/10/21/tsugihagu-if-re-se-reconstituer-dans-un-autre-monde-a-partir-de-zero/": "Ice", "/2021/06/13/oboreru-if-rese-noyer-dans-un-autre-monde-a-partir-de-zero/": "Fr, /Fr81" };
-  function l(e2) {
+  var r = (init_browser(), __toCommonJS(browser_exports)), t = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), c = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
+  function s(e2, r2) {
+    return a(this, void 0, void 0, function() {
+      var a2, n2, s2, o2, l2;
+      return i(this, function(i2) {
+        switch (i2.label) {
+          case 0:
+            return [4, (0, t.fetchApi)(e2, r2)];
+          case 1:
+            if (!(a2 = i2.sent()).ok) throw new Error("HTTP ".concat(a2.status, " while loading ").concat(e2));
+            return [4, a2.text()];
+          case 2:
+            if (n2 = i2.sent(), (s2 = null === (l2 = null === (o2 = n2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === o2 ? void 0 : o2[1]) || void 0 === l2 ? void 0 : l2.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && c.has(s2)) throw new Error("Bot challenge while loading ".concat(e2));
+            return [2, n2];
+        }
+      });
+    });
+  }
+  __name(s, "s");
+  var o = { "/histoire-principale/": { name: "Re:Zero - Histoire Principale", summary: "Histoire principale de Re:Zero traduite en fran\xE7ais." }, "/histoires-annexes/": { name: "Re:Zero - Histoires Annexes", summary: "Histoires annexes (Side Stories) de Re:Zero traduites en fran\xE7ais." }, "/if-stories/": { name: "Re:Zero - IF Stories", summary: "Histoires alternatives (IF Stories) de Re:Zero traduites en fran\xE7ais." } }, l = "https://rezerowebnovelfr.wordpress.com/wp-content/uploads/2021/03/sans-titre-1.png", u = { "/2021/06/12/arc-i-chapitre-4-compensation-pour-un-oreiller/": "SNUserTL", "/2021/06/12/arc-i-prologue-la-chaleur-residuelle-du-commencement/": "SNUserTL", "/2021/06/12/arc-i-chapitre-3-premiere-rencontre-avec-la-magie/": "SNUserTL", "/2021/06/13/arc-i-chapitre-7-des-retrouvailles-incomprehensibles/": "SNUserTL", "/2021/07/14/arc-i-interlude-la-lune-observe/": "SNUserTL", "/2021/06/28/arc-i-chapitre-20-le-groupe-est-au-complet/": "SNUserTL", "/2021/07/14/arc-i-chapitre-21-la-puissance-du-maitre-epeiste/": "SNUserTL", "/2021/06/24/arc-i-chapitre-13-fin-et-commencement/": "SNUserTL", "/2021/06/15/arc-i-chapitre-12-les-retrouvailles-avec-la-sorciere/": "SNUserTL", "/2021/06/24/arc-i-chapitre-14-la-quatrieme-fois-est-la-bonne/": "SNUserTL", "/2021/06/13/arc-i-chapitre-9-atout/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-2-la-gardienne-de-la-bibliotheque-interdite-et-les-servantes-jumelles/": "Eminent Translations", "/2021/06/12/arc-i-chapitre-5-ton-nom/": "SNUserTL", "/2021/06/12/arc-i-chapitre-1-linutile-piece-de-10-yens-striee/": "SNUserTL", "/2021/06/12/arc-i-chapitre-6-la-fin-du-commencement/": "SNUserTL", "/2021/06/26/arc-i-chapitre-17-negociation-dans-la-maison-du-receleur/": "SNUserTL", "/2021/07/14/arc-i-chapitre-22-vivre-dans-un-autre-monde-a-partir-de-zero/": "SNUserTL", "/2021/06/12/arc-i-chapitre-2-ne-temporte-pas-declara-dieu/": "SNUserTL", "/2021/06/28/arc-i-chapitre-19-bataille-dun-spiritualiste/": "SNUserTL", "/2021/06/24/arc-i-chapitre-15-parce-quil-est-le-saint-de-lepee/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-3-je-ne-peux-plus-etre-une-mariee/": "Eminent Translations", "/2021/06/13/arc-i-chapitre-8-le-gout-amer-de-lalcool/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-4-seance-dentrainement-dans-un-autre-monde/": "Eminent Translations", "/2021/06/15/arc-i-chapitre-11-une-lutte-trop-tardive/": "SNUserTL", "/2021/06/26/arc-i-chapitre-16-negociation-dans-les-bidonvilles/": "SNUserTL", "/2021/07/30/arc-ii-chapitre-6-le-retour-du-margrave/": "Eminent Translations", "/2021/07/29/arc-ii-chapitre-1-le-plafond-inconnu-le-couloir-sans-fin/": "Eminent Translations", "/2021/06/15/arc-i-chapitre-10-les-consequences-pour-ceux-qui-ne-savent-pas-tenir-leur-langue/": "SNUserTL", "/2021/06/26/arc-i-chapitre-18-bataille-dans-la-maison-du-receleur/": "SNUserTL", "/2021/07/29/arc-ii-chapitre-5-prise-de-conscience-des-emotions/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-11-le-rassemblement-harmonieux-de-lapres-repas/": "Eminent Translations", "/2021/06/10/arc-iii-interlude-chapitre-1-scene-a-bord-dun-chariot-draconique/": "Ankaa Burner", "/2022/05/31/arc-ii-chapitre-13-le-matin-promis-est-lointain/": "Eminent Translations", "/2021/06/10/arc-iii-interlude-chapitre-2-que-le-festin-commence/": "Ankaa Burner", "/2023/09/24/arc-ii-chapitre-19-les-resultats-de-la-lecture-et-de-lecriture/": "Eminent Translations", "/2020/10/22/arc-4-interlude-chapitre-4-la-naissance-du-ministre-des-affaires-interieures-de-la-faction-emilia/": "Ankaa Burner", "/2020/11/26/arc-5-chapitre-1-ca-commence-toujours-avec-un-visiteur/": "Summary Anon", "/2020/11/05/arc-4-interlude-chapitre-6-une-derniere-chose/": "Ankaa Burner", "/2021/02/04/arc-5-chapitre-3-a-chacun-son-point-de-vue/": "Summary Anon", "/2022/05/31/arc-ii-chapitre-16-la-confusion-de-la-deuxieme-boucle/": "Eminent Translations", "/2022/08/13/arc-ii-chapitre-17-le-son-dune-chaine/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-15-la-deuxieme-erreur-de-jugement-et-la-trahison-des-attentes/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-12-le-duo-compatible-et-pourtant-incompatible/": "Eminent Translations", "/2021/07/30/arc-ii-chapitre-8-la-situation-du-pays-et-la-position-de-cette-fille/": "Eminent Translations", "/2022/05/31/arc-ii-chapitre-14-declaration-de-rebellion/": "Eminent Translations", "/2020/10/08/arc-4-interlude-chapitre-2-jeunes-ames-et-spectateur/": "Ankaa Burner", "/2021/02/25/arc-5-chapitre-5-1-2-pristella-la-cite-aqueuse/": "Summary Anon", "/2021/07/30/arc-ii-chapitre-9-les-fruits-de-la-triple-mort/": "Eminent Translations", "/2020/11/19/arc-4-interlude-chapitre-final-une-danse-absurde-au-clair-de-lune/": "Ankaa Burner", "/2020/10/29/arc-4-interlude-chapitre-5-le-piege-danne-rose-et-les-relations-fraternelles/": "Ankaa Burner", "/2023/07/17/arc-ii-chapitre-18-les-troisiemes-retrouvailles/": "Eminent Translations", "/2021/02/18/arc-5-chapitre-4-sur-la-route/": "Summary Anon", "/2021/07/30/arc-ii-chapitre-10-une-negociation-a-double-face/": "Eminent Translations", "/2021/07/30/arc-ii-chapitre-7-la-reunion-conviviale-au-manoir-de-roswaal/": "Eminent Translations", "/2020/10/15/arc-4-interlude-chapitre-3-belle-fille-belle-femme-belle-grand-mere/": "Ankaa Burner", "/2021/06/10/arc-iii-interlude-chapitre-3-chacun-ses-serments/": "Ankaa Burner", "/2021/03/18/arc-5-chapitre-6-deux-chevaliers-spirituels-deux-marchands-avides-et-un-ange-desinteresse/": "DiscountAnon/Nanashi-tan", "/2021/01/21/arc-5-chapitre-2-lignee-du-becheur/": "Summary Anon", "/2020/10/01/arc-4-interlude-chapitre-1-la-relation-de-ces-soeurs/": "Ankaa Burner", "/2021/03/25/arc-iv-annexe-avenement/": "Ankaa Burner", "/2021/05/22/arc-v-chapitre-13-paisible-diner/": "Nanashi-tan", "/2021/08/07/arc-v-chapitre-22-une-reponse-desinvolte/": "Nanashi-tan", "/2021/05/03/arc-v-chapitre-11-une-reunion-surprenante-une-reunion-destinee-et-une-reunion-inattendue/": "Nanashi-tan", "/2021/08/15/arc-v-chapitre-23-situation-perturbee/": "Nanashi-tan", "/2021/07/24/arc-v-chapitre-20-empathie-partagee/": "Nanashi-tan", "/2021/06/05/arc-v-chapitre-14-la-lame-demoniaque-au-clair-de-lune/": "Nanashi-tan", "/2021/10/30/arc-v-chapitre-32-reunion-pour-la-conquete-de-lhotel-de-ville/": "Nanashi-tan", "/2021/12/25/arc-v-chapitre-36-le-commencement-et-la-conclusion-de-lamour/": "Nanashi-tan", "/2021/04/22/arc-v-chapitre-10-les-coutumes-de-la-cite-de-leau/": "Nanashi-tan", "/2021/03/25/arc-5-chapitre-7-le-pecheur-met-les-voiles/": "Discount Anon/Nanashi-tan", "/2021/10/03/arc-v-chapitre-29-gorgeous-tiger/": "Nanashi-tan", "/2021/07/03/arc-v-chapitre-17-cette-armure-toujours-presente/": "Nanashi-tan", "/2021/07/10/arc-v-chapitre-18-un-temps-pour-le-chant-et-la-danse/": "Nanashi-tan", "/2021/09/04/arc-v-chapitre-26-lance-damour/": "Nanashi-tan", "/2021/07/18/arc-v-chapitre-19-le-theatre-de-la-malice/": "Nanashi-tan", "/2021/10/09/arc-5-chapitre-30-tigre-et-chat-sous-la-lune/": "Nanashi-tan", "/2021/11/20/arc-v-chapitre-35-embuscades-et-surprises/": "Nanashi-tan", "/2021/04/08/1427/": "Discount Anon/Nanashi-tan", "/2021/05/15/arc-v-chapitre-12-latmosphere-ecrasante-du-salon-de-the/": "Nanashi-tan", "/2021/11/15/arc-v-chapitre-34-maniement-a-lepee-et-melee/": "Nanashi-tan", "/2021/06/19/arc-v-chapitre-15-un-silence-assourdissant/": "Nanashi-tan", "/2021/06/26/arc-v-chapitre-16-invites-imprevus/": "Nanashi-tan", "/2021/07/31/arc-v-chapitre-21-solution-optimale/": "Nanashi-tan", "/2021/04/15/arc-v-chapitre-9-la-valeur-dune-diva/": "Nanashi-tan", "/2021/08/28/arc-v-chapitre-25-le-theatre-de-leo/": "Nanashi-tan", "/2021/09/11/arc-v-chapitre-27-bruit/": "Nanashi-tan", "/2021/11/08/arc-v-chapitre-33-bataille-pour-la-conquete-de-lhotel-de-ville/": "Nanashi-tan", "/2021/08/21/arc-v-chapitre-24-resolution-de-glace-et-de-feu/": "Nanashi-tan", "/2021/09/19/arc-v-chapitre-28-une-reunion-strategique-couverte-de-blessures/": "Nanashi-tan", "/2021/10/17/arc-v-chapitre-31-le-prix-dune-erreur/": "Nanashi-tan", "/2022/07/30/arc-v-chapitre-59-regulus-corneas/": "Nanashi-tan et Ringo", "/2022/01/15/arc-v-chapitre-39-chevalerie-et-le-retardataire/": "Nanashi-tan", "/2022/06/11/arc-v-chapitre-52-les-etoiles-et-les-archeveques-du-peche/": "Nanashi-tan, Ringo, Frr et Paper", "/2022/03/05/arc-v-chapitre-44-rien-nest-laisse-sous-silence/": "TranslationChicken", "/2022/07/23/arc-v-chapitre-58-foi/": "Nanashi-tan", "/2022/01/08/arc-v-chapitre-38-les-demandes-du-culte-de-la-sorciere/": "Nanashi-tan", "/2022/09/03/arc-v-chapitre-64-le-decouragement-de-liliana-masquerade/": "Nanashi-tan", "/2022/08/13/arc-v-chapitre-61-victime-du-territoire/": "Nanashi-tan", "/2022/08/05/arc-v-chapitre-60-une-conclusion-une-bataille/": "Nanashi-tan et Ringo", "/2022/08/27/arc-v-chapitre-63-la-passion-de-liliana-masquerade/": "Nanashi-tan", "/2022/07/16/arc-v-chapitre-57-la-ou-le-coeur-reside/": "Nanashi-tan", "/2022/01/01/arc-v-chapitre-37-gestion-de-la-defaite/": "Nanashi-tan", "/2022/01/29/arc-v-chapitre-41-reveries-heroiques/": "TranslationChicken", "/2022/09/17/arc-v-chapitre-66-la-scene-de-liliana-masquerade/": "Nanashi-tan", "/2022/02/12/arc-v-chapitre-43-avant-le-rendez-vous/": "Fr", "/2022/05/21/arc-v-chapitre-49-ainsi-debute-la-croisade-contre-lavarice/": "Nanashi-tan", "/2022/09/11/arc-v-chapitre-65-le-regret-de-liliana-masquerade/": "Nanashi-tan", "/2022/06/18/arc-v-chapitre-53-une-ville-de-luttes/": "Ringo et Nanashi-tan", "/2022/06/26/arc-v-chapitre-54-la-puissance-de-combat-des-non-combattants/": "Ringo et Nanashi-tan", "/2022/03/12/arc-v-chapitre-45-une-malediction-inexorable/": "Fr", "/2022/07/02/arc-v-chapitre-55-ladversaire-du-dieu-de-la-guerre/": "Nanashi-tan", "/2022/06/05/arc-v-chapitre-51-la-malice-dans-la-tromperie/": "Nanashi-tan et Ringo", "/2022/01/22/arc-v-chapitre-40-corrosion-de-la-colere/": "Nanashi-tan", "/2022/03/27/arc-v-chapitre-47-lavant-poste-de-la-strategie-de-reconquete-de-la-ville/": "Fr", "/2022/05/14/arc-v-chapitre-48-la-personne-dont-je-tomberai-un-jour-amoureuse/": "TranslationChicken", "/2022/05/28/arc-v-chapitre-50-les-chaines-de-lamour/": "Nanashi-tan", "/2022/07/09/arc-v-chapitre-56-signature-dun-divorce/": "Nanashi-tan", "/2022/02/07/arc-v-chapitre-42-le-plus-recent-des-heros-et-le-plus-ancien-des-heros-%ef%bf%bc/": "TranslationChicken", "/2022/03/19/arc-v-chapitre-46-un-etat-desprit/": "TranslationChicken", "/2022/08/20/arc-v-chapitre-62-leloge-du-guerrier/": "Nanashi-tan et Ringo", "/2022/10/08/arc-v-chapitre-69-un-banquet-repugnant/": "Ringo", "/2022/10/23/arc-v-chapitre-70-eclipse/": "Ringo", "/2022/10/29/arc-v-chapitre-71-la-lame-demoniaque-contre-lancienne-maitre-epeiste/": "Ringo", "/2023/03/11/arc-vi-chapitre-9-percee-dans-le-temps-du-sable/": "Remonwater", "/2022/10/01/arc-v-chapitre-68-mangeur-de-nom-gourmet/": "Ringo", "/2023/02/04/arc-vi-chapitre-4-une-raison-de-temmener-hors-dici/": "Remonwater", "/2023/01/21/arc-vi-chapitre-2-sa-facon-doffrir-un-accueil-chaleureux/": "Remonwater", "/2023/02/18/arc-vi-chapitre-6-la-denomination-juukulius/": "Remonwater", "/2023/02/11/arc-vi-chapitre-5-a-chacun-son-mal-etre/": "Remonwater", "/2023/03/25/arc-vi-chapitre-11-une-voix-audible-et-larmoyante/": "Ringo", "/2023/03/18/arc-vi-chapitre-10-en-un-eclair/": "Ringo", "/2022/11/13/arc-v-chapitre-74-les-consequences-de-la-bataille-pour-pristella-1/": "Gracedharperd et Ice", "/2023/04/03/arc-vi-chapitre-12-le-bapteme-de-la-tour-de-guet/": "Mahubrobin", "/2023/01/14/arc-vi-chapitre-1-le-chemin-du-retour-du-carrosse-draconique/": "Remonwater", "/2023/02/25/arc-vi-chapitre-7-cap-vers-la-mer-de-sable/": "Remonwater", "/2022/12/24/arc-v-chapitre-81-ceux-qui-comblent-le-receptacle-de-lavarice/": "Ice et Gracedharperd", "/2023/01/28/arc-vi-chapitre-3-la-cellule-de-la-petite-fille/": "Remonwater", "/2022/11/19/arc-v-chapitre-75-les-consequences-de-la-bataille-pour-pristella-2/": "Ice et Graced", "/2022/12/17/arc-v-chapitre-80-laissant-derriere-des-ondulations-a-la-surface-de-leau/": "Ice", "/2022/09/24/arc-v-chapitre-67-liliana-masquerade/": "Nanashi-tan", "/2022/12/10/arc-v-chapitre-79-la-tour-de-guet-du-sage/": "Ice", "/2022/11/26/arc-v-chapitre-77-un-chevalier-sans-nom/": "Ringo", "/2022/12/24/arc-v-interlude-i-les-conditions-requises-du-couple/": "Heretic Translations", "/2022/12/24/arc-v-interlude-iii-nom-de-la-chaleur/": "Heretic Translations", "/2023/03/04/arc-vi-chapitre-8-le-bapteme-des-dunes-de-sable/": "Remonwater", "/2022/11/19/arc-v-chapitre-76-les-consequences-de-la-bataille-pour-pristella-3/": "Ice et Graced", "/2022/11/05/arc-v-chapitre-73-theresia-van-astrea/": "Ringo", "/2022/12/24/arc-v-interlude-ii-talent-inexploite/": "Heretic Translations", "/2022/10/29/arc-v-chapitre-72-maitre-epeiste-contre-maitre-epeiste-de-la-generation-precedente/": "Ringo", "/2022/12/03/arc-v-chapitre-78-les-derniers-remous-de-la-cite-aqueuse/": "Ice", "/2023/04/17/arc-vi-chapitre-14-une-foi-batie-sur-le-sable/": "Ice", "/2023/06/26/arc-vi-chapitre-24-un-examinateur-contrariant/": "Hedge", "/2023/07/10/arc-vi-chapitre-26-manieur-de-baton/": "Hedge et Ringo", "/2023/06/10/arc-vi-chapitre-22-lasterisme-du-ciel-blanc-etoile/": "Ice", "/2023/04/08/arc-vi-chapitre-13-le-ridicule-du-sable/": "Mahubrobin", "/2023/04/22/arc-vi-chapitre-15-eparpilles-sur-le-sable/": "Ice", "/2023/09/24/arc-vi-chapitre-37-un-reve-en-papier-mache/": "Ice", "/2023/04/29/arc-vi-chapitre-16-des-restes-maches/": "Mahubrobin", "/2023/08/19/arc-vi-chapitre-32-qui-au-juste/": "Ringo", "/2023/07/31/arc-vi-chapitre-29-loser/": "Ice", "/2023/06/03/arc-vi-chapitre-21-le-defi-du-monolithe/": "Ice", "/2023/05/13/arc-vi-chapitre-18-la-gardienne-de-la-tour-de-sable/": "Ice et Furuta", "/2023/10/09/arc-vi-chapitre-39-ruines/": "Ice et Jaerek", "/2023/06/16/arc-vi-chapitre-23-le-troisieme-etage-de-la-bibliotheque-linspection-de-taygete/": "Nana et Ringo", "/2023/08/12/arc-vi-chapitre-31-un-encouragement-a-la-cooperation-dans-la-tour/": "Hedge", "/2023/08/28/arc-vi-chapitre-33-%e2%96%a0%e2%96%a0%e2%96%a0-%e2%97%8f-%e2%96%a0%e2%96%a0%e2%96%a0/": "TranslationChicken", "/2023/07/15/arc-vi-chapitre-27-le-mur-delectre/": "Ice et Ringo", "/2023/05/27/arc-vi-chapitre-20-shaula-%e2%89%a0-sage-flugel/": "Ice", "/2023/07/22/arc-vi-chapitre-28-julius-juukulius/": "Gracedharperd et Paper", "/2023/10/15/arc-vi-chapitre-40-delaisse-par-les-etoiles/": "Ice", "/2023/09/10/arc-vi-chapitre-35-relations-tendues/": "TranslationChicken", "/2023/09/16/arc-vi-chapitre-36-un-lieu-de-soulagement/": "Ice", "/2023/05/20/arc-vi-chapitre-19-quen-est-il-du-sage/": "Ice et Ringo", "/2023/10/23/arc-vi-chapitre-41-un-parfum-apaisant/": "Ice", "/2023/09/30/arc-vi-chapitre-38-qui-es-tu/": "Ice et Jaerek", "/2023/11/04/arc-vi-chapitre-42-la-tour-des-morts/": "Ice", "/2023/08/05/arc-vi-chapitre-30-la-strategie-de-capture-post-mortem-du-deuxieme-etage/": "Hedge et Nanashi", "/2023/09/02/arc-vi-chapitre-34-au-dehors-de-la-superette-se-trouvait-un-monde-merveilleux/": "TranslationChicken", "/2023/05/07/arc-vi-chapitre-17-le-roi-de-la-mer-de-sable/": "Ice et u/WintryOne", "/2023/07/03/arc-vi-chapitre-25-lhomme-qui-attend-au-deuxieme-etage-electre/": "Hedge", "/2023/12/30/arc-vi-chapitre-51-la-tour-des-vivants-partie-2/": "Ice, Nana et Furuta", "/2023/12/11/arc-vi-chapitre-48-le-meurtre-est-une-habitude/": "Ice, Furuta, Jaerek et Ringo", "/2024/01/13/arc-vi-chapitre-53-%e2%80%95%e2%80%95une-voix-carillonna/": "Ringo", "/2023/11/25/arc-vi-chapitre-46-meili-portroute/": "Ice, Furuta, Ringo et Paperlightning", "/2023/12/23/arc-vi-chapitre-50-a-toi-labsolue-pietre-imitation/": "Ice et PaperLightning", "/2023/12/03/arc-vi-chapitre-47-je-ne-te-pardonnerai-pas/": "Ice", "/2024/02/03/arc-vi-chapitre-56-parlons-de-ce-qui-nous-attend/": "Ringo", "/2023/11/11/arc-vi-chapitre-44-medaille-de-sang/": "Ice", "/2024/01/30/arc-vi-chapitre-55-toi-qui-attends-la-fonte-des-neiges/": "Ringo", "/2024/02/24/arc-vi-chapitre-59-ce-qui-sourit-dans-le-monde-blanc/": "Ringo", "/2023/11/04/arc-vi-chapitre-43-la-tour-des-vivants/": "Ice", "/2024/03/18/arc-vi-chapitre-62-les-tremblements-de-leffondrement/": "Ringo", "/2024/04/23/arc-vi-chapitre-67-petit-roi/": "Ringo", "/2024/02/12/arc-vi-chapitre-57-nen-tenons-pas-compte-pour-linstant/": "Ringo", "/2023/12/16/arc-vi-chapitre-49-a-toi-la-pietre-imitation/": "Ice", "/2024/01/08/arc-vi-chapitre-52-dieu-sil-te-plait-pardonne-moi/": "Furuta, Paper, Ice, Ringo et Nanashi", "/2024/02/17/arc-vi-chapitre-58-ceci-est-ceci-cela-est-cela/": "Ringo", "/2024/05/19/arc-vi-chapitre-71-count-one/": "Ringo", "/2024/03/02/arc-vi-chapitre-60-un-seul-rayon-de-soleil/": "Ringo", "/2024/03/30/arc-vi-chapitre-64-le-deuxieme-obstacle/": "Ringo", "/2024/05/04/arc-vi-chapitre-69-labsurde-marteau-de-fer-de-lepee/": "Ringo", "/2024/03/23/arc-vi-chapitre-63-cinq-obstacles/": "Ringo", "/2024/01/21/arc-vi-chapitre-54-revivre-dans-un-autre-monde-a-partir-de-zero/": "Ice", "/2024/04/13/arc-vi-chapitre-66-deuxieme-chance-jusquau-denouement/": "Ringo", "/2024/04/27/arc-vi-chapitre-68-la-femme-de-scorpius/": "Ringo", "/2024/03/11/arc-vi-chapitre-61-%e2%80%95%e2%80%95leve-toi/": "Ringo", "/2024/05/25/arc-vi-chapitre-72/": "Ringo", "/2024/04/06/arc-vi-chapitre-65-le-deuxieme-le-cinquieme-suivis-de%e2%80%95%e2%80%95/": "Ringo", "/2023/11/20/arc-vi-chapitre-45-letreinte-de-la-culpabilite/": "Ice, Furuta, Ringo et Paperlightning", "/2024/05/11/arc-vi-chapitre-70-letoile-sincere/": "Ringo", "/2024/07/02/arc-vi-chapitre-77-le-flambeau-de-la-contre-attaque/": "Ringo", "/2024/06/18/arc-vi-chapitre-75-rui-arneb/": "Ringo", "/2024/09/15/arc-vi-chapitre-86-converser-a-propos-de-ce-que-hier-recelait/": "Ringo", "/2024/06/01/arc-vi-chapitre-73-natsuki-subaru/": "Ringo", "/2024/07/07/arc-vi-chapitre-78-quatre-coins/": "Auteur anonyme", "/2024/06/23/arc-vi-chapitre-76-lenfer-qui-porte-le-nom-de-soi-meme/": "Ringo", "/2024/09/18/arc-vi-chapitre-87-regard-distant/": "Ringo et Hedge", "/2024/07/20/arc-vi-chapitre-80-mort-de-lesprit/": "Ringo", "/2024/08/04/arc-vi-chapitre-82-une-bataille-sous-entraves/": "Ringo", "/2024/08/20/arc-vi-chapitre-84-ho-hisse-ho-hisse/": "Ringo", "/2024/07/27/arc-vi-chapitre-81-%e2%80%95%e2%80%95enchante-de-vous-rencontrer/": "Ringo", "/2024/07/13/arc-vi-chapitre-79-a-vos-marques-prets-partez/": "Ice et Ringo", "/2024/09/21/arc-vi-chapitre-88-%e2%80%95%e2%80%95je-sollicite-ta-volonte/": "Ringo et Hedge", "/2024/08/12/arc-vi-chapitre-83-ram/": "Ringo", "/2024/09/01/arc-vi-chapitre-85-good-loser/": "Ringo", "/2025/01/12/arc-vii-chapitre-7-cetait-dur-detre-un-homme/": "Ice et Negi", "/2024/09/28/arc-vi-chapitre-89-shaula/": "Eminent", "/2024/12/28/arc-vii-chapitre-3-contre-rem/": "Negi", "/2025/01/05/arc-vii-chapitre-5-cest-dur-detre-un-homme/": "Negi", "/2025/02/01/arc-vii-chapitre-12-lempire-de-vollachia/": "Ice, Hedge, Negi, Kobosuhito et Taurace", "/2024/12/22/arc-vii-chapitre-2-animal-tracking/": "Negi", "/2025/01/11/arc-vii-chapitre-6-une-terre-lointaine-au-sud/": "Ice et Erifuru", "/2024/12/21/arc-vii-chapitre-1-bapteme/": "Ice, Hedge, Ringo et Negi", "/2025/01/18/arc-vii-chapitre-8-nom/": "Ice, Negi, Kobosuhito et Taurace", "/2024/06/08/arc-vi-chapitre-74-natsuki-subaru/": "Ringo", "/2024/10/13/arc-vi-chapitre-90-heros/": "Eminent", "/2025/01/04/arc-vii-chapitre-4-un-choix-courageux/": "Negi et Ice", "/2025/01/26/arc-vii-chapitre-11-le-rituel-du-serment-de-sang/": "Ice, Hedge, Negi, Kobosuhito et Taurace", "/2025/01/25/arc-vii-chapitre-10-le-peuple-de-shudraq/": "Negi, Kobosuhito et Taurace", "/2025/01/19/arc-vii-chapitre-9-la-facon-de-faire-de-lempire/": "Ice, Negi, Kobosuhito et Taurace", "/2025/03/09/arc-vii-chapitre-21-zikr-osman/": "Kobosuhito et Taurace", "/2025/03/09/arc-vii-chapitre-22-le-plan-de-reddition-sans-effusion-de-sang/": "Kobosuhito, Taurace et Polaris", "/2025/08/19/arc-vii-chapitre-28-conditions-de-victoire/": "Witch Cult Translation", "/2025/08/12/arc-vii-chapitre-27-ceux-qui-ont-et-ceux-qui-nont-pas/": "Witch Cult Translation", "/2025/02/09/arc-vii-chapitre-14-des-valeurs-inconciliables/": "Negi, Kobosuhito et Taurace", "/2025/08/30/arc-vii-chapitre-32-la-voie-a-suivre/": "Witch Cult Translation", "/2025/09/14/arc-vii-chapitre-37-le-seigneur-du-chateau-du-lapis-ecarlate/": "Witch Cult Translation", "/2025/08/20/arc-vii-chapitre-29-a-chacun-sa-posture/": "Witch Cult Translation", "/2025/08/01/arc-vii-chapitre-26-la-reunion-dansante-de-la-table-ronde/": "Witch Cult Translation", "/2025/08/31/arc-vii-chapitre-33-en-avant-vers-la-cite-demoniaque/": "Witch Cult Translation", "/2025/08/23/arc-vii-chapitre-31-une-conversation-entre-compatriotes/": "Witch Cult Translation", "/2025/09/13/arc-vii-chapitre-36-la-cite-demoniaque-chaotique/": "Witch Cult Translation", "/2025/09/21/arc-vii-chapitre-39-scelerat/": "Witch Cult Translation", "/2025/02/18/arc-vii-chapitre-15-ceux-que-je-veux-proteger/": "Negi, Kobosuhito et Taurace", "/2025/02/09/arc-vii-chapitre-13-en-tant-que-mortel/": "Negi et Kobosuhito", "/2025/02/27/arc-vii-chapitre-17-une-menace-imminente/": "Negi, Kobosuhito, Taurace et Polaris", "/2025/09/21/arc-vii-chapitre-38-une-recompense-au-terme-de-huit-annees/": "Witch Cult Translation", "/2025/10/04/arc-vii-chapitre-40-natchuki-shubaru/": "Witch Cult Translation", "/2025/04/12/arc-vii-chapitre-25-des-retrouvailles-a-faire-bouillir-le-sang/": "Witch Cult Translation", "/2025/10/05/arc-vii-chapitre-41-une-discussion-autour-dun-the/": "Witch Cult Translation", "/2025/10/12/arc-vii-chapitre-42-un-monstre-dambition/": "Witch Cult Translation", "/2025/09/06/arc-vii-chapitre-34-une-querelle-dans-le-carrosse/": "Witch Cult Translation", "/2025/02/22/arc-vii-chapitre-16-la-situation-dans-lempire/": "Negi, Kobosuhito, Taurace, Polaris, Ice et FriedHedgehog", "/2025/03/02/arc-vii-chapitre-19-des-retrouvailles-exasperantes/": "Negi, Kobosuhito et Taurace", "/2025/03/31/arc-vii-chapitre-24-arrogance/": "Witch Cult Translation", "/2025/03/30/arc-vii-chapitre-23-la-musicienne-natsumi-schwartz/": "Witch Cult Translation", "/2025/09/07/arc-vii-chapitre-35-une-nuit-pour-discuter/": "Witch Cult Translation", "/2025/03/08/arc-vii-chapitre-20-empereur-marchand-natsuki-subaru/": "Kobosuhito et Taurace", "/2025/08/22/arc-vii-chapitre-30-natsuki-subaru-le-heros-autoproclame/": "Witch Cult Translation", "/2025/03/01/arc-vii-chapitre-18-bataille-dans-la-ville-fortifiee-de-guaral/": "Negi, Kobosuhito, Taurace et Polaris", "/2025/11/02/arc-vii-chapitre-48-des-objectifs-entremeles-dans-la-cite-demoniaque/": "Witch Cult Translation", "/2026/02/01/arc-vii-chapitre-59-taritta-shudraq/": "Witch Cult Translation", "/2025/11/17/arc-vii-chapitre-51-la-maitresse-de-la-cite-demoniaque/": "Witch Cult Translation", "/2026/02/21/arc-vii-chapitre-55b-la-rhapsodie-de-la-ville-fortifiee/": "Witch Cult Translation", "/2025/10/19/arc-vii-chapitre-44-vision-retrecie/": "Witch Cult Translation", "/2026/02/23/arc-vii-chapitre-56b-le-cataclysme-des-dragons-aeriens/": "Witch Cult Translation", "/2026/02/25/arc-vii-chapitre-57b-ca-mest-egal-quon-me-traite-de-cretin/": "Witch Cult Translation", "/2026/04/02/arc-vii-chapitre-63-sparka/": "Witch Cult Translation", "/2026/01/26/arc-vii-chapitre-58-ceux-qui-nont-nulle-part-ou-aller/": "Witch Cult Translation", "/2025/11/01/arc-vii-chapitre-47-une-%e2%96%a0%e2%96%a0-imperissable/": "Witch Cult Translation", "/2025/12/05/arc-vii-chapitre-54-lutopie-de-chaosflame/": "Witch Cult Translation", "/2025/10/18/arc-vii-chapitre-43-dans-lenvers-des-paupieres/": "Witch Cult Translation", "/2026/03/22/arc-vii-chapitre-61-bienvenue-sur-lile-des-gladiateurs/": "Witch Cult Translation", "/2026/01/11/arc-vii-chapitre-55-la-rhapsodie-de-la-cite-demoniaque/": "Witch Cult Translation", "/2026/02/04/arc-vii-chapitre-60-les-graines-du-tumulte/": "Witch Cult Translation", "/2025/11/19/arc-vii-chapitre-52-lamour-ne-saurait-se-ceder/": "Witch Cult Translation", "/2025/10/26/arc-vii-chapitre-46-temerite-enfantine/": "Witch Cult Translation", "/2026/04/12/arc-vii-chapitre-66-hian-yatz/": "Capella et Akira", "/2025/11/09/arc-vii-chapitre-49-les-etoiles-se-sont-alignees/": "Witch Cult Translation", "/2025/10/25/arc-vii-chapitre-45-konkon/": "Witch Cult Translation", "/2026/04/03/arc-vii-chapitre-64-des-mots-magiques/": "Witch Cult Translation", "/2026/04/09/arc-vii-chapitre-65-le-guerrier-des-repas-scolaires/": "Witch Cult Translation", "/2026/01/13/arc-vii-chapitre-56-le-grand-desastre/": "Witch Cult Translation", "/2025/11/10/arc-vii-chapitre-50-un-trou-avec-une-belle-vue/": "Witch Cult Translation", "/2025/11/22/arc-vii-chapitre-53-au-dela-de-la-onzieme-seconde/": "Witch Cult Translation", "/2026/02/16/arc-vii-chapitre-54b-recouvrant-le-ciel-azur/": "Witch Cult Translation", "/2026/01/26/arc-vii-chapitre-57-je-ne-peux-pas-vivre-avec-sagesse/": "Witch Cult Translation", "/2026/03/25/arc-vii-chapitre-62-lordre-de-lile/": "Witch Cult Translation", "/2026/03/04/arc-vii-chapitre-59b-flop-oconnell/": "Witch Cult Translation", "/2026/02/28/arc-vii-chapitre-58b-ceux-qui-ne-possedent-aucun-refuge/": "Witch Cult Translation", "/2026/05/06/arc-vii-chapitre-72-des-rumeurs-absurdes/": "Witch Cult Translation", "/2025/12/24/histoire-annexe-rem-rencontre-subaru/": "Remonwater", "/2025/12/22/histoire-annexe-le-cours-du-ciel-etoile-demilia/": "Reddagh", "/2026/04/18/arc-vii-chapitre-68-la-providence-du-loup-empale/": "Witch Cult Translation", "/2026/04/27/arc-vii-chapitre-71-eau/": "Witch Cult Translation", "/2026/01/04/histoire-annexe-les-liens-geles-prelude-des-jours-glaces/": "Wakaran", "/2024/11/03/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-divertissement/": "Xrakix et WintryOne", "/2026/01/07/histoire-annexe-lafter-tea-party-de-la-sorciere-le-debrief-des-sorcieres/": "Ice", "/2024/12/09/histoire-annexe-le-loup-solitaire-des-bidonvilles-les-journees-agitees-de-felt/": "Eminent", "/2026/04/21/arc-vii-chapitre-69-en-provenance-de-la-capitale-imperiale/": "Witch Cult Translation", "/2025/03/12/histoire-annexe-my-fair-bad-lady/": "Remonwater", "/2024/12/24/histoire-annexe-lhistoire-damour-de-la-lame-demoniaque-le-pere-de-la-mariee/": "Eminent", "/2024/11/02/histoire-annexe-another-memory-snow/": "SNUserTL", "/2025/10/29/histoire-annexe-la-chronique-touristique-demilia-a-la-capitale/": "SNUserTL", "/2026/03/20/histoire-annexe-le-grand-debrief-du-camp-demilia/": "SNUserTL", "/2024/10/26/histoire-annexe-al-visual-complete/": "Ice", "/2025/01/03/histoire-annexe-lhistoire-damour-de-la-lame-demoniaque-les-coulisses-de-la-lune-de-miel/": "Eminent", "/2025/01/02/histoire-annexe-lhistoire-damour-de-la-lame-demoniaque-la-capitale-des-dragons-terrestres-flandres/": "Eminent", "/2024/12/30/histoire-annexe-lafter-tea-party-de-la-sorciere/": "Eminent", "/2024/11/17/histoire-annexe-la-lumiere-du-soleil-illuminant-la-surface-de-leau/": "Negi", "/2025/12/24/histoire-annexe-le-premier-rencard-demilia/": "SnuserTL", "/2024/11/24/histoire-annexe-orgueil-prejuges-et-zombies/": "Negi", "/2024/11/11/histoire-annexe-le-jour-ou-jai-renonce-a-etre-une-etoile-suivante/": "Xrakix", "/2026/05/11/arc-vii-chapitre-73-weitz-rogen/": "Witch Cult Translation", "/2026/01/05/histoire-annexe-lafter-tea-party-de-la-sorciere-les-conditions-pour-devenir-une-sorciere/": "Ice", "/2026/01/01/histoire-annexe-les-liens-geles/": "SNUserTL", "/2026/04/13/arc-vii-chapitre-67-derriere-les-molaires/": "Witch Cult Translation", "/2026/04/23/arc-vii-chapitre-70-une-chose/": "Witch Cult Translation", "/2026/05/18/arc-vii-chapitre-75-i-know/": "Witch Cult Translation", "/2026/05/14/arc-vii-chapitre-74-idra-missanga/": "Witch Cult Translation", "/2024/12/11/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-pressentiments-du-chaos/": "Ice", "/2025/08/29/histoire-annexe-la-ballade-guerriere-de-la-lame-demoniaque-le-dernier-acte-des-huit-bras/": "Ringo", "/2024/11/30/histoire-annexe-la-ligue-ecarlate/": "Eminent", "/2025/03/14/histoire-annexe-la-ballade-guerriere-de-la-lame-demoniaque-le-champ-de-fleurs-de-ce-jour-la/": "Garmadoncar", "/2024/12/07/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-ombres-de-la-conspiration/": "Ice", "/2024/11/25/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-pere-alcoolique/": "Ice", "/2025/03/14/histoire-annexe-la-ballade-guerriere-de-la-lame-demoniaque-lheritier-astrea/": "Garmadoncar", "/2024/12/12/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-zero-arakiya/": "Eminent", "/2024/12/10/histoire-annexe-les-ovations-de-priscilla-a-mon-egard-partie-declaration-de-guerre/": "Ice", "/2024/12/18/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-zero-vincent/": "Erifuru", "/2026/05/24/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-6/": "Eminent", "/2024/05/25/histoire-annexe-la-deuxieme-encyclopedie-prudente-de-joshua-juukulius/": "Ringo, Nanashi-tan et Frr", "/2024/10/01/histoire-annexe-la-malice-avant-le-theatre/": "Ringo et Garcar", "/2024/12/17/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-zero-priscilla/": "Eminent", "/2025/04/02/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-2/": "PaperKaminari", "/2026/03/08/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-5/": "Eminent", "/2025/12/21/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-4/": "Erifuru", "/2025/02/02/histoire-annexe-la-paranoia-provisoire-de-rem-les-mots-creux-dune-oni/": "PaperKaminari", "/2025/09/27/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-3/": "Ice", "/2026/05/24/histoire-annexe-la-paranoia-provisoire-de-rem-oni-ou-serpents-qui-sait-ce-qui-sy-cache/": "PaperKaminari", "/2025/12/06/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-4/": "Eminent", "/2025/09/27/histoire-annexe-la-paranoia-provisoire-de-rem-une-batte-en-metal-pour-une-oni/": "PaperKaminari", "/2025/04/04/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-2/": "Eminent", "/2025/02/02/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-1/": "Eminent", "/2026/03/10/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-5/": "Erifuru", "/2025/04/03/histoire-annexe-la-paranoia-provisoire-de-rem-le-desarroi-dune-oni/": "Hedgehog", "/2025/02/02/histoire-annexe-la-terre-des-loups-mort-aux-faibles-pas-de-pitie-1/": "Ice", "/2025/09/27/histoire-annexe-le-royaume-draconique-la-chronique-de-recherche-de-lenfant-perdu-3/": "Erifuru", "/2025/12/07/histoire-annexe-la-paranoia-provisoire-de-rem-il-ny-a-pas-doni-dans-le-monde-entier/": "PaperKaminari", "/2026/03/09/histoire-annexe-la-paranoia-provisoire-de-rem-profiter-de-labsence-de-loni-pour-faire-la-lessive/": "PaperKaminari", "/2025/12/21/histoire-annexe-stand-by-me-pleiades-2/": "Eminent", "/2024/06/02/rezero-academie/": "Eminent", "/2023/01/31/ayamatsu-if-resegarer-dans-un-autre-monde-a-partir-de-zero/": "Ankaa Burner", "/2026/03/16/histoire-annexe-stand-by-me-pleiades-3/": "Eminent", "/2025/04/06/histoire-annexe-stand-by-me-pleiades-1/": "Eminent", "/2022/06/21/kasaneru-if-reaccumuler-dans-un-autre-monde-a-partir-de-zero/": "Ice", "/2024/10/21/tsugihagu-if-re-se-reconstituer-dans-un-autre-monde-a-partir-de-zero/": "Ice", "/2021/06/13/oboreru-if-rese-noyer-dans-un-autre-monde-a-partir-de-zero/": "Fr, /Fr81" };
+  function h(e2) {
     var a2 = parseInt(e2, 10);
     return isNaN(a2) ? e2.toUpperCase() : function(e3) {
       for (var a3 = "", i2 = e3, r2 = 0, t2 = [[100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]]; r2 < t2.length; r2++) for (var n2 = t2[r2], c2 = n2[0], s2 = n2[1]; i2 >= c2; ) a3 += s2, i2 -= c2;
       return a3;
     }(a2);
   }
-  __name(l, "l");
-  var u = function() {
-    function u2() {
-      this.id = "rezerowebnovelfr", this.name = "Re:Zero Web Novel FR", this.icon = "src/fr/rezerowebnovelfr/icon.png", this.site = "https://rezerowebnovelfr.wordpress.com", this.version = "1.0.1";
+  __name(h, "h");
+  var p = function() {
+    function t2() {
+      this.id = "rezerowebnovelfr", this.name = "Re:Zero Web Novel FR", this.icon = "src/fr/rezerowebnovelfr/icon.png", this.site = "https://rezerowebnovelfr.wordpress.com", this.version = "1.0.3";
     }
-    __name(u2, "u");
-    return u2.prototype.getCheerio = function(e2) {
+    __name(t2, "t");
+    return t2.prototype.getCheerio = function(e2) {
       return a(this, void 0, void 0, function() {
         var a2;
         return i(this, function(i2) {
           switch (i2.label) {
             case 0:
-              return [4, (0, t.fetchApi)(e2, { headers: { "Accept-Encoding": "deflate" } })];
+              return a2 = r.load, [4, s(e2, { headers: { "Accept-Encoding": "deflate" } })];
             case 1:
-              return [4, i2.sent().text()];
-            case 2:
-              return a2 = i2.sent(), [2, (0, r.load)(a2)];
+              return [2, a2.apply(void 0, [i2.sent()])];
           }
         });
       });
-    }, u2.prototype.popularNovels = function(e2) {
+    }, t2.prototype.popularNovels = function(e2) {
       return a(this, void 0, void 0, function() {
         return i(this, function(a2) {
-          return e2 > 1 ? [2, []] : [2, Object.entries(c).map(function(e3) {
+          return e2 > 1 ? [2, []] : [2, Object.entries(o).map(function(e3) {
             var a3 = e3[0];
-            return { name: e3[1].name, cover: s, path: a3 };
+            return { name: e3[1].name, cover: l, path: a3 };
           })];
         });
       });
-    }, u2.prototype.parseNovel = function(r2) {
+    }, t2.prototype.parseNovel = function(r2) {
       return a(this, void 0, void 0, function() {
-        var t2, u3, h, p, d, v, m, g, f, b, T, N, x, q, R, y, C, I, W, k, E, w, S, L = this;
-        return i(this, function(j) {
-          switch (j.label) {
+        var t3, c2, s2, p2, d, v, m, g, f, b, T, N, x, q, y, R, C, I, W, w, k, E, S, L, j = this;
+        return i(this, function(U) {
+          switch (U.label) {
             case 0:
-              return t2 = { path: r2, name: "Sans titre" }, [4, this.getCheerio(this.site + r2)];
+              return t3 = { path: r2, name: "Sans titre" }, [4, this.getCheerio(this.site + r2)];
             case 1:
-              return u3 = j.sent(), t2.name = u3("h1.entry-title").text().trim(), t2.author = "Tappei Nagatsuki", t2.status = n.NovelStatus.Ongoing, (h = c[r2]) && (t2.name = h.name, t2.cover = s, t2.summary = h.summary), p = [], d = /* @__PURE__ */ __name(function(a2, i2, t3) {
-                if (void 0 === t3 && (t3 = ""), a2 && a2.includes(L.site)) {
-                  var n2 = a2.split("?")[0], c2 = n2.match(/\/(\d{4})\/(\d{2})\/(\d{2})\//);
-                  if (c2 && i2) {
-                    var s2 = n2.replace(L.site, "");
-                    if (!p.some(function(e2) {
-                      return e2.path === s2;
-                    })) {
-                      var l2 = "".concat(c2[1], "-").concat(c2[2], "-").concat(c2[3]), u4 = i2;
-                      "/if-stories/" === r2 && (u4 = i2.replace(/^(Lire|lire|LIRE|LIRE LE)\s+/i, "").trim());
-                      var h2 = o[s2];
-                      p.push(e({ name: t3 + u4, path: s2, releaseTime: l2 }, h2 ? { scanlator: h2 } : {}));
+              return c2 = U.sent(), t3.name = c2("h1.entry-title").text().trim(), t3.author = "Tappei Nagatsuki", t3.status = n.NovelStatus.Unknown, (s2 = o[r2]) && (t3.name = s2.name, t3.cover = l, t3.summary = s2.summary), p2 = [], d = /* @__PURE__ */ new Set(), v = /* @__PURE__ */ __name(function(a2, i2, t4) {
+                if (void 0 === t4 && (t4 = ""), a2 && a2.includes(j.site)) {
+                  var n2 = a2.split("?")[0], c3 = n2.match(/\/(\d{4})\/(\d{2})\/(\d{2})\//);
+                  if (c3 && i2) {
+                    var s3 = n2.replace(j.site, "");
+                    if (!d.has(s3)) {
+                      d.add(s3);
+                      var o2 = "".concat(c3[1], "-").concat(c3[2], "-").concat(c3[3]), l2 = i2;
+                      "/if-stories/" === r2 && (l2 = i2.replace(/^(Lire|lire|LIRE|LIRE LE)\s+/i, "").trim());
+                      var h2 = u[s3];
+                      p2.push(e({ name: t4 + l2, path: s3, releaseTime: o2 }, h2 ? { scanlator: h2 } : {}));
                     }
                   }
                 }
-              }, "d"), "/histoire-principale/" !== r2 ? [3, 3] : (v = [], u3(".entry-content .wp-block-button a").each(function(e2, a2) {
-                var i2 = u3(a2).attr("href");
-                i2 && i2.includes(L.site) && v.push(i2);
-              }), [4, Promise.all(v.map(function(e2) {
-                return a(L, void 0, void 0, function() {
+              }, "v"), "/histoire-principale/" !== r2 ? [3, 3] : (m = [], c2(".entry-content .wp-block-button a").each(function(e2, a2) {
+                var i2 = c2(a2).attr("href");
+                i2 && i2.includes(j.site) && m.push(i2);
+              }), [4, Promise.all(m.map(function(e2) {
+                return a(j, void 0, void 0, function() {
                   return i(this, function(a2) {
                     switch (a2.label) {
                       case 0:
@@ -25553,32 +25569,32 @@ var LNReaderPlugin = (() => {
                 });
               }))]);
             case 2:
-              for (m = j.sent(), g = /* @__PURE__ */ __name(function(e2) {
+              for (g = U.sent(), f = /* @__PURE__ */ __name(function(e2) {
                 if (!e2) return "continue";
-                var a2 = e2.page$, i2 = e2.arcUrl.replace(f.site, "").match(/^\/arc-([^-/]+)/i), r3 = i2 ? "Arc ".concat(l(i2[1]), " - ") : "";
+                var a2 = e2.page$, i2 = e2.arcUrl.replace(b.site, "").match(/^\/arc-([^-/]+)/i), r3 = i2 ? "Arc ".concat(h(i2[1]), " - ") : "";
                 a2("div.entry-content ul li a, div.entry-content ol li a").each(function(e3, i3) {
-                  var t3 = a2(i3).attr("href"), n2 = a2(i3).text().trim();
-                  d(t3, n2, r3);
+                  var t4 = a2(i3).attr("href"), n2 = a2(i3).text().trim();
+                  v(t4, n2, r3);
                 });
-              }, "g"), f = this, b = 0, T = m; b < T.length; b++) N = T[b], g(N);
+              }, "f"), b = this, T = 0, N = g; T < N.length; T++) x = N[T], f(x);
               return [3, 4];
             case 3:
-              if ("/histoires-annexes/" === r2) for (x = "", q = u3("div.entry-content").children().toArray(), R = 0, y = q; R < y.length; R++) "tag" === (C = y[R]).type && ("h2" === C.tagName.toLowerCase() ? (I = u3(C).text().trim(), W = I.match(/arc\s+([ivxlcdm]+|\d+)/i), x = W ? "Arc ".concat(l(W[1]), " - ") : "".concat(I, " - ")) : u3(C).find("a").each(function(e2, a2) {
-                var i2 = u3(a2).attr("href"), r3 = u3(a2).text().trim();
-                d(i2, r3, x);
+              if ("/histoires-annexes/" === r2) for (q = "", y = c2("div.entry-content").children().toArray(), R = 0, C = y; R < C.length; R++) "tag" === (I = C[R]).type && ("h2" === I.tagName.toLowerCase() ? (W = c2(I).text().trim(), w = W.match(/arc\s+([ivxlcdm]+|\d+)/i), q = w ? "Arc ".concat(h(w[1]), " - ") : "".concat(W, " - ")) : c2(I).find("a").each(function(e2, a2) {
+                var i2 = c2(a2).attr("href"), r3 = c2(a2).text().trim();
+                v(i2, r3, q);
               }));
-              else u3(".entry-content a").each(function(e2, a2) {
-                var i2 = u3(a2).attr("href"), r3 = u3(a2).text().trim();
-                d(i2, r3);
+              else c2(".entry-content a").each(function(e2, a2) {
+                var i2 = c2(a2).attr("href"), r3 = c2(a2).text().trim();
+                v(i2, r3);
               });
-              j.label = 4;
+              U.label = 4;
             case 4:
-              k = p.filter(function(e2) {
+              k = p2.filter(function(e2) {
                 return !e2.scanlator;
-              }), E = 15, w = 0, j.label = 5;
+              }), E = 15, S = 0, U.label = 5;
             case 5:
-              return w < k.length ? (S = k.slice(w, w + E), [4, Promise.all(S.map(function(e2) {
-                return a(L, void 0, void 0, function() {
+              return S < k.length ? (L = k.slice(S, S + E), [4, Promise.all(L.map(function(e2) {
+                return a(j, void 0, void 0, function() {
                   var a2, r3;
                   return i(this, function(i2) {
                     switch (i2.label) {
@@ -25586,8 +25602,8 @@ var LNReaderPlugin = (() => {
                         return i2.trys.push([0, 2, , 3]), [4, this.getCheerio(this.site + e2.path)];
                       case 1:
                         return a2 = i2.sent(), r3 = "", a2("p").each(function(e3, i3) {
-                          var t3 = a2(i3).text().match(/Traduit.*par\s*:\s*(.+)/i);
-                          t3 && (r3 = t3[1].trim());
+                          var t4 = a2(i3).text().match(/Traduit.*par\s*:\s*(.+)/i);
+                          t4 && (r3 = t4[1].trim());
                         }), r3 && (e2.scanlator = r3), [3, 3];
                       case 2:
                         return i2.sent(), [3, 3];
@@ -25598,27 +25614,27 @@ var LNReaderPlugin = (() => {
                 });
               }))]) : [3, 8];
             case 6:
-              j.sent(), j.label = 7;
+              U.sent(), U.label = 7;
             case 7:
-              return w += E, [3, 5];
+              return S += E, [3, 5];
             case 8:
-              return t2.chapters = p, [2, t2];
+              return t3.chapters = p2, [2, t3];
           }
         });
       });
-    }, u2.prototype.parseChapter = function(e2) {
+    }, t2.prototype.parseChapter = function(e2) {
       return a(this, void 0, void 0, function() {
-        var a2, r2, t2;
+        var a2, r2, t3;
         return i(this, function(i2) {
           switch (i2.label) {
             case 0:
               return [4, this.getCheerio(this.site + e2)];
             case 1:
-              return (a2 = i2.sent())('div.entry-content .sharedaddy, div.entry-content .wpcnt, div.entry-content #jp-post-flair, div.entry-content div[id^="atatags-"]').remove(), r2 = a2("h1.entry-title").html() || "", t2 = a2("div.entry-content").html() || "", [2, r2 + t2];
+              return (a2 = i2.sent())('div.entry-content .sharedaddy, div.entry-content .wpcnt, div.entry-content #jp-post-flair, div.entry-content div[id^="atatags-"]').remove(), a2("div.entry-content").find("script, style, ins, iframe, .ads").remove(), r2 = a2("h1.entry-title").html() || "", t3 = a2("div.entry-content").html() || "", [2, r2 + t3];
           }
         });
       });
-    }, u2.prototype.searchNovels = function(e2, r2) {
+    }, t2.prototype.searchNovels = function(e2, r2) {
       return a(this, void 0, void 0, function() {
         return i(this, function(a2) {
           switch (a2.label) {
@@ -25631,9 +25647,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2;
+    }, t2;
   }();
-  exports.default = new u();
+  exports.default = new p();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

@@ -234,6 +234,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/anf.net/icon.png"
 	},
 	{
+		"id": "animeanyway",
+		"name": "Anime Anyway",
+		"site": "https://animeanyway.com/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/animeAnyway.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/animeanyway/icon.png"
+	},
+	{
 		"id": "arcane",
 		"name": "Arcane Translations",
 		"site": "https://arcanetranslations.com/",
@@ -304,6 +313,15 @@
 		"version": "1.1.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/CherryMistCafe[fictioneer].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/cherrymistcafe/icon.png"
+	},
+	{
+		"id": "chikari",
+		"name": "Chikari",
+		"site": "https://chikari.moe",
+		"lang": "English",
+		"version": "1.0.1",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/chikari.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/chikari/icon.png"
 	},
 	{
 		"id": "chrysanthemumgarden",
@@ -427,7 +445,7 @@
 		"name": "Dreamy Translations",
 		"site": "https://dreamy-translations.com",
 		"lang": "English",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/dreamyTranslations.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/dreamyTranslations/icon.png"
 	},
@@ -752,7 +770,7 @@
 		"name": "LightNovelWorld",
 		"site": "https://lightnovelworld.org/",
 		"lang": "English",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/lightnovelworld.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lightnovelworld/icon.png"
 	},
@@ -1049,7 +1067,7 @@
 		"name": "Novel Phoenix",
 		"site": "https://novelphoenix.com/",
 		"lang": "English",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelPhoenix[novelfire].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/novelfire/novelphoenix/icon.png"
 	},
@@ -1509,7 +1527,7 @@
 		"name": "Chireads",
 		"site": "https://chireads.com",
 		"lang": "Français",
-		"version": "1.0.2",
+		"version": "2.3.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/chireads.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/chireads/icon.png"
 	},
@@ -1518,16 +1536,25 @@
 		"name": "HarkenEliwood",
 		"site": "https://harkeneliwood.wordpress.com",
 		"lang": "Français",
-		"version": "1.0.0",
+		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/harkeneliwood.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/harkeneliwood/icon.png"
+	},
+	{
+		"id": "jgarden",
+		"name": "J-Garden",
+		"site": "https://j-garden.fr/",
+		"lang": "Français",
+		"version": "1.0.5",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/jgarden.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/jgarden/icon.png"
 	},
 	{
 		"id": "kisswood",
 		"name": "KissWood",
 		"site": "https://kisswood.eu",
 		"lang": "Français",
-		"version": "1.0.0",
+		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/kisswood.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/kisswood/icon.png"
 	},
@@ -1539,6 +1566,15 @@
 		"version": "1.1.10",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/LighNovelFR[lightnovelwp].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/lightnovelfr/icon.png"
+	},
+	{
+		"id": "lightnovelvf",
+		"name": "LightNovelVF",
+		"site": "https://www.lightnovelvf.com/",
+		"lang": "Français",
+		"version": "1.0.4",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/lightnovelvf.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/lightnovelvf/icon.png"
 	},
 	{
 		"id": "massnovel",
@@ -1563,7 +1599,7 @@
 		"name": "NovelDeGlace",
 		"site": "https://noveldeglace.com/",
 		"lang": "Français",
-		"version": "1.0.5",
+		"version": "1.0.8",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/noveldeglace.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/noveldeglace/icon.png"
 	},
@@ -1581,7 +1617,7 @@
 		"name": "Novhell",
 		"site": "https://novhell.org",
 		"lang": "Français",
-		"version": "1.0.1",
+		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/novhell.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/novhell/icon.png"
 	},
@@ -1590,16 +1626,25 @@
 		"name": "Re:Zero Web Novel FR",
 		"site": "https://rezerowebnovelfr.wordpress.com",
 		"lang": "Français",
-		"version": "1.0.1",
+		"version": "1.0.3",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/rezerowebnovelfr.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/rezerowebnovelfr/icon.png"
+	},
+	{
+		"id": "tradindex",
+		"name": "Trad-Index",
+		"site": "https://trad-index.com/",
+		"lang": "Français",
+		"version": "1.0.8",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/tradindex.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/tradindex/icon.png"
 	},
 	{
 		"id": "warriorlegendtrad",
 		"name": "Warrior Legend Trad",
 		"site": "https://warriorlegendtrad.wordpress.com",
 		"lang": "Français",
-		"version": "1.0.1",
+		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/warriorlegendtrad.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/warriorlegendtrad/icon.png"
 	},
@@ -1617,7 +1662,7 @@
 		"name": "WuxiaLnScantrad",
 		"site": "https://wuxialnscantrad.wordpress.com",
 		"lang": "Français",
-		"version": "1.0.0",
+		"version": "1.0.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/wuxialnscantrad.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/wuxialnscantrad/icon.png"
 	},
@@ -1626,7 +1671,7 @@
 		"name": "Xiaowaz",
 		"site": "https://xiaowaz.fr",
 		"lang": "Français",
-		"version": "1.0.2",
+		"version": "1.0.5",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/xiaowaz.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/xiaowaz/icon.png"
 	},
@@ -1977,7 +2022,7 @@
 		"name": "RanobeLib",
 		"site": "https://ranobelib.me",
 		"lang": "Русский",
-		"version": "2.2.4",
+		"version": "2.2.6",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/russian/ranobelib.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ru/ranobelib/icon.png"
 	},
