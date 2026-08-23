@@ -806,7 +806,7 @@
 		"name": "LNORI",
 		"site": "https://lnori.com/",
 		"lang": "English",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/lnori.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lnori/icon.png"
 	},
@@ -892,6 +892,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/mvlempyr/icon.png"
 	},
 	{
+		"id": "mynovels",
+		"name": "Mynovels",
+		"site": "https://mynovels.su/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/mynovels.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/mynovels/icon.png"
+	},
+	{
 		"id": "mysticalmerries",
 		"name": "MysticalSeries",
 		"site": "https://mysticalmerries.com/",
@@ -944,6 +953,15 @@
 		"version": "2.2.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NoiceTranslations[madara].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/noicetranslations/icon.png"
+	},
+	{
+		"id": "novel7s",
+		"name": "Novel7s",
+		"site": "https://novel7s.com",
+		"lang": "English",
+		"version": "1.0.1",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/novel7s.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novel7s/icon.png"
 	},
 	{
 		"id": "novelarrow",
@@ -1081,6 +1099,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/novelrest/icon.png"
 	},
 	{
+		"id": "novelshort",
+		"name": "Novel Short",
+		"site": "https://novel-short.com/",
+		"lang": "English",
+		"version": "2.2.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelShort[madara].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/novelshort/icon.png"
+	},
+	{
 		"id": "novelsknight",
 		"name": "NovelsKnight",
 		"site": "https://novelsknight.punchmanga.online/",
@@ -1161,6 +1188,15 @@
 		"version": "1.1.0",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/Prizma[fictioneer].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/prizmatranslation/icon.png"
+	},
+	{
+		"id": "puffinfolio",
+		"name": "Puffin Folio",
+		"site": "https://www.puffinfolio.com/",
+		"lang": "English",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/puffinFolio.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/puffinfolio/icon.png"
 	},
 	{
 		"id": "rainofsnow",
