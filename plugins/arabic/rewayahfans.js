@@ -443,8 +443,8 @@ var LNReaderPlugin = (() => {
   function nextTick(fun) {
     var args = new Array(arguments.length - 1);
     if (arguments.length > 1) {
-      for (var i2 = 1; i2 < arguments.length; i2++)
-        args[i2 - 1] = arguments[i2];
+      for (var i = 1; i < arguments.length; i++)
+        args[i - 1] = arguments[i];
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining)
@@ -729,9 +729,9 @@ var LNReaderPlugin = (() => {
     var revLookup = [];
     var Arr = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
     var code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    for (var i2 = 0, len = code.length; i2 < len; ++i2) {
-      lookup[i2] = code[i2];
-      revLookup[code.charCodeAt(i2)] = i2;
+    for (var i = 0, len = code.length; i < len; ++i) {
+      lookup[i] = code[i];
+      revLookup[code.charCodeAt(i)] = i;
     }
     revLookup["-".charCodeAt(0)] = 62;
     revLookup["_".charCodeAt(0)] = 63;
@@ -765,19 +765,19 @@ var LNReaderPlugin = (() => {
       var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen));
       var curByte = 0;
       var len2 = placeHoldersLen > 0 ? validLen - 4 : validLen;
-      var i3;
-      for (i3 = 0; i3 < len2; i3 += 4) {
-        tmp = revLookup[b64.charCodeAt(i3)] << 18 | revLookup[b64.charCodeAt(i3 + 1)] << 12 | revLookup[b64.charCodeAt(i3 + 2)] << 6 | revLookup[b64.charCodeAt(i3 + 3)];
+      var i2;
+      for (i2 = 0; i2 < len2; i2 += 4) {
+        tmp = revLookup[b64.charCodeAt(i2)] << 18 | revLookup[b64.charCodeAt(i2 + 1)] << 12 | revLookup[b64.charCodeAt(i2 + 2)] << 6 | revLookup[b64.charCodeAt(i2 + 3)];
         arr[curByte++] = tmp >> 16 & 255;
         arr[curByte++] = tmp >> 8 & 255;
         arr[curByte++] = tmp & 255;
       }
       if (placeHoldersLen === 2) {
-        tmp = revLookup[b64.charCodeAt(i3)] << 2 | revLookup[b64.charCodeAt(i3 + 1)] >> 4;
+        tmp = revLookup[b64.charCodeAt(i2)] << 2 | revLookup[b64.charCodeAt(i2 + 1)] >> 4;
         arr[curByte++] = tmp & 255;
       }
       if (placeHoldersLen === 1) {
-        tmp = revLookup[b64.charCodeAt(i3)] << 10 | revLookup[b64.charCodeAt(i3 + 1)] << 4 | revLookup[b64.charCodeAt(i3 + 2)] >> 2;
+        tmp = revLookup[b64.charCodeAt(i2)] << 10 | revLookup[b64.charCodeAt(i2 + 1)] << 4 | revLookup[b64.charCodeAt(i2 + 2)] >> 2;
         arr[curByte++] = tmp >> 8 & 255;
         arr[curByte++] = tmp & 255;
       }
@@ -791,8 +791,8 @@ var LNReaderPlugin = (() => {
     function encodeChunk(uint8, start, end2) {
       var tmp;
       var output = [];
-      for (var i3 = start; i3 < end2; i3 += 3) {
-        tmp = (uint8[i3] << 16 & 16711680) + (uint8[i3 + 1] << 8 & 65280) + (uint8[i3 + 2] & 255);
+      for (var i2 = start; i2 < end2; i2 += 3) {
+        tmp = (uint8[i2] << 16 & 16711680) + (uint8[i2 + 1] << 8 & 65280) + (uint8[i2 + 2] & 255);
         output.push(tripletToBase64(tmp));
       }
       return output.join("");
@@ -804,8 +804,8 @@ var LNReaderPlugin = (() => {
       var extraBytes = len2 % 3;
       var parts = [];
       var maxChunkLength = 16383;
-      for (var i3 = 0, len22 = len2 - extraBytes; i3 < len22; i3 += maxChunkLength) {
-        parts.push(encodeChunk(uint8, i3, i3 + maxChunkLength > len22 ? len22 : i3 + maxChunkLength));
+      for (var i2 = 0, len22 = len2 - extraBytes; i2 < len22; i2 += maxChunkLength) {
+        parts.push(encodeChunk(uint8, i2, i2 + maxChunkLength > len22 ? len22 : i2 + maxChunkLength));
       }
       if (extraBytes === 1) {
         tmp = uint8[len2 - 1];
@@ -829,76 +829,76 @@ var LNReaderPlugin = (() => {
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var nBits = -7;
-      var i2 = isLE ? nBytes - 1 : 0;
+      var i = isLE ? nBytes - 1 : 0;
       var d = isLE ? -1 : 1;
-      var s2 = buffer[offset + i2];
-      i2 += d;
-      e2 = s2 & (1 << -nBits) - 1;
-      s2 >>= -nBits;
+      var s = buffer[offset + i];
+      i += d;
+      e2 = s & (1 << -nBits) - 1;
+      s >>= -nBits;
       nBits += eLen;
-      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i], i += d, nBits -= 8) {
       }
       m = e2 & (1 << -nBits) - 1;
       e2 >>= -nBits;
       nBits += mLen;
-      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {
       }
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s2 ? -1 : 1) * Infinity;
+        return m ? NaN : (s ? -1 : 1) * Infinity;
       } else {
         m = m + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
-      var e2, m, c2;
+      var e2, m, c;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-      var i2 = isLE ? 0 : nBytes - 1;
+      var i = isLE ? 0 : nBytes - 1;
       var d = isLE ? 1 : -1;
-      var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+      var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
         m = isNaN(value) ? 1 : 0;
         e2 = eMax;
       } else {
         e2 = Math.floor(Math.log(value) / Math.LN2);
-        if (value * (c2 = Math.pow(2, -e2)) < 1) {
+        if (value * (c = Math.pow(2, -e2)) < 1) {
           e2--;
-          c2 *= 2;
+          c *= 2;
         }
         if (e2 + eBias >= 1) {
-          value += rt / c2;
+          value += rt / c;
         } else {
           value += rt * Math.pow(2, 1 - eBias);
         }
-        if (value * c2 >= 2) {
+        if (value * c >= 2) {
           e2++;
-          c2 /= 2;
+          c /= 2;
         }
         if (e2 + eBias >= eMax) {
           m = 0;
           e2 = eMax;
         } else if (e2 + eBias >= 1) {
-          m = (value * c2 - 1) * Math.pow(2, mLen);
+          m = (value * c - 1) * Math.pow(2, mLen);
           e2 = e2 + eBias;
         } else {
           m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
           e2 = 0;
         }
       }
-      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d, m /= 256, mLen -= 8) {
+      for (; mLen >= 8; buffer[offset + i] = m & 255, i += d, m /= 256, mLen -= 8) {
       }
       e2 = e2 << mLen | m;
       eLen += mLen;
-      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
+      for (; eLen > 0; buffer[offset + i] = e2 & 255, i += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s2 * 128;
+      buffer[offset + i - d] |= s * 128;
     };
     return exports$1;
   }
@@ -1055,8 +1055,8 @@ var LNReaderPlugin = (() => {
     function fromArrayLike(array) {
       const length = array.length < 0 ? 0 : checked(array.length) | 0;
       const buf = createBuffer(length);
-      for (let i2 = 0; i2 < length; i2 += 1) {
-        buf[i2] = array[i2] & 255;
+      for (let i = 0; i < length; i += 1) {
+        buf[i] = array[i] & 255;
       }
       return buf;
     }
@@ -1135,10 +1135,10 @@ var LNReaderPlugin = (() => {
       if (a2 === b) return 0;
       let x = a2.length;
       let y = b.length;
-      for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b[i2]) {
-          x = a2[i2];
-          y = b[i2];
+      for (let i = 0, len = Math.min(x, y); i < len; ++i) {
+        if (a2[i] !== b[i]) {
+          x = a2[i];
+          y = b[i];
           break;
         }
       }
@@ -1171,17 +1171,17 @@ var LNReaderPlugin = (() => {
       if (list.length === 0) {
         return Buffer3.alloc(0);
       }
-      let i2;
+      let i;
       if (length === void 0) {
         length = 0;
-        for (i2 = 0; i2 < list.length; ++i2) {
-          length += list[i2].length;
+        for (i = 0; i < list.length; ++i) {
+          length += list[i].length;
         }
       }
       const buffer = Buffer3.allocUnsafe(length);
       let pos = 0;
-      for (i2 = 0; i2 < list.length; ++i2) {
-        let buf = list[i2];
+      for (i = 0; i < list.length; ++i) {
+        let buf = list[i];
         if (isInstance(buf, Uint8Array)) {
           if (pos + buf.length > buffer.length) {
             if (!Buffer3.isBuffer(buf)) buf = Buffer3.from(buf);
@@ -1290,9 +1290,9 @@ var LNReaderPlugin = (() => {
     __name(slowToString, "slowToString");
     Buffer3.prototype._isBuffer = true;
     function swap(b, n2, m) {
-      const i2 = b[n2];
+      const i = b[n2];
       b[n2] = b[m];
-      b[m] = i2;
+      b[m] = i;
     }
     __name(swap, "swap");
     Buffer3.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
@@ -1300,8 +1300,8 @@ var LNReaderPlugin = (() => {
       if (len % 2 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 16-bits");
       }
-      for (let i2 = 0; i2 < len; i2 += 2) {
-        swap(this, i2, i2 + 1);
+      for (let i = 0; i < len; i += 2) {
+        swap(this, i, i + 1);
       }
       return this;
     }, "swap16");
@@ -1310,9 +1310,9 @@ var LNReaderPlugin = (() => {
       if (len % 4 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 32-bits");
       }
-      for (let i2 = 0; i2 < len; i2 += 4) {
-        swap(this, i2, i2 + 3);
-        swap(this, i2 + 1, i2 + 2);
+      for (let i = 0; i < len; i += 4) {
+        swap(this, i, i + 3);
+        swap(this, i + 1, i + 2);
       }
       return this;
     }, "swap32");
@@ -1321,11 +1321,11 @@ var LNReaderPlugin = (() => {
       if (len % 8 !== 0) {
         throw new RangeError("Buffer size must be a multiple of 64-bits");
       }
-      for (let i2 = 0; i2 < len; i2 += 8) {
-        swap(this, i2, i2 + 7);
-        swap(this, i2 + 1, i2 + 6);
-        swap(this, i2 + 2, i2 + 5);
-        swap(this, i2 + 3, i2 + 4);
+      for (let i = 0; i < len; i += 8) {
+        swap(this, i, i + 7);
+        swap(this, i + 1, i + 6);
+        swap(this, i + 2, i + 5);
+        swap(this, i + 3, i + 4);
       }
       return this;
     }, "swap64");
@@ -1392,10 +1392,10 @@ var LNReaderPlugin = (() => {
       const len = Math.min(x, y);
       const thisCopy = this.slice(thisStart, thisEnd);
       const targetCopy = target.slice(start, end2);
-      for (let i2 = 0; i2 < len; ++i2) {
-        if (thisCopy[i2] !== targetCopy[i2]) {
-          x = thisCopy[i2];
-          y = targetCopy[i2];
+      for (let i = 0; i < len; ++i) {
+        if (thisCopy[i] !== targetCopy[i]) {
+          x = thisCopy[i];
+          y = targetCopy[i];
           break;
         }
       }
@@ -1463,37 +1463,37 @@ var LNReaderPlugin = (() => {
           byteOffset /= 2;
         }
       }
-      function read(buf, i3) {
+      function read(buf, i2) {
         if (indexSize === 1) {
-          return buf[i3];
+          return buf[i2];
         } else {
-          return buf.readUInt16BE(i3 * indexSize);
+          return buf.readUInt16BE(i2 * indexSize);
         }
       }
       __name(read, "read");
-      let i2;
+      let i;
       if (dir) {
         let foundIndex = -1;
-        for (i2 = byteOffset; i2 < arrLength; i2++) {
-          if (read(arr, i2) === read(val2, foundIndex === -1 ? 0 : i2 - foundIndex)) {
-            if (foundIndex === -1) foundIndex = i2;
-            if (i2 - foundIndex + 1 === valLength) return foundIndex * indexSize;
+        for (i = byteOffset; i < arrLength; i++) {
+          if (read(arr, i) === read(val2, foundIndex === -1 ? 0 : i - foundIndex)) {
+            if (foundIndex === -1) foundIndex = i;
+            if (i - foundIndex + 1 === valLength) return foundIndex * indexSize;
           } else {
-            if (foundIndex !== -1) i2 -= i2 - foundIndex;
+            if (foundIndex !== -1) i -= i - foundIndex;
             foundIndex = -1;
           }
         }
       } else {
         if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
-        for (i2 = byteOffset; i2 >= 0; i2--) {
+        for (i = byteOffset; i >= 0; i--) {
           let found = true;
           for (let j = 0; j < valLength; j++) {
-            if (read(arr, i2 + j) !== read(val2, j)) {
+            if (read(arr, i + j) !== read(val2, j)) {
               found = false;
               break;
             }
           }
-          if (found) return i2;
+          if (found) return i;
         }
       }
       return -1;
@@ -1523,13 +1523,13 @@ var LNReaderPlugin = (() => {
       if (length > strLen / 2) {
         length = strLen / 2;
       }
-      let i2;
-      for (i2 = 0; i2 < length; ++i2) {
-        const parsed = parseInt(string.substr(i2 * 2, 2), 16);
-        if (numberIsNaN(parsed)) return i2;
-        buf[offset + i2] = parsed;
+      let i;
+      for (i = 0; i < length; ++i) {
+        const parsed = parseInt(string.substr(i * 2, 2), 16);
+        if (numberIsNaN(parsed)) return i;
+        buf[offset + i] = parsed;
       }
-      return i2;
+      return i;
     }
     __name(hexWrite, "hexWrite");
     function utf8Write(buf, string, offset, length) {
@@ -1618,12 +1618,12 @@ var LNReaderPlugin = (() => {
     function utf8Slice(buf, start, end2) {
       end2 = Math.min(buf.length, end2);
       const res = [];
-      let i2 = start;
-      while (i2 < end2) {
-        const firstByte = buf[i2];
+      let i = start;
+      while (i < end2) {
+        const firstByte = buf[i];
         let codePoint = null;
         let bytesPerSequence = firstByte > 239 ? 4 : firstByte > 223 ? 3 : firstByte > 191 ? 2 : 1;
-        if (i2 + bytesPerSequence <= end2) {
+        if (i + bytesPerSequence <= end2) {
           let secondByte, thirdByte, fourthByte, tempCodePoint;
           switch (bytesPerSequence) {
             case 1:
@@ -1632,7 +1632,7 @@ var LNReaderPlugin = (() => {
               }
               break;
             case 2:
-              secondByte = buf[i2 + 1];
+              secondByte = buf[i + 1];
               if ((secondByte & 192) === 128) {
                 tempCodePoint = (firstByte & 31) << 6 | secondByte & 63;
                 if (tempCodePoint > 127) {
@@ -1641,8 +1641,8 @@ var LNReaderPlugin = (() => {
               }
               break;
             case 3:
-              secondByte = buf[i2 + 1];
-              thirdByte = buf[i2 + 2];
+              secondByte = buf[i + 1];
+              thirdByte = buf[i + 2];
               if ((secondByte & 192) === 128 && (thirdByte & 192) === 128) {
                 tempCodePoint = (firstByte & 15) << 12 | (secondByte & 63) << 6 | thirdByte & 63;
                 if (tempCodePoint > 2047 && (tempCodePoint < 55296 || tempCodePoint > 57343)) {
@@ -1651,9 +1651,9 @@ var LNReaderPlugin = (() => {
               }
               break;
             case 4:
-              secondByte = buf[i2 + 1];
-              thirdByte = buf[i2 + 2];
-              fourthByte = buf[i2 + 3];
+              secondByte = buf[i + 1];
+              thirdByte = buf[i + 2];
+              fourthByte = buf[i + 3];
               if ((secondByte & 192) === 128 && (thirdByte & 192) === 128 && (fourthByte & 192) === 128) {
                 tempCodePoint = (firstByte & 15) << 18 | (secondByte & 63) << 12 | (thirdByte & 63) << 6 | fourthByte & 63;
                 if (tempCodePoint > 65535 && tempCodePoint < 1114112) {
@@ -1671,7 +1671,7 @@ var LNReaderPlugin = (() => {
           codePoint = 56320 | codePoint & 1023;
         }
         res.push(codePoint);
-        i2 += bytesPerSequence;
+        i += bytesPerSequence;
       }
       return decodeCodePointsArray(res);
     }
@@ -1683,9 +1683,9 @@ var LNReaderPlugin = (() => {
         return String.fromCharCode.apply(String, codePoints);
       }
       let res = "";
-      let i2 = 0;
-      while (i2 < len) {
-        res += String.fromCharCode.apply(String, codePoints.slice(i2, i2 += MAX_ARGUMENTS_LENGTH));
+      let i = 0;
+      while (i < len) {
+        res += String.fromCharCode.apply(String, codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH));
       }
       return res;
     }
@@ -1693,8 +1693,8 @@ var LNReaderPlugin = (() => {
     function asciiSlice(buf, start, end2) {
       let ret = "";
       end2 = Math.min(buf.length, end2);
-      for (let i2 = start; i2 < end2; ++i2) {
-        ret += String.fromCharCode(buf[i2] & 127);
+      for (let i = start; i < end2; ++i) {
+        ret += String.fromCharCode(buf[i] & 127);
       }
       return ret;
     }
@@ -1702,8 +1702,8 @@ var LNReaderPlugin = (() => {
     function latin1Slice(buf, start, end2) {
       let ret = "";
       end2 = Math.min(buf.length, end2);
-      for (let i2 = start; i2 < end2; ++i2) {
-        ret += String.fromCharCode(buf[i2]);
+      for (let i = start; i < end2; ++i) {
+        ret += String.fromCharCode(buf[i]);
       }
       return ret;
     }
@@ -1713,8 +1713,8 @@ var LNReaderPlugin = (() => {
       if (!start || start < 0) start = 0;
       if (!end2 || end2 < 0 || end2 > len) end2 = len;
       let out = "";
-      for (let i2 = start; i2 < end2; ++i2) {
-        out += hexSliceLookupTable[buf[i2]];
+      for (let i = start; i < end2; ++i) {
+        out += hexSliceLookupTable[buf[i]];
       }
       return out;
     }
@@ -1722,8 +1722,8 @@ var LNReaderPlugin = (() => {
     function utf16leSlice(buf, start, end2) {
       const bytes = buf.slice(start, end2);
       let res = "";
-      for (let i2 = 0; i2 < bytes.length - 1; i2 += 2) {
-        res += String.fromCharCode(bytes[i2] + bytes[i2 + 1] * 256);
+      for (let i = 0; i < bytes.length - 1; i += 2) {
+        res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
       }
       return res;
     }
@@ -1760,9 +1760,9 @@ var LNReaderPlugin = (() => {
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
       let val2 = this[offset];
       let mul = 1;
-      let i2 = 0;
-      while (++i2 < byteLength2 && (mul *= 256)) {
-        val2 += this[offset + i2] * mul;
+      let i = 0;
+      while (++i < byteLength2 && (mul *= 256)) {
+        val2 += this[offset + i] * mul;
       }
       return val2;
     }, "readUIntLE");
@@ -1834,9 +1834,9 @@ var LNReaderPlugin = (() => {
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
       let val2 = this[offset];
       let mul = 1;
-      let i2 = 0;
-      while (++i2 < byteLength2 && (mul *= 256)) {
-        val2 += this[offset + i2] * mul;
+      let i = 0;
+      while (++i < byteLength2 && (mul *= 256)) {
+        val2 += this[offset + i] * mul;
       }
       mul *= 128;
       if (val2 >= mul) val2 -= Math.pow(2, 8 * byteLength2);
@@ -1846,11 +1846,11 @@ var LNReaderPlugin = (() => {
       offset = offset >>> 0;
       byteLength2 = byteLength2 >>> 0;
       if (!noAssert) checkOffset(offset, byteLength2, this.length);
-      let i2 = byteLength2;
+      let i = byteLength2;
       let mul = 1;
-      let val2 = this[offset + --i2];
-      while (i2 > 0 && (mul *= 256)) {
-        val2 += this[offset + --i2] * mul;
+      let val2 = this[offset + --i];
+      while (i > 0 && (mul *= 256)) {
+        val2 += this[offset + --i] * mul;
       }
       mul *= 128;
       if (val2 >= mul) val2 -= Math.pow(2, 8 * byteLength2);
@@ -1942,10 +1942,10 @@ var LNReaderPlugin = (() => {
         checkInt(this, value, offset, byteLength2, maxBytes, 0);
       }
       let mul = 1;
-      let i2 = 0;
+      let i = 0;
       this[offset] = value & 255;
-      while (++i2 < byteLength2 && (mul *= 256)) {
-        this[offset + i2] = value / mul & 255;
+      while (++i < byteLength2 && (mul *= 256)) {
+        this[offset + i] = value / mul & 255;
       }
       return offset + byteLength2;
     }, "writeUIntLE");
@@ -1957,11 +1957,11 @@ var LNReaderPlugin = (() => {
         const maxBytes = Math.pow(2, 8 * byteLength2) - 1;
         checkInt(this, value, offset, byteLength2, maxBytes, 0);
       }
-      let i2 = byteLength2 - 1;
+      let i = byteLength2 - 1;
       let mul = 1;
-      this[offset + i2] = value & 255;
-      while (--i2 >= 0 && (mul *= 256)) {
-        this[offset + i2] = value / mul & 255;
+      this[offset + i] = value & 255;
+      while (--i >= 0 && (mul *= 256)) {
+        this[offset + i] = value / mul & 255;
       }
       return offset + byteLength2;
     }, "writeUIntBE");
@@ -2063,15 +2063,15 @@ var LNReaderPlugin = (() => {
         const limit = Math.pow(2, 8 * byteLength2 - 1);
         checkInt(this, value, offset, byteLength2, limit - 1, -limit);
       }
-      let i2 = 0;
+      let i = 0;
       let mul = 1;
       let sub = 0;
       this[offset] = value & 255;
-      while (++i2 < byteLength2 && (mul *= 256)) {
-        if (value < 0 && sub === 0 && this[offset + i2 - 1] !== 0) {
+      while (++i < byteLength2 && (mul *= 256)) {
+        if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
           sub = 1;
         }
-        this[offset + i2] = (value / mul >> 0) - sub & 255;
+        this[offset + i] = (value / mul >> 0) - sub & 255;
       }
       return offset + byteLength2;
     }, "writeIntLE");
@@ -2082,15 +2082,15 @@ var LNReaderPlugin = (() => {
         const limit = Math.pow(2, 8 * byteLength2 - 1);
         checkInt(this, value, offset, byteLength2, limit - 1, -limit);
       }
-      let i2 = byteLength2 - 1;
+      let i = byteLength2 - 1;
       let mul = 1;
       let sub = 0;
-      this[offset + i2] = value & 255;
-      while (--i2 >= 0 && (mul *= 256)) {
-        if (value < 0 && sub === 0 && this[offset + i2 + 1] !== 0) {
+      this[offset + i] = value & 255;
+      while (--i >= 0 && (mul *= 256)) {
+        if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
           sub = 1;
         }
-        this[offset + i2] = (value / mul >> 0) - sub & 255;
+        this[offset + i] = (value / mul >> 0) - sub & 255;
       }
       return offset + byteLength2;
     }, "writeIntBE");
@@ -2244,10 +2244,10 @@ var LNReaderPlugin = (() => {
       start = start >>> 0;
       end2 = end2 === void 0 ? this.length : end2 >>> 0;
       if (!val2) val2 = 0;
-      let i2;
+      let i;
       if (typeof val2 === "number") {
-        for (i2 = start; i2 < end2; ++i2) {
-          this[i2] = val2;
+        for (i = start; i < end2; ++i) {
+          this[i] = val2;
         }
       } else {
         const bytes = Buffer3.isBuffer(val2) ? val2 : Buffer3.from(val2, encoding);
@@ -2255,8 +2255,8 @@ var LNReaderPlugin = (() => {
         if (len === 0) {
           throw new TypeError('The value "' + val2 + '" is invalid for argument "value"');
         }
-        for (i2 = 0; i2 < end2 - start; ++i2) {
-          this[i2 + start] = bytes[i2 % len];
+        for (i = 0; i < end2 - start; ++i) {
+          this[i + start] = bytes[i % len];
         }
       }
       return this;
@@ -2319,12 +2319,12 @@ var LNReaderPlugin = (() => {
     }, RangeError);
     function addNumericalSeparator(val2) {
       let res = "";
-      let i2 = val2.length;
+      let i = val2.length;
       const start = val2[0] === "-" ? 1 : 0;
-      for (; i2 >= start + 4; i2 -= 3) {
-        res = `_${val2.slice(i2 - 3, i2)}${res}`;
+      for (; i >= start + 4; i -= 3) {
+        res = `_${val2.slice(i - 3, i)}${res}`;
       }
-      return `${val2.slice(0, i2)}${res}`;
+      return `${val2.slice(0, i)}${res}`;
     }
     __name(addNumericalSeparator, "addNumericalSeparator");
     function checkBounds(buf, offset, byteLength2) {
@@ -2384,14 +2384,14 @@ var LNReaderPlugin = (() => {
       const length = string.length;
       let leadSurrogate = null;
       const bytes = [];
-      for (let i2 = 0; i2 < length; ++i2) {
-        codePoint = string.charCodeAt(i2);
+      for (let i = 0; i < length; ++i) {
+        codePoint = string.charCodeAt(i);
         if (codePoint > 55295 && codePoint < 57344) {
           if (!leadSurrogate) {
             if (codePoint > 56319) {
               if ((units -= 3) > -1) bytes.push(239, 191, 189);
               continue;
-            } else if (i2 + 1 === length) {
+            } else if (i + 1 === length) {
               if ((units -= 3) > -1) bytes.push(239, 191, 189);
               continue;
             }
@@ -2429,20 +2429,20 @@ var LNReaderPlugin = (() => {
     __name(utf8ToBytes, "utf8ToBytes");
     function asciiToBytes(str) {
       const byteArray = [];
-      for (let i2 = 0; i2 < str.length; ++i2) {
-        byteArray.push(str.charCodeAt(i2) & 255);
+      for (let i = 0; i < str.length; ++i) {
+        byteArray.push(str.charCodeAt(i) & 255);
       }
       return byteArray;
     }
     __name(asciiToBytes, "asciiToBytes");
     function utf16leToBytes(str, units) {
-      let c2, hi, lo;
+      let c, hi, lo;
       const byteArray = [];
-      for (let i2 = 0; i2 < str.length; ++i2) {
+      for (let i = 0; i < str.length; ++i) {
         if ((units -= 2) < 0) break;
-        c2 = str.charCodeAt(i2);
-        hi = c2 >> 8;
-        lo = c2 % 256;
+        c = str.charCodeAt(i);
+        hi = c >> 8;
+        lo = c % 256;
         byteArray.push(lo);
         byteArray.push(hi);
       }
@@ -2454,12 +2454,12 @@ var LNReaderPlugin = (() => {
     }
     __name(base64ToBytes, "base64ToBytes");
     function blitBuffer(src, dst, offset, length) {
-      let i2;
-      for (i2 = 0; i2 < length; ++i2) {
-        if (i2 + offset >= dst.length || i2 >= src.length) break;
-        dst[i2 + offset] = src[i2];
+      let i;
+      for (i = 0; i < length; ++i) {
+        if (i + offset >= dst.length || i >= src.length) break;
+        dst[i + offset] = src[i];
       }
-      return i2;
+      return i;
     }
     __name(blitBuffer, "blitBuffer");
     function isInstance(obj, type) {
@@ -2473,10 +2473,10 @@ var LNReaderPlugin = (() => {
     const hexSliceLookupTable = function() {
       const alphabet = "0123456789abcdef";
       const table = new Array(256);
-      for (let i2 = 0; i2 < 16; ++i2) {
-        const i16 = i2 * 16;
+      for (let i = 0; i < 16; ++i) {
+        const i16 = i * 16;
         for (let j = 0; j < 16; ++j) {
-          table[i16 + j] = alphabet[i2] + alphabet[j];
+          table[i16 + j] = alphabet[i] + alphabet[j];
         }
       }
       return table;
@@ -2582,7 +2582,7 @@ var LNReaderPlugin = (() => {
           extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
             d2.__proto__ = b2;
           } || function(d2, b2) {
-            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d2[p2] = b2[p2];
+            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
           };
           return extendStatics(d, b);
         }, "extendStatics");
@@ -2599,10 +2599,10 @@ var LNReaderPlugin = (() => {
       }();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
-              t2[p2] = s2[p2];
+          for (var s, i = 1, n2 = arguments.length; i < n2; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -3016,9 +3016,9 @@ var LNReaderPlugin = (() => {
         var children2 = childs.map(function(child) {
           return cloneNode2(child, true);
         });
-        for (var i2 = 1; i2 < children2.length; i2++) {
-          children2[i2].prev = children2[i2 - 1];
-          children2[i2 - 1].next = children2[i2];
+        for (var i = 1; i < children2.length; i++) {
+          children2[i].prev = children2[i - 1];
+          children2[i - 1].next = children2[i];
         }
         return children2;
       }
@@ -3033,7 +3033,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -3041,13 +3041,13 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.DomHandler = void 0;
@@ -3199,8 +3199,8 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.default = new Uint16Array(
         // prettier-ignore
-        '\u1D41<\xD5\u0131\u028A\u049D\u057B\u05D0\u0675\u06DE\u07A2\u07D6\u080F\u0A4A\u0A91\u0DA1\u0E6D\u0F09\u0F26\u10CA\u1228\u12E1\u1415\u149D\u14C3\u14DF\u1525\0\0\0\0\0\0\u156B\u16CD\u198D\u1C12\u1DDD\u1F7E\u2060\u21B0\u228D\u23C0\u23FB\u2442\u2824\u2912\u2D08\u2E48\u2FCE\u3016\u32BA\u3639\u37AC\u38FE\u3A28\u3A71\u3AE0\u3B2E\u0800EMabcfglmnoprstu\\bfms\x7F\x84\x8B\x90\x95\x98\xA6\xB3\xB9\xC8\xCFlig\u803B\xC6\u40C6P\u803B&\u4026cute\u803B\xC1\u40C1reve;\u4102\u0100iyx}rc\u803B\xC2\u40C2;\u4410r;\uC000\u{1D504}rave\u803B\xC0\u40C0pha;\u4391acr;\u4100d;\u6A53\u0100gp\x9D\xA1on;\u4104f;\uC000\u{1D538}plyFunction;\u6061ing\u803B\xC5\u40C5\u0100cs\xBE\xC3r;\uC000\u{1D49C}ign;\u6254ilde\u803B\xC3\u40C3ml\u803B\xC4\u40C4\u0400aceforsu\xE5\xFB\xFE\u0117\u011C\u0122\u0127\u012A\u0100cr\xEA\xF2kslash;\u6216\u0176\xF6\xF8;\u6AE7ed;\u6306y;\u4411\u0180crt\u0105\u010B\u0114ause;\u6235noullis;\u612Ca;\u4392r;\uC000\u{1D505}pf;\uC000\u{1D539}eve;\u42D8c\xF2\u0113mpeq;\u624E\u0700HOacdefhilorsu\u014D\u0151\u0156\u0180\u019E\u01A2\u01B5\u01B7\u01BA\u01DC\u0215\u0273\u0278\u027Ecy;\u4427PY\u803B\xA9\u40A9\u0180cpy\u015D\u0162\u017Aute;\u4106\u0100;i\u0167\u0168\u62D2talDifferentialD;\u6145leys;\u612D\u0200aeio\u0189\u018E\u0194\u0198ron;\u410Cdil\u803B\xC7\u40C7rc;\u4108nint;\u6230ot;\u410A\u0100dn\u01A7\u01ADilla;\u40B8terDot;\u40B7\xF2\u017Fi;\u43A7rcle\u0200DMPT\u01C7\u01CB\u01D1\u01D6ot;\u6299inus;\u6296lus;\u6295imes;\u6297o\u0100cs\u01E2\u01F8kwiseContourIntegral;\u6232eCurly\u0100DQ\u0203\u020FoubleQuote;\u601Duote;\u6019\u0200lnpu\u021E\u0228\u0247\u0255on\u0100;e\u0225\u0226\u6237;\u6A74\u0180git\u022F\u0236\u023Aruent;\u6261nt;\u622FourIntegral;\u622E\u0100fr\u024C\u024E;\u6102oduct;\u6210nterClockwiseContourIntegral;\u6233oss;\u6A2Fcr;\uC000\u{1D49E}p\u0100;C\u0284\u0285\u62D3ap;\u624D\u0580DJSZacefios\u02A0\u02AC\u02B0\u02B4\u02B8\u02CB\u02D7\u02E1\u02E6\u0333\u048D\u0100;o\u0179\u02A5trahd;\u6911cy;\u4402cy;\u4405cy;\u440F\u0180grs\u02BF\u02C4\u02C7ger;\u6021r;\u61A1hv;\u6AE4\u0100ay\u02D0\u02D5ron;\u410E;\u4414l\u0100;t\u02DD\u02DE\u6207a;\u4394r;\uC000\u{1D507}\u0100af\u02EB\u0327\u0100cm\u02F0\u0322ritical\u0200ADGT\u0300\u0306\u0316\u031Ccute;\u40B4o\u0174\u030B\u030D;\u42D9bleAcute;\u42DDrave;\u4060ilde;\u42DCond;\u62C4ferentialD;\u6146\u0470\u033D\0\0\0\u0342\u0354\0\u0405f;\uC000\u{1D53B}\u0180;DE\u0348\u0349\u034D\u40A8ot;\u60DCqual;\u6250ble\u0300CDLRUV\u0363\u0372\u0382\u03CF\u03E2\u03F8ontourIntegra\xEC\u0239o\u0274\u0379\0\0\u037B\xBB\u0349nArrow;\u61D3\u0100eo\u0387\u03A4ft\u0180ART\u0390\u0396\u03A1rrow;\u61D0ightArrow;\u61D4e\xE5\u02CAng\u0100LR\u03AB\u03C4eft\u0100AR\u03B3\u03B9rrow;\u67F8ightArrow;\u67FAightArrow;\u67F9ight\u0100AT\u03D8\u03DErrow;\u61D2ee;\u62A8p\u0241\u03E9\0\0\u03EFrrow;\u61D1ownArrow;\u61D5erticalBar;\u6225n\u0300ABLRTa\u0412\u042A\u0430\u045E\u047F\u037Crrow\u0180;BU\u041D\u041E\u0422\u6193ar;\u6913pArrow;\u61F5reve;\u4311eft\u02D2\u043A\0\u0446\0\u0450ightVector;\u6950eeVector;\u695Eector\u0100;B\u0459\u045A\u61BDar;\u6956ight\u01D4\u0467\0\u0471eeVector;\u695Fector\u0100;B\u047A\u047B\u61C1ar;\u6957ee\u0100;A\u0486\u0487\u62A4rrow;\u61A7\u0100ct\u0492\u0497r;\uC000\u{1D49F}rok;\u4110\u0800NTacdfglmopqstux\u04BD\u04C0\u04C4\u04CB\u04DE\u04E2\u04E7\u04EE\u04F5\u0521\u052F\u0536\u0552\u055D\u0560\u0565G;\u414AH\u803B\xD0\u40D0cute\u803B\xC9\u40C9\u0180aiy\u04D2\u04D7\u04DCron;\u411Arc\u803B\xCA\u40CA;\u442Dot;\u4116r;\uC000\u{1D508}rave\u803B\xC8\u40C8ement;\u6208\u0100ap\u04FA\u04FEcr;\u4112ty\u0253\u0506\0\0\u0512mallSquare;\u65FBerySmallSquare;\u65AB\u0100gp\u0526\u052Aon;\u4118f;\uC000\u{1D53C}silon;\u4395u\u0100ai\u053C\u0549l\u0100;T\u0542\u0543\u6A75ilde;\u6242librium;\u61CC\u0100ci\u0557\u055Ar;\u6130m;\u6A73a;\u4397ml\u803B\xCB\u40CB\u0100ip\u056A\u056Fsts;\u6203onentialE;\u6147\u0280cfios\u0585\u0588\u058D\u05B2\u05CCy;\u4424r;\uC000\u{1D509}lled\u0253\u0597\0\0\u05A3mallSquare;\u65FCerySmallSquare;\u65AA\u0370\u05BA\0\u05BF\0\0\u05C4f;\uC000\u{1D53D}All;\u6200riertrf;\u6131c\xF2\u05CB\u0600JTabcdfgorst\u05E8\u05EC\u05EF\u05FA\u0600\u0612\u0616\u061B\u061D\u0623\u066C\u0672cy;\u4403\u803B>\u403Emma\u0100;d\u05F7\u05F8\u4393;\u43DCreve;\u411E\u0180eiy\u0607\u060C\u0610dil;\u4122rc;\u411C;\u4413ot;\u4120r;\uC000\u{1D50A};\u62D9pf;\uC000\u{1D53E}eater\u0300EFGLST\u0635\u0644\u064E\u0656\u065B\u0666qual\u0100;L\u063E\u063F\u6265ess;\u62DBullEqual;\u6267reater;\u6AA2ess;\u6277lantEqual;\u6A7Eilde;\u6273cr;\uC000\u{1D4A2};\u626B\u0400Aacfiosu\u0685\u068B\u0696\u069B\u069E\u06AA\u06BE\u06CARDcy;\u442A\u0100ct\u0690\u0694ek;\u42C7;\u405Eirc;\u4124r;\u610ClbertSpace;\u610B\u01F0\u06AF\0\u06B2f;\u610DizontalLine;\u6500\u0100ct\u06C3\u06C5\xF2\u06A9rok;\u4126mp\u0144\u06D0\u06D8ownHum\xF0\u012Fqual;\u624F\u0700EJOacdfgmnostu\u06FA\u06FE\u0703\u0707\u070E\u071A\u071E\u0721\u0728\u0744\u0778\u078B\u078F\u0795cy;\u4415lig;\u4132cy;\u4401cute\u803B\xCD\u40CD\u0100iy\u0713\u0718rc\u803B\xCE\u40CE;\u4418ot;\u4130r;\u6111rave\u803B\xCC\u40CC\u0180;ap\u0720\u072F\u073F\u0100cg\u0734\u0737r;\u412AinaryI;\u6148lie\xF3\u03DD\u01F4\u0749\0\u0762\u0100;e\u074D\u074E\u622C\u0100gr\u0753\u0758ral;\u622Bsection;\u62C2isible\u0100CT\u076C\u0772omma;\u6063imes;\u6062\u0180gpt\u077F\u0783\u0788on;\u412Ef;\uC000\u{1D540}a;\u4399cr;\u6110ilde;\u4128\u01EB\u079A\0\u079Ecy;\u4406l\u803B\xCF\u40CF\u0280cfosu\u07AC\u07B7\u07BC\u07C2\u07D0\u0100iy\u07B1\u07B5rc;\u4134;\u4419r;\uC000\u{1D50D}pf;\uC000\u{1D541}\u01E3\u07C7\0\u07CCr;\uC000\u{1D4A5}rcy;\u4408kcy;\u4404\u0380HJacfos\u07E4\u07E8\u07EC\u07F1\u07FD\u0802\u0808cy;\u4425cy;\u440Cppa;\u439A\u0100ey\u07F6\u07FBdil;\u4136;\u441Ar;\uC000\u{1D50E}pf;\uC000\u{1D542}cr;\uC000\u{1D4A6}\u0580JTaceflmost\u0825\u0829\u082C\u0850\u0863\u09B3\u09B8\u09C7\u09CD\u0A37\u0A47cy;\u4409\u803B<\u403C\u0280cmnpr\u0837\u083C\u0841\u0844\u084Dute;\u4139bda;\u439Bg;\u67EAlacetrf;\u6112r;\u619E\u0180aey\u0857\u085C\u0861ron;\u413Ddil;\u413B;\u441B\u0100fs\u0868\u0970t\u0500ACDFRTUVar\u087E\u08A9\u08B1\u08E0\u08E6\u08FC\u092F\u095B\u0390\u096A\u0100nr\u0883\u088FgleBracket;\u67E8row\u0180;BR\u0899\u089A\u089E\u6190ar;\u61E4ightArrow;\u61C6eiling;\u6308o\u01F5\u08B7\0\u08C3bleBracket;\u67E6n\u01D4\u08C8\0\u08D2eeVector;\u6961ector\u0100;B\u08DB\u08DC\u61C3ar;\u6959loor;\u630Aight\u0100AV\u08EF\u08F5rrow;\u6194ector;\u694E\u0100er\u0901\u0917e\u0180;AV\u0909\u090A\u0910\u62A3rrow;\u61A4ector;\u695Aiangle\u0180;BE\u0924\u0925\u0929\u62B2ar;\u69CFqual;\u62B4p\u0180DTV\u0937\u0942\u094CownVector;\u6951eeVector;\u6960ector\u0100;B\u0956\u0957\u61BFar;\u6958ector\u0100;B\u0965\u0966\u61BCar;\u6952ight\xE1\u039Cs\u0300EFGLST\u097E\u098B\u0995\u099D\u09A2\u09ADqualGreater;\u62DAullEqual;\u6266reater;\u6276ess;\u6AA1lantEqual;\u6A7Dilde;\u6272r;\uC000\u{1D50F}\u0100;e\u09BD\u09BE\u62D8ftarrow;\u61DAidot;\u413F\u0180npw\u09D4\u0A16\u0A1Bg\u0200LRlr\u09DE\u09F7\u0A02\u0A10eft\u0100AR\u09E6\u09ECrrow;\u67F5ightArrow;\u67F7ightArrow;\u67F6eft\u0100ar\u03B3\u0A0Aight\xE1\u03BFight\xE1\u03CAf;\uC000\u{1D543}er\u0100LR\u0A22\u0A2CeftArrow;\u6199ightArrow;\u6198\u0180cht\u0A3E\u0A40\u0A42\xF2\u084C;\u61B0rok;\u4141;\u626A\u0400acefiosu\u0A5A\u0A5D\u0A60\u0A77\u0A7C\u0A85\u0A8B\u0A8Ep;\u6905y;\u441C\u0100dl\u0A65\u0A6FiumSpace;\u605Flintrf;\u6133r;\uC000\u{1D510}nusPlus;\u6213pf;\uC000\u{1D544}c\xF2\u0A76;\u439C\u0480Jacefostu\u0AA3\u0AA7\u0AAD\u0AC0\u0B14\u0B19\u0D91\u0D97\u0D9Ecy;\u440Acute;\u4143\u0180aey\u0AB4\u0AB9\u0ABEron;\u4147dil;\u4145;\u441D\u0180gsw\u0AC7\u0AF0\u0B0Eative\u0180MTV\u0AD3\u0ADF\u0AE8ediumSpace;\u600Bhi\u0100cn\u0AE6\u0AD8\xEB\u0AD9eryThi\xEE\u0AD9ted\u0100GL\u0AF8\u0B06reaterGreate\xF2\u0673essLes\xF3\u0A48Line;\u400Ar;\uC000\u{1D511}\u0200Bnpt\u0B22\u0B28\u0B37\u0B3Areak;\u6060BreakingSpace;\u40A0f;\u6115\u0680;CDEGHLNPRSTV\u0B55\u0B56\u0B6A\u0B7C\u0BA1\u0BEB\u0C04\u0C5E\u0C84\u0CA6\u0CD8\u0D61\u0D85\u6AEC\u0100ou\u0B5B\u0B64ngruent;\u6262pCap;\u626DoubleVerticalBar;\u6226\u0180lqx\u0B83\u0B8A\u0B9Bement;\u6209ual\u0100;T\u0B92\u0B93\u6260ilde;\uC000\u2242\u0338ists;\u6204reater\u0380;EFGLST\u0BB6\u0BB7\u0BBD\u0BC9\u0BD3\u0BD8\u0BE5\u626Fqual;\u6271ullEqual;\uC000\u2267\u0338reater;\uC000\u226B\u0338ess;\u6279lantEqual;\uC000\u2A7E\u0338ilde;\u6275ump\u0144\u0BF2\u0BFDownHump;\uC000\u224E\u0338qual;\uC000\u224F\u0338e\u0100fs\u0C0A\u0C27tTriangle\u0180;BE\u0C1A\u0C1B\u0C21\u62EAar;\uC000\u29CF\u0338qual;\u62ECs\u0300;EGLST\u0C35\u0C36\u0C3C\u0C44\u0C4B\u0C58\u626Equal;\u6270reater;\u6278ess;\uC000\u226A\u0338lantEqual;\uC000\u2A7D\u0338ilde;\u6274ested\u0100GL\u0C68\u0C79reaterGreater;\uC000\u2AA2\u0338essLess;\uC000\u2AA1\u0338recedes\u0180;ES\u0C92\u0C93\u0C9B\u6280qual;\uC000\u2AAF\u0338lantEqual;\u62E0\u0100ei\u0CAB\u0CB9verseElement;\u620CghtTriangle\u0180;BE\u0CCB\u0CCC\u0CD2\u62EBar;\uC000\u29D0\u0338qual;\u62ED\u0100qu\u0CDD\u0D0CuareSu\u0100bp\u0CE8\u0CF9set\u0100;E\u0CF0\u0CF3\uC000\u228F\u0338qual;\u62E2erset\u0100;E\u0D03\u0D06\uC000\u2290\u0338qual;\u62E3\u0180bcp\u0D13\u0D24\u0D4Eset\u0100;E\u0D1B\u0D1E\uC000\u2282\u20D2qual;\u6288ceeds\u0200;EST\u0D32\u0D33\u0D3B\u0D46\u6281qual;\uC000\u2AB0\u0338lantEqual;\u62E1ilde;\uC000\u227F\u0338erset\u0100;E\u0D58\u0D5B\uC000\u2283\u20D2qual;\u6289ilde\u0200;EFT\u0D6E\u0D6F\u0D75\u0D7F\u6241qual;\u6244ullEqual;\u6247ilde;\u6249erticalBar;\u6224cr;\uC000\u{1D4A9}ilde\u803B\xD1\u40D1;\u439D\u0700Eacdfgmoprstuv\u0DBD\u0DC2\u0DC9\u0DD5\u0DDB\u0DE0\u0DE7\u0DFC\u0E02\u0E20\u0E22\u0E32\u0E3F\u0E44lig;\u4152cute\u803B\xD3\u40D3\u0100iy\u0DCE\u0DD3rc\u803B\xD4\u40D4;\u441Eblac;\u4150r;\uC000\u{1D512}rave\u803B\xD2\u40D2\u0180aei\u0DEE\u0DF2\u0DF6cr;\u414Cga;\u43A9cron;\u439Fpf;\uC000\u{1D546}enCurly\u0100DQ\u0E0E\u0E1AoubleQuote;\u601Cuote;\u6018;\u6A54\u0100cl\u0E27\u0E2Cr;\uC000\u{1D4AA}ash\u803B\xD8\u40D8i\u016C\u0E37\u0E3Cde\u803B\xD5\u40D5es;\u6A37ml\u803B\xD6\u40D6er\u0100BP\u0E4B\u0E60\u0100ar\u0E50\u0E53r;\u603Eac\u0100ek\u0E5A\u0E5C;\u63DEet;\u63B4arenthesis;\u63DC\u0480acfhilors\u0E7F\u0E87\u0E8A\u0E8F\u0E92\u0E94\u0E9D\u0EB0\u0EFCrtialD;\u6202y;\u441Fr;\uC000\u{1D513}i;\u43A6;\u43A0usMinus;\u40B1\u0100ip\u0EA2\u0EADncareplan\xE5\u069Df;\u6119\u0200;eio\u0EB9\u0EBA\u0EE0\u0EE4\u6ABBcedes\u0200;EST\u0EC8\u0EC9\u0ECF\u0EDA\u627Aqual;\u6AAFlantEqual;\u627Cilde;\u627Eme;\u6033\u0100dp\u0EE9\u0EEEuct;\u620Fortion\u0100;a\u0225\u0EF9l;\u621D\u0100ci\u0F01\u0F06r;\uC000\u{1D4AB};\u43A8\u0200Ufos\u0F11\u0F16\u0F1B\u0F1FOT\u803B"\u4022r;\uC000\u{1D514}pf;\u611Acr;\uC000\u{1D4AC}\u0600BEacefhiorsu\u0F3E\u0F43\u0F47\u0F60\u0F73\u0FA7\u0FAA\u0FAD\u1096\u10A9\u10B4\u10BEarr;\u6910G\u803B\xAE\u40AE\u0180cnr\u0F4E\u0F53\u0F56ute;\u4154g;\u67EBr\u0100;t\u0F5C\u0F5D\u61A0l;\u6916\u0180aey\u0F67\u0F6C\u0F71ron;\u4158dil;\u4156;\u4420\u0100;v\u0F78\u0F79\u611Cerse\u0100EU\u0F82\u0F99\u0100lq\u0F87\u0F8Eement;\u620Builibrium;\u61CBpEquilibrium;\u696Fr\xBB\u0F79o;\u43A1ght\u0400ACDFTUVa\u0FC1\u0FEB\u0FF3\u1022\u1028\u105B\u1087\u03D8\u0100nr\u0FC6\u0FD2gleBracket;\u67E9row\u0180;BL\u0FDC\u0FDD\u0FE1\u6192ar;\u61E5eftArrow;\u61C4eiling;\u6309o\u01F5\u0FF9\0\u1005bleBracket;\u67E7n\u01D4\u100A\0\u1014eeVector;\u695Dector\u0100;B\u101D\u101E\u61C2ar;\u6955loor;\u630B\u0100er\u102D\u1043e\u0180;AV\u1035\u1036\u103C\u62A2rrow;\u61A6ector;\u695Biangle\u0180;BE\u1050\u1051\u1055\u62B3ar;\u69D0qual;\u62B5p\u0180DTV\u1063\u106E\u1078ownVector;\u694FeeVector;\u695Cector\u0100;B\u1082\u1083\u61BEar;\u6954ector\u0100;B\u1091\u1092\u61C0ar;\u6953\u0100pu\u109B\u109Ef;\u611DndImplies;\u6970ightarrow;\u61DB\u0100ch\u10B9\u10BCr;\u611B;\u61B1leDelayed;\u69F4\u0680HOacfhimoqstu\u10E4\u10F1\u10F7\u10FD\u1119\u111E\u1151\u1156\u1161\u1167\u11B5\u11BB\u11BF\u0100Cc\u10E9\u10EEHcy;\u4429y;\u4428FTcy;\u442Ccute;\u415A\u0280;aeiy\u1108\u1109\u110E\u1113\u1117\u6ABCron;\u4160dil;\u415Erc;\u415C;\u4421r;\uC000\u{1D516}ort\u0200DLRU\u112A\u1134\u113E\u1149ownArrow\xBB\u041EeftArrow\xBB\u089AightArrow\xBB\u0FDDpArrow;\u6191gma;\u43A3allCircle;\u6218pf;\uC000\u{1D54A}\u0272\u116D\0\0\u1170t;\u621Aare\u0200;ISU\u117B\u117C\u1189\u11AF\u65A1ntersection;\u6293u\u0100bp\u118F\u119Eset\u0100;E\u1197\u1198\u628Fqual;\u6291erset\u0100;E\u11A8\u11A9\u6290qual;\u6292nion;\u6294cr;\uC000\u{1D4AE}ar;\u62C6\u0200bcmp\u11C8\u11DB\u1209\u120B\u0100;s\u11CD\u11CE\u62D0et\u0100;E\u11CD\u11D5qual;\u6286\u0100ch\u11E0\u1205eeds\u0200;EST\u11ED\u11EE\u11F4\u11FF\u627Bqual;\u6AB0lantEqual;\u627Dilde;\u627FTh\xE1\u0F8C;\u6211\u0180;es\u1212\u1213\u1223\u62D1rset\u0100;E\u121C\u121D\u6283qual;\u6287et\xBB\u1213\u0580HRSacfhiors\u123E\u1244\u1249\u1255\u125E\u1271\u1276\u129F\u12C2\u12C8\u12D1ORN\u803B\xDE\u40DEADE;\u6122\u0100Hc\u124E\u1252cy;\u440By;\u4426\u0100bu\u125A\u125C;\u4009;\u43A4\u0180aey\u1265\u126A\u126Fron;\u4164dil;\u4162;\u4422r;\uC000\u{1D517}\u0100ei\u127B\u1289\u01F2\u1280\0\u1287efore;\u6234a;\u4398\u0100cn\u128E\u1298kSpace;\uC000\u205F\u200ASpace;\u6009lde\u0200;EFT\u12AB\u12AC\u12B2\u12BC\u623Cqual;\u6243ullEqual;\u6245ilde;\u6248pf;\uC000\u{1D54B}ipleDot;\u60DB\u0100ct\u12D6\u12DBr;\uC000\u{1D4AF}rok;\u4166\u0AE1\u12F7\u130E\u131A\u1326\0\u132C\u1331\0\0\0\0\0\u1338\u133D\u1377\u1385\0\u13FF\u1404\u140A\u1410\u0100cr\u12FB\u1301ute\u803B\xDA\u40DAr\u0100;o\u1307\u1308\u619Fcir;\u6949r\u01E3\u1313\0\u1316y;\u440Eve;\u416C\u0100iy\u131E\u1323rc\u803B\xDB\u40DB;\u4423blac;\u4170r;\uC000\u{1D518}rave\u803B\xD9\u40D9acr;\u416A\u0100di\u1341\u1369er\u0100BP\u1348\u135D\u0100ar\u134D\u1350r;\u405Fac\u0100ek\u1357\u1359;\u63DFet;\u63B5arenthesis;\u63DDon\u0100;P\u1370\u1371\u62C3lus;\u628E\u0100gp\u137B\u137Fon;\u4172f;\uC000\u{1D54C}\u0400ADETadps\u1395\u13AE\u13B8\u13C4\u03E8\u13D2\u13D7\u13F3rrow\u0180;BD\u1150\u13A0\u13A4ar;\u6912ownArrow;\u61C5ownArrow;\u6195quilibrium;\u696Eee\u0100;A\u13CB\u13CC\u62A5rrow;\u61A5own\xE1\u03F3er\u0100LR\u13DE\u13E8eftArrow;\u6196ightArrow;\u6197i\u0100;l\u13F9\u13FA\u43D2on;\u43A5ing;\u416Ecr;\uC000\u{1D4B0}ilde;\u4168ml\u803B\xDC\u40DC\u0480Dbcdefosv\u1427\u142C\u1430\u1433\u143E\u1485\u148A\u1490\u1496ash;\u62ABar;\u6AEBy;\u4412ash\u0100;l\u143B\u143C\u62A9;\u6AE6\u0100er\u1443\u1445;\u62C1\u0180bty\u144C\u1450\u147Aar;\u6016\u0100;i\u144F\u1455cal\u0200BLST\u1461\u1465\u146A\u1474ar;\u6223ine;\u407Ceparator;\u6758ilde;\u6240ThinSpace;\u600Ar;\uC000\u{1D519}pf;\uC000\u{1D54D}cr;\uC000\u{1D4B1}dash;\u62AA\u0280cefos\u14A7\u14AC\u14B1\u14B6\u14BCirc;\u4174dge;\u62C0r;\uC000\u{1D51A}pf;\uC000\u{1D54E}cr;\uC000\u{1D4B2}\u0200fios\u14CB\u14D0\u14D2\u14D8r;\uC000\u{1D51B};\u439Epf;\uC000\u{1D54F}cr;\uC000\u{1D4B3}\u0480AIUacfosu\u14F1\u14F5\u14F9\u14FD\u1504\u150F\u1514\u151A\u1520cy;\u442Fcy;\u4407cy;\u442Ecute\u803B\xDD\u40DD\u0100iy\u1509\u150Drc;\u4176;\u442Br;\uC000\u{1D51C}pf;\uC000\u{1D550}cr;\uC000\u{1D4B4}ml;\u4178\u0400Hacdefos\u1535\u1539\u153F\u154B\u154F\u155D\u1560\u1564cy;\u4416cute;\u4179\u0100ay\u1544\u1549ron;\u417D;\u4417ot;\u417B\u01F2\u1554\0\u155BoWidt\xE8\u0AD9a;\u4396r;\u6128pf;\u6124cr;\uC000\u{1D4B5}\u0BE1\u1583\u158A\u1590\0\u15B0\u15B6\u15BF\0\0\0\0\u15C6\u15DB\u15EB\u165F\u166D\0\u1695\u169B\u16B2\u16B9\0\u16BEcute\u803B\xE1\u40E1reve;\u4103\u0300;Ediuy\u159C\u159D\u15A1\u15A3\u15A8\u15AD\u623E;\uC000\u223E\u0333;\u623Frc\u803B\xE2\u40E2te\u80BB\xB4\u0306;\u4430lig\u803B\xE6\u40E6\u0100;r\xB2\u15BA;\uC000\u{1D51E}rave\u803B\xE0\u40E0\u0100ep\u15CA\u15D6\u0100fp\u15CF\u15D4sym;\u6135\xE8\u15D3ha;\u43B1\u0100ap\u15DFc\u0100cl\u15E4\u15E7r;\u4101g;\u6A3F\u0264\u15F0\0\0\u160A\u0280;adsv\u15FA\u15FB\u15FF\u1601\u1607\u6227nd;\u6A55;\u6A5Clope;\u6A58;\u6A5A\u0380;elmrsz\u1618\u1619\u161B\u161E\u163F\u164F\u1659\u6220;\u69A4e\xBB\u1619sd\u0100;a\u1625\u1626\u6221\u0461\u1630\u1632\u1634\u1636\u1638\u163A\u163C\u163E;\u69A8;\u69A9;\u69AA;\u69AB;\u69AC;\u69AD;\u69AE;\u69AFt\u0100;v\u1645\u1646\u621Fb\u0100;d\u164C\u164D\u62BE;\u699D\u0100pt\u1654\u1657h;\u6222\xBB\xB9arr;\u637C\u0100gp\u1663\u1667on;\u4105f;\uC000\u{1D552}\u0380;Eaeiop\u12C1\u167B\u167D\u1682\u1684\u1687\u168A;\u6A70cir;\u6A6F;\u624Ad;\u624Bs;\u4027rox\u0100;e\u12C1\u1692\xF1\u1683ing\u803B\xE5\u40E5\u0180cty\u16A1\u16A6\u16A8r;\uC000\u{1D4B6};\u402Amp\u0100;e\u12C1\u16AF\xF1\u0288ilde\u803B\xE3\u40E3ml\u803B\xE4\u40E4\u0100ci\u16C2\u16C8onin\xF4\u0272nt;\u6A11\u0800Nabcdefiklnoprsu\u16ED\u16F1\u1730\u173C\u1743\u1748\u1778\u177D\u17E0\u17E6\u1839\u1850\u170D\u193D\u1948\u1970ot;\u6AED\u0100cr\u16F6\u171Ek\u0200ceps\u1700\u1705\u170D\u1713ong;\u624Cpsilon;\u43F6rime;\u6035im\u0100;e\u171A\u171B\u623Dq;\u62CD\u0176\u1722\u1726ee;\u62BDed\u0100;g\u172C\u172D\u6305e\xBB\u172Drk\u0100;t\u135C\u1737brk;\u63B6\u0100oy\u1701\u1741;\u4431quo;\u601E\u0280cmprt\u1753\u175B\u1761\u1764\u1768aus\u0100;e\u010A\u0109ptyv;\u69B0s\xE9\u170Cno\xF5\u0113\u0180ahw\u176F\u1771\u1773;\u43B2;\u6136een;\u626Cr;\uC000\u{1D51F}g\u0380costuvw\u178D\u179D\u17B3\u17C1\u17D5\u17DB\u17DE\u0180aiu\u1794\u1796\u179A\xF0\u0760rc;\u65EFp\xBB\u1371\u0180dpt\u17A4\u17A8\u17ADot;\u6A00lus;\u6A01imes;\u6A02\u0271\u17B9\0\0\u17BEcup;\u6A06ar;\u6605riangle\u0100du\u17CD\u17D2own;\u65BDp;\u65B3plus;\u6A04e\xE5\u1444\xE5\u14ADarow;\u690D\u0180ako\u17ED\u1826\u1835\u0100cn\u17F2\u1823k\u0180lst\u17FA\u05AB\u1802ozenge;\u69EBriangle\u0200;dlr\u1812\u1813\u1818\u181D\u65B4own;\u65BEeft;\u65C2ight;\u65B8k;\u6423\u01B1\u182B\0\u1833\u01B2\u182F\0\u1831;\u6592;\u65914;\u6593ck;\u6588\u0100eo\u183E\u184D\u0100;q\u1843\u1846\uC000=\u20E5uiv;\uC000\u2261\u20E5t;\u6310\u0200ptwx\u1859\u185E\u1867\u186Cf;\uC000\u{1D553}\u0100;t\u13CB\u1863om\xBB\u13CCtie;\u62C8\u0600DHUVbdhmptuv\u1885\u1896\u18AA\u18BB\u18D7\u18DB\u18EC\u18FF\u1905\u190A\u1910\u1921\u0200LRlr\u188E\u1890\u1892\u1894;\u6557;\u6554;\u6556;\u6553\u0280;DUdu\u18A1\u18A2\u18A4\u18A6\u18A8\u6550;\u6566;\u6569;\u6564;\u6567\u0200LRlr\u18B3\u18B5\u18B7\u18B9;\u655D;\u655A;\u655C;\u6559\u0380;HLRhlr\u18CA\u18CB\u18CD\u18CF\u18D1\u18D3\u18D5\u6551;\u656C;\u6563;\u6560;\u656B;\u6562;\u655Fox;\u69C9\u0200LRlr\u18E4\u18E6\u18E8\u18EA;\u6555;\u6552;\u6510;\u650C\u0280;DUdu\u06BD\u18F7\u18F9\u18FB\u18FD;\u6565;\u6568;\u652C;\u6534inus;\u629Flus;\u629Eimes;\u62A0\u0200LRlr\u1919\u191B\u191D\u191F;\u655B;\u6558;\u6518;\u6514\u0380;HLRhlr\u1930\u1931\u1933\u1935\u1937\u1939\u193B\u6502;\u656A;\u6561;\u655E;\u653C;\u6524;\u651C\u0100ev\u0123\u1942bar\u803B\xA6\u40A6\u0200ceio\u1951\u1956\u195A\u1960r;\uC000\u{1D4B7}mi;\u604Fm\u0100;e\u171A\u171Cl\u0180;bh\u1968\u1969\u196B\u405C;\u69C5sub;\u67C8\u016C\u1974\u197El\u0100;e\u1979\u197A\u6022t\xBB\u197Ap\u0180;Ee\u012F\u1985\u1987;\u6AAE\u0100;q\u06DC\u06DB\u0CE1\u19A7\0\u19E8\u1A11\u1A15\u1A32\0\u1A37\u1A50\0\0\u1AB4\0\0\u1AC1\0\0\u1B21\u1B2E\u1B4D\u1B52\0\u1BFD\0\u1C0C\u0180cpr\u19AD\u19B2\u19DDute;\u4107\u0300;abcds\u19BF\u19C0\u19C4\u19CA\u19D5\u19D9\u6229nd;\u6A44rcup;\u6A49\u0100au\u19CF\u19D2p;\u6A4Bp;\u6A47ot;\u6A40;\uC000\u2229\uFE00\u0100eo\u19E2\u19E5t;\u6041\xEE\u0693\u0200aeiu\u19F0\u19FB\u1A01\u1A05\u01F0\u19F5\0\u19F8s;\u6A4Don;\u410Ddil\u803B\xE7\u40E7rc;\u4109ps\u0100;s\u1A0C\u1A0D\u6A4Cm;\u6A50ot;\u410B\u0180dmn\u1A1B\u1A20\u1A26il\u80BB\xB8\u01ADptyv;\u69B2t\u8100\xA2;e\u1A2D\u1A2E\u40A2r\xE4\u01B2r;\uC000\u{1D520}\u0180cei\u1A3D\u1A40\u1A4Dy;\u4447ck\u0100;m\u1A47\u1A48\u6713ark\xBB\u1A48;\u43C7r\u0380;Ecefms\u1A5F\u1A60\u1A62\u1A6B\u1AA4\u1AAA\u1AAE\u65CB;\u69C3\u0180;el\u1A69\u1A6A\u1A6D\u42C6q;\u6257e\u0261\u1A74\0\0\u1A88rrow\u0100lr\u1A7C\u1A81eft;\u61BAight;\u61BB\u0280RSacd\u1A92\u1A94\u1A96\u1A9A\u1A9F\xBB\u0F47;\u64C8st;\u629Birc;\u629Aash;\u629Dnint;\u6A10id;\u6AEFcir;\u69C2ubs\u0100;u\u1ABB\u1ABC\u6663it\xBB\u1ABC\u02EC\u1AC7\u1AD4\u1AFA\0\u1B0Aon\u0100;e\u1ACD\u1ACE\u403A\u0100;q\xC7\xC6\u026D\u1AD9\0\0\u1AE2a\u0100;t\u1ADE\u1ADF\u402C;\u4040\u0180;fl\u1AE8\u1AE9\u1AEB\u6201\xEE\u1160e\u0100mx\u1AF1\u1AF6ent\xBB\u1AE9e\xF3\u024D\u01E7\u1AFE\0\u1B07\u0100;d\u12BB\u1B02ot;\u6A6Dn\xF4\u0246\u0180fry\u1B10\u1B14\u1B17;\uC000\u{1D554}o\xE4\u0254\u8100\xA9;s\u0155\u1B1Dr;\u6117\u0100ao\u1B25\u1B29rr;\u61B5ss;\u6717\u0100cu\u1B32\u1B37r;\uC000\u{1D4B8}\u0100bp\u1B3C\u1B44\u0100;e\u1B41\u1B42\u6ACF;\u6AD1\u0100;e\u1B49\u1B4A\u6AD0;\u6AD2dot;\u62EF\u0380delprvw\u1B60\u1B6C\u1B77\u1B82\u1BAC\u1BD4\u1BF9arr\u0100lr\u1B68\u1B6A;\u6938;\u6935\u0270\u1B72\0\0\u1B75r;\u62DEc;\u62DFarr\u0100;p\u1B7F\u1B80\u61B6;\u693D\u0300;bcdos\u1B8F\u1B90\u1B96\u1BA1\u1BA5\u1BA8\u622Arcap;\u6A48\u0100au\u1B9B\u1B9Ep;\u6A46p;\u6A4Aot;\u628Dr;\u6A45;\uC000\u222A\uFE00\u0200alrv\u1BB5\u1BBF\u1BDE\u1BE3rr\u0100;m\u1BBC\u1BBD\u61B7;\u693Cy\u0180evw\u1BC7\u1BD4\u1BD8q\u0270\u1BCE\0\0\u1BD2re\xE3\u1B73u\xE3\u1B75ee;\u62CEedge;\u62CFen\u803B\xA4\u40A4earrow\u0100lr\u1BEE\u1BF3eft\xBB\u1B80ight\xBB\u1BBDe\xE4\u1BDD\u0100ci\u1C01\u1C07onin\xF4\u01F7nt;\u6231lcty;\u632D\u0980AHabcdefhijlorstuwz\u1C38\u1C3B\u1C3F\u1C5D\u1C69\u1C75\u1C8A\u1C9E\u1CAC\u1CB7\u1CFB\u1CFF\u1D0D\u1D7B\u1D91\u1DAB\u1DBB\u1DC6\u1DCDr\xF2\u0381ar;\u6965\u0200glrs\u1C48\u1C4D\u1C52\u1C54ger;\u6020eth;\u6138\xF2\u1133h\u0100;v\u1C5A\u1C5B\u6010\xBB\u090A\u016B\u1C61\u1C67arow;\u690Fa\xE3\u0315\u0100ay\u1C6E\u1C73ron;\u410F;\u4434\u0180;ao\u0332\u1C7C\u1C84\u0100gr\u02BF\u1C81r;\u61CAtseq;\u6A77\u0180glm\u1C91\u1C94\u1C98\u803B\xB0\u40B0ta;\u43B4ptyv;\u69B1\u0100ir\u1CA3\u1CA8sht;\u697F;\uC000\u{1D521}ar\u0100lr\u1CB3\u1CB5\xBB\u08DC\xBB\u101E\u0280aegsv\u1CC2\u0378\u1CD6\u1CDC\u1CE0m\u0180;os\u0326\u1CCA\u1CD4nd\u0100;s\u0326\u1CD1uit;\u6666amma;\u43DDin;\u62F2\u0180;io\u1CE7\u1CE8\u1CF8\u40F7de\u8100\xF7;o\u1CE7\u1CF0ntimes;\u62C7n\xF8\u1CF7cy;\u4452c\u026F\u1D06\0\0\u1D0Arn;\u631Eop;\u630D\u0280lptuw\u1D18\u1D1D\u1D22\u1D49\u1D55lar;\u4024f;\uC000\u{1D555}\u0280;emps\u030B\u1D2D\u1D37\u1D3D\u1D42q\u0100;d\u0352\u1D33ot;\u6251inus;\u6238lus;\u6214quare;\u62A1blebarwedg\xE5\xFAn\u0180adh\u112E\u1D5D\u1D67ownarrow\xF3\u1C83arpoon\u0100lr\u1D72\u1D76ef\xF4\u1CB4igh\xF4\u1CB6\u0162\u1D7F\u1D85karo\xF7\u0F42\u026F\u1D8A\0\0\u1D8Ern;\u631Fop;\u630C\u0180cot\u1D98\u1DA3\u1DA6\u0100ry\u1D9D\u1DA1;\uC000\u{1D4B9};\u4455l;\u69F6rok;\u4111\u0100dr\u1DB0\u1DB4ot;\u62F1i\u0100;f\u1DBA\u1816\u65BF\u0100ah\u1DC0\u1DC3r\xF2\u0429a\xF2\u0FA6angle;\u69A6\u0100ci\u1DD2\u1DD5y;\u445Fgrarr;\u67FF\u0900Dacdefglmnopqrstux\u1E01\u1E09\u1E19\u1E38\u0578\u1E3C\u1E49\u1E61\u1E7E\u1EA5\u1EAF\u1EBD\u1EE1\u1F2A\u1F37\u1F44\u1F4E\u1F5A\u0100Do\u1E06\u1D34o\xF4\u1C89\u0100cs\u1E0E\u1E14ute\u803B\xE9\u40E9ter;\u6A6E\u0200aioy\u1E22\u1E27\u1E31\u1E36ron;\u411Br\u0100;c\u1E2D\u1E2E\u6256\u803B\xEA\u40EAlon;\u6255;\u444Dot;\u4117\u0100Dr\u1E41\u1E45ot;\u6252;\uC000\u{1D522}\u0180;rs\u1E50\u1E51\u1E57\u6A9Aave\u803B\xE8\u40E8\u0100;d\u1E5C\u1E5D\u6A96ot;\u6A98\u0200;ils\u1E6A\u1E6B\u1E72\u1E74\u6A99nters;\u63E7;\u6113\u0100;d\u1E79\u1E7A\u6A95ot;\u6A97\u0180aps\u1E85\u1E89\u1E97cr;\u4113ty\u0180;sv\u1E92\u1E93\u1E95\u6205et\xBB\u1E93p\u01001;\u1E9D\u1EA4\u0133\u1EA1\u1EA3;\u6004;\u6005\u6003\u0100gs\u1EAA\u1EAC;\u414Bp;\u6002\u0100gp\u1EB4\u1EB8on;\u4119f;\uC000\u{1D556}\u0180als\u1EC4\u1ECE\u1ED2r\u0100;s\u1ECA\u1ECB\u62D5l;\u69E3us;\u6A71i\u0180;lv\u1EDA\u1EDB\u1EDF\u43B5on\xBB\u1EDB;\u43F5\u0200csuv\u1EEA\u1EF3\u1F0B\u1F23\u0100io\u1EEF\u1E31rc\xBB\u1E2E\u0269\u1EF9\0\0\u1EFB\xED\u0548ant\u0100gl\u1F02\u1F06tr\xBB\u1E5Dess\xBB\u1E7A\u0180aei\u1F12\u1F16\u1F1Als;\u403Dst;\u625Fv\u0100;D\u0235\u1F20D;\u6A78parsl;\u69E5\u0100Da\u1F2F\u1F33ot;\u6253rr;\u6971\u0180cdi\u1F3E\u1F41\u1EF8r;\u612Fo\xF4\u0352\u0100ah\u1F49\u1F4B;\u43B7\u803B\xF0\u40F0\u0100mr\u1F53\u1F57l\u803B\xEB\u40EBo;\u60AC\u0180cip\u1F61\u1F64\u1F67l;\u4021s\xF4\u056E\u0100eo\u1F6C\u1F74ctatio\xEE\u0559nential\xE5\u0579\u09E1\u1F92\0\u1F9E\0\u1FA1\u1FA7\0\0\u1FC6\u1FCC\0\u1FD3\0\u1FE6\u1FEA\u2000\0\u2008\u205Allingdotse\xF1\u1E44y;\u4444male;\u6640\u0180ilr\u1FAD\u1FB3\u1FC1lig;\u8000\uFB03\u0269\u1FB9\0\0\u1FBDg;\u8000\uFB00ig;\u8000\uFB04;\uC000\u{1D523}lig;\u8000\uFB01lig;\uC000fj\u0180alt\u1FD9\u1FDC\u1FE1t;\u666Dig;\u8000\uFB02ns;\u65B1of;\u4192\u01F0\u1FEE\0\u1FF3f;\uC000\u{1D557}\u0100ak\u05BF\u1FF7\u0100;v\u1FFC\u1FFD\u62D4;\u6AD9artint;\u6A0D\u0100ao\u200C\u2055\u0100cs\u2011\u2052\u03B1\u201A\u2030\u2038\u2045\u2048\0\u2050\u03B2\u2022\u2025\u2027\u202A\u202C\0\u202E\u803B\xBD\u40BD;\u6153\u803B\xBC\u40BC;\u6155;\u6159;\u615B\u01B3\u2034\0\u2036;\u6154;\u6156\u02B4\u203E\u2041\0\0\u2043\u803B\xBE\u40BE;\u6157;\u615C5;\u6158\u01B6\u204C\0\u204E;\u615A;\u615D8;\u615El;\u6044wn;\u6322cr;\uC000\u{1D4BB}\u0880Eabcdefgijlnorstv\u2082\u2089\u209F\u20A5\u20B0\u20B4\u20F0\u20F5\u20FA\u20FF\u2103\u2112\u2138\u0317\u213E\u2152\u219E\u0100;l\u064D\u2087;\u6A8C\u0180cmp\u2090\u2095\u209Dute;\u41F5ma\u0100;d\u209C\u1CDA\u43B3;\u6A86reve;\u411F\u0100iy\u20AA\u20AErc;\u411D;\u4433ot;\u4121\u0200;lqs\u063E\u0642\u20BD\u20C9\u0180;qs\u063E\u064C\u20C4lan\xF4\u0665\u0200;cdl\u0665\u20D2\u20D5\u20E5c;\u6AA9ot\u0100;o\u20DC\u20DD\u6A80\u0100;l\u20E2\u20E3\u6A82;\u6A84\u0100;e\u20EA\u20ED\uC000\u22DB\uFE00s;\u6A94r;\uC000\u{1D524}\u0100;g\u0673\u061Bmel;\u6137cy;\u4453\u0200;Eaj\u065A\u210C\u210E\u2110;\u6A92;\u6AA5;\u6AA4\u0200Eaes\u211B\u211D\u2129\u2134;\u6269p\u0100;p\u2123\u2124\u6A8Arox\xBB\u2124\u0100;q\u212E\u212F\u6A88\u0100;q\u212E\u211Bim;\u62E7pf;\uC000\u{1D558}\u0100ci\u2143\u2146r;\u610Am\u0180;el\u066B\u214E\u2150;\u6A8E;\u6A90\u8300>;cdlqr\u05EE\u2160\u216A\u216E\u2173\u2179\u0100ci\u2165\u2167;\u6AA7r;\u6A7Aot;\u62D7Par;\u6995uest;\u6A7C\u0280adels\u2184\u216A\u2190\u0656\u219B\u01F0\u2189\0\u218Epro\xF8\u209Er;\u6978q\u0100lq\u063F\u2196les\xF3\u2088i\xED\u066B\u0100en\u21A3\u21ADrtneqq;\uC000\u2269\uFE00\xC5\u21AA\u0500Aabcefkosy\u21C4\u21C7\u21F1\u21F5\u21FA\u2218\u221D\u222F\u2268\u227Dr\xF2\u03A0\u0200ilmr\u21D0\u21D4\u21D7\u21DBrs\xF0\u1484f\xBB\u2024il\xF4\u06A9\u0100dr\u21E0\u21E4cy;\u444A\u0180;cw\u08F4\u21EB\u21EFir;\u6948;\u61ADar;\u610Firc;\u4125\u0180alr\u2201\u220E\u2213rts\u0100;u\u2209\u220A\u6665it\xBB\u220Alip;\u6026con;\u62B9r;\uC000\u{1D525}s\u0100ew\u2223\u2229arow;\u6925arow;\u6926\u0280amopr\u223A\u223E\u2243\u225E\u2263rr;\u61FFtht;\u623Bk\u0100lr\u2249\u2253eftarrow;\u61A9ightarrow;\u61AAf;\uC000\u{1D559}bar;\u6015\u0180clt\u226F\u2274\u2278r;\uC000\u{1D4BD}as\xE8\u21F4rok;\u4127\u0100bp\u2282\u2287ull;\u6043hen\xBB\u1C5B\u0AE1\u22A3\0\u22AA\0\u22B8\u22C5\u22CE\0\u22D5\u22F3\0\0\u22F8\u2322\u2367\u2362\u237F\0\u2386\u23AA\u23B4cute\u803B\xED\u40ED\u0180;iy\u0771\u22B0\u22B5rc\u803B\xEE\u40EE;\u4438\u0100cx\u22BC\u22BFy;\u4435cl\u803B\xA1\u40A1\u0100fr\u039F\u22C9;\uC000\u{1D526}rave\u803B\xEC\u40EC\u0200;ino\u073E\u22DD\u22E9\u22EE\u0100in\u22E2\u22E6nt;\u6A0Ct;\u622Dfin;\u69DCta;\u6129lig;\u4133\u0180aop\u22FE\u231A\u231D\u0180cgt\u2305\u2308\u2317r;\u412B\u0180elp\u071F\u230F\u2313in\xE5\u078Ear\xF4\u0720h;\u4131f;\u62B7ed;\u41B5\u0280;cfot\u04F4\u232C\u2331\u233D\u2341are;\u6105in\u0100;t\u2338\u2339\u621Eie;\u69DDdo\xF4\u2319\u0280;celp\u0757\u234C\u2350\u235B\u2361al;\u62BA\u0100gr\u2355\u2359er\xF3\u1563\xE3\u234Darhk;\u6A17rod;\u6A3C\u0200cgpt\u236F\u2372\u2376\u237By;\u4451on;\u412Ff;\uC000\u{1D55A}a;\u43B9uest\u803B\xBF\u40BF\u0100ci\u238A\u238Fr;\uC000\u{1D4BE}n\u0280;Edsv\u04F4\u239B\u239D\u23A1\u04F3;\u62F9ot;\u62F5\u0100;v\u23A6\u23A7\u62F4;\u62F3\u0100;i\u0777\u23AElde;\u4129\u01EB\u23B8\0\u23BCcy;\u4456l\u803B\xEF\u40EF\u0300cfmosu\u23CC\u23D7\u23DC\u23E1\u23E7\u23F5\u0100iy\u23D1\u23D5rc;\u4135;\u4439r;\uC000\u{1D527}ath;\u4237pf;\uC000\u{1D55B}\u01E3\u23EC\0\u23F1r;\uC000\u{1D4BF}rcy;\u4458kcy;\u4454\u0400acfghjos\u240B\u2416\u2422\u2427\u242D\u2431\u2435\u243Bppa\u0100;v\u2413\u2414\u43BA;\u43F0\u0100ey\u241B\u2420dil;\u4137;\u443Ar;\uC000\u{1D528}reen;\u4138cy;\u4445cy;\u445Cpf;\uC000\u{1D55C}cr;\uC000\u{1D4C0}\u0B80ABEHabcdefghjlmnoprstuv\u2470\u2481\u2486\u248D\u2491\u250E\u253D\u255A\u2580\u264E\u265E\u2665\u2679\u267D\u269A\u26B2\u26D8\u275D\u2768\u278B\u27C0\u2801\u2812\u0180art\u2477\u247A\u247Cr\xF2\u09C6\xF2\u0395ail;\u691Barr;\u690E\u0100;g\u0994\u248B;\u6A8Bar;\u6962\u0963\u24A5\0\u24AA\0\u24B1\0\0\0\0\0\u24B5\u24BA\0\u24C6\u24C8\u24CD\0\u24F9ute;\u413Amptyv;\u69B4ra\xEE\u084Cbda;\u43BBg\u0180;dl\u088E\u24C1\u24C3;\u6991\xE5\u088E;\u6A85uo\u803B\xAB\u40ABr\u0400;bfhlpst\u0899\u24DE\u24E6\u24E9\u24EB\u24EE\u24F1\u24F5\u0100;f\u089D\u24E3s;\u691Fs;\u691D\xEB\u2252p;\u61ABl;\u6939im;\u6973l;\u61A2\u0180;ae\u24FF\u2500\u2504\u6AABil;\u6919\u0100;s\u2509\u250A\u6AAD;\uC000\u2AAD\uFE00\u0180abr\u2515\u2519\u251Drr;\u690Crk;\u6772\u0100ak\u2522\u252Cc\u0100ek\u2528\u252A;\u407B;\u405B\u0100es\u2531\u2533;\u698Bl\u0100du\u2539\u253B;\u698F;\u698D\u0200aeuy\u2546\u254B\u2556\u2558ron;\u413E\u0100di\u2550\u2554il;\u413C\xEC\u08B0\xE2\u2529;\u443B\u0200cqrs\u2563\u2566\u256D\u257Da;\u6936uo\u0100;r\u0E19\u1746\u0100du\u2572\u2577har;\u6967shar;\u694Bh;\u61B2\u0280;fgqs\u258B\u258C\u0989\u25F3\u25FF\u6264t\u0280ahlrt\u2598\u25A4\u25B7\u25C2\u25E8rrow\u0100;t\u0899\u25A1a\xE9\u24F6arpoon\u0100du\u25AF\u25B4own\xBB\u045Ap\xBB\u0966eftarrows;\u61C7ight\u0180ahs\u25CD\u25D6\u25DErrow\u0100;s\u08F4\u08A7arpoon\xF3\u0F98quigarro\xF7\u21F0hreetimes;\u62CB\u0180;qs\u258B\u0993\u25FAlan\xF4\u09AC\u0280;cdgs\u09AC\u260A\u260D\u261D\u2628c;\u6AA8ot\u0100;o\u2614\u2615\u6A7F\u0100;r\u261A\u261B\u6A81;\u6A83\u0100;e\u2622\u2625\uC000\u22DA\uFE00s;\u6A93\u0280adegs\u2633\u2639\u263D\u2649\u264Bppro\xF8\u24C6ot;\u62D6q\u0100gq\u2643\u2645\xF4\u0989gt\xF2\u248C\xF4\u099Bi\xED\u09B2\u0180ilr\u2655\u08E1\u265Asht;\u697C;\uC000\u{1D529}\u0100;E\u099C\u2663;\u6A91\u0161\u2669\u2676r\u0100du\u25B2\u266E\u0100;l\u0965\u2673;\u696Alk;\u6584cy;\u4459\u0280;acht\u0A48\u2688\u268B\u2691\u2696r\xF2\u25C1orne\xF2\u1D08ard;\u696Bri;\u65FA\u0100io\u269F\u26A4dot;\u4140ust\u0100;a\u26AC\u26AD\u63B0che\xBB\u26AD\u0200Eaes\u26BB\u26BD\u26C9\u26D4;\u6268p\u0100;p\u26C3\u26C4\u6A89rox\xBB\u26C4\u0100;q\u26CE\u26CF\u6A87\u0100;q\u26CE\u26BBim;\u62E6\u0400abnoptwz\u26E9\u26F4\u26F7\u271A\u272F\u2741\u2747\u2750\u0100nr\u26EE\u26F1g;\u67ECr;\u61FDr\xEB\u08C1g\u0180lmr\u26FF\u270D\u2714eft\u0100ar\u09E6\u2707ight\xE1\u09F2apsto;\u67FCight\xE1\u09FDparrow\u0100lr\u2725\u2729ef\xF4\u24EDight;\u61AC\u0180afl\u2736\u2739\u273Dr;\u6985;\uC000\u{1D55D}us;\u6A2Dimes;\u6A34\u0161\u274B\u274Fst;\u6217\xE1\u134E\u0180;ef\u2757\u2758\u1800\u65CAnge\xBB\u2758ar\u0100;l\u2764\u2765\u4028t;\u6993\u0280achmt\u2773\u2776\u277C\u2785\u2787r\xF2\u08A8orne\xF2\u1D8Car\u0100;d\u0F98\u2783;\u696D;\u600Eri;\u62BF\u0300achiqt\u2798\u279D\u0A40\u27A2\u27AE\u27BBquo;\u6039r;\uC000\u{1D4C1}m\u0180;eg\u09B2\u27AA\u27AC;\u6A8D;\u6A8F\u0100bu\u252A\u27B3o\u0100;r\u0E1F\u27B9;\u601Arok;\u4142\u8400<;cdhilqr\u082B\u27D2\u2639\u27DC\u27E0\u27E5\u27EA\u27F0\u0100ci\u27D7\u27D9;\u6AA6r;\u6A79re\xE5\u25F2mes;\u62C9arr;\u6976uest;\u6A7B\u0100Pi\u27F5\u27F9ar;\u6996\u0180;ef\u2800\u092D\u181B\u65C3r\u0100du\u2807\u280Dshar;\u694Ahar;\u6966\u0100en\u2817\u2821rtneqq;\uC000\u2268\uFE00\xC5\u281E\u0700Dacdefhilnopsu\u2840\u2845\u2882\u288E\u2893\u28A0\u28A5\u28A8\u28DA\u28E2\u28E4\u0A83\u28F3\u2902Dot;\u623A\u0200clpr\u284E\u2852\u2863\u287Dr\u803B\xAF\u40AF\u0100et\u2857\u2859;\u6642\u0100;e\u285E\u285F\u6720se\xBB\u285F\u0100;s\u103B\u2868to\u0200;dlu\u103B\u2873\u2877\u287Bow\xEE\u048Cef\xF4\u090F\xF0\u13D1ker;\u65AE\u0100oy\u2887\u288Cmma;\u6A29;\u443Cash;\u6014asuredangle\xBB\u1626r;\uC000\u{1D52A}o;\u6127\u0180cdn\u28AF\u28B4\u28C9ro\u803B\xB5\u40B5\u0200;acd\u1464\u28BD\u28C0\u28C4s\xF4\u16A7ir;\u6AF0ot\u80BB\xB7\u01B5us\u0180;bd\u28D2\u1903\u28D3\u6212\u0100;u\u1D3C\u28D8;\u6A2A\u0163\u28DE\u28E1p;\u6ADB\xF2\u2212\xF0\u0A81\u0100dp\u28E9\u28EEels;\u62A7f;\uC000\u{1D55E}\u0100ct\u28F8\u28FDr;\uC000\u{1D4C2}pos\xBB\u159D\u0180;lm\u2909\u290A\u290D\u43BCtimap;\u62B8\u0C00GLRVabcdefghijlmoprstuvw\u2942\u2953\u297E\u2989\u2998\u29DA\u29E9\u2A15\u2A1A\u2A58\u2A5D\u2A83\u2A95\u2AA4\u2AA8\u2B04\u2B07\u2B44\u2B7F\u2BAE\u2C34\u2C67\u2C7C\u2CE9\u0100gt\u2947\u294B;\uC000\u22D9\u0338\u0100;v\u2950\u0BCF\uC000\u226B\u20D2\u0180elt\u295A\u2972\u2976ft\u0100ar\u2961\u2967rrow;\u61CDightarrow;\u61CE;\uC000\u22D8\u0338\u0100;v\u297B\u0C47\uC000\u226A\u20D2ightarrow;\u61CF\u0100Dd\u298E\u2993ash;\u62AFash;\u62AE\u0280bcnpt\u29A3\u29A7\u29AC\u29B1\u29CCla\xBB\u02DEute;\u4144g;\uC000\u2220\u20D2\u0280;Eiop\u0D84\u29BC\u29C0\u29C5\u29C8;\uC000\u2A70\u0338d;\uC000\u224B\u0338s;\u4149ro\xF8\u0D84ur\u0100;a\u29D3\u29D4\u666El\u0100;s\u29D3\u0B38\u01F3\u29DF\0\u29E3p\u80BB\xA0\u0B37mp\u0100;e\u0BF9\u0C00\u0280aeouy\u29F4\u29FE\u2A03\u2A10\u2A13\u01F0\u29F9\0\u29FB;\u6A43on;\u4148dil;\u4146ng\u0100;d\u0D7E\u2A0Aot;\uC000\u2A6D\u0338p;\u6A42;\u443Dash;\u6013\u0380;Aadqsx\u0B92\u2A29\u2A2D\u2A3B\u2A41\u2A45\u2A50rr;\u61D7r\u0100hr\u2A33\u2A36k;\u6924\u0100;o\u13F2\u13F0ot;\uC000\u2250\u0338ui\xF6\u0B63\u0100ei\u2A4A\u2A4Ear;\u6928\xED\u0B98ist\u0100;s\u0BA0\u0B9Fr;\uC000\u{1D52B}\u0200Eest\u0BC5\u2A66\u2A79\u2A7C\u0180;qs\u0BBC\u2A6D\u0BE1\u0180;qs\u0BBC\u0BC5\u2A74lan\xF4\u0BE2i\xED\u0BEA\u0100;r\u0BB6\u2A81\xBB\u0BB7\u0180Aap\u2A8A\u2A8D\u2A91r\xF2\u2971rr;\u61AEar;\u6AF2\u0180;sv\u0F8D\u2A9C\u0F8C\u0100;d\u2AA1\u2AA2\u62FC;\u62FAcy;\u445A\u0380AEadest\u2AB7\u2ABA\u2ABE\u2AC2\u2AC5\u2AF6\u2AF9r\xF2\u2966;\uC000\u2266\u0338rr;\u619Ar;\u6025\u0200;fqs\u0C3B\u2ACE\u2AE3\u2AEFt\u0100ar\u2AD4\u2AD9rro\xF7\u2AC1ightarro\xF7\u2A90\u0180;qs\u0C3B\u2ABA\u2AEAlan\xF4\u0C55\u0100;s\u0C55\u2AF4\xBB\u0C36i\xED\u0C5D\u0100;r\u0C35\u2AFEi\u0100;e\u0C1A\u0C25i\xE4\u0D90\u0100pt\u2B0C\u2B11f;\uC000\u{1D55F}\u8180\xAC;in\u2B19\u2B1A\u2B36\u40ACn\u0200;Edv\u0B89\u2B24\u2B28\u2B2E;\uC000\u22F9\u0338ot;\uC000\u22F5\u0338\u01E1\u0B89\u2B33\u2B35;\u62F7;\u62F6i\u0100;v\u0CB8\u2B3C\u01E1\u0CB8\u2B41\u2B43;\u62FE;\u62FD\u0180aor\u2B4B\u2B63\u2B69r\u0200;ast\u0B7B\u2B55\u2B5A\u2B5Flle\xEC\u0B7Bl;\uC000\u2AFD\u20E5;\uC000\u2202\u0338lint;\u6A14\u0180;ce\u0C92\u2B70\u2B73u\xE5\u0CA5\u0100;c\u0C98\u2B78\u0100;e\u0C92\u2B7D\xF1\u0C98\u0200Aait\u2B88\u2B8B\u2B9D\u2BA7r\xF2\u2988rr\u0180;cw\u2B94\u2B95\u2B99\u619B;\uC000\u2933\u0338;\uC000\u219D\u0338ghtarrow\xBB\u2B95ri\u0100;e\u0CCB\u0CD6\u0380chimpqu\u2BBD\u2BCD\u2BD9\u2B04\u0B78\u2BE4\u2BEF\u0200;cer\u0D32\u2BC6\u0D37\u2BC9u\xE5\u0D45;\uC000\u{1D4C3}ort\u026D\u2B05\0\0\u2BD6ar\xE1\u2B56m\u0100;e\u0D6E\u2BDF\u0100;q\u0D74\u0D73su\u0100bp\u2BEB\u2BED\xE5\u0CF8\xE5\u0D0B\u0180bcp\u2BF6\u2C11\u2C19\u0200;Ees\u2BFF\u2C00\u0D22\u2C04\u6284;\uC000\u2AC5\u0338et\u0100;e\u0D1B\u2C0Bq\u0100;q\u0D23\u2C00c\u0100;e\u0D32\u2C17\xF1\u0D38\u0200;Ees\u2C22\u2C23\u0D5F\u2C27\u6285;\uC000\u2AC6\u0338et\u0100;e\u0D58\u2C2Eq\u0100;q\u0D60\u2C23\u0200gilr\u2C3D\u2C3F\u2C45\u2C47\xEC\u0BD7lde\u803B\xF1\u40F1\xE7\u0C43iangle\u0100lr\u2C52\u2C5Ceft\u0100;e\u0C1A\u2C5A\xF1\u0C26ight\u0100;e\u0CCB\u2C65\xF1\u0CD7\u0100;m\u2C6C\u2C6D\u43BD\u0180;es\u2C74\u2C75\u2C79\u4023ro;\u6116p;\u6007\u0480DHadgilrs\u2C8F\u2C94\u2C99\u2C9E\u2CA3\u2CB0\u2CB6\u2CD3\u2CE3ash;\u62ADarr;\u6904p;\uC000\u224D\u20D2ash;\u62AC\u0100et\u2CA8\u2CAC;\uC000\u2265\u20D2;\uC000>\u20D2nfin;\u69DE\u0180Aet\u2CBD\u2CC1\u2CC5rr;\u6902;\uC000\u2264\u20D2\u0100;r\u2CCA\u2CCD\uC000<\u20D2ie;\uC000\u22B4\u20D2\u0100At\u2CD8\u2CDCrr;\u6903rie;\uC000\u22B5\u20D2im;\uC000\u223C\u20D2\u0180Aan\u2CF0\u2CF4\u2D02rr;\u61D6r\u0100hr\u2CFA\u2CFDk;\u6923\u0100;o\u13E7\u13E5ear;\u6927\u1253\u1A95\0\0\0\0\0\0\0\0\0\0\0\0\0\u2D2D\0\u2D38\u2D48\u2D60\u2D65\u2D72\u2D84\u1B07\0\0\u2D8D\u2DAB\0\u2DC8\u2DCE\0\u2DDC\u2E19\u2E2B\u2E3E\u2E43\u0100cs\u2D31\u1A97ute\u803B\xF3\u40F3\u0100iy\u2D3C\u2D45r\u0100;c\u1A9E\u2D42\u803B\xF4\u40F4;\u443E\u0280abios\u1AA0\u2D52\u2D57\u01C8\u2D5Alac;\u4151v;\u6A38old;\u69BClig;\u4153\u0100cr\u2D69\u2D6Dir;\u69BF;\uC000\u{1D52C}\u036F\u2D79\0\0\u2D7C\0\u2D82n;\u42DBave\u803B\xF2\u40F2;\u69C1\u0100bm\u2D88\u0DF4ar;\u69B5\u0200acit\u2D95\u2D98\u2DA5\u2DA8r\xF2\u1A80\u0100ir\u2D9D\u2DA0r;\u69BEoss;\u69BBn\xE5\u0E52;\u69C0\u0180aei\u2DB1\u2DB5\u2DB9cr;\u414Dga;\u43C9\u0180cdn\u2DC0\u2DC5\u01CDron;\u43BF;\u69B6pf;\uC000\u{1D560}\u0180ael\u2DD4\u2DD7\u01D2r;\u69B7rp;\u69B9\u0380;adiosv\u2DEA\u2DEB\u2DEE\u2E08\u2E0D\u2E10\u2E16\u6228r\xF2\u1A86\u0200;efm\u2DF7\u2DF8\u2E02\u2E05\u6A5Dr\u0100;o\u2DFE\u2DFF\u6134f\xBB\u2DFF\u803B\xAA\u40AA\u803B\xBA\u40BAgof;\u62B6r;\u6A56lope;\u6A57;\u6A5B\u0180clo\u2E1F\u2E21\u2E27\xF2\u2E01ash\u803B\xF8\u40F8l;\u6298i\u016C\u2E2F\u2E34de\u803B\xF5\u40F5es\u0100;a\u01DB\u2E3As;\u6A36ml\u803B\xF6\u40F6bar;\u633D\u0AE1\u2E5E\0\u2E7D\0\u2E80\u2E9D\0\u2EA2\u2EB9\0\0\u2ECB\u0E9C\0\u2F13\0\0\u2F2B\u2FBC\0\u2FC8r\u0200;ast\u0403\u2E67\u2E72\u0E85\u8100\xB6;l\u2E6D\u2E6E\u40B6le\xEC\u0403\u0269\u2E78\0\0\u2E7Bm;\u6AF3;\u6AFDy;\u443Fr\u0280cimpt\u2E8B\u2E8F\u2E93\u1865\u2E97nt;\u4025od;\u402Eil;\u6030enk;\u6031r;\uC000\u{1D52D}\u0180imo\u2EA8\u2EB0\u2EB4\u0100;v\u2EAD\u2EAE\u43C6;\u43D5ma\xF4\u0A76ne;\u660E\u0180;tv\u2EBF\u2EC0\u2EC8\u43C0chfork\xBB\u1FFD;\u43D6\u0100au\u2ECF\u2EDFn\u0100ck\u2ED5\u2EDDk\u0100;h\u21F4\u2EDB;\u610E\xF6\u21F4s\u0480;abcdemst\u2EF3\u2EF4\u1908\u2EF9\u2EFD\u2F04\u2F06\u2F0A\u2F0E\u402Bcir;\u6A23ir;\u6A22\u0100ou\u1D40\u2F02;\u6A25;\u6A72n\u80BB\xB1\u0E9Dim;\u6A26wo;\u6A27\u0180ipu\u2F19\u2F20\u2F25ntint;\u6A15f;\uC000\u{1D561}nd\u803B\xA3\u40A3\u0500;Eaceinosu\u0EC8\u2F3F\u2F41\u2F44\u2F47\u2F81\u2F89\u2F92\u2F7E\u2FB6;\u6AB3p;\u6AB7u\xE5\u0ED9\u0100;c\u0ECE\u2F4C\u0300;acens\u0EC8\u2F59\u2F5F\u2F66\u2F68\u2F7Eppro\xF8\u2F43urlye\xF1\u0ED9\xF1\u0ECE\u0180aes\u2F6F\u2F76\u2F7Approx;\u6AB9qq;\u6AB5im;\u62E8i\xED\u0EDFme\u0100;s\u2F88\u0EAE\u6032\u0180Eas\u2F78\u2F90\u2F7A\xF0\u2F75\u0180dfp\u0EEC\u2F99\u2FAF\u0180als\u2FA0\u2FA5\u2FAAlar;\u632Eine;\u6312urf;\u6313\u0100;t\u0EFB\u2FB4\xEF\u0EFBrel;\u62B0\u0100ci\u2FC0\u2FC5r;\uC000\u{1D4C5};\u43C8ncsp;\u6008\u0300fiopsu\u2FDA\u22E2\u2FDF\u2FE5\u2FEB\u2FF1r;\uC000\u{1D52E}pf;\uC000\u{1D562}rime;\u6057cr;\uC000\u{1D4C6}\u0180aeo\u2FF8\u3009\u3013t\u0100ei\u2FFE\u3005rnion\xF3\u06B0nt;\u6A16st\u0100;e\u3010\u3011\u403F\xF1\u1F19\xF4\u0F14\u0A80ABHabcdefhilmnoprstux\u3040\u3051\u3055\u3059\u30E0\u310E\u312B\u3147\u3162\u3172\u318E\u3206\u3215\u3224\u3229\u3258\u326E\u3272\u3290\u32B0\u32B7\u0180art\u3047\u304A\u304Cr\xF2\u10B3\xF2\u03DDail;\u691Car\xF2\u1C65ar;\u6964\u0380cdenqrt\u3068\u3075\u3078\u307F\u308F\u3094\u30CC\u0100eu\u306D\u3071;\uC000\u223D\u0331te;\u4155i\xE3\u116Emptyv;\u69B3g\u0200;del\u0FD1\u3089\u308B\u308D;\u6992;\u69A5\xE5\u0FD1uo\u803B\xBB\u40BBr\u0580;abcfhlpstw\u0FDC\u30AC\u30AF\u30B7\u30B9\u30BC\u30BE\u30C0\u30C3\u30C7\u30CAp;\u6975\u0100;f\u0FE0\u30B4s;\u6920;\u6933s;\u691E\xEB\u225D\xF0\u272El;\u6945im;\u6974l;\u61A3;\u619D\u0100ai\u30D1\u30D5il;\u691Ao\u0100;n\u30DB\u30DC\u6236al\xF3\u0F1E\u0180abr\u30E7\u30EA\u30EEr\xF2\u17E5rk;\u6773\u0100ak\u30F3\u30FDc\u0100ek\u30F9\u30FB;\u407D;\u405D\u0100es\u3102\u3104;\u698Cl\u0100du\u310A\u310C;\u698E;\u6990\u0200aeuy\u3117\u311C\u3127\u3129ron;\u4159\u0100di\u3121\u3125il;\u4157\xEC\u0FF2\xE2\u30FA;\u4440\u0200clqs\u3134\u3137\u313D\u3144a;\u6937dhar;\u6969uo\u0100;r\u020E\u020Dh;\u61B3\u0180acg\u314E\u315F\u0F44l\u0200;ips\u0F78\u3158\u315B\u109Cn\xE5\u10BBar\xF4\u0FA9t;\u65AD\u0180ilr\u3169\u1023\u316Esht;\u697D;\uC000\u{1D52F}\u0100ao\u3177\u3186r\u0100du\u317D\u317F\xBB\u047B\u0100;l\u1091\u3184;\u696C\u0100;v\u318B\u318C\u43C1;\u43F1\u0180gns\u3195\u31F9\u31FCht\u0300ahlrst\u31A4\u31B0\u31C2\u31D8\u31E4\u31EErrow\u0100;t\u0FDC\u31ADa\xE9\u30C8arpoon\u0100du\u31BB\u31BFow\xEE\u317Ep\xBB\u1092eft\u0100ah\u31CA\u31D0rrow\xF3\u0FEAarpoon\xF3\u0551ightarrows;\u61C9quigarro\xF7\u30CBhreetimes;\u62CCg;\u42DAingdotse\xF1\u1F32\u0180ahm\u320D\u3210\u3213r\xF2\u0FEAa\xF2\u0551;\u600Foust\u0100;a\u321E\u321F\u63B1che\xBB\u321Fmid;\u6AEE\u0200abpt\u3232\u323D\u3240\u3252\u0100nr\u3237\u323Ag;\u67EDr;\u61FEr\xEB\u1003\u0180afl\u3247\u324A\u324Er;\u6986;\uC000\u{1D563}us;\u6A2Eimes;\u6A35\u0100ap\u325D\u3267r\u0100;g\u3263\u3264\u4029t;\u6994olint;\u6A12ar\xF2\u31E3\u0200achq\u327B\u3280\u10BC\u3285quo;\u603Ar;\uC000\u{1D4C7}\u0100bu\u30FB\u328Ao\u0100;r\u0214\u0213\u0180hir\u3297\u329B\u32A0re\xE5\u31F8mes;\u62CAi\u0200;efl\u32AA\u1059\u1821\u32AB\u65B9tri;\u69CEluhar;\u6968;\u611E\u0D61\u32D5\u32DB\u32DF\u332C\u3338\u3371\0\u337A\u33A4\0\0\u33EC\u33F0\0\u3428\u3448\u345A\u34AD\u34B1\u34CA\u34F1\0\u3616\0\0\u3633cute;\u415Bqu\xEF\u27BA\u0500;Eaceinpsy\u11ED\u32F3\u32F5\u32FF\u3302\u330B\u330F\u331F\u3326\u3329;\u6AB4\u01F0\u32FA\0\u32FC;\u6AB8on;\u4161u\xE5\u11FE\u0100;d\u11F3\u3307il;\u415Frc;\u415D\u0180Eas\u3316\u3318\u331B;\u6AB6p;\u6ABAim;\u62E9olint;\u6A13i\xED\u1204;\u4441ot\u0180;be\u3334\u1D47\u3335\u62C5;\u6A66\u0380Aacmstx\u3346\u334A\u3357\u335B\u335E\u3363\u336Drr;\u61D8r\u0100hr\u3350\u3352\xEB\u2228\u0100;o\u0A36\u0A34t\u803B\xA7\u40A7i;\u403Bwar;\u6929m\u0100in\u3369\xF0nu\xF3\xF1t;\u6736r\u0100;o\u3376\u2055\uC000\u{1D530}\u0200acoy\u3382\u3386\u3391\u33A0rp;\u666F\u0100hy\u338B\u338Fcy;\u4449;\u4448rt\u026D\u3399\0\0\u339Ci\xE4\u1464ara\xEC\u2E6F\u803B\xAD\u40AD\u0100gm\u33A8\u33B4ma\u0180;fv\u33B1\u33B2\u33B2\u43C3;\u43C2\u0400;deglnpr\u12AB\u33C5\u33C9\u33CE\u33D6\u33DE\u33E1\u33E6ot;\u6A6A\u0100;q\u12B1\u12B0\u0100;E\u33D3\u33D4\u6A9E;\u6AA0\u0100;E\u33DB\u33DC\u6A9D;\u6A9Fe;\u6246lus;\u6A24arr;\u6972ar\xF2\u113D\u0200aeit\u33F8\u3408\u340F\u3417\u0100ls\u33FD\u3404lsetm\xE9\u336Ahp;\u6A33parsl;\u69E4\u0100dl\u1463\u3414e;\u6323\u0100;e\u341C\u341D\u6AAA\u0100;s\u3422\u3423\u6AAC;\uC000\u2AAC\uFE00\u0180flp\u342E\u3433\u3442tcy;\u444C\u0100;b\u3438\u3439\u402F\u0100;a\u343E\u343F\u69C4r;\u633Ff;\uC000\u{1D564}a\u0100dr\u344D\u0402es\u0100;u\u3454\u3455\u6660it\xBB\u3455\u0180csu\u3460\u3479\u349F\u0100au\u3465\u346Fp\u0100;s\u1188\u346B;\uC000\u2293\uFE00p\u0100;s\u11B4\u3475;\uC000\u2294\uFE00u\u0100bp\u347F\u348F\u0180;es\u1197\u119C\u3486et\u0100;e\u1197\u348D\xF1\u119D\u0180;es\u11A8\u11AD\u3496et\u0100;e\u11A8\u349D\xF1\u11AE\u0180;af\u117B\u34A6\u05B0r\u0165\u34AB\u05B1\xBB\u117Car\xF2\u1148\u0200cemt\u34B9\u34BE\u34C2\u34C5r;\uC000\u{1D4C8}tm\xEE\xF1i\xEC\u3415ar\xE6\u11BE\u0100ar\u34CE\u34D5r\u0100;f\u34D4\u17BF\u6606\u0100an\u34DA\u34EDight\u0100ep\u34E3\u34EApsilo\xEE\u1EE0h\xE9\u2EAFs\xBB\u2852\u0280bcmnp\u34FB\u355E\u1209\u358B\u358E\u0480;Edemnprs\u350E\u350F\u3511\u3515\u351E\u3523\u352C\u3531\u3536\u6282;\u6AC5ot;\u6ABD\u0100;d\u11DA\u351Aot;\u6AC3ult;\u6AC1\u0100Ee\u3528\u352A;\u6ACB;\u628Alus;\u6ABFarr;\u6979\u0180eiu\u353D\u3552\u3555t\u0180;en\u350E\u3545\u354Bq\u0100;q\u11DA\u350Feq\u0100;q\u352B\u3528m;\u6AC7\u0100bp\u355A\u355C;\u6AD5;\u6AD3c\u0300;acens\u11ED\u356C\u3572\u3579\u357B\u3326ppro\xF8\u32FAurlye\xF1\u11FE\xF1\u11F3\u0180aes\u3582\u3588\u331Bppro\xF8\u331Aq\xF1\u3317g;\u666A\u0680123;Edehlmnps\u35A9\u35AC\u35AF\u121C\u35B2\u35B4\u35C0\u35C9\u35D5\u35DA\u35DF\u35E8\u35ED\u803B\xB9\u40B9\u803B\xB2\u40B2\u803B\xB3\u40B3;\u6AC6\u0100os\u35B9\u35BCt;\u6ABEub;\u6AD8\u0100;d\u1222\u35C5ot;\u6AC4s\u0100ou\u35CF\u35D2l;\u67C9b;\u6AD7arr;\u697Bult;\u6AC2\u0100Ee\u35E4\u35E6;\u6ACC;\u628Blus;\u6AC0\u0180eiu\u35F4\u3609\u360Ct\u0180;en\u121C\u35FC\u3602q\u0100;q\u1222\u35B2eq\u0100;q\u35E7\u35E4m;\u6AC8\u0100bp\u3611\u3613;\u6AD4;\u6AD6\u0180Aan\u361C\u3620\u362Drr;\u61D9r\u0100hr\u3626\u3628\xEB\u222E\u0100;o\u0A2B\u0A29war;\u692Alig\u803B\xDF\u40DF\u0BE1\u3651\u365D\u3660\u12CE\u3673\u3679\0\u367E\u36C2\0\0\0\0\0\u36DB\u3703\0\u3709\u376C\0\0\0\u3787\u0272\u3656\0\0\u365Bget;\u6316;\u43C4r\xEB\u0E5F\u0180aey\u3666\u366B\u3670ron;\u4165dil;\u4163;\u4442lrec;\u6315r;\uC000\u{1D531}\u0200eiko\u3686\u369D\u36B5\u36BC\u01F2\u368B\0\u3691e\u01004f\u1284\u1281a\u0180;sv\u3698\u3699\u369B\u43B8ym;\u43D1\u0100cn\u36A2\u36B2k\u0100as\u36A8\u36AEppro\xF8\u12C1im\xBB\u12ACs\xF0\u129E\u0100as\u36BA\u36AE\xF0\u12C1rn\u803B\xFE\u40FE\u01EC\u031F\u36C6\u22E7es\u8180\xD7;bd\u36CF\u36D0\u36D8\u40D7\u0100;a\u190F\u36D5r;\u6A31;\u6A30\u0180eps\u36E1\u36E3\u3700\xE1\u2A4D\u0200;bcf\u0486\u36EC\u36F0\u36F4ot;\u6336ir;\u6AF1\u0100;o\u36F9\u36FC\uC000\u{1D565}rk;\u6ADA\xE1\u3362rime;\u6034\u0180aip\u370F\u3712\u3764d\xE5\u1248\u0380adempst\u3721\u374D\u3740\u3751\u3757\u375C\u375Fngle\u0280;dlqr\u3730\u3731\u3736\u3740\u3742\u65B5own\xBB\u1DBBeft\u0100;e\u2800\u373E\xF1\u092E;\u625Cight\u0100;e\u32AA\u374B\xF1\u105Aot;\u65ECinus;\u6A3Alus;\u6A39b;\u69CDime;\u6A3Bezium;\u63E2\u0180cht\u3772\u377D\u3781\u0100ry\u3777\u377B;\uC000\u{1D4C9};\u4446cy;\u445Brok;\u4167\u0100io\u378B\u378Ex\xF4\u1777head\u0100lr\u3797\u37A0eftarro\xF7\u084Fightarrow\xBB\u0F5D\u0900AHabcdfghlmoprstuw\u37D0\u37D3\u37D7\u37E4\u37F0\u37FC\u380E\u381C\u3823\u3834\u3851\u385D\u386B\u38A9\u38CC\u38D2\u38EA\u38F6r\xF2\u03EDar;\u6963\u0100cr\u37DC\u37E2ute\u803B\xFA\u40FA\xF2\u1150r\u01E3\u37EA\0\u37EDy;\u445Eve;\u416D\u0100iy\u37F5\u37FArc\u803B\xFB\u40FB;\u4443\u0180abh\u3803\u3806\u380Br\xF2\u13ADlac;\u4171a\xF2\u13C3\u0100ir\u3813\u3818sht;\u697E;\uC000\u{1D532}rave\u803B\xF9\u40F9\u0161\u3827\u3831r\u0100lr\u382C\u382E\xBB\u0957\xBB\u1083lk;\u6580\u0100ct\u3839\u384D\u026F\u383F\0\0\u384Arn\u0100;e\u3845\u3846\u631Cr\xBB\u3846op;\u630Fri;\u65F8\u0100al\u3856\u385Acr;\u416B\u80BB\xA8\u0349\u0100gp\u3862\u3866on;\u4173f;\uC000\u{1D566}\u0300adhlsu\u114B\u3878\u387D\u1372\u3891\u38A0own\xE1\u13B3arpoon\u0100lr\u3888\u388Cef\xF4\u382Digh\xF4\u382Fi\u0180;hl\u3899\u389A\u389C\u43C5\xBB\u13FAon\xBB\u389Aparrows;\u61C8\u0180cit\u38B0\u38C4\u38C8\u026F\u38B6\0\0\u38C1rn\u0100;e\u38BC\u38BD\u631Dr\xBB\u38BDop;\u630Eng;\u416Fri;\u65F9cr;\uC000\u{1D4CA}\u0180dir\u38D9\u38DD\u38E2ot;\u62F0lde;\u4169i\u0100;f\u3730\u38E8\xBB\u1813\u0100am\u38EF\u38F2r\xF2\u38A8l\u803B\xFC\u40FCangle;\u69A7\u0780ABDacdeflnoprsz\u391C\u391F\u3929\u392D\u39B5\u39B8\u39BD\u39DF\u39E4\u39E8\u39F3\u39F9\u39FD\u3A01\u3A20r\xF2\u03F7ar\u0100;v\u3926\u3927\u6AE8;\u6AE9as\xE8\u03E1\u0100nr\u3932\u3937grt;\u699C\u0380eknprst\u34E3\u3946\u394B\u3952\u395D\u3964\u3996app\xE1\u2415othin\xE7\u1E96\u0180hir\u34EB\u2EC8\u3959op\xF4\u2FB5\u0100;h\u13B7\u3962\xEF\u318D\u0100iu\u3969\u396Dgm\xE1\u33B3\u0100bp\u3972\u3984setneq\u0100;q\u397D\u3980\uC000\u228A\uFE00;\uC000\u2ACB\uFE00setneq\u0100;q\u398F\u3992\uC000\u228B\uFE00;\uC000\u2ACC\uFE00\u0100hr\u399B\u399Fet\xE1\u369Ciangle\u0100lr\u39AA\u39AFeft\xBB\u0925ight\xBB\u1051y;\u4432ash\xBB\u1036\u0180elr\u39C4\u39D2\u39D7\u0180;be\u2DEA\u39CB\u39CFar;\u62BBq;\u625Alip;\u62EE\u0100bt\u39DC\u1468a\xF2\u1469r;\uC000\u{1D533}tr\xE9\u39AEsu\u0100bp\u39EF\u39F1\xBB\u0D1C\xBB\u0D59pf;\uC000\u{1D567}ro\xF0\u0EFBtr\xE9\u39B4\u0100cu\u3A06\u3A0Br;\uC000\u{1D4CB}\u0100bp\u3A10\u3A18n\u0100Ee\u3980\u3A16\xBB\u397En\u0100Ee\u3992\u3A1E\xBB\u3990igzag;\u699A\u0380cefoprs\u3A36\u3A3B\u3A56\u3A5B\u3A54\u3A61\u3A6Airc;\u4175\u0100di\u3A40\u3A51\u0100bg\u3A45\u3A49ar;\u6A5Fe\u0100;q\u15FA\u3A4F;\u6259erp;\u6118r;\uC000\u{1D534}pf;\uC000\u{1D568}\u0100;e\u1479\u3A66at\xE8\u1479cr;\uC000\u{1D4CC}\u0AE3\u178E\u3A87\0\u3A8B\0\u3A90\u3A9B\0\0\u3A9D\u3AA8\u3AAB\u3AAF\0\0\u3AC3\u3ACE\0\u3AD8\u17DC\u17DFtr\xE9\u17D1r;\uC000\u{1D535}\u0100Aa\u3A94\u3A97r\xF2\u03C3r\xF2\u09F6;\u43BE\u0100Aa\u3AA1\u3AA4r\xF2\u03B8r\xF2\u09EBa\xF0\u2713is;\u62FB\u0180dpt\u17A4\u3AB5\u3ABE\u0100fl\u3ABA\u17A9;\uC000\u{1D569}im\xE5\u17B2\u0100Aa\u3AC7\u3ACAr\xF2\u03CEr\xF2\u0A01\u0100cq\u3AD2\u17B8r;\uC000\u{1D4CD}\u0100pt\u17D6\u3ADCr\xE9\u17D4\u0400acefiosu\u3AF0\u3AFD\u3B08\u3B0C\u3B11\u3B15\u3B1B\u3B21c\u0100uy\u3AF6\u3AFBte\u803B\xFD\u40FD;\u444F\u0100iy\u3B02\u3B06rc;\u4177;\u444Bn\u803B\xA5\u40A5r;\uC000\u{1D536}cy;\u4457pf;\uC000\u{1D56A}cr;\uC000\u{1D4CE}\u0100cm\u3B26\u3B29y;\u444El\u803B\xFF\u40FF\u0500acdefhiosw\u3B42\u3B48\u3B54\u3B58\u3B64\u3B69\u3B6D\u3B74\u3B7A\u3B80cute;\u417A\u0100ay\u3B4D\u3B52ron;\u417E;\u4437ot;\u417C\u0100et\u3B5D\u3B61tr\xE6\u155Fa;\u43B6r;\uC000\u{1D537}cy;\u4436grarr;\u61DDpf;\uC000\u{1D56B}cr;\uC000\u{1D4CF}\u0100jn\u3B85\u3B87;\u600Dj;\u600C'.split("").map(function(c2) {
-          return c2.charCodeAt(0);
+        '\u1D41<\xD5\u0131\u028A\u049D\u057B\u05D0\u0675\u06DE\u07A2\u07D6\u080F\u0A4A\u0A91\u0DA1\u0E6D\u0F09\u0F26\u10CA\u1228\u12E1\u1415\u149D\u14C3\u14DF\u1525\0\0\0\0\0\0\u156B\u16CD\u198D\u1C12\u1DDD\u1F7E\u2060\u21B0\u228D\u23C0\u23FB\u2442\u2824\u2912\u2D08\u2E48\u2FCE\u3016\u32BA\u3639\u37AC\u38FE\u3A28\u3A71\u3AE0\u3B2E\u0800EMabcfglmnoprstu\\bfms\x7F\x84\x8B\x90\x95\x98\xA6\xB3\xB9\xC8\xCFlig\u803B\xC6\u40C6P\u803B&\u4026cute\u803B\xC1\u40C1reve;\u4102\u0100iyx}rc\u803B\xC2\u40C2;\u4410r;\uC000\u{1D504}rave\u803B\xC0\u40C0pha;\u4391acr;\u4100d;\u6A53\u0100gp\x9D\xA1on;\u4104f;\uC000\u{1D538}plyFunction;\u6061ing\u803B\xC5\u40C5\u0100cs\xBE\xC3r;\uC000\u{1D49C}ign;\u6254ilde\u803B\xC3\u40C3ml\u803B\xC4\u40C4\u0400aceforsu\xE5\xFB\xFE\u0117\u011C\u0122\u0127\u012A\u0100cr\xEA\xF2kslash;\u6216\u0176\xF6\xF8;\u6AE7ed;\u6306y;\u4411\u0180crt\u0105\u010B\u0114ause;\u6235noullis;\u612Ca;\u4392r;\uC000\u{1D505}pf;\uC000\u{1D539}eve;\u42D8c\xF2\u0113mpeq;\u624E\u0700HOacdefhilorsu\u014D\u0151\u0156\u0180\u019E\u01A2\u01B5\u01B7\u01BA\u01DC\u0215\u0273\u0278\u027Ecy;\u4427PY\u803B\xA9\u40A9\u0180cpy\u015D\u0162\u017Aute;\u4106\u0100;i\u0167\u0168\u62D2talDifferentialD;\u6145leys;\u612D\u0200aeio\u0189\u018E\u0194\u0198ron;\u410Cdil\u803B\xC7\u40C7rc;\u4108nint;\u6230ot;\u410A\u0100dn\u01A7\u01ADilla;\u40B8terDot;\u40B7\xF2\u017Fi;\u43A7rcle\u0200DMPT\u01C7\u01CB\u01D1\u01D6ot;\u6299inus;\u6296lus;\u6295imes;\u6297o\u0100cs\u01E2\u01F8kwiseContourIntegral;\u6232eCurly\u0100DQ\u0203\u020FoubleQuote;\u601Duote;\u6019\u0200lnpu\u021E\u0228\u0247\u0255on\u0100;e\u0225\u0226\u6237;\u6A74\u0180git\u022F\u0236\u023Aruent;\u6261nt;\u622FourIntegral;\u622E\u0100fr\u024C\u024E;\u6102oduct;\u6210nterClockwiseContourIntegral;\u6233oss;\u6A2Fcr;\uC000\u{1D49E}p\u0100;C\u0284\u0285\u62D3ap;\u624D\u0580DJSZacefios\u02A0\u02AC\u02B0\u02B4\u02B8\u02CB\u02D7\u02E1\u02E6\u0333\u048D\u0100;o\u0179\u02A5trahd;\u6911cy;\u4402cy;\u4405cy;\u440F\u0180grs\u02BF\u02C4\u02C7ger;\u6021r;\u61A1hv;\u6AE4\u0100ay\u02D0\u02D5ron;\u410E;\u4414l\u0100;t\u02DD\u02DE\u6207a;\u4394r;\uC000\u{1D507}\u0100af\u02EB\u0327\u0100cm\u02F0\u0322ritical\u0200ADGT\u0300\u0306\u0316\u031Ccute;\u40B4o\u0174\u030B\u030D;\u42D9bleAcute;\u42DDrave;\u4060ilde;\u42DCond;\u62C4ferentialD;\u6146\u0470\u033D\0\0\0\u0342\u0354\0\u0405f;\uC000\u{1D53B}\u0180;DE\u0348\u0349\u034D\u40A8ot;\u60DCqual;\u6250ble\u0300CDLRUV\u0363\u0372\u0382\u03CF\u03E2\u03F8ontourIntegra\xEC\u0239o\u0274\u0379\0\0\u037B\xBB\u0349nArrow;\u61D3\u0100eo\u0387\u03A4ft\u0180ART\u0390\u0396\u03A1rrow;\u61D0ightArrow;\u61D4e\xE5\u02CAng\u0100LR\u03AB\u03C4eft\u0100AR\u03B3\u03B9rrow;\u67F8ightArrow;\u67FAightArrow;\u67F9ight\u0100AT\u03D8\u03DErrow;\u61D2ee;\u62A8p\u0241\u03E9\0\0\u03EFrrow;\u61D1ownArrow;\u61D5erticalBar;\u6225n\u0300ABLRTa\u0412\u042A\u0430\u045E\u047F\u037Crrow\u0180;BU\u041D\u041E\u0422\u6193ar;\u6913pArrow;\u61F5reve;\u4311eft\u02D2\u043A\0\u0446\0\u0450ightVector;\u6950eeVector;\u695Eector\u0100;B\u0459\u045A\u61BDar;\u6956ight\u01D4\u0467\0\u0471eeVector;\u695Fector\u0100;B\u047A\u047B\u61C1ar;\u6957ee\u0100;A\u0486\u0487\u62A4rrow;\u61A7\u0100ct\u0492\u0497r;\uC000\u{1D49F}rok;\u4110\u0800NTacdfglmopqstux\u04BD\u04C0\u04C4\u04CB\u04DE\u04E2\u04E7\u04EE\u04F5\u0521\u052F\u0536\u0552\u055D\u0560\u0565G;\u414AH\u803B\xD0\u40D0cute\u803B\xC9\u40C9\u0180aiy\u04D2\u04D7\u04DCron;\u411Arc\u803B\xCA\u40CA;\u442Dot;\u4116r;\uC000\u{1D508}rave\u803B\xC8\u40C8ement;\u6208\u0100ap\u04FA\u04FEcr;\u4112ty\u0253\u0506\0\0\u0512mallSquare;\u65FBerySmallSquare;\u65AB\u0100gp\u0526\u052Aon;\u4118f;\uC000\u{1D53C}silon;\u4395u\u0100ai\u053C\u0549l\u0100;T\u0542\u0543\u6A75ilde;\u6242librium;\u61CC\u0100ci\u0557\u055Ar;\u6130m;\u6A73a;\u4397ml\u803B\xCB\u40CB\u0100ip\u056A\u056Fsts;\u6203onentialE;\u6147\u0280cfios\u0585\u0588\u058D\u05B2\u05CCy;\u4424r;\uC000\u{1D509}lled\u0253\u0597\0\0\u05A3mallSquare;\u65FCerySmallSquare;\u65AA\u0370\u05BA\0\u05BF\0\0\u05C4f;\uC000\u{1D53D}All;\u6200riertrf;\u6131c\xF2\u05CB\u0600JTabcdfgorst\u05E8\u05EC\u05EF\u05FA\u0600\u0612\u0616\u061B\u061D\u0623\u066C\u0672cy;\u4403\u803B>\u403Emma\u0100;d\u05F7\u05F8\u4393;\u43DCreve;\u411E\u0180eiy\u0607\u060C\u0610dil;\u4122rc;\u411C;\u4413ot;\u4120r;\uC000\u{1D50A};\u62D9pf;\uC000\u{1D53E}eater\u0300EFGLST\u0635\u0644\u064E\u0656\u065B\u0666qual\u0100;L\u063E\u063F\u6265ess;\u62DBullEqual;\u6267reater;\u6AA2ess;\u6277lantEqual;\u6A7Eilde;\u6273cr;\uC000\u{1D4A2};\u626B\u0400Aacfiosu\u0685\u068B\u0696\u069B\u069E\u06AA\u06BE\u06CARDcy;\u442A\u0100ct\u0690\u0694ek;\u42C7;\u405Eirc;\u4124r;\u610ClbertSpace;\u610B\u01F0\u06AF\0\u06B2f;\u610DizontalLine;\u6500\u0100ct\u06C3\u06C5\xF2\u06A9rok;\u4126mp\u0144\u06D0\u06D8ownHum\xF0\u012Fqual;\u624F\u0700EJOacdfgmnostu\u06FA\u06FE\u0703\u0707\u070E\u071A\u071E\u0721\u0728\u0744\u0778\u078B\u078F\u0795cy;\u4415lig;\u4132cy;\u4401cute\u803B\xCD\u40CD\u0100iy\u0713\u0718rc\u803B\xCE\u40CE;\u4418ot;\u4130r;\u6111rave\u803B\xCC\u40CC\u0180;ap\u0720\u072F\u073F\u0100cg\u0734\u0737r;\u412AinaryI;\u6148lie\xF3\u03DD\u01F4\u0749\0\u0762\u0100;e\u074D\u074E\u622C\u0100gr\u0753\u0758ral;\u622Bsection;\u62C2isible\u0100CT\u076C\u0772omma;\u6063imes;\u6062\u0180gpt\u077F\u0783\u0788on;\u412Ef;\uC000\u{1D540}a;\u4399cr;\u6110ilde;\u4128\u01EB\u079A\0\u079Ecy;\u4406l\u803B\xCF\u40CF\u0280cfosu\u07AC\u07B7\u07BC\u07C2\u07D0\u0100iy\u07B1\u07B5rc;\u4134;\u4419r;\uC000\u{1D50D}pf;\uC000\u{1D541}\u01E3\u07C7\0\u07CCr;\uC000\u{1D4A5}rcy;\u4408kcy;\u4404\u0380HJacfos\u07E4\u07E8\u07EC\u07F1\u07FD\u0802\u0808cy;\u4425cy;\u440Cppa;\u439A\u0100ey\u07F6\u07FBdil;\u4136;\u441Ar;\uC000\u{1D50E}pf;\uC000\u{1D542}cr;\uC000\u{1D4A6}\u0580JTaceflmost\u0825\u0829\u082C\u0850\u0863\u09B3\u09B8\u09C7\u09CD\u0A37\u0A47cy;\u4409\u803B<\u403C\u0280cmnpr\u0837\u083C\u0841\u0844\u084Dute;\u4139bda;\u439Bg;\u67EAlacetrf;\u6112r;\u619E\u0180aey\u0857\u085C\u0861ron;\u413Ddil;\u413B;\u441B\u0100fs\u0868\u0970t\u0500ACDFRTUVar\u087E\u08A9\u08B1\u08E0\u08E6\u08FC\u092F\u095B\u0390\u096A\u0100nr\u0883\u088FgleBracket;\u67E8row\u0180;BR\u0899\u089A\u089E\u6190ar;\u61E4ightArrow;\u61C6eiling;\u6308o\u01F5\u08B7\0\u08C3bleBracket;\u67E6n\u01D4\u08C8\0\u08D2eeVector;\u6961ector\u0100;B\u08DB\u08DC\u61C3ar;\u6959loor;\u630Aight\u0100AV\u08EF\u08F5rrow;\u6194ector;\u694E\u0100er\u0901\u0917e\u0180;AV\u0909\u090A\u0910\u62A3rrow;\u61A4ector;\u695Aiangle\u0180;BE\u0924\u0925\u0929\u62B2ar;\u69CFqual;\u62B4p\u0180DTV\u0937\u0942\u094CownVector;\u6951eeVector;\u6960ector\u0100;B\u0956\u0957\u61BFar;\u6958ector\u0100;B\u0965\u0966\u61BCar;\u6952ight\xE1\u039Cs\u0300EFGLST\u097E\u098B\u0995\u099D\u09A2\u09ADqualGreater;\u62DAullEqual;\u6266reater;\u6276ess;\u6AA1lantEqual;\u6A7Dilde;\u6272r;\uC000\u{1D50F}\u0100;e\u09BD\u09BE\u62D8ftarrow;\u61DAidot;\u413F\u0180npw\u09D4\u0A16\u0A1Bg\u0200LRlr\u09DE\u09F7\u0A02\u0A10eft\u0100AR\u09E6\u09ECrrow;\u67F5ightArrow;\u67F7ightArrow;\u67F6eft\u0100ar\u03B3\u0A0Aight\xE1\u03BFight\xE1\u03CAf;\uC000\u{1D543}er\u0100LR\u0A22\u0A2CeftArrow;\u6199ightArrow;\u6198\u0180cht\u0A3E\u0A40\u0A42\xF2\u084C;\u61B0rok;\u4141;\u626A\u0400acefiosu\u0A5A\u0A5D\u0A60\u0A77\u0A7C\u0A85\u0A8B\u0A8Ep;\u6905y;\u441C\u0100dl\u0A65\u0A6FiumSpace;\u605Flintrf;\u6133r;\uC000\u{1D510}nusPlus;\u6213pf;\uC000\u{1D544}c\xF2\u0A76;\u439C\u0480Jacefostu\u0AA3\u0AA7\u0AAD\u0AC0\u0B14\u0B19\u0D91\u0D97\u0D9Ecy;\u440Acute;\u4143\u0180aey\u0AB4\u0AB9\u0ABEron;\u4147dil;\u4145;\u441D\u0180gsw\u0AC7\u0AF0\u0B0Eative\u0180MTV\u0AD3\u0ADF\u0AE8ediumSpace;\u600Bhi\u0100cn\u0AE6\u0AD8\xEB\u0AD9eryThi\xEE\u0AD9ted\u0100GL\u0AF8\u0B06reaterGreate\xF2\u0673essLes\xF3\u0A48Line;\u400Ar;\uC000\u{1D511}\u0200Bnpt\u0B22\u0B28\u0B37\u0B3Areak;\u6060BreakingSpace;\u40A0f;\u6115\u0680;CDEGHLNPRSTV\u0B55\u0B56\u0B6A\u0B7C\u0BA1\u0BEB\u0C04\u0C5E\u0C84\u0CA6\u0CD8\u0D61\u0D85\u6AEC\u0100ou\u0B5B\u0B64ngruent;\u6262pCap;\u626DoubleVerticalBar;\u6226\u0180lqx\u0B83\u0B8A\u0B9Bement;\u6209ual\u0100;T\u0B92\u0B93\u6260ilde;\uC000\u2242\u0338ists;\u6204reater\u0380;EFGLST\u0BB6\u0BB7\u0BBD\u0BC9\u0BD3\u0BD8\u0BE5\u626Fqual;\u6271ullEqual;\uC000\u2267\u0338reater;\uC000\u226B\u0338ess;\u6279lantEqual;\uC000\u2A7E\u0338ilde;\u6275ump\u0144\u0BF2\u0BFDownHump;\uC000\u224E\u0338qual;\uC000\u224F\u0338e\u0100fs\u0C0A\u0C27tTriangle\u0180;BE\u0C1A\u0C1B\u0C21\u62EAar;\uC000\u29CF\u0338qual;\u62ECs\u0300;EGLST\u0C35\u0C36\u0C3C\u0C44\u0C4B\u0C58\u626Equal;\u6270reater;\u6278ess;\uC000\u226A\u0338lantEqual;\uC000\u2A7D\u0338ilde;\u6274ested\u0100GL\u0C68\u0C79reaterGreater;\uC000\u2AA2\u0338essLess;\uC000\u2AA1\u0338recedes\u0180;ES\u0C92\u0C93\u0C9B\u6280qual;\uC000\u2AAF\u0338lantEqual;\u62E0\u0100ei\u0CAB\u0CB9verseElement;\u620CghtTriangle\u0180;BE\u0CCB\u0CCC\u0CD2\u62EBar;\uC000\u29D0\u0338qual;\u62ED\u0100qu\u0CDD\u0D0CuareSu\u0100bp\u0CE8\u0CF9set\u0100;E\u0CF0\u0CF3\uC000\u228F\u0338qual;\u62E2erset\u0100;E\u0D03\u0D06\uC000\u2290\u0338qual;\u62E3\u0180bcp\u0D13\u0D24\u0D4Eset\u0100;E\u0D1B\u0D1E\uC000\u2282\u20D2qual;\u6288ceeds\u0200;EST\u0D32\u0D33\u0D3B\u0D46\u6281qual;\uC000\u2AB0\u0338lantEqual;\u62E1ilde;\uC000\u227F\u0338erset\u0100;E\u0D58\u0D5B\uC000\u2283\u20D2qual;\u6289ilde\u0200;EFT\u0D6E\u0D6F\u0D75\u0D7F\u6241qual;\u6244ullEqual;\u6247ilde;\u6249erticalBar;\u6224cr;\uC000\u{1D4A9}ilde\u803B\xD1\u40D1;\u439D\u0700Eacdfgmoprstuv\u0DBD\u0DC2\u0DC9\u0DD5\u0DDB\u0DE0\u0DE7\u0DFC\u0E02\u0E20\u0E22\u0E32\u0E3F\u0E44lig;\u4152cute\u803B\xD3\u40D3\u0100iy\u0DCE\u0DD3rc\u803B\xD4\u40D4;\u441Eblac;\u4150r;\uC000\u{1D512}rave\u803B\xD2\u40D2\u0180aei\u0DEE\u0DF2\u0DF6cr;\u414Cga;\u43A9cron;\u439Fpf;\uC000\u{1D546}enCurly\u0100DQ\u0E0E\u0E1AoubleQuote;\u601Cuote;\u6018;\u6A54\u0100cl\u0E27\u0E2Cr;\uC000\u{1D4AA}ash\u803B\xD8\u40D8i\u016C\u0E37\u0E3Cde\u803B\xD5\u40D5es;\u6A37ml\u803B\xD6\u40D6er\u0100BP\u0E4B\u0E60\u0100ar\u0E50\u0E53r;\u603Eac\u0100ek\u0E5A\u0E5C;\u63DEet;\u63B4arenthesis;\u63DC\u0480acfhilors\u0E7F\u0E87\u0E8A\u0E8F\u0E92\u0E94\u0E9D\u0EB0\u0EFCrtialD;\u6202y;\u441Fr;\uC000\u{1D513}i;\u43A6;\u43A0usMinus;\u40B1\u0100ip\u0EA2\u0EADncareplan\xE5\u069Df;\u6119\u0200;eio\u0EB9\u0EBA\u0EE0\u0EE4\u6ABBcedes\u0200;EST\u0EC8\u0EC9\u0ECF\u0EDA\u627Aqual;\u6AAFlantEqual;\u627Cilde;\u627Eme;\u6033\u0100dp\u0EE9\u0EEEuct;\u620Fortion\u0100;a\u0225\u0EF9l;\u621D\u0100ci\u0F01\u0F06r;\uC000\u{1D4AB};\u43A8\u0200Ufos\u0F11\u0F16\u0F1B\u0F1FOT\u803B"\u4022r;\uC000\u{1D514}pf;\u611Acr;\uC000\u{1D4AC}\u0600BEacefhiorsu\u0F3E\u0F43\u0F47\u0F60\u0F73\u0FA7\u0FAA\u0FAD\u1096\u10A9\u10B4\u10BEarr;\u6910G\u803B\xAE\u40AE\u0180cnr\u0F4E\u0F53\u0F56ute;\u4154g;\u67EBr\u0100;t\u0F5C\u0F5D\u61A0l;\u6916\u0180aey\u0F67\u0F6C\u0F71ron;\u4158dil;\u4156;\u4420\u0100;v\u0F78\u0F79\u611Cerse\u0100EU\u0F82\u0F99\u0100lq\u0F87\u0F8Eement;\u620Builibrium;\u61CBpEquilibrium;\u696Fr\xBB\u0F79o;\u43A1ght\u0400ACDFTUVa\u0FC1\u0FEB\u0FF3\u1022\u1028\u105B\u1087\u03D8\u0100nr\u0FC6\u0FD2gleBracket;\u67E9row\u0180;BL\u0FDC\u0FDD\u0FE1\u6192ar;\u61E5eftArrow;\u61C4eiling;\u6309o\u01F5\u0FF9\0\u1005bleBracket;\u67E7n\u01D4\u100A\0\u1014eeVector;\u695Dector\u0100;B\u101D\u101E\u61C2ar;\u6955loor;\u630B\u0100er\u102D\u1043e\u0180;AV\u1035\u1036\u103C\u62A2rrow;\u61A6ector;\u695Biangle\u0180;BE\u1050\u1051\u1055\u62B3ar;\u69D0qual;\u62B5p\u0180DTV\u1063\u106E\u1078ownVector;\u694FeeVector;\u695Cector\u0100;B\u1082\u1083\u61BEar;\u6954ector\u0100;B\u1091\u1092\u61C0ar;\u6953\u0100pu\u109B\u109Ef;\u611DndImplies;\u6970ightarrow;\u61DB\u0100ch\u10B9\u10BCr;\u611B;\u61B1leDelayed;\u69F4\u0680HOacfhimoqstu\u10E4\u10F1\u10F7\u10FD\u1119\u111E\u1151\u1156\u1161\u1167\u11B5\u11BB\u11BF\u0100Cc\u10E9\u10EEHcy;\u4429y;\u4428FTcy;\u442Ccute;\u415A\u0280;aeiy\u1108\u1109\u110E\u1113\u1117\u6ABCron;\u4160dil;\u415Erc;\u415C;\u4421r;\uC000\u{1D516}ort\u0200DLRU\u112A\u1134\u113E\u1149ownArrow\xBB\u041EeftArrow\xBB\u089AightArrow\xBB\u0FDDpArrow;\u6191gma;\u43A3allCircle;\u6218pf;\uC000\u{1D54A}\u0272\u116D\0\0\u1170t;\u621Aare\u0200;ISU\u117B\u117C\u1189\u11AF\u65A1ntersection;\u6293u\u0100bp\u118F\u119Eset\u0100;E\u1197\u1198\u628Fqual;\u6291erset\u0100;E\u11A8\u11A9\u6290qual;\u6292nion;\u6294cr;\uC000\u{1D4AE}ar;\u62C6\u0200bcmp\u11C8\u11DB\u1209\u120B\u0100;s\u11CD\u11CE\u62D0et\u0100;E\u11CD\u11D5qual;\u6286\u0100ch\u11E0\u1205eeds\u0200;EST\u11ED\u11EE\u11F4\u11FF\u627Bqual;\u6AB0lantEqual;\u627Dilde;\u627FTh\xE1\u0F8C;\u6211\u0180;es\u1212\u1213\u1223\u62D1rset\u0100;E\u121C\u121D\u6283qual;\u6287et\xBB\u1213\u0580HRSacfhiors\u123E\u1244\u1249\u1255\u125E\u1271\u1276\u129F\u12C2\u12C8\u12D1ORN\u803B\xDE\u40DEADE;\u6122\u0100Hc\u124E\u1252cy;\u440By;\u4426\u0100bu\u125A\u125C;\u4009;\u43A4\u0180aey\u1265\u126A\u126Fron;\u4164dil;\u4162;\u4422r;\uC000\u{1D517}\u0100ei\u127B\u1289\u01F2\u1280\0\u1287efore;\u6234a;\u4398\u0100cn\u128E\u1298kSpace;\uC000\u205F\u200ASpace;\u6009lde\u0200;EFT\u12AB\u12AC\u12B2\u12BC\u623Cqual;\u6243ullEqual;\u6245ilde;\u6248pf;\uC000\u{1D54B}ipleDot;\u60DB\u0100ct\u12D6\u12DBr;\uC000\u{1D4AF}rok;\u4166\u0AE1\u12F7\u130E\u131A\u1326\0\u132C\u1331\0\0\0\0\0\u1338\u133D\u1377\u1385\0\u13FF\u1404\u140A\u1410\u0100cr\u12FB\u1301ute\u803B\xDA\u40DAr\u0100;o\u1307\u1308\u619Fcir;\u6949r\u01E3\u1313\0\u1316y;\u440Eve;\u416C\u0100iy\u131E\u1323rc\u803B\xDB\u40DB;\u4423blac;\u4170r;\uC000\u{1D518}rave\u803B\xD9\u40D9acr;\u416A\u0100di\u1341\u1369er\u0100BP\u1348\u135D\u0100ar\u134D\u1350r;\u405Fac\u0100ek\u1357\u1359;\u63DFet;\u63B5arenthesis;\u63DDon\u0100;P\u1370\u1371\u62C3lus;\u628E\u0100gp\u137B\u137Fon;\u4172f;\uC000\u{1D54C}\u0400ADETadps\u1395\u13AE\u13B8\u13C4\u03E8\u13D2\u13D7\u13F3rrow\u0180;BD\u1150\u13A0\u13A4ar;\u6912ownArrow;\u61C5ownArrow;\u6195quilibrium;\u696Eee\u0100;A\u13CB\u13CC\u62A5rrow;\u61A5own\xE1\u03F3er\u0100LR\u13DE\u13E8eftArrow;\u6196ightArrow;\u6197i\u0100;l\u13F9\u13FA\u43D2on;\u43A5ing;\u416Ecr;\uC000\u{1D4B0}ilde;\u4168ml\u803B\xDC\u40DC\u0480Dbcdefosv\u1427\u142C\u1430\u1433\u143E\u1485\u148A\u1490\u1496ash;\u62ABar;\u6AEBy;\u4412ash\u0100;l\u143B\u143C\u62A9;\u6AE6\u0100er\u1443\u1445;\u62C1\u0180bty\u144C\u1450\u147Aar;\u6016\u0100;i\u144F\u1455cal\u0200BLST\u1461\u1465\u146A\u1474ar;\u6223ine;\u407Ceparator;\u6758ilde;\u6240ThinSpace;\u600Ar;\uC000\u{1D519}pf;\uC000\u{1D54D}cr;\uC000\u{1D4B1}dash;\u62AA\u0280cefos\u14A7\u14AC\u14B1\u14B6\u14BCirc;\u4174dge;\u62C0r;\uC000\u{1D51A}pf;\uC000\u{1D54E}cr;\uC000\u{1D4B2}\u0200fios\u14CB\u14D0\u14D2\u14D8r;\uC000\u{1D51B};\u439Epf;\uC000\u{1D54F}cr;\uC000\u{1D4B3}\u0480AIUacfosu\u14F1\u14F5\u14F9\u14FD\u1504\u150F\u1514\u151A\u1520cy;\u442Fcy;\u4407cy;\u442Ecute\u803B\xDD\u40DD\u0100iy\u1509\u150Drc;\u4176;\u442Br;\uC000\u{1D51C}pf;\uC000\u{1D550}cr;\uC000\u{1D4B4}ml;\u4178\u0400Hacdefos\u1535\u1539\u153F\u154B\u154F\u155D\u1560\u1564cy;\u4416cute;\u4179\u0100ay\u1544\u1549ron;\u417D;\u4417ot;\u417B\u01F2\u1554\0\u155BoWidt\xE8\u0AD9a;\u4396r;\u6128pf;\u6124cr;\uC000\u{1D4B5}\u0BE1\u1583\u158A\u1590\0\u15B0\u15B6\u15BF\0\0\0\0\u15C6\u15DB\u15EB\u165F\u166D\0\u1695\u169B\u16B2\u16B9\0\u16BEcute\u803B\xE1\u40E1reve;\u4103\u0300;Ediuy\u159C\u159D\u15A1\u15A3\u15A8\u15AD\u623E;\uC000\u223E\u0333;\u623Frc\u803B\xE2\u40E2te\u80BB\xB4\u0306;\u4430lig\u803B\xE6\u40E6\u0100;r\xB2\u15BA;\uC000\u{1D51E}rave\u803B\xE0\u40E0\u0100ep\u15CA\u15D6\u0100fp\u15CF\u15D4sym;\u6135\xE8\u15D3ha;\u43B1\u0100ap\u15DFc\u0100cl\u15E4\u15E7r;\u4101g;\u6A3F\u0264\u15F0\0\0\u160A\u0280;adsv\u15FA\u15FB\u15FF\u1601\u1607\u6227nd;\u6A55;\u6A5Clope;\u6A58;\u6A5A\u0380;elmrsz\u1618\u1619\u161B\u161E\u163F\u164F\u1659\u6220;\u69A4e\xBB\u1619sd\u0100;a\u1625\u1626\u6221\u0461\u1630\u1632\u1634\u1636\u1638\u163A\u163C\u163E;\u69A8;\u69A9;\u69AA;\u69AB;\u69AC;\u69AD;\u69AE;\u69AFt\u0100;v\u1645\u1646\u621Fb\u0100;d\u164C\u164D\u62BE;\u699D\u0100pt\u1654\u1657h;\u6222\xBB\xB9arr;\u637C\u0100gp\u1663\u1667on;\u4105f;\uC000\u{1D552}\u0380;Eaeiop\u12C1\u167B\u167D\u1682\u1684\u1687\u168A;\u6A70cir;\u6A6F;\u624Ad;\u624Bs;\u4027rox\u0100;e\u12C1\u1692\xF1\u1683ing\u803B\xE5\u40E5\u0180cty\u16A1\u16A6\u16A8r;\uC000\u{1D4B6};\u402Amp\u0100;e\u12C1\u16AF\xF1\u0288ilde\u803B\xE3\u40E3ml\u803B\xE4\u40E4\u0100ci\u16C2\u16C8onin\xF4\u0272nt;\u6A11\u0800Nabcdefiklnoprsu\u16ED\u16F1\u1730\u173C\u1743\u1748\u1778\u177D\u17E0\u17E6\u1839\u1850\u170D\u193D\u1948\u1970ot;\u6AED\u0100cr\u16F6\u171Ek\u0200ceps\u1700\u1705\u170D\u1713ong;\u624Cpsilon;\u43F6rime;\u6035im\u0100;e\u171A\u171B\u623Dq;\u62CD\u0176\u1722\u1726ee;\u62BDed\u0100;g\u172C\u172D\u6305e\xBB\u172Drk\u0100;t\u135C\u1737brk;\u63B6\u0100oy\u1701\u1741;\u4431quo;\u601E\u0280cmprt\u1753\u175B\u1761\u1764\u1768aus\u0100;e\u010A\u0109ptyv;\u69B0s\xE9\u170Cno\xF5\u0113\u0180ahw\u176F\u1771\u1773;\u43B2;\u6136een;\u626Cr;\uC000\u{1D51F}g\u0380costuvw\u178D\u179D\u17B3\u17C1\u17D5\u17DB\u17DE\u0180aiu\u1794\u1796\u179A\xF0\u0760rc;\u65EFp\xBB\u1371\u0180dpt\u17A4\u17A8\u17ADot;\u6A00lus;\u6A01imes;\u6A02\u0271\u17B9\0\0\u17BEcup;\u6A06ar;\u6605riangle\u0100du\u17CD\u17D2own;\u65BDp;\u65B3plus;\u6A04e\xE5\u1444\xE5\u14ADarow;\u690D\u0180ako\u17ED\u1826\u1835\u0100cn\u17F2\u1823k\u0180lst\u17FA\u05AB\u1802ozenge;\u69EBriangle\u0200;dlr\u1812\u1813\u1818\u181D\u65B4own;\u65BEeft;\u65C2ight;\u65B8k;\u6423\u01B1\u182B\0\u1833\u01B2\u182F\0\u1831;\u6592;\u65914;\u6593ck;\u6588\u0100eo\u183E\u184D\u0100;q\u1843\u1846\uC000=\u20E5uiv;\uC000\u2261\u20E5t;\u6310\u0200ptwx\u1859\u185E\u1867\u186Cf;\uC000\u{1D553}\u0100;t\u13CB\u1863om\xBB\u13CCtie;\u62C8\u0600DHUVbdhmptuv\u1885\u1896\u18AA\u18BB\u18D7\u18DB\u18EC\u18FF\u1905\u190A\u1910\u1921\u0200LRlr\u188E\u1890\u1892\u1894;\u6557;\u6554;\u6556;\u6553\u0280;DUdu\u18A1\u18A2\u18A4\u18A6\u18A8\u6550;\u6566;\u6569;\u6564;\u6567\u0200LRlr\u18B3\u18B5\u18B7\u18B9;\u655D;\u655A;\u655C;\u6559\u0380;HLRhlr\u18CA\u18CB\u18CD\u18CF\u18D1\u18D3\u18D5\u6551;\u656C;\u6563;\u6560;\u656B;\u6562;\u655Fox;\u69C9\u0200LRlr\u18E4\u18E6\u18E8\u18EA;\u6555;\u6552;\u6510;\u650C\u0280;DUdu\u06BD\u18F7\u18F9\u18FB\u18FD;\u6565;\u6568;\u652C;\u6534inus;\u629Flus;\u629Eimes;\u62A0\u0200LRlr\u1919\u191B\u191D\u191F;\u655B;\u6558;\u6518;\u6514\u0380;HLRhlr\u1930\u1931\u1933\u1935\u1937\u1939\u193B\u6502;\u656A;\u6561;\u655E;\u653C;\u6524;\u651C\u0100ev\u0123\u1942bar\u803B\xA6\u40A6\u0200ceio\u1951\u1956\u195A\u1960r;\uC000\u{1D4B7}mi;\u604Fm\u0100;e\u171A\u171Cl\u0180;bh\u1968\u1969\u196B\u405C;\u69C5sub;\u67C8\u016C\u1974\u197El\u0100;e\u1979\u197A\u6022t\xBB\u197Ap\u0180;Ee\u012F\u1985\u1987;\u6AAE\u0100;q\u06DC\u06DB\u0CE1\u19A7\0\u19E8\u1A11\u1A15\u1A32\0\u1A37\u1A50\0\0\u1AB4\0\0\u1AC1\0\0\u1B21\u1B2E\u1B4D\u1B52\0\u1BFD\0\u1C0C\u0180cpr\u19AD\u19B2\u19DDute;\u4107\u0300;abcds\u19BF\u19C0\u19C4\u19CA\u19D5\u19D9\u6229nd;\u6A44rcup;\u6A49\u0100au\u19CF\u19D2p;\u6A4Bp;\u6A47ot;\u6A40;\uC000\u2229\uFE00\u0100eo\u19E2\u19E5t;\u6041\xEE\u0693\u0200aeiu\u19F0\u19FB\u1A01\u1A05\u01F0\u19F5\0\u19F8s;\u6A4Don;\u410Ddil\u803B\xE7\u40E7rc;\u4109ps\u0100;s\u1A0C\u1A0D\u6A4Cm;\u6A50ot;\u410B\u0180dmn\u1A1B\u1A20\u1A26il\u80BB\xB8\u01ADptyv;\u69B2t\u8100\xA2;e\u1A2D\u1A2E\u40A2r\xE4\u01B2r;\uC000\u{1D520}\u0180cei\u1A3D\u1A40\u1A4Dy;\u4447ck\u0100;m\u1A47\u1A48\u6713ark\xBB\u1A48;\u43C7r\u0380;Ecefms\u1A5F\u1A60\u1A62\u1A6B\u1AA4\u1AAA\u1AAE\u65CB;\u69C3\u0180;el\u1A69\u1A6A\u1A6D\u42C6q;\u6257e\u0261\u1A74\0\0\u1A88rrow\u0100lr\u1A7C\u1A81eft;\u61BAight;\u61BB\u0280RSacd\u1A92\u1A94\u1A96\u1A9A\u1A9F\xBB\u0F47;\u64C8st;\u629Birc;\u629Aash;\u629Dnint;\u6A10id;\u6AEFcir;\u69C2ubs\u0100;u\u1ABB\u1ABC\u6663it\xBB\u1ABC\u02EC\u1AC7\u1AD4\u1AFA\0\u1B0Aon\u0100;e\u1ACD\u1ACE\u403A\u0100;q\xC7\xC6\u026D\u1AD9\0\0\u1AE2a\u0100;t\u1ADE\u1ADF\u402C;\u4040\u0180;fl\u1AE8\u1AE9\u1AEB\u6201\xEE\u1160e\u0100mx\u1AF1\u1AF6ent\xBB\u1AE9e\xF3\u024D\u01E7\u1AFE\0\u1B07\u0100;d\u12BB\u1B02ot;\u6A6Dn\xF4\u0246\u0180fry\u1B10\u1B14\u1B17;\uC000\u{1D554}o\xE4\u0254\u8100\xA9;s\u0155\u1B1Dr;\u6117\u0100ao\u1B25\u1B29rr;\u61B5ss;\u6717\u0100cu\u1B32\u1B37r;\uC000\u{1D4B8}\u0100bp\u1B3C\u1B44\u0100;e\u1B41\u1B42\u6ACF;\u6AD1\u0100;e\u1B49\u1B4A\u6AD0;\u6AD2dot;\u62EF\u0380delprvw\u1B60\u1B6C\u1B77\u1B82\u1BAC\u1BD4\u1BF9arr\u0100lr\u1B68\u1B6A;\u6938;\u6935\u0270\u1B72\0\0\u1B75r;\u62DEc;\u62DFarr\u0100;p\u1B7F\u1B80\u61B6;\u693D\u0300;bcdos\u1B8F\u1B90\u1B96\u1BA1\u1BA5\u1BA8\u622Arcap;\u6A48\u0100au\u1B9B\u1B9Ep;\u6A46p;\u6A4Aot;\u628Dr;\u6A45;\uC000\u222A\uFE00\u0200alrv\u1BB5\u1BBF\u1BDE\u1BE3rr\u0100;m\u1BBC\u1BBD\u61B7;\u693Cy\u0180evw\u1BC7\u1BD4\u1BD8q\u0270\u1BCE\0\0\u1BD2re\xE3\u1B73u\xE3\u1B75ee;\u62CEedge;\u62CFen\u803B\xA4\u40A4earrow\u0100lr\u1BEE\u1BF3eft\xBB\u1B80ight\xBB\u1BBDe\xE4\u1BDD\u0100ci\u1C01\u1C07onin\xF4\u01F7nt;\u6231lcty;\u632D\u0980AHabcdefhijlorstuwz\u1C38\u1C3B\u1C3F\u1C5D\u1C69\u1C75\u1C8A\u1C9E\u1CAC\u1CB7\u1CFB\u1CFF\u1D0D\u1D7B\u1D91\u1DAB\u1DBB\u1DC6\u1DCDr\xF2\u0381ar;\u6965\u0200glrs\u1C48\u1C4D\u1C52\u1C54ger;\u6020eth;\u6138\xF2\u1133h\u0100;v\u1C5A\u1C5B\u6010\xBB\u090A\u016B\u1C61\u1C67arow;\u690Fa\xE3\u0315\u0100ay\u1C6E\u1C73ron;\u410F;\u4434\u0180;ao\u0332\u1C7C\u1C84\u0100gr\u02BF\u1C81r;\u61CAtseq;\u6A77\u0180glm\u1C91\u1C94\u1C98\u803B\xB0\u40B0ta;\u43B4ptyv;\u69B1\u0100ir\u1CA3\u1CA8sht;\u697F;\uC000\u{1D521}ar\u0100lr\u1CB3\u1CB5\xBB\u08DC\xBB\u101E\u0280aegsv\u1CC2\u0378\u1CD6\u1CDC\u1CE0m\u0180;os\u0326\u1CCA\u1CD4nd\u0100;s\u0326\u1CD1uit;\u6666amma;\u43DDin;\u62F2\u0180;io\u1CE7\u1CE8\u1CF8\u40F7de\u8100\xF7;o\u1CE7\u1CF0ntimes;\u62C7n\xF8\u1CF7cy;\u4452c\u026F\u1D06\0\0\u1D0Arn;\u631Eop;\u630D\u0280lptuw\u1D18\u1D1D\u1D22\u1D49\u1D55lar;\u4024f;\uC000\u{1D555}\u0280;emps\u030B\u1D2D\u1D37\u1D3D\u1D42q\u0100;d\u0352\u1D33ot;\u6251inus;\u6238lus;\u6214quare;\u62A1blebarwedg\xE5\xFAn\u0180adh\u112E\u1D5D\u1D67ownarrow\xF3\u1C83arpoon\u0100lr\u1D72\u1D76ef\xF4\u1CB4igh\xF4\u1CB6\u0162\u1D7F\u1D85karo\xF7\u0F42\u026F\u1D8A\0\0\u1D8Ern;\u631Fop;\u630C\u0180cot\u1D98\u1DA3\u1DA6\u0100ry\u1D9D\u1DA1;\uC000\u{1D4B9};\u4455l;\u69F6rok;\u4111\u0100dr\u1DB0\u1DB4ot;\u62F1i\u0100;f\u1DBA\u1816\u65BF\u0100ah\u1DC0\u1DC3r\xF2\u0429a\xF2\u0FA6angle;\u69A6\u0100ci\u1DD2\u1DD5y;\u445Fgrarr;\u67FF\u0900Dacdefglmnopqrstux\u1E01\u1E09\u1E19\u1E38\u0578\u1E3C\u1E49\u1E61\u1E7E\u1EA5\u1EAF\u1EBD\u1EE1\u1F2A\u1F37\u1F44\u1F4E\u1F5A\u0100Do\u1E06\u1D34o\xF4\u1C89\u0100cs\u1E0E\u1E14ute\u803B\xE9\u40E9ter;\u6A6E\u0200aioy\u1E22\u1E27\u1E31\u1E36ron;\u411Br\u0100;c\u1E2D\u1E2E\u6256\u803B\xEA\u40EAlon;\u6255;\u444Dot;\u4117\u0100Dr\u1E41\u1E45ot;\u6252;\uC000\u{1D522}\u0180;rs\u1E50\u1E51\u1E57\u6A9Aave\u803B\xE8\u40E8\u0100;d\u1E5C\u1E5D\u6A96ot;\u6A98\u0200;ils\u1E6A\u1E6B\u1E72\u1E74\u6A99nters;\u63E7;\u6113\u0100;d\u1E79\u1E7A\u6A95ot;\u6A97\u0180aps\u1E85\u1E89\u1E97cr;\u4113ty\u0180;sv\u1E92\u1E93\u1E95\u6205et\xBB\u1E93p\u01001;\u1E9D\u1EA4\u0133\u1EA1\u1EA3;\u6004;\u6005\u6003\u0100gs\u1EAA\u1EAC;\u414Bp;\u6002\u0100gp\u1EB4\u1EB8on;\u4119f;\uC000\u{1D556}\u0180als\u1EC4\u1ECE\u1ED2r\u0100;s\u1ECA\u1ECB\u62D5l;\u69E3us;\u6A71i\u0180;lv\u1EDA\u1EDB\u1EDF\u43B5on\xBB\u1EDB;\u43F5\u0200csuv\u1EEA\u1EF3\u1F0B\u1F23\u0100io\u1EEF\u1E31rc\xBB\u1E2E\u0269\u1EF9\0\0\u1EFB\xED\u0548ant\u0100gl\u1F02\u1F06tr\xBB\u1E5Dess\xBB\u1E7A\u0180aei\u1F12\u1F16\u1F1Als;\u403Dst;\u625Fv\u0100;D\u0235\u1F20D;\u6A78parsl;\u69E5\u0100Da\u1F2F\u1F33ot;\u6253rr;\u6971\u0180cdi\u1F3E\u1F41\u1EF8r;\u612Fo\xF4\u0352\u0100ah\u1F49\u1F4B;\u43B7\u803B\xF0\u40F0\u0100mr\u1F53\u1F57l\u803B\xEB\u40EBo;\u60AC\u0180cip\u1F61\u1F64\u1F67l;\u4021s\xF4\u056E\u0100eo\u1F6C\u1F74ctatio\xEE\u0559nential\xE5\u0579\u09E1\u1F92\0\u1F9E\0\u1FA1\u1FA7\0\0\u1FC6\u1FCC\0\u1FD3\0\u1FE6\u1FEA\u2000\0\u2008\u205Allingdotse\xF1\u1E44y;\u4444male;\u6640\u0180ilr\u1FAD\u1FB3\u1FC1lig;\u8000\uFB03\u0269\u1FB9\0\0\u1FBDg;\u8000\uFB00ig;\u8000\uFB04;\uC000\u{1D523}lig;\u8000\uFB01lig;\uC000fj\u0180alt\u1FD9\u1FDC\u1FE1t;\u666Dig;\u8000\uFB02ns;\u65B1of;\u4192\u01F0\u1FEE\0\u1FF3f;\uC000\u{1D557}\u0100ak\u05BF\u1FF7\u0100;v\u1FFC\u1FFD\u62D4;\u6AD9artint;\u6A0D\u0100ao\u200C\u2055\u0100cs\u2011\u2052\u03B1\u201A\u2030\u2038\u2045\u2048\0\u2050\u03B2\u2022\u2025\u2027\u202A\u202C\0\u202E\u803B\xBD\u40BD;\u6153\u803B\xBC\u40BC;\u6155;\u6159;\u615B\u01B3\u2034\0\u2036;\u6154;\u6156\u02B4\u203E\u2041\0\0\u2043\u803B\xBE\u40BE;\u6157;\u615C5;\u6158\u01B6\u204C\0\u204E;\u615A;\u615D8;\u615El;\u6044wn;\u6322cr;\uC000\u{1D4BB}\u0880Eabcdefgijlnorstv\u2082\u2089\u209F\u20A5\u20B0\u20B4\u20F0\u20F5\u20FA\u20FF\u2103\u2112\u2138\u0317\u213E\u2152\u219E\u0100;l\u064D\u2087;\u6A8C\u0180cmp\u2090\u2095\u209Dute;\u41F5ma\u0100;d\u209C\u1CDA\u43B3;\u6A86reve;\u411F\u0100iy\u20AA\u20AErc;\u411D;\u4433ot;\u4121\u0200;lqs\u063E\u0642\u20BD\u20C9\u0180;qs\u063E\u064C\u20C4lan\xF4\u0665\u0200;cdl\u0665\u20D2\u20D5\u20E5c;\u6AA9ot\u0100;o\u20DC\u20DD\u6A80\u0100;l\u20E2\u20E3\u6A82;\u6A84\u0100;e\u20EA\u20ED\uC000\u22DB\uFE00s;\u6A94r;\uC000\u{1D524}\u0100;g\u0673\u061Bmel;\u6137cy;\u4453\u0200;Eaj\u065A\u210C\u210E\u2110;\u6A92;\u6AA5;\u6AA4\u0200Eaes\u211B\u211D\u2129\u2134;\u6269p\u0100;p\u2123\u2124\u6A8Arox\xBB\u2124\u0100;q\u212E\u212F\u6A88\u0100;q\u212E\u211Bim;\u62E7pf;\uC000\u{1D558}\u0100ci\u2143\u2146r;\u610Am\u0180;el\u066B\u214E\u2150;\u6A8E;\u6A90\u8300>;cdlqr\u05EE\u2160\u216A\u216E\u2173\u2179\u0100ci\u2165\u2167;\u6AA7r;\u6A7Aot;\u62D7Par;\u6995uest;\u6A7C\u0280adels\u2184\u216A\u2190\u0656\u219B\u01F0\u2189\0\u218Epro\xF8\u209Er;\u6978q\u0100lq\u063F\u2196les\xF3\u2088i\xED\u066B\u0100en\u21A3\u21ADrtneqq;\uC000\u2269\uFE00\xC5\u21AA\u0500Aabcefkosy\u21C4\u21C7\u21F1\u21F5\u21FA\u2218\u221D\u222F\u2268\u227Dr\xF2\u03A0\u0200ilmr\u21D0\u21D4\u21D7\u21DBrs\xF0\u1484f\xBB\u2024il\xF4\u06A9\u0100dr\u21E0\u21E4cy;\u444A\u0180;cw\u08F4\u21EB\u21EFir;\u6948;\u61ADar;\u610Firc;\u4125\u0180alr\u2201\u220E\u2213rts\u0100;u\u2209\u220A\u6665it\xBB\u220Alip;\u6026con;\u62B9r;\uC000\u{1D525}s\u0100ew\u2223\u2229arow;\u6925arow;\u6926\u0280amopr\u223A\u223E\u2243\u225E\u2263rr;\u61FFtht;\u623Bk\u0100lr\u2249\u2253eftarrow;\u61A9ightarrow;\u61AAf;\uC000\u{1D559}bar;\u6015\u0180clt\u226F\u2274\u2278r;\uC000\u{1D4BD}as\xE8\u21F4rok;\u4127\u0100bp\u2282\u2287ull;\u6043hen\xBB\u1C5B\u0AE1\u22A3\0\u22AA\0\u22B8\u22C5\u22CE\0\u22D5\u22F3\0\0\u22F8\u2322\u2367\u2362\u237F\0\u2386\u23AA\u23B4cute\u803B\xED\u40ED\u0180;iy\u0771\u22B0\u22B5rc\u803B\xEE\u40EE;\u4438\u0100cx\u22BC\u22BFy;\u4435cl\u803B\xA1\u40A1\u0100fr\u039F\u22C9;\uC000\u{1D526}rave\u803B\xEC\u40EC\u0200;ino\u073E\u22DD\u22E9\u22EE\u0100in\u22E2\u22E6nt;\u6A0Ct;\u622Dfin;\u69DCta;\u6129lig;\u4133\u0180aop\u22FE\u231A\u231D\u0180cgt\u2305\u2308\u2317r;\u412B\u0180elp\u071F\u230F\u2313in\xE5\u078Ear\xF4\u0720h;\u4131f;\u62B7ed;\u41B5\u0280;cfot\u04F4\u232C\u2331\u233D\u2341are;\u6105in\u0100;t\u2338\u2339\u621Eie;\u69DDdo\xF4\u2319\u0280;celp\u0757\u234C\u2350\u235B\u2361al;\u62BA\u0100gr\u2355\u2359er\xF3\u1563\xE3\u234Darhk;\u6A17rod;\u6A3C\u0200cgpt\u236F\u2372\u2376\u237By;\u4451on;\u412Ff;\uC000\u{1D55A}a;\u43B9uest\u803B\xBF\u40BF\u0100ci\u238A\u238Fr;\uC000\u{1D4BE}n\u0280;Edsv\u04F4\u239B\u239D\u23A1\u04F3;\u62F9ot;\u62F5\u0100;v\u23A6\u23A7\u62F4;\u62F3\u0100;i\u0777\u23AElde;\u4129\u01EB\u23B8\0\u23BCcy;\u4456l\u803B\xEF\u40EF\u0300cfmosu\u23CC\u23D7\u23DC\u23E1\u23E7\u23F5\u0100iy\u23D1\u23D5rc;\u4135;\u4439r;\uC000\u{1D527}ath;\u4237pf;\uC000\u{1D55B}\u01E3\u23EC\0\u23F1r;\uC000\u{1D4BF}rcy;\u4458kcy;\u4454\u0400acfghjos\u240B\u2416\u2422\u2427\u242D\u2431\u2435\u243Bppa\u0100;v\u2413\u2414\u43BA;\u43F0\u0100ey\u241B\u2420dil;\u4137;\u443Ar;\uC000\u{1D528}reen;\u4138cy;\u4445cy;\u445Cpf;\uC000\u{1D55C}cr;\uC000\u{1D4C0}\u0B80ABEHabcdefghjlmnoprstuv\u2470\u2481\u2486\u248D\u2491\u250E\u253D\u255A\u2580\u264E\u265E\u2665\u2679\u267D\u269A\u26B2\u26D8\u275D\u2768\u278B\u27C0\u2801\u2812\u0180art\u2477\u247A\u247Cr\xF2\u09C6\xF2\u0395ail;\u691Barr;\u690E\u0100;g\u0994\u248B;\u6A8Bar;\u6962\u0963\u24A5\0\u24AA\0\u24B1\0\0\0\0\0\u24B5\u24BA\0\u24C6\u24C8\u24CD\0\u24F9ute;\u413Amptyv;\u69B4ra\xEE\u084Cbda;\u43BBg\u0180;dl\u088E\u24C1\u24C3;\u6991\xE5\u088E;\u6A85uo\u803B\xAB\u40ABr\u0400;bfhlpst\u0899\u24DE\u24E6\u24E9\u24EB\u24EE\u24F1\u24F5\u0100;f\u089D\u24E3s;\u691Fs;\u691D\xEB\u2252p;\u61ABl;\u6939im;\u6973l;\u61A2\u0180;ae\u24FF\u2500\u2504\u6AABil;\u6919\u0100;s\u2509\u250A\u6AAD;\uC000\u2AAD\uFE00\u0180abr\u2515\u2519\u251Drr;\u690Crk;\u6772\u0100ak\u2522\u252Cc\u0100ek\u2528\u252A;\u407B;\u405B\u0100es\u2531\u2533;\u698Bl\u0100du\u2539\u253B;\u698F;\u698D\u0200aeuy\u2546\u254B\u2556\u2558ron;\u413E\u0100di\u2550\u2554il;\u413C\xEC\u08B0\xE2\u2529;\u443B\u0200cqrs\u2563\u2566\u256D\u257Da;\u6936uo\u0100;r\u0E19\u1746\u0100du\u2572\u2577har;\u6967shar;\u694Bh;\u61B2\u0280;fgqs\u258B\u258C\u0989\u25F3\u25FF\u6264t\u0280ahlrt\u2598\u25A4\u25B7\u25C2\u25E8rrow\u0100;t\u0899\u25A1a\xE9\u24F6arpoon\u0100du\u25AF\u25B4own\xBB\u045Ap\xBB\u0966eftarrows;\u61C7ight\u0180ahs\u25CD\u25D6\u25DErrow\u0100;s\u08F4\u08A7arpoon\xF3\u0F98quigarro\xF7\u21F0hreetimes;\u62CB\u0180;qs\u258B\u0993\u25FAlan\xF4\u09AC\u0280;cdgs\u09AC\u260A\u260D\u261D\u2628c;\u6AA8ot\u0100;o\u2614\u2615\u6A7F\u0100;r\u261A\u261B\u6A81;\u6A83\u0100;e\u2622\u2625\uC000\u22DA\uFE00s;\u6A93\u0280adegs\u2633\u2639\u263D\u2649\u264Bppro\xF8\u24C6ot;\u62D6q\u0100gq\u2643\u2645\xF4\u0989gt\xF2\u248C\xF4\u099Bi\xED\u09B2\u0180ilr\u2655\u08E1\u265Asht;\u697C;\uC000\u{1D529}\u0100;E\u099C\u2663;\u6A91\u0161\u2669\u2676r\u0100du\u25B2\u266E\u0100;l\u0965\u2673;\u696Alk;\u6584cy;\u4459\u0280;acht\u0A48\u2688\u268B\u2691\u2696r\xF2\u25C1orne\xF2\u1D08ard;\u696Bri;\u65FA\u0100io\u269F\u26A4dot;\u4140ust\u0100;a\u26AC\u26AD\u63B0che\xBB\u26AD\u0200Eaes\u26BB\u26BD\u26C9\u26D4;\u6268p\u0100;p\u26C3\u26C4\u6A89rox\xBB\u26C4\u0100;q\u26CE\u26CF\u6A87\u0100;q\u26CE\u26BBim;\u62E6\u0400abnoptwz\u26E9\u26F4\u26F7\u271A\u272F\u2741\u2747\u2750\u0100nr\u26EE\u26F1g;\u67ECr;\u61FDr\xEB\u08C1g\u0180lmr\u26FF\u270D\u2714eft\u0100ar\u09E6\u2707ight\xE1\u09F2apsto;\u67FCight\xE1\u09FDparrow\u0100lr\u2725\u2729ef\xF4\u24EDight;\u61AC\u0180afl\u2736\u2739\u273Dr;\u6985;\uC000\u{1D55D}us;\u6A2Dimes;\u6A34\u0161\u274B\u274Fst;\u6217\xE1\u134E\u0180;ef\u2757\u2758\u1800\u65CAnge\xBB\u2758ar\u0100;l\u2764\u2765\u4028t;\u6993\u0280achmt\u2773\u2776\u277C\u2785\u2787r\xF2\u08A8orne\xF2\u1D8Car\u0100;d\u0F98\u2783;\u696D;\u600Eri;\u62BF\u0300achiqt\u2798\u279D\u0A40\u27A2\u27AE\u27BBquo;\u6039r;\uC000\u{1D4C1}m\u0180;eg\u09B2\u27AA\u27AC;\u6A8D;\u6A8F\u0100bu\u252A\u27B3o\u0100;r\u0E1F\u27B9;\u601Arok;\u4142\u8400<;cdhilqr\u082B\u27D2\u2639\u27DC\u27E0\u27E5\u27EA\u27F0\u0100ci\u27D7\u27D9;\u6AA6r;\u6A79re\xE5\u25F2mes;\u62C9arr;\u6976uest;\u6A7B\u0100Pi\u27F5\u27F9ar;\u6996\u0180;ef\u2800\u092D\u181B\u65C3r\u0100du\u2807\u280Dshar;\u694Ahar;\u6966\u0100en\u2817\u2821rtneqq;\uC000\u2268\uFE00\xC5\u281E\u0700Dacdefhilnopsu\u2840\u2845\u2882\u288E\u2893\u28A0\u28A5\u28A8\u28DA\u28E2\u28E4\u0A83\u28F3\u2902Dot;\u623A\u0200clpr\u284E\u2852\u2863\u287Dr\u803B\xAF\u40AF\u0100et\u2857\u2859;\u6642\u0100;e\u285E\u285F\u6720se\xBB\u285F\u0100;s\u103B\u2868to\u0200;dlu\u103B\u2873\u2877\u287Bow\xEE\u048Cef\xF4\u090F\xF0\u13D1ker;\u65AE\u0100oy\u2887\u288Cmma;\u6A29;\u443Cash;\u6014asuredangle\xBB\u1626r;\uC000\u{1D52A}o;\u6127\u0180cdn\u28AF\u28B4\u28C9ro\u803B\xB5\u40B5\u0200;acd\u1464\u28BD\u28C0\u28C4s\xF4\u16A7ir;\u6AF0ot\u80BB\xB7\u01B5us\u0180;bd\u28D2\u1903\u28D3\u6212\u0100;u\u1D3C\u28D8;\u6A2A\u0163\u28DE\u28E1p;\u6ADB\xF2\u2212\xF0\u0A81\u0100dp\u28E9\u28EEels;\u62A7f;\uC000\u{1D55E}\u0100ct\u28F8\u28FDr;\uC000\u{1D4C2}pos\xBB\u159D\u0180;lm\u2909\u290A\u290D\u43BCtimap;\u62B8\u0C00GLRVabcdefghijlmoprstuvw\u2942\u2953\u297E\u2989\u2998\u29DA\u29E9\u2A15\u2A1A\u2A58\u2A5D\u2A83\u2A95\u2AA4\u2AA8\u2B04\u2B07\u2B44\u2B7F\u2BAE\u2C34\u2C67\u2C7C\u2CE9\u0100gt\u2947\u294B;\uC000\u22D9\u0338\u0100;v\u2950\u0BCF\uC000\u226B\u20D2\u0180elt\u295A\u2972\u2976ft\u0100ar\u2961\u2967rrow;\u61CDightarrow;\u61CE;\uC000\u22D8\u0338\u0100;v\u297B\u0C47\uC000\u226A\u20D2ightarrow;\u61CF\u0100Dd\u298E\u2993ash;\u62AFash;\u62AE\u0280bcnpt\u29A3\u29A7\u29AC\u29B1\u29CCla\xBB\u02DEute;\u4144g;\uC000\u2220\u20D2\u0280;Eiop\u0D84\u29BC\u29C0\u29C5\u29C8;\uC000\u2A70\u0338d;\uC000\u224B\u0338s;\u4149ro\xF8\u0D84ur\u0100;a\u29D3\u29D4\u666El\u0100;s\u29D3\u0B38\u01F3\u29DF\0\u29E3p\u80BB\xA0\u0B37mp\u0100;e\u0BF9\u0C00\u0280aeouy\u29F4\u29FE\u2A03\u2A10\u2A13\u01F0\u29F9\0\u29FB;\u6A43on;\u4148dil;\u4146ng\u0100;d\u0D7E\u2A0Aot;\uC000\u2A6D\u0338p;\u6A42;\u443Dash;\u6013\u0380;Aadqsx\u0B92\u2A29\u2A2D\u2A3B\u2A41\u2A45\u2A50rr;\u61D7r\u0100hr\u2A33\u2A36k;\u6924\u0100;o\u13F2\u13F0ot;\uC000\u2250\u0338ui\xF6\u0B63\u0100ei\u2A4A\u2A4Ear;\u6928\xED\u0B98ist\u0100;s\u0BA0\u0B9Fr;\uC000\u{1D52B}\u0200Eest\u0BC5\u2A66\u2A79\u2A7C\u0180;qs\u0BBC\u2A6D\u0BE1\u0180;qs\u0BBC\u0BC5\u2A74lan\xF4\u0BE2i\xED\u0BEA\u0100;r\u0BB6\u2A81\xBB\u0BB7\u0180Aap\u2A8A\u2A8D\u2A91r\xF2\u2971rr;\u61AEar;\u6AF2\u0180;sv\u0F8D\u2A9C\u0F8C\u0100;d\u2AA1\u2AA2\u62FC;\u62FAcy;\u445A\u0380AEadest\u2AB7\u2ABA\u2ABE\u2AC2\u2AC5\u2AF6\u2AF9r\xF2\u2966;\uC000\u2266\u0338rr;\u619Ar;\u6025\u0200;fqs\u0C3B\u2ACE\u2AE3\u2AEFt\u0100ar\u2AD4\u2AD9rro\xF7\u2AC1ightarro\xF7\u2A90\u0180;qs\u0C3B\u2ABA\u2AEAlan\xF4\u0C55\u0100;s\u0C55\u2AF4\xBB\u0C36i\xED\u0C5D\u0100;r\u0C35\u2AFEi\u0100;e\u0C1A\u0C25i\xE4\u0D90\u0100pt\u2B0C\u2B11f;\uC000\u{1D55F}\u8180\xAC;in\u2B19\u2B1A\u2B36\u40ACn\u0200;Edv\u0B89\u2B24\u2B28\u2B2E;\uC000\u22F9\u0338ot;\uC000\u22F5\u0338\u01E1\u0B89\u2B33\u2B35;\u62F7;\u62F6i\u0100;v\u0CB8\u2B3C\u01E1\u0CB8\u2B41\u2B43;\u62FE;\u62FD\u0180aor\u2B4B\u2B63\u2B69r\u0200;ast\u0B7B\u2B55\u2B5A\u2B5Flle\xEC\u0B7Bl;\uC000\u2AFD\u20E5;\uC000\u2202\u0338lint;\u6A14\u0180;ce\u0C92\u2B70\u2B73u\xE5\u0CA5\u0100;c\u0C98\u2B78\u0100;e\u0C92\u2B7D\xF1\u0C98\u0200Aait\u2B88\u2B8B\u2B9D\u2BA7r\xF2\u2988rr\u0180;cw\u2B94\u2B95\u2B99\u619B;\uC000\u2933\u0338;\uC000\u219D\u0338ghtarrow\xBB\u2B95ri\u0100;e\u0CCB\u0CD6\u0380chimpqu\u2BBD\u2BCD\u2BD9\u2B04\u0B78\u2BE4\u2BEF\u0200;cer\u0D32\u2BC6\u0D37\u2BC9u\xE5\u0D45;\uC000\u{1D4C3}ort\u026D\u2B05\0\0\u2BD6ar\xE1\u2B56m\u0100;e\u0D6E\u2BDF\u0100;q\u0D74\u0D73su\u0100bp\u2BEB\u2BED\xE5\u0CF8\xE5\u0D0B\u0180bcp\u2BF6\u2C11\u2C19\u0200;Ees\u2BFF\u2C00\u0D22\u2C04\u6284;\uC000\u2AC5\u0338et\u0100;e\u0D1B\u2C0Bq\u0100;q\u0D23\u2C00c\u0100;e\u0D32\u2C17\xF1\u0D38\u0200;Ees\u2C22\u2C23\u0D5F\u2C27\u6285;\uC000\u2AC6\u0338et\u0100;e\u0D58\u2C2Eq\u0100;q\u0D60\u2C23\u0200gilr\u2C3D\u2C3F\u2C45\u2C47\xEC\u0BD7lde\u803B\xF1\u40F1\xE7\u0C43iangle\u0100lr\u2C52\u2C5Ceft\u0100;e\u0C1A\u2C5A\xF1\u0C26ight\u0100;e\u0CCB\u2C65\xF1\u0CD7\u0100;m\u2C6C\u2C6D\u43BD\u0180;es\u2C74\u2C75\u2C79\u4023ro;\u6116p;\u6007\u0480DHadgilrs\u2C8F\u2C94\u2C99\u2C9E\u2CA3\u2CB0\u2CB6\u2CD3\u2CE3ash;\u62ADarr;\u6904p;\uC000\u224D\u20D2ash;\u62AC\u0100et\u2CA8\u2CAC;\uC000\u2265\u20D2;\uC000>\u20D2nfin;\u69DE\u0180Aet\u2CBD\u2CC1\u2CC5rr;\u6902;\uC000\u2264\u20D2\u0100;r\u2CCA\u2CCD\uC000<\u20D2ie;\uC000\u22B4\u20D2\u0100At\u2CD8\u2CDCrr;\u6903rie;\uC000\u22B5\u20D2im;\uC000\u223C\u20D2\u0180Aan\u2CF0\u2CF4\u2D02rr;\u61D6r\u0100hr\u2CFA\u2CFDk;\u6923\u0100;o\u13E7\u13E5ear;\u6927\u1253\u1A95\0\0\0\0\0\0\0\0\0\0\0\0\0\u2D2D\0\u2D38\u2D48\u2D60\u2D65\u2D72\u2D84\u1B07\0\0\u2D8D\u2DAB\0\u2DC8\u2DCE\0\u2DDC\u2E19\u2E2B\u2E3E\u2E43\u0100cs\u2D31\u1A97ute\u803B\xF3\u40F3\u0100iy\u2D3C\u2D45r\u0100;c\u1A9E\u2D42\u803B\xF4\u40F4;\u443E\u0280abios\u1AA0\u2D52\u2D57\u01C8\u2D5Alac;\u4151v;\u6A38old;\u69BClig;\u4153\u0100cr\u2D69\u2D6Dir;\u69BF;\uC000\u{1D52C}\u036F\u2D79\0\0\u2D7C\0\u2D82n;\u42DBave\u803B\xF2\u40F2;\u69C1\u0100bm\u2D88\u0DF4ar;\u69B5\u0200acit\u2D95\u2D98\u2DA5\u2DA8r\xF2\u1A80\u0100ir\u2D9D\u2DA0r;\u69BEoss;\u69BBn\xE5\u0E52;\u69C0\u0180aei\u2DB1\u2DB5\u2DB9cr;\u414Dga;\u43C9\u0180cdn\u2DC0\u2DC5\u01CDron;\u43BF;\u69B6pf;\uC000\u{1D560}\u0180ael\u2DD4\u2DD7\u01D2r;\u69B7rp;\u69B9\u0380;adiosv\u2DEA\u2DEB\u2DEE\u2E08\u2E0D\u2E10\u2E16\u6228r\xF2\u1A86\u0200;efm\u2DF7\u2DF8\u2E02\u2E05\u6A5Dr\u0100;o\u2DFE\u2DFF\u6134f\xBB\u2DFF\u803B\xAA\u40AA\u803B\xBA\u40BAgof;\u62B6r;\u6A56lope;\u6A57;\u6A5B\u0180clo\u2E1F\u2E21\u2E27\xF2\u2E01ash\u803B\xF8\u40F8l;\u6298i\u016C\u2E2F\u2E34de\u803B\xF5\u40F5es\u0100;a\u01DB\u2E3As;\u6A36ml\u803B\xF6\u40F6bar;\u633D\u0AE1\u2E5E\0\u2E7D\0\u2E80\u2E9D\0\u2EA2\u2EB9\0\0\u2ECB\u0E9C\0\u2F13\0\0\u2F2B\u2FBC\0\u2FC8r\u0200;ast\u0403\u2E67\u2E72\u0E85\u8100\xB6;l\u2E6D\u2E6E\u40B6le\xEC\u0403\u0269\u2E78\0\0\u2E7Bm;\u6AF3;\u6AFDy;\u443Fr\u0280cimpt\u2E8B\u2E8F\u2E93\u1865\u2E97nt;\u4025od;\u402Eil;\u6030enk;\u6031r;\uC000\u{1D52D}\u0180imo\u2EA8\u2EB0\u2EB4\u0100;v\u2EAD\u2EAE\u43C6;\u43D5ma\xF4\u0A76ne;\u660E\u0180;tv\u2EBF\u2EC0\u2EC8\u43C0chfork\xBB\u1FFD;\u43D6\u0100au\u2ECF\u2EDFn\u0100ck\u2ED5\u2EDDk\u0100;h\u21F4\u2EDB;\u610E\xF6\u21F4s\u0480;abcdemst\u2EF3\u2EF4\u1908\u2EF9\u2EFD\u2F04\u2F06\u2F0A\u2F0E\u402Bcir;\u6A23ir;\u6A22\u0100ou\u1D40\u2F02;\u6A25;\u6A72n\u80BB\xB1\u0E9Dim;\u6A26wo;\u6A27\u0180ipu\u2F19\u2F20\u2F25ntint;\u6A15f;\uC000\u{1D561}nd\u803B\xA3\u40A3\u0500;Eaceinosu\u0EC8\u2F3F\u2F41\u2F44\u2F47\u2F81\u2F89\u2F92\u2F7E\u2FB6;\u6AB3p;\u6AB7u\xE5\u0ED9\u0100;c\u0ECE\u2F4C\u0300;acens\u0EC8\u2F59\u2F5F\u2F66\u2F68\u2F7Eppro\xF8\u2F43urlye\xF1\u0ED9\xF1\u0ECE\u0180aes\u2F6F\u2F76\u2F7Approx;\u6AB9qq;\u6AB5im;\u62E8i\xED\u0EDFme\u0100;s\u2F88\u0EAE\u6032\u0180Eas\u2F78\u2F90\u2F7A\xF0\u2F75\u0180dfp\u0EEC\u2F99\u2FAF\u0180als\u2FA0\u2FA5\u2FAAlar;\u632Eine;\u6312urf;\u6313\u0100;t\u0EFB\u2FB4\xEF\u0EFBrel;\u62B0\u0100ci\u2FC0\u2FC5r;\uC000\u{1D4C5};\u43C8ncsp;\u6008\u0300fiopsu\u2FDA\u22E2\u2FDF\u2FE5\u2FEB\u2FF1r;\uC000\u{1D52E}pf;\uC000\u{1D562}rime;\u6057cr;\uC000\u{1D4C6}\u0180aeo\u2FF8\u3009\u3013t\u0100ei\u2FFE\u3005rnion\xF3\u06B0nt;\u6A16st\u0100;e\u3010\u3011\u403F\xF1\u1F19\xF4\u0F14\u0A80ABHabcdefhilmnoprstux\u3040\u3051\u3055\u3059\u30E0\u310E\u312B\u3147\u3162\u3172\u318E\u3206\u3215\u3224\u3229\u3258\u326E\u3272\u3290\u32B0\u32B7\u0180art\u3047\u304A\u304Cr\xF2\u10B3\xF2\u03DDail;\u691Car\xF2\u1C65ar;\u6964\u0380cdenqrt\u3068\u3075\u3078\u307F\u308F\u3094\u30CC\u0100eu\u306D\u3071;\uC000\u223D\u0331te;\u4155i\xE3\u116Emptyv;\u69B3g\u0200;del\u0FD1\u3089\u308B\u308D;\u6992;\u69A5\xE5\u0FD1uo\u803B\xBB\u40BBr\u0580;abcfhlpstw\u0FDC\u30AC\u30AF\u30B7\u30B9\u30BC\u30BE\u30C0\u30C3\u30C7\u30CAp;\u6975\u0100;f\u0FE0\u30B4s;\u6920;\u6933s;\u691E\xEB\u225D\xF0\u272El;\u6945im;\u6974l;\u61A3;\u619D\u0100ai\u30D1\u30D5il;\u691Ao\u0100;n\u30DB\u30DC\u6236al\xF3\u0F1E\u0180abr\u30E7\u30EA\u30EEr\xF2\u17E5rk;\u6773\u0100ak\u30F3\u30FDc\u0100ek\u30F9\u30FB;\u407D;\u405D\u0100es\u3102\u3104;\u698Cl\u0100du\u310A\u310C;\u698E;\u6990\u0200aeuy\u3117\u311C\u3127\u3129ron;\u4159\u0100di\u3121\u3125il;\u4157\xEC\u0FF2\xE2\u30FA;\u4440\u0200clqs\u3134\u3137\u313D\u3144a;\u6937dhar;\u6969uo\u0100;r\u020E\u020Dh;\u61B3\u0180acg\u314E\u315F\u0F44l\u0200;ips\u0F78\u3158\u315B\u109Cn\xE5\u10BBar\xF4\u0FA9t;\u65AD\u0180ilr\u3169\u1023\u316Esht;\u697D;\uC000\u{1D52F}\u0100ao\u3177\u3186r\u0100du\u317D\u317F\xBB\u047B\u0100;l\u1091\u3184;\u696C\u0100;v\u318B\u318C\u43C1;\u43F1\u0180gns\u3195\u31F9\u31FCht\u0300ahlrst\u31A4\u31B0\u31C2\u31D8\u31E4\u31EErrow\u0100;t\u0FDC\u31ADa\xE9\u30C8arpoon\u0100du\u31BB\u31BFow\xEE\u317Ep\xBB\u1092eft\u0100ah\u31CA\u31D0rrow\xF3\u0FEAarpoon\xF3\u0551ightarrows;\u61C9quigarro\xF7\u30CBhreetimes;\u62CCg;\u42DAingdotse\xF1\u1F32\u0180ahm\u320D\u3210\u3213r\xF2\u0FEAa\xF2\u0551;\u600Foust\u0100;a\u321E\u321F\u63B1che\xBB\u321Fmid;\u6AEE\u0200abpt\u3232\u323D\u3240\u3252\u0100nr\u3237\u323Ag;\u67EDr;\u61FEr\xEB\u1003\u0180afl\u3247\u324A\u324Er;\u6986;\uC000\u{1D563}us;\u6A2Eimes;\u6A35\u0100ap\u325D\u3267r\u0100;g\u3263\u3264\u4029t;\u6994olint;\u6A12ar\xF2\u31E3\u0200achq\u327B\u3280\u10BC\u3285quo;\u603Ar;\uC000\u{1D4C7}\u0100bu\u30FB\u328Ao\u0100;r\u0214\u0213\u0180hir\u3297\u329B\u32A0re\xE5\u31F8mes;\u62CAi\u0200;efl\u32AA\u1059\u1821\u32AB\u65B9tri;\u69CEluhar;\u6968;\u611E\u0D61\u32D5\u32DB\u32DF\u332C\u3338\u3371\0\u337A\u33A4\0\0\u33EC\u33F0\0\u3428\u3448\u345A\u34AD\u34B1\u34CA\u34F1\0\u3616\0\0\u3633cute;\u415Bqu\xEF\u27BA\u0500;Eaceinpsy\u11ED\u32F3\u32F5\u32FF\u3302\u330B\u330F\u331F\u3326\u3329;\u6AB4\u01F0\u32FA\0\u32FC;\u6AB8on;\u4161u\xE5\u11FE\u0100;d\u11F3\u3307il;\u415Frc;\u415D\u0180Eas\u3316\u3318\u331B;\u6AB6p;\u6ABAim;\u62E9olint;\u6A13i\xED\u1204;\u4441ot\u0180;be\u3334\u1D47\u3335\u62C5;\u6A66\u0380Aacmstx\u3346\u334A\u3357\u335B\u335E\u3363\u336Drr;\u61D8r\u0100hr\u3350\u3352\xEB\u2228\u0100;o\u0A36\u0A34t\u803B\xA7\u40A7i;\u403Bwar;\u6929m\u0100in\u3369\xF0nu\xF3\xF1t;\u6736r\u0100;o\u3376\u2055\uC000\u{1D530}\u0200acoy\u3382\u3386\u3391\u33A0rp;\u666F\u0100hy\u338B\u338Fcy;\u4449;\u4448rt\u026D\u3399\0\0\u339Ci\xE4\u1464ara\xEC\u2E6F\u803B\xAD\u40AD\u0100gm\u33A8\u33B4ma\u0180;fv\u33B1\u33B2\u33B2\u43C3;\u43C2\u0400;deglnpr\u12AB\u33C5\u33C9\u33CE\u33D6\u33DE\u33E1\u33E6ot;\u6A6A\u0100;q\u12B1\u12B0\u0100;E\u33D3\u33D4\u6A9E;\u6AA0\u0100;E\u33DB\u33DC\u6A9D;\u6A9Fe;\u6246lus;\u6A24arr;\u6972ar\xF2\u113D\u0200aeit\u33F8\u3408\u340F\u3417\u0100ls\u33FD\u3404lsetm\xE9\u336Ahp;\u6A33parsl;\u69E4\u0100dl\u1463\u3414e;\u6323\u0100;e\u341C\u341D\u6AAA\u0100;s\u3422\u3423\u6AAC;\uC000\u2AAC\uFE00\u0180flp\u342E\u3433\u3442tcy;\u444C\u0100;b\u3438\u3439\u402F\u0100;a\u343E\u343F\u69C4r;\u633Ff;\uC000\u{1D564}a\u0100dr\u344D\u0402es\u0100;u\u3454\u3455\u6660it\xBB\u3455\u0180csu\u3460\u3479\u349F\u0100au\u3465\u346Fp\u0100;s\u1188\u346B;\uC000\u2293\uFE00p\u0100;s\u11B4\u3475;\uC000\u2294\uFE00u\u0100bp\u347F\u348F\u0180;es\u1197\u119C\u3486et\u0100;e\u1197\u348D\xF1\u119D\u0180;es\u11A8\u11AD\u3496et\u0100;e\u11A8\u349D\xF1\u11AE\u0180;af\u117B\u34A6\u05B0r\u0165\u34AB\u05B1\xBB\u117Car\xF2\u1148\u0200cemt\u34B9\u34BE\u34C2\u34C5r;\uC000\u{1D4C8}tm\xEE\xF1i\xEC\u3415ar\xE6\u11BE\u0100ar\u34CE\u34D5r\u0100;f\u34D4\u17BF\u6606\u0100an\u34DA\u34EDight\u0100ep\u34E3\u34EApsilo\xEE\u1EE0h\xE9\u2EAFs\xBB\u2852\u0280bcmnp\u34FB\u355E\u1209\u358B\u358E\u0480;Edemnprs\u350E\u350F\u3511\u3515\u351E\u3523\u352C\u3531\u3536\u6282;\u6AC5ot;\u6ABD\u0100;d\u11DA\u351Aot;\u6AC3ult;\u6AC1\u0100Ee\u3528\u352A;\u6ACB;\u628Alus;\u6ABFarr;\u6979\u0180eiu\u353D\u3552\u3555t\u0180;en\u350E\u3545\u354Bq\u0100;q\u11DA\u350Feq\u0100;q\u352B\u3528m;\u6AC7\u0100bp\u355A\u355C;\u6AD5;\u6AD3c\u0300;acens\u11ED\u356C\u3572\u3579\u357B\u3326ppro\xF8\u32FAurlye\xF1\u11FE\xF1\u11F3\u0180aes\u3582\u3588\u331Bppro\xF8\u331Aq\xF1\u3317g;\u666A\u0680123;Edehlmnps\u35A9\u35AC\u35AF\u121C\u35B2\u35B4\u35C0\u35C9\u35D5\u35DA\u35DF\u35E8\u35ED\u803B\xB9\u40B9\u803B\xB2\u40B2\u803B\xB3\u40B3;\u6AC6\u0100os\u35B9\u35BCt;\u6ABEub;\u6AD8\u0100;d\u1222\u35C5ot;\u6AC4s\u0100ou\u35CF\u35D2l;\u67C9b;\u6AD7arr;\u697Bult;\u6AC2\u0100Ee\u35E4\u35E6;\u6ACC;\u628Blus;\u6AC0\u0180eiu\u35F4\u3609\u360Ct\u0180;en\u121C\u35FC\u3602q\u0100;q\u1222\u35B2eq\u0100;q\u35E7\u35E4m;\u6AC8\u0100bp\u3611\u3613;\u6AD4;\u6AD6\u0180Aan\u361C\u3620\u362Drr;\u61D9r\u0100hr\u3626\u3628\xEB\u222E\u0100;o\u0A2B\u0A29war;\u692Alig\u803B\xDF\u40DF\u0BE1\u3651\u365D\u3660\u12CE\u3673\u3679\0\u367E\u36C2\0\0\0\0\0\u36DB\u3703\0\u3709\u376C\0\0\0\u3787\u0272\u3656\0\0\u365Bget;\u6316;\u43C4r\xEB\u0E5F\u0180aey\u3666\u366B\u3670ron;\u4165dil;\u4163;\u4442lrec;\u6315r;\uC000\u{1D531}\u0200eiko\u3686\u369D\u36B5\u36BC\u01F2\u368B\0\u3691e\u01004f\u1284\u1281a\u0180;sv\u3698\u3699\u369B\u43B8ym;\u43D1\u0100cn\u36A2\u36B2k\u0100as\u36A8\u36AEppro\xF8\u12C1im\xBB\u12ACs\xF0\u129E\u0100as\u36BA\u36AE\xF0\u12C1rn\u803B\xFE\u40FE\u01EC\u031F\u36C6\u22E7es\u8180\xD7;bd\u36CF\u36D0\u36D8\u40D7\u0100;a\u190F\u36D5r;\u6A31;\u6A30\u0180eps\u36E1\u36E3\u3700\xE1\u2A4D\u0200;bcf\u0486\u36EC\u36F0\u36F4ot;\u6336ir;\u6AF1\u0100;o\u36F9\u36FC\uC000\u{1D565}rk;\u6ADA\xE1\u3362rime;\u6034\u0180aip\u370F\u3712\u3764d\xE5\u1248\u0380adempst\u3721\u374D\u3740\u3751\u3757\u375C\u375Fngle\u0280;dlqr\u3730\u3731\u3736\u3740\u3742\u65B5own\xBB\u1DBBeft\u0100;e\u2800\u373E\xF1\u092E;\u625Cight\u0100;e\u32AA\u374B\xF1\u105Aot;\u65ECinus;\u6A3Alus;\u6A39b;\u69CDime;\u6A3Bezium;\u63E2\u0180cht\u3772\u377D\u3781\u0100ry\u3777\u377B;\uC000\u{1D4C9};\u4446cy;\u445Brok;\u4167\u0100io\u378B\u378Ex\xF4\u1777head\u0100lr\u3797\u37A0eftarro\xF7\u084Fightarrow\xBB\u0F5D\u0900AHabcdfghlmoprstuw\u37D0\u37D3\u37D7\u37E4\u37F0\u37FC\u380E\u381C\u3823\u3834\u3851\u385D\u386B\u38A9\u38CC\u38D2\u38EA\u38F6r\xF2\u03EDar;\u6963\u0100cr\u37DC\u37E2ute\u803B\xFA\u40FA\xF2\u1150r\u01E3\u37EA\0\u37EDy;\u445Eve;\u416D\u0100iy\u37F5\u37FArc\u803B\xFB\u40FB;\u4443\u0180abh\u3803\u3806\u380Br\xF2\u13ADlac;\u4171a\xF2\u13C3\u0100ir\u3813\u3818sht;\u697E;\uC000\u{1D532}rave\u803B\xF9\u40F9\u0161\u3827\u3831r\u0100lr\u382C\u382E\xBB\u0957\xBB\u1083lk;\u6580\u0100ct\u3839\u384D\u026F\u383F\0\0\u384Arn\u0100;e\u3845\u3846\u631Cr\xBB\u3846op;\u630Fri;\u65F8\u0100al\u3856\u385Acr;\u416B\u80BB\xA8\u0349\u0100gp\u3862\u3866on;\u4173f;\uC000\u{1D566}\u0300adhlsu\u114B\u3878\u387D\u1372\u3891\u38A0own\xE1\u13B3arpoon\u0100lr\u3888\u388Cef\xF4\u382Digh\xF4\u382Fi\u0180;hl\u3899\u389A\u389C\u43C5\xBB\u13FAon\xBB\u389Aparrows;\u61C8\u0180cit\u38B0\u38C4\u38C8\u026F\u38B6\0\0\u38C1rn\u0100;e\u38BC\u38BD\u631Dr\xBB\u38BDop;\u630Eng;\u416Fri;\u65F9cr;\uC000\u{1D4CA}\u0180dir\u38D9\u38DD\u38E2ot;\u62F0lde;\u4169i\u0100;f\u3730\u38E8\xBB\u1813\u0100am\u38EF\u38F2r\xF2\u38A8l\u803B\xFC\u40FCangle;\u69A7\u0780ABDacdeflnoprsz\u391C\u391F\u3929\u392D\u39B5\u39B8\u39BD\u39DF\u39E4\u39E8\u39F3\u39F9\u39FD\u3A01\u3A20r\xF2\u03F7ar\u0100;v\u3926\u3927\u6AE8;\u6AE9as\xE8\u03E1\u0100nr\u3932\u3937grt;\u699C\u0380eknprst\u34E3\u3946\u394B\u3952\u395D\u3964\u3996app\xE1\u2415othin\xE7\u1E96\u0180hir\u34EB\u2EC8\u3959op\xF4\u2FB5\u0100;h\u13B7\u3962\xEF\u318D\u0100iu\u3969\u396Dgm\xE1\u33B3\u0100bp\u3972\u3984setneq\u0100;q\u397D\u3980\uC000\u228A\uFE00;\uC000\u2ACB\uFE00setneq\u0100;q\u398F\u3992\uC000\u228B\uFE00;\uC000\u2ACC\uFE00\u0100hr\u399B\u399Fet\xE1\u369Ciangle\u0100lr\u39AA\u39AFeft\xBB\u0925ight\xBB\u1051y;\u4432ash\xBB\u1036\u0180elr\u39C4\u39D2\u39D7\u0180;be\u2DEA\u39CB\u39CFar;\u62BBq;\u625Alip;\u62EE\u0100bt\u39DC\u1468a\xF2\u1469r;\uC000\u{1D533}tr\xE9\u39AEsu\u0100bp\u39EF\u39F1\xBB\u0D1C\xBB\u0D59pf;\uC000\u{1D567}ro\xF0\u0EFBtr\xE9\u39B4\u0100cu\u3A06\u3A0Br;\uC000\u{1D4CB}\u0100bp\u3A10\u3A18n\u0100Ee\u3980\u3A16\xBB\u397En\u0100Ee\u3992\u3A1E\xBB\u3990igzag;\u699A\u0380cefoprs\u3A36\u3A3B\u3A56\u3A5B\u3A54\u3A61\u3A6Airc;\u4175\u0100di\u3A40\u3A51\u0100bg\u3A45\u3A49ar;\u6A5Fe\u0100;q\u15FA\u3A4F;\u6259erp;\u6118r;\uC000\u{1D534}pf;\uC000\u{1D568}\u0100;e\u1479\u3A66at\xE8\u1479cr;\uC000\u{1D4CC}\u0AE3\u178E\u3A87\0\u3A8B\0\u3A90\u3A9B\0\0\u3A9D\u3AA8\u3AAB\u3AAF\0\0\u3AC3\u3ACE\0\u3AD8\u17DC\u17DFtr\xE9\u17D1r;\uC000\u{1D535}\u0100Aa\u3A94\u3A97r\xF2\u03C3r\xF2\u09F6;\u43BE\u0100Aa\u3AA1\u3AA4r\xF2\u03B8r\xF2\u09EBa\xF0\u2713is;\u62FB\u0180dpt\u17A4\u3AB5\u3ABE\u0100fl\u3ABA\u17A9;\uC000\u{1D569}im\xE5\u17B2\u0100Aa\u3AC7\u3ACAr\xF2\u03CEr\xF2\u0A01\u0100cq\u3AD2\u17B8r;\uC000\u{1D4CD}\u0100pt\u17D6\u3ADCr\xE9\u17D4\u0400acefiosu\u3AF0\u3AFD\u3B08\u3B0C\u3B11\u3B15\u3B1B\u3B21c\u0100uy\u3AF6\u3AFBte\u803B\xFD\u40FD;\u444F\u0100iy\u3B02\u3B06rc;\u4177;\u444Bn\u803B\xA5\u40A5r;\uC000\u{1D536}cy;\u4457pf;\uC000\u{1D56A}cr;\uC000\u{1D4CE}\u0100cm\u3B26\u3B29y;\u444El\u803B\xFF\u40FF\u0500acdefhiosw\u3B42\u3B48\u3B54\u3B58\u3B64\u3B69\u3B6D\u3B74\u3B7A\u3B80cute;\u417A\u0100ay\u3B4D\u3B52ron;\u417E;\u4437ot;\u417C\u0100et\u3B5D\u3B61tr\xE6\u155Fa;\u43B6r;\uC000\u{1D537}cy;\u4436grarr;\u61DDpf;\uC000\u{1D56B}cr;\uC000\u{1D4CF}\u0100jn\u3B85\u3B87;\u600Dj;\u600C'.split("").map(function(c) {
+          return c.charCodeAt(0);
         })
       );
     }
@@ -3216,8 +3216,8 @@ var LNReaderPlugin = (() => {
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.default = new Uint16Array(
         // prettier-ignore
-        "\u0200aglq	\x1B\u026D\0\0p;\u4026os;\u4027t;\u403Et;\u403Cuot;\u4022".split("").map(function(c2) {
-          return c2.charCodeAt(0);
+        "\u0200aglq	\x1B\u026D\0\0p;\u4026os;\u4027t;\u403Et;\u403Cuot;\u4022".split("").map(function(c) {
+          return c.charCodeAt(0);
         })
       );
     }
@@ -3299,7 +3299,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -3307,15 +3307,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -3674,8 +3674,8 @@ var LNReaderPlugin = (() => {
       init_process2();
       Object.defineProperty(exports4, "__esModule", { value: true });
       function restoreDiff(arr) {
-        for (var i2 = 1; i2 < arr.length; i2++) {
-          arr[i2][0] += arr[i2 - 1][0] + 1;
+        for (var i = 1; i < arr.length; i++) {
+          arr[i][0] += arr[i - 1][0] + 1;
         }
         return arr;
       }
@@ -3706,8 +3706,8 @@ var LNReaderPlugin = (() => {
         return str.codePointAt(index2);
       } : (
         // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-        function(c2, index2) {
-          return (c2.charCodeAt(index2) & 64512) === 55296 ? (c2.charCodeAt(index2) - 55296) * 1024 + c2.charCodeAt(index2 + 1) - 56320 + 65536 : c2.charCodeAt(index2);
+        function(c, index2) {
+          return (c.charCodeAt(index2) & 64512) === 55296 ? (c.charCodeAt(index2) - 55296) * 1024 + c.charCodeAt(index2 + 1) - 56320 + 65536 : c.charCodeAt(index2);
         }
       );
       function encodeXML(str) {
@@ -3715,14 +3715,14 @@ var LNReaderPlugin = (() => {
         var lastIdx = 0;
         var match;
         while ((match = exports4.xmlReplacer.exec(str)) !== null) {
-          var i2 = match.index;
-          var char = str.charCodeAt(i2);
+          var i = match.index;
+          var char = str.charCodeAt(i);
           var next2 = xmlCodeMap.get(char);
           if (next2 !== void 0) {
-            ret += str.substring(lastIdx, i2) + next2;
-            lastIdx = i2 + 1;
+            ret += str.substring(lastIdx, i) + next2;
+            lastIdx = i + 1;
           } else {
-            ret += "".concat(str.substring(lastIdx, i2), "&#x").concat((0, exports4.getCodePoint)(str, i2).toString(16), ";");
+            ret += "".concat(str.substring(lastIdx, i), "&#x").concat((0, exports4.getCodePoint)(str, i).toString(16), ";");
             lastIdx = exports4.xmlReplacer.lastIndex += Number((char & 64512) === 55296);
           }
         }
@@ -3792,13 +3792,13 @@ var LNReaderPlugin = (() => {
         var lastIdx = 0;
         var match;
         while ((match = regExp.exec(str)) !== null) {
-          var i2 = match.index;
-          ret += str.substring(lastIdx, i2);
-          var char = str.charCodeAt(i2);
+          var i = match.index;
+          ret += str.substring(lastIdx, i);
+          var char = str.charCodeAt(i);
           var next2 = encode_html_js_1.default.get(char);
           if (typeof next2 === "object") {
-            if (i2 + 1 < str.length) {
-              var nextChar = str.charCodeAt(i2 + 1);
+            if (i + 1 < str.length) {
+              var nextChar = str.charCodeAt(i + 1);
               var value = typeof next2.n === "number" ? next2.n === nextChar ? next2.o : void 0 : next2.n.get(nextChar);
               if (value !== void 0) {
                 ret += value;
@@ -3810,9 +3810,9 @@ var LNReaderPlugin = (() => {
           }
           if (next2 !== void 0) {
             ret += next2;
-            lastIdx = i2 + 1;
+            lastIdx = i + 1;
           } else {
-            var cp = (0, escape_js_1.getCodePoint)(str, i2);
+            var cp = (0, escape_js_1.getCodePoint)(str, i);
             ret += "&#x".concat(cp.toString(16), ";");
             lastIdx = regExp.lastIndex += Number(cp !== char);
           }
@@ -4084,16 +4084,16 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
-              t2[p2] = s2[p2];
+          for (var s, i = 1, n2 = arguments.length; i < n2; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -4101,15 +4101,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -4184,8 +4184,8 @@ var LNReaderPlugin = (() => {
         }
         var nodes = "length" in node ? node : [node];
         var output = "";
-        for (var i2 = 0; i2 < nodes.length; i2++) {
-          output += renderNode(nodes[i2], options);
+        for (var i = 0; i < nodes.length; i++) {
+          output += renderNode(nodes[i], options);
         }
         return output;
       }
@@ -4601,8 +4601,8 @@ var LNReaderPlugin = (() => {
           recurse = true;
         }
         var elem = null;
-        for (var i2 = 0; i2 < nodes.length && !elem; i2++) {
-          var node = nodes[i2];
+        for (var i = 0; i < nodes.length && !elem; i++) {
+          var node = nodes[i];
           if (!(0, domhandler_1.isTag)(node)) {
             continue;
           } else if (test(node)) {
@@ -4850,8 +4850,8 @@ var LNReaderPlugin = (() => {
       __name(compareDocumentPosition, "compareDocumentPosition");
       exports4.compareDocumentPosition = compareDocumentPosition;
       function uniqueSort2(nodes) {
-        nodes = nodes.filter(function(node, i2, arr) {
-          return !arr.includes(node, i2 + 1);
+        nodes = nodes.filter(function(node, i, arr) {
+          return !arr.includes(node, i + 1);
         });
         nodes.sort(function(a2, b) {
           var relative = compareDocumentPosition(a2, b);
@@ -5028,7 +5028,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -5036,13 +5036,13 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.hasChildren = exports4.isDocument = exports4.isComment = exports4.isText = exports4.isCDATA = exports4.isTag = void 0;
@@ -5144,8 +5144,8 @@ var LNReaderPlugin = (() => {
   function text(elements) {
     const elems = elements !== null && elements !== void 0 ? elements : this ? this.root() : [];
     let ret = "";
-    for (let i2 = 0; i2 < elems.length; i2++) {
-      ret += (0, import_domutils.textContent)(elems[i2]);
+    for (let i = 0; i < elems.length; i++) {
+      ret += (0, import_domutils.textContent)(elems[i]);
     }
     return ret;
   }
@@ -5187,8 +5187,8 @@ var LNReaderPlugin = (() => {
     }
     let newLength = arr1.length;
     const len = +arr2.length;
-    for (let i2 = 0; i2 < len; i2++) {
-      arr1[newLength++] = arr2[i2];
+    for (let i = 0; i < len; i++) {
+      arr1[newLength++] = arr2[i];
     }
     arr1.length = newLength;
     return arr1;
@@ -5200,8 +5200,8 @@ var LNReaderPlugin = (() => {
     if (typeof item !== "object" || item === null || !("length" in item) || typeof item.length !== "number" || item.length < 0) {
       return false;
     }
-    for (let i2 = 0; i2 < item.length; i2++) {
-      if (!(i2 in item)) {
+    for (let i = 0; i < item.length; i++) {
+      if (!(i in item)) {
         return false;
       }
     }
@@ -5241,8 +5241,8 @@ var LNReaderPlugin = (() => {
   }
   function domEach(array, fn) {
     const len = array.length;
-    for (let i2 = 0; i2 < len; i2++)
-      fn(array[i2], i2);
+    for (let i = 0; i < len; i++)
+      fn(array[i], i);
     return array;
   }
   function isHtml(str) {
@@ -5320,9 +5320,9 @@ var LNReaderPlugin = (() => {
             throw new Error("Bad combination of arguments.");
           }
         }
-        return domEach(this, (el, i2) => {
+        return domEach(this, (el, i) => {
           if ((0, import_domhandler.isTag)(el))
-            setAttr(el, name, value.call(el, i2, el.attribs[name]));
+            setAttr(el, name, value.call(el, i, el.attribs[name]));
         });
       }
       return domEach(this, (el) => {
@@ -5363,8 +5363,8 @@ var LNReaderPlugin = (() => {
         case "style": {
           const property = this.css();
           const keys = Object.keys(property);
-          for (let i2 = 0; i2 < keys.length; i2++) {
-            property[i2] = keys[i2];
+          for (let i = 0; i < keys.length; i++) {
+            property[i] = keys[i];
           }
           property.length = keys.length;
           return property;
@@ -5403,9 +5403,9 @@ var LNReaderPlugin = (() => {
         if (typeof name === "object") {
           throw new TypeError("Bad combination of arguments.");
         }
-        return domEach(this, (el, i2) => {
+        return domEach(this, (el, i) => {
           if ((0, import_domhandler.isTag)(el)) {
-            setProp(el, name, value.call(el, i2, getProp(el, name, this.options.xmlMode)), this.options.xmlMode);
+            setProp(el, name, value.call(el, i, getProp(el, name, this.options.xmlMode)), this.options.xmlMode);
           }
         });
       }
@@ -5563,10 +5563,10 @@ var LNReaderPlugin = (() => {
   }
   function addClass(value) {
     if (typeof value === "function") {
-      return domEach(this, (el, i2) => {
+      return domEach(this, (el, i) => {
         if ((0, import_domhandler.isTag)(el)) {
           const className = el.attribs["class"] || "";
-          addClass.call([el], value.call(el, i2, className));
+          addClass.call([el], value.call(el, i, className));
         }
       });
     }
@@ -5574,8 +5574,8 @@ var LNReaderPlugin = (() => {
       return this;
     const classNames = value.split(rspace);
     const numElements = this.length;
-    for (let i2 = 0; i2 < numElements; i2++) {
-      const el = this[i2];
+    for (let i = 0; i < numElements; i++) {
+      const el = this[i];
       if (!(0, import_domhandler.isTag)(el))
         continue;
       const className = getAttr(el, "class", false);
@@ -5595,9 +5595,9 @@ var LNReaderPlugin = (() => {
   }
   function removeClass(name) {
     if (typeof name === "function") {
-      return domEach(this, (el, i2) => {
+      return domEach(this, (el, i) => {
         if ((0, import_domhandler.isTag)(el)) {
-          removeClass.call([el], name.call(el, i2, el.attribs["class"] || ""));
+          removeClass.call([el], name.call(el, i, el.attribs["class"] || ""));
         }
       });
     }
@@ -5628,9 +5628,9 @@ var LNReaderPlugin = (() => {
   }
   function toggleClass(value, stateVal) {
     if (typeof value === "function") {
-      return domEach(this, (el, i2) => {
+      return domEach(this, (el, i) => {
         if ((0, import_domhandler.isTag)(el)) {
-          toggleClass.call([el], value.call(el, i2, el.attribs["class"] || "", stateVal), stateVal);
+          toggleClass.call([el], value.call(el, i, el.attribs["class"] || "", stateVal), stateVal);
         }
       });
     }
@@ -5640,8 +5640,8 @@ var LNReaderPlugin = (() => {
     const numClasses = classNames.length;
     const state = typeof stateVal === "boolean" ? stateVal ? 1 : -1 : 0;
     const numElements = this.length;
-    for (let i2 = 0; i2 < numElements; i2++) {
-      const el = this[i2];
+    for (let i = 0; i < numElements; i++) {
+      const el = this[i];
       if (!(0, import_domhandler.isTag)(el))
         continue;
       const elementClasses = splitNames(el.attribs["class"]);
@@ -5760,11 +5760,11 @@ var LNReaderPlugin = (() => {
   function unescapeCSS(str) {
     return str.replace(reEscape, funescape);
   }
-  function isQuote(c2) {
-    return c2 === 39 || c2 === 34;
+  function isQuote(c) {
+    return c === 39 || c === 34;
   }
-  function isWhitespace(c2) {
-    return c2 === 32 || c2 === 9 || c2 === 10 || c2 === 12 || c2 === 13;
+  function isWhitespace(c) {
+    return c === 32 || c === 9 || c === 10 || c === 12 || c === 13;
   }
   function parse(selector) {
     const subselects = [];
@@ -6173,10 +6173,10 @@ var LNReaderPlugin = (() => {
   function escapeName(str, charsToEscape) {
     let lastIdx = 0;
     let ret = "";
-    for (let i2 = 0; i2 < str.length; i2++) {
-      if (charsToEscape.has(str.charCodeAt(i2))) {
-        ret += `${str.slice(lastIdx, i2)}\\${str.charAt(i2)}`;
-        lastIdx = i2 + 1;
+    for (let i = 0; i < str.length; i++) {
+      if (charsToEscape.has(str.charCodeAt(i))) {
+        ret += `${str.slice(lastIdx, i)}\\${str.charAt(i)}`;
+        lastIdx = i + 1;
       }
     }
     return ret.length > 0 ? ret + str.slice(lastIdx) : str;
@@ -6190,8 +6190,8 @@ var LNReaderPlugin = (() => {
       init_types();
       attribValChars = ["\\", '"'];
       pseudoValChars = [...attribValChars, "(", ")"];
-      charsToEscapeInAttributeValue = new Set(attribValChars.map((c2) => c2.charCodeAt(0)));
-      charsToEscapeInPseudoValue = new Set(pseudoValChars.map((c2) => c2.charCodeAt(0)));
+      charsToEscapeInAttributeValue = new Set(attribValChars.map((c) => c.charCodeAt(0)));
+      charsToEscapeInPseudoValue = new Set(pseudoValChars.map((c) => c.charCodeAt(0)));
       charsToEscapeInName = new Set([
         ...pseudoValChars,
         "~",
@@ -6206,7 +6206,7 @@ var LNReaderPlugin = (() => {
         "]",
         " ",
         "."
-      ].map((c2) => c2.charCodeAt(0)));
+      ].map((c) => c.charCodeAt(0)));
       __name(stringify, "stringify");
       __name(stringifyToken, "stringifyToken");
       __name(getActionValue, "getActionValue");
@@ -6285,11 +6285,11 @@ var LNReaderPlugin = (() => {
       ]);
       function sortByProcedure(arr) {
         var procs = arr.map(getProcedure);
-        for (var i2 = 1; i2 < arr.length; i2++) {
-          var procNew = procs[i2];
+        for (var i = 1; i < arr.length; i++) {
+          var procNew = procs[i];
           if (procNew < 0)
             continue;
-          for (var j = i2 - 1; j >= 0 && procNew < procs[j]; j--) {
+          for (var j = i - 1; j >= 0 && procNew < procs[j]; j--) {
             var token = arr[j + 1];
             arr[j + 1] = arr[j];
             arr[j] = token;
@@ -6763,10 +6763,10 @@ var LNReaderPlugin = (() => {
           return /* @__PURE__ */ __name(function nthChild(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
-            for (var i2 = 0; i2 < siblings2.length; i2++) {
-              if (equals2(elem, siblings2[i2]))
+            for (var i = 0; i < siblings2.length; i++) {
+              if (equals2(elem, siblings2[i]))
                 break;
-              if (adapter2.isTag(siblings2[i2])) {
+              if (adapter2.isTag(siblings2[i])) {
                 pos++;
               }
             }
@@ -6783,10 +6783,10 @@ var LNReaderPlugin = (() => {
           return /* @__PURE__ */ __name(function nthLastChild(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
-            for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
-              if (equals2(elem, siblings2[i2]))
+            for (var i = siblings2.length - 1; i >= 0; i--) {
+              if (equals2(elem, siblings2[i]))
                 break;
-              if (adapter2.isTag(siblings2[i2])) {
+              if (adapter2.isTag(siblings2[i])) {
                 pos++;
               }
             }
@@ -6803,8 +6803,8 @@ var LNReaderPlugin = (() => {
           return /* @__PURE__ */ __name(function nthOfType(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
-            for (var i2 = 0; i2 < siblings2.length; i2++) {
-              var currentSibling = siblings2[i2];
+            for (var i = 0; i < siblings2.length; i++) {
+              var currentSibling = siblings2[i];
               if (equals2(elem, currentSibling))
                 break;
               if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === adapter2.getName(elem)) {
@@ -6824,8 +6824,8 @@ var LNReaderPlugin = (() => {
           return /* @__PURE__ */ __name(function nthLastOfType(elem) {
             var siblings2 = adapter2.getSiblings(elem);
             var pos = 0;
-            for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
-              var currentSibling = siblings2[i2];
+            for (var i = siblings2.length - 1; i >= 0; i--) {
+              var currentSibling = siblings2[i];
               if (equals2(elem, currentSibling))
                 break;
               if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === adapter2.getName(elem)) {
@@ -6906,10 +6906,10 @@ var LNReaderPlugin = (() => {
         "last-child": /* @__PURE__ */ __name(function(elem, _a) {
           var adapter2 = _a.adapter, equals2 = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
-          for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
-            if (equals2(elem, siblings2[i2]))
+          for (var i = siblings2.length - 1; i >= 0; i--) {
+            if (equals2(elem, siblings2[i]))
               return true;
-            if (adapter2.isTag(siblings2[i2]))
+            if (adapter2.isTag(siblings2[i]))
               break;
           }
           return false;
@@ -6918,8 +6918,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = _a.adapter, equals2 = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           var elemName = adapter2.getName(elem);
-          for (var i2 = 0; i2 < siblings2.length; i2++) {
-            var currentSibling = siblings2[i2];
+          for (var i = 0; i < siblings2.length; i++) {
+            var currentSibling = siblings2[i];
             if (equals2(elem, currentSibling))
               return true;
             if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === elemName) {
@@ -6932,8 +6932,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = _a.adapter, equals2 = _a.equals;
           var siblings2 = adapter2.getSiblings(elem);
           var elemName = adapter2.getName(elem);
-          for (var i2 = siblings2.length - 1; i2 >= 0; i2--) {
-            var currentSibling = siblings2[i2];
+          for (var i = siblings2.length - 1; i >= 0; i--) {
+            var currentSibling = siblings2[i];
             if (equals2(elem, currentSibling))
               return true;
             if (adapter2.isTag(currentSibling) && adapter2.getName(currentSibling) === elemName) {
@@ -7017,10 +7017,10 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
-          if (ar || !(i2 in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
-            ar[i2] = from[i2];
+        if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+          if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
           }
         }
         return to.concat(ar || Array.prototype.slice.call(from));
@@ -7089,8 +7089,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = options.adapter;
           var opts = copyOptions(options);
           opts.relativeSelector = true;
-          var context = subselect.some(function(s2) {
-            return s2.some(sort_js_1.isTraversal);
+          var context = subselect.some(function(s) {
+            return s.some(sort_js_1.isTraversal);
           }) ? (
             // Used as a placeholder. Will be replaced with the actual element.
             [exports4.PLACEHOLDER_ELEMENT]
@@ -7289,8 +7289,8 @@ var LNReaderPlugin = (() => {
           case css_what_1.SelectorType.Sibling: {
             return /* @__PURE__ */ __name(function sibling(elem) {
               var siblings2 = adapter2.getSiblings(elem);
-              for (var i2 = 0; i2 < siblings2.length; i2++) {
-                var currentSibling = siblings2[i2];
+              for (var i = 0; i < siblings2.length; i++) {
+                var currentSibling = siblings2[i];
                 if (equals2(elem, currentSibling))
                   break;
                 if (adapter2.isTag(currentSibling) && next2(currentSibling)) {
@@ -7310,8 +7310,8 @@ var LNReaderPlugin = (() => {
             return /* @__PURE__ */ __name(function adjacent(elem) {
               var siblings2 = adapter2.getSiblings(elem);
               var lastElement;
-              for (var i2 = 0; i2 < siblings2.length; i2++) {
-                var currentSibling = siblings2[i2];
+              for (var i = 0; i < siblings2.length; i++) {
+                var currentSibling = siblings2[i];
                 if (equals2(elem, currentSibling))
                   break;
                 if (adapter2.isTag(currentSibling)) {
@@ -7341,7 +7341,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7349,15 +7349,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7483,7 +7483,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7491,15 +7491,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7569,8 +7569,8 @@ var LNReaderPlugin = (() => {
       function appendNextSiblings(elem, adapter2) {
         var elems = Array.isArray(elem) ? elem.slice(0) : [elem];
         var elemsLength = elems.length;
-        for (var i2 = 0; i2 < elemsLength; i2++) {
-          var nextSiblings = (0, subselects_js_1.getNextSiblings)(elems[i2], adapter2);
+        for (var i = 0; i < elemsLength; i++) {
+          var nextSiblings = (0, subselects_js_1.getNextSiblings)(elems[i], adapter2);
           elems.push.apply(elems, nextSiblings);
         }
         return elems;
@@ -7621,14 +7621,14 @@ var LNReaderPlugin = (() => {
         "even",
         "odd"
       ]);
-      function isFilter(s2) {
-        if (s2.type !== "pseudo")
+      function isFilter(s) {
+        if (s.type !== "pseudo")
           return false;
-        if (exports4.filterNames.has(s2.name))
+        if (exports4.filterNames.has(s.name))
           return true;
-        if (s2.name === "not" && Array.isArray(s2.data)) {
-          return s2.data.some(function(s3) {
-            return s3.some(isFilter);
+        if (s.name === "not" && Array.isArray(s.data)) {
+          return s.data.some(function(s2) {
+            return s2.some(isFilter);
           });
         }
         return false;
@@ -7705,16 +7705,16 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
-              t2[p2] = s2[p2];
+          for (var s, i = 1, n2 = arguments.length; i < n2; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7722,15 +7722,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7742,10 +7742,10 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
-          if (ar || !(i2 in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
-            ar[i2] = from[i2];
+        if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+          if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
           }
         }
         return to.concat(ar || Array.prototype.slice.call(from));
@@ -7812,12 +7812,12 @@ var LNReaderPlugin = (() => {
           case "gt":
             return isFinite(num) ? elems.slice(num + 1) : [];
           case "even":
-            return elems.filter(function(_, i2) {
-              return i2 % 2 === 0;
+            return elems.filter(function(_, i) {
+              return i % 2 === 0;
             });
           case "odd":
-            return elems.filter(function(_, i2) {
-              return i2 % 2 === 1;
+            return elems.filter(function(_, i) {
+              return i % 2 === 1;
             });
           case "not": {
             var filtered_1 = new Set(filterParsed(data2, elems, options));
@@ -7850,8 +7850,8 @@ var LNReaderPlugin = (() => {
             found = new Set(filtered);
           }
         }
-        for (var i2 = 0; i2 < filteredSelectors.length && (found === null || found === void 0 ? void 0 : found.size) !== elements.length; i2++) {
-          var filteredSelector = filteredSelectors[i2];
+        for (var i = 0; i < filteredSelectors.length && (found === null || found === void 0 ? void 0 : found.size) !== elements.length; i++) {
+          var filteredSelector = filteredSelectors[i];
           var missing = found ? elements.filter(function(e2) {
             return DomUtils.isTag(e2) && !found.has(e2);
           }) : elements;
@@ -7860,7 +7860,7 @@ var LNReaderPlugin = (() => {
           var filtered = filterBySelector(filteredSelector, elements, options);
           if (filtered.length) {
             if (!found) {
-              if (i2 === filteredSelectors.length - 1) {
+              if (i === filteredSelectors.length - 1) {
                 return filtered;
               }
               found = new Set(filtered);
@@ -8125,17 +8125,17 @@ var LNReaderPlugin = (() => {
     return this._make(elems);
   }
   function each(fn) {
-    let i2 = 0;
+    let i = 0;
     const len = this.length;
-    while (i2 < len && fn.call(this[i2], i2, this[i2]) !== false)
-      ++i2;
+    while (i < len && fn.call(this[i], i, this[i]) !== false)
+      ++i;
     return this;
   }
   function map(fn) {
     let elems = [];
-    for (let i2 = 0; i2 < this.length; i2++) {
-      const el = this[i2];
-      const val2 = fn.call(el, i2, el);
+    for (let i = 0; i < this.length; i++) {
+      const el = this[i];
+      const val2 = fn.call(el, i, el);
       if (val2 != null) {
         elems = elems.concat(val2);
       }
@@ -8144,7 +8144,7 @@ var LNReaderPlugin = (() => {
   }
   function getFilterFn(match) {
     if (typeof match === "function") {
-      return (el, i2) => match.call(el, i2, el);
+      return (el, i) => match.call(el, i, el);
     }
     if (isCheerio(match)) {
       return (el) => Array.prototype.includes.call(match, el);
@@ -8171,7 +8171,7 @@ var LNReaderPlugin = (() => {
       nodes = nodes.filter((el) => !matches.has(el));
     } else {
       const filterFn = getFilterFn(match);
-      nodes = nodes.filter((el, i2) => !filterFn(el, i2));
+      nodes = nodes.filter((el, i) => !filterFn(el, i));
     }
     return this._make(nodes);
   }
@@ -8187,20 +8187,20 @@ var LNReaderPlugin = (() => {
   function last() {
     return this.length > 0 ? this._make(this[this.length - 1]) : this;
   }
-  function eq(i2) {
+  function eq(i) {
     var _a;
-    i2 = +i2;
-    if (i2 === 0 && this.length <= 1)
+    i = +i;
+    if (i === 0 && this.length <= 1)
       return this;
-    if (i2 < 0)
-      i2 = this.length + i2;
-    return this._make((_a = this[i2]) !== null && _a !== void 0 ? _a : []);
+    if (i < 0)
+      i = this.length + i;
+    return this._make((_a = this[i]) !== null && _a !== void 0 ? _a : []);
   }
-  function get(i2) {
-    if (i2 == null) {
+  function get(i) {
+    if (i == null) {
       return this.toArray();
     }
-    return this[i2 < 0 ? this.length + i2 : i2];
+    return this[i < 0 ? this.length + i : i];
   }
   function toArray() {
     return Array.prototype.slice.call(this);
@@ -8252,8 +8252,8 @@ var LNReaderPlugin = (() => {
       __name(_getMatcher, "_getMatcher");
       _matcher = _getMatcher((fn, elems) => {
         let ret = [];
-        for (let i2 = 0; i2 < elems.length; i2++) {
-          const value = fn(elems[i2]);
+        for (let i = 0; i < elems.length; i++) {
+          const value = fn(elems[i]);
           if (value.length > 0)
             ret = ret.concat(value);
         }
@@ -8261,8 +8261,8 @@ var LNReaderPlugin = (() => {
       });
       _singleMatcher = _getMatcher((fn, elems) => {
         const ret = [];
-        for (let i2 = 0; i2 < elems.length; i2++) {
-          const value = fn(elems[i2]);
+        for (let i = 0; i < elems.length; i++) {
+          const value = fn(elems[i]);
           if (value !== null) {
             ret.push(value);
           }
@@ -8353,14 +8353,14 @@ var LNReaderPlugin = (() => {
     } else {
       parent2 = null;
     }
-    for (let i2 = 0; i2 < arr.length; i2++) {
-      const node = arr[i2];
+    for (let i = 0; i < arr.length; i++) {
+      const node = arr[i];
       if (node.parent && node.parent.children !== arr) {
         (0, import_domutils4.removeElement)(node);
       }
       if (parent2) {
-        node.prev = arr[i2 - 1] || null;
-        node.next = arr[i2 + 1] || null;
+        node.prev = arr[i - 1] || null;
+        node.next = arr[i + 1] || null;
       } else {
         node.prev = node.next = null;
       }
@@ -8417,8 +8417,8 @@ var LNReaderPlugin = (() => {
         return this._makeDomArray(elem[0], clone2);
       }
       const result = [];
-      for (let i2 = 0; i2 < elem.length; i2++) {
-        const el = elem[i2];
+      for (let i = 0; i < elem.length; i++) {
+        const el = elem[i];
         if (typeof el === "object") {
           if (el == null) {
             continue;
@@ -8437,11 +8437,11 @@ var LNReaderPlugin = (() => {
   function _insert(concatenator) {
     return function(...elems) {
       const lastIdx = this.length - 1;
-      return domEach(this, (el, i2) => {
+      return domEach(this, (el, i) => {
         if (!(0, import_domhandler4.hasChildren)(el))
           return;
-        const domSrc = typeof elems[0] === "function" ? elems[0].call(el, i2, this._render(el.children)) : elems;
-        const dom = this._makeDomArray(domSrc, i2 < lastIdx);
+        const domSrc = typeof elems[0] === "function" ? elems[0].call(el, i, this._render(el.children)) : elems;
+        const dom = this._makeDomArray(domSrc, i < lastIdx);
         concatenator(dom, el.children, el);
       });
     };
@@ -8500,10 +8500,10 @@ var LNReaderPlugin = (() => {
     return function(wrapper) {
       const lastIdx = this.length - 1;
       const lastParent = this.parents().last();
-      for (let i2 = 0; i2 < this.length; i2++) {
-        const el = this[i2];
-        const wrap2 = typeof wrapper === "function" ? wrapper.call(el, i2, el) : typeof wrapper === "string" && !isHtml(wrapper) ? lastParent.find(wrapper).clone() : wrapper;
-        const [wrapperDom] = this._makeDomArray(wrap2, i2 < lastIdx);
+      for (let i = 0; i < this.length; i++) {
+        const el = this[i];
+        const wrap2 = typeof wrapper === "function" ? wrapper.call(el, i, el) : typeof wrapper === "string" && !isHtml(wrapper) ? lastParent.find(wrapper).clone() : wrapper;
+        const [wrapperDom] = this._makeDomArray(wrap2, i < lastIdx);
         if (!wrapperDom || !(0, import_domhandler4.hasChildren)(wrapperDom))
           continue;
         let elInsertLocation = wrapperDom;
@@ -8533,9 +8533,9 @@ var LNReaderPlugin = (() => {
     if (el) {
       const wrap2 = this._make(typeof wrapper === "function" ? wrapper.call(el, 0, el) : wrapper).insertBefore(el);
       let elInsertLocation;
-      for (let i2 = 0; i2 < wrap2.length; i2++) {
-        if (wrap2[i2].type === "tag")
-          elInsertLocation = wrap2[i2];
+      for (let i = 0; i < wrap2.length; i++) {
+        if (wrap2[i].type === "tag")
+          elInsertLocation = wrap2[i];
       }
       let j = 0;
       while (elInsertLocation && j < elInsertLocation.children.length) {
@@ -8554,7 +8554,7 @@ var LNReaderPlugin = (() => {
   }
   function after(...elems) {
     const lastIdx = this.length - 1;
-    return domEach(this, (el, i2) => {
+    return domEach(this, (el, i) => {
       if (!(0, import_domhandler4.hasChildren)(el) || !el.parent) {
         return;
       }
@@ -8562,8 +8562,8 @@ var LNReaderPlugin = (() => {
       const index2 = siblings2.indexOf(el);
       if (index2 < 0)
         return;
-      const domSrc = typeof elems[0] === "function" ? elems[0].call(el, i2, this._render(el.children)) : elems;
-      const dom = this._makeDomArray(domSrc, i2 < lastIdx);
+      const domSrc = typeof elems[0] === "function" ? elems[0].call(el, i, this._render(el.children)) : elems;
+      const dom = this._makeDomArray(domSrc, i < lastIdx);
       uniqueSplice(siblings2, index2 + 1, 0, dom, el.parent);
     });
   }
@@ -8590,7 +8590,7 @@ var LNReaderPlugin = (() => {
   }
   function before(...elems) {
     const lastIdx = this.length - 1;
-    return domEach(this, (el, i2) => {
+    return domEach(this, (el, i) => {
       if (!(0, import_domhandler4.hasChildren)(el) || !el.parent) {
         return;
       }
@@ -8598,8 +8598,8 @@ var LNReaderPlugin = (() => {
       const index2 = siblings2.indexOf(el);
       if (index2 < 0)
         return;
-      const domSrc = typeof elems[0] === "function" ? elems[0].call(el, i2, this._render(el.children)) : elems;
-      const dom = this._makeDomArray(domSrc, i2 < lastIdx);
+      const domSrc = typeof elems[0] === "function" ? elems[0].call(el, i, this._render(el.children)) : elems;
+      const dom = this._makeDomArray(domSrc, i < lastIdx);
       uniqueSplice(siblings2, index2, 0, dom, el.parent);
     });
   }
@@ -8631,13 +8631,13 @@ var LNReaderPlugin = (() => {
     return this;
   }
   function replaceWith(content) {
-    return domEach(this, (el, i2) => {
+    return domEach(this, (el, i) => {
       const { parent: parent2 } = el;
       if (!parent2) {
         return;
       }
       const siblings2 = parent2.children;
-      const cont = typeof content === "function" ? content.call(el, i2, el) : content;
+      const cont = typeof content === "function" ? content.call(el, i, el) : content;
       const dom = this._makeDomArray(cont);
       update(dom, null);
       const index2 = siblings2.indexOf(el);
@@ -8682,7 +8682,7 @@ var LNReaderPlugin = (() => {
       return text(this);
     }
     if (typeof str === "function") {
-      return domEach(this, (el, i2) => this._make(el).text(str.call(el, i2, text([el]))));
+      return domEach(this, (el, i) => this._make(el).text(str.call(el, i, text([el]))));
     }
     return domEach(this, (el) => {
       if (!(0, import_domhandler4.hasChildren)(el))
@@ -8764,9 +8764,9 @@ var LNReaderPlugin = (() => {
   function css(prop2, val2) {
     if (prop2 != null && val2 != null || // When `prop` is a "plain" object
     typeof prop2 === "object" && !Array.isArray(prop2)) {
-      return domEach(this, (el, i2) => {
+      return domEach(this, (el, i) => {
         if ((0, import_domhandler5.isTag)(el)) {
-          setCss(el, prop2, val2, i2);
+          setCss(el, prop2, val2, i);
         }
       });
     }
@@ -8787,9 +8787,9 @@ var LNReaderPlugin = (() => {
       el.attribs["style"] = stringify2(styles);
     } else if (typeof prop2 === "object") {
       const keys = Object.keys(prop2);
-      for (let i2 = 0; i2 < keys.length; i2++) {
-        const k = keys[i2];
-        setCss(el, k, prop2[k], i2);
+      for (let i = 0; i < keys.length; i++) {
+        const k = keys[i];
+        setCss(el, k, prop2[k], i);
       }
     }
   }
@@ -9372,9 +9372,9 @@ var LNReaderPlugin = (() => {
           if (caseSensitive) {
             return this.html.startsWith(pattern, this.pos);
           }
-          for (let i2 = 0; i2 < pattern.length; i2++) {
-            const cp = this.html.charCodeAt(this.pos + i2) | 32;
-            if (cp !== pattern.charCodeAt(i2)) {
+          for (let i = 0; i < pattern.length; i++) {
+            const cp = this.html.charCodeAt(this.pos + i) | 32;
+            if (cp !== pattern.charCodeAt(i)) {
               return false;
             }
           }
@@ -9448,9 +9448,9 @@ var LNReaderPlugin = (() => {
 
   // node_modules/parse5/dist/common/token.js
   function getTokenAttr(token, attrName) {
-    for (let i2 = token.attrs.length - 1; i2 >= 0; i2--) {
-      if (token.attrs[i2].name === attrName) {
-        return token.attrs[i2].value;
+    for (let i = token.attrs.length - 1; i >= 0; i--) {
+      if (token.attrs[i].name === attrName) {
+        return token.attrs[i].value;
       }
     }
     return null;
@@ -10263,7 +10263,7 @@ var LNReaderPlugin = (() => {
         }
         _advanceBy(count) {
           this.consumedAfterSnapshot += count;
-          for (let i2 = 0; i2 < count; i2++) {
+          for (let i = 0; i < count; i++) {
             this.preprocessor.advance();
           }
         }
@@ -11283,7 +11283,7 @@ var LNReaderPlugin = (() => {
         _stateScriptDataDoubleEscapeStart(cp) {
           if (this.preprocessor.startsWith(SEQUENCES.SCRIPT, false) && isScriptDataDoubleEscapeSequenceEnd(this.preprocessor.peek(SEQUENCES.SCRIPT.length))) {
             this._emitCodePoint(cp);
-            for (let i2 = 0; i2 < SEQUENCES.SCRIPT.length; i2++) {
+            for (let i = 0; i < SEQUENCES.SCRIPT.length; i++) {
               this._emitCodePoint(this._consume());
             }
             this.state = State.SCRIPT_DATA_DOUBLE_ESCAPED;
@@ -11403,7 +11403,7 @@ var LNReaderPlugin = (() => {
         _stateScriptDataDoubleEscapeEnd(cp) {
           if (this.preprocessor.startsWith(SEQUENCES.SCRIPT, false) && isScriptDataDoubleEscapeSequenceEnd(this.preprocessor.peek(SEQUENCES.SCRIPT.length))) {
             this._emitCodePoint(cp);
-            for (let i2 = 0; i2 < SEQUENCES.SCRIPT.length; i2++) {
+            for (let i = 0; i < SEQUENCES.SCRIPT.length; i++) {
               this._emitCodePoint(this._consume());
             }
             this.state = State.SCRIPT_DATA_ESCAPED;
@@ -12787,9 +12787,9 @@ var LNReaderPlugin = (() => {
           this.shortenToLength(1);
         }
         _indexOfTagNames(tagNames, namespace) {
-          for (let i2 = this.stackTop; i2 >= 0; i2--) {
-            if (tagNames.has(this.tagIDs[i2]) && this.treeAdapter.getNamespaceURI(this.items[i2]) === namespace) {
-              return i2;
+          for (let i = this.stackTop; i >= 0; i--) {
+            if (tagNames.has(this.tagIDs[i]) && this.treeAdapter.getNamespaceURI(this.items[i]) === namespace) {
+              return i;
             }
           }
           return -1;
@@ -12837,9 +12837,9 @@ var LNReaderPlugin = (() => {
         }
         //Element in scope
         hasInDynamicScope(tagName, htmlScope) {
-          for (let i2 = this.stackTop; i2 >= 0; i2--) {
-            const tn = this.tagIDs[i2];
-            switch (this.treeAdapter.getNamespaceURI(this.items[i2])) {
+          for (let i = this.stackTop; i >= 0; i--) {
+            const tn = this.tagIDs[i];
+            switch (this.treeAdapter.getNamespaceURI(this.items[i])) {
               case NS.HTML: {
                 if (tn === tagName)
                   return true;
@@ -12871,9 +12871,9 @@ var LNReaderPlugin = (() => {
           return this.hasInDynamicScope(tagName, SCOPING_ELEMENTS_HTML_BUTTON);
         }
         hasNumberedHeaderInScope() {
-          for (let i2 = this.stackTop; i2 >= 0; i2--) {
-            const tn = this.tagIDs[i2];
-            switch (this.treeAdapter.getNamespaceURI(this.items[i2])) {
+          for (let i = this.stackTop; i >= 0; i--) {
+            const tn = this.tagIDs[i];
+            switch (this.treeAdapter.getNamespaceURI(this.items[i])) {
               case NS.HTML: {
                 if (NUMBERED_HEADERS.has(tn))
                   return true;
@@ -12896,11 +12896,11 @@ var LNReaderPlugin = (() => {
           return true;
         }
         hasInTableScope(tagName) {
-          for (let i2 = this.stackTop; i2 >= 0; i2--) {
-            if (this.treeAdapter.getNamespaceURI(this.items[i2]) !== NS.HTML) {
+          for (let i = this.stackTop; i >= 0; i--) {
+            if (this.treeAdapter.getNamespaceURI(this.items[i]) !== NS.HTML) {
               continue;
             }
-            switch (this.tagIDs[i2]) {
+            switch (this.tagIDs[i]) {
               case tagName: {
                 return true;
               }
@@ -12913,11 +12913,11 @@ var LNReaderPlugin = (() => {
           return true;
         }
         hasTableBodyContextInTableScope() {
-          for (let i2 = this.stackTop; i2 >= 0; i2--) {
-            if (this.treeAdapter.getNamespaceURI(this.items[i2]) !== NS.HTML) {
+          for (let i = this.stackTop; i >= 0; i--) {
+            if (this.treeAdapter.getNamespaceURI(this.items[i]) !== NS.HTML) {
               continue;
             }
-            switch (this.tagIDs[i2]) {
+            switch (this.tagIDs[i]) {
               case TAG_ID.TBODY:
               case TAG_ID.THEAD:
               case TAG_ID.TFOOT: {
@@ -12932,11 +12932,11 @@ var LNReaderPlugin = (() => {
           return true;
         }
         hasInSelectScope(tagName) {
-          for (let i2 = this.stackTop; i2 >= 0; i2--) {
-            if (this.treeAdapter.getNamespaceURI(this.items[i2]) !== NS.HTML) {
+          for (let i = this.stackTop; i >= 0; i--) {
+            if (this.treeAdapter.getNamespaceURI(this.items[i]) !== NS.HTML) {
               continue;
             }
-            switch (this.tagIDs[i2]) {
+            switch (this.tagIDs[i]) {
               case tagName: {
                 return true;
               }
@@ -13000,8 +13000,8 @@ var LNReaderPlugin = (() => {
           const neAttrsLength = neAttrs.length;
           const neTagName = this.treeAdapter.getTagName(newElement);
           const neNamespaceURI = this.treeAdapter.getNamespaceURI(newElement);
-          for (let i2 = 0; i2 < this.entries.length; i2++) {
-            const entry = this.entries[i2];
+          for (let i = 0; i < this.entries.length; i++) {
+            const entry = this.entries[i];
             if (entry.type === EntryType.Marker) {
               break;
             }
@@ -13009,7 +13009,7 @@ var LNReaderPlugin = (() => {
             if (this.treeAdapter.getTagName(element) === neTagName && this.treeAdapter.getNamespaceURI(element) === neNamespaceURI) {
               const elementAttrs = this.treeAdapter.getAttrList(element);
               if (elementAttrs.length === neAttrsLength) {
-                candidates.push({ idx: i2, attrs: elementAttrs });
+                candidates.push({ idx: i, attrs: elementAttrs });
               }
             }
           }
@@ -13024,8 +13024,8 @@ var LNReaderPlugin = (() => {
             return;
           const neAttrsMap = new Map(neAttrs.map((neAttr) => [neAttr.name, neAttr.value]));
           let validCandidates = 0;
-          for (let i2 = 0; i2 < candidates.length; i2++) {
-            const candidate = candidates[i2];
+          for (let i = 0; i < candidates.length; i++) {
+            const candidate = candidates[i];
             if (candidate.attrs.every((cAttr) => neAttrsMap.get(cAttr.name) === cAttr.value)) {
               validCandidates += 1;
               if (validCandidates >= NOAH_ARK_CAPACITY) {
@@ -13396,28 +13396,28 @@ var LNReaderPlugin = (() => {
     return isFontWithAttrs || EXITS_FOREIGN_CONTENT.has(tn);
   }
   function adjustTokenMathMLAttrs(token) {
-    for (let i2 = 0; i2 < token.attrs.length; i2++) {
-      if (token.attrs[i2].name === DEFINITION_URL_ATTR) {
-        token.attrs[i2].name = ADJUSTED_DEFINITION_URL_ATTR;
+    for (let i = 0; i < token.attrs.length; i++) {
+      if (token.attrs[i].name === DEFINITION_URL_ATTR) {
+        token.attrs[i].name = ADJUSTED_DEFINITION_URL_ATTR;
         break;
       }
     }
   }
   function adjustTokenSVGAttrs(token) {
-    for (let i2 = 0; i2 < token.attrs.length; i2++) {
-      const adjustedAttrName = SVG_ATTRS_ADJUSTMENT_MAP.get(token.attrs[i2].name);
+    for (let i = 0; i < token.attrs.length; i++) {
+      const adjustedAttrName = SVG_ATTRS_ADJUSTMENT_MAP.get(token.attrs[i].name);
       if (adjustedAttrName != null) {
-        token.attrs[i2].name = adjustedAttrName;
+        token.attrs[i].name = adjustedAttrName;
       }
     }
   }
   function adjustTokenXMLAttrs(token) {
-    for (let i2 = 0; i2 < token.attrs.length; i2++) {
-      const adjustedAttrEntry = XML_ATTRS_ADJUSTMENT_MAP.get(token.attrs[i2].name);
+    for (let i = 0; i < token.attrs.length; i++) {
+      const adjustedAttrEntry = XML_ATTRS_ADJUSTMENT_MAP.get(token.attrs[i].name);
       if (adjustedAttrEntry) {
-        token.attrs[i2].prefix = adjustedAttrEntry.prefix;
-        token.attrs[i2].name = adjustedAttrEntry.name;
-        token.attrs[i2].namespace = adjustedAttrEntry.namespace;
+        token.attrs[i].prefix = adjustedAttrEntry.prefix;
+        token.attrs[i].name = adjustedAttrEntry.name;
+        token.attrs[i].namespace = adjustedAttrEntry.namespace;
       }
     }
   }
@@ -13433,9 +13433,9 @@ var LNReaderPlugin = (() => {
   }
   function isHtmlIntegrationPoint(tn, ns, attrs) {
     if (ns === NS.MATHML && tn === TAG_ID.ANNOTATION_XML) {
-      for (let i2 = 0; i2 < attrs.length; i2++) {
-        if (attrs[i2].name === ATTRS.ENCODING) {
-          const value = attrs[i2].value.toLowerCase();
+      for (let i = 0; i < attrs.length; i++) {
+        if (attrs[i].name === ATTRS.ENCODING) {
+          const value = attrs[i].value.toLowerCase();
           return value === MIME_TYPES.TEXT_HTML || value === MIME_TYPES.APPLICATION_XML;
         }
       }
@@ -13627,214 +13627,214 @@ var LNReaderPlugin = (() => {
   });
 
   // node_modules/parse5/dist/parser/index.js
-  function aaObtainFormattingElementEntry(p2, token) {
-    let formattingElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
+  function aaObtainFormattingElementEntry(p, token) {
+    let formattingElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
     if (formattingElementEntry) {
-      if (!p2.openElements.contains(formattingElementEntry.element)) {
-        p2.activeFormattingElements.removeEntry(formattingElementEntry);
+      if (!p.openElements.contains(formattingElementEntry.element)) {
+        p.activeFormattingElements.removeEntry(formattingElementEntry);
         formattingElementEntry = null;
-      } else if (!p2.openElements.hasInScope(token.tagID)) {
+      } else if (!p.openElements.hasInScope(token.tagID)) {
         formattingElementEntry = null;
       }
     } else {
-      genericEndTagInBody(p2, token);
+      genericEndTagInBody(p, token);
     }
     return formattingElementEntry;
   }
-  function aaObtainFurthestBlock(p2, formattingElementEntry) {
+  function aaObtainFurthestBlock(p, formattingElementEntry) {
     let furthestBlock = null;
-    let idx = p2.openElements.stackTop;
+    let idx = p.openElements.stackTop;
     for (; idx >= 0; idx--) {
-      const element = p2.openElements.items[idx];
+      const element = p.openElements.items[idx];
       if (element === formattingElementEntry.element) {
         break;
       }
-      if (p2._isSpecialElement(element, p2.openElements.tagIDs[idx])) {
+      if (p._isSpecialElement(element, p.openElements.tagIDs[idx])) {
         furthestBlock = element;
       }
     }
     if (!furthestBlock) {
-      p2.openElements.shortenToLength(idx < 0 ? 0 : idx);
-      p2.activeFormattingElements.removeEntry(formattingElementEntry);
+      p.openElements.shortenToLength(idx < 0 ? 0 : idx);
+      p.activeFormattingElements.removeEntry(formattingElementEntry);
     }
     return furthestBlock;
   }
-  function aaInnerLoop(p2, furthestBlock, formattingElement) {
+  function aaInnerLoop(p, furthestBlock, formattingElement) {
     let lastElement = furthestBlock;
-    let nextElement = p2.openElements.getCommonAncestor(furthestBlock);
-    for (let i2 = 0, element = nextElement; element !== formattingElement; i2++, element = nextElement) {
-      nextElement = p2.openElements.getCommonAncestor(element);
-      const elementEntry = p2.activeFormattingElements.getElementEntry(element);
-      const counterOverflow = elementEntry && i2 >= AA_INNER_LOOP_ITER;
+    let nextElement = p.openElements.getCommonAncestor(furthestBlock);
+    for (let i = 0, element = nextElement; element !== formattingElement; i++, element = nextElement) {
+      nextElement = p.openElements.getCommonAncestor(element);
+      const elementEntry = p.activeFormattingElements.getElementEntry(element);
+      const counterOverflow = elementEntry && i >= AA_INNER_LOOP_ITER;
       const shouldRemoveFromOpenElements = !elementEntry || counterOverflow;
       if (shouldRemoveFromOpenElements) {
         if (counterOverflow) {
-          p2.activeFormattingElements.removeEntry(elementEntry);
+          p.activeFormattingElements.removeEntry(elementEntry);
         }
-        p2.openElements.remove(element);
+        p.openElements.remove(element);
       } else {
-        element = aaRecreateElementFromEntry(p2, elementEntry);
+        element = aaRecreateElementFromEntry(p, elementEntry);
         if (lastElement === furthestBlock) {
-          p2.activeFormattingElements.bookmark = elementEntry;
+          p.activeFormattingElements.bookmark = elementEntry;
         }
-        p2.treeAdapter.detachNode(lastElement);
-        p2.treeAdapter.appendChild(element, lastElement);
+        p.treeAdapter.detachNode(lastElement);
+        p.treeAdapter.appendChild(element, lastElement);
         lastElement = element;
       }
     }
     return lastElement;
   }
-  function aaRecreateElementFromEntry(p2, elementEntry) {
-    const ns = p2.treeAdapter.getNamespaceURI(elementEntry.element);
-    const newElement = p2.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
-    p2.openElements.replace(elementEntry.element, newElement);
+  function aaRecreateElementFromEntry(p, elementEntry) {
+    const ns = p.treeAdapter.getNamespaceURI(elementEntry.element);
+    const newElement = p.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
+    p.openElements.replace(elementEntry.element, newElement);
     elementEntry.element = newElement;
     return newElement;
   }
-  function aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement) {
-    const tn = p2.treeAdapter.getTagName(commonAncestor);
+  function aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement) {
+    const tn = p.treeAdapter.getTagName(commonAncestor);
     const tid = getTagID(tn);
-    if (p2._isElementCausesFosterParenting(tid)) {
-      p2._fosterParentElement(lastElement);
+    if (p._isElementCausesFosterParenting(tid)) {
+      p._fosterParentElement(lastElement);
     } else {
-      const ns = p2.treeAdapter.getNamespaceURI(commonAncestor);
+      const ns = p.treeAdapter.getNamespaceURI(commonAncestor);
       if (tid === TAG_ID.TEMPLATE && ns === NS.HTML) {
-        commonAncestor = p2.treeAdapter.getTemplateContent(commonAncestor);
+        commonAncestor = p.treeAdapter.getTemplateContent(commonAncestor);
       }
-      p2.treeAdapter.appendChild(commonAncestor, lastElement);
+      p.treeAdapter.appendChild(commonAncestor, lastElement);
     }
   }
-  function aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry) {
-    const ns = p2.treeAdapter.getNamespaceURI(formattingElementEntry.element);
+  function aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry) {
+    const ns = p.treeAdapter.getNamespaceURI(formattingElementEntry.element);
     const { token } = formattingElementEntry;
-    const newElement = p2.treeAdapter.createElement(token.tagName, ns, token.attrs);
-    p2._adoptNodes(furthestBlock, newElement);
-    p2.treeAdapter.appendChild(furthestBlock, newElement);
-    p2.activeFormattingElements.insertElementAfterBookmark(newElement, token);
-    p2.activeFormattingElements.removeEntry(formattingElementEntry);
-    p2.openElements.remove(formattingElementEntry.element);
-    p2.openElements.insertAfter(furthestBlock, newElement, token.tagID);
+    const newElement = p.treeAdapter.createElement(token.tagName, ns, token.attrs);
+    p._adoptNodes(furthestBlock, newElement);
+    p.treeAdapter.appendChild(furthestBlock, newElement);
+    p.activeFormattingElements.insertElementAfterBookmark(newElement, token);
+    p.activeFormattingElements.removeEntry(formattingElementEntry);
+    p.openElements.remove(formattingElementEntry.element);
+    p.openElements.insertAfter(furthestBlock, newElement, token.tagID);
   }
-  function callAdoptionAgency(p2, token) {
-    for (let i2 = 0; i2 < AA_OUTER_LOOP_ITER; i2++) {
-      const formattingElementEntry = aaObtainFormattingElementEntry(p2, token);
+  function callAdoptionAgency(p, token) {
+    for (let i = 0; i < AA_OUTER_LOOP_ITER; i++) {
+      const formattingElementEntry = aaObtainFormattingElementEntry(p, token);
       if (!formattingElementEntry) {
         break;
       }
-      const furthestBlock = aaObtainFurthestBlock(p2, formattingElementEntry);
+      const furthestBlock = aaObtainFurthestBlock(p, formattingElementEntry);
       if (!furthestBlock) {
         break;
       }
-      p2.activeFormattingElements.bookmark = formattingElementEntry;
-      const lastElement = aaInnerLoop(p2, furthestBlock, formattingElementEntry.element);
-      const commonAncestor = p2.openElements.getCommonAncestor(formattingElementEntry.element);
-      p2.treeAdapter.detachNode(lastElement);
+      p.activeFormattingElements.bookmark = formattingElementEntry;
+      const lastElement = aaInnerLoop(p, furthestBlock, formattingElementEntry.element);
+      const commonAncestor = p.openElements.getCommonAncestor(formattingElementEntry.element);
+      p.treeAdapter.detachNode(lastElement);
       if (commonAncestor)
-        aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement);
-      aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry);
+        aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement);
+      aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry);
     }
   }
-  function appendComment(p2, token) {
-    p2._appendCommentNode(token, p2.openElements.currentTmplContentOrNode);
+  function appendComment(p, token) {
+    p._appendCommentNode(token, p.openElements.currentTmplContentOrNode);
   }
-  function appendCommentToRootHtmlElement(p2, token) {
-    p2._appendCommentNode(token, p2.openElements.items[0]);
+  function appendCommentToRootHtmlElement(p, token) {
+    p._appendCommentNode(token, p.openElements.items[0]);
   }
-  function appendCommentToDocument(p2, token) {
-    p2._appendCommentNode(token, p2.document);
+  function appendCommentToDocument(p, token) {
+    p._appendCommentNode(token, p.document);
   }
-  function stopParsing(p2, token) {
-    p2.stopped = true;
+  function stopParsing(p, token) {
+    p.stopped = true;
     if (token.location) {
-      const target = p2.fragmentContext ? 0 : 2;
-      for (let i2 = p2.openElements.stackTop; i2 >= target; i2--) {
-        p2._setEndLocation(p2.openElements.items[i2], token);
+      const target = p.fragmentContext ? 0 : 2;
+      for (let i = p.openElements.stackTop; i >= target; i--) {
+        p._setEndLocation(p.openElements.items[i], token);
       }
-      if (!p2.fragmentContext && p2.openElements.stackTop >= 0) {
-        const htmlElement = p2.openElements.items[0];
-        const htmlLocation = p2.treeAdapter.getNodeSourceCodeLocation(htmlElement);
+      if (!p.fragmentContext && p.openElements.stackTop >= 0) {
+        const htmlElement = p.openElements.items[0];
+        const htmlLocation = p.treeAdapter.getNodeSourceCodeLocation(htmlElement);
         if (htmlLocation && !htmlLocation.endTag) {
-          p2._setEndLocation(htmlElement, token);
-          if (p2.openElements.stackTop >= 1) {
-            const bodyElement = p2.openElements.items[1];
-            const bodyLocation = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement);
+          p._setEndLocation(htmlElement, token);
+          if (p.openElements.stackTop >= 1) {
+            const bodyElement = p.openElements.items[1];
+            const bodyLocation = p.treeAdapter.getNodeSourceCodeLocation(bodyElement);
             if (bodyLocation && !bodyLocation.endTag) {
-              p2._setEndLocation(bodyElement, token);
+              p._setEndLocation(bodyElement, token);
             }
           }
         }
       }
     }
   }
-  function doctypeInInitialMode(p2, token) {
-    p2._setDocumentType(token);
+  function doctypeInInitialMode(p, token) {
+    p._setDocumentType(token);
     const mode = token.forceQuirks ? DOCUMENT_MODE.QUIRKS : getDocumentMode(token);
     if (!isConforming(token)) {
-      p2._err(token, ERR.nonConformingDoctype);
+      p._err(token, ERR.nonConformingDoctype);
     }
-    p2.treeAdapter.setDocumentMode(p2.document, mode);
-    p2.insertionMode = InsertionMode.BEFORE_HTML;
+    p.treeAdapter.setDocumentMode(p.document, mode);
+    p.insertionMode = InsertionMode.BEFORE_HTML;
   }
-  function tokenInInitialMode(p2, token) {
-    p2._err(token, ERR.missingDoctype, true);
-    p2.treeAdapter.setDocumentMode(p2.document, DOCUMENT_MODE.QUIRKS);
-    p2.insertionMode = InsertionMode.BEFORE_HTML;
-    p2._processToken(token);
+  function tokenInInitialMode(p, token) {
+    p._err(token, ERR.missingDoctype, true);
+    p.treeAdapter.setDocumentMode(p.document, DOCUMENT_MODE.QUIRKS);
+    p.insertionMode = InsertionMode.BEFORE_HTML;
+    p._processToken(token);
   }
-  function startTagBeforeHtml(p2, token) {
+  function startTagBeforeHtml(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p2._insertElement(token, NS.HTML);
-      p2.insertionMode = InsertionMode.BEFORE_HEAD;
+      p._insertElement(token, NS.HTML);
+      p.insertionMode = InsertionMode.BEFORE_HEAD;
     } else {
-      tokenBeforeHtml(p2, token);
+      tokenBeforeHtml(p, token);
     }
   }
-  function endTagBeforeHtml(p2, token) {
+  function endTagBeforeHtml(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HTML || tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.BR) {
-      tokenBeforeHtml(p2, token);
+      tokenBeforeHtml(p, token);
     }
   }
-  function tokenBeforeHtml(p2, token) {
-    p2._insertFakeRootElement();
-    p2.insertionMode = InsertionMode.BEFORE_HEAD;
-    p2._processToken(token);
+  function tokenBeforeHtml(p, token) {
+    p._insertFakeRootElement();
+    p.insertionMode = InsertionMode.BEFORE_HEAD;
+    p._processToken(token);
   }
-  function startTagBeforeHead(p2, token) {
+  function startTagBeforeHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.HEAD: {
-        p2._insertElement(token, NS.HTML);
-        p2.headElement = p2.openElements.current;
-        p2.insertionMode = InsertionMode.IN_HEAD;
+        p._insertElement(token, NS.HTML);
+        p.headElement = p.openElements.current;
+        p.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       default: {
-        tokenBeforeHead(p2, token);
+        tokenBeforeHead(p, token);
       }
     }
   }
-  function endTagBeforeHead(p2, token) {
+  function endTagBeforeHead(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.HTML || tn === TAG_ID.BR) {
-      tokenBeforeHead(p2, token);
+      tokenBeforeHead(p, token);
     } else {
-      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenBeforeHead(p2, token) {
-    p2._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
-    p2.headElement = p2.openElements.current;
-    p2.insertionMode = InsertionMode.IN_HEAD;
-    p2._processToken(token);
+  function tokenBeforeHead(p, token) {
+    p._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
+    p.headElement = p.openElements.current;
+    p.insertionMode = InsertionMode.IN_HEAD;
+    p._processToken(token);
   }
-  function startTagInHead(p2, token) {
+  function startTagInHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.BASE:
@@ -13842,94 +13842,94 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.LINK:
       case TAG_ID.META: {
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TITLE: {
-        p2._switchToTextParsing(token, TokenizerMode.RCDATA);
+        p._switchToTextParsing(token, TokenizerMode.RCDATA);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p2.options.scriptingEnabled) {
-          p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        if (p.options.scriptingEnabled) {
+          p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         } else {
-          p2._insertElement(token, NS.HTML);
-          p2.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
+          p._insertElement(token, NS.HTML);
+          p.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
         }
         break;
       }
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         break;
       }
       case TAG_ID.SCRIPT: {
-        p2._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
+        p._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        p2._insertTemplate(token);
-        p2.activeFormattingElements.insertMarker();
-        p2.framesetOk = false;
-        p2.insertionMode = InsertionMode.IN_TEMPLATE;
-        p2.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
+        p._insertTemplate(token);
+        p.activeFormattingElements.insertMarker();
+        p.framesetOk = false;
+        p.insertionMode = InsertionMode.IN_TEMPLATE;
+        p.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
         break;
       }
       case TAG_ID.HEAD: {
-        p2._err(token, ERR.misplacedStartTagForHeadElement);
+        p._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenInHead(p2, token);
+        tokenInHead(p, token);
       }
     }
   }
-  function endTagInHead(p2, token) {
+  function endTagInHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HEAD: {
-        p2.openElements.pop();
-        p2.insertionMode = InsertionMode.AFTER_HEAD;
+        p.openElements.pop();
+        p.insertionMode = InsertionMode.AFTER_HEAD;
         break;
       }
       case TAG_ID.BODY:
       case TAG_ID.BR:
       case TAG_ID.HTML: {
-        tokenInHead(p2, token);
+        tokenInHead(p, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default: {
-        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function templateEndTagInHead(p2, token) {
-    if (p2.openElements.tmplCount > 0) {
-      p2.openElements.generateImpliedEndTagsThoroughly();
-      if (p2.openElements.currentTagId !== TAG_ID.TEMPLATE) {
-        p2._err(token, ERR.closingOfElementWithOpenChildElements);
+  function templateEndTagInHead(p, token) {
+    if (p.openElements.tmplCount > 0) {
+      p.openElements.generateImpliedEndTagsThoroughly();
+      if (p.openElements.currentTagId !== TAG_ID.TEMPLATE) {
+        p._err(token, ERR.closingOfElementWithOpenChildElements);
       }
-      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p2.activeFormattingElements.clearToLastMarker();
-      p2.tmplInsertionModeStack.shift();
-      p2._resetInsertionMode();
+      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p.activeFormattingElements.clearToLastMarker();
+      p.tmplInsertionModeStack.shift();
+      p._resetInsertionMode();
     } else {
-      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenInHead(p2, token) {
-    p2.openElements.pop();
-    p2.insertionMode = InsertionMode.AFTER_HEAD;
-    p2._processToken(token);
+  function tokenInHead(p, token) {
+    p.openElements.pop();
+    p.insertionMode = InsertionMode.AFTER_HEAD;
+    p._processToken(token);
   }
-  function startTagInHeadNoScript(p2, token) {
+  function startTagInHeadNoScript(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.BASEFONT:
@@ -13939,56 +13939,56 @@ var LNReaderPlugin = (() => {
       case TAG_ID.META:
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        p2._err(token, ERR.nestedNoscriptInHead);
+        p._err(token, ERR.nestedNoscriptInHead);
         break;
       }
       default: {
-        tokenInHeadNoScript(p2, token);
+        tokenInHeadNoScript(p, token);
       }
     }
   }
-  function endTagInHeadNoScript(p2, token) {
+  function endTagInHeadNoScript(p, token) {
     switch (token.tagID) {
       case TAG_ID.NOSCRIPT: {
-        p2.openElements.pop();
-        p2.insertionMode = InsertionMode.IN_HEAD;
+        p.openElements.pop();
+        p.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       case TAG_ID.BR: {
-        tokenInHeadNoScript(p2, token);
+        tokenInHeadNoScript(p, token);
         break;
       }
       default: {
-        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenInHeadNoScript(p2, token) {
+  function tokenInHeadNoScript(p, token) {
     const errCode = token.type === TokenType.EOF ? ERR.openElementsLeftAfterEof : ERR.disallowedContentInNoscriptInHead;
-    p2._err(token, errCode);
-    p2.openElements.pop();
-    p2.insertionMode = InsertionMode.IN_HEAD;
-    p2._processToken(token);
+    p._err(token, errCode);
+    p.openElements.pop();
+    p.insertionMode = InsertionMode.IN_HEAD;
+    p._processToken(token);
   }
-  function startTagAfterHead(p2, token) {
+  function startTagAfterHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.BODY: {
-        p2._insertElement(token, NS.HTML);
-        p2.framesetOk = false;
-        p2.insertionMode = InsertionMode.IN_BODY;
+        p._insertElement(token, NS.HTML);
+        p.framesetOk = false;
+        p.insertionMode = InsertionMode.IN_BODY;
         break;
       }
       case TAG_ID.FRAMESET: {
-        p2._insertElement(token, NS.HTML);
-        p2.insertionMode = InsertionMode.IN_FRAMESET;
+        p._insertElement(token, NS.HTML);
+        p.insertionMode = InsertionMode.IN_FRAMESET;
         break;
       }
       case TAG_ID.BASE:
@@ -14001,321 +14001,321 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        p2._err(token, ERR.abandonedHeadElementChild);
-        p2.openElements.push(p2.headElement, TAG_ID.HEAD);
-        startTagInHead(p2, token);
-        p2.openElements.remove(p2.headElement);
+        p._err(token, ERR.abandonedHeadElementChild);
+        p.openElements.push(p.headElement, TAG_ID.HEAD);
+        startTagInHead(p, token);
+        p.openElements.remove(p.headElement);
         break;
       }
       case TAG_ID.HEAD: {
-        p2._err(token, ERR.misplacedStartTagForHeadElement);
+        p._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenAfterHead(p2, token);
+        tokenAfterHead(p, token);
       }
     }
   }
-  function endTagAfterHead(p2, token) {
+  function endTagAfterHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.BODY:
       case TAG_ID.HTML:
       case TAG_ID.BR: {
-        tokenAfterHead(p2, token);
+        tokenAfterHead(p, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default: {
-        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenAfterHead(p2, token) {
-    p2._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
-    p2.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p2, token);
+  function tokenAfterHead(p, token) {
+    p._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
+    p.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p, token);
   }
-  function modeInBody(p2, token) {
+  function modeInBody(p, token) {
     switch (token.type) {
       case TokenType.CHARACTER: {
-        characterInBody(p2, token);
+        characterInBody(p, token);
         break;
       }
       case TokenType.WHITESPACE_CHARACTER: {
-        whitespaceCharacterInBody(p2, token);
+        whitespaceCharacterInBody(p, token);
         break;
       }
       case TokenType.COMMENT: {
-        appendComment(p2, token);
+        appendComment(p, token);
         break;
       }
       case TokenType.START_TAG: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TokenType.END_TAG: {
-        endTagInBody(p2, token);
+        endTagInBody(p, token);
         break;
       }
       case TokenType.EOF: {
-        eofInBody(p2, token);
+        eofInBody(p, token);
         break;
       }
       default:
     }
   }
-  function whitespaceCharacterInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertCharacters(token);
+  function whitespaceCharacterInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertCharacters(token);
   }
-  function characterInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertCharacters(token);
-    p2.framesetOk = false;
+  function characterInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertCharacters(token);
+    p.framesetOk = false;
   }
-  function htmlStartTagInBody(p2, token) {
-    if (p2.openElements.tmplCount === 0) {
-      p2.treeAdapter.adoptAttributes(p2.openElements.items[0], token.attrs);
+  function htmlStartTagInBody(p, token) {
+    if (p.openElements.tmplCount === 0) {
+      p.treeAdapter.adoptAttributes(p.openElements.items[0], token.attrs);
     }
   }
-  function bodyStartTagInBody(p2, token) {
-    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
-    if (bodyElement && p2.openElements.tmplCount === 0) {
-      p2.framesetOk = false;
-      p2.treeAdapter.adoptAttributes(bodyElement, token.attrs);
+  function bodyStartTagInBody(p, token) {
+    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
+    if (bodyElement && p.openElements.tmplCount === 0) {
+      p.framesetOk = false;
+      p.treeAdapter.adoptAttributes(bodyElement, token.attrs);
     }
   }
-  function framesetStartTagInBody(p2, token) {
-    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
-    if (p2.framesetOk && bodyElement) {
-      p2.treeAdapter.detachNode(bodyElement);
-      p2.openElements.popAllUpToHtmlElement();
-      p2._insertElement(token, NS.HTML);
-      p2.insertionMode = InsertionMode.IN_FRAMESET;
+  function framesetStartTagInBody(p, token) {
+    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
+    if (p.framesetOk && bodyElement) {
+      p.treeAdapter.detachNode(bodyElement);
+      p.openElements.popAllUpToHtmlElement();
+      p._insertElement(token, NS.HTML);
+      p.insertionMode = InsertionMode.IN_FRAMESET;
     }
   }
-  function addressStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function addressStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function numberedHeaderStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function numberedHeaderStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    if (NUMBERED_HEADERS.has(p2.openElements.currentTagId)) {
-      p2.openElements.pop();
+    if (NUMBERED_HEADERS.has(p.openElements.currentTagId)) {
+      p.openElements.pop();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function preStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function preStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.skipNextNewLine = true;
-    p2.framesetOk = false;
+    p._insertElement(token, NS.HTML);
+    p.skipNextNewLine = true;
+    p.framesetOk = false;
   }
-  function formStartTagInBody(p2, token) {
-    const inTemplate = p2.openElements.tmplCount > 0;
-    if (!p2.formElement || inTemplate) {
-      if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-        p2._closePElement();
+  function formStartTagInBody(p, token) {
+    const inTemplate = p.openElements.tmplCount > 0;
+    if (!p.formElement || inTemplate) {
+      if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+        p._closePElement();
       }
-      p2._insertElement(token, NS.HTML);
+      p._insertElement(token, NS.HTML);
       if (!inTemplate) {
-        p2.formElement = p2.openElements.current;
+        p.formElement = p.openElements.current;
       }
     }
   }
-  function listItemStartTagInBody(p2, token) {
-    p2.framesetOk = false;
+  function listItemStartTagInBody(p, token) {
+    p.framesetOk = false;
     const tn = token.tagID;
-    for (let i2 = p2.openElements.stackTop; i2 >= 0; i2--) {
-      const elementId = p2.openElements.tagIDs[i2];
+    for (let i = p.openElements.stackTop; i >= 0; i--) {
+      const elementId = p.openElements.tagIDs[i];
       if (tn === TAG_ID.LI && elementId === TAG_ID.LI || (tn === TAG_ID.DD || tn === TAG_ID.DT) && (elementId === TAG_ID.DD || elementId === TAG_ID.DT)) {
-        p2.openElements.generateImpliedEndTagsWithExclusion(elementId);
-        p2.openElements.popUntilTagNamePopped(elementId);
+        p.openElements.generateImpliedEndTagsWithExclusion(elementId);
+        p.openElements.popUntilTagNamePopped(elementId);
         break;
       }
-      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p2._isSpecialElement(p2.openElements.items[i2], elementId)) {
+      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p._isSpecialElement(p.openElements.items[i], elementId)) {
         break;
       }
     }
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function plaintextStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function plaintextStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.tokenizer.state = TokenizerMode.PLAINTEXT;
+    p._insertElement(token, NS.HTML);
+    p.tokenizer.state = TokenizerMode.PLAINTEXT;
   }
-  function buttonStartTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.BUTTON)) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
+  function buttonStartTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.BUTTON)) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
     }
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.framesetOk = false;
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.framesetOk = false;
   }
-  function aStartTagInBody(p2, token) {
-    const activeElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
+  function aStartTagInBody(p, token) {
+    const activeElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
     if (activeElementEntry) {
-      callAdoptionAgency(p2, token);
-      p2.openElements.remove(activeElementEntry.element);
-      p2.activeFormattingElements.removeEntry(activeElementEntry);
+      callAdoptionAgency(p, token);
+      p.openElements.remove(activeElementEntry.element);
+      p.activeFormattingElements.removeEntry(activeElementEntry);
     }
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.pushElement(p.openElements.current, token);
   }
-  function bStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
+  function bStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.pushElement(p.openElements.current, token);
   }
-  function nobrStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    if (p2.openElements.hasInScope(TAG_ID.NOBR)) {
-      callAdoptionAgency(p2, token);
-      p2._reconstructActiveFormattingElements();
+  function nobrStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    if (p.openElements.hasInScope(TAG_ID.NOBR)) {
+      callAdoptionAgency(p, token);
+      p._reconstructActiveFormattingElements();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.pushElement(p.openElements.current, token);
   }
-  function appletStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.insertMarker();
-    p2.framesetOk = false;
+  function appletStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.insertMarker();
+    p.framesetOk = false;
   }
-  function tableStartTagInBody(p2, token) {
-    if (p2.treeAdapter.getDocumentMode(p2.document) !== DOCUMENT_MODE.QUIRKS && p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function tableStartTagInBody(p, token) {
+    if (p.treeAdapter.getDocumentMode(p.document) !== DOCUMENT_MODE.QUIRKS && p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.framesetOk = false;
-    p2.insertionMode = InsertionMode.IN_TABLE;
+    p._insertElement(token, NS.HTML);
+    p.framesetOk = false;
+    p.insertionMode = InsertionMode.IN_TABLE;
   }
-  function areaStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._appendElement(token, NS.HTML);
-    p2.framesetOk = false;
+  function areaStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._appendElement(token, NS.HTML);
+    p.framesetOk = false;
     token.ackSelfClosing = true;
   }
   function isHiddenInput(token) {
     const inputType = getTokenAttr(token, ATTRS.TYPE);
     return inputType != null && inputType.toLowerCase() === HIDDEN_INPUT_TYPE;
   }
-  function inputStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._appendElement(token, NS.HTML);
+  function inputStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._appendElement(token, NS.HTML);
     if (!isHiddenInput(token)) {
-      p2.framesetOk = false;
+      p.framesetOk = false;
     }
     token.ackSelfClosing = true;
   }
-  function paramStartTagInBody(p2, token) {
-    p2._appendElement(token, NS.HTML);
+  function paramStartTagInBody(p, token) {
+    p._appendElement(token, NS.HTML);
     token.ackSelfClosing = true;
   }
-  function hrStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function hrStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._appendElement(token, NS.HTML);
-    p2.framesetOk = false;
+    p._appendElement(token, NS.HTML);
+    p.framesetOk = false;
     token.ackSelfClosing = true;
   }
-  function imageStartTagInBody(p2, token) {
+  function imageStartTagInBody(p, token) {
     token.tagName = TAG_NAMES.IMG;
     token.tagID = TAG_ID.IMG;
-    areaStartTagInBody(p2, token);
+    areaStartTagInBody(p, token);
   }
-  function textareaStartTagInBody(p2, token) {
-    p2._insertElement(token, NS.HTML);
-    p2.skipNextNewLine = true;
-    p2.tokenizer.state = TokenizerMode.RCDATA;
-    p2.originalInsertionMode = p2.insertionMode;
-    p2.framesetOk = false;
-    p2.insertionMode = InsertionMode.TEXT;
+  function textareaStartTagInBody(p, token) {
+    p._insertElement(token, NS.HTML);
+    p.skipNextNewLine = true;
+    p.tokenizer.state = TokenizerMode.RCDATA;
+    p.originalInsertionMode = p.insertionMode;
+    p.framesetOk = false;
+    p.insertionMode = InsertionMode.TEXT;
   }
-  function xmpStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function xmpStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._reconstructActiveFormattingElements();
-    p2.framesetOk = false;
-    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+    p._reconstructActiveFormattingElements();
+    p.framesetOk = false;
+    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function iframeStartTagInBody(p2, token) {
-    p2.framesetOk = false;
-    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function iframeStartTagInBody(p, token) {
+    p.framesetOk = false;
+    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function rawTextStartTagInBody(p2, token) {
-    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function rawTextStartTagInBody(p, token) {
+    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function selectStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.framesetOk = false;
-    p2.insertionMode = p2.insertionMode === InsertionMode.IN_TABLE || p2.insertionMode === InsertionMode.IN_CAPTION || p2.insertionMode === InsertionMode.IN_TABLE_BODY || p2.insertionMode === InsertionMode.IN_ROW || p2.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
+  function selectStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.framesetOk = false;
+    p.insertionMode = p.insertionMode === InsertionMode.IN_TABLE || p.insertionMode === InsertionMode.IN_CAPTION || p.insertionMode === InsertionMode.IN_TABLE_BODY || p.insertionMode === InsertionMode.IN_ROW || p.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
   }
-  function optgroupStartTagInBody(p2, token) {
-    if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-      p2.openElements.pop();
+  function optgroupStartTagInBody(p, token) {
+    if (p.openElements.currentTagId === TAG_ID.OPTION) {
+      p.openElements.pop();
     }
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
   }
-  function rbStartTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
-      p2.openElements.generateImpliedEndTags();
+  function rbStartTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
+      p.openElements.generateImpliedEndTags();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function rtStartTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
-      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
+  function rtStartTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
+      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function mathStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
+  function mathStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
     adjustTokenMathMLAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p2._appendElement(token, NS.MATHML);
+      p._appendElement(token, NS.MATHML);
     } else {
-      p2._insertElement(token, NS.MATHML);
+      p._insertElement(token, NS.MATHML);
     }
     token.ackSelfClosing = true;
   }
-  function svgStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
+  function svgStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
     adjustTokenSVGAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p2._appendElement(token, NS.SVG);
+      p._appendElement(token, NS.SVG);
     } else {
-      p2._insertElement(token, NS.SVG);
+      p._insertElement(token, NS.SVG);
     }
     token.ackSelfClosing = true;
   }
-  function genericStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
+  function genericStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
   }
-  function startTagInBody(p2, token) {
+  function startTagInBody(p, token) {
     switch (token.tagID) {
       case TAG_ID.I:
       case TAG_ID.S:
@@ -14329,11 +14329,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        bStartTagInBody(p2, token);
+        bStartTagInBody(p, token);
         break;
       }
       case TAG_ID.A: {
-        aStartTagInBody(p2, token);
+        aStartTagInBody(p, token);
         break;
       }
       case TAG_ID.H1:
@@ -14342,7 +14342,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderStartTagInBody(p2, token);
+        numberedHeaderStartTagInBody(p, token);
         break;
       }
       case TAG_ID.P:
@@ -14370,13 +14370,13 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressStartTagInBody(p2, token);
+        addressStartTagInBody(p, token);
         break;
       }
       case TAG_ID.LI:
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        listItemStartTagInBody(p2, token);
+        listItemStartTagInBody(p, token);
         break;
       }
       case TAG_ID.BR:
@@ -14385,38 +14385,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.AREA:
       case TAG_ID.EMBED:
       case TAG_ID.KEYGEN: {
-        areaStartTagInBody(p2, token);
+        areaStartTagInBody(p, token);
         break;
       }
       case TAG_ID.HR: {
-        hrStartTagInBody(p2, token);
+        hrStartTagInBody(p, token);
         break;
       }
       case TAG_ID.RB:
       case TAG_ID.RTC: {
-        rbStartTagInBody(p2, token);
+        rbStartTagInBody(p, token);
         break;
       }
       case TAG_ID.RT:
       case TAG_ID.RP: {
-        rtStartTagInBody(p2, token);
+        rtStartTagInBody(p, token);
         break;
       }
       case TAG_ID.PRE:
       case TAG_ID.LISTING: {
-        preStartTagInBody(p2, token);
+        preStartTagInBody(p, token);
         break;
       }
       case TAG_ID.XMP: {
-        xmpStartTagInBody(p2, token);
+        xmpStartTagInBody(p, token);
         break;
       }
       case TAG_ID.SVG: {
-        svgStartTagInBody(p2, token);
+        svgStartTagInBody(p, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlStartTagInBody(p2, token);
+        htmlStartTagInBody(p, token);
         break;
       }
       case TAG_ID.BASE:
@@ -14428,89 +14428,89 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.BASEFONT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       case TAG_ID.BODY: {
-        bodyStartTagInBody(p2, token);
+        bodyStartTagInBody(p, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInBody(p2, token);
+        formStartTagInBody(p, token);
         break;
       }
       case TAG_ID.NOBR: {
-        nobrStartTagInBody(p2, token);
+        nobrStartTagInBody(p, token);
         break;
       }
       case TAG_ID.MATH: {
-        mathStartTagInBody(p2, token);
+        mathStartTagInBody(p, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInBody(p2, token);
+        tableStartTagInBody(p, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInBody(p2, token);
+        inputStartTagInBody(p, token);
         break;
       }
       case TAG_ID.PARAM:
       case TAG_ID.TRACK:
       case TAG_ID.SOURCE: {
-        paramStartTagInBody(p2, token);
+        paramStartTagInBody(p, token);
         break;
       }
       case TAG_ID.IMAGE: {
-        imageStartTagInBody(p2, token);
+        imageStartTagInBody(p, token);
         break;
       }
       case TAG_ID.BUTTON: {
-        buttonStartTagInBody(p2, token);
+        buttonStartTagInBody(p, token);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletStartTagInBody(p2, token);
+        appletStartTagInBody(p, token);
         break;
       }
       case TAG_ID.IFRAME: {
-        iframeStartTagInBody(p2, token);
+        iframeStartTagInBody(p, token);
         break;
       }
       case TAG_ID.SELECT: {
-        selectStartTagInBody(p2, token);
+        selectStartTagInBody(p, token);
         break;
       }
       case TAG_ID.OPTION:
       case TAG_ID.OPTGROUP: {
-        optgroupStartTagInBody(p2, token);
+        optgroupStartTagInBody(p, token);
         break;
       }
       case TAG_ID.NOEMBED:
       case TAG_ID.NOFRAMES: {
-        rawTextStartTagInBody(p2, token);
+        rawTextStartTagInBody(p, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        framesetStartTagInBody(p2, token);
+        framesetStartTagInBody(p, token);
         break;
       }
       case TAG_ID.TEXTAREA: {
-        textareaStartTagInBody(p2, token);
+        textareaStartTagInBody(p, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p2.options.scriptingEnabled) {
-          rawTextStartTagInBody(p2, token);
+        if (p.options.scriptingEnabled) {
+          rawTextStartTagInBody(p, token);
         } else {
-          genericStartTagInBody(p2, token);
+          genericStartTagInBody(p, token);
         }
         break;
       }
       case TAG_ID.PLAINTEXT: {
-        plaintextStartTagInBody(p2, token);
+        plaintextStartTagInBody(p, token);
         break;
       }
       case TAG_ID.COL:
@@ -14527,106 +14527,106 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        genericStartTagInBody(p2, token);
+        genericStartTagInBody(p, token);
       }
     }
   }
-  function bodyEndTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
-      p2.insertionMode = InsertionMode.AFTER_BODY;
-      if (p2.options.sourceCodeLocationInfo) {
-        const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+  function bodyEndTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.BODY)) {
+      p.insertionMode = InsertionMode.AFTER_BODY;
+      if (p.options.sourceCodeLocationInfo) {
+        const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
         if (bodyElement) {
-          p2._setEndLocation(bodyElement, token);
+          p._setEndLocation(bodyElement, token);
         }
       }
     }
   }
-  function htmlEndTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
-      p2.insertionMode = InsertionMode.AFTER_BODY;
-      endTagAfterBody(p2, token);
+  function htmlEndTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.BODY)) {
+      p.insertionMode = InsertionMode.AFTER_BODY;
+      endTagAfterBody(p, token);
     }
   }
-  function addressEndTagInBody(p2, token) {
+  function addressEndTagInBody(p, token) {
     const tn = token.tagID;
-    if (p2.openElements.hasInScope(tn)) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilTagNamePopped(tn);
+    if (p.openElements.hasInScope(tn)) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function formEndTagInBody(p2) {
-    const inTemplate = p2.openElements.tmplCount > 0;
-    const { formElement } = p2;
+  function formEndTagInBody(p) {
+    const inTemplate = p.openElements.tmplCount > 0;
+    const { formElement } = p;
     if (!inTemplate) {
-      p2.formElement = null;
+      p.formElement = null;
     }
-    if ((formElement || inTemplate) && p2.openElements.hasInScope(TAG_ID.FORM)) {
-      p2.openElements.generateImpliedEndTags();
+    if ((formElement || inTemplate) && p.openElements.hasInScope(TAG_ID.FORM)) {
+      p.openElements.generateImpliedEndTags();
       if (inTemplate) {
-        p2.openElements.popUntilTagNamePopped(TAG_ID.FORM);
+        p.openElements.popUntilTagNamePopped(TAG_ID.FORM);
       } else if (formElement) {
-        p2.openElements.remove(formElement);
+        p.openElements.remove(formElement);
       }
     }
   }
-  function pEndTagInBody(p2) {
-    if (!p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
+  function pEndTagInBody(p) {
+    if (!p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
     }
-    p2._closePElement();
+    p._closePElement();
   }
-  function liEndTagInBody(p2) {
-    if (p2.openElements.hasInListItemScope(TAG_ID.LI)) {
-      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
-      p2.openElements.popUntilTagNamePopped(TAG_ID.LI);
+  function liEndTagInBody(p) {
+    if (p.openElements.hasInListItemScope(TAG_ID.LI)) {
+      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
+      p.openElements.popUntilTagNamePopped(TAG_ID.LI);
     }
   }
-  function ddEndTagInBody(p2, token) {
+  function ddEndTagInBody(p, token) {
     const tn = token.tagID;
-    if (p2.openElements.hasInScope(tn)) {
-      p2.openElements.generateImpliedEndTagsWithExclusion(tn);
-      p2.openElements.popUntilTagNamePopped(tn);
+    if (p.openElements.hasInScope(tn)) {
+      p.openElements.generateImpliedEndTagsWithExclusion(tn);
+      p.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function numberedHeaderEndTagInBody(p2) {
-    if (p2.openElements.hasNumberedHeaderInScope()) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilNumberedHeaderPopped();
+  function numberedHeaderEndTagInBody(p) {
+    if (p.openElements.hasNumberedHeaderInScope()) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilNumberedHeaderPopped();
     }
   }
-  function appletEndTagInBody(p2, token) {
+  function appletEndTagInBody(p, token) {
     const tn = token.tagID;
-    if (p2.openElements.hasInScope(tn)) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilTagNamePopped(tn);
-      p2.activeFormattingElements.clearToLastMarker();
+    if (p.openElements.hasInScope(tn)) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilTagNamePopped(tn);
+      p.activeFormattingElements.clearToLastMarker();
     }
   }
-  function brEndTagInBody(p2) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
-    p2.openElements.pop();
-    p2.framesetOk = false;
+  function brEndTagInBody(p) {
+    p._reconstructActiveFormattingElements();
+    p._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
+    p.openElements.pop();
+    p.framesetOk = false;
   }
-  function genericEndTagInBody(p2, token) {
+  function genericEndTagInBody(p, token) {
     const tn = token.tagName;
     const tid = token.tagID;
-    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
-      const element = p2.openElements.items[i2];
-      const elementId = p2.openElements.tagIDs[i2];
-      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p2.treeAdapter.getTagName(element) === tn)) {
-        p2.openElements.generateImpliedEndTagsWithExclusion(tid);
-        if (p2.openElements.stackTop >= i2)
-          p2.openElements.shortenToLength(i2);
+    for (let i = p.openElements.stackTop; i > 0; i--) {
+      const element = p.openElements.items[i];
+      const elementId = p.openElements.tagIDs[i];
+      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p.treeAdapter.getTagName(element) === tn)) {
+        p.openElements.generateImpliedEndTagsWithExclusion(tid);
+        if (p.openElements.stackTop >= i)
+          p.openElements.shortenToLength(i);
         break;
       }
-      if (p2._isSpecialElement(element, elementId)) {
+      if (p._isSpecialElement(element, elementId)) {
         break;
       }
     }
   }
-  function endTagInBody(p2, token) {
+  function endTagInBody(p, token) {
     switch (token.tagID) {
       case TAG_ID.A:
       case TAG_ID.B:
@@ -14642,11 +14642,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        callAdoptionAgency(p2, token);
+        callAdoptionAgency(p, token);
         break;
       }
       case TAG_ID.P: {
-        pEndTagInBody(p2);
+        pEndTagInBody(p);
         break;
       }
       case TAG_ID.DL:
@@ -14676,16 +14676,16 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressEndTagInBody(p2, token);
+        addressEndTagInBody(p, token);
         break;
       }
       case TAG_ID.LI: {
-        liEndTagInBody(p2);
+        liEndTagInBody(p);
         break;
       }
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        ddEndTagInBody(p2, token);
+        ddEndTagInBody(p, token);
         break;
       }
       case TAG_ID.H1:
@@ -14694,191 +14694,191 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderEndTagInBody(p2);
+        numberedHeaderEndTagInBody(p);
         break;
       }
       case TAG_ID.BR: {
-        brEndTagInBody(p2);
+        brEndTagInBody(p);
         break;
       }
       case TAG_ID.BODY: {
-        bodyEndTagInBody(p2, token);
+        bodyEndTagInBody(p, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlEndTagInBody(p2, token);
+        htmlEndTagInBody(p, token);
         break;
       }
       case TAG_ID.FORM: {
-        formEndTagInBody(p2);
+        formEndTagInBody(p);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletEndTagInBody(p2, token);
+        appletEndTagInBody(p, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default: {
-        genericEndTagInBody(p2, token);
+        genericEndTagInBody(p, token);
       }
     }
   }
-  function eofInBody(p2, token) {
-    if (p2.tmplInsertionModeStack.length > 0) {
-      eofInTemplate(p2, token);
+  function eofInBody(p, token) {
+    if (p.tmplInsertionModeStack.length > 0) {
+      eofInTemplate(p, token);
     } else {
-      stopParsing(p2, token);
+      stopParsing(p, token);
     }
   }
-  function endTagInText(p2, token) {
+  function endTagInText(p, token) {
     var _a;
     if (token.tagID === TAG_ID.SCRIPT) {
-      (_a = p2.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p2, p2.openElements.current);
+      (_a = p.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p, p.openElements.current);
     }
-    p2.openElements.pop();
-    p2.insertionMode = p2.originalInsertionMode;
+    p.openElements.pop();
+    p.insertionMode = p.originalInsertionMode;
   }
-  function eofInText(p2, token) {
-    p2._err(token, ERR.eofInElementThatCanContainOnlyText);
-    p2.openElements.pop();
-    p2.insertionMode = p2.originalInsertionMode;
-    p2.onEof(token);
+  function eofInText(p, token) {
+    p._err(token, ERR.eofInElementThatCanContainOnlyText);
+    p.openElements.pop();
+    p.insertionMode = p.originalInsertionMode;
+    p.onEof(token);
   }
-  function characterInTable(p2, token) {
-    if (TABLE_STRUCTURE_TAGS.has(p2.openElements.currentTagId)) {
-      p2.pendingCharacterTokens.length = 0;
-      p2.hasNonWhitespacePendingCharacterToken = false;
-      p2.originalInsertionMode = p2.insertionMode;
-      p2.insertionMode = InsertionMode.IN_TABLE_TEXT;
+  function characterInTable(p, token) {
+    if (TABLE_STRUCTURE_TAGS.has(p.openElements.currentTagId)) {
+      p.pendingCharacterTokens.length = 0;
+      p.hasNonWhitespacePendingCharacterToken = false;
+      p.originalInsertionMode = p.insertionMode;
+      p.insertionMode = InsertionMode.IN_TABLE_TEXT;
       switch (token.type) {
         case TokenType.CHARACTER: {
-          characterInTableText(p2, token);
+          characterInTableText(p, token);
           break;
         }
         case TokenType.WHITESPACE_CHARACTER: {
-          whitespaceCharacterInTableText(p2, token);
+          whitespaceCharacterInTableText(p, token);
           break;
         }
       }
     } else {
-      tokenInTable(p2, token);
+      tokenInTable(p, token);
     }
   }
-  function captionStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2.activeFormattingElements.insertMarker();
-    p2._insertElement(token, NS.HTML);
-    p2.insertionMode = InsertionMode.IN_CAPTION;
+  function captionStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p.activeFormattingElements.insertMarker();
+    p._insertElement(token, NS.HTML);
+    p.insertionMode = InsertionMode.IN_CAPTION;
   }
-  function colgroupStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertElement(token, NS.HTML);
-    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+  function colgroupStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertElement(token, NS.HTML);
+    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
   }
-  function colStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
-    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-    startTagInColumnGroup(p2, token);
+  function colStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
+    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+    startTagInColumnGroup(p, token);
   }
-  function tbodyStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertElement(token, NS.HTML);
-    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+  function tbodyStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertElement(token, NS.HTML);
+    p.insertionMode = InsertionMode.IN_TABLE_BODY;
   }
-  function tdStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
-    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-    startTagInTableBody(p2, token);
+  function tdStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
+    p.insertionMode = InsertionMode.IN_TABLE_BODY;
+    startTagInTableBody(p, token);
   }
-  function tableStartTagInTable(p2, token) {
-    if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
-      p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-      p2._resetInsertionMode();
-      p2._processStartTag(token);
+  function tableStartTagInTable(p, token) {
+    if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
+      p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+      p._resetInsertionMode();
+      p._processStartTag(token);
     }
   }
-  function inputStartTagInTable(p2, token) {
+  function inputStartTagInTable(p, token) {
     if (isHiddenInput(token)) {
-      p2._appendElement(token, NS.HTML);
+      p._appendElement(token, NS.HTML);
     } else {
-      tokenInTable(p2, token);
+      tokenInTable(p, token);
     }
     token.ackSelfClosing = true;
   }
-  function formStartTagInTable(p2, token) {
-    if (!p2.formElement && p2.openElements.tmplCount === 0) {
-      p2._insertElement(token, NS.HTML);
-      p2.formElement = p2.openElements.current;
-      p2.openElements.pop();
+  function formStartTagInTable(p, token) {
+    if (!p.formElement && p.openElements.tmplCount === 0) {
+      p._insertElement(token, NS.HTML);
+      p.formElement = p.openElements.current;
+      p.openElements.pop();
     }
   }
-  function startTagInTable(p2, token) {
+  function startTagInTable(p, token) {
     switch (token.tagID) {
       case TAG_ID.TD:
       case TAG_ID.TH:
       case TAG_ID.TR: {
-        tdStartTagInTable(p2, token);
+        tdStartTagInTable(p, token);
         break;
       }
       case TAG_ID.STYLE:
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       case TAG_ID.COL: {
-        colStartTagInTable(p2, token);
+        colStartTagInTable(p, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInTable(p2, token);
+        formStartTagInTable(p, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInTable(p2, token);
+        tableStartTagInTable(p, token);
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        tbodyStartTagInTable(p2, token);
+        tbodyStartTagInTable(p, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInTable(p2, token);
+        inputStartTagInTable(p, token);
         break;
       }
       case TAG_ID.CAPTION: {
-        captionStartTagInTable(p2, token);
+        captionStartTagInTable(p, token);
         break;
       }
       case TAG_ID.COLGROUP: {
-        colgroupStartTagInTable(p2, token);
+        colgroupStartTagInTable(p, token);
         break;
       }
       default: {
-        tokenInTable(p2, token);
+        tokenInTable(p, token);
       }
     }
   }
-  function endTagInTable(p2, token) {
+  function endTagInTable(p, token) {
     switch (token.tagID) {
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
-          p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-          p2._resetInsertionMode();
+        if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
+          p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+          p._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       case TAG_ID.BODY:
@@ -14895,63 +14895,63 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        tokenInTable(p2, token);
+        tokenInTable(p, token);
       }
     }
   }
-  function tokenInTable(p2, token) {
-    const savedFosterParentingState = p2.fosterParentingEnabled;
-    p2.fosterParentingEnabled = true;
-    modeInBody(p2, token);
-    p2.fosterParentingEnabled = savedFosterParentingState;
+  function tokenInTable(p, token) {
+    const savedFosterParentingState = p.fosterParentingEnabled;
+    p.fosterParentingEnabled = true;
+    modeInBody(p, token);
+    p.fosterParentingEnabled = savedFosterParentingState;
   }
-  function whitespaceCharacterInTableText(p2, token) {
-    p2.pendingCharacterTokens.push(token);
+  function whitespaceCharacterInTableText(p, token) {
+    p.pendingCharacterTokens.push(token);
   }
-  function characterInTableText(p2, token) {
-    p2.pendingCharacterTokens.push(token);
-    p2.hasNonWhitespacePendingCharacterToken = true;
+  function characterInTableText(p, token) {
+    p.pendingCharacterTokens.push(token);
+    p.hasNonWhitespacePendingCharacterToken = true;
   }
-  function tokenInTableText(p2, token) {
-    let i2 = 0;
-    if (p2.hasNonWhitespacePendingCharacterToken) {
-      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
-        tokenInTable(p2, p2.pendingCharacterTokens[i2]);
+  function tokenInTableText(p, token) {
+    let i = 0;
+    if (p.hasNonWhitespacePendingCharacterToken) {
+      for (; i < p.pendingCharacterTokens.length; i++) {
+        tokenInTable(p, p.pendingCharacterTokens[i]);
       }
     } else {
-      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
-        p2._insertCharacters(p2.pendingCharacterTokens[i2]);
+      for (; i < p.pendingCharacterTokens.length; i++) {
+        p._insertCharacters(p.pendingCharacterTokens[i]);
       }
     }
-    p2.insertionMode = p2.originalInsertionMode;
-    p2._processToken(token);
+    p.insertionMode = p.originalInsertionMode;
+    p._processToken(token);
   }
-  function startTagInCaption(p2, token) {
+  function startTagInCaption(p, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-        p2.openElements.generateImpliedEndTags();
-        p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-        p2.activeFormattingElements.clearToLastMarker();
-        p2.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p2, token);
+      if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+        p.openElements.generateImpliedEndTags();
+        p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+        p.activeFormattingElements.clearToLastMarker();
+        p.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p, token);
       }
     } else {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     }
   }
-  function endTagInCaption(p2, token) {
+  function endTagInCaption(p, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.CAPTION:
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-          p2.openElements.generateImpliedEndTags();
-          p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-          p2.activeFormattingElements.clearToLastMarker();
-          p2.insertionMode = InsertionMode.IN_TABLE;
+        if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+          p.openElements.generateImpliedEndTags();
+          p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+          p.activeFormattingElements.clearToLastMarker();
+          p.insertionMode = InsertionMode.IN_TABLE;
           if (tn === TAG_ID.TABLE) {
-            endTagInTable(p2, token);
+            endTagInTable(p, token);
           }
         }
         break;
@@ -14969,72 +14969,72 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p2, token);
+        endTagInBody(p, token);
       }
     }
   }
-  function startTagInColumnGroup(p2, token) {
+  function startTagInColumnGroup(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.COL: {
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default: {
-        tokenInColumnGroup(p2, token);
+        tokenInColumnGroup(p, token);
       }
     }
   }
-  function endTagInColumnGroup(p2, token) {
+  function endTagInColumnGroup(p, token) {
     switch (token.tagID) {
       case TAG_ID.COLGROUP: {
-        if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
+        if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       case TAG_ID.COL: {
         break;
       }
       default: {
-        tokenInColumnGroup(p2, token);
+        tokenInColumnGroup(p, token);
       }
     }
   }
-  function tokenInColumnGroup(p2, token) {
-    if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
-      p2.openElements.pop();
-      p2.insertionMode = InsertionMode.IN_TABLE;
-      p2._processToken(token);
+  function tokenInColumnGroup(p, token) {
+    if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
+      p.openElements.pop();
+      p.insertionMode = InsertionMode.IN_TABLE;
+      p._processToken(token);
     }
   }
-  function startTagInTableBody(p2, token) {
+  function startTagInTableBody(p, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        p2.openElements.clearBackToTableBodyContext();
-        p2._insertElement(token, NS.HTML);
-        p2.insertionMode = InsertionMode.IN_ROW;
+        p.openElements.clearBackToTableBodyContext();
+        p._insertElement(token, NS.HTML);
+        p.insertionMode = InsertionMode.IN_ROW;
         break;
       }
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p2.openElements.clearBackToTableBodyContext();
-        p2._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
-        p2.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p2, token);
+        p.openElements.clearBackToTableBodyContext();
+        p._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
+        p.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p, token);
         break;
       }
       case TAG_ID.CAPTION:
@@ -15043,38 +15043,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p2.openElements.hasTableBodyContextInTableScope()) {
-          p2.openElements.clearBackToTableBodyContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
-          startTagInTable(p2, token);
+        if (p.openElements.hasTableBodyContextInTableScope()) {
+          p.openElements.clearBackToTableBodyContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
+          startTagInTable(p, token);
         }
         break;
       }
       default: {
-        startTagInTable(p2, token);
+        startTagInTable(p, token);
       }
     }
   }
-  function endTagInTableBody(p2, token) {
+  function endTagInTableBody(p, token) {
     const tn = token.tagID;
     switch (token.tagID) {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p2.openElements.hasInTableScope(tn)) {
-          p2.openElements.clearBackToTableBodyContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
+        if (p.openElements.hasInTableScope(tn)) {
+          p.openElements.clearBackToTableBodyContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasTableBodyContextInTableScope()) {
-          p2.openElements.clearBackToTableBodyContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
-          endTagInTable(p2, token);
+        if (p.openElements.hasTableBodyContextInTableScope()) {
+          p.openElements.clearBackToTableBodyContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
+          endTagInTable(p, token);
         }
         break;
       }
@@ -15089,18 +15089,18 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p2, token);
+        endTagInTable(p, token);
       }
     }
   }
-  function startTagInRow(p2, token) {
+  function startTagInRow(p, token) {
     switch (token.tagID) {
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p2.openElements.clearBackToTableRowContext();
-        p2._insertElement(token, NS.HTML);
-        p2.insertionMode = InsertionMode.IN_CELL;
-        p2.activeFormattingElements.insertMarker();
+        p.openElements.clearBackToTableRowContext();
+        p._insertElement(token, NS.HTML);
+        p.insertionMode = InsertionMode.IN_CELL;
+        p.activeFormattingElements.insertMarker();
         break;
       }
       case TAG_ID.CAPTION:
@@ -15110,46 +15110,46 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-          startTagInTableBody(p2, token);
+        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+          startTagInTableBody(p, token);
         }
         break;
       }
       default: {
-        startTagInTable(p2, token);
+        startTagInTable(p, token);
       }
     }
   }
-  function endTagInRow(p2, token) {
+  function endTagInRow(p, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p2, token);
+        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p, token);
         }
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p2.openElements.hasInTableScope(token.tagID) || p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p2, token);
+        if (p.openElements.hasInTableScope(token.tagID) || p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p, token);
         }
         break;
       }
@@ -15163,31 +15163,31 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p2, token);
+        endTagInTable(p, token);
       }
     }
   }
-  function startTagInCell(p2, token) {
+  function startTagInCell(p, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p2.openElements.hasInTableScope(TAG_ID.TD) || p2.openElements.hasInTableScope(TAG_ID.TH)) {
-        p2._closeTableCell();
-        startTagInRow(p2, token);
+      if (p.openElements.hasInTableScope(TAG_ID.TD) || p.openElements.hasInTableScope(TAG_ID.TH)) {
+        p._closeTableCell();
+        startTagInRow(p, token);
       }
     } else {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     }
   }
-  function endTagInCell(p2, token) {
+  function endTagInCell(p, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        if (p2.openElements.hasInTableScope(tn)) {
-          p2.openElements.generateImpliedEndTags();
-          p2.openElements.popUntilTagNamePopped(tn);
-          p2.activeFormattingElements.clearToLastMarker();
-          p2.insertionMode = InsertionMode.IN_ROW;
+        if (p.openElements.hasInTableScope(tn)) {
+          p.openElements.generateImpliedEndTags();
+          p.openElements.popUntilTagNamePopped(tn);
+          p.activeFormattingElements.clearToLastMarker();
+          p.insertionMode = InsertionMode.IN_ROW;
         }
         break;
       }
@@ -15196,9 +15196,9 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p2.openElements.hasInTableScope(tn)) {
-          p2._closeTableCell();
-          endTagInRow(p2, token);
+        if (p.openElements.hasInTableScope(tn)) {
+          p._closeTableCell();
+          endTagInRow(p, token);
         }
         break;
       }
@@ -15210,41 +15210,41 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p2, token);
+        endTagInBody(p, token);
       }
     }
   }
-  function startTagInSelect(p2, token) {
+  function startTagInSelect(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.OPTION: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
-        p2._insertElement(token, NS.HTML);
+        p._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.OPTGROUP: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
-        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
-        p2._insertElement(token, NS.HTML);
+        p._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.HR: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
-        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
@@ -15252,77 +15252,77 @@ var LNReaderPlugin = (() => {
       case TAG_ID.KEYGEN:
       case TAG_ID.TEXTAREA:
       case TAG_ID.SELECT: {
-        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p2._resetInsertionMode();
+        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p._resetInsertionMode();
           if (token.tagID !== TAG_ID.SELECT) {
-            p2._processStartTag(token);
+            p._processStartTag(token);
           }
         }
         break;
       }
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function endTagInSelect(p2, token) {
+  function endTagInSelect(p, token) {
     switch (token.tagID) {
       case TAG_ID.OPTGROUP: {
-        if (p2.openElements.stackTop > 0 && p2.openElements.currentTagId === TAG_ID.OPTION && p2.openElements.tagIDs[p2.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.stackTop > 0 && p.openElements.currentTagId === TAG_ID.OPTION && p.openElements.tagIDs[p.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
-        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
         break;
       }
       case TAG_ID.OPTION: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
         break;
       }
       case TAG_ID.SELECT: {
-        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p2._resetInsertionMode();
+        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function startTagInSelectInTable(p2, token) {
+  function startTagInSelectInTable(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-      p2._resetInsertionMode();
-      p2._processStartTag(token);
+      p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+      p._resetInsertionMode();
+      p._processStartTag(token);
     } else {
-      startTagInSelect(p2, token);
+      startTagInSelect(p, token);
     }
   }
-  function endTagInSelectInTable(p2, token) {
+  function endTagInSelectInTable(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      if (p2.openElements.hasInTableScope(tn)) {
-        p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-        p2._resetInsertionMode();
-        p2.onEndTag(token);
+      if (p.openElements.hasInTableScope(tn)) {
+        p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+        p._resetInsertionMode();
+        p.onEndTag(token);
       }
     } else {
-      endTagInSelect(p2, token);
+      endTagInSelect(p, token);
     }
   }
-  function startTagInTemplate(p2, token) {
+  function startTagInTemplate(p, token) {
     switch (token.tagID) {
       // First, handle tags that can start without a mode change
       case TAG_ID.BASE:
@@ -15335,7 +15335,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       // Re-process the token in the appropriate mode
@@ -15344,173 +15344,173 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
-        p2.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
+        p.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p, token);
         break;
       }
       case TAG_ID.COL: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
-        p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-        startTagInColumnGroup(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
+        p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+        startTagInColumnGroup(p, token);
         break;
       }
       case TAG_ID.TR: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
-        p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-        startTagInTableBody(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
+        p.insertionMode = InsertionMode.IN_TABLE_BODY;
+        startTagInTableBody(p, token);
         break;
       }
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
-        p2.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
+        p.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p, token);
         break;
       }
       default: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
-        p2.insertionMode = InsertionMode.IN_BODY;
-        startTagInBody(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
+        p.insertionMode = InsertionMode.IN_BODY;
+        startTagInBody(p, token);
       }
     }
   }
-  function endTagInTemplate(p2, token) {
+  function endTagInTemplate(p, token) {
     if (token.tagID === TAG_ID.TEMPLATE) {
-      templateEndTagInHead(p2, token);
+      templateEndTagInHead(p, token);
     }
   }
-  function eofInTemplate(p2, token) {
-    if (p2.openElements.tmplCount > 0) {
-      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p2.activeFormattingElements.clearToLastMarker();
-      p2.tmplInsertionModeStack.shift();
-      p2._resetInsertionMode();
-      p2.onEof(token);
+  function eofInTemplate(p, token) {
+    if (p.openElements.tmplCount > 0) {
+      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p.activeFormattingElements.clearToLastMarker();
+      p.tmplInsertionModeStack.shift();
+      p._resetInsertionMode();
+      p.onEof(token);
     } else {
-      stopParsing(p2, token);
+      stopParsing(p, token);
     }
   }
-  function startTagAfterBody(p2, token) {
+  function startTagAfterBody(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     } else {
-      tokenAfterBody(p2, token);
+      tokenAfterBody(p, token);
     }
   }
-  function endTagAfterBody(p2, token) {
+  function endTagAfterBody(p, token) {
     var _a;
     if (token.tagID === TAG_ID.HTML) {
-      if (!p2.fragmentContext) {
-        p2.insertionMode = InsertionMode.AFTER_AFTER_BODY;
+      if (!p.fragmentContext) {
+        p.insertionMode = InsertionMode.AFTER_AFTER_BODY;
       }
-      if (p2.options.sourceCodeLocationInfo && p2.openElements.tagIDs[0] === TAG_ID.HTML) {
-        p2._setEndLocation(p2.openElements.items[0], token);
-        const bodyElement = p2.openElements.items[1];
-        if (bodyElement && !((_a = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
-          p2._setEndLocation(bodyElement, token);
+      if (p.options.sourceCodeLocationInfo && p.openElements.tagIDs[0] === TAG_ID.HTML) {
+        p._setEndLocation(p.openElements.items[0], token);
+        const bodyElement = p.openElements.items[1];
+        if (bodyElement && !((_a = p.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
+          p._setEndLocation(bodyElement, token);
         }
       }
     } else {
-      tokenAfterBody(p2, token);
+      tokenAfterBody(p, token);
     }
   }
-  function tokenAfterBody(p2, token) {
-    p2.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p2, token);
+  function tokenAfterBody(p, token) {
+    p.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p, token);
   }
-  function startTagInFrameset(p2, token) {
+  function startTagInFrameset(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        p2._insertElement(token, NS.HTML);
+        p._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.FRAME: {
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function endTagInFrameset(p2, token) {
-    if (token.tagID === TAG_ID.FRAMESET && !p2.openElements.isRootHtmlElementCurrent()) {
-      p2.openElements.pop();
-      if (!p2.fragmentContext && p2.openElements.currentTagId !== TAG_ID.FRAMESET) {
-        p2.insertionMode = InsertionMode.AFTER_FRAMESET;
+  function endTagInFrameset(p, token) {
+    if (token.tagID === TAG_ID.FRAMESET && !p.openElements.isRootHtmlElementCurrent()) {
+      p.openElements.pop();
+      if (!p.fragmentContext && p.openElements.currentTagId !== TAG_ID.FRAMESET) {
+        p.insertionMode = InsertionMode.AFTER_FRAMESET;
       }
     }
   }
-  function startTagAfterFrameset(p2, token) {
+  function startTagAfterFrameset(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function endTagAfterFrameset(p2, token) {
+  function endTagAfterFrameset(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p2.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
+      p.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
     }
   }
-  function startTagAfterAfterBody(p2, token) {
+  function startTagAfterAfterBody(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     } else {
-      tokenAfterAfterBody(p2, token);
+      tokenAfterAfterBody(p, token);
     }
   }
-  function tokenAfterAfterBody(p2, token) {
-    p2.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p2, token);
+  function tokenAfterAfterBody(p, token) {
+    p.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p, token);
   }
-  function startTagAfterAfterFrameset(p2, token) {
+  function startTagAfterAfterFrameset(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function nullCharacterInForeignContent(p2, token) {
+  function nullCharacterInForeignContent(p, token) {
     token.chars = REPLACEMENT_CHARACTER;
-    p2._insertCharacters(token);
+    p._insertCharacters(token);
   }
-  function characterInForeignContent(p2, token) {
-    p2._insertCharacters(token);
-    p2.framesetOk = false;
+  function characterInForeignContent(p, token) {
+    p._insertCharacters(token);
+    p.framesetOk = false;
   }
-  function popUntilHtmlOrIntegrationPoint(p2) {
-    while (p2.treeAdapter.getNamespaceURI(p2.openElements.current) !== NS.HTML && !p2._isIntegrationPoint(p2.openElements.currentTagId, p2.openElements.current)) {
-      p2.openElements.pop();
+  function popUntilHtmlOrIntegrationPoint(p) {
+    while (p.treeAdapter.getNamespaceURI(p.openElements.current) !== NS.HTML && !p._isIntegrationPoint(p.openElements.currentTagId, p.openElements.current)) {
+      p.openElements.pop();
     }
   }
-  function startTagInForeignContent(p2, token) {
+  function startTagInForeignContent(p, token) {
     if (causesExit(token)) {
-      popUntilHtmlOrIntegrationPoint(p2);
-      p2._startTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p);
+      p._startTagOutsideForeignContent(token);
     } else {
-      const current = p2._getAdjustedCurrentElement();
-      const currentNs = p2.treeAdapter.getNamespaceURI(current);
+      const current = p._getAdjustedCurrentElement();
+      const currentNs = p.treeAdapter.getNamespaceURI(current);
       if (currentNs === NS.MATHML) {
         adjustTokenMathMLAttrs(token);
       } else if (currentNs === NS.SVG) {
@@ -15519,29 +15519,29 @@ var LNReaderPlugin = (() => {
       }
       adjustTokenXMLAttrs(token);
       if (token.selfClosing) {
-        p2._appendElement(token, currentNs);
+        p._appendElement(token, currentNs);
       } else {
-        p2._insertElement(token, currentNs);
+        p._insertElement(token, currentNs);
       }
       token.ackSelfClosing = true;
     }
   }
-  function endTagInForeignContent(p2, token) {
+  function endTagInForeignContent(p, token) {
     if (token.tagID === TAG_ID.P || token.tagID === TAG_ID.BR) {
-      popUntilHtmlOrIntegrationPoint(p2);
-      p2._endTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p);
+      p._endTagOutsideForeignContent(token);
       return;
     }
-    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
-      const element = p2.openElements.items[i2];
-      if (p2.treeAdapter.getNamespaceURI(element) === NS.HTML) {
-        p2._endTagOutsideForeignContent(token);
+    for (let i = p.openElements.stackTop; i > 0; i--) {
+      const element = p.openElements.items[i];
+      if (p.treeAdapter.getNamespaceURI(element) === NS.HTML) {
+        p._endTagOutsideForeignContent(token);
         break;
       }
-      const tagName = p2.treeAdapter.getTagName(element);
+      const tagName = p.treeAdapter.getTagName(element);
       if (tagName.toLowerCase() === token.tagName) {
         token.tagName = tagName;
-        p2.openElements.shortenToLength(i2);
+        p.openElements.shortenToLength(i);
         break;
       }
     }
@@ -15983,8 +15983,8 @@ var LNReaderPlugin = (() => {
           if (listLength) {
             const endIndex = this.activeFormattingElements.entries.findIndex((entry) => entry.type === EntryType.Marker || this.openElements.contains(entry.element));
             const unopenIdx = endIndex < 0 ? listLength - 1 : endIndex - 1;
-            for (let i2 = unopenIdx; i2 >= 0; i2--) {
-              const entry = this.activeFormattingElements.entries[i2];
+            for (let i = unopenIdx; i >= 0; i--) {
+              const entry = this.activeFormattingElements.entries[i];
               this._insertElement(entry.token, this.treeAdapter.getNamespaceURI(entry.element));
               entry.element = this.openElements.current;
             }
@@ -16006,8 +16006,8 @@ var LNReaderPlugin = (() => {
         //Insertion modes
         /** @protected */
         _resetInsertionMode() {
-          for (let i2 = this.openElements.stackTop; i2 >= 0; i2--) {
-            switch (i2 === 0 && this.fragmentContext ? this.fragmentContextID : this.openElements.tagIDs[i2]) {
+          for (let i = this.openElements.stackTop; i >= 0; i--) {
+            switch (i === 0 && this.fragmentContext ? this.fragmentContextID : this.openElements.tagIDs[i]) {
               case TAG_ID.TR: {
                 this.insertionMode = InsertionMode.IN_ROW;
                 return;
@@ -16039,7 +16039,7 @@ var LNReaderPlugin = (() => {
                 return;
               }
               case TAG_ID.SELECT: {
-                this._resetInsertionModeForSelect(i2);
+                this._resetInsertionModeForSelect(i);
                 return;
               }
               case TAG_ID.TEMPLATE: {
@@ -16052,14 +16052,14 @@ var LNReaderPlugin = (() => {
               }
               case TAG_ID.TD:
               case TAG_ID.TH: {
-                if (i2 > 0) {
+                if (i > 0) {
                   this.insertionMode = InsertionMode.IN_CELL;
                   return;
                 }
                 break;
               }
               case TAG_ID.HEAD: {
-                if (i2 > 0) {
+                if (i > 0) {
                   this.insertionMode = InsertionMode.IN_HEAD;
                   return;
                 }
@@ -16072,8 +16072,8 @@ var LNReaderPlugin = (() => {
         /** @protected */
         _resetInsertionModeForSelect(selectIdx) {
           if (selectIdx > 0) {
-            for (let i2 = selectIdx - 1; i2 > 0; i2--) {
-              const tn = this.openElements.tagIDs[i2];
+            for (let i = selectIdx - 1; i > 0; i--) {
+              const tn = this.openElements.tagIDs[i];
               if (tn === TAG_ID.TEMPLATE) {
                 break;
               } else if (tn === TAG_ID.TABLE) {
@@ -16095,9 +16095,9 @@ var LNReaderPlugin = (() => {
         }
         /** @protected */
         _findFosterParentingLocation() {
-          for (let i2 = this.openElements.stackTop; i2 >= 0; i2--) {
-            const openElement = this.openElements.items[i2];
-            switch (this.openElements.tagIDs[i2]) {
+          for (let i = this.openElements.stackTop; i >= 0; i--) {
+            const openElement = this.openElements.items[i];
+            switch (this.openElements.tagIDs[i]) {
               case TAG_ID.TEMPLATE: {
                 if (this.treeAdapter.getNamespaceURI(openElement) === NS.HTML) {
                   return { parent: this.treeAdapter.getTemplateContent(openElement), beforeElement: null };
@@ -16109,7 +16109,7 @@ var LNReaderPlugin = (() => {
                 if (parent2) {
                   return { parent: parent2, beforeElement: openElement };
                 }
-                return { parent: this.openElements.items[i2 - 1], beforeElement: null };
+                return { parent: this.openElements.items[i - 1], beforeElement: null };
               }
               default:
             }
@@ -17012,11 +17012,11 @@ var LNReaderPlugin = (() => {
           const attribs = /* @__PURE__ */ Object.create(null);
           const attribsNamespace = /* @__PURE__ */ Object.create(null);
           const attribsPrefix = /* @__PURE__ */ Object.create(null);
-          for (let i2 = 0; i2 < attrs.length; i2++) {
-            const attrName = attrs[i2].name;
-            attribs[attrName] = attrs[i2].value;
-            attribsNamespace[attrName] = attrs[i2].namespace;
-            attribsPrefix[attrName] = attrs[i2].prefix;
+          for (let i = 0; i < attrs.length; i++) {
+            const attrName = attrs[i].name;
+            attribs[attrName] = attrs[i].value;
+            attribsNamespace[attrName] = attrs[i].namespace;
+            attribsPrefix[attrName] = attrs[i].prefix;
           }
           const node = new import_domhandler7.Element(tagName, attribs, []);
           node.namespace = namespaceURI;
@@ -17110,12 +17110,12 @@ var LNReaderPlugin = (() => {
           }
         },
         adoptAttributes(recipient, attrs) {
-          for (let i2 = 0; i2 < attrs.length; i2++) {
-            const attrName = attrs[i2].name;
+          for (let i = 0; i < attrs.length; i++) {
+            const attrName = attrs[i].name;
             if (recipient.attribs[attrName] === void 0) {
-              recipient.attribs[attrName] = attrs[i2].value;
-              recipient["x-attribsNamespace"][attrName] = attrs[i2].namespace;
-              recipient["x-attribsPrefix"][attrName] = attrs[i2].prefix;
+              recipient.attribs[attrName] = attrs[i].value;
+              recipient["x-attribsNamespace"][attrName] = attrs[i].namespace;
+              recipient["x-attribsPrefix"][attrName] = attrs[i].prefix;
             }
           }
         },
@@ -17292,16 +17292,16 @@ var LNReaderPlugin = (() => {
         State3[State3["InSpecialTag"] = 25] = "InSpecialTag";
         State3[State3["InEntity"] = 26] = "InEntity";
       })(State2 || (State2 = {}));
-      function isWhitespace3(c2) {
-        return c2 === CharCodes.Space || c2 === CharCodes.NewLine || c2 === CharCodes.Tab || c2 === CharCodes.FormFeed || c2 === CharCodes.CarriageReturn;
+      function isWhitespace3(c) {
+        return c === CharCodes.Space || c === CharCodes.NewLine || c === CharCodes.Tab || c === CharCodes.FormFeed || c === CharCodes.CarriageReturn;
       }
       __name(isWhitespace3, "isWhitespace");
-      function isEndOfTagSection(c2) {
-        return c2 === CharCodes.Slash || c2 === CharCodes.Gt || isWhitespace3(c2);
+      function isEndOfTagSection(c) {
+        return c === CharCodes.Slash || c === CharCodes.Gt || isWhitespace3(c);
       }
       __name(isEndOfTagSection, "isEndOfTagSection");
-      function isASCIIAlpha(c2) {
-        return c2 >= CharCodes.LowerA && c2 <= CharCodes.LowerZ || c2 >= CharCodes.UpperA && c2 <= CharCodes.UpperZ;
+      function isASCIIAlpha(c) {
+        return c >= CharCodes.LowerA && c <= CharCodes.LowerZ || c >= CharCodes.UpperA && c <= CharCodes.UpperZ;
       }
       __name(isASCIIAlpha, "isASCIIAlpha");
       var QuoteType;
@@ -17391,25 +17391,25 @@ var LNReaderPlugin = (() => {
               this.parse();
             }
           };
-          Tokenizer3.prototype.stateText = function(c2) {
-            if (c2 === CharCodes.Lt || !this.decodeEntities && this.fastForwardTo(CharCodes.Lt)) {
+          Tokenizer3.prototype.stateText = function(c) {
+            if (c === CharCodes.Lt || !this.decodeEntities && this.fastForwardTo(CharCodes.Lt)) {
               if (this.index > this.sectionStart) {
                 this.cbs.ontext(this.sectionStart, this.index);
               }
               this.state = State2.BeforeTagName;
               this.sectionStart = this.index;
-            } else if (this.decodeEntities && c2 === CharCodes.Amp) {
+            } else if (this.decodeEntities && c === CharCodes.Amp) {
               this.startEntity();
             }
           };
-          Tokenizer3.prototype.stateSpecialStartSequence = function(c2) {
+          Tokenizer3.prototype.stateSpecialStartSequence = function(c) {
             var isEnd = this.sequenceIndex === this.currentSequence.length;
             var isMatch = isEnd ? (
               // If we are at the end of the sequence, make sure the tag name has ended
-              isEndOfTagSection(c2)
+              isEndOfTagSection(c)
             ) : (
               // Otherwise, do a case-insensitive comparison
-              (c2 | 32) === this.currentSequence[this.sequenceIndex]
+              (c | 32) === this.currentSequence[this.sequenceIndex]
             );
             if (!isMatch) {
               this.isSpecial = false;
@@ -17419,11 +17419,11 @@ var LNReaderPlugin = (() => {
             }
             this.sequenceIndex = 0;
             this.state = State2.InTagName;
-            this.stateInTagName(c2);
+            this.stateInTagName(c);
           };
-          Tokenizer3.prototype.stateInSpecialTag = function(c2) {
+          Tokenizer3.prototype.stateInSpecialTag = function(c) {
             if (this.sequenceIndex === this.currentSequence.length) {
-              if (c2 === CharCodes.Gt || isWhitespace3(c2)) {
+              if (c === CharCodes.Gt || isWhitespace3(c)) {
                 var endOfText = this.index - this.currentSequence.length;
                 if (this.sectionStart < endOfText) {
                   var actualIndex = this.index;
@@ -17433,27 +17433,27 @@ var LNReaderPlugin = (() => {
                 }
                 this.isSpecial = false;
                 this.sectionStart = endOfText + 2;
-                this.stateInClosingTagName(c2);
+                this.stateInClosingTagName(c);
                 return;
               }
               this.sequenceIndex = 0;
             }
-            if ((c2 | 32) === this.currentSequence[this.sequenceIndex]) {
+            if ((c | 32) === this.currentSequence[this.sequenceIndex]) {
               this.sequenceIndex += 1;
             } else if (this.sequenceIndex === 0) {
               if (this.currentSequence === Sequences.TitleEnd) {
-                if (this.decodeEntities && c2 === CharCodes.Amp) {
+                if (this.decodeEntities && c === CharCodes.Amp) {
                   this.startEntity();
                 }
               } else if (this.fastForwardTo(CharCodes.Lt)) {
                 this.sequenceIndex = 1;
               }
             } else {
-              this.sequenceIndex = Number(c2 === CharCodes.Lt);
+              this.sequenceIndex = Number(c === CharCodes.Lt);
             }
           };
-          Tokenizer3.prototype.stateCDATASequence = function(c2) {
-            if (c2 === Sequences.Cdata[this.sequenceIndex]) {
+          Tokenizer3.prototype.stateCDATASequence = function(c) {
+            if (c === Sequences.Cdata[this.sequenceIndex]) {
               if (++this.sequenceIndex === Sequences.Cdata.length) {
                 this.state = State2.InCommentLike;
                 this.currentSequence = Sequences.CdataEnd;
@@ -17463,20 +17463,20 @@ var LNReaderPlugin = (() => {
             } else {
               this.sequenceIndex = 0;
               this.state = State2.InDeclaration;
-              this.stateInDeclaration(c2);
+              this.stateInDeclaration(c);
             }
           };
-          Tokenizer3.prototype.fastForwardTo = function(c2) {
+          Tokenizer3.prototype.fastForwardTo = function(c) {
             while (++this.index < this.buffer.length + this.offset) {
-              if (this.buffer.charCodeAt(this.index - this.offset) === c2) {
+              if (this.buffer.charCodeAt(this.index - this.offset) === c) {
                 return true;
               }
             }
             this.index = this.buffer.length + this.offset - 1;
             return false;
           };
-          Tokenizer3.prototype.stateInCommentLike = function(c2) {
-            if (c2 === this.currentSequence[this.sequenceIndex]) {
+          Tokenizer3.prototype.stateInCommentLike = function(c) {
+            if (c === this.currentSequence[this.sequenceIndex]) {
               if (++this.sequenceIndex === this.currentSequence.length) {
                 if (this.currentSequence === Sequences.CdataEnd) {
                   this.cbs.oncdata(this.sectionStart, this.index, 2);
@@ -17491,12 +17491,12 @@ var LNReaderPlugin = (() => {
               if (this.fastForwardTo(this.currentSequence[0])) {
                 this.sequenceIndex = 1;
               }
-            } else if (c2 !== this.currentSequence[this.sequenceIndex - 1]) {
+            } else if (c !== this.currentSequence[this.sequenceIndex - 1]) {
               this.sequenceIndex = 0;
             }
           };
-          Tokenizer3.prototype.isTagStartChar = function(c2) {
-            return this.xmlMode ? !isEndOfTagSection(c2) : isASCIIAlpha(c2);
+          Tokenizer3.prototype.isTagStartChar = function(c) {
+            return this.xmlMode ? !isEndOfTagSection(c) : isASCIIAlpha(c);
           };
           Tokenizer3.prototype.startSpecial = function(sequence, offset) {
             this.isSpecial = true;
@@ -17504,15 +17504,15 @@ var LNReaderPlugin = (() => {
             this.sequenceIndex = offset;
             this.state = State2.SpecialStartSequence;
           };
-          Tokenizer3.prototype.stateBeforeTagName = function(c2) {
-            if (c2 === CharCodes.ExclamationMark) {
+          Tokenizer3.prototype.stateBeforeTagName = function(c) {
+            if (c === CharCodes.ExclamationMark) {
               this.state = State2.BeforeDeclaration;
               this.sectionStart = this.index + 1;
-            } else if (c2 === CharCodes.Questionmark) {
+            } else if (c === CharCodes.Questionmark) {
               this.state = State2.InProcessingInstruction;
               this.sectionStart = this.index + 1;
-            } else if (this.isTagStartChar(c2)) {
-              var lower = c2 | 32;
+            } else if (this.isTagStartChar(c)) {
+              var lower = c | 32;
               this.sectionStart = this.index;
               if (this.xmlMode) {
                 this.state = State2.InTagName;
@@ -17523,46 +17523,46 @@ var LNReaderPlugin = (() => {
               } else {
                 this.state = State2.InTagName;
               }
-            } else if (c2 === CharCodes.Slash) {
+            } else if (c === CharCodes.Slash) {
               this.state = State2.BeforeClosingTagName;
             } else {
               this.state = State2.Text;
-              this.stateText(c2);
+              this.stateText(c);
             }
           };
-          Tokenizer3.prototype.stateInTagName = function(c2) {
-            if (isEndOfTagSection(c2)) {
+          Tokenizer3.prototype.stateInTagName = function(c) {
+            if (isEndOfTagSection(c)) {
               this.cbs.onopentagname(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c2);
+              this.stateBeforeAttributeName(c);
             }
           };
-          Tokenizer3.prototype.stateBeforeClosingTagName = function(c2) {
-            if (isWhitespace3(c2)) {
-            } else if (c2 === CharCodes.Gt) {
+          Tokenizer3.prototype.stateBeforeClosingTagName = function(c) {
+            if (isWhitespace3(c)) {
+            } else if (c === CharCodes.Gt) {
               this.state = State2.Text;
             } else {
-              this.state = this.isTagStartChar(c2) ? State2.InClosingTagName : State2.InSpecialComment;
+              this.state = this.isTagStartChar(c) ? State2.InClosingTagName : State2.InSpecialComment;
               this.sectionStart = this.index;
             }
           };
-          Tokenizer3.prototype.stateInClosingTagName = function(c2) {
-            if (c2 === CharCodes.Gt || isWhitespace3(c2)) {
+          Tokenizer3.prototype.stateInClosingTagName = function(c) {
+            if (c === CharCodes.Gt || isWhitespace3(c)) {
               this.cbs.onclosetag(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.state = State2.AfterClosingTagName;
-              this.stateAfterClosingTagName(c2);
+              this.stateAfterClosingTagName(c);
             }
           };
-          Tokenizer3.prototype.stateAfterClosingTagName = function(c2) {
-            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateAfterClosingTagName = function(c) {
+            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateBeforeAttributeName = function(c2) {
-            if (c2 === CharCodes.Gt) {
+          Tokenizer3.prototype.stateBeforeAttributeName = function(c) {
+            if (c === CharCodes.Gt) {
               this.cbs.onopentagend(this.index);
               if (this.isSpecial) {
                 this.state = State2.InSpecialTag;
@@ -17571,110 +17571,110 @@ var LNReaderPlugin = (() => {
                 this.state = State2.Text;
               }
               this.sectionStart = this.index + 1;
-            } else if (c2 === CharCodes.Slash) {
+            } else if (c === CharCodes.Slash) {
               this.state = State2.InSelfClosingTag;
-            } else if (!isWhitespace3(c2)) {
+            } else if (!isWhitespace3(c)) {
               this.state = State2.InAttributeName;
               this.sectionStart = this.index;
             }
           };
-          Tokenizer3.prototype.stateInSelfClosingTag = function(c2) {
-            if (c2 === CharCodes.Gt) {
+          Tokenizer3.prototype.stateInSelfClosingTag = function(c) {
+            if (c === CharCodes.Gt) {
               this.cbs.onselfclosingtag(this.index);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
               this.isSpecial = false;
-            } else if (!isWhitespace3(c2)) {
+            } else if (!isWhitespace3(c)) {
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c2);
+              this.stateBeforeAttributeName(c);
             }
           };
-          Tokenizer3.prototype.stateInAttributeName = function(c2) {
-            if (c2 === CharCodes.Eq || isEndOfTagSection(c2)) {
+          Tokenizer3.prototype.stateInAttributeName = function(c) {
+            if (c === CharCodes.Eq || isEndOfTagSection(c)) {
               this.cbs.onattribname(this.sectionStart, this.index);
               this.sectionStart = this.index;
               this.state = State2.AfterAttributeName;
-              this.stateAfterAttributeName(c2);
+              this.stateAfterAttributeName(c);
             }
           };
-          Tokenizer3.prototype.stateAfterAttributeName = function(c2) {
-            if (c2 === CharCodes.Eq) {
+          Tokenizer3.prototype.stateAfterAttributeName = function(c) {
+            if (c === CharCodes.Eq) {
               this.state = State2.BeforeAttributeValue;
-            } else if (c2 === CharCodes.Slash || c2 === CharCodes.Gt) {
+            } else if (c === CharCodes.Slash || c === CharCodes.Gt) {
               this.cbs.onattribend(QuoteType.NoValue, this.sectionStart);
               this.sectionStart = -1;
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c2);
-            } else if (!isWhitespace3(c2)) {
+              this.stateBeforeAttributeName(c);
+            } else if (!isWhitespace3(c)) {
               this.cbs.onattribend(QuoteType.NoValue, this.sectionStart);
               this.state = State2.InAttributeName;
               this.sectionStart = this.index;
             }
           };
-          Tokenizer3.prototype.stateBeforeAttributeValue = function(c2) {
-            if (c2 === CharCodes.DoubleQuote) {
+          Tokenizer3.prototype.stateBeforeAttributeValue = function(c) {
+            if (c === CharCodes.DoubleQuote) {
               this.state = State2.InAttributeValueDq;
               this.sectionStart = this.index + 1;
-            } else if (c2 === CharCodes.SingleQuote) {
+            } else if (c === CharCodes.SingleQuote) {
               this.state = State2.InAttributeValueSq;
               this.sectionStart = this.index + 1;
-            } else if (!isWhitespace3(c2)) {
+            } else if (!isWhitespace3(c)) {
               this.sectionStart = this.index;
               this.state = State2.InAttributeValueNq;
-              this.stateInAttributeValueNoQuotes(c2);
+              this.stateInAttributeValueNoQuotes(c);
             }
           };
-          Tokenizer3.prototype.handleInAttributeValue = function(c2, quote) {
-            if (c2 === quote || !this.decodeEntities && this.fastForwardTo(quote)) {
+          Tokenizer3.prototype.handleInAttributeValue = function(c, quote) {
+            if (c === quote || !this.decodeEntities && this.fastForwardTo(quote)) {
               this.cbs.onattribdata(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.cbs.onattribend(quote === CharCodes.DoubleQuote ? QuoteType.Double : QuoteType.Single, this.index + 1);
               this.state = State2.BeforeAttributeName;
-            } else if (this.decodeEntities && c2 === CharCodes.Amp) {
+            } else if (this.decodeEntities && c === CharCodes.Amp) {
               this.startEntity();
             }
           };
-          Tokenizer3.prototype.stateInAttributeValueDoubleQuotes = function(c2) {
-            this.handleInAttributeValue(c2, CharCodes.DoubleQuote);
+          Tokenizer3.prototype.stateInAttributeValueDoubleQuotes = function(c) {
+            this.handleInAttributeValue(c, CharCodes.DoubleQuote);
           };
-          Tokenizer3.prototype.stateInAttributeValueSingleQuotes = function(c2) {
-            this.handleInAttributeValue(c2, CharCodes.SingleQuote);
+          Tokenizer3.prototype.stateInAttributeValueSingleQuotes = function(c) {
+            this.handleInAttributeValue(c, CharCodes.SingleQuote);
           };
-          Tokenizer3.prototype.stateInAttributeValueNoQuotes = function(c2) {
-            if (isWhitespace3(c2) || c2 === CharCodes.Gt) {
+          Tokenizer3.prototype.stateInAttributeValueNoQuotes = function(c) {
+            if (isWhitespace3(c) || c === CharCodes.Gt) {
               this.cbs.onattribdata(this.sectionStart, this.index);
               this.sectionStart = -1;
               this.cbs.onattribend(QuoteType.Unquoted, this.index);
               this.state = State2.BeforeAttributeName;
-              this.stateBeforeAttributeName(c2);
-            } else if (this.decodeEntities && c2 === CharCodes.Amp) {
+              this.stateBeforeAttributeName(c);
+            } else if (this.decodeEntities && c === CharCodes.Amp) {
               this.startEntity();
             }
           };
-          Tokenizer3.prototype.stateBeforeDeclaration = function(c2) {
-            if (c2 === CharCodes.OpeningSquareBracket) {
+          Tokenizer3.prototype.stateBeforeDeclaration = function(c) {
+            if (c === CharCodes.OpeningSquareBracket) {
               this.state = State2.CDATASequence;
               this.sequenceIndex = 0;
             } else {
-              this.state = c2 === CharCodes.Dash ? State2.BeforeComment : State2.InDeclaration;
+              this.state = c === CharCodes.Dash ? State2.BeforeComment : State2.InDeclaration;
             }
           };
-          Tokenizer3.prototype.stateInDeclaration = function(c2) {
-            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateInDeclaration = function(c) {
+            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.cbs.ondeclaration(this.sectionStart, this.index);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateInProcessingInstruction = function(c2) {
-            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateInProcessingInstruction = function(c) {
+            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.cbs.onprocessinginstruction(this.sectionStart, this.index);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateBeforeComment = function(c2) {
-            if (c2 === CharCodes.Dash) {
+          Tokenizer3.prototype.stateBeforeComment = function(c) {
+            if (c === CharCodes.Dash) {
               this.state = State2.InCommentLike;
               this.currentSequence = Sequences.CommentEnd;
               this.sequenceIndex = 2;
@@ -17683,33 +17683,33 @@ var LNReaderPlugin = (() => {
               this.state = State2.InDeclaration;
             }
           };
-          Tokenizer3.prototype.stateInSpecialComment = function(c2) {
-            if (c2 === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
+          Tokenizer3.prototype.stateInSpecialComment = function(c) {
+            if (c === CharCodes.Gt || this.fastForwardTo(CharCodes.Gt)) {
               this.cbs.oncomment(this.sectionStart, this.index, 0);
               this.state = State2.Text;
               this.sectionStart = this.index + 1;
             }
           };
-          Tokenizer3.prototype.stateBeforeSpecialS = function(c2) {
-            var lower = c2 | 32;
+          Tokenizer3.prototype.stateBeforeSpecialS = function(c) {
+            var lower = c | 32;
             if (lower === Sequences.ScriptEnd[3]) {
               this.startSpecial(Sequences.ScriptEnd, 4);
             } else if (lower === Sequences.StyleEnd[3]) {
               this.startSpecial(Sequences.StyleEnd, 4);
             } else {
               this.state = State2.InTagName;
-              this.stateInTagName(c2);
+              this.stateInTagName(c);
             }
           };
-          Tokenizer3.prototype.stateBeforeSpecialT = function(c2) {
-            var lower = c2 | 32;
+          Tokenizer3.prototype.stateBeforeSpecialT = function(c) {
+            var lower = c | 32;
             if (lower === Sequences.TitleEnd[3]) {
               this.startSpecial(Sequences.TitleEnd, 4);
             } else if (lower === Sequences.TextareaEnd[3]) {
               this.startSpecial(Sequences.TextareaEnd, 4);
             } else {
               this.state = State2.InTagName;
-              this.stateInTagName(c2);
+              this.stateInTagName(c);
             }
           };
           Tokenizer3.prototype.startEntity = function() {
@@ -17745,106 +17745,106 @@ var LNReaderPlugin = (() => {
           };
           Tokenizer3.prototype.parse = function() {
             while (this.shouldContinue()) {
-              var c2 = this.buffer.charCodeAt(this.index - this.offset);
+              var c = this.buffer.charCodeAt(this.index - this.offset);
               switch (this.state) {
                 case State2.Text: {
-                  this.stateText(c2);
+                  this.stateText(c);
                   break;
                 }
                 case State2.SpecialStartSequence: {
-                  this.stateSpecialStartSequence(c2);
+                  this.stateSpecialStartSequence(c);
                   break;
                 }
                 case State2.InSpecialTag: {
-                  this.stateInSpecialTag(c2);
+                  this.stateInSpecialTag(c);
                   break;
                 }
                 case State2.CDATASequence: {
-                  this.stateCDATASequence(c2);
+                  this.stateCDATASequence(c);
                   break;
                 }
                 case State2.InAttributeValueDq: {
-                  this.stateInAttributeValueDoubleQuotes(c2);
+                  this.stateInAttributeValueDoubleQuotes(c);
                   break;
                 }
                 case State2.InAttributeName: {
-                  this.stateInAttributeName(c2);
+                  this.stateInAttributeName(c);
                   break;
                 }
                 case State2.InCommentLike: {
-                  this.stateInCommentLike(c2);
+                  this.stateInCommentLike(c);
                   break;
                 }
                 case State2.InSpecialComment: {
-                  this.stateInSpecialComment(c2);
+                  this.stateInSpecialComment(c);
                   break;
                 }
                 case State2.BeforeAttributeName: {
-                  this.stateBeforeAttributeName(c2);
+                  this.stateBeforeAttributeName(c);
                   break;
                 }
                 case State2.InTagName: {
-                  this.stateInTagName(c2);
+                  this.stateInTagName(c);
                   break;
                 }
                 case State2.InClosingTagName: {
-                  this.stateInClosingTagName(c2);
+                  this.stateInClosingTagName(c);
                   break;
                 }
                 case State2.BeforeTagName: {
-                  this.stateBeforeTagName(c2);
+                  this.stateBeforeTagName(c);
                   break;
                 }
                 case State2.AfterAttributeName: {
-                  this.stateAfterAttributeName(c2);
+                  this.stateAfterAttributeName(c);
                   break;
                 }
                 case State2.InAttributeValueSq: {
-                  this.stateInAttributeValueSingleQuotes(c2);
+                  this.stateInAttributeValueSingleQuotes(c);
                   break;
                 }
                 case State2.BeforeAttributeValue: {
-                  this.stateBeforeAttributeValue(c2);
+                  this.stateBeforeAttributeValue(c);
                   break;
                 }
                 case State2.BeforeClosingTagName: {
-                  this.stateBeforeClosingTagName(c2);
+                  this.stateBeforeClosingTagName(c);
                   break;
                 }
                 case State2.AfterClosingTagName: {
-                  this.stateAfterClosingTagName(c2);
+                  this.stateAfterClosingTagName(c);
                   break;
                 }
                 case State2.BeforeSpecialS: {
-                  this.stateBeforeSpecialS(c2);
+                  this.stateBeforeSpecialS(c);
                   break;
                 }
                 case State2.BeforeSpecialT: {
-                  this.stateBeforeSpecialT(c2);
+                  this.stateBeforeSpecialT(c);
                   break;
                 }
                 case State2.InAttributeValueNq: {
-                  this.stateInAttributeValueNoQuotes(c2);
+                  this.stateInAttributeValueNoQuotes(c);
                   break;
                 }
                 case State2.InSelfClosingTag: {
-                  this.stateInSelfClosingTag(c2);
+                  this.stateInSelfClosingTag(c);
                   break;
                 }
                 case State2.InDeclaration: {
-                  this.stateInDeclaration(c2);
+                  this.stateInDeclaration(c);
                   break;
                 }
                 case State2.BeforeDeclaration: {
-                  this.stateBeforeDeclaration(c2);
+                  this.stateBeforeDeclaration(c);
                   break;
                 }
                 case State2.BeforeComment: {
-                  this.stateBeforeComment(c2);
+                  this.stateBeforeComment(c);
                   break;
                 }
                 case State2.InProcessingInstruction: {
-                  this.stateInProcessingInstruction(c2);
+                  this.stateInProcessingInstruction(c);
                   break;
                 }
                 case State2.InEntity: {
@@ -17911,7 +17911,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -17919,15 +17919,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18350,7 +18350,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -18358,15 +18358,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18530,85 +18530,85 @@ var LNReaderPlugin = (() => {
       init_process2();
       var base64 = exports4;
       base64.length = /* @__PURE__ */ __name(function length(string) {
-        var p2 = string.length;
-        if (!p2)
+        var p = string.length;
+        if (!p)
           return 0;
         var n2 = 0;
-        while (--p2 % 4 > 1 && string.charAt(p2) === "=")
+        while (--p % 4 > 1 && string.charAt(p) === "=")
           ++n2;
         return Math.ceil(string.length * 3) / 4 - n2;
       }, "length");
       var b64 = new Array(64);
       var s64 = new Array(123);
-      for (i2 = 0; i2 < 64; )
-        s64[b64[i2] = i2 < 26 ? i2 + 65 : i2 < 52 ? i2 + 71 : i2 < 62 ? i2 - 4 : i2 - 59 | 43] = i2++;
+      for (i = 0; i < 64; )
+        s64[b64[i] = i < 26 ? i + 65 : i < 52 ? i + 71 : i < 62 ? i - 4 : i - 59 | 43] = i++;
       base64.encode = /* @__PURE__ */ __name(function encode(buffer, start, end2) {
         var parts = null, chunk = [];
-        var i3 = 0, j = 0, t2;
+        var i2 = 0, j = 0, t2;
         while (start < end2) {
           var b = buffer[start++];
           switch (j) {
             case 0:
-              chunk[i3++] = b64[b >> 2];
+              chunk[i2++] = b64[b >> 2];
               t2 = (b & 3) << 4;
               j = 1;
               break;
             case 1:
-              chunk[i3++] = b64[t2 | b >> 4];
+              chunk[i2++] = b64[t2 | b >> 4];
               t2 = (b & 15) << 2;
               j = 2;
               break;
             case 2:
-              chunk[i3++] = b64[t2 | b >> 6];
-              chunk[i3++] = b64[b & 63];
+              chunk[i2++] = b64[t2 | b >> 6];
+              chunk[i2++] = b64[b & 63];
               j = 0;
               break;
           }
-          if (i3 > 8191) {
+          if (i2 > 8191) {
             (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
-            i3 = 0;
+            i2 = 0;
           }
         }
         if (j) {
-          chunk[i3++] = b64[t2];
-          chunk[i3++] = 61;
+          chunk[i2++] = b64[t2];
+          chunk[i2++] = 61;
           if (j === 1)
-            chunk[i3++] = 61;
+            chunk[i2++] = 61;
         }
         if (parts) {
-          if (i3)
-            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i3)));
+          if (i2)
+            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
           return parts.join("");
         }
-        return String.fromCharCode.apply(String, chunk.slice(0, i3));
+        return String.fromCharCode.apply(String, chunk.slice(0, i2));
       }, "encode");
       var invalidEncoding = "invalid encoding";
       base64.decode = /* @__PURE__ */ __name(function decode(string, buffer, offset) {
         var start = offset;
         var j = 0, t2;
-        for (var i3 = 0; i3 < string.length; ) {
-          var c2 = string.charCodeAt(i3++);
-          if (c2 === 61 && j > 1)
+        for (var i2 = 0; i2 < string.length; ) {
+          var c = string.charCodeAt(i2++);
+          if (c === 61 && j > 1)
             break;
-          if ((c2 = s64[c2]) === void 0)
+          if ((c = s64[c]) === void 0)
             throw Error(invalidEncoding);
           switch (j) {
             case 0:
-              t2 = c2;
+              t2 = c;
               j = 1;
               break;
             case 1:
-              buffer[offset++] = t2 << 2 | (c2 & 48) >> 4;
-              t2 = c2;
+              buffer[offset++] = t2 << 2 | (c & 48) >> 4;
+              t2 = c;
               j = 2;
               break;
             case 2:
-              buffer[offset++] = (t2 & 15) << 4 | (c2 & 60) >> 2;
-              t2 = c2;
+              buffer[offset++] = (t2 & 15) << 4 | (c & 60) >> 2;
+              t2 = c;
               j = 3;
               break;
             case 3:
-              buffer[offset++] = (t2 & 3) << 6 | c2;
+              buffer[offset++] = (t2 & 3) << 6 | c;
               j = 0;
               break;
           }
@@ -18620,7 +18620,7 @@ var LNReaderPlugin = (() => {
       base64.test = /* @__PURE__ */ __name(function test(string) {
         return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(string);
       }, "test");
-      var i2;
+      var i;
     }
   });
 
@@ -18653,11 +18653,11 @@ var LNReaderPlugin = (() => {
             var listeners2 = this._listeners[evt];
             if (!listeners2)
               return this;
-            for (var i2 = 0; i2 < listeners2.length; )
-              if (listeners2[i2].fn === fn)
-                listeners2.splice(i2, 1);
+            for (var i = 0; i < listeners2.length; )
+              if (listeners2[i].fn === fn)
+                listeners2.splice(i, 1);
               else
-                ++i2;
+                ++i;
           }
         }
         return this;
@@ -18665,11 +18665,11 @@ var LNReaderPlugin = (() => {
       EventEmitter.prototype.emit = /* @__PURE__ */ __name(function emit2(evt) {
         var listeners2 = this._listeners[evt];
         if (listeners2) {
-          var args = [], i2 = 1;
-          for (; i2 < arguments.length; )
-            args.push(arguments[i2++]);
-          for (i2 = 0; i2 < listeners2.length; )
-            listeners2[i2].fn.apply(listeners2[i2++].ctx, args);
+          var args = [], i = 1;
+          for (; i < arguments.length; )
+            args.push(arguments[i++]);
+          for (i = 0; i < listeners2.length; )
+            listeners2[i].fn.apply(listeners2[i++].ctx, args);
         }
         return this;
       }, "emit");
@@ -18899,15 +18899,15 @@ var LNReaderPlugin = (() => {
       init_process2();
       var utf8 = exports4, replacementCharCode = 65533;
       utf8.length = /* @__PURE__ */ __name(function utf8_length(string) {
-        var len = 0, c2 = 0;
-        for (var i2 = 0; i2 < string.length; ++i2) {
-          c2 = string.charCodeAt(i2);
-          if (c2 < 128)
+        var len = 0, c = 0;
+        for (var i = 0; i < string.length; ++i) {
+          c = string.charCodeAt(i);
+          if (c < 128)
             len += 1;
-          else if (c2 < 2048)
+          else if (c < 2048)
             len += 2;
-          else if ((c2 & 64512) === 55296 && (string.charCodeAt(i2 + 1) & 64512) === 56320) {
-            ++i2;
+          else if ((c & 64512) === 55296 && (string.charCodeAt(i + 1) & 64512) === 56320) {
+            ++i;
             len += 4;
           } else
             len += 3;
@@ -18917,51 +18917,51 @@ var LNReaderPlugin = (() => {
       utf8.read = /* @__PURE__ */ __name(function utf8_read(buffer, start, end2) {
         if (end2 - start < 1)
           return "";
-        var parts = null, chunk = [], i2 = 0, t2, t22, c2, c3;
+        var parts = null, chunk = [], i = 0, t2, t22, c2, c3;
         while (start < end2) {
           t2 = buffer[start++];
           if (t2 <= 127) {
-            chunk[i2++] = t2;
+            chunk[i++] = t2;
           } else if (t2 >= 192 && t2 < 224) {
             c2 = (t2 & 31) << 6 | buffer[start++] & 63;
-            chunk[i2++] = c2 >= 128 ? c2 : replacementCharCode;
+            chunk[i++] = c2 >= 128 ? c2 : replacementCharCode;
           } else if (t2 >= 224 && t2 < 240) {
             c3 = (t2 & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
-            chunk[i2++] = c3 >= 2048 ? c3 : replacementCharCode;
+            chunk[i++] = c3 >= 2048 ? c3 : replacementCharCode;
           } else if (t2 >= 240) {
             t22 = (t2 & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
             if (t22 < 65536 || t22 > 1114111)
-              chunk[i2++] = replacementCharCode;
+              chunk[i++] = replacementCharCode;
             else {
               t22 -= 65536;
-              chunk[i2++] = 55296 + (t22 >> 10);
-              chunk[i2++] = 56320 + (t22 & 1023);
+              chunk[i++] = 55296 + (t22 >> 10);
+              chunk[i++] = 56320 + (t22 & 1023);
             }
           }
-          if (i2 > 8191) {
-            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
-            i2 = 0;
+          if (i > 8191) {
+            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk.slice(0, i)));
+            i = 0;
           }
         }
         if (parts) {
-          if (i2)
-            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
+          if (i)
+            parts.push(String.fromCharCode.apply(String, chunk.slice(0, i)));
           return parts.join("");
         }
-        return String.fromCharCode.apply(String, chunk.slice(0, i2));
+        return String.fromCharCode.apply(String, chunk.slice(0, i));
       }, "utf8_read");
       utf8.write = /* @__PURE__ */ __name(function utf8_write(string, buffer, offset) {
         var start = offset, c1, c2;
-        for (var i2 = 0; i2 < string.length; ++i2) {
-          c1 = string.charCodeAt(i2);
+        for (var i = 0; i < string.length; ++i) {
+          c1 = string.charCodeAt(i);
           if (c1 < 128) {
             buffer[offset++] = c1;
           } else if (c1 < 2048) {
             buffer[offset++] = c1 >> 6 | 192;
             buffer[offset++] = c1 & 63 | 128;
-          } else if ((c1 & 64512) === 55296 && ((c2 = string.charCodeAt(i2 + 1)) & 64512) === 56320) {
+          } else if ((c1 & 64512) === 55296 && ((c2 = string.charCodeAt(i + 1)) & 64512) === 56320) {
             c1 = 65536 + ((c1 & 1023) << 10) + (c2 & 1023);
-            ++i2;
+            ++i;
             buffer[offset++] = c1 >> 18 | 240;
             buffer[offset++] = c1 >> 12 & 63 | 128;
             buffer[offset++] = c1 >> 6 & 63 | 128;
@@ -19127,8 +19127,8 @@ var LNReaderPlugin = (() => {
     return (obj && obj["__isLong__"]) === true;
   }
   function ctz32(value) {
-    var c2 = Math.clz32(value & -value);
-    return value ? 31 - c2 : c2;
+    var c = Math.clz32(value & -value);
+    return value ? 31 - c : c;
   }
   function fromInt(value, unsigned) {
     var obj, cachedObj, cache;
@@ -19183,15 +19183,15 @@ var LNReaderPlugin = (() => {
       return unsigned ? UZERO : ZERO;
     radix = radix || 10;
     if (radix < 2 || 36 < radix) throw RangeError("radix");
-    var p2;
-    if ((p2 = str.indexOf("-")) > 0) throw Error("interior hyphen");
-    else if (p2 === 0) {
+    var p;
+    if ((p = str.indexOf("-")) > 0) throw Error("interior hyphen");
+    else if (p === 0) {
       return fromString(str.substring(1), unsigned, radix).neg();
     }
     var radixToPower = fromNumber(pow_dbl(radix, 8));
     var result = ZERO;
-    for (var i2 = 0; i2 < str.length; i2 += 8) {
-      var size = Math.min(8, str.length - i2), value = parseInt(str.substring(i2, i2 + size), radix);
+    for (var i = 0; i < str.length; i += 8) {
+      var size = Math.min(8, str.length - i), value = parseInt(str.substring(i, i + size), radix);
       if (size < 8) {
         var power = fromNumber(pow_dbl(radix, size));
         result = result.mul(power).add(fromNumber(value));
@@ -20172,9 +20172,9 @@ var LNReaderPlugin = (() => {
           var src = arguments[a2];
           if (!src)
             continue;
-          for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
-            if (!isUnsafeProperty(keys[i2]) && (dst[keys[i2]] === void 0 || !ifNotSet))
-              dst[keys[i2]] = src[keys[i2]];
+          for (var keys = Object.keys(src), i = 0; i < keys.length; ++i)
+            if (!isUnsafeProperty(keys[i]) && (dst[keys[i]] === void 0 || !ifNotSet))
+              dst[keys[i]] = src[keys[i]];
         }
         return dst;
       }
@@ -20242,19 +20242,19 @@ var LNReaderPlugin = (() => {
       util.ProtocolError = newError("ProtocolError");
       util.oneOfGetter = /* @__PURE__ */ __name(function getOneOf(fieldNames) {
         var fieldMap = {};
-        for (var i2 = 0; i2 < fieldNames.length; ++i2)
-          fieldMap[fieldNames[i2]] = 1;
+        for (var i = 0; i < fieldNames.length; ++i)
+          fieldMap[fieldNames[i]] = 1;
         return function() {
-          for (var keys = Object.keys(this), i3 = keys.length - 1; i3 > -1; --i3)
-            if (fieldMap[keys[i3]] === 1 && this[keys[i3]] !== void 0 && this[keys[i3]] !== null)
-              return keys[i3];
+          for (var keys = Object.keys(this), i2 = keys.length - 1; i2 > -1; --i2)
+            if (fieldMap[keys[i2]] === 1 && this[keys[i2]] !== void 0 && this[keys[i2]] !== null)
+              return keys[i2];
         };
       }, "getOneOf");
       util.oneOfSetter = /* @__PURE__ */ __name(function setOneOf(fieldNames) {
         return function(name) {
-          for (var i2 = 0; i2 < fieldNames.length; ++i2)
-            if (fieldNames[i2] !== name)
-              delete this[fieldNames[i2]];
+          for (var i = 0; i < fieldNames.length; ++i)
+            if (fieldNames[i] !== name)
+              delete this[fieldNames[i]];
         };
       }, "setOneOf");
       util.toJSONOptions = {
@@ -20420,8 +20420,8 @@ var LNReaderPlugin = (() => {
       var writeBytes = util.Array.prototype.set ? /* @__PURE__ */ __name(function writeBytes_set(val2, buf, pos) {
         buf.set(val2, pos);
       }, "writeBytes_set") : /* @__PURE__ */ __name(function writeBytes_for(val2, buf, pos) {
-        for (var i2 = 0; i2 < val2.length; ++i2)
-          buf[pos + i2] = val2[i2];
+        for (var i = 0; i < val2.length; ++i)
+          buf[pos + i] = val2[i];
       }, "writeBytes_for");
       Writer.prototype.bytes = /* @__PURE__ */ __name(function write_bytes(value) {
         var len = value.length >>> 0;
@@ -20505,8 +20505,8 @@ var LNReaderPlugin = (() => {
         }, "writeBytesBuffer_set") : /* @__PURE__ */ __name(function writeBytesBuffer_copy(val2, buf, pos) {
           if (val2.copy)
             val2.copy(buf, pos, 0, val2.length);
-          else for (var i2 = 0; i2 < val2.length; )
-            buf[pos++] = val2[i2++];
+          else for (var i = 0; i < val2.length; )
+            buf[pos++] = val2[i++];
         }, "writeBytesBuffer_copy");
       };
       BufferWriter.prototype.bytes = /* @__PURE__ */ __name(function write_bytes_buffer(value) {
@@ -20607,10 +20607,10 @@ var LNReaderPlugin = (() => {
       }, "read_sint32");
       function readLongVarint() {
         var bits = new LongBits(0, 0);
-        var i2 = 0;
+        var i = 0;
         if (this.len - this.pos > 4) {
-          for (; i2 < 4; ++i2) {
-            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i2 * 7) >>> 0;
+          for (; i < 4; ++i) {
+            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
@@ -20618,29 +20618,29 @@ var LNReaderPlugin = (() => {
           bits.hi = (bits.hi | (this.buf[this.pos] & 127) >> 4) >>> 0;
           if (this.buf[this.pos++] < 128)
             return bits;
-          i2 = 0;
+          i = 0;
         } else {
-          for (; i2 < 3; ++i2) {
+          for (; i < 3; ++i) {
             if (this.pos >= this.len)
               throw indexOutOfRange(this);
-            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i2 * 7) >>> 0;
+            bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
-          bits.lo = (bits.lo | (this.buf[this.pos++] & 127) << i2 * 7) >>> 0;
+          bits.lo = (bits.lo | (this.buf[this.pos++] & 127) << i * 7) >>> 0;
           return bits;
         }
         if (this.len - this.pos > 4) {
-          for (; i2 < 5; ++i2) {
-            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i2 * 7 + 3) >>> 0;
+          for (; i < 5; ++i) {
+            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
         } else {
-          for (; i2 < 5; ++i2) {
+          for (; i < 5; ++i) {
             if (this.pos >= this.len)
               throw indexOutOfRange(this);
-            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i2 * 7 + 3) >>> 0;
+            bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
             if (this.buf[this.pos++] < 128)
               return bits;
           }
@@ -21071,8 +21071,8 @@ var LNReaderPlugin = (() => {
             var buffer = xhr.response;
             if (!buffer) {
               buffer = [];
-              for (var i2 = 0; i2 < xhr.responseText.length; ++i2)
-                buffer.push(xhr.responseText.charCodeAt(i2) & 255);
+              for (var i = 0; i < xhr.responseText.length; ++i)
+                buffer.push(xhr.responseText.charCodeAt(i) & 255);
             }
             return callback(null, typeof Uint8Array !== "undefined" ? new Uint8Array(buffer) : buffer);
           }
@@ -21118,18 +21118,18 @@ var LNReaderPlugin = (() => {
           var parts = path2.split("/"), absolute = isAbsolute(path2), prefix = "";
           if (absolute)
             prefix = parts.shift() + "/";
-          for (var i2 = 0; i2 < parts.length; ) {
-            if (parts[i2] === "..") {
-              if (i2 > 0 && parts[i2 - 1] !== "..")
-                parts.splice(--i2, 2);
+          for (var i = 0; i < parts.length; ) {
+            if (parts[i] === "..") {
+              if (i > 0 && parts[i - 1] !== "..")
+                parts.splice(--i, 2);
               else if (absolute)
-                parts.splice(i2, 1);
+                parts.splice(i, 1);
               else
-                ++i2;
-            } else if (parts[i2] === ".")
-              parts.splice(i2, 1);
+                ++i;
+            } else if (parts[i] === ".")
+              parts.splice(i, 1);
             else
-              ++i2;
+              ++i;
           }
           return prefix + parts.join("/");
         }, "normalize")
@@ -21198,24 +21198,24 @@ var LNReaderPlugin = (() => {
         if (!(array && array.length))
           return void 0;
         var obj = {};
-        for (var i2 = 0; i2 < array.length; ++i2)
-          obj[array[i2].name] = array[i2].toJSON(toJSONOptions);
+        for (var i = 0; i < array.length; ++i)
+          obj[array[i].name] = array[i].toJSON(toJSONOptions);
         return obj;
       }
       __name(arrayToJSON, "arrayToJSON");
       Namespace.arrayToJSON = arrayToJSON;
       Namespace.isReservedId = /* @__PURE__ */ __name(function isReservedId(reserved, id) {
         if (reserved) {
-          for (var i2 = 0; i2 < reserved.length; ++i2)
-            if (typeof reserved[i2] !== "string" && reserved[i2][0] <= id && reserved[i2][1] > id)
+          for (var i = 0; i < reserved.length; ++i)
+            if (typeof reserved[i] !== "string" && reserved[i][0] <= id && reserved[i][1] > id)
               return true;
         }
         return false;
       }, "isReservedId");
       Namespace.isReservedName = /* @__PURE__ */ __name(function isReservedName(reserved, name) {
         if (reserved) {
-          for (var i2 = 0; i2 < reserved.length; ++i2)
-            if (reserved[i2] === name)
+          for (var i = 0; i < reserved.length; ++i)
+            if (reserved[i] === name)
               return true;
         }
         return false;
@@ -21256,11 +21256,11 @@ var LNReaderPlugin = (() => {
         depth = util.checkDepth(depth);
         var ns = this;
         if (nestedJson) {
-          for (var names = Object.keys(nestedJson), i2 = 0, nested; i2 < names.length; ++i2) {
-            nested = nestedJson[names[i2]];
+          for (var names = Object.keys(nestedJson), i = 0, nested; i < names.length; ++i) {
+            nested = nestedJson[names[i]];
             ns.add(
               // most to least likely
-              (nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : nested.id !== void 0 ? Field.fromJSON : Namespace.fromJSON)(names[i2], nested, depth + 1)
+              (nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : nested.id !== void 0 ? Field.fromJSON : Namespace.fromJSON)(names[i], nested, depth + 1)
             );
           }
         }
@@ -21286,8 +21286,8 @@ var LNReaderPlugin = (() => {
           if (prev2) {
             if (prev2 instanceof Namespace && object instanceof Namespace && !(prev2 instanceof Type || prev2 instanceof Service)) {
               var nested = prev2.nestedArray;
-              for (var i2 = 0; i2 < nested.length; ++i2)
-                object.add(nested[i2]);
+              for (var i = 0; i < nested.length; ++i)
+                object.add(nested[i]);
               this.remove(prev2);
               if (!this.nested)
                 this.nested = {};
@@ -21349,13 +21349,13 @@ var LNReaderPlugin = (() => {
       Namespace.prototype.resolveAll = /* @__PURE__ */ __name(function resolveAll() {
         if (!this._needsRecursiveResolve) return this;
         this._resolveFeaturesRecursive(this._edition);
-        var nested = this.nestedArray, i2 = 0;
+        var nested = this.nestedArray, i = 0;
         this.resolve();
-        while (i2 < nested.length)
-          if (nested[i2] instanceof Namespace)
-            nested[i2++].resolveAll();
+        while (i < nested.length)
+          if (nested[i] instanceof Namespace)
+            nested[i++].resolveAll();
           else
-            nested[i2++].resolve();
+            nested[i++].resolve();
         this._needsRecursiveResolve = false;
         return this;
       }, "resolveAll");
@@ -21418,8 +21418,8 @@ var LNReaderPlugin = (() => {
             exact = found._lookupImpl(path, path.join("."));
           }
         } else {
-          for (var i2 = 0; i2 < this.nestedArray.length; ++i2)
-            if (this._nestedArray[i2] instanceof Namespace && (found = this._nestedArray[i2]._lookupImpl(path, flatPath))) {
+          for (var i = 0; i < this.nestedArray.length; ++i)
+            if (this._nestedArray[i] instanceof Namespace && (found = this._nestedArray[i]._lookupImpl(path, flatPath))) {
               exact = found;
               break;
             }
@@ -21611,8 +21611,8 @@ var LNReaderPlugin = (() => {
         depth = util.checkDepth(depth);
         var service = new Service(name, json.options);
         if (json.methods)
-          for (var names = Object.keys(json.methods), i2 = 0; i2 < names.length; ++i2)
-            service.add(Method.fromJSON(names[i2], json.methods[names[i2]]));
+          for (var names = Object.keys(json.methods), i = 0; i < names.length; ++i)
+            service.add(Method.fromJSON(names[i], json.methods[names[i]]));
         if (json.nested)
           service.addJSON(json.nested, depth);
         if (json.edition)
@@ -21655,8 +21655,8 @@ var LNReaderPlugin = (() => {
         if (!this._needsRecursiveResolve) return this;
         Namespace.prototype.resolve.call(this);
         var methods = this.methodsArray;
-        for (var i2 = 0; i2 < methods.length; ++i2)
-          methods[i2].resolve();
+        for (var i = 0; i < methods.length; ++i)
+          methods[i].resolve();
         return this;
       }, "resolveAll");
       Service.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
@@ -21692,9 +21692,9 @@ var LNReaderPlugin = (() => {
       }, "remove");
       Service.prototype.create = /* @__PURE__ */ __name(function create(rpcImpl, requestDelimited, responseDelimited) {
         var rpcService = new rpc.Service(rpcImpl, requestDelimited, responseDelimited);
-        for (var i2 = 0, method; i2 < /* initializes */
-        this.methodsArray.length; ++i2) {
-          var methodName = util.lcFirst((method = this._methodsArray[i2]).resolve().name).replace(/[^$\w_]/g, "");
+        for (var i = 0, method; i < /* initializes */
+        this.methodsArray.length; ++i) {
+          var methodName = util.lcFirst((method = this._methodsArray[i]).resolve().name).replace(/[^$\w_]/g, "");
           rpcService[methodName] = /* @__PURE__ */ function(method2, requestType, responseType) {
             return /* @__PURE__ */ __name(function rpcMethod(request, callback) {
               return rpc.Service.prototype.rpcCall.call(this, method2, requestType, responseType, request, callback);
@@ -21717,8 +21717,8 @@ var LNReaderPlugin = (() => {
       var util = require_minimal();
       function Message(properties) {
         if (properties)
-          for (var keys = Object.keys(properties), i2 = 0; i2 < keys.length; ++i2) {
-            var key = keys[i2];
+          for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i) {
+            var key = keys[i];
             if (key === "__proto__")
               continue;
             this[key] = properties[key];
@@ -21772,10 +21772,10 @@ var LNReaderPlugin = (() => {
         var gen = util.codegen(["r", "l", "e", "n"], mtype.name + "$decode")("if(!(r instanceof Reader))")("r=Reader.create(r)")("if(n===undefined)n=0")("if(n>Reader.recursionLimit)")('throw Error("maximum nesting depth exceeded")')("var c=l===undefined?r.len:r.pos+l,m=new this.ctor" + (mtype.fieldsArray.filter(function(field2) {
           return field2.map;
         }).length ? ",k,value" : ""))("while(r.pos<c){")("var t=r.uint32()")("if(t===e)")("break")("switch(t>>>3){");
-        var i2 = 0;
-        for (; i2 < /* initializes */
-        mtype.fieldsArray.length; ++i2) {
-          var field = mtype._fieldsArray[i2].resolve(), type = field.resolvedType instanceof Enum ? "int32" : field.type, ref = "m" + util.safeProp(field.name);
+        var i = 0;
+        for (; i < /* initializes */
+        mtype.fieldsArray.length; ++i) {
+          var field = mtype._fieldsArray[i].resolve(), type = field.resolvedType instanceof Enum ? "int32" : field.type, ref = "m" + util.safeProp(field.name);
           gen("case %i: {", field.id);
           if (field.map) {
             gen("if(%s===util.emptyObject)", ref)("%s={}", ref)("var c2 = r.uint32()+r.pos");
@@ -21784,7 +21784,7 @@ var LNReaderPlugin = (() => {
             if (types.defaults[type] !== void 0) gen("value=%j", types.defaults[type]);
             else gen("value=null");
             gen("while(r.pos<c2){")("var tag2=r.uint32()")("switch(tag2>>>3){")("case 1: k=r.%s(); break", field.keyType)("case 2:");
-            if (types.basic[type] === void 0) gen("value=types[%i].decode(r,r.uint32(),undefined,n+1)", i2);
+            if (types.basic[type] === void 0) gen("value=types[%i].decode(r,r.uint32(),undefined,n+1)", i);
             else gen("value=r.%s()", type);
             gen("break")("default:")("r.skipType(tag2&7,n)")("break")("}")("}");
             if (types.long[field.keyType] !== void 0) gen('%s[typeof k==="object"?util.longToHash(k):k]=value', ref);
@@ -21795,15 +21795,15 @@ var LNReaderPlugin = (() => {
           } else if (field.repeated) {
             gen("if(!(%s&&%s.length))", ref, ref)("%s=[]", ref);
             if (types.packed[type] !== void 0) gen("if((t&7)===2){")("var c2=r.uint32()+r.pos")("while(r.pos<c2)")("%s.push(r.%s())", ref, type)("}else");
-            if (types.basic[type] === void 0) gen(field.delimited ? "%s.push(types[%i].decode(r,undefined,((t&~7)|4),n+1))" : "%s.push(types[%i].decode(r,r.uint32(),undefined,n+1))", ref, i2);
+            if (types.basic[type] === void 0) gen(field.delimited ? "%s.push(types[%i].decode(r,undefined,((t&~7)|4),n+1))" : "%s.push(types[%i].decode(r,r.uint32(),undefined,n+1))", ref, i);
             else gen("%s.push(r.%s())", ref, type);
-          } else if (types.basic[type] === void 0) gen(field.delimited ? "%s=types[%i].decode(r,undefined,((t&~7)|4),n+1)" : "%s=types[%i].decode(r,r.uint32(),undefined,n+1)", ref, i2);
+          } else if (types.basic[type] === void 0) gen(field.delimited ? "%s=types[%i].decode(r,undefined,((t&~7)|4),n+1)" : "%s=types[%i].decode(r,r.uint32(),undefined,n+1)", ref, i);
           else gen("%s=r.%s()", ref, type);
           gen("break")("}");
         }
         gen("default:")("r.skipType(t&7,n)")("break")("}")("}");
-        for (i2 = 0; i2 < mtype._fieldsArray.length; ++i2) {
-          var rfield = mtype._fieldsArray[i2];
+        for (i = 0; i < mtype._fieldsArray.length; ++i) {
+          var rfield = mtype._fieldsArray[i];
           if (rfield.required) gen("if(!Object.hasOwnProperty.call(m,%j))", rfield.name)("throw util.ProtocolError(%j,{instance:m})", missing(rfield));
         }
         return gen("return m");
@@ -21895,17 +21895,17 @@ var LNReaderPlugin = (() => {
         var gen = util.codegen(["m", "n"], mtype.name + "$verify")('if(typeof m!=="object"||m===null)')("return%j", "object expected")("if(n===undefined)n=0")("if(n>util.recursionLimit)")("return%j", "maximum nesting depth exceeded");
         var oneofs = mtype.oneofsArray, seenFirstField = {};
         if (oneofs.length) gen("var p={}");
-        for (var i2 = 0; i2 < /* initializes */
-        mtype.fieldsArray.length; ++i2) {
-          var field = mtype._fieldsArray[i2].resolve(), ref = "m" + util.safeProp(field.name);
+        for (var i = 0; i < /* initializes */
+        mtype.fieldsArray.length; ++i) {
+          var field = mtype._fieldsArray[i].resolve(), ref = "m" + util.safeProp(field.name);
           if (field.optional) gen("if(%s!=null&&Object.hasOwnProperty.call(m,%j)){", ref, field.name);
           if (field.map) {
             gen("if(!util.isObject(%s))", ref)("return%j", invalid(field, "object"))("var k=Object.keys(%s)", ref)("for(var i=0;i<k.length;++i){");
             genVerifyKey(gen, field, "k[i]");
-            genVerifyValue(gen, field, i2, ref + "[k[i]]")("}");
+            genVerifyValue(gen, field, i, ref + "[k[i]]")("}");
           } else if (field.repeated) {
             gen("if(!Array.isArray(%s))", ref)("return%j", invalid(field, "array"))("for(var i=0;i<%s.length;++i){", ref);
-            genVerifyValue(gen, field, i2, ref + "[i]")("}");
+            genVerifyValue(gen, field, i, ref + "[i]")("}");
           } else {
             if (field.partOf) {
               var oneofProp = util.safeProp(field.partOf.name);
@@ -21913,7 +21913,7 @@ var LNReaderPlugin = (() => {
               seenFirstField[field.partOf.name] = 1;
               gen("p%s=1", oneofProp);
             }
-            genVerifyValue(gen, field, i2, ref);
+            genVerifyValue(gen, field, i, ref);
           }
           if (field.optional) gen("}");
         }
@@ -21937,13 +21937,13 @@ var LNReaderPlugin = (() => {
         if (field.resolvedType) {
           if (field.resolvedType instanceof Enum) {
             gen("switch(d%s){", prop2);
-            for (var values = field.resolvedType.values, keys = Object.keys(values), i2 = 0; i2 < keys.length; ++i2) {
-              if (values[keys[i2]] === field.typeDefault && !defaultAlreadyEmitted) {
+            for (var values = field.resolvedType.values, keys = Object.keys(values), i = 0; i < keys.length; ++i) {
+              if (values[keys[i]] === field.typeDefault && !defaultAlreadyEmitted) {
                 gen("default:")('if(typeof(d%s)==="number"){m%s=d%s;break}', prop2, prop2, prop2);
                 if (!field.repeated) gen("break");
                 defaultAlreadyEmitted = true;
               }
-              gen("case%j:", keys[i2])("case %i:", values[keys[i2]])("m%s=%j", prop2, values[keys[i2]])("break");
+              gen("case%j:", keys[i])("case %i:", values[keys[i]])("m%s=%j", prop2, values[keys[i]])("break");
             }
             gen("}");
           } else gen("if(!util.isObject(d%s))", prop2)("throw TypeError(%j)", field.fullName + ": object expected")("m%s=types[%i].fromObject(d%s,n+1)", prop2, fieldIndex, prop2);
@@ -21992,8 +21992,8 @@ var LNReaderPlugin = (() => {
         if (!fields.length) return gen("return new this.ctor");
         gen("if(!util.isObject(d))")("throw TypeError(%j)", mtype.fullName + ": object expected")("if(n===undefined)n=0")("if(n>util.recursionLimit)")('throw Error("maximum nesting depth exceeded")');
         gen("var m=new this.ctor");
-        for (var i2 = 0; i2 < fields.length; ++i2) {
-          var field = fields[i2].resolve(), prop2 = util.safeProp(field.name);
+        for (var i = 0; i < fields.length; ++i) {
+          var field = fields[i].resolve(), prop2 = util.safeProp(field.name);
           if (field.map) {
             gen("if(d%s){", prop2)("if(!util.isObject(d%s))", prop2)("throw TypeError(%j)", field.fullName + ": object expected")("m%s={}", prop2)("for(var ks=Object.keys(d%s),i=0;i<ks.length;++i){", prop2);
             gen('if(ks[i]==="__proto__")')("util.makeProp(m%s,ks[i])", prop2);
@@ -22001,7 +22001,7 @@ var LNReaderPlugin = (() => {
               gen,
               field,
               /* not sorted */
-              i2,
+              i,
               prop2 + "[ks[i]]"
             )("}")("}");
           } else if (field.repeated) {
@@ -22010,7 +22010,7 @@ var LNReaderPlugin = (() => {
               gen,
               field,
               /* not sorted */
-              i2,
+              i,
               prop2 + "[i]"
             )("}")("}");
           } else {
@@ -22019,7 +22019,7 @@ var LNReaderPlugin = (() => {
               gen,
               field,
               /* not sorted */
-              i2,
+              i,
               prop2
             );
             if (!(field.resolvedType instanceof Enum)) gen("}");
@@ -22063,24 +22063,24 @@ var LNReaderPlugin = (() => {
         if (!fields.length)
           return util.codegen()("return {}");
         var gen = util.codegen(["m", "o", "q"], mtype.name + "$toObject")("if(!o)")("o={}")("if(q===undefined)q=0")("if(q>util.recursionLimit)")('throw Error("max depth exceeded")')("var d={}");
-        var repeatedFields = [], mapFields = [], normalFields = [], i2 = 0;
-        for (; i2 < fields.length; ++i2)
-          if (!fields[i2].partOf)
-            (fields[i2].resolve().repeated ? repeatedFields : fields[i2].map ? mapFields : normalFields).push(fields[i2]);
+        var repeatedFields = [], mapFields = [], normalFields = [], i = 0;
+        for (; i < fields.length; ++i)
+          if (!fields[i].partOf)
+            (fields[i].resolve().repeated ? repeatedFields : fields[i].map ? mapFields : normalFields).push(fields[i]);
         if (repeatedFields.length) {
           gen("if(o.arrays||o.defaults){");
-          for (i2 = 0; i2 < repeatedFields.length; ++i2) gen("d%s=[]", util.safeProp(repeatedFields[i2].name));
+          for (i = 0; i < repeatedFields.length; ++i) gen("d%s=[]", util.safeProp(repeatedFields[i].name));
           gen("}");
         }
         if (mapFields.length) {
           gen("if(o.objects||o.defaults){");
-          for (i2 = 0; i2 < mapFields.length; ++i2) gen("d%s={}", util.safeProp(mapFields[i2].name));
+          for (i = 0; i < mapFields.length; ++i) gen("d%s={}", util.safeProp(mapFields[i].name));
           gen("}");
         }
         if (normalFields.length) {
           gen("if(o.defaults){");
-          for (i2 = 0; i2 < normalFields.length; ++i2) {
-            var field = normalFields[i2], prop2 = util.safeProp(field.name);
+          for (i = 0; i < normalFields.length; ++i) {
+            var field = normalFields[i], prop2 = util.safeProp(field.name);
             if (field.resolvedType instanceof Enum) gen("d%s=o.enums===String?%j:%j", prop2, field.resolvedType.valuesById[field.typeDefault], field.typeDefault);
             else if (field.long) gen("if(util.Long){")("var n=new util.Long(%i,%i,%j)", field.typeDefault.low, field.typeDefault.high, field.typeDefault.unsigned)('d%s=o.longs===String?n.toString():o.longs===Number?n.toNumber():typeof BigInt!=="undefined"&&o.longs===BigInt?n.toBigInt():n', prop2)("}else")('d%s=o.longs===String?%j:typeof BigInt!=="undefined"&&o.longs===BigInt?BigInt(%j):%i', prop2, field.typeDefault.toString(), field.typeDefault.toString(), field.typeDefault.toNumber());
             else if (field.bytes) {
@@ -22091,8 +22091,8 @@ var LNReaderPlugin = (() => {
           gen("}");
         }
         var hasKs2 = false;
-        for (i2 = 0; i2 < fields.length; ++i2) {
-          var field = fields[i2], index2 = mtype._fieldsArray.indexOf(field), prop2 = util.safeProp(field.name);
+        for (i = 0; i < fields.length; ++i) {
+          var field = fields[i], index2 = mtype._fieldsArray.indexOf(field), prop2 = util.safeProp(field.name);
           if (field.map) {
             if (!hasKs2) {
               hasKs2 = true;
@@ -22229,8 +22229,8 @@ var LNReaderPlugin = (() => {
             if (this._fieldsById)
               return this._fieldsById;
             this._fieldsById = {};
-            for (var names = Object.keys(this.fields), i2 = 0; i2 < names.length; ++i2) {
-              var field = this.fields[names[i2]], id = field.id;
+            for (var names = Object.keys(this.fields), i = 0; i < names.length; ++i) {
+              var field = this.fields[names[i]], id = field.id;
               if (this._fieldsById[id])
                 throw Error("duplicate id " + id + " in " + this);
               this._fieldsById[id] = field;
@@ -22279,26 +22279,26 @@ var LNReaderPlugin = (() => {
             ctor.$type = ctor.prototype.$type = this;
             util.merge(ctor, Message, true);
             this._ctor = ctor;
-            var i2 = 0;
-            for (; i2 < /* initializes */
-            this.fieldsArray.length; ++i2)
-              this._fieldsArray[i2].resolve();
+            var i = 0;
+            for (; i < /* initializes */
+            this.fieldsArray.length; ++i)
+              this._fieldsArray[i].resolve();
             var ctorProperties = {};
-            for (i2 = 0; i2 < /* initializes */
-            this.oneofsArray.length; ++i2)
-              ctorProperties[this._oneofsArray[i2].resolve().name] = {
-                get: util.oneOfGetter(this._oneofsArray[i2].oneof),
-                set: util.oneOfSetter(this._oneofsArray[i2].oneof)
+            for (i = 0; i < /* initializes */
+            this.oneofsArray.length; ++i)
+              ctorProperties[this._oneofsArray[i].resolve().name] = {
+                get: util.oneOfGetter(this._oneofsArray[i].oneof),
+                set: util.oneOfSetter(this._oneofsArray[i].oneof)
               };
-            if (i2)
+            if (i)
               Object.defineProperties(ctor.prototype, ctorProperties);
           }, "set")
         }
       });
       Type.generateConstructor = /* @__PURE__ */ __name(function generateConstructor(mtype) {
         var gen = util.codegen(["p"], mtype.name);
-        for (var i2 = 0, field; i2 < mtype.fieldsArray.length; ++i2)
-          if ((field = mtype._fieldsArray[i2]).map) gen("this%s={}", util.safeProp(field.name));
+        for (var i = 0, field; i < mtype.fieldsArray.length; ++i)
+          if ((field = mtype._fieldsArray[i]).map) gen("this%s={}", util.safeProp(field.name));
           else if (field.repeated) gen("this%s=[]", util.safeProp(field.name));
         return gen('if(p)for(var ks=Object.keys(p),i=0;i<ks.length;++i)if(p[ks[i]]!=null&&ks[i]!=="__proto__")')("this[ks[i]]=p[ks[i]]");
       }, "generateConstructor");
@@ -22318,20 +22318,20 @@ var LNReaderPlugin = (() => {
         var type = new Type(name, json.options);
         type.extensions = json.extensions;
         type.reserved = json.reserved;
-        var names = Object.keys(json.fields), i2 = 0;
-        for (; i2 < names.length; ++i2)
+        var names = Object.keys(json.fields), i = 0;
+        for (; i < names.length; ++i)
           type.add(
-            (typeof json.fields[names[i2]].keyType !== "undefined" ? MapField.fromJSON : Field.fromJSON)(names[i2], json.fields[names[i2]])
+            (typeof json.fields[names[i]].keyType !== "undefined" ? MapField.fromJSON : Field.fromJSON)(names[i], json.fields[names[i]])
           );
         if (json.oneofs)
-          for (names = Object.keys(json.oneofs), i2 = 0; i2 < names.length; ++i2)
-            type.add(OneOf.fromJSON(names[i2], json.oneofs[names[i2]]));
+          for (names = Object.keys(json.oneofs), i = 0; i < names.length; ++i)
+            type.add(OneOf.fromJSON(names[i], json.oneofs[names[i]]));
         if (json.nested)
-          for (names = Object.keys(json.nested), i2 = 0; i2 < names.length; ++i2) {
-            var nested = json.nested[names[i2]];
+          for (names = Object.keys(json.nested), i = 0; i < names.length; ++i) {
+            var nested = json.nested[names[i]];
             type.add(
               // most to least likely
-              (nested.id !== void 0 ? Field.fromJSON : nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : Namespace.fromJSON)(names[i2], nested, depth + 1)
+              (nested.id !== void 0 ? Field.fromJSON : nested.fields !== void 0 ? Type.fromJSON : nested.values !== void 0 ? Enum.fromJSON : nested.methods !== void 0 ? Service.fromJSON : Namespace.fromJSON)(names[i], nested, depth + 1)
             );
           }
         if (json.extensions && json.extensions.length)
@@ -22377,12 +22377,12 @@ var LNReaderPlugin = (() => {
         if (!this._needsRecursiveResolve) return this;
         Namespace.prototype.resolveAll.call(this);
         var oneofs = this.oneofsArray;
-        i2 = 0;
-        while (i2 < oneofs.length)
-          oneofs[i2++].resolve();
-        var fields = this.fieldsArray, i2 = 0;
-        while (i2 < fields.length)
-          fields[i2++].resolve();
+        i = 0;
+        while (i < oneofs.length)
+          oneofs[i++].resolve();
+        var fields = this.fieldsArray, i = 0;
+        while (i < fields.length)
+          fields[i++].resolve();
         return this;
       }, "resolveAll");
       Type.prototype._resolveFeaturesRecursive = /* @__PURE__ */ __name(function _resolveFeaturesRecursive(edition) {
@@ -22471,9 +22471,9 @@ var LNReaderPlugin = (() => {
       }, "create");
       Type.prototype.setup = /* @__PURE__ */ __name(function setup() {
         var fullName = this.fullName, types = [];
-        for (var i2 = 0; i2 < /* initializes */
-        this.fieldsArray.length; ++i2)
-          types.push(this._fieldsArray[i2].resolve().resolvedType);
+        for (var i = 0; i < /* initializes */
+        this.fieldsArray.length; ++i)
+          types.push(this._fieldsArray[i].resolve().resolvedType);
         this.encode = encoder(this)({
           Writer,
           types,
@@ -22616,15 +22616,15 @@ var LNReaderPlugin = (() => {
               self2.setOptions(source.options).addJSON(source.nested);
             else {
               parse5.filename = filename2;
-              var parsed = parse5(source, self2, options), resolved2, i3 = 0;
+              var parsed = parse5(source, self2, options), resolved2, i2 = 0;
               if (parsed.imports) {
-                for (; i3 < parsed.imports.length; ++i3)
-                  if (resolved2 = getBundledFileName(parsed.imports[i3]) || self2.resolvePath(filename2, parsed.imports[i3]))
+                for (; i2 < parsed.imports.length; ++i2)
+                  if (resolved2 = getBundledFileName(parsed.imports[i2]) || self2.resolvePath(filename2, parsed.imports[i2]))
                     fetch2(resolved2, false, depth + 1);
               }
               if (parsed.weakImports) {
-                for (i3 = 0; i3 < parsed.weakImports.length; ++i3)
-                  if (resolved2 = getBundledFileName(parsed.weakImports[i3]) || self2.resolvePath(filename2, parsed.weakImports[i3]))
+                for (i2 = 0; i2 < parsed.weakImports.length; ++i2)
+                  if (resolved2 = getBundledFileName(parsed.weakImports[i2]) || self2.resolvePath(filename2, parsed.weakImports[i2]))
                     fetch2(resolved2, true, depth + 1);
               }
             }
@@ -22689,8 +22689,8 @@ var LNReaderPlugin = (() => {
         if (util.isString(filename)) {
           filename = [filename];
         }
-        for (var i2 = 0, resolved; i2 < filename.length; ++i2)
-          if (resolved = self2.resolvePath("", filename[i2]))
+        for (var i = 0, resolved; i < filename.length; ++i)
+          if (resolved = self2.resolvePath("", filename[i]))
             fetch2(resolved);
         if (sync) {
           self2.resolveAll();
@@ -22745,11 +22745,11 @@ var LNReaderPlugin = (() => {
             object.parent[object.name] = object.values;
         } else if (!(object instanceof OneOf)) {
           if (object instanceof Type)
-            for (var i2 = 0; i2 < this.deferred.length; )
-              if (tryHandleExtension(this, this.deferred[i2]))
-                this.deferred.splice(i2, 1);
+            for (var i = 0; i < this.deferred.length; )
+              if (tryHandleExtension(this, this.deferred[i]))
+                this.deferred.splice(i, 1);
               else
-                ++i2;
+                ++i;
           for (var j = 0; j < /* initializes */
           object.nestedArray.length; ++j)
             this._handleAdd(object._nestedArray[j]);
@@ -22782,9 +22782,9 @@ var LNReaderPlugin = (() => {
           if (exposeRe.test(object.name))
             delete object.parent[object.name];
         } else if (object instanceof Namespace) {
-          for (var i2 = 0; i2 < /* initializes */
-          object.nestedArray.length; ++i2)
-            this._handleRemove(object._nestedArray[i2]);
+          for (var i = 0; i < /* initializes */
+          object.nestedArray.length; ++i)
+            this._handleRemove(object._nestedArray[i]);
           if (exposeRe.test(object.name))
             delete object.parent[object.name];
         }
@@ -22932,7 +22932,7 @@ var LNReaderPlugin = (() => {
       init_process2();
       var types = exports4;
       var util = require_util();
-      var s2 = [
+      var s = [
         "double",
         // 0
         "float",
@@ -22965,10 +22965,10 @@ var LNReaderPlugin = (() => {
         // 14
       ];
       function bake(values, offset) {
-        var i2 = 0, o2 = /* @__PURE__ */ Object.create(null);
+        var i = 0, o = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
-        return o2;
+        while (i < values.length) o[s[i + offset]] = values[i++];
+        return o;
       }
       __name(bake, "bake");
       types.basic = bake([
@@ -23345,9 +23345,9 @@ var LNReaderPlugin = (() => {
       }, "toJSON");
       function addFieldsToParent(oneof) {
         if (oneof.parent) {
-          for (var i2 = 0; i2 < oneof.fieldsArray.length; ++i2)
-            if (!oneof.fieldsArray[i2].parent)
-              oneof.parent.add(oneof.fieldsArray[i2]);
+          for (var i = 0; i < oneof.fieldsArray.length; ++i)
+            if (!oneof.fieldsArray[i].parent)
+              oneof.parent.add(oneof.fieldsArray[i]);
         }
       }
       __name(addFieldsToParent, "addFieldsToParent");
@@ -23378,8 +23378,8 @@ var LNReaderPlugin = (() => {
       OneOf.prototype.onAdd = /* @__PURE__ */ __name(function onAdd(parent2) {
         ReflectionObject.prototype.onAdd.call(this, parent2);
         var self2 = this;
-        for (var i2 = 0; i2 < this.oneof.length; ++i2) {
-          var field = parent2.get(this.oneof[i2]);
+        for (var i = 0; i < this.oneof.length; ++i) {
+          var field = parent2.get(this.oneof[i]);
           if (field && !field.partOf) {
             field.partOf = self2;
             self2.fieldsArray.push(field);
@@ -23388,8 +23388,8 @@ var LNReaderPlugin = (() => {
         addFieldsToParent(this);
       }, "onAdd");
       OneOf.prototype.onRemove = /* @__PURE__ */ __name(function onRemove(parent2) {
-        for (var i2 = 0, field; i2 < this.fieldsArray.length; ++i2)
-          if ((field = this.fieldsArray[i2]).parent)
+        for (var i = 0, field; i < this.fieldsArray.length; ++i)
+          if ((field = this.fieldsArray[i]).parent)
             field.parent.remove(field);
         ReflectionObject.prototype.onRemove.call(this, parent2);
       }, "onRemove");
@@ -23603,8 +23603,8 @@ var LNReaderPlugin = (() => {
       }, "setParsedOption");
       ReflectionObject.prototype.setOptions = /* @__PURE__ */ __name(function setOptions(options, ifNotSet) {
         if (options)
-          for (var keys = Object.keys(options), i2 = 0; i2 < keys.length; ++i2)
-            this.setOption(keys[i2], options[keys[i2]], ifNotSet);
+          for (var keys = Object.keys(options), i = 0; i < keys.length; ++i)
+            this.setOption(keys[i], options[keys[i]], ifNotSet);
         return this;
       }, "setOptions");
       ReflectionObject.prototype.toString = /* @__PURE__ */ __name(function toString3() {
@@ -23648,9 +23648,9 @@ var LNReaderPlugin = (() => {
         this._valuesFeatures = {};
         this.reserved = void 0;
         if (values) {
-          for (var keys = Object.keys(values), i2 = 0; i2 < keys.length; ++i2)
-            if (keys[i2] !== "__proto__" && typeof values[keys[i2]] === "number")
-              this.valuesById[this.values[keys[i2]] = values[keys[i2]]] = keys[i2];
+          for (var keys = Object.keys(values), i = 0; i < keys.length; ++i)
+            if (keys[i] !== "__proto__" && typeof values[keys[i]] === "number")
+              this.valuesById[this.values[keys[i]] = values[keys[i]]] = keys[i];
         }
       }
       __name(Enum, "Enum");
@@ -23754,13 +23754,13 @@ var LNReaderPlugin = (() => {
       __name(genTypePartial, "genTypePartial");
       function encoder(mtype) {
         var gen = util.codegen(["m", "w", "q"], mtype.name + "$encode")("if(!w)")("w=Writer.create()")("if(q===undefined)q=0")("if(q>util.recursionLimit)")('throw Error("max depth exceeded")');
-        var i2, ref;
+        var i, ref;
         var fields = (
           /* initializes */
           mtype.fieldsArray.slice().sort(util.compareFieldsById)
         );
-        for (var i2 = 0; i2 < fields.length; ++i2) {
-          var field = fields[i2].resolve(), index2 = mtype._fieldsArray.indexOf(field), type = field.resolvedType instanceof Enum ? "int32" : field.type, wireType = types.basic[type];
+        for (var i = 0; i < fields.length; ++i) {
+          var field = fields[i].resolve(), index2 = mtype._fieldsArray.indexOf(field), type = field.resolvedType instanceof Enum ? "int32" : field.type, wireType = types.basic[type];
           ref = "m" + util.safeProp(field.name);
           if (field.map) {
             gen("if(%s!=null&&Object.hasOwnProperty.call(m,%j)){", ref, field.name)("for(var ks=Object.keys(%s),i=0;i<ks.length;++i){", ref)("w.uint32(%i).fork().uint32(%i).%s(ks[i])", (field.id << 3 | 2) >>> 0, 8 | types.mapKey[field.keyType], field.keyType);
@@ -23908,16 +23908,16 @@ var LNReaderPlugin = (() => {
           } else {
             lookback = 3;
           }
-          var commentOffset = start - lookback, c2;
+          var commentOffset = start - lookback, c;
           do {
-            if (--commentOffset < 0 || (c2 = source.charAt(commentOffset)) === "\n") {
+            if (--commentOffset < 0 || (c = source.charAt(commentOffset)) === "\n") {
               comment.lineEmpty = true;
               break;
             }
-          } while (c2 === " " || c2 === "	");
+          } while (c === " " || c === "	");
           var lines = source.substring(start, end2).split(setCommentSplitRe);
-          for (var i2 = 0; i2 < lines.length; ++i2)
-            lines[i2] = lines[i2].replace(alternateCommentMode ? setCommentAltRe : setCommentRe, "").trim();
+          for (var i = 0; i < lines.length; ++i)
+            lines[i] = lines[i].replace(alternateCommentMode ? setCommentAltRe : setCommentRe, "").trim();
           comment.text = lines.join("\n").trim();
           comments[line] = comment;
           lastCommentLine = line;
@@ -25295,7 +25295,7 @@ var LNReaderPlugin = (() => {
         ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
-          Array(5).fill(0).map((v2, idx) => {
+          Array(5).fill(0).map((v, idx) => {
             if (idx === 0) return 0;
             return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
           })
@@ -25338,475 +25338,245 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/constants.ts
-  var constants_exports = {};
-  __export(constants_exports, {
-    NovelStatus: () => NovelStatus,
-    defaultCover: () => defaultCover
-  });
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/novelStatus.ts
-  var novelStatus_exports = {};
-  __export(novelStatus_exports, {
-    NovelStatus: () => NovelStatus
-  });
-  var init_novelStatus = __esm({
-    "src/libs/novelStatus.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
-  // src/lib/storage.ts
-  var _Storage, Storage, storage, _LocalStorage, LocalStorage, localStorage, sessionStorage;
-  var init_storage = __esm({
-    "src/lib/storage.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      _Storage = class _Storage {
-        /**
-         * Initializes a new instance of the Storage class.
-         */
-        constructor() {
-          this.db = {};
-        }
-        /**
-         * Sets a key-value pair in storage.
-         *
-         * @param {string} key - The key to set.
-         * @param {T} value - The value to set.
-         * @param {Date | number} [expires] - Optional expiry date or time in milliseconds.
-         */
-        set(key, value, expires) {
-          this.db[key] = {
-            created: /* @__PURE__ */ new Date(),
-            value,
-            expires: expires instanceof Date ? expires.getTime() : expires
-          };
-        }
-        get(key, raw) {
-          const item = this.db[key];
-          if (item?.expires && Date.now() > item.expires) {
-            this.delete(key);
-            return void 0;
-          }
-          return raw ? item : item?.value;
-        }
-        /**
-         * Retrieves all keys set by the `set` method.
-         *
-         * @returns {string[]} An array of keys.
-         */
-        getAllKeys() {
-          return Object.keys(this.db);
-        }
-        /**
-         * Deletes a key from the storage.
-         *
-         * @param key - The key to delete.
-         */
-        delete(key) {
-          delete this.db[key];
-        }
-        /**
-         * Clears all stored items from storage.
-         */
-        clearAll() {
-          this.db = {};
-        }
-      };
-      __name(_Storage, "Storage");
-      Storage = _Storage;
-      storage = new Storage();
-      _LocalStorage = class _LocalStorage {
-        constructor() {
-          this.db = {};
-        }
-        get() {
-          return this.db;
-        }
-      };
-      __name(_LocalStorage, "LocalStorage");
-      LocalStorage = _LocalStorage;
-      localStorage = new LocalStorage();
-      sessionStorage = new LocalStorage();
-    }
-  });
-
-  // src/libs/storage.ts
-  var storage_exports = {};
-  __export(storage_exports, {
-    localStorage: () => localStorage,
-    sessionStorage: () => sessionStorage,
-    storage: () => storage
-  });
-  var init_storage2 = __esm({
-    "src/libs/storage.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_storage();
-    }
-  });
-
-  // .js/plugins/english/NovelPhoenix[novelfire].js
+  // .js/plugins/arabic/rewayahfans.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e, t = (e = /* @__PURE__ */ __name(function(t2, a2) {
-    return e = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(e2, t3) {
-      e2.__proto__ = t3;
-    } || function(e2, t3) {
-      for (var a3 in t3) Object.prototype.hasOwnProperty.call(t3, a3) && (e2[a3] = t3[a3]);
-    }, e(t2, a2);
-  }, "e"), function(t2, a2) {
-    if ("function" != typeof a2 && null !== a2) throw new TypeError("Class extends value " + String(a2) + " is not a constructor or null");
-    function l2() {
-      this.constructor = t2;
-    }
-    __name(l2, "l");
-    e(t2, a2), t2.prototype = null === a2 ? Object.create(a2) : (l2.prototype = a2.prototype, new l2());
-  }), a = function(e2, t2, a2, l2) {
-    return new (a2 || (a2 = Promise))(function(n2, r2) {
-      function o2(e3) {
+  var t = function(t2, e2, r2, n2) {
+    return new (r2 || (r2 = Promise))(function(a2, i) {
+      function s(t3) {
         try {
-          s2(l2.next(e3));
-        } catch (e4) {
-          r2(e4);
+          c(n2.next(t3));
+        } catch (t4) {
+          i(t4);
         }
       }
-      __name(o2, "o");
-      function i2(e3) {
+      __name(s, "s");
+      function o(t3) {
         try {
-          s2(l2.throw(e3));
-        } catch (e4) {
-          r2(e4);
+          c(n2.throw(t3));
+        } catch (t4) {
+          i(t4);
         }
       }
-      __name(i2, "i");
-      function s2(e3) {
-        var t3;
-        e3.done ? n2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
-          e4(t3);
-        })).then(o2, i2);
+      __name(o, "o");
+      function c(t3) {
+        var e3;
+        t3.done ? a2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
+          t4(e3);
+        })).then(s, o);
       }
-      __name(s2, "s");
-      s2((l2 = l2.apply(e2, t2 || [])).next());
+      __name(c, "c");
+      c((n2 = n2.apply(t2, e2 || [])).next());
     });
-  }, l = function(e2, t2) {
-    var a2, l2, n2, r2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & n2[0]) throw n2[1];
-      return n2[1];
-    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return o2.next = i2(0), o2.throw = i2(1), o2.return = i2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
+  }, e = function(t2, e2) {
+    var r2, n2, a2, i = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & a2[0]) throw a2[1];
+      return a2[1];
+    }, "sent"), trys: [], ops: [] }, s = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return s.next = o(0), s.throw = o(1), s.return = o(2), "function" == typeof Symbol && (s[Symbol.iterator] = function() {
       return this;
-    }), o2;
-    function i2(i3) {
-      return function(s2) {
-        return function(i4) {
-          if (a2) throw new TypeError("Generator is already executing.");
-          for (; o2 && (o2 = 0, i4[0] && (r2 = 0)), r2; ) try {
-            if (a2 = 1, l2 && (n2 = 2 & i4[0] ? l2.return : i4[0] ? l2.throw || ((n2 = l2.return) && n2.call(l2), 0) : l2.next) && !(n2 = n2.call(l2, i4[1])).done) return n2;
-            switch (l2 = 0, n2 && (i4 = [2 & i4[0], n2.value]), i4[0]) {
+    }), s;
+    function o(o2) {
+      return function(c) {
+        return function(o3) {
+          if (r2) throw new TypeError("Generator is already executing.");
+          for (; s && (s = 0, o3[0] && (i = 0)), i; ) try {
+            if (r2 = 1, n2 && (a2 = 2 & o3[0] ? n2.return : o3[0] ? n2.throw || ((a2 = n2.return) && a2.call(n2), 0) : n2.next) && !(a2 = a2.call(n2, o3[1])).done) return a2;
+            switch (n2 = 0, a2 && (o3 = [2 & o3[0], a2.value]), o3[0]) {
               case 0:
               case 1:
-                n2 = i4;
+                a2 = o3;
                 break;
               case 4:
-                return r2.label++, { value: i4[1], done: false };
+                return i.label++, { value: o3[1], done: false };
               case 5:
-                r2.label++, l2 = i4[1], i4 = [0];
+                i.label++, n2 = o3[1], o3 = [0];
                 continue;
               case 7:
-                i4 = r2.ops.pop(), r2.trys.pop();
+                o3 = i.ops.pop(), i.trys.pop();
                 continue;
               default:
-                if (!(n2 = r2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== i4[0] && 2 !== i4[0])) {
-                  r2 = 0;
+                if (!(a2 = i.trys, (a2 = a2.length > 0 && a2[a2.length - 1]) || 6 !== o3[0] && 2 !== o3[0])) {
+                  i = 0;
                   continue;
                 }
-                if (3 === i4[0] && (!n2 || i4[1] > n2[0] && i4[1] < n2[3])) {
-                  r2.label = i4[1];
+                if (3 === o3[0] && (!a2 || o3[1] > a2[0] && o3[1] < a2[3])) {
+                  i.label = o3[1];
                   break;
                 }
-                if (6 === i4[0] && r2.label < n2[1]) {
-                  r2.label = n2[1], n2 = i4;
+                if (6 === o3[0] && i.label < a2[1]) {
+                  i.label = a2[1], a2 = o3;
                   break;
                 }
-                if (n2 && r2.label < n2[2]) {
-                  r2.label = n2[2], r2.ops.push(i4);
+                if (a2 && i.label < a2[2]) {
+                  i.label = a2[2], i.ops.push(o3);
                   break;
                 }
-                n2[2] && r2.ops.pop(), r2.trys.pop();
+                a2[2] && i.ops.pop(), i.trys.pop();
                 continue;
             }
-            i4 = t2.call(e2, r2);
-          } catch (e3) {
-            i4 = [6, e3], l2 = 0;
+            o3 = e2.call(t2, i);
+          } catch (t3) {
+            o3 = [6, t3], n2 = 0;
           } finally {
-            a2 = n2 = 0;
+            r2 = a2 = 0;
           }
-          if (5 & i4[0]) throw i4[1];
-          return { value: i4[0] ? i4[1] : void 0, done: true };
-        }([i3, s2]);
+          if (5 & o3[0]) throw o3[1];
+          return { value: o3[0] ? o3[1] : void 0, done: true };
+        }([o2, c]);
       };
     }
-    __name(i2, "i");
+    __name(o, "o");
   };
-  Object.defineProperty(exports, "__esModule", { value: true }), exports.NovelFirePlugin = void 0;
-  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_constants(), __toCommonJS(constants_exports)), s = (init_storage2(), __toCommonJS(storage_exports)), u = function() {
-    function e2(e3) {
-      var t2, a2, l2;
-      this.webStorageUtilized = true, this.novelList = /* @__PURE__ */ new Set(), this.draw = 0, this.pluginSettings = { pageLength: { value: "", label: "Page Mode (Change if Broken)", type: "Switch" }, singlePage: { value: "", label: "Force load all chapters on a single page (Slower & use more data)", type: "Switch" } }, this.singlePage = s.storage.get("singlePage"), this.pageLength = s.storage.get("pageLength"), this.id = e3.id, this.name = e3.sourceName, this.icon = "multisrc/novelfire/".concat(e3.id.toLowerCase(), "/icon.png"), this.site = e3.sourceSite;
-      var n2 = (null === (t2 = e3.options) || void 0 === t2 ? void 0 : t2.majorVer) || 1, r2 = (null === (a2 = e3.options) || void 0 === a2 ? void 0 : a2.minorVer) || 0, o2 = (null === (l2 = e3.options) || void 0 === l2 ? void 0 : l2.versionIncrement) || 0;
-      this.version = "".concat(n2, ".").concat(r2, ".").concat(o2), this.options = e3.options, this.filters = e3.filters;
+  Object.defineProperty(exports, "__esModule", { value: true });
+  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), a = function() {
+    function a2() {
+      this.id = "rewayahfans", this.name = "\u0631\u0648\u0627\u064A\u0647 \u0641\u0627\u0646\u0632", this.version = "1.0.0", this.icon = "src/ar/rewayahfans/icon.png", this.site = "https://rewayahfans.net/", this.allNovels = [];
     }
-    __name(e2, "e");
-    return e2.prototype.getCheerio = function(e3, t2) {
-      return a(this, void 0, void 0, function() {
-        var a2, o2, i2;
-        return l(this, function(l2) {
-          switch (l2.label) {
+    __name(a2, "a");
+    return a2.prototype.fetchJson = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(e3)];
+              return [4, (0, n.fetchApi)(r2)];
             case 1:
-              if (!(a2 = l2.sent()).ok && 1 != t2) throw new Error("Could not reach site (" + a2.status + ") try to open in webview.");
-              return i2 = n.load, [4, a2.text()];
+              if (!(t2 = e2.sent()).ok) throw new Error("Request failed: ".concat(t2.status));
+              return [2, t2.json()];
+          }
+        });
+      });
+    }, a2.prototype.fetchHtml = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, (0, n.fetchApi)(r2)];
+            case 1:
+              if (!(t2 = e2.sent()).ok) throw new Error("Request failed: ".concat(t2.status));
+              return [2, t2.text()];
+          }
+        });
+      });
+    }, a2.prototype.normalizeUrl = function(t2) {
+      if (!t2) return "";
+      var e2 = t2.replace(/&amp;/g, "&").replace(/&#038;/g, "&").trim();
+      return e2.startsWith("http") ? e2 : e2.startsWith("//") ? "https:".concat(e2) : e2.startsWith("/") ? "".concat(this.site).concat(e2.replace(/^\//, "")) : "".concat(this.site).concat(e2);
+    }, a2.prototype.loadAllNovels = function() {
+      return t(this, void 0, void 0, function() {
+        var t2, n2, a3, i, s = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return this.allNovels.length > 0 ? [2, this.allNovels] : [4, this.fetchHtml("".concat(this.site, "%d9%82%d8%a7%d8%a6%d9%85%d8%a9-%d8%a7%d9%84%d8%b1%d9%88%d8%a7%d9%8a%d8%a7%d8%aa/"))];
+            case 1:
+              return t2 = e2.sent(), n2 = (0, r.load)(t2), a3 = [], i = /* @__PURE__ */ new Set(), n2("figure.wp-block-image").each(function(t3, e3) {
+                var r2 = n2(e3), o = r2.find("figcaption a").first(), c = o.attr("href") || r2.find("a").first().attr("href") || "", l = o.text().trim(), u = s.normalizeUrl(r2.find("img").attr("data-src") || r2.find("img").attr("data-lazy-src") || r2.find("img").attr("src") || "");
+                if (l && c) {
+                  var h = c.replace(s.site, "").replace(/\/$/, "");
+                  i.has(h) || (i.add(h), a3.push({ name: l, path: h, cover: u }));
+                }
+              }), this.allNovels = a3, [2, a3];
+          }
+        });
+      });
+    }, a2.prototype.popularNovels = function(r2, n2) {
+      return t(this, void 0, void 0, function() {
+        var t2;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, this.loadAllNovels()];
+            case 1:
+              return t2 = e2.sent(), r2 > 1 ? [2, []] : [2, t2];
+          }
+        });
+      });
+    }, a2.prototype.parseNovel = function(n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a3, i, s, o, c, l, u, h, p, f, d, v = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return t2 = { path: n2, name: "", cover: "", summary: "", author: "", genres: "", status: "", chapters: [] }, [4, this.fetchHtml("".concat(this.site).concat(n2))];
+            case 1:
+              return a3 = e2.sent(), i = (0, r.load)(a3), s = i("title").text().trim(), t2.name = s.split(" - ")[0].trim() || s.split("\u2013")[0].trim() || "\u0628\u062F\u0648\u0646 \u0639\u0646\u0648\u0627\u0646", t2.name = this.extractNovelName(t2.name), o = i('meta[property="og:image"]').attr("content") || "", t2.cover = this.normalizeUrl(o), t2.cover || (c = i("img").filter(function() {
+                return (i(this).attr("data-src") || i(this).attr("src") || "").includes("wp-content/uploads");
+              }).first(), t2.cover = this.normalizeUrl(c.attr("data-src") || c.attr("src") || "")), l = [], u = false, h = false, i(".entry-content > *").each(function(t3, e3) {
+                var r2, n3 = i(e3), a4 = (null === (r2 = n3.prop("tagName")) || void 0 === r2 ? void 0 : r2.toLowerCase()) || "", s2 = n3.text().trim();
+                if ("p" === a4 && s2.startsWith("\u0627\u0644\u0642\u0635\u0629")) u = true;
+                else if (u) {
+                  if ("p" === a4 && s2.startsWith("\u0627\u0644\u0641\u0635\u0648\u0644")) return h = true, false;
+                  "p" === a4 && s2 && !h && l.push(s2);
+                }
+              }), t2.summary = l.join("\n") || "", p = {}, i("ul.wp-block-list li").each(function(t3, e3) {
+                var r2 = i(e3).text().trim(), n3 = r2.indexOf(":");
+                if (n3 > 0) {
+                  var a4 = r2.substring(0, n3).trim(), s2 = r2.substring(n3 + 1).trim();
+                  p[a4] = s2;
+                }
+              }), t2.author = p["\u0627\u0644\u0645\u0624\u0644\u0641"] || "", t2.genres = p["\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A"] || "", t2.status = p["\u0627\u0644\u062D\u0627\u0644\u0629"] || "", f = /* @__PURE__ */ new Set(), (d = i('p:contains("\u0627\u0644\u0641\u0635\u0648\u0644"), p:contains("Chapters"), p:contains("Fichier"), p:contains("Capitulos"), p:contains("Cap\xEDtulos"), p:contains("Chapitres"), p:contains("Kapitel"), p:contains("\u0424\u0430\u0439\u043B"), p:contains("\u0413\u043B\u0430\u0432\u0430"), p:contains("\u7AE0")')).length > 0 && d.nextAll().each(function(e3, r2) {
+                var a4 = i(r2);
+                if (!a4.hasClass("wp-block-paragraph") && !a4.is("p")) return false;
+                a4.find("a").each(function(e4, r3) {
+                  var a5 = i(r3).attr("href") || "", s2 = i(r3).text().trim();
+                  if (a5 && s2 && a5.startsWith(v.site)) {
+                    var o2 = a5.replace(v.site, "").replace(/\/$/, "");
+                    if (o2 !== n2 && !f.has(o2)) {
+                      var c2 = s2.match(/(\d+)/);
+                      if (c2) {
+                        var l2 = parseInt(c2[1], 10);
+                        if (0 !== l2) {
+                          var u2 = s2.replace(/\bnew\b/i, "").trim();
+                          u2.includes("\u0627\u0644\u0646\u0647\u0627\u064A\u0629") || u2.includes("\u0627\u0636\u063A\u0637 \u0647\u0646\u0627") || u2.includes("Summary") || (f.add(o2), t2.chapters.push({ name: u2, path: o2, chapterNumber: l2 }));
+                        }
+                      }
+                    }
+                  }
+                });
+              }), t2.chapters.sort(function(t3, e3) {
+                return (t3.chapterNumber || 0) - (e3.chapterNumber || 0);
+              }), !t2.name && t2.chapters.length > 0 && (t2.name = this.extractNovelName(t2.chapters[0].name)), [2, t2];
+          }
+        });
+      });
+    }, a2.prototype.parseChapter = function(n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a3, i, s, o, c;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, this.fetchJson("".concat(this.site, "wp-json/wp/v2/pages?slug=").concat(n2, "&_fields=content"))];
+            case 1:
+              return t2 = e2.sent(), (a3 = Array.isArray(t2) ? t2 : [t2]).length > 0 && (null === (c = a3[0].content) || void 0 === c ? void 0 : c.rendered) ? ((i = (0, r.load)(a3[0].content.rendered))("script, style, .sharedaddy, .jp-relatedposts, .wp-block-spacer, .simplefavorite-button, .wp-block-jetpack-rating-star").remove(), [2, i.html()]) : [4, this.fetchHtml("".concat(this.site).concat(n2, "/"))];
             case 2:
-              if ((o2 = i2.apply(void 0, [l2.sent()]))("title").text().includes("Cloudflare")) throw new Error("Cloudflare is blocking requests. Try again later.");
-              return [2, o2];
+              return s = e2.sent(), o = (0, r.load)(s), [2, o("article .entry-content, .post-content, .entry-content").html() || "" || "<p>\u0627\u0644\u0645\u062D\u062A\u0648\u0649 \u063A\u064A\u0631 \u0645\u062A\u0627\u062D.</p>"];
           }
         });
       });
-    }, e2.prototype.parseNovels = function(e3, t2, a2) {
-      var l2, n2, r2;
-      void 0 === t2 && (t2 = ".novel-item"), void 0 === a2 && (a2 = false);
-      for (var o2 = [], s2 = 0, u2 = e3(t2).toArray(); s2 < u2.length; s2++) {
-        var c2 = e3(u2[s2]), v2 = null !== (l2 = c2.find("a").attr("title")) && void 0 !== l2 ? l2 : c2.find("h4").text().trim(), p2 = null !== (n2 = c2.children("a").attr("href")) && void 0 !== n2 ? n2 : c2.find("h4 a").attr("href");
-        if (p2) {
-          var h = new URL(p2, this.site).pathname.substring(1);
-          if (a2) this.novelList.add(h);
-          else {
-            if (this.novelList.has(h)) continue;
-            this.novelList.add(h);
-          }
-          var d = c2.find(".novel-cover > img"), b = null !== (r2 = d.attr("data-src")) && void 0 !== r2 ? r2 : d.attr("src"), g = b ? new URL(b, this.site).href : i.defaultCover;
-          o2.push({ name: v2, cover: g, path: h });
-        }
-      }
-      return o2;
-    }, e2.prototype.popularNovels = function(e3, t2) {
-      return a(this, arguments, void 0, function(e4, t3) {
-        var a2, n2, r2, o2, i2, s2, u2, c2, v2, p2, h, d, b, g, f, m, y, w, S, x, N, _, C, k, A, P, L = t3.showLatestNovels, M = t3.filters;
-        return l(this, function(t4) {
-          switch (t4.label) {
+    }, a2.prototype.searchNovels = function(r2, n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a3, i, s;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              for (1 === e4 && (this.novelList.clear(), this.draw = 0), a2 = this.site + "search-adv", n2 = new URLSearchParams(), r2 = 0, o2 = (null === (f = null == M ? void 0 : M.language) || void 0 === f ? void 0 : f.value) || []; r2 < o2.length; r2++) i2 = o2[r2], n2.append("country_id[]", i2);
-              for (n2.append("ctgcon", (null === (m = null == M ? void 0 : M.genre_operator) || void 0 === m ? void 0 : m.value) || "and"), s2 = 0, u2 = (null === (y = null == M ? void 0 : M.genres) || void 0 === y ? void 0 : y.value) || []; s2 < u2.length; s2++) c2 = u2[s2], n2.append("categories[]", c2);
-              for (n2.append("totalchapter", (null === (w = null == M ? void 0 : M.chapters) || void 0 === w ? void 0 : w.value) || "0"), n2.append("ratcon", (null === (S = null == M ? void 0 : M.rating_operator) || void 0 === S ? void 0 : S.value) || "min"), n2.append("rating", (null === (x = null == M ? void 0 : M.rating) || void 0 === x ? void 0 : x.value) || "0"), n2.append("status", (null === (N = null == M ? void 0 : M.status) || void 0 === N ? void 0 : N.value) || "-1"), n2.append("sort", L ? "date" : (null === (_ = null == M ? void 0 : M.sort) || void 0 === _ ? void 0 : _.value) || "rank-top"), n2.append("tagcon", (null === (C = null == M ? void 0 : M.tagcon) || void 0 === C ? void 0 : C.value) || "and"), v2 = 0, p2 = (null === (k = null == M ? void 0 : M.tags) || void 0 === k ? void 0 : k.value) || []; v2 < p2.length; v2++) b = p2[v2], n2.append("tags[]", b);
-              for (h = 0, d = (null === (A = null == M ? void 0 : M.tags_excluded) || void 0 === A ? void 0 : A.value) || []; h < d.length; h++) b = d[h], n2.append("tags_excluded[]", b);
-              return (null === (P = null == M ? void 0 : M.author) || void 0 === P ? void 0 : P.value) && n2.append("author", M.author.value), n2.append("page", e4.toString()), [4, this.getCheerio("".concat(a2, "?").concat(n2.toString()), false)];
+              return [4, this.loadAllNovels()];
             case 1:
-              return g = t4.sent(), [2, this.parseNovels(g, ".novel-item", 1 === e4)];
+              return t2 = e2.sent(), a3 = r2.toLowerCase(), i = t2.filter(function(t3) {
+                return t3.name.toLowerCase().includes(a3);
+              }), s = 20 * (n2 - 1), [2, i.slice(s, s + 20)];
           }
         });
       });
-    }, e2.prototype.getAllChapters = function(e3, t2, o2) {
-      return a(this, void 0, void 0, function() {
-        var a2, i2, s2, u2, p2, h;
-        return l(this, function(l2) {
-          switch (l2.label) {
-            case 0:
-              return a2 = this.pageLength ? 100 : -1, i2 = "".concat(this.site, "ajax/listChapterDataAjax"), s2 = -1 === a2 ? 0 : (parseInt(o2) - 1) * a2, this.draw++, u2 = new URLSearchParams({ draw: this.draw.toString(), "columns[0][data]": "n_sort", "columns[0][name]": "cmm_posts_detail.n_sort", "columns[0][searchable]": "true", "columns[0][orderable]": "true", "columns[0][search][value]": "", "columns[0][search][regex]": "false", "columns[1][data]": "bookmark_created_at", "columns[1][name]": "bookmark_chapters.created_at", "columns[1][searchable]": "false", "columns[1][orderable]": "true", "columns[1][search][value]": "", "columns[1][search][regex]": "false", "order[0][column]": "0", "order[0][dir]": "asc", "order[0][name]": "cmm_posts_detail.n_sort", start: s2.toString(), length: a2.toString(), "search[value]": "", "search[regex]": "false", post_id: t2, only_bookmark: "false", _: Date.now().toString() }), [4, (0, r.fetchApi)("".concat(i2, "?").concat(u2.toString()))];
-            case 1:
-              if (429 === (p2 = l2.sent()).status) throw new c();
-              return [4, p2.text()];
-            case 2:
-              if ((h = l2.sent()).includes("You are being rate limited")) throw new c();
-              if (h.includes("Page Not Found 404")) throw new v();
-              return [2, (JSON.parse(h).data || []).flatMap(function(t3) {
-                var a3 = (0, n.load)(t3.title || t3.slug).text().replace(/[\u200B-\u200D\uFEFF]/g, "").trim(), l3 = Number(t3.n_sort);
-                return a3 && !isNaN(l3) ? [{ name: a3, path: "".concat(e3, "/chapter-").concat(l3), chapterNumber: l3 }] : [];
-              }).sort(function(e4, t3) {
-                return (e4.chapterNumber || 0) - (t3.chapterNumber || 0);
-              })];
-          }
-        });
-      });
-    }, e2.prototype.getAllChaptersForce = function(e3, t2) {
-      return a(this, void 0, void 0, function() {
-        var a2, n2, r2, o2, i2, s2, u2, v2, p2, h, d, b, g, f, m, y, w, S, x, N = this;
-        return l(this, function(l2) {
-          switch (l2.label) {
-            case 0:
-              a2 = Array.from({ length: t2 }, function(e4, t3) {
-                return t3 + 1;
-              }), n2 = [], r2 = 5, o2 = 10, i2 = 3.5, s2 = [], u2 = 0, l2.label = 1;
-            case 1:
-              if (!(u2 < a2.length)) return [3, 11];
-              v2 = a2.slice(u2, u2 + r2), p2 = v2[0], h = v2[v2.length - 1], d = 0, l2.label = 2;
-            case 2:
-              if (!(d < o2)) return [3, 10];
-              l2.label = 3;
-            case 3:
-              return l2.trys.push([3, 5, , 9]), [4, Promise.all(v2.map(function(t3) {
-                return N.parsePage(e3, t3.toString());
-              }))];
-            case 4:
-              return b = l2.sent(), s2.push.apply(s2, b), [3, 10];
-            case 5:
-              if (!((g = l2.sent()) instanceof c)) return [3, 7];
-              if (d += 1, console.warn("[pages=".concat(p2, "-").concat(h, "] Novel Fire is rate limiting requests. Retry attempt ").concat(d + 1, " in ").concat(i2, " seconds...")), d === o2) throw g;
-              return [4, new Promise(function(e4) {
-                return setTimeout(e4, 1e3 * i2);
-              })];
-            case 6:
-              return l2.sent(), [3, 8];
-            case 7:
-              throw g;
-            case 8:
-              return [3, 9];
-            case 9:
-              return [3, 2];
-            case 10:
-              return u2 += r2, [3, 1];
-            case 11:
-              for (f = 0, m = s2; f < m.length; f++) if ((y = m[f]).chapters) for (w = 0, S = y.chapters; w < S.length; w++) x = S[w], n2.push(x);
-              return [2, n2];
-          }
-        });
-      });
-    }, e2.prototype.parseNovel = function(e3) {
-      return a(this, void 0, void 0, function() {
-        var t2, a2, n2, r2, u2, c2, v2, p2, h, d, b, g, f, m, y, w, S;
-        return l(this, function(l2) {
-          switch (l2.label) {
-            case 0:
-              return this.draw = 0, [4, this.getCheerio(this.site + e3, false)];
-            case 1:
-              return t2 = l2.sent(), a2 = this.site, (n2 = t2("#novel-report").attr("report-post_id")) && s.storage.set("".concat(this.id, "_").concat(e3.split("/").pop()), n2), (r2 = { path: e3, totalPages: 1 }).name = null !== (m = null !== (f = t2(".novel-title").text().trim()) && void 0 !== f ? f : t2(".cover > img").attr("alt")) && void 0 !== m ? m : "No Titled Found", u2 = null !== (y = t2(".cover > img").attr("data-src")) && void 0 !== y ? y : t2(".cover > img").attr("src"), r2.cover = u2 ? new URL(u2, a2).href : i.defaultCover, r2.genres = t2(".categories .property-item").map(function(e4, a3) {
-                return t2(a3).text();
-              }).toArray().join(","), (c2 = t2(".summary .content")).find(".expand").remove(), c2.find("br").replaceWith("\n"), c2.find("p").before("\n").after("\n\n"), r2.summary = (null === (w = c2.text().split("\n").map(function(e4) {
-                return e4.trim();
-              }).join("\n")) || void 0 === w ? void 0 : w.replace(/\n{3,}/g, "\n\n").trim()) || "Summary Not Found", r2.author = t2(".author .property-item > span").text(), v2 = t2(".header-stats .ongoing").text() || t2(".header-stats .completed").text() || "Unknown", p2 = { ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled, cancelled: o.NovelStatus.Cancelled, completed: o.NovelStatus.Completed, unknown: o.NovelStatus.Unknown }, r2.status = null !== (S = p2[v2.toLowerCase()]) && void 0 !== S ? S : o.NovelStatus.Unknown, r2.rating = parseFloat(t2(".nub").text().trim()), h = t2(".header-stats i.icon-book-open").parent().text().trim(), d = this.pageLength ? 100 : -1, r2.totalPages = -1 === d ? 1 : Math.ceil(parseInt(h) / d) || 1, 1 === r2.totalPages && n2 ? (b = r2, [4, this.getAllChapters(e3, n2, "1")]) : [3, 3];
-            case 2:
-              b.chapters = l2.sent(), l2.label = 3;
-            case 3:
-              return 100 === d && this.singlePage ? (g = r2, [4, this.getAllChaptersForce(r2.path, r2.totalPages)]) : [3, 5];
-            case 4:
-              g.chapters = l2.sent(), r2.totalPages = 1, l2.label = 5;
-            case 5:
-              return [2, r2];
-          }
-        });
-      });
-    }, e2.prototype.parsePage = function(e3, t2) {
-      return a(this, void 0, void 0, function() {
-        var a2, o2, i2, u2, c2 = this;
-        return l(this, function(l2) {
-          switch (l2.label) {
-            case 0:
-              if (!(a2 = s.storage.get("".concat(this.id, "_").concat(e3.split("/").pop()))) || isNaN(Number(a2))) return [3, 4];
-              l2.label = 1;
-            case 1:
-              return l2.trys.push([1, 3, , 4]), [4, this.getAllChapters(e3, String(a2), t2)];
-            case 2:
-              return [2, { chapters: l2.sent() }];
-            case 3:
-              return l2.sent(), [3, 4];
-            case 4:
-              return 100 !== (this.pageLength ? 100 : -1) ? [3, 7] : (o2 = "".concat(this.site).concat(e3, "/chapters?page=").concat(t2), [4, (0, r.fetchApi)(o2)]);
-            case 5:
-              return [4, l2.sent().text()];
-            case 6:
-              return i2 = l2.sent(), u2 = (0, n.load)(i2), [2, { chapters: u2(".chapter-list li").map(function(e4, t3) {
-                var a3 = u2(t3).find("a").attr("title") || "No Title Found", l3 = u2(t3).find("a").attr("href");
-                return l3 ? { name: a3, path: new URL(l3, c2.site).pathname.substring(1) } : null;
-              }).get().filter(function(e4) {
-                return null !== e4;
-              }) }];
-            case 7:
-              return [2, { chapters: [] }];
-          }
-        });
-      });
-    }, e2.prototype.parseChapter = function(e3) {
-      return a(this, void 0, void 0, function() {
-        var t2, a2, n2, r2, o2, i2, s2, u2, c2, v2;
-        return l(this, function(l2) {
-          switch (l2.label) {
-            case 0:
-              return t2 = this.site + e3, [4, this.getCheerio(t2, false)];
-            case 1:
-              if (a2 = l2.sent(), 0 === (n2 = a2("#content")).length) throw new Error("Chapter content container (#content) not found for ".concat(e3, " \u2014 possible transient fetch issue. Retry"));
-              for (r2 = n2.find(":not(p, h1, span, i, b, u, img, a, div, strong)"), o2 = 0, i2 = r2.toArray(); o2 < i2.length; o2++) s2 = i2[o2], (u2 = s2.name.toString()).length > 5 && "nf" == u2.substring(0, 1) && a2(s2).remove();
-              if (!(c2 = null === (v2 = n2.html()) || void 0 === v2 ? void 0 : v2.replace(/&nbsp;/g, " ")) || 0 === c2.trim().length) throw new Error("Chapter content was empty after parsing for ".concat(e3, "."));
-              return [2, c2];
-          }
-        });
-      });
-    }, e2.prototype.searchNovels = function(e3, t2) {
-      return a(this, void 0, void 0, function() {
-        var a2, o2, i2, s2;
-        return l(this, function(l2) {
-          switch (l2.label) {
-            case 0:
-              return 1 === t2 && (this.novelList.clear(), this.draw = 0), (a2 = new URLSearchParams()).append("keyword", e3), a2.append("page", t2.toString()), o2 = "".concat(this.site, "search?").concat(a2.toString()), [4, (0, r.fetchApi)(o2)];
-            case 1:
-              return [4, l2.sent().text()];
-            case 2:
-              return i2 = l2.sent(), s2 = (0, n.load)(i2), [2, this.parseNovels(s2, ".novel-list.chapters .novel-item", 1 === t2)];
-          }
-        });
-      });
-    }, e2;
+    }, a2.prototype.extractNovelName = function(t2) {
+      var e2 = t2.match(/^(.+?)\s+\d+$/);
+      return e2 ? e2[1].trim() : t2.trim();
+    }, a2;
   }();
-  exports.NovelFirePlugin = u;
-  var c = function(e2) {
-    function a2(t2) {
-      void 0 === t2 && (t2 = "Novel Fire is rate limiting requests");
-      var a3 = e2.call(this, t2) || this;
-      return a3.name = "NovelFireError", a3;
-    }
-    __name(a2, "a");
-    return t(a2, e2), a2;
-  }(Error), v = function(e2) {
-    function a2(t2) {
-      void 0 === t2 && (t2 = "Novel Fire says its Ajax interface is not found");
-      var a3 = e2.call(this, t2) || this;
-      return a3.name = "NovelFireAjaxError", a3;
-    }
-    __name(a2, "a");
-    return t(a2, e2), a2;
-  }(Error), p = new u({ id: "novelphoenix", sourceSite: "https://novelphoenix.com/", sourceName: "Novel Phoenix", options: { lang: "English", versionIncrement: 2 }, filters: { sort: { label: "Sort Results By", value: "rank-top", options: [{ label: "Last Updated (Newest)", value: "date" }, { label: "Rank (Top)", value: "rank-top" }, { label: "Rating Score (Top)", value: "rating-score-top" }, { label: "Review Count (Most)", value: "review" }, { label: "Comment Count (Most)", value: "comment" }, { label: "Bookmark Count (Most)", value: "bookmark" }, { label: "Today Views (Most)", value: "today-view" }, { label: "Monthly Views (Most)", value: "monthly-view" }, { label: "Total Views (Most)", value: "total-view" }, { label: "Chapter Count (Most)", value: "chapter-count-most" }, { label: "Title (A>Z)", value: "abc" }, { label: "Title (Z>A)", value: "cba" }], type: "Picker" }, status: { label: "Translation Status", value: "-1", options: [{ label: "All", value: "-1" }, { label: "Completed", value: "1" }, { label: "Ongoing", value: "0" }], type: "Picker" }, language: { label: "Language", value: [], options: [{ label: "Chinese Novel", value: "1" }, { label: "Japanese Novel", value: "3" }, { label: "English Novel", value: "4" }], type: "Checkbox" }, genre_operator: { label: "Genres (And/Or/Exclude)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }, { label: "EXCLUDE", value: "exclude" }], type: "Picker" }, genres: { label: "Genres", value: [], options: [{ label: "Action", value: "3" }, { label: "Adult", value: "28" }, { label: "Adventure", value: "4" }, { label: "Anime", value: "46" }, { label: "Arts", value: "47" }, { label: "Comedy", value: "5" }, { label: "Drama", value: "24" }, { label: "Eastern", value: "44" }, { label: "Ecchi", value: "26" }, { label: "Fan-fiction", value: "48" }, { label: "Fantasy", value: "6" }, { label: "Game", value: "19" }, { label: "Gender Bender", value: "25" }, { label: "Harem", value: "7" }, { label: "Historical", value: "12" }, { label: "Horror", value: "37" }, { label: "Isekai", value: "49" }, { label: "Josei", value: "2" }, { label: "Lgbt+", value: "45" }, { label: "Magic", value: "50" }, { label: "Magical realism", value: "51" }, { label: "Manhua", value: "52" }, { label: "Martial Arts", value: "15" }, { label: "Mature", value: "8" }, { label: "Mecha", value: "34" }, { label: "Military", value: "53" }, { label: "Modern life", value: "54" }, { label: "Movies", value: "55" }, { label: "Mystery", value: "16" }, { label: "Other", value: "64" }, { label: "Psychological", value: "9" }, { label: "Realistic fiction", value: "56" }, { label: "Reincarnation", value: "43" }, { label: "Romance", value: "1" }, { label: "School Life", value: "21" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "10" }, { label: "Shoujo", value: "38" }, { label: "Shoujo ai", value: "57" }, { label: "Shounen", value: "17" }, { label: "Shounen Ai", value: "39" }, { label: "Slice of Life", value: "13" }, { label: "Smut", value: "29" }, { label: "Sports", value: "42" }, { label: "Supernatural", value: "18" }, { label: "System", value: "58" }, { label: "Tragedy", value: "32" }, { label: "Urban", value: "63" }, { label: "Urban life", value: "59" }, { label: "Video games", value: "60" }, { label: "War", value: "61" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "23" }, { label: "Xuanhuan", value: "22" }, { label: "Yaoi", value: "14" }, { label: "Yuri", value: "62" }], type: "Checkbox" }, chapters: { label: "Chapters", value: "0", options: [{ label: "All", value: "0" }, { label: "<50", value: "1,49" }, { label: "50-100", value: "50,100" }, { label: "100-200", value: "100,200" }, { label: "200-500", value: "200,500" }, { label: "500-1000", value: "500,1000" }, { label: ">1000", value: "1001,1000000" }], type: "Picker" }, rating_operator: { label: "Rating (Min/Max)", value: "min", options: [{ label: "min", value: "min" }, { label: "max", value: "max" }], type: "Picker" }, rating: { label: "Rating", value: "0", options: [{ label: "none", value: "0" }, { label: "1", value: "1" }, { label: "2", value: "2" }, { label: "3", value: "3" }, { label: "4", value: "4" }, { label: "5", value: "5" }], type: "Picker" }, tagcon: { label: "Tags (And/Or)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }], type: "Picker" }, author: { label: "Author", value: "", type: "Text" } } });
-  exports.default = p;
+  exports.default = new a();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

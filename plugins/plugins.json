@@ -99,6 +99,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/olaoe/icon.png"
 	},
 	{
+		"id": "rewayahfans",
+		"name": "روايه فانز",
+		"site": "https://rewayahfans.net/",
+		"lang": "‎العربية",
+		"version": "1.0.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/arabic/rewayahfans.js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/ar/rewayahfans/icon.png"
+	},
+	{
 		"id": "rewayatclub",
 		"name": "Rewayat Club",
 		"site": "https://rewayat.club/",
@@ -414,6 +423,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/fictioneer/dearestrosalie/icon.png"
 	},
 	{
+		"id": "dobynovels",
+		"name": "DobyNovels",
+		"site": "https://dobynovels.com/",
+		"lang": "English",
+		"version": "1.1.10",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/DobyNovels[lightnovelwp].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/lightnovelwp/dobynovels/icon.png"
+	},
+	{
 		"id": "dragonholic",
 		"name": "Dragonholic",
 		"site": "https://dragonholic.com/",
@@ -595,6 +613,15 @@
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/guavaread/icon.png"
 	},
 	{
+		"id": "hangulplanet",
+		"name": "HangulPlanet",
+		"site": "https://hangulplanet.com/",
+		"lang": "English",
+		"version": "2.2.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/HangulPlanet[madara].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/hangulplanet/icon.png"
+	},
+	{
 		"id": "hiraethtranslation",
 		"name": "Hiraeth Translation",
 		"site": "https://hiraethtranslation.com/",
@@ -716,7 +743,7 @@
 		"name": "Lib Read",
 		"site": "https://libread.com/",
 		"lang": "English",
-		"version": "2.2.3",
+		"version": "2.2.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/LibRead[readnovelfull].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/readnovelfull/libread/icon.png"
 	},
@@ -809,6 +836,15 @@
 		"version": "1.0.1",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/lnori.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/lnori/icon.png"
+	},
+	{
+		"id": "lovelyblossoms",
+		"name": "Lovelyblossoms",
+		"site": "https://lovelyblossoms.com/",
+		"lang": "English",
+		"version": "2.2.0",
+		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/Lovelyblossoms[madara].js",
+		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/madara/lovelyblossoms/icon.png"
 	},
 	{
 		"id": "ltnovel",
@@ -1004,7 +1040,7 @@
 		"name": "Novel Fire",
 		"site": "https://novelfire.net/",
 		"lang": "English",
-		"version": "1.4.3",
+		"version": "1.4.4",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelFire[novelfire].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/novelfire/novelfire/icon.png"
 	},
@@ -1085,7 +1121,7 @@
 		"name": "Novel Phoenix",
 		"site": "https://novelphoenix.com/",
 		"lang": "English",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/NovelPhoenix[novelfire].js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/multisrc/novelfire/novelphoenix/icon.png"
 	},
@@ -1482,7 +1518,7 @@
 		"name": "WTR-LAB",
 		"site": "https://wtr-lab.com/",
 		"lang": "English",
-		"version": "1.1.5",
+		"version": "1.1.6",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/wtrlab.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/wtrlab/icon.png"
 	},
