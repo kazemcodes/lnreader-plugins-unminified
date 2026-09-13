@@ -25486,7 +25486,7 @@ var LNReaderPlugin = (() => {
   var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
   function c(r2, i2) {
     return e(this, void 0, void 0, function() {
-      var e2, o2, c2, s2, u;
+      var e2, o2, c2, s2, l;
       return t(this, function(t2) {
         switch (t2.label) {
           case 0:
@@ -25495,7 +25495,7 @@ var LNReaderPlugin = (() => {
             if (!(e2 = t2.sent()).ok) throw new Error("HTTP ".concat(e2.status, " while loading ").concat(r2));
             return [4, e2.text()];
           case 2:
-            if (o2 = t2.sent(), (c2 = null === (u = null === (s2 = o2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === s2 ? void 0 : s2[1]) || void 0 === u ? void 0 : u.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && a.has(c2)) throw new Error("Bot challenge while loading ".concat(r2));
+            if (o2 = t2.sent(), (c2 = null === (l = null === (s2 = o2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === s2 ? void 0 : s2[1]) || void 0 === l ? void 0 : l.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && a.has(c2)) throw new Error("Bot challenge while loading ".concat(r2));
             return [2, o2];
         }
       });
@@ -25504,7 +25504,7 @@ var LNReaderPlugin = (() => {
   __name(c, "c");
   var s = function() {
     function n2() {
-      this.id = "novhell", this.name = "Novhell", this.icon = "src/fr/novhell/icon.png", this.site = "https://novhell.org", this.version = "1.0.4";
+      this.id = "novhell", this.name = "Novhell", this.icon = "src/fr/novhell/icon.png", this.site = "https://novhell.org", this.version = "1.0.5";
     }
     __name(n2, "n");
     return n2.prototype.getCheerio = function(n3) {
@@ -25538,7 +25538,7 @@ var LNReaderPlugin = (() => {
       });
     }, n2.prototype.parseNovel = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n3, a2, c2, s2, u = this;
+        var e2, n3, a2, c2, s2, l = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25546,14 +25546,14 @@ var LNReaderPlugin = (() => {
             case 1:
               return n3 = t2.sent(), e2.name = (null === (s2 = n3('meta[property="og:title"]').attr("content")) || void 0 === s2 ? void 0 : s2.replace("- NovHell", "")) || "", e2.cover = n3("section div div div div div img").first().attr("src") || i.defaultCover, e2.status = o.NovelStatus.Unknown, e2.author = n3("strong:contains('Ecrit par ')").parent().text().replace("Ecrit par ", "").trim(), e2.author || (e2.author = n3("div p:contains('Auteur')").text().replace("Auteur", "").replace(":", "").trim()), e2.author || (e2.author = n3("div p:contains('Ecrit par :')").text().replace("Ecrit par :", "").trim()), e2.genres = n3("strong:contains('Genre')").parent().text().replace("Genre", "").replace(":", "").trim(), e2.genres || (e2.genres = n3("div p:contains('Genre')").text().replace("Genre", "").replace(":", "").trim()), e2.summary = n3("strong:contains('Synopsis')").parent().parent().text().replace("Synopsis", "").replace("Synopsis", "").replace(":", "").trim(), a2 = [], c2 = /* @__PURE__ */ new Set(), n3("main div article div div section div div div div div p a").each(function(e3, t3) {
                 var r3 = n3(t3).text().replace(/\u00A0/g, " ").trim(), i2 = n3(t3).attr("href");
-                if (i2 && i2.includes(u.site)) {
-                  var o2 = i2.replace(u.site, "");
+                if (i2 && i2.includes(l.site)) {
+                  var o2 = i2.replace(l.site, "");
                   if (c2.has(o2)) return;
                   c2.add(o2);
-                  for (var s3 = /Chapitre (\d+)/g, l = 0, h = void 0; null !== (h = s3.exec(r3)); ) {
-                    l += parseInt(h[1]);
+                  for (var s3 = /Chapitre (\d+)/g, u = 0, h = void 0; null !== (h = s3.exec(r3)); ) {
+                    u += parseInt(h[1]);
                   }
-                  a2.push({ name: r3, path: o2, chapterNumber: l });
+                  a2.push({ name: r3, path: o2, chapterNumber: u });
                 }
               }), e2.chapters = a2.sort(function(e3, t3) {
                 return void 0 !== e3.chapterNumber && void 0 !== t3.chapterNumber ? e3.chapterNumber - t3.chapterNumber : void 0 === e3.chapterNumber ? 1 : -1;
@@ -25563,7 +25563,7 @@ var LNReaderPlugin = (() => {
       });
     }, n2.prototype.parseChapter = function(n3) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, o2, a2, c2, s2, u, l, h;
+        var e2, i2, o2, a2, c2, s2, l, u, h, p, f, v, d;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25574,8 +25574,16 @@ var LNReaderPlugin = (() => {
                   c2 = s2 - 1;
                   break;
                 }
-                if (u = i2.eq(o2 - c2), a2 && u && (l = (a2.html() || "") + (u.html() || ""), (h = (0, r.load)(l)).text().replace(/\s+/g, " ").trim().length >= 200 || h("img").length)) return [2, l];
+                if (l = i2.eq(o2 - c2), a2 && l && (v = (a2.html() || "") + (l.html() || ""), (d = (0, r.load)(v)).text().replace(/\s+/g, " ").trim().length >= 200 || d("img").length)) return [2, v];
               }
+              if ((u = e2("article .entry-content").first()).length && (h = "", p = "", f = 0, u.children("div.wp-block-columns").each(function(t3, r2) {
+                var n4 = e2(r2);
+                if (n4.find("h4").length) h || (h = e2.html(r2) || "");
+                else {
+                  var i3 = n4.text().replace(/\s+/g, " ").trim().length;
+                  i3 > f && (f = i3, p = e2.html(r2) || "");
+                }
+              }), v = h + p, (d = (0, r.load)(v)).text().replace(/\s+/g, " ").trim().length >= 200 || d("img").length)) return [2, v];
               throw new Error("No readable chapter content found");
           }
         });

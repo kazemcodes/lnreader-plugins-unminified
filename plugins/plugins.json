@@ -923,7 +923,7 @@
 		"name": "MVLEMPYR",
 		"site": "https://www.mvlempyr.io/",
 		"lang": "English",
-		"version": "1.0.12",
+		"version": "1.0.13",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/english/mvlempyr.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/en/mvlempyr/icon.png"
 	},
@@ -1689,7 +1689,7 @@
 		"name": "Novhell",
 		"site": "https://novhell.org",
 		"lang": "Français",
-		"version": "1.0.4",
+		"version": "1.0.5",
 		"url": "https://raw.githubusercontent.com/kazemcodes/lnreader-plugins-unminified/repo/plugins/french/novhell.js",
 		"iconUrl": "https://raw.githubusercontent.com/LNReader/lnreader-plugins/master/public/static/src/fr/novhell/icon.png"
 	},
