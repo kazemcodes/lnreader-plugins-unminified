@@ -25975,6 +25975,11 @@ var LNReaderPlugin = (() => {
                   case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
                     u2.author = a4.text().trim();
                     break;
+                  case "Translator(s)":
+                  case "Translator":
+                  case "Translators":
+                    u2.author || (u2.author = a4.text().trim());
+                    break;
                   case "Status":
                   case "Novel":
                   case "Estado":
@@ -25985,6 +25990,8 @@ var LNReaderPlugin = (() => {
                     u2.artist = a4.text().trim();
                 }
               }), u2.genres || (u2.genres = t2(".genres-content").text().trim()), u2.status || (u2.status = t2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), u2.author || (u2.author = t2(".manga-author a").text().trim()), u2.rating || (u2.rating = parseFloat(t2(".post-rating span").text().trim())), u2.author || (u2.author = t2(".manga-authors").text().trim()), t2("div.summary__content .code-block,script,noscript").remove(), u2.summary = this.translateDragontea(t2("div.summary__content")).text().trim() || t2("#tab-manga-about").text().trim() || t2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, a4) {
+                return t2(a4).text();
+              }).get().join("\n\n").trim() || t2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, a4) {
                 return t2(a4).text();
               }).get().join("\n\n").trim() || t2(".manga-summary p").map(function(e3, a4) {
                 return t2(a4).text();

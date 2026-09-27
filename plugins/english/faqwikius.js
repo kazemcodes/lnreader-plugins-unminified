@@ -25470,7 +25470,7 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = function() {
     function o2() {
-      this.id = "FWK.US", this.name = "Faq Wiki", this.site = "https://faqwiki.us/novel", this.version = "3.0.1", this.icon = "src/en/faqwikius/icon.png";
+      this.id = "FWK.US", this.name = "Faq Wiki", this.site = "https://faqwiki.xyz", this.version = "4.0.0", this.icon = "src/en/faqwikius/icon.png";
     }
     __name(o2, "o");
     return o2.prototype.parseNovels = function(t2, e2) {

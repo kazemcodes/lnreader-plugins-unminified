@@ -2581,11 +2581,11 @@ var LNReaderPlugin = (() => {
       init_process2();
       var base64 = exports4;
       base64.length = /* @__PURE__ */ __name(function length(string) {
-        var p2 = string.length;
-        if (!p2)
+        var p = string.length;
+        if (!p)
           return 0;
         var n2 = 0;
-        while (--p2 % 4 > 1 && string.charAt(p2) === "=")
+        while (--p % 4 > 1 && string.charAt(p) === "=")
           ++n2;
         return Math.ceil(string.length * 3) / 4 - n2;
       }, "length");
@@ -3234,9 +3234,9 @@ var LNReaderPlugin = (() => {
       return unsigned ? UZERO : ZERO;
     radix = radix || 10;
     if (radix < 2 || 36 < radix) throw RangeError("radix");
-    var p2;
-    if ((p2 = str.indexOf("-")) > 0) throw Error("interior hyphen");
-    else if (p2 === 0) {
+    var p;
+    if ((p = str.indexOf("-")) > 0) throw Error("interior hyphen");
+    else if (p === 0) {
       return fromString(str.substring(1), unsigned, radix).neg();
     }
     var radixToPower = fromNumber(pow_dbl(radix, 8));
@@ -5374,7 +5374,7 @@ var LNReaderPlugin = (() => {
         object.onRemove(this);
         return clearCache(this);
       }, "remove");
-      Namespace.prototype.define = /* @__PURE__ */ __name(function define2(path, json) {
+      Namespace.prototype.define = /* @__PURE__ */ __name(function define(path, json) {
         if (util.isString(path))
           path = path.split(".");
         else if (!Array.isArray(path))
@@ -9359,7 +9359,7 @@ var LNReaderPlugin = (() => {
           method: "POST",
           ...init,
           body: bodyArray
-        }).then((r2) => r2.arrayBuffer()).then((arr) => {
+        }).then((r3) => r3.arrayBuffer()).then((arr) => {
           const payload = new Uint8Array(arr);
           const length = Number(
             BigInt(payload[1] << 24) | BigInt(payload[2] << 16) | BigInt(payload[3] << 8) | BigInt(payload[4])
@@ -9439,7 +9439,7 @@ var LNReaderPlugin = (() => {
           extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
             d2.__proto__ = b2;
           } || function(d2, b2) {
-            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d2[p2] = b2[p2];
+            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
           };
           return extendStatics(d, b);
         }, "extendStatics");
@@ -9458,8 +9458,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
-              t2[p2] = s2[p2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
           return t2;
         };
@@ -9904,7 +9904,7 @@ var LNReaderPlugin = (() => {
         o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.DomHandler = void 0;
@@ -10943,8 +10943,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
-              t2[p2] = s2[p2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
           return t2;
         };
@@ -11899,7 +11899,7 @@ var LNReaderPlugin = (() => {
         o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.hasChildren = exports4.isDocument = exports4.isComment = exports4.isText = exports4.isCDATA = exports4.isTag = void 0;
@@ -12438,8 +12438,8 @@ var LNReaderPlugin = (() => {
       const className = getAttr(el, "class", false);
       if (className) {
         let setClass = ` ${className} `;
-        for (const cn of classNames) {
-          const appendClass = `${cn} `;
+        for (const cn2 of classNames) {
+          const appendClass = `${cn2} `;
           if (!setClass.includes(` ${appendClass}`))
             setClass += appendClass;
         }
@@ -13874,7 +13874,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -14564,8 +14564,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
-              t2[p2] = s2[p2];
+            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
+              t2[p] = s2[p];
           }
           return t2;
         };
@@ -14599,7 +14599,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -15872,8 +15872,8 @@ var LNReaderPlugin = (() => {
         if (selector && isCheerio(selector))
           return selector;
         const options2 = flattenOptions(opts, internalOpts);
-        const r2 = typeof root2 === "string" ? [parse5(root2, options2, false, null)] : "length" in root2 ? root2 : [root2];
-        const rootInstance = isCheerio(r2) ? r2 : new LoadedCheerio(r2, null, options2);
+        const r3 = typeof root2 === "string" ? [parse5(root2, options2, false, null)] : "length" in root2 ? root2 : [root2];
+        const rootInstance = isCheerio(r3) ? r3 : new LoadedCheerio(r3, null, options2);
         rootInstance._root = rootInstance;
         if (!selector) {
           return new LoadedCheerio(void 0, rootInstance, options2);
@@ -20484,214 +20484,214 @@ var LNReaderPlugin = (() => {
   });
 
   // node_modules/parse5/dist/parser/index.js
-  function aaObtainFormattingElementEntry(p2, token) {
-    let formattingElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
+  function aaObtainFormattingElementEntry(p, token) {
+    let formattingElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
     if (formattingElementEntry) {
-      if (!p2.openElements.contains(formattingElementEntry.element)) {
-        p2.activeFormattingElements.removeEntry(formattingElementEntry);
+      if (!p.openElements.contains(formattingElementEntry.element)) {
+        p.activeFormattingElements.removeEntry(formattingElementEntry);
         formattingElementEntry = null;
-      } else if (!p2.openElements.hasInScope(token.tagID)) {
+      } else if (!p.openElements.hasInScope(token.tagID)) {
         formattingElementEntry = null;
       }
     } else {
-      genericEndTagInBody(p2, token);
+      genericEndTagInBody(p, token);
     }
     return formattingElementEntry;
   }
-  function aaObtainFurthestBlock(p2, formattingElementEntry) {
+  function aaObtainFurthestBlock(p, formattingElementEntry) {
     let furthestBlock = null;
-    let idx = p2.openElements.stackTop;
+    let idx = p.openElements.stackTop;
     for (; idx >= 0; idx--) {
-      const element = p2.openElements.items[idx];
+      const element = p.openElements.items[idx];
       if (element === formattingElementEntry.element) {
         break;
       }
-      if (p2._isSpecialElement(element, p2.openElements.tagIDs[idx])) {
+      if (p._isSpecialElement(element, p.openElements.tagIDs[idx])) {
         furthestBlock = element;
       }
     }
     if (!furthestBlock) {
-      p2.openElements.shortenToLength(idx < 0 ? 0 : idx);
-      p2.activeFormattingElements.removeEntry(formattingElementEntry);
+      p.openElements.shortenToLength(idx < 0 ? 0 : idx);
+      p.activeFormattingElements.removeEntry(formattingElementEntry);
     }
     return furthestBlock;
   }
-  function aaInnerLoop(p2, furthestBlock, formattingElement) {
+  function aaInnerLoop(p, furthestBlock, formattingElement) {
     let lastElement = furthestBlock;
-    let nextElement = p2.openElements.getCommonAncestor(furthestBlock);
+    let nextElement = p.openElements.getCommonAncestor(furthestBlock);
     for (let i2 = 0, element = nextElement; element !== formattingElement; i2++, element = nextElement) {
-      nextElement = p2.openElements.getCommonAncestor(element);
-      const elementEntry = p2.activeFormattingElements.getElementEntry(element);
+      nextElement = p.openElements.getCommonAncestor(element);
+      const elementEntry = p.activeFormattingElements.getElementEntry(element);
       const counterOverflow = elementEntry && i2 >= AA_INNER_LOOP_ITER;
       const shouldRemoveFromOpenElements = !elementEntry || counterOverflow;
       if (shouldRemoveFromOpenElements) {
         if (counterOverflow) {
-          p2.activeFormattingElements.removeEntry(elementEntry);
+          p.activeFormattingElements.removeEntry(elementEntry);
         }
-        p2.openElements.remove(element);
+        p.openElements.remove(element);
       } else {
-        element = aaRecreateElementFromEntry(p2, elementEntry);
+        element = aaRecreateElementFromEntry(p, elementEntry);
         if (lastElement === furthestBlock) {
-          p2.activeFormattingElements.bookmark = elementEntry;
+          p.activeFormattingElements.bookmark = elementEntry;
         }
-        p2.treeAdapter.detachNode(lastElement);
-        p2.treeAdapter.appendChild(element, lastElement);
+        p.treeAdapter.detachNode(lastElement);
+        p.treeAdapter.appendChild(element, lastElement);
         lastElement = element;
       }
     }
     return lastElement;
   }
-  function aaRecreateElementFromEntry(p2, elementEntry) {
-    const ns = p2.treeAdapter.getNamespaceURI(elementEntry.element);
-    const newElement = p2.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
-    p2.openElements.replace(elementEntry.element, newElement);
+  function aaRecreateElementFromEntry(p, elementEntry) {
+    const ns = p.treeAdapter.getNamespaceURI(elementEntry.element);
+    const newElement = p.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
+    p.openElements.replace(elementEntry.element, newElement);
     elementEntry.element = newElement;
     return newElement;
   }
-  function aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement) {
-    const tn = p2.treeAdapter.getTagName(commonAncestor);
+  function aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement) {
+    const tn = p.treeAdapter.getTagName(commonAncestor);
     const tid = getTagID(tn);
-    if (p2._isElementCausesFosterParenting(tid)) {
-      p2._fosterParentElement(lastElement);
+    if (p._isElementCausesFosterParenting(tid)) {
+      p._fosterParentElement(lastElement);
     } else {
-      const ns = p2.treeAdapter.getNamespaceURI(commonAncestor);
+      const ns = p.treeAdapter.getNamespaceURI(commonAncestor);
       if (tid === TAG_ID.TEMPLATE && ns === NS.HTML) {
-        commonAncestor = p2.treeAdapter.getTemplateContent(commonAncestor);
+        commonAncestor = p.treeAdapter.getTemplateContent(commonAncestor);
       }
-      p2.treeAdapter.appendChild(commonAncestor, lastElement);
+      p.treeAdapter.appendChild(commonAncestor, lastElement);
     }
   }
-  function aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry) {
-    const ns = p2.treeAdapter.getNamespaceURI(formattingElementEntry.element);
+  function aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry) {
+    const ns = p.treeAdapter.getNamespaceURI(formattingElementEntry.element);
     const { token } = formattingElementEntry;
-    const newElement = p2.treeAdapter.createElement(token.tagName, ns, token.attrs);
-    p2._adoptNodes(furthestBlock, newElement);
-    p2.treeAdapter.appendChild(furthestBlock, newElement);
-    p2.activeFormattingElements.insertElementAfterBookmark(newElement, token);
-    p2.activeFormattingElements.removeEntry(formattingElementEntry);
-    p2.openElements.remove(formattingElementEntry.element);
-    p2.openElements.insertAfter(furthestBlock, newElement, token.tagID);
+    const newElement = p.treeAdapter.createElement(token.tagName, ns, token.attrs);
+    p._adoptNodes(furthestBlock, newElement);
+    p.treeAdapter.appendChild(furthestBlock, newElement);
+    p.activeFormattingElements.insertElementAfterBookmark(newElement, token);
+    p.activeFormattingElements.removeEntry(formattingElementEntry);
+    p.openElements.remove(formattingElementEntry.element);
+    p.openElements.insertAfter(furthestBlock, newElement, token.tagID);
   }
-  function callAdoptionAgency(p2, token) {
+  function callAdoptionAgency(p, token) {
     for (let i2 = 0; i2 < AA_OUTER_LOOP_ITER; i2++) {
-      const formattingElementEntry = aaObtainFormattingElementEntry(p2, token);
+      const formattingElementEntry = aaObtainFormattingElementEntry(p, token);
       if (!formattingElementEntry) {
         break;
       }
-      const furthestBlock = aaObtainFurthestBlock(p2, formattingElementEntry);
+      const furthestBlock = aaObtainFurthestBlock(p, formattingElementEntry);
       if (!furthestBlock) {
         break;
       }
-      p2.activeFormattingElements.bookmark = formattingElementEntry;
-      const lastElement = aaInnerLoop(p2, furthestBlock, formattingElementEntry.element);
-      const commonAncestor = p2.openElements.getCommonAncestor(formattingElementEntry.element);
-      p2.treeAdapter.detachNode(lastElement);
+      p.activeFormattingElements.bookmark = formattingElementEntry;
+      const lastElement = aaInnerLoop(p, furthestBlock, formattingElementEntry.element);
+      const commonAncestor = p.openElements.getCommonAncestor(formattingElementEntry.element);
+      p.treeAdapter.detachNode(lastElement);
       if (commonAncestor)
-        aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement);
-      aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry);
+        aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement);
+      aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry);
     }
   }
-  function appendComment(p2, token) {
-    p2._appendCommentNode(token, p2.openElements.currentTmplContentOrNode);
+  function appendComment(p, token) {
+    p._appendCommentNode(token, p.openElements.currentTmplContentOrNode);
   }
-  function appendCommentToRootHtmlElement(p2, token) {
-    p2._appendCommentNode(token, p2.openElements.items[0]);
+  function appendCommentToRootHtmlElement(p, token) {
+    p._appendCommentNode(token, p.openElements.items[0]);
   }
-  function appendCommentToDocument(p2, token) {
-    p2._appendCommentNode(token, p2.document);
+  function appendCommentToDocument(p, token) {
+    p._appendCommentNode(token, p.document);
   }
-  function stopParsing(p2, token) {
-    p2.stopped = true;
+  function stopParsing(p, token) {
+    p.stopped = true;
     if (token.location) {
-      const target = p2.fragmentContext ? 0 : 2;
-      for (let i2 = p2.openElements.stackTop; i2 >= target; i2--) {
-        p2._setEndLocation(p2.openElements.items[i2], token);
+      const target = p.fragmentContext ? 0 : 2;
+      for (let i2 = p.openElements.stackTop; i2 >= target; i2--) {
+        p._setEndLocation(p.openElements.items[i2], token);
       }
-      if (!p2.fragmentContext && p2.openElements.stackTop >= 0) {
-        const htmlElement = p2.openElements.items[0];
-        const htmlLocation = p2.treeAdapter.getNodeSourceCodeLocation(htmlElement);
+      if (!p.fragmentContext && p.openElements.stackTop >= 0) {
+        const htmlElement = p.openElements.items[0];
+        const htmlLocation = p.treeAdapter.getNodeSourceCodeLocation(htmlElement);
         if (htmlLocation && !htmlLocation.endTag) {
-          p2._setEndLocation(htmlElement, token);
-          if (p2.openElements.stackTop >= 1) {
-            const bodyElement = p2.openElements.items[1];
-            const bodyLocation = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement);
+          p._setEndLocation(htmlElement, token);
+          if (p.openElements.stackTop >= 1) {
+            const bodyElement = p.openElements.items[1];
+            const bodyLocation = p.treeAdapter.getNodeSourceCodeLocation(bodyElement);
             if (bodyLocation && !bodyLocation.endTag) {
-              p2._setEndLocation(bodyElement, token);
+              p._setEndLocation(bodyElement, token);
             }
           }
         }
       }
     }
   }
-  function doctypeInInitialMode(p2, token) {
-    p2._setDocumentType(token);
+  function doctypeInInitialMode(p, token) {
+    p._setDocumentType(token);
     const mode = token.forceQuirks ? DOCUMENT_MODE.QUIRKS : getDocumentMode(token);
     if (!isConforming(token)) {
-      p2._err(token, ERR.nonConformingDoctype);
+      p._err(token, ERR.nonConformingDoctype);
     }
-    p2.treeAdapter.setDocumentMode(p2.document, mode);
-    p2.insertionMode = InsertionMode.BEFORE_HTML;
+    p.treeAdapter.setDocumentMode(p.document, mode);
+    p.insertionMode = InsertionMode.BEFORE_HTML;
   }
-  function tokenInInitialMode(p2, token) {
-    p2._err(token, ERR.missingDoctype, true);
-    p2.treeAdapter.setDocumentMode(p2.document, DOCUMENT_MODE.QUIRKS);
-    p2.insertionMode = InsertionMode.BEFORE_HTML;
-    p2._processToken(token);
+  function tokenInInitialMode(p, token) {
+    p._err(token, ERR.missingDoctype, true);
+    p.treeAdapter.setDocumentMode(p.document, DOCUMENT_MODE.QUIRKS);
+    p.insertionMode = InsertionMode.BEFORE_HTML;
+    p._processToken(token);
   }
-  function startTagBeforeHtml(p2, token) {
+  function startTagBeforeHtml(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p2._insertElement(token, NS.HTML);
-      p2.insertionMode = InsertionMode.BEFORE_HEAD;
+      p._insertElement(token, NS.HTML);
+      p.insertionMode = InsertionMode.BEFORE_HEAD;
     } else {
-      tokenBeforeHtml(p2, token);
+      tokenBeforeHtml(p, token);
     }
   }
-  function endTagBeforeHtml(p2, token) {
+  function endTagBeforeHtml(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HTML || tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.BR) {
-      tokenBeforeHtml(p2, token);
+      tokenBeforeHtml(p, token);
     }
   }
-  function tokenBeforeHtml(p2, token) {
-    p2._insertFakeRootElement();
-    p2.insertionMode = InsertionMode.BEFORE_HEAD;
-    p2._processToken(token);
+  function tokenBeforeHtml(p, token) {
+    p._insertFakeRootElement();
+    p.insertionMode = InsertionMode.BEFORE_HEAD;
+    p._processToken(token);
   }
-  function startTagBeforeHead(p2, token) {
+  function startTagBeforeHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.HEAD: {
-        p2._insertElement(token, NS.HTML);
-        p2.headElement = p2.openElements.current;
-        p2.insertionMode = InsertionMode.IN_HEAD;
+        p._insertElement(token, NS.HTML);
+        p.headElement = p.openElements.current;
+        p.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       default: {
-        tokenBeforeHead(p2, token);
+        tokenBeforeHead(p, token);
       }
     }
   }
-  function endTagBeforeHead(p2, token) {
+  function endTagBeforeHead(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.HTML || tn === TAG_ID.BR) {
-      tokenBeforeHead(p2, token);
+      tokenBeforeHead(p, token);
     } else {
-      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenBeforeHead(p2, token) {
-    p2._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
-    p2.headElement = p2.openElements.current;
-    p2.insertionMode = InsertionMode.IN_HEAD;
-    p2._processToken(token);
+  function tokenBeforeHead(p, token) {
+    p._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
+    p.headElement = p.openElements.current;
+    p.insertionMode = InsertionMode.IN_HEAD;
+    p._processToken(token);
   }
-  function startTagInHead(p2, token) {
+  function startTagInHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.BASE:
@@ -20699,94 +20699,94 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.LINK:
       case TAG_ID.META: {
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TITLE: {
-        p2._switchToTextParsing(token, TokenizerMode.RCDATA);
+        p._switchToTextParsing(token, TokenizerMode.RCDATA);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p2.options.scriptingEnabled) {
-          p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        if (p.options.scriptingEnabled) {
+          p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         } else {
-          p2._insertElement(token, NS.HTML);
-          p2.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
+          p._insertElement(token, NS.HTML);
+          p.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
         }
         break;
       }
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         break;
       }
       case TAG_ID.SCRIPT: {
-        p2._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
+        p._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        p2._insertTemplate(token);
-        p2.activeFormattingElements.insertMarker();
-        p2.framesetOk = false;
-        p2.insertionMode = InsertionMode.IN_TEMPLATE;
-        p2.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
+        p._insertTemplate(token);
+        p.activeFormattingElements.insertMarker();
+        p.framesetOk = false;
+        p.insertionMode = InsertionMode.IN_TEMPLATE;
+        p.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
         break;
       }
       case TAG_ID.HEAD: {
-        p2._err(token, ERR.misplacedStartTagForHeadElement);
+        p._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenInHead(p2, token);
+        tokenInHead(p, token);
       }
     }
   }
-  function endTagInHead(p2, token) {
+  function endTagInHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HEAD: {
-        p2.openElements.pop();
-        p2.insertionMode = InsertionMode.AFTER_HEAD;
+        p.openElements.pop();
+        p.insertionMode = InsertionMode.AFTER_HEAD;
         break;
       }
       case TAG_ID.BODY:
       case TAG_ID.BR:
       case TAG_ID.HTML: {
-        tokenInHead(p2, token);
+        tokenInHead(p, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default: {
-        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function templateEndTagInHead(p2, token) {
-    if (p2.openElements.tmplCount > 0) {
-      p2.openElements.generateImpliedEndTagsThoroughly();
-      if (p2.openElements.currentTagId !== TAG_ID.TEMPLATE) {
-        p2._err(token, ERR.closingOfElementWithOpenChildElements);
+  function templateEndTagInHead(p, token) {
+    if (p.openElements.tmplCount > 0) {
+      p.openElements.generateImpliedEndTagsThoroughly();
+      if (p.openElements.currentTagId !== TAG_ID.TEMPLATE) {
+        p._err(token, ERR.closingOfElementWithOpenChildElements);
       }
-      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p2.activeFormattingElements.clearToLastMarker();
-      p2.tmplInsertionModeStack.shift();
-      p2._resetInsertionMode();
+      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p.activeFormattingElements.clearToLastMarker();
+      p.tmplInsertionModeStack.shift();
+      p._resetInsertionMode();
     } else {
-      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenInHead(p2, token) {
-    p2.openElements.pop();
-    p2.insertionMode = InsertionMode.AFTER_HEAD;
-    p2._processToken(token);
+  function tokenInHead(p, token) {
+    p.openElements.pop();
+    p.insertionMode = InsertionMode.AFTER_HEAD;
+    p._processToken(token);
   }
-  function startTagInHeadNoScript(p2, token) {
+  function startTagInHeadNoScript(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.BASEFONT:
@@ -20796,56 +20796,56 @@ var LNReaderPlugin = (() => {
       case TAG_ID.META:
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        p2._err(token, ERR.nestedNoscriptInHead);
+        p._err(token, ERR.nestedNoscriptInHead);
         break;
       }
       default: {
-        tokenInHeadNoScript(p2, token);
+        tokenInHeadNoScript(p, token);
       }
     }
   }
-  function endTagInHeadNoScript(p2, token) {
+  function endTagInHeadNoScript(p, token) {
     switch (token.tagID) {
       case TAG_ID.NOSCRIPT: {
-        p2.openElements.pop();
-        p2.insertionMode = InsertionMode.IN_HEAD;
+        p.openElements.pop();
+        p.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       case TAG_ID.BR: {
-        tokenInHeadNoScript(p2, token);
+        tokenInHeadNoScript(p, token);
         break;
       }
       default: {
-        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenInHeadNoScript(p2, token) {
+  function tokenInHeadNoScript(p, token) {
     const errCode = token.type === TokenType.EOF ? ERR.openElementsLeftAfterEof : ERR.disallowedContentInNoscriptInHead;
-    p2._err(token, errCode);
-    p2.openElements.pop();
-    p2.insertionMode = InsertionMode.IN_HEAD;
-    p2._processToken(token);
+    p._err(token, errCode);
+    p.openElements.pop();
+    p.insertionMode = InsertionMode.IN_HEAD;
+    p._processToken(token);
   }
-  function startTagAfterHead(p2, token) {
+  function startTagAfterHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.BODY: {
-        p2._insertElement(token, NS.HTML);
-        p2.framesetOk = false;
-        p2.insertionMode = InsertionMode.IN_BODY;
+        p._insertElement(token, NS.HTML);
+        p.framesetOk = false;
+        p.insertionMode = InsertionMode.IN_BODY;
         break;
       }
       case TAG_ID.FRAMESET: {
-        p2._insertElement(token, NS.HTML);
-        p2.insertionMode = InsertionMode.IN_FRAMESET;
+        p._insertElement(token, NS.HTML);
+        p.insertionMode = InsertionMode.IN_FRAMESET;
         break;
       }
       case TAG_ID.BASE:
@@ -20858,321 +20858,321 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        p2._err(token, ERR.abandonedHeadElementChild);
-        p2.openElements.push(p2.headElement, TAG_ID.HEAD);
-        startTagInHead(p2, token);
-        p2.openElements.remove(p2.headElement);
+        p._err(token, ERR.abandonedHeadElementChild);
+        p.openElements.push(p.headElement, TAG_ID.HEAD);
+        startTagInHead(p, token);
+        p.openElements.remove(p.headElement);
         break;
       }
       case TAG_ID.HEAD: {
-        p2._err(token, ERR.misplacedStartTagForHeadElement);
+        p._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenAfterHead(p2, token);
+        tokenAfterHead(p, token);
       }
     }
   }
-  function endTagAfterHead(p2, token) {
+  function endTagAfterHead(p, token) {
     switch (token.tagID) {
       case TAG_ID.BODY:
       case TAG_ID.HTML:
       case TAG_ID.BR: {
-        tokenAfterHead(p2, token);
+        tokenAfterHead(p, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default: {
-        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenAfterHead(p2, token) {
-    p2._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
-    p2.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p2, token);
+  function tokenAfterHead(p, token) {
+    p._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
+    p.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p, token);
   }
-  function modeInBody(p2, token) {
+  function modeInBody(p, token) {
     switch (token.type) {
       case TokenType.CHARACTER: {
-        characterInBody(p2, token);
+        characterInBody(p, token);
         break;
       }
       case TokenType.WHITESPACE_CHARACTER: {
-        whitespaceCharacterInBody(p2, token);
+        whitespaceCharacterInBody(p, token);
         break;
       }
       case TokenType.COMMENT: {
-        appendComment(p2, token);
+        appendComment(p, token);
         break;
       }
       case TokenType.START_TAG: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TokenType.END_TAG: {
-        endTagInBody(p2, token);
+        endTagInBody(p, token);
         break;
       }
       case TokenType.EOF: {
-        eofInBody(p2, token);
+        eofInBody(p, token);
         break;
       }
       default:
     }
   }
-  function whitespaceCharacterInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertCharacters(token);
+  function whitespaceCharacterInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertCharacters(token);
   }
-  function characterInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertCharacters(token);
-    p2.framesetOk = false;
+  function characterInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertCharacters(token);
+    p.framesetOk = false;
   }
-  function htmlStartTagInBody(p2, token) {
-    if (p2.openElements.tmplCount === 0) {
-      p2.treeAdapter.adoptAttributes(p2.openElements.items[0], token.attrs);
+  function htmlStartTagInBody(p, token) {
+    if (p.openElements.tmplCount === 0) {
+      p.treeAdapter.adoptAttributes(p.openElements.items[0], token.attrs);
     }
   }
-  function bodyStartTagInBody(p2, token) {
-    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
-    if (bodyElement && p2.openElements.tmplCount === 0) {
-      p2.framesetOk = false;
-      p2.treeAdapter.adoptAttributes(bodyElement, token.attrs);
+  function bodyStartTagInBody(p, token) {
+    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
+    if (bodyElement && p.openElements.tmplCount === 0) {
+      p.framesetOk = false;
+      p.treeAdapter.adoptAttributes(bodyElement, token.attrs);
     }
   }
-  function framesetStartTagInBody(p2, token) {
-    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
-    if (p2.framesetOk && bodyElement) {
-      p2.treeAdapter.detachNode(bodyElement);
-      p2.openElements.popAllUpToHtmlElement();
-      p2._insertElement(token, NS.HTML);
-      p2.insertionMode = InsertionMode.IN_FRAMESET;
+  function framesetStartTagInBody(p, token) {
+    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
+    if (p.framesetOk && bodyElement) {
+      p.treeAdapter.detachNode(bodyElement);
+      p.openElements.popAllUpToHtmlElement();
+      p._insertElement(token, NS.HTML);
+      p.insertionMode = InsertionMode.IN_FRAMESET;
     }
   }
-  function addressStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function addressStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function numberedHeaderStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function numberedHeaderStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    if (NUMBERED_HEADERS.has(p2.openElements.currentTagId)) {
-      p2.openElements.pop();
+    if (NUMBERED_HEADERS.has(p.openElements.currentTagId)) {
+      p.openElements.pop();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function preStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function preStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.skipNextNewLine = true;
-    p2.framesetOk = false;
+    p._insertElement(token, NS.HTML);
+    p.skipNextNewLine = true;
+    p.framesetOk = false;
   }
-  function formStartTagInBody(p2, token) {
-    const inTemplate = p2.openElements.tmplCount > 0;
-    if (!p2.formElement || inTemplate) {
-      if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-        p2._closePElement();
+  function formStartTagInBody(p, token) {
+    const inTemplate = p.openElements.tmplCount > 0;
+    if (!p.formElement || inTemplate) {
+      if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+        p._closePElement();
       }
-      p2._insertElement(token, NS.HTML);
+      p._insertElement(token, NS.HTML);
       if (!inTemplate) {
-        p2.formElement = p2.openElements.current;
+        p.formElement = p.openElements.current;
       }
     }
   }
-  function listItemStartTagInBody(p2, token) {
-    p2.framesetOk = false;
+  function listItemStartTagInBody(p, token) {
+    p.framesetOk = false;
     const tn = token.tagID;
-    for (let i2 = p2.openElements.stackTop; i2 >= 0; i2--) {
-      const elementId = p2.openElements.tagIDs[i2];
+    for (let i2 = p.openElements.stackTop; i2 >= 0; i2--) {
+      const elementId = p.openElements.tagIDs[i2];
       if (tn === TAG_ID.LI && elementId === TAG_ID.LI || (tn === TAG_ID.DD || tn === TAG_ID.DT) && (elementId === TAG_ID.DD || elementId === TAG_ID.DT)) {
-        p2.openElements.generateImpliedEndTagsWithExclusion(elementId);
-        p2.openElements.popUntilTagNamePopped(elementId);
+        p.openElements.generateImpliedEndTagsWithExclusion(elementId);
+        p.openElements.popUntilTagNamePopped(elementId);
         break;
       }
-      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p2._isSpecialElement(p2.openElements.items[i2], elementId)) {
+      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p._isSpecialElement(p.openElements.items[i2], elementId)) {
         break;
       }
     }
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function plaintextStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function plaintextStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.tokenizer.state = TokenizerMode.PLAINTEXT;
+    p._insertElement(token, NS.HTML);
+    p.tokenizer.state = TokenizerMode.PLAINTEXT;
   }
-  function buttonStartTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.BUTTON)) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
+  function buttonStartTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.BUTTON)) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
     }
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.framesetOk = false;
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.framesetOk = false;
   }
-  function aStartTagInBody(p2, token) {
-    const activeElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
+  function aStartTagInBody(p, token) {
+    const activeElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
     if (activeElementEntry) {
-      callAdoptionAgency(p2, token);
-      p2.openElements.remove(activeElementEntry.element);
-      p2.activeFormattingElements.removeEntry(activeElementEntry);
+      callAdoptionAgency(p, token);
+      p.openElements.remove(activeElementEntry.element);
+      p.activeFormattingElements.removeEntry(activeElementEntry);
     }
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.pushElement(p.openElements.current, token);
   }
-  function bStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
+  function bStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.pushElement(p.openElements.current, token);
   }
-  function nobrStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    if (p2.openElements.hasInScope(TAG_ID.NOBR)) {
-      callAdoptionAgency(p2, token);
-      p2._reconstructActiveFormattingElements();
+  function nobrStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    if (p.openElements.hasInScope(TAG_ID.NOBR)) {
+      callAdoptionAgency(p, token);
+      p._reconstructActiveFormattingElements();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.pushElement(p.openElements.current, token);
   }
-  function appletStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.activeFormattingElements.insertMarker();
-    p2.framesetOk = false;
+  function appletStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.activeFormattingElements.insertMarker();
+    p.framesetOk = false;
   }
-  function tableStartTagInBody(p2, token) {
-    if (p2.treeAdapter.getDocumentMode(p2.document) !== DOCUMENT_MODE.QUIRKS && p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function tableStartTagInBody(p, token) {
+    if (p.treeAdapter.getDocumentMode(p.document) !== DOCUMENT_MODE.QUIRKS && p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._insertElement(token, NS.HTML);
-    p2.framesetOk = false;
-    p2.insertionMode = InsertionMode.IN_TABLE;
+    p._insertElement(token, NS.HTML);
+    p.framesetOk = false;
+    p.insertionMode = InsertionMode.IN_TABLE;
   }
-  function areaStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._appendElement(token, NS.HTML);
-    p2.framesetOk = false;
+  function areaStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._appendElement(token, NS.HTML);
+    p.framesetOk = false;
     token.ackSelfClosing = true;
   }
   function isHiddenInput(token) {
     const inputType = getTokenAttr(token, ATTRS.TYPE);
     return inputType != null && inputType.toLowerCase() === HIDDEN_INPUT_TYPE;
   }
-  function inputStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._appendElement(token, NS.HTML);
+  function inputStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._appendElement(token, NS.HTML);
     if (!isHiddenInput(token)) {
-      p2.framesetOk = false;
+      p.framesetOk = false;
     }
     token.ackSelfClosing = true;
   }
-  function paramStartTagInBody(p2, token) {
-    p2._appendElement(token, NS.HTML);
+  function paramStartTagInBody(p, token) {
+    p._appendElement(token, NS.HTML);
     token.ackSelfClosing = true;
   }
-  function hrStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function hrStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._appendElement(token, NS.HTML);
-    p2.framesetOk = false;
+    p._appendElement(token, NS.HTML);
+    p.framesetOk = false;
     token.ackSelfClosing = true;
   }
-  function imageStartTagInBody(p2, token) {
+  function imageStartTagInBody(p, token) {
     token.tagName = TAG_NAMES.IMG;
     token.tagID = TAG_ID.IMG;
-    areaStartTagInBody(p2, token);
+    areaStartTagInBody(p, token);
   }
-  function textareaStartTagInBody(p2, token) {
-    p2._insertElement(token, NS.HTML);
-    p2.skipNextNewLine = true;
-    p2.tokenizer.state = TokenizerMode.RCDATA;
-    p2.originalInsertionMode = p2.insertionMode;
-    p2.framesetOk = false;
-    p2.insertionMode = InsertionMode.TEXT;
+  function textareaStartTagInBody(p, token) {
+    p._insertElement(token, NS.HTML);
+    p.skipNextNewLine = true;
+    p.tokenizer.state = TokenizerMode.RCDATA;
+    p.originalInsertionMode = p.insertionMode;
+    p.framesetOk = false;
+    p.insertionMode = InsertionMode.TEXT;
   }
-  function xmpStartTagInBody(p2, token) {
-    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._closePElement();
+  function xmpStartTagInBody(p, token) {
+    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._closePElement();
     }
-    p2._reconstructActiveFormattingElements();
-    p2.framesetOk = false;
-    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+    p._reconstructActiveFormattingElements();
+    p.framesetOk = false;
+    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function iframeStartTagInBody(p2, token) {
-    p2.framesetOk = false;
-    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function iframeStartTagInBody(p, token) {
+    p.framesetOk = false;
+    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function rawTextStartTagInBody(p2, token) {
-    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function rawTextStartTagInBody(p, token) {
+    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function selectStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
-    p2.framesetOk = false;
-    p2.insertionMode = p2.insertionMode === InsertionMode.IN_TABLE || p2.insertionMode === InsertionMode.IN_CAPTION || p2.insertionMode === InsertionMode.IN_TABLE_BODY || p2.insertionMode === InsertionMode.IN_ROW || p2.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
+  function selectStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
+    p.framesetOk = false;
+    p.insertionMode = p.insertionMode === InsertionMode.IN_TABLE || p.insertionMode === InsertionMode.IN_CAPTION || p.insertionMode === InsertionMode.IN_TABLE_BODY || p.insertionMode === InsertionMode.IN_ROW || p.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
   }
-  function optgroupStartTagInBody(p2, token) {
-    if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-      p2.openElements.pop();
+  function optgroupStartTagInBody(p, token) {
+    if (p.openElements.currentTagId === TAG_ID.OPTION) {
+      p.openElements.pop();
     }
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
   }
-  function rbStartTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
-      p2.openElements.generateImpliedEndTags();
+  function rbStartTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
+      p.openElements.generateImpliedEndTags();
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function rtStartTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
-      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
+  function rtStartTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
+      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
     }
-    p2._insertElement(token, NS.HTML);
+    p._insertElement(token, NS.HTML);
   }
-  function mathStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
+  function mathStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
     adjustTokenMathMLAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p2._appendElement(token, NS.MATHML);
+      p._appendElement(token, NS.MATHML);
     } else {
-      p2._insertElement(token, NS.MATHML);
+      p._insertElement(token, NS.MATHML);
     }
     token.ackSelfClosing = true;
   }
-  function svgStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
+  function svgStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
     adjustTokenSVGAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p2._appendElement(token, NS.SVG);
+      p._appendElement(token, NS.SVG);
     } else {
-      p2._insertElement(token, NS.SVG);
+      p._insertElement(token, NS.SVG);
     }
     token.ackSelfClosing = true;
   }
-  function genericStartTagInBody(p2, token) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertElement(token, NS.HTML);
+  function genericStartTagInBody(p, token) {
+    p._reconstructActiveFormattingElements();
+    p._insertElement(token, NS.HTML);
   }
-  function startTagInBody(p2, token) {
+  function startTagInBody(p, token) {
     switch (token.tagID) {
       case TAG_ID.I:
       case TAG_ID.S:
@@ -21186,11 +21186,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        bStartTagInBody(p2, token);
+        bStartTagInBody(p, token);
         break;
       }
       case TAG_ID.A: {
-        aStartTagInBody(p2, token);
+        aStartTagInBody(p, token);
         break;
       }
       case TAG_ID.H1:
@@ -21199,7 +21199,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderStartTagInBody(p2, token);
+        numberedHeaderStartTagInBody(p, token);
         break;
       }
       case TAG_ID.P:
@@ -21227,13 +21227,13 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressStartTagInBody(p2, token);
+        addressStartTagInBody(p, token);
         break;
       }
       case TAG_ID.LI:
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        listItemStartTagInBody(p2, token);
+        listItemStartTagInBody(p, token);
         break;
       }
       case TAG_ID.BR:
@@ -21242,38 +21242,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.AREA:
       case TAG_ID.EMBED:
       case TAG_ID.KEYGEN: {
-        areaStartTagInBody(p2, token);
+        areaStartTagInBody(p, token);
         break;
       }
       case TAG_ID.HR: {
-        hrStartTagInBody(p2, token);
+        hrStartTagInBody(p, token);
         break;
       }
       case TAG_ID.RB:
       case TAG_ID.RTC: {
-        rbStartTagInBody(p2, token);
+        rbStartTagInBody(p, token);
         break;
       }
       case TAG_ID.RT:
       case TAG_ID.RP: {
-        rtStartTagInBody(p2, token);
+        rtStartTagInBody(p, token);
         break;
       }
       case TAG_ID.PRE:
       case TAG_ID.LISTING: {
-        preStartTagInBody(p2, token);
+        preStartTagInBody(p, token);
         break;
       }
       case TAG_ID.XMP: {
-        xmpStartTagInBody(p2, token);
+        xmpStartTagInBody(p, token);
         break;
       }
       case TAG_ID.SVG: {
-        svgStartTagInBody(p2, token);
+        svgStartTagInBody(p, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlStartTagInBody(p2, token);
+        htmlStartTagInBody(p, token);
         break;
       }
       case TAG_ID.BASE:
@@ -21285,89 +21285,89 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.BASEFONT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       case TAG_ID.BODY: {
-        bodyStartTagInBody(p2, token);
+        bodyStartTagInBody(p, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInBody(p2, token);
+        formStartTagInBody(p, token);
         break;
       }
       case TAG_ID.NOBR: {
-        nobrStartTagInBody(p2, token);
+        nobrStartTagInBody(p, token);
         break;
       }
       case TAG_ID.MATH: {
-        mathStartTagInBody(p2, token);
+        mathStartTagInBody(p, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInBody(p2, token);
+        tableStartTagInBody(p, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInBody(p2, token);
+        inputStartTagInBody(p, token);
         break;
       }
       case TAG_ID.PARAM:
       case TAG_ID.TRACK:
       case TAG_ID.SOURCE: {
-        paramStartTagInBody(p2, token);
+        paramStartTagInBody(p, token);
         break;
       }
       case TAG_ID.IMAGE: {
-        imageStartTagInBody(p2, token);
+        imageStartTagInBody(p, token);
         break;
       }
       case TAG_ID.BUTTON: {
-        buttonStartTagInBody(p2, token);
+        buttonStartTagInBody(p, token);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletStartTagInBody(p2, token);
+        appletStartTagInBody(p, token);
         break;
       }
       case TAG_ID.IFRAME: {
-        iframeStartTagInBody(p2, token);
+        iframeStartTagInBody(p, token);
         break;
       }
       case TAG_ID.SELECT: {
-        selectStartTagInBody(p2, token);
+        selectStartTagInBody(p, token);
         break;
       }
       case TAG_ID.OPTION:
       case TAG_ID.OPTGROUP: {
-        optgroupStartTagInBody(p2, token);
+        optgroupStartTagInBody(p, token);
         break;
       }
       case TAG_ID.NOEMBED:
       case TAG_ID.NOFRAMES: {
-        rawTextStartTagInBody(p2, token);
+        rawTextStartTagInBody(p, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        framesetStartTagInBody(p2, token);
+        framesetStartTagInBody(p, token);
         break;
       }
       case TAG_ID.TEXTAREA: {
-        textareaStartTagInBody(p2, token);
+        textareaStartTagInBody(p, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p2.options.scriptingEnabled) {
-          rawTextStartTagInBody(p2, token);
+        if (p.options.scriptingEnabled) {
+          rawTextStartTagInBody(p, token);
         } else {
-          genericStartTagInBody(p2, token);
+          genericStartTagInBody(p, token);
         }
         break;
       }
       case TAG_ID.PLAINTEXT: {
-        plaintextStartTagInBody(p2, token);
+        plaintextStartTagInBody(p, token);
         break;
       }
       case TAG_ID.COL:
@@ -21384,106 +21384,106 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        genericStartTagInBody(p2, token);
+        genericStartTagInBody(p, token);
       }
     }
   }
-  function bodyEndTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
-      p2.insertionMode = InsertionMode.AFTER_BODY;
-      if (p2.options.sourceCodeLocationInfo) {
-        const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+  function bodyEndTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.BODY)) {
+      p.insertionMode = InsertionMode.AFTER_BODY;
+      if (p.options.sourceCodeLocationInfo) {
+        const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
         if (bodyElement) {
-          p2._setEndLocation(bodyElement, token);
+          p._setEndLocation(bodyElement, token);
         }
       }
     }
   }
-  function htmlEndTagInBody(p2, token) {
-    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
-      p2.insertionMode = InsertionMode.AFTER_BODY;
-      endTagAfterBody(p2, token);
+  function htmlEndTagInBody(p, token) {
+    if (p.openElements.hasInScope(TAG_ID.BODY)) {
+      p.insertionMode = InsertionMode.AFTER_BODY;
+      endTagAfterBody(p, token);
     }
   }
-  function addressEndTagInBody(p2, token) {
+  function addressEndTagInBody(p, token) {
     const tn = token.tagID;
-    if (p2.openElements.hasInScope(tn)) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilTagNamePopped(tn);
+    if (p.openElements.hasInScope(tn)) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function formEndTagInBody(p2) {
-    const inTemplate = p2.openElements.tmplCount > 0;
-    const { formElement } = p2;
+  function formEndTagInBody(p) {
+    const inTemplate = p.openElements.tmplCount > 0;
+    const { formElement } = p;
     if (!inTemplate) {
-      p2.formElement = null;
+      p.formElement = null;
     }
-    if ((formElement || inTemplate) && p2.openElements.hasInScope(TAG_ID.FORM)) {
-      p2.openElements.generateImpliedEndTags();
+    if ((formElement || inTemplate) && p.openElements.hasInScope(TAG_ID.FORM)) {
+      p.openElements.generateImpliedEndTags();
       if (inTemplate) {
-        p2.openElements.popUntilTagNamePopped(TAG_ID.FORM);
+        p.openElements.popUntilTagNamePopped(TAG_ID.FORM);
       } else if (formElement) {
-        p2.openElements.remove(formElement);
+        p.openElements.remove(formElement);
       }
     }
   }
-  function pEndTagInBody(p2) {
-    if (!p2.openElements.hasInButtonScope(TAG_ID.P)) {
-      p2._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
+  function pEndTagInBody(p) {
+    if (!p.openElements.hasInButtonScope(TAG_ID.P)) {
+      p._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
     }
-    p2._closePElement();
+    p._closePElement();
   }
-  function liEndTagInBody(p2) {
-    if (p2.openElements.hasInListItemScope(TAG_ID.LI)) {
-      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
-      p2.openElements.popUntilTagNamePopped(TAG_ID.LI);
+  function liEndTagInBody(p) {
+    if (p.openElements.hasInListItemScope(TAG_ID.LI)) {
+      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
+      p.openElements.popUntilTagNamePopped(TAG_ID.LI);
     }
   }
-  function ddEndTagInBody(p2, token) {
+  function ddEndTagInBody(p, token) {
     const tn = token.tagID;
-    if (p2.openElements.hasInScope(tn)) {
-      p2.openElements.generateImpliedEndTagsWithExclusion(tn);
-      p2.openElements.popUntilTagNamePopped(tn);
+    if (p.openElements.hasInScope(tn)) {
+      p.openElements.generateImpliedEndTagsWithExclusion(tn);
+      p.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function numberedHeaderEndTagInBody(p2) {
-    if (p2.openElements.hasNumberedHeaderInScope()) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilNumberedHeaderPopped();
+  function numberedHeaderEndTagInBody(p) {
+    if (p.openElements.hasNumberedHeaderInScope()) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilNumberedHeaderPopped();
     }
   }
-  function appletEndTagInBody(p2, token) {
+  function appletEndTagInBody(p, token) {
     const tn = token.tagID;
-    if (p2.openElements.hasInScope(tn)) {
-      p2.openElements.generateImpliedEndTags();
-      p2.openElements.popUntilTagNamePopped(tn);
-      p2.activeFormattingElements.clearToLastMarker();
+    if (p.openElements.hasInScope(tn)) {
+      p.openElements.generateImpliedEndTags();
+      p.openElements.popUntilTagNamePopped(tn);
+      p.activeFormattingElements.clearToLastMarker();
     }
   }
-  function brEndTagInBody(p2) {
-    p2._reconstructActiveFormattingElements();
-    p2._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
-    p2.openElements.pop();
-    p2.framesetOk = false;
+  function brEndTagInBody(p) {
+    p._reconstructActiveFormattingElements();
+    p._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
+    p.openElements.pop();
+    p.framesetOk = false;
   }
-  function genericEndTagInBody(p2, token) {
+  function genericEndTagInBody(p, token) {
     const tn = token.tagName;
     const tid = token.tagID;
-    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
-      const element = p2.openElements.items[i2];
-      const elementId = p2.openElements.tagIDs[i2];
-      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p2.treeAdapter.getTagName(element) === tn)) {
-        p2.openElements.generateImpliedEndTagsWithExclusion(tid);
-        if (p2.openElements.stackTop >= i2)
-          p2.openElements.shortenToLength(i2);
+    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
+      const element = p.openElements.items[i2];
+      const elementId = p.openElements.tagIDs[i2];
+      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p.treeAdapter.getTagName(element) === tn)) {
+        p.openElements.generateImpliedEndTagsWithExclusion(tid);
+        if (p.openElements.stackTop >= i2)
+          p.openElements.shortenToLength(i2);
         break;
       }
-      if (p2._isSpecialElement(element, elementId)) {
+      if (p._isSpecialElement(element, elementId)) {
         break;
       }
     }
   }
-  function endTagInBody(p2, token) {
+  function endTagInBody(p, token) {
     switch (token.tagID) {
       case TAG_ID.A:
       case TAG_ID.B:
@@ -21499,11 +21499,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        callAdoptionAgency(p2, token);
+        callAdoptionAgency(p, token);
         break;
       }
       case TAG_ID.P: {
-        pEndTagInBody(p2);
+        pEndTagInBody(p);
         break;
       }
       case TAG_ID.DL:
@@ -21533,16 +21533,16 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressEndTagInBody(p2, token);
+        addressEndTagInBody(p, token);
         break;
       }
       case TAG_ID.LI: {
-        liEndTagInBody(p2);
+        liEndTagInBody(p);
         break;
       }
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        ddEndTagInBody(p2, token);
+        ddEndTagInBody(p, token);
         break;
       }
       case TAG_ID.H1:
@@ -21551,191 +21551,191 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderEndTagInBody(p2);
+        numberedHeaderEndTagInBody(p);
         break;
       }
       case TAG_ID.BR: {
-        brEndTagInBody(p2);
+        brEndTagInBody(p);
         break;
       }
       case TAG_ID.BODY: {
-        bodyEndTagInBody(p2, token);
+        bodyEndTagInBody(p, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlEndTagInBody(p2, token);
+        htmlEndTagInBody(p, token);
         break;
       }
       case TAG_ID.FORM: {
-        formEndTagInBody(p2);
+        formEndTagInBody(p);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletEndTagInBody(p2, token);
+        appletEndTagInBody(p, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default: {
-        genericEndTagInBody(p2, token);
+        genericEndTagInBody(p, token);
       }
     }
   }
-  function eofInBody(p2, token) {
-    if (p2.tmplInsertionModeStack.length > 0) {
-      eofInTemplate(p2, token);
+  function eofInBody(p, token) {
+    if (p.tmplInsertionModeStack.length > 0) {
+      eofInTemplate(p, token);
     } else {
-      stopParsing(p2, token);
+      stopParsing(p, token);
     }
   }
-  function endTagInText(p2, token) {
+  function endTagInText(p, token) {
     var _a;
     if (token.tagID === TAG_ID.SCRIPT) {
-      (_a = p2.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p2, p2.openElements.current);
+      (_a = p.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p, p.openElements.current);
     }
-    p2.openElements.pop();
-    p2.insertionMode = p2.originalInsertionMode;
+    p.openElements.pop();
+    p.insertionMode = p.originalInsertionMode;
   }
-  function eofInText(p2, token) {
-    p2._err(token, ERR.eofInElementThatCanContainOnlyText);
-    p2.openElements.pop();
-    p2.insertionMode = p2.originalInsertionMode;
-    p2.onEof(token);
+  function eofInText(p, token) {
+    p._err(token, ERR.eofInElementThatCanContainOnlyText);
+    p.openElements.pop();
+    p.insertionMode = p.originalInsertionMode;
+    p.onEof(token);
   }
-  function characterInTable(p2, token) {
-    if (TABLE_STRUCTURE_TAGS.has(p2.openElements.currentTagId)) {
-      p2.pendingCharacterTokens.length = 0;
-      p2.hasNonWhitespacePendingCharacterToken = false;
-      p2.originalInsertionMode = p2.insertionMode;
-      p2.insertionMode = InsertionMode.IN_TABLE_TEXT;
+  function characterInTable(p, token) {
+    if (TABLE_STRUCTURE_TAGS.has(p.openElements.currentTagId)) {
+      p.pendingCharacterTokens.length = 0;
+      p.hasNonWhitespacePendingCharacterToken = false;
+      p.originalInsertionMode = p.insertionMode;
+      p.insertionMode = InsertionMode.IN_TABLE_TEXT;
       switch (token.type) {
         case TokenType.CHARACTER: {
-          characterInTableText(p2, token);
+          characterInTableText(p, token);
           break;
         }
         case TokenType.WHITESPACE_CHARACTER: {
-          whitespaceCharacterInTableText(p2, token);
+          whitespaceCharacterInTableText(p, token);
           break;
         }
       }
     } else {
-      tokenInTable(p2, token);
+      tokenInTable(p, token);
     }
   }
-  function captionStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2.activeFormattingElements.insertMarker();
-    p2._insertElement(token, NS.HTML);
-    p2.insertionMode = InsertionMode.IN_CAPTION;
+  function captionStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p.activeFormattingElements.insertMarker();
+    p._insertElement(token, NS.HTML);
+    p.insertionMode = InsertionMode.IN_CAPTION;
   }
-  function colgroupStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertElement(token, NS.HTML);
-    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+  function colgroupStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertElement(token, NS.HTML);
+    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
   }
-  function colStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
-    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-    startTagInColumnGroup(p2, token);
+  function colStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
+    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+    startTagInColumnGroup(p, token);
   }
-  function tbodyStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertElement(token, NS.HTML);
-    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+  function tbodyStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertElement(token, NS.HTML);
+    p.insertionMode = InsertionMode.IN_TABLE_BODY;
   }
-  function tdStartTagInTable(p2, token) {
-    p2.openElements.clearBackToTableContext();
-    p2._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
-    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-    startTagInTableBody(p2, token);
+  function tdStartTagInTable(p, token) {
+    p.openElements.clearBackToTableContext();
+    p._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
+    p.insertionMode = InsertionMode.IN_TABLE_BODY;
+    startTagInTableBody(p, token);
   }
-  function tableStartTagInTable(p2, token) {
-    if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
-      p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-      p2._resetInsertionMode();
-      p2._processStartTag(token);
+  function tableStartTagInTable(p, token) {
+    if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
+      p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+      p._resetInsertionMode();
+      p._processStartTag(token);
     }
   }
-  function inputStartTagInTable(p2, token) {
+  function inputStartTagInTable(p, token) {
     if (isHiddenInput(token)) {
-      p2._appendElement(token, NS.HTML);
+      p._appendElement(token, NS.HTML);
     } else {
-      tokenInTable(p2, token);
+      tokenInTable(p, token);
     }
     token.ackSelfClosing = true;
   }
-  function formStartTagInTable(p2, token) {
-    if (!p2.formElement && p2.openElements.tmplCount === 0) {
-      p2._insertElement(token, NS.HTML);
-      p2.formElement = p2.openElements.current;
-      p2.openElements.pop();
+  function formStartTagInTable(p, token) {
+    if (!p.formElement && p.openElements.tmplCount === 0) {
+      p._insertElement(token, NS.HTML);
+      p.formElement = p.openElements.current;
+      p.openElements.pop();
     }
   }
-  function startTagInTable(p2, token) {
+  function startTagInTable(p, token) {
     switch (token.tagID) {
       case TAG_ID.TD:
       case TAG_ID.TH:
       case TAG_ID.TR: {
-        tdStartTagInTable(p2, token);
+        tdStartTagInTable(p, token);
         break;
       }
       case TAG_ID.STYLE:
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       case TAG_ID.COL: {
-        colStartTagInTable(p2, token);
+        colStartTagInTable(p, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInTable(p2, token);
+        formStartTagInTable(p, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInTable(p2, token);
+        tableStartTagInTable(p, token);
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        tbodyStartTagInTable(p2, token);
+        tbodyStartTagInTable(p, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInTable(p2, token);
+        inputStartTagInTable(p, token);
         break;
       }
       case TAG_ID.CAPTION: {
-        captionStartTagInTable(p2, token);
+        captionStartTagInTable(p, token);
         break;
       }
       case TAG_ID.COLGROUP: {
-        colgroupStartTagInTable(p2, token);
+        colgroupStartTagInTable(p, token);
         break;
       }
       default: {
-        tokenInTable(p2, token);
+        tokenInTable(p, token);
       }
     }
   }
-  function endTagInTable(p2, token) {
+  function endTagInTable(p, token) {
     switch (token.tagID) {
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
-          p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-          p2._resetInsertionMode();
+        if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
+          p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+          p._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       case TAG_ID.BODY:
@@ -21752,63 +21752,63 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        tokenInTable(p2, token);
+        tokenInTable(p, token);
       }
     }
   }
-  function tokenInTable(p2, token) {
-    const savedFosterParentingState = p2.fosterParentingEnabled;
-    p2.fosterParentingEnabled = true;
-    modeInBody(p2, token);
-    p2.fosterParentingEnabled = savedFosterParentingState;
+  function tokenInTable(p, token) {
+    const savedFosterParentingState = p.fosterParentingEnabled;
+    p.fosterParentingEnabled = true;
+    modeInBody(p, token);
+    p.fosterParentingEnabled = savedFosterParentingState;
   }
-  function whitespaceCharacterInTableText(p2, token) {
-    p2.pendingCharacterTokens.push(token);
+  function whitespaceCharacterInTableText(p, token) {
+    p.pendingCharacterTokens.push(token);
   }
-  function characterInTableText(p2, token) {
-    p2.pendingCharacterTokens.push(token);
-    p2.hasNonWhitespacePendingCharacterToken = true;
+  function characterInTableText(p, token) {
+    p.pendingCharacterTokens.push(token);
+    p.hasNonWhitespacePendingCharacterToken = true;
   }
-  function tokenInTableText(p2, token) {
+  function tokenInTableText(p, token) {
     let i2 = 0;
-    if (p2.hasNonWhitespacePendingCharacterToken) {
-      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
-        tokenInTable(p2, p2.pendingCharacterTokens[i2]);
+    if (p.hasNonWhitespacePendingCharacterToken) {
+      for (; i2 < p.pendingCharacterTokens.length; i2++) {
+        tokenInTable(p, p.pendingCharacterTokens[i2]);
       }
     } else {
-      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
-        p2._insertCharacters(p2.pendingCharacterTokens[i2]);
+      for (; i2 < p.pendingCharacterTokens.length; i2++) {
+        p._insertCharacters(p.pendingCharacterTokens[i2]);
       }
     }
-    p2.insertionMode = p2.originalInsertionMode;
-    p2._processToken(token);
+    p.insertionMode = p.originalInsertionMode;
+    p._processToken(token);
   }
-  function startTagInCaption(p2, token) {
+  function startTagInCaption(p, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-        p2.openElements.generateImpliedEndTags();
-        p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-        p2.activeFormattingElements.clearToLastMarker();
-        p2.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p2, token);
+      if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+        p.openElements.generateImpliedEndTags();
+        p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+        p.activeFormattingElements.clearToLastMarker();
+        p.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p, token);
       }
     } else {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     }
   }
-  function endTagInCaption(p2, token) {
+  function endTagInCaption(p, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.CAPTION:
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-          p2.openElements.generateImpliedEndTags();
-          p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-          p2.activeFormattingElements.clearToLastMarker();
-          p2.insertionMode = InsertionMode.IN_TABLE;
+        if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+          p.openElements.generateImpliedEndTags();
+          p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+          p.activeFormattingElements.clearToLastMarker();
+          p.insertionMode = InsertionMode.IN_TABLE;
           if (tn === TAG_ID.TABLE) {
-            endTagInTable(p2, token);
+            endTagInTable(p, token);
           }
         }
         break;
@@ -21826,72 +21826,72 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p2, token);
+        endTagInBody(p, token);
       }
     }
   }
-  function startTagInColumnGroup(p2, token) {
+  function startTagInColumnGroup(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.COL: {
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default: {
-        tokenInColumnGroup(p2, token);
+        tokenInColumnGroup(p, token);
       }
     }
   }
-  function endTagInColumnGroup(p2, token) {
+  function endTagInColumnGroup(p, token) {
     switch (token.tagID) {
       case TAG_ID.COLGROUP: {
-        if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
+        if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       case TAG_ID.COL: {
         break;
       }
       default: {
-        tokenInColumnGroup(p2, token);
+        tokenInColumnGroup(p, token);
       }
     }
   }
-  function tokenInColumnGroup(p2, token) {
-    if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
-      p2.openElements.pop();
-      p2.insertionMode = InsertionMode.IN_TABLE;
-      p2._processToken(token);
+  function tokenInColumnGroup(p, token) {
+    if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
+      p.openElements.pop();
+      p.insertionMode = InsertionMode.IN_TABLE;
+      p._processToken(token);
     }
   }
-  function startTagInTableBody(p2, token) {
+  function startTagInTableBody(p, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        p2.openElements.clearBackToTableBodyContext();
-        p2._insertElement(token, NS.HTML);
-        p2.insertionMode = InsertionMode.IN_ROW;
+        p.openElements.clearBackToTableBodyContext();
+        p._insertElement(token, NS.HTML);
+        p.insertionMode = InsertionMode.IN_ROW;
         break;
       }
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p2.openElements.clearBackToTableBodyContext();
-        p2._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
-        p2.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p2, token);
+        p.openElements.clearBackToTableBodyContext();
+        p._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
+        p.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p, token);
         break;
       }
       case TAG_ID.CAPTION:
@@ -21900,38 +21900,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p2.openElements.hasTableBodyContextInTableScope()) {
-          p2.openElements.clearBackToTableBodyContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
-          startTagInTable(p2, token);
+        if (p.openElements.hasTableBodyContextInTableScope()) {
+          p.openElements.clearBackToTableBodyContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
+          startTagInTable(p, token);
         }
         break;
       }
       default: {
-        startTagInTable(p2, token);
+        startTagInTable(p, token);
       }
     }
   }
-  function endTagInTableBody(p2, token) {
+  function endTagInTableBody(p, token) {
     const tn = token.tagID;
     switch (token.tagID) {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p2.openElements.hasInTableScope(tn)) {
-          p2.openElements.clearBackToTableBodyContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
+        if (p.openElements.hasInTableScope(tn)) {
+          p.openElements.clearBackToTableBodyContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasTableBodyContextInTableScope()) {
-          p2.openElements.clearBackToTableBodyContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE;
-          endTagInTable(p2, token);
+        if (p.openElements.hasTableBodyContextInTableScope()) {
+          p.openElements.clearBackToTableBodyContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE;
+          endTagInTable(p, token);
         }
         break;
       }
@@ -21946,18 +21946,18 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p2, token);
+        endTagInTable(p, token);
       }
     }
   }
-  function startTagInRow(p2, token) {
+  function startTagInRow(p, token) {
     switch (token.tagID) {
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p2.openElements.clearBackToTableRowContext();
-        p2._insertElement(token, NS.HTML);
-        p2.insertionMode = InsertionMode.IN_CELL;
-        p2.activeFormattingElements.insertMarker();
+        p.openElements.clearBackToTableRowContext();
+        p._insertElement(token, NS.HTML);
+        p.insertionMode = InsertionMode.IN_CELL;
+        p.activeFormattingElements.insertMarker();
         break;
       }
       case TAG_ID.CAPTION:
@@ -21967,46 +21967,46 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-          startTagInTableBody(p2, token);
+        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+          startTagInTableBody(p, token);
         }
         break;
       }
       default: {
-        startTagInTable(p2, token);
+        startTagInTable(p, token);
       }
     }
   }
-  function endTagInRow(p2, token) {
+  function endTagInRow(p, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p2, token);
+        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p, token);
         }
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p2.openElements.hasInTableScope(token.tagID) || p2.openElements.hasInTableScope(TAG_ID.TR)) {
-          p2.openElements.clearBackToTableRowContext();
-          p2.openElements.pop();
-          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p2, token);
+        if (p.openElements.hasInTableScope(token.tagID) || p.openElements.hasInTableScope(TAG_ID.TR)) {
+          p.openElements.clearBackToTableRowContext();
+          p.openElements.pop();
+          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p, token);
         }
         break;
       }
@@ -22020,31 +22020,31 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p2, token);
+        endTagInTable(p, token);
       }
     }
   }
-  function startTagInCell(p2, token) {
+  function startTagInCell(p, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p2.openElements.hasInTableScope(TAG_ID.TD) || p2.openElements.hasInTableScope(TAG_ID.TH)) {
-        p2._closeTableCell();
-        startTagInRow(p2, token);
+      if (p.openElements.hasInTableScope(TAG_ID.TD) || p.openElements.hasInTableScope(TAG_ID.TH)) {
+        p._closeTableCell();
+        startTagInRow(p, token);
       }
     } else {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     }
   }
-  function endTagInCell(p2, token) {
+  function endTagInCell(p, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        if (p2.openElements.hasInTableScope(tn)) {
-          p2.openElements.generateImpliedEndTags();
-          p2.openElements.popUntilTagNamePopped(tn);
-          p2.activeFormattingElements.clearToLastMarker();
-          p2.insertionMode = InsertionMode.IN_ROW;
+        if (p.openElements.hasInTableScope(tn)) {
+          p.openElements.generateImpliedEndTags();
+          p.openElements.popUntilTagNamePopped(tn);
+          p.activeFormattingElements.clearToLastMarker();
+          p.insertionMode = InsertionMode.IN_ROW;
         }
         break;
       }
@@ -22053,9 +22053,9 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p2.openElements.hasInTableScope(tn)) {
-          p2._closeTableCell();
-          endTagInRow(p2, token);
+        if (p.openElements.hasInTableScope(tn)) {
+          p._closeTableCell();
+          endTagInRow(p, token);
         }
         break;
       }
@@ -22067,41 +22067,41 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p2, token);
+        endTagInBody(p, token);
       }
     }
   }
-  function startTagInSelect(p2, token) {
+  function startTagInSelect(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.OPTION: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
-        p2._insertElement(token, NS.HTML);
+        p._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.OPTGROUP: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
-        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
-        p2._insertElement(token, NS.HTML);
+        p._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.HR: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
-        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
@@ -22109,77 +22109,77 @@ var LNReaderPlugin = (() => {
       case TAG_ID.KEYGEN:
       case TAG_ID.TEXTAREA:
       case TAG_ID.SELECT: {
-        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p2._resetInsertionMode();
+        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p._resetInsertionMode();
           if (token.tagID !== TAG_ID.SELECT) {
-            p2._processStartTag(token);
+            p._processStartTag(token);
           }
         }
         break;
       }
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function endTagInSelect(p2, token) {
+  function endTagInSelect(p, token) {
     switch (token.tagID) {
       case TAG_ID.OPTGROUP: {
-        if (p2.openElements.stackTop > 0 && p2.openElements.currentTagId === TAG_ID.OPTION && p2.openElements.tagIDs[p2.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.stackTop > 0 && p.openElements.currentTagId === TAG_ID.OPTION && p.openElements.tagIDs[p.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
-        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p.openElements.pop();
         }
         break;
       }
       case TAG_ID.OPTION: {
-        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
-          p2.openElements.pop();
+        if (p.openElements.currentTagId === TAG_ID.OPTION) {
+          p.openElements.pop();
         }
         break;
       }
       case TAG_ID.SELECT: {
-        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p2._resetInsertionMode();
+        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p2, token);
+        templateEndTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function startTagInSelectInTable(p2, token) {
+  function startTagInSelectInTable(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-      p2._resetInsertionMode();
-      p2._processStartTag(token);
+      p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+      p._resetInsertionMode();
+      p._processStartTag(token);
     } else {
-      startTagInSelect(p2, token);
+      startTagInSelect(p, token);
     }
   }
-  function endTagInSelectInTable(p2, token) {
+  function endTagInSelectInTable(p, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      if (p2.openElements.hasInTableScope(tn)) {
-        p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-        p2._resetInsertionMode();
-        p2.onEndTag(token);
+      if (p.openElements.hasInTableScope(tn)) {
+        p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+        p._resetInsertionMode();
+        p.onEndTag(token);
       }
     } else {
-      endTagInSelect(p2, token);
+      endTagInSelect(p, token);
     }
   }
-  function startTagInTemplate(p2, token) {
+  function startTagInTemplate(p, token) {
     switch (token.tagID) {
       // First, handle tags that can start without a mode change
       case TAG_ID.BASE:
@@ -22192,7 +22192,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       // Re-process the token in the appropriate mode
@@ -22201,173 +22201,173 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
-        p2.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
+        p.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p, token);
         break;
       }
       case TAG_ID.COL: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
-        p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-        startTagInColumnGroup(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
+        p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+        startTagInColumnGroup(p, token);
         break;
       }
       case TAG_ID.TR: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
-        p2.insertionMode = InsertionMode.IN_TABLE_BODY;
-        startTagInTableBody(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
+        p.insertionMode = InsertionMode.IN_TABLE_BODY;
+        startTagInTableBody(p, token);
         break;
       }
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
-        p2.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
+        p.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p, token);
         break;
       }
       default: {
-        p2.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
-        p2.insertionMode = InsertionMode.IN_BODY;
-        startTagInBody(p2, token);
+        p.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
+        p.insertionMode = InsertionMode.IN_BODY;
+        startTagInBody(p, token);
       }
     }
   }
-  function endTagInTemplate(p2, token) {
+  function endTagInTemplate(p, token) {
     if (token.tagID === TAG_ID.TEMPLATE) {
-      templateEndTagInHead(p2, token);
+      templateEndTagInHead(p, token);
     }
   }
-  function eofInTemplate(p2, token) {
-    if (p2.openElements.tmplCount > 0) {
-      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p2.activeFormattingElements.clearToLastMarker();
-      p2.tmplInsertionModeStack.shift();
-      p2._resetInsertionMode();
-      p2.onEof(token);
+  function eofInTemplate(p, token) {
+    if (p.openElements.tmplCount > 0) {
+      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p.activeFormattingElements.clearToLastMarker();
+      p.tmplInsertionModeStack.shift();
+      p._resetInsertionMode();
+      p.onEof(token);
     } else {
-      stopParsing(p2, token);
+      stopParsing(p, token);
     }
   }
-  function startTagAfterBody(p2, token) {
+  function startTagAfterBody(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     } else {
-      tokenAfterBody(p2, token);
+      tokenAfterBody(p, token);
     }
   }
-  function endTagAfterBody(p2, token) {
+  function endTagAfterBody(p, token) {
     var _a;
     if (token.tagID === TAG_ID.HTML) {
-      if (!p2.fragmentContext) {
-        p2.insertionMode = InsertionMode.AFTER_AFTER_BODY;
+      if (!p.fragmentContext) {
+        p.insertionMode = InsertionMode.AFTER_AFTER_BODY;
       }
-      if (p2.options.sourceCodeLocationInfo && p2.openElements.tagIDs[0] === TAG_ID.HTML) {
-        p2._setEndLocation(p2.openElements.items[0], token);
-        const bodyElement = p2.openElements.items[1];
-        if (bodyElement && !((_a = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
-          p2._setEndLocation(bodyElement, token);
+      if (p.options.sourceCodeLocationInfo && p.openElements.tagIDs[0] === TAG_ID.HTML) {
+        p._setEndLocation(p.openElements.items[0], token);
+        const bodyElement = p.openElements.items[1];
+        if (bodyElement && !((_a = p.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
+          p._setEndLocation(bodyElement, token);
         }
       }
     } else {
-      tokenAfterBody(p2, token);
+      tokenAfterBody(p, token);
     }
   }
-  function tokenAfterBody(p2, token) {
-    p2.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p2, token);
+  function tokenAfterBody(p, token) {
+    p.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p, token);
   }
-  function startTagInFrameset(p2, token) {
+  function startTagInFrameset(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        p2._insertElement(token, NS.HTML);
+        p._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.FRAME: {
-        p2._appendElement(token, NS.HTML);
+        p._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function endTagInFrameset(p2, token) {
-    if (token.tagID === TAG_ID.FRAMESET && !p2.openElements.isRootHtmlElementCurrent()) {
-      p2.openElements.pop();
-      if (!p2.fragmentContext && p2.openElements.currentTagId !== TAG_ID.FRAMESET) {
-        p2.insertionMode = InsertionMode.AFTER_FRAMESET;
+  function endTagInFrameset(p, token) {
+    if (token.tagID === TAG_ID.FRAMESET && !p.openElements.isRootHtmlElementCurrent()) {
+      p.openElements.pop();
+      if (!p.fragmentContext && p.openElements.currentTagId !== TAG_ID.FRAMESET) {
+        p.insertionMode = InsertionMode.AFTER_FRAMESET;
       }
     }
   }
-  function startTagAfterFrameset(p2, token) {
+  function startTagAfterFrameset(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function endTagAfterFrameset(p2, token) {
+  function endTagAfterFrameset(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p2.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
+      p.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
     }
   }
-  function startTagAfterAfterBody(p2, token) {
+  function startTagAfterAfterBody(p, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p2, token);
+      startTagInBody(p, token);
     } else {
-      tokenAfterAfterBody(p2, token);
+      tokenAfterAfterBody(p, token);
     }
   }
-  function tokenAfterAfterBody(p2, token) {
-    p2.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p2, token);
+  function tokenAfterAfterBody(p, token) {
+    p.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p, token);
   }
-  function startTagAfterAfterFrameset(p2, token) {
+  function startTagAfterAfterFrameset(p, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p2, token);
+        startTagInBody(p, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p2, token);
+        startTagInHead(p, token);
         break;
       }
       default:
     }
   }
-  function nullCharacterInForeignContent(p2, token) {
+  function nullCharacterInForeignContent(p, token) {
     token.chars = REPLACEMENT_CHARACTER;
-    p2._insertCharacters(token);
+    p._insertCharacters(token);
   }
-  function characterInForeignContent(p2, token) {
-    p2._insertCharacters(token);
-    p2.framesetOk = false;
+  function characterInForeignContent(p, token) {
+    p._insertCharacters(token);
+    p.framesetOk = false;
   }
-  function popUntilHtmlOrIntegrationPoint(p2) {
-    while (p2.treeAdapter.getNamespaceURI(p2.openElements.current) !== NS.HTML && !p2._isIntegrationPoint(p2.openElements.currentTagId, p2.openElements.current)) {
-      p2.openElements.pop();
+  function popUntilHtmlOrIntegrationPoint(p) {
+    while (p.treeAdapter.getNamespaceURI(p.openElements.current) !== NS.HTML && !p._isIntegrationPoint(p.openElements.currentTagId, p.openElements.current)) {
+      p.openElements.pop();
     }
   }
-  function startTagInForeignContent(p2, token) {
+  function startTagInForeignContent(p, token) {
     if (causesExit(token)) {
-      popUntilHtmlOrIntegrationPoint(p2);
-      p2._startTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p);
+      p._startTagOutsideForeignContent(token);
     } else {
-      const current = p2._getAdjustedCurrentElement();
-      const currentNs = p2.treeAdapter.getNamespaceURI(current);
+      const current = p._getAdjustedCurrentElement();
+      const currentNs = p.treeAdapter.getNamespaceURI(current);
       if (currentNs === NS.MATHML) {
         adjustTokenMathMLAttrs(token);
       } else if (currentNs === NS.SVG) {
@@ -22376,29 +22376,29 @@ var LNReaderPlugin = (() => {
       }
       adjustTokenXMLAttrs(token);
       if (token.selfClosing) {
-        p2._appendElement(token, currentNs);
+        p._appendElement(token, currentNs);
       } else {
-        p2._insertElement(token, currentNs);
+        p._insertElement(token, currentNs);
       }
       token.ackSelfClosing = true;
     }
   }
-  function endTagInForeignContent(p2, token) {
+  function endTagInForeignContent(p, token) {
     if (token.tagID === TAG_ID.P || token.tagID === TAG_ID.BR) {
-      popUntilHtmlOrIntegrationPoint(p2);
-      p2._endTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p);
+      p._endTagOutsideForeignContent(token);
       return;
     }
-    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
-      const element = p2.openElements.items[i2];
-      if (p2.treeAdapter.getNamespaceURI(element) === NS.HTML) {
-        p2._endTagOutsideForeignContent(token);
+    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
+      const element = p.openElements.items[i2];
+      if (p.treeAdapter.getNamespaceURI(element) === NS.HTML) {
+        p._endTagOutsideForeignContent(token);
         break;
       }
-      const tagName = p2.treeAdapter.getTagName(element);
+      const tagName = p.treeAdapter.getTagName(element);
       if (tagName.toLowerCase() === token.tagName) {
         token.tagName = tagName;
-        p2.openElements.shortenToLength(i2);
+        p.openElements.shortenToLength(i2);
         break;
       }
     }
@@ -25391,678 +25391,3575 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // node_modules/dayjs/dayjs.min.js
-  var require_dayjs_min = __commonJS({
-    "node_modules/dayjs/dayjs.min.js"(exports4, module) {
+  // node_modules/clsx/dist/clsx.mjs
+  function r(e2) {
+    var t2, f, n2 = "";
+    if ("string" == typeof e2 || "number" == typeof e2) n2 += e2;
+    else if ("object" == typeof e2) if (Array.isArray(e2)) {
+      var o2 = e2.length;
+      for (t2 = 0; t2 < o2; t2++) e2[t2] && (f = r(e2[t2])) && (n2 && (n2 += " "), n2 += f);
+    } else for (f in e2) e2[f] && (n2 && (n2 += " "), n2 += f);
+    return n2;
+  }
+  function clsx() {
+    for (var e2, t2, f = 0, n2 = "", o2 = arguments.length; f < o2; f++) (e2 = arguments[f]) && (t2 = r(e2)) && (n2 && (n2 += " "), n2 += t2);
+    return n2;
+  }
+  var clsx_default;
+  var init_clsx = __esm({
+    "node_modules/clsx/dist/clsx.mjs"() {
       init_dirname();
       init_buffer2();
       init_process2();
-      !function(t2, e2) {
-        "object" == typeof exports4 && "undefined" != typeof module ? module.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
-      }(exports4, function() {
-        "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
-          var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
-          return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
-          var r3 = String(t3);
-          return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
-          var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
-        }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
-          if (e3.date() < n3.date()) return -t3(n3, e3);
-          var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c2), s3 = n3 - i3 < 0, u3 = e3.clone().add(r3 + (s3 ? -1 : 1), c2);
-          return +(-(r3 + (n3 - i3) / (s3 ? i3 - u3 : u3 - i3)) || 0);
-        }, "t"), a: /* @__PURE__ */ __name(function(t3) {
-          return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
-        }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c2, y: h, w: o2, d: a2, D: d, h: u2, m: s2, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
-        }, "p"), u: /* @__PURE__ */ __name(function(t3) {
-          return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
-        var p2 = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
-          return t3 instanceof _ || !(!t3 || !t3[p2]);
-        }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
-          var i3;
-          if (!e3) return g;
-          if ("string" == typeof e3) {
-            var s3 = e3.toLowerCase();
-            D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
-            var u3 = e3.split("-");
-            if (!i3 && u3.length > 1) return t3(u3[0]);
-          } else {
-            var a3 = e3.name;
-            D[a3] = e3, i3 = a3;
-          }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
-        }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
-          if (S(t3)) return t3.clone();
-          var n3 = "object" == typeof e3 ? e3 : {};
-          return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v;
-        b.l = w, b.i = S, b.w = function(t3, e3) {
-          return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
-        };
-        var _ = function() {
-          function M2(t3) {
-            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p2] = true;
-          }
-          __name(M2, "M");
-          var m2 = M2.prototype;
-          return m2.parse = function(t3) {
-            this.$d = function(t4) {
-              var e3 = t4.date, n3 = t4.utc;
-              if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b.u(e3)) return /* @__PURE__ */ new Date();
-              if (e3 instanceof Date) return new Date(e3);
-              if ("string" == typeof e3 && !/Z$/i.test(e3)) {
-                var r3 = e3.match($2);
-                if (r3) {
-                  var i3 = r3[2] - 1 || 0, s3 = (r3[7] || "0").substring(0, 3);
-                  return n3 ? new Date(Date.UTC(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3)) : new Date(r3[1], i3, r3[3] || 1, r3[4] || 0, r3[5] || 0, r3[6] || 0, s3);
-                }
-              }
-              return new Date(e3);
-            }(t3), this.init();
-          }, m2.init = function() {
-            var t3 = this.$d;
-            this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
-          }, m2.$utils = function() {
-            return b;
-          }, m2.isValid = function() {
-            return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t3, e3) {
-            var n3 = O(t3);
-            return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
-          }, m2.isAfter = function(t3, e3) {
-            return O(t3) < this.startOf(e3);
-          }, m2.isBefore = function(t3, e3) {
-            return this.endOf(e3) < O(t3);
-          }, m2.$g = function(t3, e3, n3) {
-            return b.u(t3) ? this[e3] : this.set(n3, t3);
-          }, m2.unix = function() {
-            return Math.floor(this.valueOf() / 1e3);
-          }, m2.valueOf = function() {
-            return this.$d.getTime();
-          }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
-              return r3 ? i3 : i3.endOf(a2);
-            }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
-              case h:
-                return r3 ? l3(1, 0) : l3(31, 11);
-              case c2:
-                return r3 ? l3(1, M3) : l3(0, M3 + 1);
-              case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
-              case a2:
-              case d:
-                return $3(v2 + "Hours", 0);
-              case u2:
-                return $3(v2 + "Minutes", 1);
-              case s2:
-                return $3(v2 + "Seconds", 2);
-              case i2:
-                return $3(v2 + "Milliseconds", 3);
-              default:
-                return this.clone();
-            }
-          }, m2.endOf = function(t3) {
-            return this.startOf(t3, false);
-          }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c2] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
-            if (o3 === c2 || o3 === h) {
-              var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
-            } else l3 && this.$d[l3]($3);
-            return this.init(), this;
-          }, m2.set = function(t3, e3) {
-            return this.clone().$set(t3, e3);
-          }, m2.get = function(t3) {
-            return this[b.p(t3)]();
-          }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
-            r3 = Number(r3);
-            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
-              var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
-            }, "y");
-            if ($3 === c2) return this.set(c2, this.$M + r3);
-            if ($3 === h) return this.set(h, this.$y + r3);
-            if ($3 === a2) return y2(1);
-            if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s2] = e2, d2[u2] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
-            return b.w(m3, this);
-          }, m2.subtract = function(t3, e3) {
-            return this.add(-1 * t3, e3);
-          }, m2.format = function(t3) {
-            var e3 = this, n3 = this.$locale();
-            if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
-              return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
-              return b.s(s3 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
-              var r4 = t4 < 12 ? "AM" : "PM";
-              return n4 ? r4.toLowerCase() : r4;
-            };
-            return r3.replace(y, function(t4, r4) {
-              return r4 || function(t5) {
-                switch (t5) {
-                  case "YY":
-                    return String(e3.$y).slice(-2);
-                  case "YYYY":
-                    return b.s(e3.$y, 4, "0");
-                  case "M":
-                    return a3 + 1;
-                  case "MM":
-                    return b.s(a3 + 1, 2, "0");
-                  case "MMM":
-                    return h2(n3.monthsShort, a3, c3, 3);
-                  case "MMMM":
-                    return h2(c3, a3);
-                  case "D":
-                    return e3.$D;
-                  case "DD":
-                    return b.s(e3.$D, 2, "0");
-                  case "d":
-                    return String(e3.$W);
-                  case "dd":
-                    return h2(n3.weekdaysMin, e3.$W, o3, 2);
-                  case "ddd":
-                    return h2(n3.weekdaysShort, e3.$W, o3, 3);
-                  case "dddd":
-                    return o3[e3.$W];
-                  case "H":
-                    return String(s3);
-                  case "HH":
-                    return b.s(s3, 2, "0");
-                  case "h":
-                    return d2(1);
-                  case "hh":
-                    return d2(2);
-                  case "a":
-                    return $3(s3, u3, true);
-                  case "A":
-                    return $3(s3, u3, false);
-                  case "m":
-                    return String(u3);
-                  case "mm":
-                    return b.s(u3, 2, "0");
-                  case "s":
-                    return String(e3.$s);
-                  case "ss":
-                    return b.s(e3.$s, 2, "0");
-                  case "SSS":
-                    return b.s(e3.$ms, 3, "0");
-                  case "Z":
-                    return i3;
-                }
-                return null;
-              }(t4) || i3.replace(":", "");
-            });
-          }, m2.utcOffset = function() {
-            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b.m(y2, m3);
-            }, "D");
-            switch (M3) {
-              case h:
-                $3 = D2() / 12;
-                break;
-              case c2:
-                $3 = D2();
-                break;
-              case f:
-                $3 = D2() / 3;
-                break;
-              case o2:
-                $3 = (g2 - v2) / 6048e5;
-                break;
-              case a2:
-                $3 = (g2 - v2) / 864e5;
-                break;
-              case u2:
-                $3 = g2 / n2;
-                break;
-              case s2:
-                $3 = g2 / e2;
-                break;
-              case i2:
-                $3 = g2 / t2;
-                break;
-              default:
-                $3 = g2;
-            }
-            return l3 ? $3 : b.a($3);
-          }, m2.daysInMonth = function() {
-            return this.endOf(c2).$D;
-          }, m2.$locale = function() {
-            return D[this.$L];
-          }, m2.locale = function(t3, e3) {
-            if (!t3) return this.$L;
-            var n3 = this.clone(), r3 = w(t3, e3, true);
-            return r3 && (n3.$L = r3), n3;
-          }, m2.clone = function() {
-            return b.w(this.$d, this);
-          }, m2.toDate = function() {
-            return new Date(this.valueOf());
-          }, m2.toJSON = function() {
-            return this.isValid() ? this.toISOString() : null;
-          }, m2.toISOString = function() {
-            return this.$d.toISOString();
-          }, m2.toString = function() {
-            return this.$d.toUTCString();
-          }, M2;
-        }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s2], ["$H", u2], ["$W", a2], ["$M", c2], ["$y", h], ["$D", d]].forEach(function(t3) {
-          k[t3[1]] = function(e3) {
-            return this.$g(e3, t3[0], t3[1]);
-          };
-        }), O.extend = function(t3, e3) {
-          return t3.$i || (t3(e3, _, O), t3.$i = true), O;
-        }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
-          return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
+      __name(r, "r");
+      __name(clsx, "clsx");
+      clsx_default = clsx;
+    }
+  });
+
+  // node_modules/tailwind-merge/dist/bundle-cjs.js
+  var require_bundle_cjs = __commonJS({
+    "node_modules/tailwind-merge/dist/bundle-cjs.js"(exports4) {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      Object.defineProperty(exports4, Symbol.toStringTag, {
+        value: "Module"
       });
-    }
-  });
-
-  // src/lib/storage.ts
-  var _Storage, Storage, storage, _LocalStorage, LocalStorage, localStorage, sessionStorage;
-  var init_storage = __esm({
-    "src/lib/storage.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      _Storage = class _Storage {
-        /**
-         * Initializes a new instance of the Storage class.
-         */
-        constructor() {
-          this.db = {};
+      var CLASS_PART_SEPARATOR = "-";
+      var createClassGroupUtils = /* @__PURE__ */ __name((config2) => {
+        const classMap = createClassMap(config2);
+        const {
+          conflictingClassGroups,
+          conflictingClassGroupModifiers
+        } = config2;
+        const getClassGroupId = /* @__PURE__ */ __name((className) => {
+          const classParts = className.split(CLASS_PART_SEPARATOR);
+          if (classParts[0] === "" && classParts.length !== 1) {
+            classParts.shift();
+          }
+          return getGroupRecursive(classParts, classMap) || getGroupIdForArbitraryProperty(className);
+        }, "getClassGroupId");
+        const getConflictingClassGroupIds = /* @__PURE__ */ __name((classGroupId, hasPostfixModifier) => {
+          const conflicts = conflictingClassGroups[classGroupId] || [];
+          if (hasPostfixModifier && conflictingClassGroupModifiers[classGroupId]) {
+            return [...conflicts, ...conflictingClassGroupModifiers[classGroupId]];
+          }
+          return conflicts;
+        }, "getConflictingClassGroupIds");
+        return {
+          getClassGroupId,
+          getConflictingClassGroupIds
+        };
+      }, "createClassGroupUtils");
+      var getGroupRecursive = /* @__PURE__ */ __name((classParts, classPartObject) => {
+        if (classParts.length === 0) {
+          return classPartObject.classGroupId;
         }
-        /**
-         * Sets a key-value pair in storage.
-         *
-         * @param {string} key - The key to set.
-         * @param {T} value - The value to set.
-         * @param {Date | number} [expires] - Optional expiry date or time in milliseconds.
-         */
-        set(key, value, expires) {
-          this.db[key] = {
-            created: /* @__PURE__ */ new Date(),
-            value,
-            expires: expires instanceof Date ? expires.getTime() : expires
+        const currentClassPart = classParts[0];
+        const nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
+        const classGroupFromNextClassPart = nextClassPartObject ? getGroupRecursive(classParts.slice(1), nextClassPartObject) : void 0;
+        if (classGroupFromNextClassPart) {
+          return classGroupFromNextClassPart;
+        }
+        if (classPartObject.validators.length === 0) {
+          return void 0;
+        }
+        const classRest = classParts.join(CLASS_PART_SEPARATOR);
+        return classPartObject.validators.find(({
+          validator
+        }) => validator(classRest))?.classGroupId;
+      }, "getGroupRecursive");
+      var arbitraryPropertyRegex = /^\[(.+)\]$/;
+      var getGroupIdForArbitraryProperty = /* @__PURE__ */ __name((className) => {
+        if (arbitraryPropertyRegex.test(className)) {
+          const arbitraryPropertyClassName = arbitraryPropertyRegex.exec(className)[1];
+          const property = arbitraryPropertyClassName?.substring(0, arbitraryPropertyClassName.indexOf(":"));
+          if (property) {
+            return "arbitrary.." + property;
+          }
+        }
+      }, "getGroupIdForArbitraryProperty");
+      var createClassMap = /* @__PURE__ */ __name((config2) => {
+        const {
+          theme,
+          classGroups
+        } = config2;
+        const classMap = {
+          nextPart: /* @__PURE__ */ new Map(),
+          validators: []
+        };
+        for (const classGroupId in classGroups) {
+          processClassesRecursively(classGroups[classGroupId], classMap, classGroupId, theme);
+        }
+        return classMap;
+      }, "createClassMap");
+      var processClassesRecursively = /* @__PURE__ */ __name((classGroup, classPartObject, classGroupId, theme) => {
+        classGroup.forEach((classDefinition) => {
+          if (typeof classDefinition === "string") {
+            const classPartObjectToEdit = classDefinition === "" ? classPartObject : getPart(classPartObject, classDefinition);
+            classPartObjectToEdit.classGroupId = classGroupId;
+            return;
+          }
+          if (typeof classDefinition === "function") {
+            if (isThemeGetter(classDefinition)) {
+              processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
+              return;
+            }
+            classPartObject.validators.push({
+              validator: classDefinition,
+              classGroupId
+            });
+            return;
+          }
+          Object.entries(classDefinition).forEach(([key, classGroup2]) => {
+            processClassesRecursively(classGroup2, getPart(classPartObject, key), classGroupId, theme);
+          });
+        });
+      }, "processClassesRecursively");
+      var getPart = /* @__PURE__ */ __name((classPartObject, path) => {
+        let currentClassPartObject = classPartObject;
+        path.split(CLASS_PART_SEPARATOR).forEach((pathPart) => {
+          if (!currentClassPartObject.nextPart.has(pathPart)) {
+            currentClassPartObject.nextPart.set(pathPart, {
+              nextPart: /* @__PURE__ */ new Map(),
+              validators: []
+            });
+          }
+          currentClassPartObject = currentClassPartObject.nextPart.get(pathPart);
+        });
+        return currentClassPartObject;
+      }, "getPart");
+      var isThemeGetter = /* @__PURE__ */ __name((func) => func.isThemeGetter, "isThemeGetter");
+      var createLruCache = /* @__PURE__ */ __name((maxCacheSize) => {
+        if (maxCacheSize < 1) {
+          return {
+            get: /* @__PURE__ */ __name(() => void 0, "get"),
+            set: /* @__PURE__ */ __name(() => {
+            }, "set")
           };
         }
-        get(key, raw) {
-          const item = this.db[key];
-          if (item?.expires && Date.now() > item.expires) {
-            this.delete(key);
-            return void 0;
+        let cacheSize = 0;
+        let cache = /* @__PURE__ */ new Map();
+        let previousCache = /* @__PURE__ */ new Map();
+        const update2 = /* @__PURE__ */ __name((key, value) => {
+          cache.set(key, value);
+          cacheSize++;
+          if (cacheSize > maxCacheSize) {
+            cacheSize = 0;
+            previousCache = cache;
+            cache = /* @__PURE__ */ new Map();
           }
-          return raw ? item : item?.value;
+        }, "update");
+        return {
+          get(key) {
+            let value = cache.get(key);
+            if (value !== void 0) {
+              return value;
+            }
+            if ((value = previousCache.get(key)) !== void 0) {
+              update2(key, value);
+              return value;
+            }
+          },
+          set(key, value) {
+            if (cache.has(key)) {
+              cache.set(key, value);
+            } else {
+              update2(key, value);
+            }
+          }
+        };
+      }, "createLruCache");
+      var IMPORTANT_MODIFIER = "!";
+      var MODIFIER_SEPARATOR = ":";
+      var MODIFIER_SEPARATOR_LENGTH = MODIFIER_SEPARATOR.length;
+      var createParseClassName = /* @__PURE__ */ __name((config2) => {
+        const {
+          prefix,
+          experimentalParseClassName
+        } = config2;
+        let parseClassName = /* @__PURE__ */ __name((className) => {
+          const modifiers = [];
+          let bracketDepth = 0;
+          let parenDepth = 0;
+          let modifierStart = 0;
+          let postfixModifierPosition;
+          for (let index2 = 0; index2 < className.length; index2++) {
+            let currentCharacter = className[index2];
+            if (bracketDepth === 0 && parenDepth === 0) {
+              if (currentCharacter === MODIFIER_SEPARATOR) {
+                modifiers.push(className.slice(modifierStart, index2));
+                modifierStart = index2 + MODIFIER_SEPARATOR_LENGTH;
+                continue;
+              }
+              if (currentCharacter === "/") {
+                postfixModifierPosition = index2;
+                continue;
+              }
+            }
+            if (currentCharacter === "[") {
+              bracketDepth++;
+            } else if (currentCharacter === "]") {
+              bracketDepth--;
+            } else if (currentCharacter === "(") {
+              parenDepth++;
+            } else if (currentCharacter === ")") {
+              parenDepth--;
+            }
+          }
+          const baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.substring(modifierStart);
+          const baseClassName = stripImportantModifier(baseClassNameWithImportantModifier);
+          const hasImportantModifier = baseClassName !== baseClassNameWithImportantModifier;
+          const maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : void 0;
+          return {
+            modifiers,
+            hasImportantModifier,
+            baseClassName,
+            maybePostfixModifierPosition
+          };
+        }, "parseClassName");
+        if (prefix) {
+          const fullPrefix = prefix + MODIFIER_SEPARATOR;
+          const parseClassNameOriginal = parseClassName;
+          parseClassName = /* @__PURE__ */ __name((className) => className.startsWith(fullPrefix) ? parseClassNameOriginal(className.substring(fullPrefix.length)) : {
+            isExternal: true,
+            modifiers: [],
+            hasImportantModifier: false,
+            baseClassName: className,
+            maybePostfixModifierPosition: void 0
+          }, "parseClassName");
         }
-        /**
-         * Retrieves all keys set by the `set` method.
-         *
-         * @returns {string[]} An array of keys.
-         */
-        getAllKeys() {
-          return Object.keys(this.db);
+        if (experimentalParseClassName) {
+          const parseClassNameOriginal = parseClassName;
+          parseClassName = /* @__PURE__ */ __name((className) => experimentalParseClassName({
+            className,
+            parseClassName: parseClassNameOriginal
+          }), "parseClassName");
         }
-        /**
-         * Deletes a key from the storage.
-         *
-         * @param key - The key to delete.
-         */
-        delete(key) {
-          delete this.db[key];
+        return parseClassName;
+      }, "createParseClassName");
+      var stripImportantModifier = /* @__PURE__ */ __name((baseClassName) => {
+        if (baseClassName.endsWith(IMPORTANT_MODIFIER)) {
+          return baseClassName.substring(0, baseClassName.length - 1);
         }
-        /**
-         * Clears all stored items from storage.
-         */
-        clearAll() {
-          this.db = {};
+        if (baseClassName.startsWith(IMPORTANT_MODIFIER)) {
+          return baseClassName.substring(1);
         }
-      };
-      __name(_Storage, "Storage");
-      Storage = _Storage;
-      storage = new Storage();
-      _LocalStorage = class _LocalStorage {
-        constructor() {
-          this.db = {};
+        return baseClassName;
+      }, "stripImportantModifier");
+      var createSortModifiers = /* @__PURE__ */ __name((config2) => {
+        const orderSensitiveModifiers = Object.fromEntries(config2.orderSensitiveModifiers.map((modifier) => [modifier, true]));
+        const sortModifiers = /* @__PURE__ */ __name((modifiers) => {
+          if (modifiers.length <= 1) {
+            return modifiers;
+          }
+          const sortedModifiers = [];
+          let unsortedModifiers = [];
+          modifiers.forEach((modifier) => {
+            const isPositionSensitive = modifier[0] === "[" || orderSensitiveModifiers[modifier];
+            if (isPositionSensitive) {
+              sortedModifiers.push(...unsortedModifiers.sort(), modifier);
+              unsortedModifiers = [];
+            } else {
+              unsortedModifiers.push(modifier);
+            }
+          });
+          sortedModifiers.push(...unsortedModifiers.sort());
+          return sortedModifiers;
+        }, "sortModifiers");
+        return sortModifiers;
+      }, "createSortModifiers");
+      var createConfigUtils = /* @__PURE__ */ __name((config2) => ({
+        cache: createLruCache(config2.cacheSize),
+        parseClassName: createParseClassName(config2),
+        sortModifiers: createSortModifiers(config2),
+        ...createClassGroupUtils(config2)
+      }), "createConfigUtils");
+      var SPLIT_CLASSES_REGEX = /\s+/;
+      var mergeClassList = /* @__PURE__ */ __name((classList, configUtils) => {
+        const {
+          parseClassName,
+          getClassGroupId,
+          getConflictingClassGroupIds,
+          sortModifiers
+        } = configUtils;
+        const classGroupsInConflict = [];
+        const classNames = classList.trim().split(SPLIT_CLASSES_REGEX);
+        let result = "";
+        for (let index2 = classNames.length - 1; index2 >= 0; index2 -= 1) {
+          const originalClassName = classNames[index2];
+          const {
+            isExternal,
+            modifiers,
+            hasImportantModifier,
+            baseClassName,
+            maybePostfixModifierPosition
+          } = parseClassName(originalClassName);
+          if (isExternal) {
+            result = originalClassName + (result.length > 0 ? " " + result : result);
+            continue;
+          }
+          let hasPostfixModifier = !!maybePostfixModifierPosition;
+          let classGroupId = getClassGroupId(hasPostfixModifier ? baseClassName.substring(0, maybePostfixModifierPosition) : baseClassName);
+          if (!classGroupId) {
+            if (!hasPostfixModifier) {
+              result = originalClassName + (result.length > 0 ? " " + result : result);
+              continue;
+            }
+            classGroupId = getClassGroupId(baseClassName);
+            if (!classGroupId) {
+              result = originalClassName + (result.length > 0 ? " " + result : result);
+              continue;
+            }
+            hasPostfixModifier = false;
+          }
+          const variantModifier = sortModifiers(modifiers).join(":");
+          const modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
+          const classId = modifierId + classGroupId;
+          if (classGroupsInConflict.includes(classId)) {
+            continue;
+          }
+          classGroupsInConflict.push(classId);
+          const conflictGroups = getConflictingClassGroupIds(classGroupId, hasPostfixModifier);
+          for (let i2 = 0; i2 < conflictGroups.length; ++i2) {
+            const group = conflictGroups[i2];
+            classGroupsInConflict.push(modifierId + group);
+          }
+          result = originalClassName + (result.length > 0 ? " " + result : result);
         }
-        get() {
-          return this.db;
+        return result;
+      }, "mergeClassList");
+      function twJoin() {
+        let index2 = 0;
+        let argument;
+        let resolvedValue;
+        let string = "";
+        while (index2 < arguments.length) {
+          if (argument = arguments[index2++]) {
+            if (resolvedValue = toValue(argument)) {
+              string && (string += " ");
+              string += resolvedValue;
+            }
+          }
         }
-      };
-      __name(_LocalStorage, "LocalStorage");
-      LocalStorage = _LocalStorage;
-      localStorage = new LocalStorage();
-      sessionStorage = new LocalStorage();
+        return string;
+      }
+      __name(twJoin, "twJoin");
+      var toValue = /* @__PURE__ */ __name((mix) => {
+        if (typeof mix === "string") {
+          return mix;
+        }
+        let resolvedValue;
+        let string = "";
+        for (let k = 0; k < mix.length; k++) {
+          if (mix[k]) {
+            if (resolvedValue = toValue(mix[k])) {
+              string && (string += " ");
+              string += resolvedValue;
+            }
+          }
+        }
+        return string;
+      }, "toValue");
+      function createTailwindMerge(createConfigFirst, ...createConfigRest) {
+        let configUtils;
+        let cacheGet;
+        let cacheSet;
+        let functionToCall = initTailwindMerge;
+        function initTailwindMerge(classList) {
+          const config2 = createConfigRest.reduce((previousConfig, createConfigCurrent) => createConfigCurrent(previousConfig), createConfigFirst());
+          configUtils = createConfigUtils(config2);
+          cacheGet = configUtils.cache.get;
+          cacheSet = configUtils.cache.set;
+          functionToCall = tailwindMerge;
+          return tailwindMerge(classList);
+        }
+        __name(initTailwindMerge, "initTailwindMerge");
+        function tailwindMerge(classList) {
+          const cachedResult = cacheGet(classList);
+          if (cachedResult) {
+            return cachedResult;
+          }
+          const result = mergeClassList(classList, configUtils);
+          cacheSet(classList, result);
+          return result;
+        }
+        __name(tailwindMerge, "tailwindMerge");
+        return /* @__PURE__ */ __name(function callTailwindMerge() {
+          return functionToCall(twJoin.apply(null, arguments));
+        }, "callTailwindMerge");
+      }
+      __name(createTailwindMerge, "createTailwindMerge");
+      var fromTheme = /* @__PURE__ */ __name((key) => {
+        const themeGetter = /* @__PURE__ */ __name((theme) => theme[key] || [], "themeGetter");
+        themeGetter.isThemeGetter = true;
+        return themeGetter;
+      }, "fromTheme");
+      var arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
+      var arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
+      var fractionRegex = /^\d+\/\d+$/;
+      var tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+      var lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+      var colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
+      var shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+      var imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+      var isFraction = /* @__PURE__ */ __name((value) => fractionRegex.test(value), "isFraction");
+      var isNumber = /* @__PURE__ */ __name((value) => !!value && !Number.isNaN(Number(value)), "isNumber");
+      var isInteger = /* @__PURE__ */ __name((value) => !!value && Number.isInteger(Number(value)), "isInteger");
+      var isPercent = /* @__PURE__ */ __name((value) => value.endsWith("%") && isNumber(value.slice(0, -1)), "isPercent");
+      var isTshirtSize = /* @__PURE__ */ __name((value) => tshirtUnitRegex.test(value), "isTshirtSize");
+      var isAny = /* @__PURE__ */ __name(() => true, "isAny");
+      var isLengthOnly = /* @__PURE__ */ __name((value) => (
+        // `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
+        // For example, `hsl(0 0% 0%)` would be classified as a length without this check.
+        // I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
+        lengthUnitRegex.test(value) && !colorFunctionRegex.test(value)
+      ), "isLengthOnly");
+      var isNever = /* @__PURE__ */ __name(() => false, "isNever");
+      var isShadow = /* @__PURE__ */ __name((value) => shadowRegex.test(value), "isShadow");
+      var isImage = /* @__PURE__ */ __name((value) => imageRegex.test(value), "isImage");
+      var isAnyNonArbitrary = /* @__PURE__ */ __name((value) => !isArbitraryValue(value) && !isArbitraryVariable(value), "isAnyNonArbitrary");
+      var isArbitrarySize = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelSize, isNever), "isArbitrarySize");
+      var isArbitraryValue = /* @__PURE__ */ __name((value) => arbitraryValueRegex.test(value), "isArbitraryValue");
+      var isArbitraryLength = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelLength, isLengthOnly), "isArbitraryLength");
+      var isArbitraryNumber = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelNumber, isNumber), "isArbitraryNumber");
+      var isArbitraryPosition = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelPosition, isNever), "isArbitraryPosition");
+      var isArbitraryImage = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelImage, isImage), "isArbitraryImage");
+      var isArbitraryShadow = /* @__PURE__ */ __name((value) => getIsArbitraryValue(value, isLabelShadow, isShadow), "isArbitraryShadow");
+      var isArbitraryVariable = /* @__PURE__ */ __name((value) => arbitraryVariableRegex.test(value), "isArbitraryVariable");
+      var isArbitraryVariableLength = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelLength), "isArbitraryVariableLength");
+      var isArbitraryVariableFamilyName = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelFamilyName), "isArbitraryVariableFamilyName");
+      var isArbitraryVariablePosition = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelPosition), "isArbitraryVariablePosition");
+      var isArbitraryVariableSize = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelSize), "isArbitraryVariableSize");
+      var isArbitraryVariableImage = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelImage), "isArbitraryVariableImage");
+      var isArbitraryVariableShadow = /* @__PURE__ */ __name((value) => getIsArbitraryVariable(value, isLabelShadow, true), "isArbitraryVariableShadow");
+      var getIsArbitraryValue = /* @__PURE__ */ __name((value, testLabel, testValue) => {
+        const result = arbitraryValueRegex.exec(value);
+        if (result) {
+          if (result[1]) {
+            return testLabel(result[1]);
+          }
+          return testValue(result[2]);
+        }
+        return false;
+      }, "getIsArbitraryValue");
+      var getIsArbitraryVariable = /* @__PURE__ */ __name((value, testLabel, shouldMatchNoLabel = false) => {
+        const result = arbitraryVariableRegex.exec(value);
+        if (result) {
+          if (result[1]) {
+            return testLabel(result[1]);
+          }
+          return shouldMatchNoLabel;
+        }
+        return false;
+      }, "getIsArbitraryVariable");
+      var isLabelPosition = /* @__PURE__ */ __name((label) => label === "position" || label === "percentage", "isLabelPosition");
+      var isLabelImage = /* @__PURE__ */ __name((label) => label === "image" || label === "url", "isLabelImage");
+      var isLabelSize = /* @__PURE__ */ __name((label) => label === "length" || label === "size" || label === "bg-size", "isLabelSize");
+      var isLabelLength = /* @__PURE__ */ __name((label) => label === "length", "isLabelLength");
+      var isLabelNumber = /* @__PURE__ */ __name((label) => label === "number", "isLabelNumber");
+      var isLabelFamilyName = /* @__PURE__ */ __name((label) => label === "family-name", "isLabelFamilyName");
+      var isLabelShadow = /* @__PURE__ */ __name((label) => label === "shadow", "isLabelShadow");
+      var validators = /* @__PURE__ */ Object.defineProperty({
+        __proto__: null,
+        isAny,
+        isAnyNonArbitrary,
+        isArbitraryImage,
+        isArbitraryLength,
+        isArbitraryNumber,
+        isArbitraryPosition,
+        isArbitraryShadow,
+        isArbitrarySize,
+        isArbitraryValue,
+        isArbitraryVariable,
+        isArbitraryVariableFamilyName,
+        isArbitraryVariableImage,
+        isArbitraryVariableLength,
+        isArbitraryVariablePosition,
+        isArbitraryVariableShadow,
+        isArbitraryVariableSize,
+        isFraction,
+        isInteger,
+        isNumber,
+        isPercent,
+        isTshirtSize
+      }, Symbol.toStringTag, {
+        value: "Module"
+      });
+      var getDefaultConfig = /* @__PURE__ */ __name(() => {
+        const themeColor = fromTheme("color");
+        const themeFont = fromTheme("font");
+        const themeText = fromTheme("text");
+        const themeFontWeight = fromTheme("font-weight");
+        const themeTracking = fromTheme("tracking");
+        const themeLeading = fromTheme("leading");
+        const themeBreakpoint = fromTheme("breakpoint");
+        const themeContainer = fromTheme("container");
+        const themeSpacing = fromTheme("spacing");
+        const themeRadius = fromTheme("radius");
+        const themeShadow = fromTheme("shadow");
+        const themeInsetShadow = fromTheme("inset-shadow");
+        const themeTextShadow = fromTheme("text-shadow");
+        const themeDropShadow = fromTheme("drop-shadow");
+        const themeBlur = fromTheme("blur");
+        const themePerspective = fromTheme("perspective");
+        const themeAspect = fromTheme("aspect");
+        const themeEase = fromTheme("ease");
+        const themeAnimate = fromTheme("animate");
+        const scaleBreak = /* @__PURE__ */ __name(() => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], "scaleBreak");
+        const scalePosition = /* @__PURE__ */ __name(() => [
+          "center",
+          "top",
+          "bottom",
+          "left",
+          "right",
+          "top-left",
+          // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+          "left-top",
+          "top-right",
+          // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+          "right-top",
+          "bottom-right",
+          // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+          "right-bottom",
+          "bottom-left",
+          // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+          "left-bottom"
+        ], "scalePosition");
+        const scalePositionWithArbitrary = /* @__PURE__ */ __name(() => [...scalePosition(), isArbitraryVariable, isArbitraryValue], "scalePositionWithArbitrary");
+        const scaleOverflow = /* @__PURE__ */ __name(() => ["auto", "hidden", "clip", "visible", "scroll"], "scaleOverflow");
+        const scaleOverscroll = /* @__PURE__ */ __name(() => ["auto", "contain", "none"], "scaleOverscroll");
+        const scaleUnambiguousSpacing = /* @__PURE__ */ __name(() => [isArbitraryVariable, isArbitraryValue, themeSpacing], "scaleUnambiguousSpacing");
+        const scaleInset = /* @__PURE__ */ __name(() => [isFraction, "full", "auto", ...scaleUnambiguousSpacing()], "scaleInset");
+        const scaleGridTemplateColsRows = /* @__PURE__ */ __name(() => [isInteger, "none", "subgrid", isArbitraryVariable, isArbitraryValue], "scaleGridTemplateColsRows");
+        const scaleGridColRowStartAndEnd = /* @__PURE__ */ __name(() => ["auto", {
+          span: ["full", isInteger, isArbitraryVariable, isArbitraryValue]
+        }, isInteger, isArbitraryVariable, isArbitraryValue], "scaleGridColRowStartAndEnd");
+        const scaleGridColRowStartOrEnd = /* @__PURE__ */ __name(() => [isInteger, "auto", isArbitraryVariable, isArbitraryValue], "scaleGridColRowStartOrEnd");
+        const scaleGridAutoColsRows = /* @__PURE__ */ __name(() => ["auto", "min", "max", "fr", isArbitraryVariable, isArbitraryValue], "scaleGridAutoColsRows");
+        const scaleAlignPrimaryAxis = /* @__PURE__ */ __name(() => ["start", "end", "center", "between", "around", "evenly", "stretch", "baseline", "center-safe", "end-safe"], "scaleAlignPrimaryAxis");
+        const scaleAlignSecondaryAxis = /* @__PURE__ */ __name(() => ["start", "end", "center", "stretch", "center-safe", "end-safe"], "scaleAlignSecondaryAxis");
+        const scaleMargin = /* @__PURE__ */ __name(() => ["auto", ...scaleUnambiguousSpacing()], "scaleMargin");
+        const scaleSizing = /* @__PURE__ */ __name(() => [isFraction, "auto", "full", "dvw", "dvh", "lvw", "lvh", "svw", "svh", "min", "max", "fit", ...scaleUnambiguousSpacing()], "scaleSizing");
+        const scaleColor = /* @__PURE__ */ __name(() => [themeColor, isArbitraryVariable, isArbitraryValue], "scaleColor");
+        const scaleBgPosition = /* @__PURE__ */ __name(() => [...scalePosition(), isArbitraryVariablePosition, isArbitraryPosition, {
+          position: [isArbitraryVariable, isArbitraryValue]
+        }], "scaleBgPosition");
+        const scaleBgRepeat = /* @__PURE__ */ __name(() => ["no-repeat", {
+          repeat: ["", "x", "y", "space", "round"]
+        }], "scaleBgRepeat");
+        const scaleBgSize = /* @__PURE__ */ __name(() => ["auto", "cover", "contain", isArbitraryVariableSize, isArbitrarySize, {
+          size: [isArbitraryVariable, isArbitraryValue]
+        }], "scaleBgSize");
+        const scaleGradientStopPosition = /* @__PURE__ */ __name(() => [isPercent, isArbitraryVariableLength, isArbitraryLength], "scaleGradientStopPosition");
+        const scaleRadius = /* @__PURE__ */ __name(() => [
+          // Deprecated since Tailwind CSS v4.0.0
+          "",
+          "none",
+          "full",
+          themeRadius,
+          isArbitraryVariable,
+          isArbitraryValue
+        ], "scaleRadius");
+        const scaleBorderWidth = /* @__PURE__ */ __name(() => ["", isNumber, isArbitraryVariableLength, isArbitraryLength], "scaleBorderWidth");
+        const scaleLineStyle = /* @__PURE__ */ __name(() => ["solid", "dashed", "dotted", "double"], "scaleLineStyle");
+        const scaleBlendMode = /* @__PURE__ */ __name(() => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], "scaleBlendMode");
+        const scaleMaskImagePosition = /* @__PURE__ */ __name(() => [isNumber, isPercent, isArbitraryVariablePosition, isArbitraryPosition], "scaleMaskImagePosition");
+        const scaleBlur = /* @__PURE__ */ __name(() => [
+          // Deprecated since Tailwind CSS v4.0.0
+          "",
+          "none",
+          themeBlur,
+          isArbitraryVariable,
+          isArbitraryValue
+        ], "scaleBlur");
+        const scaleRotate = /* @__PURE__ */ __name(() => ["none", isNumber, isArbitraryVariable, isArbitraryValue], "scaleRotate");
+        const scaleScale = /* @__PURE__ */ __name(() => ["none", isNumber, isArbitraryVariable, isArbitraryValue], "scaleScale");
+        const scaleSkew = /* @__PURE__ */ __name(() => [isNumber, isArbitraryVariable, isArbitraryValue], "scaleSkew");
+        const scaleTranslate = /* @__PURE__ */ __name(() => [isFraction, "full", ...scaleUnambiguousSpacing()], "scaleTranslate");
+        return {
+          cacheSize: 500,
+          theme: {
+            animate: ["spin", "ping", "pulse", "bounce"],
+            aspect: ["video"],
+            blur: [isTshirtSize],
+            breakpoint: [isTshirtSize],
+            color: [isAny],
+            container: [isTshirtSize],
+            "drop-shadow": [isTshirtSize],
+            ease: ["in", "out", "in-out"],
+            font: [isAnyNonArbitrary],
+            "font-weight": ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black"],
+            "inset-shadow": [isTshirtSize],
+            leading: ["none", "tight", "snug", "normal", "relaxed", "loose"],
+            perspective: ["dramatic", "near", "normal", "midrange", "distant", "none"],
+            radius: [isTshirtSize],
+            shadow: [isTshirtSize],
+            spacing: ["px", isNumber],
+            text: [isTshirtSize],
+            "text-shadow": [isTshirtSize],
+            tracking: ["tighter", "tight", "normal", "wide", "wider", "widest"]
+          },
+          classGroups: {
+            // --------------
+            // --- Layout ---
+            // --------------
+            /**
+             * Aspect Ratio
+             * @see https://tailwindcss.com/docs/aspect-ratio
+             */
+            aspect: [{
+              aspect: ["auto", "square", isFraction, isArbitraryValue, isArbitraryVariable, themeAspect]
+            }],
+            /**
+             * Container
+             * @see https://tailwindcss.com/docs/container
+             * @deprecated since Tailwind CSS v4.0.0
+             */
+            container: ["container"],
+            /**
+             * Columns
+             * @see https://tailwindcss.com/docs/columns
+             */
+            columns: [{
+              columns: [isNumber, isArbitraryValue, isArbitraryVariable, themeContainer]
+            }],
+            /**
+             * Break After
+             * @see https://tailwindcss.com/docs/break-after
+             */
+            "break-after": [{
+              "break-after": scaleBreak()
+            }],
+            /**
+             * Break Before
+             * @see https://tailwindcss.com/docs/break-before
+             */
+            "break-before": [{
+              "break-before": scaleBreak()
+            }],
+            /**
+             * Break Inside
+             * @see https://tailwindcss.com/docs/break-inside
+             */
+            "break-inside": [{
+              "break-inside": ["auto", "avoid", "avoid-page", "avoid-column"]
+            }],
+            /**
+             * Box Decoration Break
+             * @see https://tailwindcss.com/docs/box-decoration-break
+             */
+            "box-decoration": [{
+              "box-decoration": ["slice", "clone"]
+            }],
+            /**
+             * Box Sizing
+             * @see https://tailwindcss.com/docs/box-sizing
+             */
+            box: [{
+              box: ["border", "content"]
+            }],
+            /**
+             * Display
+             * @see https://tailwindcss.com/docs/display
+             */
+            display: ["block", "inline-block", "inline", "flex", "inline-flex", "table", "inline-table", "table-caption", "table-cell", "table-column", "table-column-group", "table-footer-group", "table-header-group", "table-row-group", "table-row", "flow-root", "grid", "inline-grid", "contents", "list-item", "hidden"],
+            /**
+             * Screen Reader Only
+             * @see https://tailwindcss.com/docs/display#screen-reader-only
+             */
+            sr: ["sr-only", "not-sr-only"],
+            /**
+             * Floats
+             * @see https://tailwindcss.com/docs/float
+             */
+            float: [{
+              float: ["right", "left", "none", "start", "end"]
+            }],
+            /**
+             * Clear
+             * @see https://tailwindcss.com/docs/clear
+             */
+            clear: [{
+              clear: ["left", "right", "both", "none", "start", "end"]
+            }],
+            /**
+             * Isolation
+             * @see https://tailwindcss.com/docs/isolation
+             */
+            isolation: ["isolate", "isolation-auto"],
+            /**
+             * Object Fit
+             * @see https://tailwindcss.com/docs/object-fit
+             */
+            "object-fit": [{
+              object: ["contain", "cover", "fill", "none", "scale-down"]
+            }],
+            /**
+             * Object Position
+             * @see https://tailwindcss.com/docs/object-position
+             */
+            "object-position": [{
+              object: scalePositionWithArbitrary()
+            }],
+            /**
+             * Overflow
+             * @see https://tailwindcss.com/docs/overflow
+             */
+            overflow: [{
+              overflow: scaleOverflow()
+            }],
+            /**
+             * Overflow X
+             * @see https://tailwindcss.com/docs/overflow
+             */
+            "overflow-x": [{
+              "overflow-x": scaleOverflow()
+            }],
+            /**
+             * Overflow Y
+             * @see https://tailwindcss.com/docs/overflow
+             */
+            "overflow-y": [{
+              "overflow-y": scaleOverflow()
+            }],
+            /**
+             * Overscroll Behavior
+             * @see https://tailwindcss.com/docs/overscroll-behavior
+             */
+            overscroll: [{
+              overscroll: scaleOverscroll()
+            }],
+            /**
+             * Overscroll Behavior X
+             * @see https://tailwindcss.com/docs/overscroll-behavior
+             */
+            "overscroll-x": [{
+              "overscroll-x": scaleOverscroll()
+            }],
+            /**
+             * Overscroll Behavior Y
+             * @see https://tailwindcss.com/docs/overscroll-behavior
+             */
+            "overscroll-y": [{
+              "overscroll-y": scaleOverscroll()
+            }],
+            /**
+             * Position
+             * @see https://tailwindcss.com/docs/position
+             */
+            position: ["static", "fixed", "absolute", "relative", "sticky"],
+            /**
+             * Top / Right / Bottom / Left
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            inset: [{
+              inset: scaleInset()
+            }],
+            /**
+             * Right / Left
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            "inset-x": [{
+              "inset-x": scaleInset()
+            }],
+            /**
+             * Top / Bottom
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            "inset-y": [{
+              "inset-y": scaleInset()
+            }],
+            /**
+             * Start
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            start: [{
+              start: scaleInset()
+            }],
+            /**
+             * End
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            end: [{
+              end: scaleInset()
+            }],
+            /**
+             * Top
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            top: [{
+              top: scaleInset()
+            }],
+            /**
+             * Right
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            right: [{
+              right: scaleInset()
+            }],
+            /**
+             * Bottom
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            bottom: [{
+              bottom: scaleInset()
+            }],
+            /**
+             * Left
+             * @see https://tailwindcss.com/docs/top-right-bottom-left
+             */
+            left: [{
+              left: scaleInset()
+            }],
+            /**
+             * Visibility
+             * @see https://tailwindcss.com/docs/visibility
+             */
+            visibility: ["visible", "invisible", "collapse"],
+            /**
+             * Z-Index
+             * @see https://tailwindcss.com/docs/z-index
+             */
+            z: [{
+              z: [isInteger, "auto", isArbitraryVariable, isArbitraryValue]
+            }],
+            // ------------------------
+            // --- Flexbox and Grid ---
+            // ------------------------
+            /**
+             * Flex Basis
+             * @see https://tailwindcss.com/docs/flex-basis
+             */
+            basis: [{
+              basis: [isFraction, "full", "auto", themeContainer, ...scaleUnambiguousSpacing()]
+            }],
+            /**
+             * Flex Direction
+             * @see https://tailwindcss.com/docs/flex-direction
+             */
+            "flex-direction": [{
+              flex: ["row", "row-reverse", "col", "col-reverse"]
+            }],
+            /**
+             * Flex Wrap
+             * @see https://tailwindcss.com/docs/flex-wrap
+             */
+            "flex-wrap": [{
+              flex: ["nowrap", "wrap", "wrap-reverse"]
+            }],
+            /**
+             * Flex
+             * @see https://tailwindcss.com/docs/flex
+             */
+            flex: [{
+              flex: [isNumber, isFraction, "auto", "initial", "none", isArbitraryValue]
+            }],
+            /**
+             * Flex Grow
+             * @see https://tailwindcss.com/docs/flex-grow
+             */
+            grow: [{
+              grow: ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Flex Shrink
+             * @see https://tailwindcss.com/docs/flex-shrink
+             */
+            shrink: [{
+              shrink: ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Order
+             * @see https://tailwindcss.com/docs/order
+             */
+            order: [{
+              order: [isInteger, "first", "last", "none", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Grid Template Columns
+             * @see https://tailwindcss.com/docs/grid-template-columns
+             */
+            "grid-cols": [{
+              "grid-cols": scaleGridTemplateColsRows()
+            }],
+            /**
+             * Grid Column Start / End
+             * @see https://tailwindcss.com/docs/grid-column
+             */
+            "col-start-end": [{
+              col: scaleGridColRowStartAndEnd()
+            }],
+            /**
+             * Grid Column Start
+             * @see https://tailwindcss.com/docs/grid-column
+             */
+            "col-start": [{
+              "col-start": scaleGridColRowStartOrEnd()
+            }],
+            /**
+             * Grid Column End
+             * @see https://tailwindcss.com/docs/grid-column
+             */
+            "col-end": [{
+              "col-end": scaleGridColRowStartOrEnd()
+            }],
+            /**
+             * Grid Template Rows
+             * @see https://tailwindcss.com/docs/grid-template-rows
+             */
+            "grid-rows": [{
+              "grid-rows": scaleGridTemplateColsRows()
+            }],
+            /**
+             * Grid Row Start / End
+             * @see https://tailwindcss.com/docs/grid-row
+             */
+            "row-start-end": [{
+              row: scaleGridColRowStartAndEnd()
+            }],
+            /**
+             * Grid Row Start
+             * @see https://tailwindcss.com/docs/grid-row
+             */
+            "row-start": [{
+              "row-start": scaleGridColRowStartOrEnd()
+            }],
+            /**
+             * Grid Row End
+             * @see https://tailwindcss.com/docs/grid-row
+             */
+            "row-end": [{
+              "row-end": scaleGridColRowStartOrEnd()
+            }],
+            /**
+             * Grid Auto Flow
+             * @see https://tailwindcss.com/docs/grid-auto-flow
+             */
+            "grid-flow": [{
+              "grid-flow": ["row", "col", "dense", "row-dense", "col-dense"]
+            }],
+            /**
+             * Grid Auto Columns
+             * @see https://tailwindcss.com/docs/grid-auto-columns
+             */
+            "auto-cols": [{
+              "auto-cols": scaleGridAutoColsRows()
+            }],
+            /**
+             * Grid Auto Rows
+             * @see https://tailwindcss.com/docs/grid-auto-rows
+             */
+            "auto-rows": [{
+              "auto-rows": scaleGridAutoColsRows()
+            }],
+            /**
+             * Gap
+             * @see https://tailwindcss.com/docs/gap
+             */
+            gap: [{
+              gap: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Gap X
+             * @see https://tailwindcss.com/docs/gap
+             */
+            "gap-x": [{
+              "gap-x": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Gap Y
+             * @see https://tailwindcss.com/docs/gap
+             */
+            "gap-y": [{
+              "gap-y": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Justify Content
+             * @see https://tailwindcss.com/docs/justify-content
+             */
+            "justify-content": [{
+              justify: [...scaleAlignPrimaryAxis(), "normal"]
+            }],
+            /**
+             * Justify Items
+             * @see https://tailwindcss.com/docs/justify-items
+             */
+            "justify-items": [{
+              "justify-items": [...scaleAlignSecondaryAxis(), "normal"]
+            }],
+            /**
+             * Justify Self
+             * @see https://tailwindcss.com/docs/justify-self
+             */
+            "justify-self": [{
+              "justify-self": ["auto", ...scaleAlignSecondaryAxis()]
+            }],
+            /**
+             * Align Content
+             * @see https://tailwindcss.com/docs/align-content
+             */
+            "align-content": [{
+              content: ["normal", ...scaleAlignPrimaryAxis()]
+            }],
+            /**
+             * Align Items
+             * @see https://tailwindcss.com/docs/align-items
+             */
+            "align-items": [{
+              items: [...scaleAlignSecondaryAxis(), {
+                baseline: ["", "last"]
+              }]
+            }],
+            /**
+             * Align Self
+             * @see https://tailwindcss.com/docs/align-self
+             */
+            "align-self": [{
+              self: ["auto", ...scaleAlignSecondaryAxis(), {
+                baseline: ["", "last"]
+              }]
+            }],
+            /**
+             * Place Content
+             * @see https://tailwindcss.com/docs/place-content
+             */
+            "place-content": [{
+              "place-content": scaleAlignPrimaryAxis()
+            }],
+            /**
+             * Place Items
+             * @see https://tailwindcss.com/docs/place-items
+             */
+            "place-items": [{
+              "place-items": [...scaleAlignSecondaryAxis(), "baseline"]
+            }],
+            /**
+             * Place Self
+             * @see https://tailwindcss.com/docs/place-self
+             */
+            "place-self": [{
+              "place-self": ["auto", ...scaleAlignSecondaryAxis()]
+            }],
+            // Spacing
+            /**
+             * Padding
+             * @see https://tailwindcss.com/docs/padding
+             */
+            p: [{
+              p: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding X
+             * @see https://tailwindcss.com/docs/padding
+             */
+            px: [{
+              px: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding Y
+             * @see https://tailwindcss.com/docs/padding
+             */
+            py: [{
+              py: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding Start
+             * @see https://tailwindcss.com/docs/padding
+             */
+            ps: [{
+              ps: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding End
+             * @see https://tailwindcss.com/docs/padding
+             */
+            pe: [{
+              pe: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding Top
+             * @see https://tailwindcss.com/docs/padding
+             */
+            pt: [{
+              pt: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding Right
+             * @see https://tailwindcss.com/docs/padding
+             */
+            pr: [{
+              pr: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding Bottom
+             * @see https://tailwindcss.com/docs/padding
+             */
+            pb: [{
+              pb: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Padding Left
+             * @see https://tailwindcss.com/docs/padding
+             */
+            pl: [{
+              pl: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Margin
+             * @see https://tailwindcss.com/docs/margin
+             */
+            m: [{
+              m: scaleMargin()
+            }],
+            /**
+             * Margin X
+             * @see https://tailwindcss.com/docs/margin
+             */
+            mx: [{
+              mx: scaleMargin()
+            }],
+            /**
+             * Margin Y
+             * @see https://tailwindcss.com/docs/margin
+             */
+            my: [{
+              my: scaleMargin()
+            }],
+            /**
+             * Margin Start
+             * @see https://tailwindcss.com/docs/margin
+             */
+            ms: [{
+              ms: scaleMargin()
+            }],
+            /**
+             * Margin End
+             * @see https://tailwindcss.com/docs/margin
+             */
+            me: [{
+              me: scaleMargin()
+            }],
+            /**
+             * Margin Top
+             * @see https://tailwindcss.com/docs/margin
+             */
+            mt: [{
+              mt: scaleMargin()
+            }],
+            /**
+             * Margin Right
+             * @see https://tailwindcss.com/docs/margin
+             */
+            mr: [{
+              mr: scaleMargin()
+            }],
+            /**
+             * Margin Bottom
+             * @see https://tailwindcss.com/docs/margin
+             */
+            mb: [{
+              mb: scaleMargin()
+            }],
+            /**
+             * Margin Left
+             * @see https://tailwindcss.com/docs/margin
+             */
+            ml: [{
+              ml: scaleMargin()
+            }],
+            /**
+             * Space Between X
+             * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+             */
+            "space-x": [{
+              "space-x": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Space Between X Reverse
+             * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+             */
+            "space-x-reverse": ["space-x-reverse"],
+            /**
+             * Space Between Y
+             * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+             */
+            "space-y": [{
+              "space-y": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Space Between Y Reverse
+             * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+             */
+            "space-y-reverse": ["space-y-reverse"],
+            // --------------
+            // --- Sizing ---
+            // --------------
+            /**
+             * Size
+             * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
+             */
+            size: [{
+              size: scaleSizing()
+            }],
+            /**
+             * Width
+             * @see https://tailwindcss.com/docs/width
+             */
+            w: [{
+              w: [themeContainer, "screen", ...scaleSizing()]
+            }],
+            /**
+             * Min-Width
+             * @see https://tailwindcss.com/docs/min-width
+             */
+            "min-w": [{
+              "min-w": [
+                themeContainer,
+                "screen",
+                /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+                "none",
+                ...scaleSizing()
+              ]
+            }],
+            /**
+             * Max-Width
+             * @see https://tailwindcss.com/docs/max-width
+             */
+            "max-w": [{
+              "max-w": [
+                themeContainer,
+                "screen",
+                "none",
+                /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+                "prose",
+                /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+                {
+                  screen: [themeBreakpoint]
+                },
+                ...scaleSizing()
+              ]
+            }],
+            /**
+             * Height
+             * @see https://tailwindcss.com/docs/height
+             */
+            h: [{
+              h: ["screen", "lh", ...scaleSizing()]
+            }],
+            /**
+             * Min-Height
+             * @see https://tailwindcss.com/docs/min-height
+             */
+            "min-h": [{
+              "min-h": ["screen", "lh", "none", ...scaleSizing()]
+            }],
+            /**
+             * Max-Height
+             * @see https://tailwindcss.com/docs/max-height
+             */
+            "max-h": [{
+              "max-h": ["screen", "lh", ...scaleSizing()]
+            }],
+            // ------------------
+            // --- Typography ---
+            // ------------------
+            /**
+             * Font Size
+             * @see https://tailwindcss.com/docs/font-size
+             */
+            "font-size": [{
+              text: ["base", themeText, isArbitraryVariableLength, isArbitraryLength]
+            }],
+            /**
+             * Font Smoothing
+             * @see https://tailwindcss.com/docs/font-smoothing
+             */
+            "font-smoothing": ["antialiased", "subpixel-antialiased"],
+            /**
+             * Font Style
+             * @see https://tailwindcss.com/docs/font-style
+             */
+            "font-style": ["italic", "not-italic"],
+            /**
+             * Font Weight
+             * @see https://tailwindcss.com/docs/font-weight
+             */
+            "font-weight": [{
+              font: [themeFontWeight, isArbitraryVariable, isArbitraryNumber]
+            }],
+            /**
+             * Font Stretch
+             * @see https://tailwindcss.com/docs/font-stretch
+             */
+            "font-stretch": [{
+              "font-stretch": ["ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "normal", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", isPercent, isArbitraryValue]
+            }],
+            /**
+             * Font Family
+             * @see https://tailwindcss.com/docs/font-family
+             */
+            "font-family": [{
+              font: [isArbitraryVariableFamilyName, isArbitraryValue, themeFont]
+            }],
+            /**
+             * Font Variant Numeric
+             * @see https://tailwindcss.com/docs/font-variant-numeric
+             */
+            "fvn-normal": ["normal-nums"],
+            /**
+             * Font Variant Numeric
+             * @see https://tailwindcss.com/docs/font-variant-numeric
+             */
+            "fvn-ordinal": ["ordinal"],
+            /**
+             * Font Variant Numeric
+             * @see https://tailwindcss.com/docs/font-variant-numeric
+             */
+            "fvn-slashed-zero": ["slashed-zero"],
+            /**
+             * Font Variant Numeric
+             * @see https://tailwindcss.com/docs/font-variant-numeric
+             */
+            "fvn-figure": ["lining-nums", "oldstyle-nums"],
+            /**
+             * Font Variant Numeric
+             * @see https://tailwindcss.com/docs/font-variant-numeric
+             */
+            "fvn-spacing": ["proportional-nums", "tabular-nums"],
+            /**
+             * Font Variant Numeric
+             * @see https://tailwindcss.com/docs/font-variant-numeric
+             */
+            "fvn-fraction": ["diagonal-fractions", "stacked-fractions"],
+            /**
+             * Letter Spacing
+             * @see https://tailwindcss.com/docs/letter-spacing
+             */
+            tracking: [{
+              tracking: [themeTracking, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Line Clamp
+             * @see https://tailwindcss.com/docs/line-clamp
+             */
+            "line-clamp": [{
+              "line-clamp": [isNumber, "none", isArbitraryVariable, isArbitraryNumber]
+            }],
+            /**
+             * Line Height
+             * @see https://tailwindcss.com/docs/line-height
+             */
+            leading: [{
+              leading: [
+                /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+                themeLeading,
+                ...scaleUnambiguousSpacing()
+              ]
+            }],
+            /**
+             * List Style Image
+             * @see https://tailwindcss.com/docs/list-style-image
+             */
+            "list-image": [{
+              "list-image": ["none", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * List Style Position
+             * @see https://tailwindcss.com/docs/list-style-position
+             */
+            "list-style-position": [{
+              list: ["inside", "outside"]
+            }],
+            /**
+             * List Style Type
+             * @see https://tailwindcss.com/docs/list-style-type
+             */
+            "list-style-type": [{
+              list: ["disc", "decimal", "none", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Text Alignment
+             * @see https://tailwindcss.com/docs/text-align
+             */
+            "text-alignment": [{
+              text: ["left", "center", "right", "justify", "start", "end"]
+            }],
+            /**
+             * Placeholder Color
+             * @deprecated since Tailwind CSS v3.0.0
+             * @see https://v3.tailwindcss.com/docs/placeholder-color
+             */
+            "placeholder-color": [{
+              placeholder: scaleColor()
+            }],
+            /**
+             * Text Color
+             * @see https://tailwindcss.com/docs/text-color
+             */
+            "text-color": [{
+              text: scaleColor()
+            }],
+            /**
+             * Text Decoration
+             * @see https://tailwindcss.com/docs/text-decoration
+             */
+            "text-decoration": ["underline", "overline", "line-through", "no-underline"],
+            /**
+             * Text Decoration Style
+             * @see https://tailwindcss.com/docs/text-decoration-style
+             */
+            "text-decoration-style": [{
+              decoration: [...scaleLineStyle(), "wavy"]
+            }],
+            /**
+             * Text Decoration Thickness
+             * @see https://tailwindcss.com/docs/text-decoration-thickness
+             */
+            "text-decoration-thickness": [{
+              decoration: [isNumber, "from-font", "auto", isArbitraryVariable, isArbitraryLength]
+            }],
+            /**
+             * Text Decoration Color
+             * @see https://tailwindcss.com/docs/text-decoration-color
+             */
+            "text-decoration-color": [{
+              decoration: scaleColor()
+            }],
+            /**
+             * Text Underline Offset
+             * @see https://tailwindcss.com/docs/text-underline-offset
+             */
+            "underline-offset": [{
+              "underline-offset": [isNumber, "auto", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Text Transform
+             * @see https://tailwindcss.com/docs/text-transform
+             */
+            "text-transform": ["uppercase", "lowercase", "capitalize", "normal-case"],
+            /**
+             * Text Overflow
+             * @see https://tailwindcss.com/docs/text-overflow
+             */
+            "text-overflow": ["truncate", "text-ellipsis", "text-clip"],
+            /**
+             * Text Wrap
+             * @see https://tailwindcss.com/docs/text-wrap
+             */
+            "text-wrap": [{
+              text: ["wrap", "nowrap", "balance", "pretty"]
+            }],
+            /**
+             * Text Indent
+             * @see https://tailwindcss.com/docs/text-indent
+             */
+            indent: [{
+              indent: scaleUnambiguousSpacing()
+            }],
+            /**
+             * Vertical Alignment
+             * @see https://tailwindcss.com/docs/vertical-align
+             */
+            "vertical-align": [{
+              align: ["baseline", "top", "middle", "bottom", "text-top", "text-bottom", "sub", "super", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Whitespace
+             * @see https://tailwindcss.com/docs/whitespace
+             */
+            whitespace: [{
+              whitespace: ["normal", "nowrap", "pre", "pre-line", "pre-wrap", "break-spaces"]
+            }],
+            /**
+             * Word Break
+             * @see https://tailwindcss.com/docs/word-break
+             */
+            break: [{
+              break: ["normal", "words", "all", "keep"]
+            }],
+            /**
+             * Overflow Wrap
+             * @see https://tailwindcss.com/docs/overflow-wrap
+             */
+            wrap: [{
+              wrap: ["break-word", "anywhere", "normal"]
+            }],
+            /**
+             * Hyphens
+             * @see https://tailwindcss.com/docs/hyphens
+             */
+            hyphens: [{
+              hyphens: ["none", "manual", "auto"]
+            }],
+            /**
+             * Content
+             * @see https://tailwindcss.com/docs/content
+             */
+            content: [{
+              content: ["none", isArbitraryVariable, isArbitraryValue]
+            }],
+            // -------------------
+            // --- Backgrounds ---
+            // -------------------
+            /**
+             * Background Attachment
+             * @see https://tailwindcss.com/docs/background-attachment
+             */
+            "bg-attachment": [{
+              bg: ["fixed", "local", "scroll"]
+            }],
+            /**
+             * Background Clip
+             * @see https://tailwindcss.com/docs/background-clip
+             */
+            "bg-clip": [{
+              "bg-clip": ["border", "padding", "content", "text"]
+            }],
+            /**
+             * Background Origin
+             * @see https://tailwindcss.com/docs/background-origin
+             */
+            "bg-origin": [{
+              "bg-origin": ["border", "padding", "content"]
+            }],
+            /**
+             * Background Position
+             * @see https://tailwindcss.com/docs/background-position
+             */
+            "bg-position": [{
+              bg: scaleBgPosition()
+            }],
+            /**
+             * Background Repeat
+             * @see https://tailwindcss.com/docs/background-repeat
+             */
+            "bg-repeat": [{
+              bg: scaleBgRepeat()
+            }],
+            /**
+             * Background Size
+             * @see https://tailwindcss.com/docs/background-size
+             */
+            "bg-size": [{
+              bg: scaleBgSize()
+            }],
+            /**
+             * Background Image
+             * @see https://tailwindcss.com/docs/background-image
+             */
+            "bg-image": [{
+              bg: ["none", {
+                linear: [{
+                  to: ["t", "tr", "r", "br", "b", "bl", "l", "tl"]
+                }, isInteger, isArbitraryVariable, isArbitraryValue],
+                radial: ["", isArbitraryVariable, isArbitraryValue],
+                conic: [isInteger, isArbitraryVariable, isArbitraryValue]
+              }, isArbitraryVariableImage, isArbitraryImage]
+            }],
+            /**
+             * Background Color
+             * @see https://tailwindcss.com/docs/background-color
+             */
+            "bg-color": [{
+              bg: scaleColor()
+            }],
+            /**
+             * Gradient Color Stops From Position
+             * @see https://tailwindcss.com/docs/gradient-color-stops
+             */
+            "gradient-from-pos": [{
+              from: scaleGradientStopPosition()
+            }],
+            /**
+             * Gradient Color Stops Via Position
+             * @see https://tailwindcss.com/docs/gradient-color-stops
+             */
+            "gradient-via-pos": [{
+              via: scaleGradientStopPosition()
+            }],
+            /**
+             * Gradient Color Stops To Position
+             * @see https://tailwindcss.com/docs/gradient-color-stops
+             */
+            "gradient-to-pos": [{
+              to: scaleGradientStopPosition()
+            }],
+            /**
+             * Gradient Color Stops From
+             * @see https://tailwindcss.com/docs/gradient-color-stops
+             */
+            "gradient-from": [{
+              from: scaleColor()
+            }],
+            /**
+             * Gradient Color Stops Via
+             * @see https://tailwindcss.com/docs/gradient-color-stops
+             */
+            "gradient-via": [{
+              via: scaleColor()
+            }],
+            /**
+             * Gradient Color Stops To
+             * @see https://tailwindcss.com/docs/gradient-color-stops
+             */
+            "gradient-to": [{
+              to: scaleColor()
+            }],
+            // ---------------
+            // --- Borders ---
+            // ---------------
+            /**
+             * Border Radius
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            rounded: [{
+              rounded: scaleRadius()
+            }],
+            /**
+             * Border Radius Start
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-s": [{
+              "rounded-s": scaleRadius()
+            }],
+            /**
+             * Border Radius End
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-e": [{
+              "rounded-e": scaleRadius()
+            }],
+            /**
+             * Border Radius Top
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-t": [{
+              "rounded-t": scaleRadius()
+            }],
+            /**
+             * Border Radius Right
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-r": [{
+              "rounded-r": scaleRadius()
+            }],
+            /**
+             * Border Radius Bottom
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-b": [{
+              "rounded-b": scaleRadius()
+            }],
+            /**
+             * Border Radius Left
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-l": [{
+              "rounded-l": scaleRadius()
+            }],
+            /**
+             * Border Radius Start Start
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-ss": [{
+              "rounded-ss": scaleRadius()
+            }],
+            /**
+             * Border Radius Start End
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-se": [{
+              "rounded-se": scaleRadius()
+            }],
+            /**
+             * Border Radius End End
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-ee": [{
+              "rounded-ee": scaleRadius()
+            }],
+            /**
+             * Border Radius End Start
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-es": [{
+              "rounded-es": scaleRadius()
+            }],
+            /**
+             * Border Radius Top Left
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-tl": [{
+              "rounded-tl": scaleRadius()
+            }],
+            /**
+             * Border Radius Top Right
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-tr": [{
+              "rounded-tr": scaleRadius()
+            }],
+            /**
+             * Border Radius Bottom Right
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-br": [{
+              "rounded-br": scaleRadius()
+            }],
+            /**
+             * Border Radius Bottom Left
+             * @see https://tailwindcss.com/docs/border-radius
+             */
+            "rounded-bl": [{
+              "rounded-bl": scaleRadius()
+            }],
+            /**
+             * Border Width
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w": [{
+              border: scaleBorderWidth()
+            }],
+            /**
+             * Border Width X
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-x": [{
+              "border-x": scaleBorderWidth()
+            }],
+            /**
+             * Border Width Y
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-y": [{
+              "border-y": scaleBorderWidth()
+            }],
+            /**
+             * Border Width Start
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-s": [{
+              "border-s": scaleBorderWidth()
+            }],
+            /**
+             * Border Width End
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-e": [{
+              "border-e": scaleBorderWidth()
+            }],
+            /**
+             * Border Width Top
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-t": [{
+              "border-t": scaleBorderWidth()
+            }],
+            /**
+             * Border Width Right
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-r": [{
+              "border-r": scaleBorderWidth()
+            }],
+            /**
+             * Border Width Bottom
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-b": [{
+              "border-b": scaleBorderWidth()
+            }],
+            /**
+             * Border Width Left
+             * @see https://tailwindcss.com/docs/border-width
+             */
+            "border-w-l": [{
+              "border-l": scaleBorderWidth()
+            }],
+            /**
+             * Divide Width X
+             * @see https://tailwindcss.com/docs/border-width#between-children
+             */
+            "divide-x": [{
+              "divide-x": scaleBorderWidth()
+            }],
+            /**
+             * Divide Width X Reverse
+             * @see https://tailwindcss.com/docs/border-width#between-children
+             */
+            "divide-x-reverse": ["divide-x-reverse"],
+            /**
+             * Divide Width Y
+             * @see https://tailwindcss.com/docs/border-width#between-children
+             */
+            "divide-y": [{
+              "divide-y": scaleBorderWidth()
+            }],
+            /**
+             * Divide Width Y Reverse
+             * @see https://tailwindcss.com/docs/border-width#between-children
+             */
+            "divide-y-reverse": ["divide-y-reverse"],
+            /**
+             * Border Style
+             * @see https://tailwindcss.com/docs/border-style
+             */
+            "border-style": [{
+              border: [...scaleLineStyle(), "hidden", "none"]
+            }],
+            /**
+             * Divide Style
+             * @see https://tailwindcss.com/docs/border-style#setting-the-divider-style
+             */
+            "divide-style": [{
+              divide: [...scaleLineStyle(), "hidden", "none"]
+            }],
+            /**
+             * Border Color
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color": [{
+              border: scaleColor()
+            }],
+            /**
+             * Border Color X
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-x": [{
+              "border-x": scaleColor()
+            }],
+            /**
+             * Border Color Y
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-y": [{
+              "border-y": scaleColor()
+            }],
+            /**
+             * Border Color S
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-s": [{
+              "border-s": scaleColor()
+            }],
+            /**
+             * Border Color E
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-e": [{
+              "border-e": scaleColor()
+            }],
+            /**
+             * Border Color Top
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-t": [{
+              "border-t": scaleColor()
+            }],
+            /**
+             * Border Color Right
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-r": [{
+              "border-r": scaleColor()
+            }],
+            /**
+             * Border Color Bottom
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-b": [{
+              "border-b": scaleColor()
+            }],
+            /**
+             * Border Color Left
+             * @see https://tailwindcss.com/docs/border-color
+             */
+            "border-color-l": [{
+              "border-l": scaleColor()
+            }],
+            /**
+             * Divide Color
+             * @see https://tailwindcss.com/docs/divide-color
+             */
+            "divide-color": [{
+              divide: scaleColor()
+            }],
+            /**
+             * Outline Style
+             * @see https://tailwindcss.com/docs/outline-style
+             */
+            "outline-style": [{
+              outline: [...scaleLineStyle(), "none", "hidden"]
+            }],
+            /**
+             * Outline Offset
+             * @see https://tailwindcss.com/docs/outline-offset
+             */
+            "outline-offset": [{
+              "outline-offset": [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Outline Width
+             * @see https://tailwindcss.com/docs/outline-width
+             */
+            "outline-w": [{
+              outline: ["", isNumber, isArbitraryVariableLength, isArbitraryLength]
+            }],
+            /**
+             * Outline Color
+             * @see https://tailwindcss.com/docs/outline-color
+             */
+            "outline-color": [{
+              outline: scaleColor()
+            }],
+            // ---------------
+            // --- Effects ---
+            // ---------------
+            /**
+             * Box Shadow
+             * @see https://tailwindcss.com/docs/box-shadow
+             */
+            shadow: [{
+              shadow: [
+                // Deprecated since Tailwind CSS v4.0.0
+                "",
+                "none",
+                themeShadow,
+                isArbitraryVariableShadow,
+                isArbitraryShadow
+              ]
+            }],
+            /**
+             * Box Shadow Color
+             * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
+             */
+            "shadow-color": [{
+              shadow: scaleColor()
+            }],
+            /**
+             * Inset Box Shadow
+             * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
+             */
+            "inset-shadow": [{
+              "inset-shadow": ["none", themeInsetShadow, isArbitraryVariableShadow, isArbitraryShadow]
+            }],
+            /**
+             * Inset Box Shadow Color
+             * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
+             */
+            "inset-shadow-color": [{
+              "inset-shadow": scaleColor()
+            }],
+            /**
+             * Ring Width
+             * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
+             */
+            "ring-w": [{
+              ring: scaleBorderWidth()
+            }],
+            /**
+             * Ring Width Inset
+             * @see https://v3.tailwindcss.com/docs/ring-width#inset-rings
+             * @deprecated since Tailwind CSS v4.0.0
+             * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+             */
+            "ring-w-inset": ["ring-inset"],
+            /**
+             * Ring Color
+             * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
+             */
+            "ring-color": [{
+              ring: scaleColor()
+            }],
+            /**
+             * Ring Offset Width
+             * @see https://v3.tailwindcss.com/docs/ring-offset-width
+             * @deprecated since Tailwind CSS v4.0.0
+             * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+             */
+            "ring-offset-w": [{
+              "ring-offset": [isNumber, isArbitraryLength]
+            }],
+            /**
+             * Ring Offset Color
+             * @see https://v3.tailwindcss.com/docs/ring-offset-color
+             * @deprecated since Tailwind CSS v4.0.0
+             * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+             */
+            "ring-offset-color": [{
+              "ring-offset": scaleColor()
+            }],
+            /**
+             * Inset Ring Width
+             * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
+             */
+            "inset-ring-w": [{
+              "inset-ring": scaleBorderWidth()
+            }],
+            /**
+             * Inset Ring Color
+             * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
+             */
+            "inset-ring-color": [{
+              "inset-ring": scaleColor()
+            }],
+            /**
+             * Text Shadow
+             * @see https://tailwindcss.com/docs/text-shadow
+             */
+            "text-shadow": [{
+              "text-shadow": ["none", themeTextShadow, isArbitraryVariableShadow, isArbitraryShadow]
+            }],
+            /**
+             * Text Shadow Color
+             * @see https://tailwindcss.com/docs/text-shadow#setting-the-shadow-color
+             */
+            "text-shadow-color": [{
+              "text-shadow": scaleColor()
+            }],
+            /**
+             * Opacity
+             * @see https://tailwindcss.com/docs/opacity
+             */
+            opacity: [{
+              opacity: [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Mix Blend Mode
+             * @see https://tailwindcss.com/docs/mix-blend-mode
+             */
+            "mix-blend": [{
+              "mix-blend": [...scaleBlendMode(), "plus-darker", "plus-lighter"]
+            }],
+            /**
+             * Background Blend Mode
+             * @see https://tailwindcss.com/docs/background-blend-mode
+             */
+            "bg-blend": [{
+              "bg-blend": scaleBlendMode()
+            }],
+            /**
+             * Mask Clip
+             * @see https://tailwindcss.com/docs/mask-clip
+             */
+            "mask-clip": [{
+              "mask-clip": ["border", "padding", "content", "fill", "stroke", "view"]
+            }, "mask-no-clip"],
+            /**
+             * Mask Composite
+             * @see https://tailwindcss.com/docs/mask-composite
+             */
+            "mask-composite": [{
+              mask: ["add", "subtract", "intersect", "exclude"]
+            }],
+            /**
+             * Mask Image
+             * @see https://tailwindcss.com/docs/mask-image
+             */
+            "mask-image-linear-pos": [{
+              "mask-linear": [isNumber]
+            }],
+            "mask-image-linear-from-pos": [{
+              "mask-linear-from": scaleMaskImagePosition()
+            }],
+            "mask-image-linear-to-pos": [{
+              "mask-linear-to": scaleMaskImagePosition()
+            }],
+            "mask-image-linear-from-color": [{
+              "mask-linear-from": scaleColor()
+            }],
+            "mask-image-linear-to-color": [{
+              "mask-linear-to": scaleColor()
+            }],
+            "mask-image-t-from-pos": [{
+              "mask-t-from": scaleMaskImagePosition()
+            }],
+            "mask-image-t-to-pos": [{
+              "mask-t-to": scaleMaskImagePosition()
+            }],
+            "mask-image-t-from-color": [{
+              "mask-t-from": scaleColor()
+            }],
+            "mask-image-t-to-color": [{
+              "mask-t-to": scaleColor()
+            }],
+            "mask-image-r-from-pos": [{
+              "mask-r-from": scaleMaskImagePosition()
+            }],
+            "mask-image-r-to-pos": [{
+              "mask-r-to": scaleMaskImagePosition()
+            }],
+            "mask-image-r-from-color": [{
+              "mask-r-from": scaleColor()
+            }],
+            "mask-image-r-to-color": [{
+              "mask-r-to": scaleColor()
+            }],
+            "mask-image-b-from-pos": [{
+              "mask-b-from": scaleMaskImagePosition()
+            }],
+            "mask-image-b-to-pos": [{
+              "mask-b-to": scaleMaskImagePosition()
+            }],
+            "mask-image-b-from-color": [{
+              "mask-b-from": scaleColor()
+            }],
+            "mask-image-b-to-color": [{
+              "mask-b-to": scaleColor()
+            }],
+            "mask-image-l-from-pos": [{
+              "mask-l-from": scaleMaskImagePosition()
+            }],
+            "mask-image-l-to-pos": [{
+              "mask-l-to": scaleMaskImagePosition()
+            }],
+            "mask-image-l-from-color": [{
+              "mask-l-from": scaleColor()
+            }],
+            "mask-image-l-to-color": [{
+              "mask-l-to": scaleColor()
+            }],
+            "mask-image-x-from-pos": [{
+              "mask-x-from": scaleMaskImagePosition()
+            }],
+            "mask-image-x-to-pos": [{
+              "mask-x-to": scaleMaskImagePosition()
+            }],
+            "mask-image-x-from-color": [{
+              "mask-x-from": scaleColor()
+            }],
+            "mask-image-x-to-color": [{
+              "mask-x-to": scaleColor()
+            }],
+            "mask-image-y-from-pos": [{
+              "mask-y-from": scaleMaskImagePosition()
+            }],
+            "mask-image-y-to-pos": [{
+              "mask-y-to": scaleMaskImagePosition()
+            }],
+            "mask-image-y-from-color": [{
+              "mask-y-from": scaleColor()
+            }],
+            "mask-image-y-to-color": [{
+              "mask-y-to": scaleColor()
+            }],
+            "mask-image-radial": [{
+              "mask-radial": [isArbitraryVariable, isArbitraryValue]
+            }],
+            "mask-image-radial-from-pos": [{
+              "mask-radial-from": scaleMaskImagePosition()
+            }],
+            "mask-image-radial-to-pos": [{
+              "mask-radial-to": scaleMaskImagePosition()
+            }],
+            "mask-image-radial-from-color": [{
+              "mask-radial-from": scaleColor()
+            }],
+            "mask-image-radial-to-color": [{
+              "mask-radial-to": scaleColor()
+            }],
+            "mask-image-radial-shape": [{
+              "mask-radial": ["circle", "ellipse"]
+            }],
+            "mask-image-radial-size": [{
+              "mask-radial": [{
+                closest: ["side", "corner"],
+                farthest: ["side", "corner"]
+              }]
+            }],
+            "mask-image-radial-pos": [{
+              "mask-radial-at": scalePosition()
+            }],
+            "mask-image-conic-pos": [{
+              "mask-conic": [isNumber]
+            }],
+            "mask-image-conic-from-pos": [{
+              "mask-conic-from": scaleMaskImagePosition()
+            }],
+            "mask-image-conic-to-pos": [{
+              "mask-conic-to": scaleMaskImagePosition()
+            }],
+            "mask-image-conic-from-color": [{
+              "mask-conic-from": scaleColor()
+            }],
+            "mask-image-conic-to-color": [{
+              "mask-conic-to": scaleColor()
+            }],
+            /**
+             * Mask Mode
+             * @see https://tailwindcss.com/docs/mask-mode
+             */
+            "mask-mode": [{
+              mask: ["alpha", "luminance", "match"]
+            }],
+            /**
+             * Mask Origin
+             * @see https://tailwindcss.com/docs/mask-origin
+             */
+            "mask-origin": [{
+              "mask-origin": ["border", "padding", "content", "fill", "stroke", "view"]
+            }],
+            /**
+             * Mask Position
+             * @see https://tailwindcss.com/docs/mask-position
+             */
+            "mask-position": [{
+              mask: scaleBgPosition()
+            }],
+            /**
+             * Mask Repeat
+             * @see https://tailwindcss.com/docs/mask-repeat
+             */
+            "mask-repeat": [{
+              mask: scaleBgRepeat()
+            }],
+            /**
+             * Mask Size
+             * @see https://tailwindcss.com/docs/mask-size
+             */
+            "mask-size": [{
+              mask: scaleBgSize()
+            }],
+            /**
+             * Mask Type
+             * @see https://tailwindcss.com/docs/mask-type
+             */
+            "mask-type": [{
+              "mask-type": ["alpha", "luminance"]
+            }],
+            /**
+             * Mask Image
+             * @see https://tailwindcss.com/docs/mask-image
+             */
+            "mask-image": [{
+              mask: ["none", isArbitraryVariable, isArbitraryValue]
+            }],
+            // ---------------
+            // --- Filters ---
+            // ---------------
+            /**
+             * Filter
+             * @see https://tailwindcss.com/docs/filter
+             */
+            filter: [{
+              filter: [
+                // Deprecated since Tailwind CSS v3.0.0
+                "",
+                "none",
+                isArbitraryVariable,
+                isArbitraryValue
+              ]
+            }],
+            /**
+             * Blur
+             * @see https://tailwindcss.com/docs/blur
+             */
+            blur: [{
+              blur: scaleBlur()
+            }],
+            /**
+             * Brightness
+             * @see https://tailwindcss.com/docs/brightness
+             */
+            brightness: [{
+              brightness: [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Contrast
+             * @see https://tailwindcss.com/docs/contrast
+             */
+            contrast: [{
+              contrast: [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Drop Shadow
+             * @see https://tailwindcss.com/docs/drop-shadow
+             */
+            "drop-shadow": [{
+              "drop-shadow": [
+                // Deprecated since Tailwind CSS v4.0.0
+                "",
+                "none",
+                themeDropShadow,
+                isArbitraryVariableShadow,
+                isArbitraryShadow
+              ]
+            }],
+            /**
+             * Drop Shadow Color
+             * @see https://tailwindcss.com/docs/filter-drop-shadow#setting-the-shadow-color
+             */
+            "drop-shadow-color": [{
+              "drop-shadow": scaleColor()
+            }],
+            /**
+             * Grayscale
+             * @see https://tailwindcss.com/docs/grayscale
+             */
+            grayscale: [{
+              grayscale: ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Hue Rotate
+             * @see https://tailwindcss.com/docs/hue-rotate
+             */
+            "hue-rotate": [{
+              "hue-rotate": [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Invert
+             * @see https://tailwindcss.com/docs/invert
+             */
+            invert: [{
+              invert: ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Saturate
+             * @see https://tailwindcss.com/docs/saturate
+             */
+            saturate: [{
+              saturate: [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Sepia
+             * @see https://tailwindcss.com/docs/sepia
+             */
+            sepia: [{
+              sepia: ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Filter
+             * @see https://tailwindcss.com/docs/backdrop-filter
+             */
+            "backdrop-filter": [{
+              "backdrop-filter": [
+                // Deprecated since Tailwind CSS v3.0.0
+                "",
+                "none",
+                isArbitraryVariable,
+                isArbitraryValue
+              ]
+            }],
+            /**
+             * Backdrop Blur
+             * @see https://tailwindcss.com/docs/backdrop-blur
+             */
+            "backdrop-blur": [{
+              "backdrop-blur": scaleBlur()
+            }],
+            /**
+             * Backdrop Brightness
+             * @see https://tailwindcss.com/docs/backdrop-brightness
+             */
+            "backdrop-brightness": [{
+              "backdrop-brightness": [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Contrast
+             * @see https://tailwindcss.com/docs/backdrop-contrast
+             */
+            "backdrop-contrast": [{
+              "backdrop-contrast": [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Grayscale
+             * @see https://tailwindcss.com/docs/backdrop-grayscale
+             */
+            "backdrop-grayscale": [{
+              "backdrop-grayscale": ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Hue Rotate
+             * @see https://tailwindcss.com/docs/backdrop-hue-rotate
+             */
+            "backdrop-hue-rotate": [{
+              "backdrop-hue-rotate": [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Invert
+             * @see https://tailwindcss.com/docs/backdrop-invert
+             */
+            "backdrop-invert": [{
+              "backdrop-invert": ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Opacity
+             * @see https://tailwindcss.com/docs/backdrop-opacity
+             */
+            "backdrop-opacity": [{
+              "backdrop-opacity": [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Saturate
+             * @see https://tailwindcss.com/docs/backdrop-saturate
+             */
+            "backdrop-saturate": [{
+              "backdrop-saturate": [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Backdrop Sepia
+             * @see https://tailwindcss.com/docs/backdrop-sepia
+             */
+            "backdrop-sepia": [{
+              "backdrop-sepia": ["", isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            // --------------
+            // --- Tables ---
+            // --------------
+            /**
+             * Border Collapse
+             * @see https://tailwindcss.com/docs/border-collapse
+             */
+            "border-collapse": [{
+              border: ["collapse", "separate"]
+            }],
+            /**
+             * Border Spacing
+             * @see https://tailwindcss.com/docs/border-spacing
+             */
+            "border-spacing": [{
+              "border-spacing": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Border Spacing X
+             * @see https://tailwindcss.com/docs/border-spacing
+             */
+            "border-spacing-x": [{
+              "border-spacing-x": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Border Spacing Y
+             * @see https://tailwindcss.com/docs/border-spacing
+             */
+            "border-spacing-y": [{
+              "border-spacing-y": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Table Layout
+             * @see https://tailwindcss.com/docs/table-layout
+             */
+            "table-layout": [{
+              table: ["auto", "fixed"]
+            }],
+            /**
+             * Caption Side
+             * @see https://tailwindcss.com/docs/caption-side
+             */
+            caption: [{
+              caption: ["top", "bottom"]
+            }],
+            // ---------------------------------
+            // --- Transitions and Animation ---
+            // ---------------------------------
+            /**
+             * Transition Property
+             * @see https://tailwindcss.com/docs/transition-property
+             */
+            transition: [{
+              transition: ["", "all", "colors", "opacity", "shadow", "transform", "none", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Transition Behavior
+             * @see https://tailwindcss.com/docs/transition-behavior
+             */
+            "transition-behavior": [{
+              transition: ["normal", "discrete"]
+            }],
+            /**
+             * Transition Duration
+             * @see https://tailwindcss.com/docs/transition-duration
+             */
+            duration: [{
+              duration: [isNumber, "initial", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Transition Timing Function
+             * @see https://tailwindcss.com/docs/transition-timing-function
+             */
+            ease: [{
+              ease: ["linear", "initial", themeEase, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Transition Delay
+             * @see https://tailwindcss.com/docs/transition-delay
+             */
+            delay: [{
+              delay: [isNumber, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Animation
+             * @see https://tailwindcss.com/docs/animation
+             */
+            animate: [{
+              animate: ["none", themeAnimate, isArbitraryVariable, isArbitraryValue]
+            }],
+            // ------------------
+            // --- Transforms ---
+            // ------------------
+            /**
+             * Backface Visibility
+             * @see https://tailwindcss.com/docs/backface-visibility
+             */
+            backface: [{
+              backface: ["hidden", "visible"]
+            }],
+            /**
+             * Perspective
+             * @see https://tailwindcss.com/docs/perspective
+             */
+            perspective: [{
+              perspective: [themePerspective, isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Perspective Origin
+             * @see https://tailwindcss.com/docs/perspective-origin
+             */
+            "perspective-origin": [{
+              "perspective-origin": scalePositionWithArbitrary()
+            }],
+            /**
+             * Rotate
+             * @see https://tailwindcss.com/docs/rotate
+             */
+            rotate: [{
+              rotate: scaleRotate()
+            }],
+            /**
+             * Rotate X
+             * @see https://tailwindcss.com/docs/rotate
+             */
+            "rotate-x": [{
+              "rotate-x": scaleRotate()
+            }],
+            /**
+             * Rotate Y
+             * @see https://tailwindcss.com/docs/rotate
+             */
+            "rotate-y": [{
+              "rotate-y": scaleRotate()
+            }],
+            /**
+             * Rotate Z
+             * @see https://tailwindcss.com/docs/rotate
+             */
+            "rotate-z": [{
+              "rotate-z": scaleRotate()
+            }],
+            /**
+             * Scale
+             * @see https://tailwindcss.com/docs/scale
+             */
+            scale: [{
+              scale: scaleScale()
+            }],
+            /**
+             * Scale X
+             * @see https://tailwindcss.com/docs/scale
+             */
+            "scale-x": [{
+              "scale-x": scaleScale()
+            }],
+            /**
+             * Scale Y
+             * @see https://tailwindcss.com/docs/scale
+             */
+            "scale-y": [{
+              "scale-y": scaleScale()
+            }],
+            /**
+             * Scale Z
+             * @see https://tailwindcss.com/docs/scale
+             */
+            "scale-z": [{
+              "scale-z": scaleScale()
+            }],
+            /**
+             * Scale 3D
+             * @see https://tailwindcss.com/docs/scale
+             */
+            "scale-3d": ["scale-3d"],
+            /**
+             * Skew
+             * @see https://tailwindcss.com/docs/skew
+             */
+            skew: [{
+              skew: scaleSkew()
+            }],
+            /**
+             * Skew X
+             * @see https://tailwindcss.com/docs/skew
+             */
+            "skew-x": [{
+              "skew-x": scaleSkew()
+            }],
+            /**
+             * Skew Y
+             * @see https://tailwindcss.com/docs/skew
+             */
+            "skew-y": [{
+              "skew-y": scaleSkew()
+            }],
+            /**
+             * Transform
+             * @see https://tailwindcss.com/docs/transform
+             */
+            transform: [{
+              transform: [isArbitraryVariable, isArbitraryValue, "", "none", "gpu", "cpu"]
+            }],
+            /**
+             * Transform Origin
+             * @see https://tailwindcss.com/docs/transform-origin
+             */
+            "transform-origin": [{
+              origin: scalePositionWithArbitrary()
+            }],
+            /**
+             * Transform Style
+             * @see https://tailwindcss.com/docs/transform-style
+             */
+            "transform-style": [{
+              transform: ["3d", "flat"]
+            }],
+            /**
+             * Translate
+             * @see https://tailwindcss.com/docs/translate
+             */
+            translate: [{
+              translate: scaleTranslate()
+            }],
+            /**
+             * Translate X
+             * @see https://tailwindcss.com/docs/translate
+             */
+            "translate-x": [{
+              "translate-x": scaleTranslate()
+            }],
+            /**
+             * Translate Y
+             * @see https://tailwindcss.com/docs/translate
+             */
+            "translate-y": [{
+              "translate-y": scaleTranslate()
+            }],
+            /**
+             * Translate Z
+             * @see https://tailwindcss.com/docs/translate
+             */
+            "translate-z": [{
+              "translate-z": scaleTranslate()
+            }],
+            /**
+             * Translate None
+             * @see https://tailwindcss.com/docs/translate
+             */
+            "translate-none": ["translate-none"],
+            // ---------------------
+            // --- Interactivity ---
+            // ---------------------
+            /**
+             * Accent Color
+             * @see https://tailwindcss.com/docs/accent-color
+             */
+            accent: [{
+              accent: scaleColor()
+            }],
+            /**
+             * Appearance
+             * @see https://tailwindcss.com/docs/appearance
+             */
+            appearance: [{
+              appearance: ["none", "auto"]
+            }],
+            /**
+             * Caret Color
+             * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+             */
+            "caret-color": [{
+              caret: scaleColor()
+            }],
+            /**
+             * Color Scheme
+             * @see https://tailwindcss.com/docs/color-scheme
+             */
+            "color-scheme": [{
+              scheme: ["normal", "dark", "light", "light-dark", "only-dark", "only-light"]
+            }],
+            /**
+             * Cursor
+             * @see https://tailwindcss.com/docs/cursor
+             */
+            cursor: [{
+              cursor: ["auto", "default", "pointer", "wait", "text", "move", "help", "not-allowed", "none", "context-menu", "progress", "cell", "crosshair", "vertical-text", "alias", "copy", "no-drop", "grab", "grabbing", "all-scroll", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "zoom-in", "zoom-out", isArbitraryVariable, isArbitraryValue]
+            }],
+            /**
+             * Field Sizing
+             * @see https://tailwindcss.com/docs/field-sizing
+             */
+            "field-sizing": [{
+              "field-sizing": ["fixed", "content"]
+            }],
+            /**
+             * Pointer Events
+             * @see https://tailwindcss.com/docs/pointer-events
+             */
+            "pointer-events": [{
+              "pointer-events": ["auto", "none"]
+            }],
+            /**
+             * Resize
+             * @see https://tailwindcss.com/docs/resize
+             */
+            resize: [{
+              resize: ["none", "", "y", "x"]
+            }],
+            /**
+             * Scroll Behavior
+             * @see https://tailwindcss.com/docs/scroll-behavior
+             */
+            "scroll-behavior": [{
+              scroll: ["auto", "smooth"]
+            }],
+            /**
+             * Scroll Margin
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-m": [{
+              "scroll-m": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin X
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-mx": [{
+              "scroll-mx": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin Y
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-my": [{
+              "scroll-my": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin Start
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-ms": [{
+              "scroll-ms": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin End
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-me": [{
+              "scroll-me": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin Top
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-mt": [{
+              "scroll-mt": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin Right
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-mr": [{
+              "scroll-mr": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin Bottom
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-mb": [{
+              "scroll-mb": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Margin Left
+             * @see https://tailwindcss.com/docs/scroll-margin
+             */
+            "scroll-ml": [{
+              "scroll-ml": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-p": [{
+              "scroll-p": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding X
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-px": [{
+              "scroll-px": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding Y
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-py": [{
+              "scroll-py": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding Start
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-ps": [{
+              "scroll-ps": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding End
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-pe": [{
+              "scroll-pe": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding Top
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-pt": [{
+              "scroll-pt": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding Right
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-pr": [{
+              "scroll-pr": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding Bottom
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-pb": [{
+              "scroll-pb": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Padding Left
+             * @see https://tailwindcss.com/docs/scroll-padding
+             */
+            "scroll-pl": [{
+              "scroll-pl": scaleUnambiguousSpacing()
+            }],
+            /**
+             * Scroll Snap Align
+             * @see https://tailwindcss.com/docs/scroll-snap-align
+             */
+            "snap-align": [{
+              snap: ["start", "end", "center", "align-none"]
+            }],
+            /**
+             * Scroll Snap Stop
+             * @see https://tailwindcss.com/docs/scroll-snap-stop
+             */
+            "snap-stop": [{
+              snap: ["normal", "always"]
+            }],
+            /**
+             * Scroll Snap Type
+             * @see https://tailwindcss.com/docs/scroll-snap-type
+             */
+            "snap-type": [{
+              snap: ["none", "x", "y", "both"]
+            }],
+            /**
+             * Scroll Snap Type Strictness
+             * @see https://tailwindcss.com/docs/scroll-snap-type
+             */
+            "snap-strictness": [{
+              snap: ["mandatory", "proximity"]
+            }],
+            /**
+             * Touch Action
+             * @see https://tailwindcss.com/docs/touch-action
+             */
+            touch: [{
+              touch: ["auto", "none", "manipulation"]
+            }],
+            /**
+             * Touch Action X
+             * @see https://tailwindcss.com/docs/touch-action
+             */
+            "touch-x": [{
+              "touch-pan": ["x", "left", "right"]
+            }],
+            /**
+             * Touch Action Y
+             * @see https://tailwindcss.com/docs/touch-action
+             */
+            "touch-y": [{
+              "touch-pan": ["y", "up", "down"]
+            }],
+            /**
+             * Touch Action Pinch Zoom
+             * @see https://tailwindcss.com/docs/touch-action
+             */
+            "touch-pz": ["touch-pinch-zoom"],
+            /**
+             * User Select
+             * @see https://tailwindcss.com/docs/user-select
+             */
+            select: [{
+              select: ["none", "text", "all", "auto"]
+            }],
+            /**
+             * Will Change
+             * @see https://tailwindcss.com/docs/will-change
+             */
+            "will-change": [{
+              "will-change": ["auto", "scroll", "contents", "transform", isArbitraryVariable, isArbitraryValue]
+            }],
+            // -----------
+            // --- SVG ---
+            // -----------
+            /**
+             * Fill
+             * @see https://tailwindcss.com/docs/fill
+             */
+            fill: [{
+              fill: ["none", ...scaleColor()]
+            }],
+            /**
+             * Stroke Width
+             * @see https://tailwindcss.com/docs/stroke-width
+             */
+            "stroke-w": [{
+              stroke: [isNumber, isArbitraryVariableLength, isArbitraryLength, isArbitraryNumber]
+            }],
+            /**
+             * Stroke
+             * @see https://tailwindcss.com/docs/stroke
+             */
+            stroke: [{
+              stroke: ["none", ...scaleColor()]
+            }],
+            // ---------------------
+            // --- Accessibility ---
+            // ---------------------
+            /**
+             * Forced Color Adjust
+             * @see https://tailwindcss.com/docs/forced-color-adjust
+             */
+            "forced-color-adjust": [{
+              "forced-color-adjust": ["auto", "none"]
+            }]
+          },
+          conflictingClassGroups: {
+            overflow: ["overflow-x", "overflow-y"],
+            overscroll: ["overscroll-x", "overscroll-y"],
+            inset: ["inset-x", "inset-y", "start", "end", "top", "right", "bottom", "left"],
+            "inset-x": ["right", "left"],
+            "inset-y": ["top", "bottom"],
+            flex: ["basis", "grow", "shrink"],
+            gap: ["gap-x", "gap-y"],
+            p: ["px", "py", "ps", "pe", "pt", "pr", "pb", "pl"],
+            px: ["pr", "pl"],
+            py: ["pt", "pb"],
+            m: ["mx", "my", "ms", "me", "mt", "mr", "mb", "ml"],
+            mx: ["mr", "ml"],
+            my: ["mt", "mb"],
+            size: ["w", "h"],
+            "font-size": ["leading"],
+            "fvn-normal": ["fvn-ordinal", "fvn-slashed-zero", "fvn-figure", "fvn-spacing", "fvn-fraction"],
+            "fvn-ordinal": ["fvn-normal"],
+            "fvn-slashed-zero": ["fvn-normal"],
+            "fvn-figure": ["fvn-normal"],
+            "fvn-spacing": ["fvn-normal"],
+            "fvn-fraction": ["fvn-normal"],
+            "line-clamp": ["display", "overflow"],
+            rounded: ["rounded-s", "rounded-e", "rounded-t", "rounded-r", "rounded-b", "rounded-l", "rounded-ss", "rounded-se", "rounded-ee", "rounded-es", "rounded-tl", "rounded-tr", "rounded-br", "rounded-bl"],
+            "rounded-s": ["rounded-ss", "rounded-es"],
+            "rounded-e": ["rounded-se", "rounded-ee"],
+            "rounded-t": ["rounded-tl", "rounded-tr"],
+            "rounded-r": ["rounded-tr", "rounded-br"],
+            "rounded-b": ["rounded-br", "rounded-bl"],
+            "rounded-l": ["rounded-tl", "rounded-bl"],
+            "border-spacing": ["border-spacing-x", "border-spacing-y"],
+            "border-w": ["border-w-x", "border-w-y", "border-w-s", "border-w-e", "border-w-t", "border-w-r", "border-w-b", "border-w-l"],
+            "border-w-x": ["border-w-r", "border-w-l"],
+            "border-w-y": ["border-w-t", "border-w-b"],
+            "border-color": ["border-color-x", "border-color-y", "border-color-s", "border-color-e", "border-color-t", "border-color-r", "border-color-b", "border-color-l"],
+            "border-color-x": ["border-color-r", "border-color-l"],
+            "border-color-y": ["border-color-t", "border-color-b"],
+            translate: ["translate-x", "translate-y", "translate-none"],
+            "translate-none": ["translate", "translate-x", "translate-y", "translate-z"],
+            "scroll-m": ["scroll-mx", "scroll-my", "scroll-ms", "scroll-me", "scroll-mt", "scroll-mr", "scroll-mb", "scroll-ml"],
+            "scroll-mx": ["scroll-mr", "scroll-ml"],
+            "scroll-my": ["scroll-mt", "scroll-mb"],
+            "scroll-p": ["scroll-px", "scroll-py", "scroll-ps", "scroll-pe", "scroll-pt", "scroll-pr", "scroll-pb", "scroll-pl"],
+            "scroll-px": ["scroll-pr", "scroll-pl"],
+            "scroll-py": ["scroll-pt", "scroll-pb"],
+            touch: ["touch-x", "touch-y", "touch-pz"],
+            "touch-x": ["touch"],
+            "touch-y": ["touch"],
+            "touch-pz": ["touch"]
+          },
+          conflictingClassGroupModifiers: {
+            "font-size": ["leading"]
+          },
+          orderSensitiveModifiers: ["*", "**", "after", "backdrop", "before", "details-content", "file", "first-letter", "first-line", "marker", "placeholder", "selection"]
+        };
+      }, "getDefaultConfig");
+      var mergeConfigs = /* @__PURE__ */ __name((baseConfig, {
+        cacheSize,
+        prefix,
+        experimentalParseClassName,
+        extend = {},
+        override = {}
+      }) => {
+        overrideProperty(baseConfig, "cacheSize", cacheSize);
+        overrideProperty(baseConfig, "prefix", prefix);
+        overrideProperty(baseConfig, "experimentalParseClassName", experimentalParseClassName);
+        overrideConfigProperties(baseConfig.theme, override.theme);
+        overrideConfigProperties(baseConfig.classGroups, override.classGroups);
+        overrideConfigProperties(baseConfig.conflictingClassGroups, override.conflictingClassGroups);
+        overrideConfigProperties(baseConfig.conflictingClassGroupModifiers, override.conflictingClassGroupModifiers);
+        overrideProperty(baseConfig, "orderSensitiveModifiers", override.orderSensitiveModifiers);
+        mergeConfigProperties(baseConfig.theme, extend.theme);
+        mergeConfigProperties(baseConfig.classGroups, extend.classGroups);
+        mergeConfigProperties(baseConfig.conflictingClassGroups, extend.conflictingClassGroups);
+        mergeConfigProperties(baseConfig.conflictingClassGroupModifiers, extend.conflictingClassGroupModifiers);
+        mergeArrayProperties(baseConfig, extend, "orderSensitiveModifiers");
+        return baseConfig;
+      }, "mergeConfigs");
+      var overrideProperty = /* @__PURE__ */ __name((baseObject, overrideKey, overrideValue) => {
+        if (overrideValue !== void 0) {
+          baseObject[overrideKey] = overrideValue;
+        }
+      }, "overrideProperty");
+      var overrideConfigProperties = /* @__PURE__ */ __name((baseObject, overrideObject) => {
+        if (overrideObject) {
+          for (const key in overrideObject) {
+            overrideProperty(baseObject, key, overrideObject[key]);
+          }
+        }
+      }, "overrideConfigProperties");
+      var mergeConfigProperties = /* @__PURE__ */ __name((baseObject, mergeObject) => {
+        if (mergeObject) {
+          for (const key in mergeObject) {
+            mergeArrayProperties(baseObject, mergeObject, key);
+          }
+        }
+      }, "mergeConfigProperties");
+      var mergeArrayProperties = /* @__PURE__ */ __name((baseObject, mergeObject, key) => {
+        const mergeValue = mergeObject[key];
+        if (mergeValue !== void 0) {
+          baseObject[key] = baseObject[key] ? baseObject[key].concat(mergeValue) : mergeValue;
+        }
+      }, "mergeArrayProperties");
+      var extendTailwindMerge = /* @__PURE__ */ __name((configExtension, ...createConfig) => typeof configExtension === "function" ? createTailwindMerge(getDefaultConfig, configExtension, ...createConfig) : createTailwindMerge(() => mergeConfigs(getDefaultConfig(), configExtension), ...createConfig), "extendTailwindMerge");
+      var twMerge2 = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
+      exports4.createTailwindMerge = createTailwindMerge;
+      exports4.extendTailwindMerge = extendTailwindMerge;
+      exports4.fromTheme = fromTheme;
+      exports4.getDefaultConfig = getDefaultConfig;
+      exports4.mergeConfigs = mergeConfigs;
+      exports4.twJoin = twJoin;
+      exports4.twMerge = twMerge2;
+      exports4.validators = validators;
     }
   });
 
-  // src/libs/storage.ts
-  var storage_exports = {};
-  __export(storage_exports, {
-    localStorage: () => localStorage,
-    sessionStorage: () => sessionStorage,
-    storage: () => storage
-  });
-  var init_storage2 = __esm({
-    "src/libs/storage.ts"() {
+  // src/lib/utils.ts
+  function cn(...inputs) {
+    return (0, import_tailwind_merge.twMerge)(clsx(inputs));
+  }
+  var import_tailwind_merge, isUrlAbsolute;
+  var init_utils2 = __esm({
+    "src/lib/utils.ts"() {
       "use strict";
       init_dirname();
       init_buffer2();
       init_process2();
-      init_storage();
+      init_clsx();
+      import_tailwind_merge = __toESM(require_bundle_cjs(), 1);
+      __name(cn, "cn");
+      isUrlAbsolute = /* @__PURE__ */ __name((url) => {
+        if (url) {
+          if (url.indexOf("//") === 0) {
+            return true;
+          }
+          if (url.indexOf("://") === -1) {
+            return false;
+          }
+          if (url.indexOf(".") === -1) {
+            return false;
+          }
+          if (url.indexOf("/") === -1) {
+            return false;
+          }
+          if (url.indexOf(":") > url.indexOf("/")) {
+            return false;
+          }
+          if (url.indexOf("://") < url.indexOf(".")) {
+            return true;
+          }
+        }
+        return false;
+      }, "isUrlAbsolute");
     }
   });
 
-  // .js/plugins/english/LunarLetters[madara].js
+  // src/libs/isAbsoluteUrl.ts
+  var isAbsoluteUrl_exports = {};
+  __export(isAbsoluteUrl_exports, {
+    isUrlAbsolute: () => isUrlAbsolute
+  });
+  var init_isAbsoluteUrl = __esm({
+    "src/libs/isAbsoluteUrl.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_utils2();
+    }
+  });
+
+  // .js/plugins/english/firebirdsnest.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var t = function(t2, e2, a2, n2) {
-    return new (a2 || (a2 = Promise))(function(r2, i2) {
-      function o2(t3) {
+  var t = function(t2, e2, n2, r3) {
+    return new (n2 || (n2 = Promise))(function(i2, o2) {
+      function a2(t3) {
         try {
-          l2(n2.next(t3));
+          c2(r3.next(t3));
         } catch (t4) {
-          i2(t4);
+          o2(t4);
         }
       }
-      __name(o2, "o");
+      __name(a2, "a");
       function s2(t3) {
         try {
-          l2(n2.throw(t3));
+          c2(r3.throw(t3));
         } catch (t4) {
-          i2(t4);
+          o2(t4);
         }
       }
       __name(s2, "s");
-      function l2(t3) {
+      function c2(t3) {
         var e3;
-        t3.done ? r2(t3.value) : (e3 = t3.value, e3 instanceof a2 ? e3 : new a2(function(t4) {
+        t3.done ? i2(t3.value) : (e3 = t3.value, e3 instanceof n2 ? e3 : new n2(function(t4) {
           t4(e3);
-        })).then(o2, s2);
+        })).then(a2, s2);
       }
-      __name(l2, "l");
-      l2((n2 = n2.apply(t2, e2 || [])).next());
+      __name(c2, "c");
+      c2((r3 = r3.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
-    var a2, n2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & r2[0]) throw r2[1];
-      return r2[1];
-    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return o2.next = s2(0), o2.throw = s2(1), o2.return = s2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
+    var n2, r3, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & i2[0]) throw i2[1];
+      return i2[1];
+    }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return a2.next = s2(0), a2.throw = s2(1), a2.return = s2(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
       return this;
-    }), o2;
+    }), a2;
     function s2(s3) {
-      return function(l2) {
+      return function(c2) {
         return function(s4) {
-          if (a2) throw new TypeError("Generator is already executing.");
-          for (; o2 && (o2 = 0, s4[0] && (i2 = 0)), i2; ) try {
-            if (a2 = 1, n2 && (r2 = 2 & s4[0] ? n2.return : s4[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, s4[1])).done) return r2;
-            switch (n2 = 0, r2 && (s4 = [2 & s4[0], r2.value]), s4[0]) {
+          if (n2) throw new TypeError("Generator is already executing.");
+          for (; a2 && (a2 = 0, s4[0] && (o2 = 0)), o2; ) try {
+            if (n2 = 1, r3 && (i2 = 2 & s4[0] ? r3.return : s4[0] ? r3.throw || ((i2 = r3.return) && i2.call(r3), 0) : r3.next) && !(i2 = i2.call(r3, s4[1])).done) return i2;
+            switch (r3 = 0, i2 && (s4 = [2 & s4[0], i2.value]), s4[0]) {
               case 0:
               case 1:
-                r2 = s4;
+                i2 = s4;
                 break;
               case 4:
-                return i2.label++, { value: s4[1], done: false };
+                return o2.label++, { value: s4[1], done: false };
               case 5:
-                i2.label++, n2 = s4[1], s4 = [0];
+                o2.label++, r3 = s4[1], s4 = [0];
                 continue;
               case 7:
-                s4 = i2.ops.pop(), i2.trys.pop();
+                s4 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
-                  i2 = 0;
+                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                  o2 = 0;
                   continue;
                 }
-                if (3 === s4[0] && (!r2 || s4[1] > r2[0] && s4[1] < r2[3])) {
-                  i2.label = s4[1];
+                if (3 === s4[0] && (!i2 || s4[1] > i2[0] && s4[1] < i2[3])) {
+                  o2.label = s4[1];
                   break;
                 }
-                if (6 === s4[0] && i2.label < r2[1]) {
-                  i2.label = r2[1], r2 = s4;
+                if (6 === s4[0] && o2.label < i2[1]) {
+                  o2.label = i2[1], i2 = s4;
                   break;
                 }
-                if (r2 && i2.label < r2[2]) {
-                  i2.label = r2[2], i2.ops.push(s4);
+                if (i2 && o2.label < i2[2]) {
+                  o2.label = i2[2], o2.ops.push(s4);
                   break;
                 }
-                r2[2] && i2.ops.pop(), i2.trys.pop();
+                i2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            s4 = e2.call(t2, i2);
+            s4 = e2.call(t2, o2);
           } catch (t3) {
-            s4 = [6, t3], n2 = 0;
+            s4 = [6, t3], r3 = 0;
           } finally {
-            a2 = r2 = 0;
+            n2 = i2 = 0;
           }
           if (5 & s4[0]) throw s4[1];
           return { value: s4[0] ? s4[1] : void 0, done: true };
-        }([s3, l2]);
+        }([s3, c2]);
       };
     }
     __name(s2, "s");
-  }, a = function(t2) {
-    return t2 && t2.__esModule ? t2 : { default: t2 };
   };
-  Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = a(require_dayjs_min()), l = (init_storage2(), __toCommonJS(storage_exports)), u = /* @__PURE__ */ __name(function(t2, e2) {
-    return new RegExp(e2.join("|")).test(t2);
-  }, "u"), c = function() {
-    function a2(t2) {
-      var e2, a3;
-      this.hideLocked = l.storage.get("hideLocked"), this.parseData = function(t3) {
-        var e3, a4 = (0, s.default)(), n3 = (null === (e3 = t3.match(/\d+/)) || void 0 === e3 ? void 0 : e3[0]) || "", r2 = parseInt(n3, 10);
-        if (!n3) return t3;
-        if (u(t3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a4 = a4.subtract(r2, "second");
-        else if (u(t3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a4 = a4.subtract(r2, "minute");
-        else if (u(t3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) a4 = a4.subtract(r2, "hours");
-        else if (u(t3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) a4 = a4.subtract(r2, "days");
-        else if (u(t3, ["week", "semana"])) a4 = a4.subtract(r2, "week");
-        else if (u(t3, ["month", "mes"])) a4 = a4.subtract(r2, "month");
-        else {
-          if (!u(t3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, s.default)(t3).format("LL") ? (0, s.default)(t3).format("LL") : t3;
-          a4 = a4.subtract(r2, "year");
-        }
-        return a4.format("LL");
-      }, this.id = t2.id, this.name = t2.sourceName, this.icon = "multisrc/madara/".concat(t2.id.toLowerCase(), "/icon.png"), this.site = t2.sourceSite;
-      var n2 = (null === (e2 = t2.options) || void 0 === e2 ? void 0 : e2.versionIncrements) || 0;
-      this.version = "2.2.".concat(n2), this.options = t2.options, this.filters = t2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+  Object.defineProperty(exports, "__esModule", { value: true });
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r2 = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = (init_isAbsoluteUrl(), __toCommonJS(isAbsoluteUrl_exports)), s = ["/projects/", "/about/"], c = ["firebirdsnest.org", "www.firebirdsnest.org", "firebirdsnest.wordpress.com"], u = function() {
+    function u2() {
+      var t2 = this;
+      this.id = "firebirdsnest", this.name = "Firebird's Nest", this.icon = "src/en/firebirdsnest/icon.png", this.site = "https://firebirdsnest.org", this.version = "1.0.0", this.filters = void 0, this.resolveUrl = function(e2) {
+        return (0, a.isUrlAbsolute)(e2) ? e2 : t2.site + t2.toPath(e2);
+      };
     }
-    __name(a2, "a");
-    return a2.prototype.translateDragontea = function(t2) {
-      var e2;
-      if ("dragontea" !== this.id) return t2;
-      var a3 = (0, r.load)((null === (e2 = t2.html()) || void 0 === e2 ? void 0 : e2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
-      return t2.html(a3.html()), t2.find("*").addBack().contents().filter(function(t3, e3) {
-        return 3 === e3.nodeType;
-      }).each(function(t3, e3) {
-        var n2 = a3(e3), r2 = n2.text().normalize("NFD").split("").map(function(t4) {
-          var e4 = t4.normalize("NFC"), a4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(e4);
-          return a4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[a4] + t4.slice(e4.length) : t4;
-        }).join("");
-        n2.replaceWith(r2.replace("\n", "<br>"));
-      }), t2;
-    }, a2.prototype.getHostname = function(t2) {
-      var e2 = (t2 = t2.split("/")[2]).split(".");
-      return e2.pop(), e2.join(".");
-    }, a2.prototype.getCheerio = function(a3, i2) {
+    __name(u2, "u");
+    return u2.prototype.popularNovels = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, s2, l2;
+        return e(this, function(t2) {
+          return n2 > 1 ? [2, []] : [2, this.fetchNovelCatalog()];
+        });
+      });
+    }, u2.prototype.parseNovel = function(n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, o2, a2, s2, c2, u3, h, l, f, p, v, d, g, m, b, y, w, x, T, N, P, C, O, S, A = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(a3)];
+              return t2 = this.toPath(n2), a2 = r2.load, [4, this.fetchHtml(this.site + t2)];
             case 1:
-              if (!(t2 = e2.sent()).ok && 1 != i2) throw new Error("Could not reach site (" + t2.status + ") try to open in webview.");
-              return s2 = r.load, [4, t2.text()];
+              if (o2 = a2.apply(void 0, [e2.sent()]), 0 === (s2 = this.entryContent(o2)).length) throw new Error("Firebird's Nest: no entry content at ".concat(t2));
+              if (!(c2 = this.normalizeText(o2("#main h1.entry-title").first().text()))) throw new Error("Firebird's Nest: missing novel title at ".concat(t2));
+              return u3 = this.lastSegment(t2), h = { path: t2, name: c2, cover: i.defaultCover }, this.applyMetadata(s2, o2, h), l = this.parseToc(s2, o2), [4, this.fetchTagArchive(u3)];
             case 2:
-              if (o2 = s2.apply(void 0, [e2.sent()]), l2 = o2("title").text().trim(), this.getHostname(a3) != this.getHostname(t2.url) || "Bot Verification" == l2 || "You are being redirected..." == l2 || "Un instant..." == l2 || "Just a moment..." == l2 || "Redirecting..." == l2) throw new Error("Captcha error, please open in webview");
+              if (f = e2.sent(), p = {}, f) for (v = 0, d = f.posts; v < d.length; v++) g = d[v], p[g.slug] = g.date;
+              for (m = [], b = {}, y = 0, w = l; y < w.length; y++) x = w[y], b[x.path] || (b[x.path] = true, T = { name: x.name, path: x.path }, (N = this.announcementDateFor(x.path, u3, f, p)) && (T.releaseTime = N), m.push(T));
+              return f ? [4, this.resolveAnnouncementChapters(f, u3, t2)] : [3, 4];
+            case 3:
+              for ((P = e2.sent()).sort(function(t3, e3) {
+                return t3.post.date !== e3.post.date ? t3.post.date < e3.post.date ? -1 : 1 : A.lastNumber(t3.post.slug) - A.lastNumber(e3.post.slug);
+              }), C = 0, O = P; C < O.length; C++) S = O[C], b[S.path] || (b[S.path] = true, m.push({ name: S.post.title, path: S.path, releaseTime: S.post.date }));
+              e2.label = 4;
+            case 4:
+              if (0 === m.length) throw new Error("Firebird's Nest: no chapters found for ".concat(t2));
+              return m.forEach(function(t3, e3) {
+                t3.chapterNumber = e3 + 1;
+              }), h.chapters = m, [2, h];
+          }
+        });
+      });
+    }, u2.prototype.parseChapter = function(n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, i2, o2, s2, c2, u3, h = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return t2 = this.toPath(n2), i2 = (0, a.isUrlAbsolute)(t2) ? t2 : this.site + t2, s2 = r2.load, [4, this.fetchHtml(i2)];
+            case 1:
+              if (o2 = s2.apply(void 0, [e2.sent()]), 0 === (c2 = this.entryContent(o2)).length) throw new Error("Firebird's Nest: no chapter content at ".concat(t2));
+              if (c2.find("#jp-post-flair, .sharedaddy, .jp-relatedposts").remove(), c2.find("p").each(function(t3, e3) {
+                var n3 = h.normalizeText(o2(e3).text());
+                n3.length < 60 && -1 !== n3.indexOf("|") && /(TOC|Contents)/i.test(n3) && o2(e3).remove();
+              }), !(u3 = c2.html()) || 0 === u3.trim().length) throw new Error("Firebird's Nest: empty chapter content at ".concat(t2));
+              return [2, u3.trim()];
+          }
+        });
+      });
+    }, u2.prototype.searchNovels = function(n2, o2) {
+      return t(this, void 0, void 0, function() {
+        var t2, a2, s2, c2, u3, h, l, f, p, v, d, g, m, b = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, this.fetchNovelCatalog()];
+            case 1:
+              return t2 = e2.sent(), a2 = encodeURIComponent(n2), s2 = o2 > 1 ? "&paged=".concat(o2) : "", u3 = r2.load, [4, this.fetchHtml("".concat(this.site, "/?s=").concat(a2).concat(s2))];
+            case 2:
+              for (c2 = u3.apply(void 0, [e2.sent()]), h = {}, l = [], f = 0, p = t2; f < p.length; f++) v = p[f], d = this.lastSegment(v.path), l.push(d), h[d] = v.name;
+              return g = [], m = {}, c2("h2.entry-title > a").each(function(t3, e3) {
+                var n3 = c2(e3).attr("href");
+                if (n3) {
+                  var r3 = b.novelSlugForResult(b.toPath(n3), l);
+                  r3 && !m[r3] && (m[r3] = true, g.push({ name: h[r3], path: "/".concat(r3, "/"), cover: i.defaultCover }));
+                }
+              }), [2, g];
+          }
+        });
+      });
+    }, u2.prototype.fetchNovelCatalog = function() {
+      return t(this, void 0, void 0, function() {
+        var t2, n2, o2, a2, c2 = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return n2 = r2.load, [4, this.fetchHtml(this.site + "/")];
+            case 1:
+              if (t2 = n2.apply(void 0, [e2.sent()]), o2 = [], a2 = {}, t2("#site-navigation .sub-menu a").each(function(e3, n3) {
+                var r3 = t2(n3).attr("href");
+                if (r3) {
+                  var u3 = c2.toPath(r3);
+                  if (u3 && -1 === s.indexOf(u3) && !a2[u3]) {
+                    var h = c2.normalizeText(t2(n3).text());
+                    h && (a2[u3] = true, o2.push({ name: h, path: u3, cover: i.defaultCover }));
+                  }
+                }
+              }), 0 === o2.length) throw new Error("Firebird's Nest: no novels found in the site menu");
               return [2, o2];
           }
         });
       });
-    }, a2.prototype.parseNovels = function(t2) {
-      var e2 = [];
-      return t2(".manga-title-badges").remove(), t2(".page-item-detail, .c-tabs-item__content").each(function(a3, n2) {
-        var r2 = t2(n2).find(".post-title").text().trim(), o2 = t2(n2).find(".post-title").find("a").attr("href") || "";
-        if (r2 && o2) {
-          var s2 = t2(n2).find("img"), l2 = { name: r2, cover: s2.attr("data-src") || s2.attr("src") || s2.attr("data-lazy-srcset") || i.defaultCover, path: o2.replace(/https?:\/\/.*?\//, "") };
-          e2.push(l2);
+    }, u2.prototype.applyMetadata = function(t2, e2, n2) {
+      for (var i2 = this, o2 = (t2.html() || "").replace(/<br\s*\/?>/gi, "\n").replace(/<\/p>/gi, "\n"), a2 = (0, r2.load)("<div>".concat(o2, "</div>"))("div").text().split("\n").map(function(t3) {
+        return i2.normalizeText(t3);
+      }).filter(function(t3) {
+        return t3;
+      }), s2 = 0, c2 = a2; s2 < c2.length; s2++) {
+        var u3 = c2[s2], h = u3.match(/^Author:\s*(.+)$/i);
+        if (h) n2.author = this.normalizeText(h[1]);
+        else {
+          var l = u3.match(/^Status:\s*(.+)$/i);
+          l && (n2.status = this.parseStatus(l[1]));
         }
-      }), e2;
-    }, a2.prototype.popularNovels = function(a3, n2) {
-      return t(this, arguments, void 0, function(t2, a4) {
-        var n3, r2, i2, o2, s2, l2, u2 = a4.filters, c2 = a4.showLatestNovels;
-        return e(this, function(e2) {
-          switch (e2.label) {
-            case 0:
-              for (r2 in n3 = this.site + "/page/" + t2 + "/?s=&post_type=wp-manga", u2 || (u2 = this.filters || {}), c2 && (n3 += "&m_orderby=latest"), u2) if ("object" == typeof u2[r2].value) for (i2 = 0, o2 = u2[r2].value; i2 < o2.length; i2++) s2 = o2[i2], n3 += "&".concat(r2, "=").concat(s2);
-              else u2[r2].value && (n3 += "&".concat(r2, "=").concat(u2[r2].value));
-              return [4, this.getCheerio(n3, 1 != t2)];
-            case 1:
-              return l2 = e2.sent(), [2, this.parseNovels(l2)];
+      }
+      var f = [], p = false;
+      t2.find("p, strong, h1, h2, h3, h4, h5, h6").each(function(t3, n3) {
+        if (!p) {
+          var r3 = e2(n3), o3 = i2.normalizeText(r3.text());
+          i2.isTocMarker(r3, o3) ? p = true : r3.is("p") && (r3.find("a").length > 0 || /^Author:/i.test(o3) || /^Status:/i.test(o3) || !o3 || f.push(o3));
+        }
+      }), f.length > 0 && (n2.summary = f.join("\n\n"));
+    }, u2.prototype.isTocMarker = function(t2, e2) {
+      return t2.is("p") ? /^table of contents/i.test(e2) : /(table of )?contents$/i.test(e2);
+    }, u2.prototype.parseStatus = function(t2) {
+      var e2 = t2.toLowerCase();
+      return 0 === e2.indexOf("ongoing") ? o.NovelStatus.Ongoing : 0 === e2.indexOf("completed") ? o.NovelStatus.Completed : -1 !== e2.indexOf("hiatus") ? o.NovelStatus.OnHiatus : o.NovelStatus.Unknown;
+    }, u2.prototype.parseToc = function(t2, e2) {
+      var n2 = this, r3 = [], i2 = {}, o2 = false;
+      return t2.find("a, p, strong, h1, h2, h3, h4, h5, h6").each(function(t3, a2) {
+        var s2 = e2(a2);
+        if (o2) {
+          if (s2.is("a")) {
+            var c2 = s2.attr("href");
+            if (c2) {
+              var u3 = n2.toPath(c2), h = n2.normalizeText(s2.text());
+              u3 && h && !i2[u3] && -1 === u3.indexOf("/feed") && (i2[u3] = true, r3.push({ path: u3, name: h }));
+            }
           }
-        });
-      });
-    }, a2.prototype.parseNovel = function(a3) {
+        } else {
+          if (s2.is("a")) return;
+          n2.isTocMarker(s2, n2.normalizeText(s2.text())) && (o2 = true);
+        }
+      }), r3;
+    }, u2.prototype.fetchTagArchive = function(r3) {
       return t(this, void 0, void 0, function() {
-        var t2, l2, u2, c2, p2, h, d, m, f, v, g, b, y, x, w, k, _ = this;
-        return e(this, function(e2) {
-          switch (e2.label) {
+        var t2, i2, o2, a2, s2, c2, u3, h, l = this;
+        return e(this, function(f) {
+          switch (f.label) {
             case 0:
-              return [4, this.getCheerio(this.site + a3, false)];
+              t2 = [r3], (i2 = r3.split("-")[0]) && i2 !== r3 && t2.push(i2), o2 = /* @__PURE__ */ __name(function(t3) {
+                var r4, i3, o3, s3, c3, u4, h2, f2, p, v, d, g, m, b, y;
+                return e(this, function(e2) {
+                  switch (e2.label) {
+                    case 0:
+                      return r4 = "".concat(a2.site, "/tag/").concat(t3, "/"), [4, (0, n.fetchApi)(r4)];
+                    case 1:
+                      if (404 === (i3 = e2.sent()).status) return [2, "continue"];
+                      if (!i3.ok) throw a2.httpError(i3.status, r4);
+                      return c3 = (s3 = a2).parseTagPage, [4, i3.text()];
+                    case 2:
+                      for (o3 = c3.apply(s3, [e2.sent()]), u4 = [], h2 = 2; h2 <= o3.maxPage; h2++) u4.push(h2);
+                      return [4, a2.mapLimit(u4, 6, function(e3) {
+                        return l.parseTagPageAsync(e3, t3);
+                      })];
+                    case 3:
+                      for (f2 = e2.sent(), p = o3.posts, v = 0, d = f2; v < d.length; v++) for (g = d[v], m = 0, b = g.posts; m < b.length; m++) y = b[m], p.push(y);
+                      return [2, { value: { tagSlug: t3, posts: p } }];
+                  }
+                });
+              }, "o"), a2 = this, s2 = 0, c2 = t2, f.label = 1;
             case 1:
-              return (t2 = e2.sent())(".manga-title-badges, #manga-title span").remove(), (l2 = { path: a3, name: t2(".post-title h1").text().trim() || t2("#manga-title h1").text().trim() || t2(".manga-title").text().trim() || "" }).cover = t2(".summary_image > a > img").attr("data-lazy-src") || t2(".summary_image > a > img").attr("data-src") || t2(".summary_image > a > img").attr("src") || i.defaultCover, t2(".post-content_item, .post-content").each(function() {
-                var e3 = t2(this).find("h5").text().trim(), a4 = t2(this).find(".summary-content") || t2(this).find(".summary_content");
-                switch (e3) {
-                  case "Genre(s)":
-                  case "Genre":
-                  case "Tags(s)":
-                  case "Tag(s)":
-                  case "Tags":
-                  case "G\xE9nero(s)":
-                  case "Kategori":
-                  case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
-                    l2.genres ? l2.genres += ", " + a4.find("a").map(function(e4, a5) {
-                      return t2(a5).text();
-                    }).get().join(", ") : l2.genres = a4.find("a").map(function(e4, a5) {
-                      return t2(a5).text();
-                    }).get().join(", ");
-                    break;
-                  case "Author(s)":
-                  case "Author":
-                  case "Autor(es)":
-                  case "\u0627\u0644\u0645\u0624\u0644\u0641":
-                  case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
-                    l2.author = a4.text().trim();
-                    break;
-                  case "Translator(s)":
-                  case "Translator":
-                  case "Translators":
-                    l2.author || (l2.author = a4.text().trim());
-                    break;
-                  case "Status":
-                  case "Novel":
-                  case "Estado":
-                  case "Durum":
-                    l2.status = a4.text().trim().includes("OnGoing") || a4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
-                    break;
-                  case "Artist(s)":
-                    l2.artist = a4.text().trim();
-                }
-              }), l2.genres || (l2.genres = t2(".genres-content").text().trim()), l2.status || (l2.status = t2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), l2.author || (l2.author = t2(".manga-author a").text().trim()), l2.rating || (l2.rating = parseFloat(t2(".post-rating span").text().trim())), l2.author || (l2.author = t2(".manga-authors").text().trim()), t2("div.summary__content .code-block,script,noscript").remove(), l2.summary = this.translateDragontea(t2("div.summary__content")).text().trim() || t2("#tab-manga-about").text().trim() || t2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, a4) {
-                return t2(a4).text();
-              }).get().join("\n\n").trim() || t2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, a4) {
-                return t2(a4).text();
-              }).get().join("\n\n").trim() || t2(".manga-summary p").map(function(e3, a4) {
-                return t2(a4).text();
-              }).get().join("\n\n").trim() || t2(".manga-excerpt p").map(function(e3, a4) {
-                return t2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(t3) {
-                return t3.text();
-              })] : [3, 7];
+              return s2 < c2.length ? (u3 = c2[s2], [5, o2(u3)]) : [3, 4];
             case 2:
-              if (c2 = e2.sent(), p2 = (0, r.load)(c2), !((h = p2(".pagination a[data-page]")).length > 0)) return [3, 6];
-              if (d = Math.max.apply(Math, h.map(function(t3, e3) {
-                return parseInt(p2(e3).attr("data-page") || "1", 10);
-              }).get()), m = h.last().attr("href") || "", -1 === (f = m.indexOf("?"))) return [3, 6];
-              v = m.slice(f).replace(/\d+$/, ""), g = 2, e2.label = 3;
+              if ("object" == typeof (h = f.sent())) return [2, h.value];
+              f.label = 3;
             case 3:
-              return g <= d ? [4, (0, n.fetchApi)(this.site + a3 + "ajax/chapters/" + v + g, { method: "POST", referrer: this.site + a3 }).then(function(t3) {
-                return t3.text();
-              })] : [3, 6];
+              return s2++, [3, 1];
             case 4:
-              (b = e2.sent()) && "0" !== b && (c2 += b), e2.label = 5;
-            case 5:
-              return g++, [3, 3];
-            case 6:
-              return [3, 9];
-            case 7:
-              return y = t2(".rating-post-id").attr("value") || t2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(t3) {
-                return t3.text();
+              return [2, null];
+          }
+        });
+      });
+    }, u2.prototype.parseTagPageAsync = function(n2, r3) {
+      return t(this, void 0, void 0, function() {
+        var t2;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return t2 = this.parseTagPage, [4, this.fetchHtml("".concat(this.site, "/tag/").concat(r3, "/page/").concat(n2, "/"))];
+            case 1:
+              return [2, t2.apply(this, [e2.sent()])];
+          }
+        });
+      });
+    }, u2.prototype.parseTagPage = function(t2) {
+      var e2 = this, n2 = (0, r2.load)(t2), i2 = [];
+      n2("#main h2.entry-title > a").each(function(t3, r3) {
+        var o3 = n2(r3).attr("href");
+        if (o3) {
+          var a2 = e2.toPath(o3), s2 = a2.match(/^\/(\d{4})\/(\d{2})\/(\d{2})\/([^/]+)\/$/);
+          s2 && i2.push({ path: a2, slug: s2[4], date: "".concat(s2[1], "-").concat(s2[2], "-").concat(s2[3]), title: e2.normalizeText(n2(r3).text()) });
+        }
+      });
+      var o2 = 1;
+      return n2("#main .nav-links a").each(function(t3, e3) {
+        var r3 = (n2(e3).attr("href") || "").match(/\/page\/(\d+)\//);
+        r3 && Number(r3[1]) > o2 && (o2 = Number(r3[1]));
+      }), { posts: i2, maxPage: o2 };
+    }, u2.prototype.resolveAnnouncementChapters = function(n2, r3, i2) {
+      return t(this, void 0, void 0, function() {
+        var o2, a2, s2, c2, u3, h, l, f, p, v, d, g, m = this;
+        return e(this, function(b) {
+          switch (b.label) {
+            case 0:
+              for (o2 = n2.tagSlug + "-", a2 = [], s2 = [], c2 = 0, u3 = n2.posts; c2 < u3.length; c2++) 0 === (h = u3[c2]).slug.indexOf(o2) && (l = h.slug.slice(o2.length), (f = this.deriveChapterPath(l, r3, h.path)) ? a2.push({ post: h, path: f }) : s2.push(h));
+              return [4, this.mapLimit(s2, 4, function(n3) {
+                return t(m, void 0, void 0, function() {
+                  var t2;
+                  return e(this, function(e2) {
+                    switch (e2.label) {
+                      case 0:
+                        return [4, this.resolveAnnouncementPath(n3, i2)];
+                      case 1:
+                        return [2, (t2 = e2.sent()) ? { post: n3, path: t2 } : null];
+                    }
+                  });
+                });
               })];
-            case 8:
-              c2 = e2.sent(), e2.label = 9;
-            case 9:
-              return "0" !== c2 && (t2 = (0, r.load)(c2)), w = t2(".wp-manga-chapter").length, t2(".wp-manga-chapter").each(function(e3, a4) {
-                var n2 = t2(a4).find("a").text().trim(), r2 = a4.attribs.class.includes("premium-block");
-                r2 && (n2 = "\u{1F512} " + n2);
-                var i2 = t2(a4).find("span.chapter-release-date").text().trim();
-                i2 = i2 ? _.parseData(i2) : (0, s.default)().format("LL");
-                var o2 = t2(a4).find("a").attr("href") || "";
-                !o2 || "#" == o2 || r2 && _.hideLocked || u2.push({ name: n2, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: w - e3 });
-              }), l2.chapters = u2.reverse(), [2, l2];
+            case 1:
+              for (p = b.sent(), v = 0, d = p; v < d.length; v++) (g = d[v]) && a2.push(g);
+              return [2, a2];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(a3) {
+    }, u2.prototype.deriveChapterPath = function(t2, e2, n2) {
+      if (/^ch-\d+(-\d+)?$/.test(t2)) return n2;
+      var r3 = t2.match(/^v(\d+)ch(\d+)$/);
+      return r3 ? "/".concat(e2, "/v").concat(r3[1], "-ch").concat(r3[2], "/") : /^(v\d+c\d+|ch\d+)(-\d+)?$/.test(t2) ? "/".concat(e2, "/").concat(t2, "/") : null;
+    }, u2.prototype.resolveAnnouncementPath = function(n2, i2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, r2;
+        var t2, o2, a2, s2, c2, u3 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, this.getCheerio(this.site + a3, false)];
+              return o2 = r2.load, [4, this.fetchHtml(this.site + n2.path)];
             case 1:
-              return t2 = e2.sent(), n2 = t2(".text-left") || t2(".text-right") || t2(".entry-content") || t2(".c-blog-post > div > div:nth-child(2)"), null === (r2 = this.options) || void 0 === r2 || r2.customJs, [2, this.translateDragontea(n2).html() || ""];
+              return t2 = o2.apply(void 0, [e2.sent()]), 0 === (a2 = this.entryContent(t2)).length ? [2, null] : (s2 = "/" === i2.charAt(i2.length - 1) ? i2 : i2 + "/", c2 = null, a2.find("a").each(function(e3, n3) {
+                if (!c2) {
+                  var r3 = t2(n3).attr("href");
+                  if (r3) {
+                    var o3 = u3.toPath(r3);
+                    0 === o3.indexOf(s2) && o3 !== i2 && -1 === o3.indexOf("/feed") && (c2 = o3);
+                  }
+                }
+              }), c2 ? [2, c2] : [2, this.normalizeText(a2.text()).length >= 200 ? n2.path : null]);
           }
         });
       });
-    }, a2.prototype.searchNovels = function(a3, n2) {
+    }, u2.prototype.announcementDateFor = function(t2, e2, n2, r3) {
+      if (!(0, a.isUrlAbsolute)(t2) && n2) for (var i2 = this.lastSegment(t2), o2 = i2.replace(/^v(\d+)-ch/, "v$1ch"), s2 = 0, c2 = [i2, o2, "".concat(e2, "-").concat(i2), "".concat(e2, "-").concat(o2), "".concat(n2.tagSlug, "-").concat(i2), "".concat(n2.tagSlug, "-").concat(o2)]; s2 < c2.length; s2++) {
+        var u3 = c2[s2];
+        if (r3[u3]) return r3[u3];
+      }
+    }, u2.prototype.novelSlugForResult = function(t2, e2) {
+      var n2 = t2.split("/").filter(function(t3) {
+        return t3;
+      });
+      if (0 === n2.length) return null;
+      if (4 === n2.length && /^\d{4}$/.test(n2[0])) {
+        for (var r3 = n2[3], i2 = 0, o2 = e2; i2 < o2.length; i2++) {
+          var a2 = o2[i2];
+          if (0 === r3.indexOf(a2 + "-")) return a2;
+        }
+        return null;
+      }
+      return -1 !== e2.indexOf(n2[0]) ? n2[0] : n2.length > 1 && -1 !== e2.indexOf(n2[1]) ? n2[1] : null;
+    }, u2.prototype.entryContent = function(t2) {
+      var e2 = t2("#main .entry-content").first();
+      return 0 === e2.length && (e2 = t2(".entry-content").first()), e2;
+    }, u2.prototype.toPath = function(t2) {
+      var e2 = t2.trim();
+      if (0 === e2.indexOf("//") && (e2 = "https:" + e2), /^https?:\/\//i.test(e2)) {
+        var n2 = e2.match(/^https?:\/\/([^/?#]+)([/?#].*)?$/i);
+        if (!n2) return "";
+        var r3 = n2[1].toLowerCase();
+        if (-1 === c.indexOf(r3)) return e2.split("#")[0];
+        e2 = n2[2] || "/";
+      }
+      var i2 = e2.split("#")[0].split("?")[0];
+      if (!i2) return "/";
+      var o2 = "/" === i2.charAt(0) ? i2 : "/" + i2;
+      return "/" === o2.charAt(o2.length - 1) ? o2 : o2 + "/";
+    }, u2.prototype.fetchHtml = function(r3) {
       return t(this, void 0, void 0, function() {
-        var t2, r2;
+        var t2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = this.site + "/page/" + n2 + "/?s=" + encodeURIComponent(a3) + "&post_type=wp-manga", [4, this.getCheerio(t2, true)];
+              return [4, (0, n.fetchApi)(r3)];
             case 1:
-              return r2 = e2.sent(), [2, this.parseNovels(r2)];
+              if (!(t2 = e2.sent()).ok) throw this.httpError(t2.status, r3);
+              return [2, t2.text()];
           }
         });
       });
-    }, a2;
+    }, u2.prototype.httpError = function(t2, e2) {
+      return Object.assign(new Error("HTTP ".concat(t2, " while fetching ").concat(e2)), { status: t2 });
+    }, u2.prototype.mapLimit = function(n2, r3, i2) {
+      return t(this, void 0, void 0, function() {
+        var o2, a2, s2, c2, u3, h = this;
+        return e(this, function(l) {
+          switch (l.label) {
+            case 0:
+              for (o2 = new Array(n2.length), a2 = 0, s2 = [], c2 = Math.min(r3, n2.length), u3 = 0; u3 < c2; u3++) s2.push(t(h, void 0, void 0, function() {
+                var t2, r4, s3;
+                return e(this, function(e2) {
+                  switch (e2.label) {
+                    case 0:
+                      return a2 < n2.length ? (t2 = a2, a2 += 1, r4 = o2, s3 = t2, [4, i2(n2[t2])]) : [3, 2];
+                    case 1:
+                      return r4[s3] = e2.sent(), [3, 0];
+                    case 2:
+                      return [2];
+                  }
+                });
+              }));
+              return [4, Promise.all(s2)];
+            case 1:
+              return l.sent(), [2, o2];
+          }
+        });
+      });
+    }, u2.prototype.normalizeText = function(t2) {
+      return t2.replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+    }, u2.prototype.lastSegment = function(t2) {
+      var e2 = t2.split("/").filter(function(t3) {
+        return t3;
+      });
+      return e2.length > 0 ? e2[e2.length - 1] : "";
+    }, u2.prototype.lastNumber = function(t2) {
+      var e2 = t2.match(/\d+/g);
+      return e2 ? Number(e2[e2.length - 1]) : 0;
+    }, u2;
   }();
-  exports.MadaraPlugin = c;
-  var p = new c({ id: "lunarletters", sourceSite: "https://lunarletters.com/", sourceName: "LunarLetters", options: { useNewChapterEndpoint: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Fantasy Romance", value: "fantasy-romance" }, { label: "Historical Romance", value: "historical-romance" }, { label: "Modern Romance", value: "modern-romance" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
-  exports.default = p;
+  exports.default = new u();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

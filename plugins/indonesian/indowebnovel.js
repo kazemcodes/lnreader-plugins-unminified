@@ -25470,73 +25470,81 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = function() {
     function s2() {
-      this.id = "IDWN.id", this.name = "IndoWebNovel", this.icon = "src/id/indowebnovel/icon.png", this.site = "https://indowebnovel.id/", this.version = "1.2.3";
+      this.id = "IDWN.id", this.name = "IndoWebNovel", this.icon = "src/id/indowebnovel/icon.png", this.site = "https://indowebnovel.id/", this.version = "1.3.1", this.headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36", Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8", "Accept-Language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7", Referer: "https://indowebnovel.id/" };
     }
     __name(s2, "s");
-    return s2.prototype.parseNovels = function(t2) {
+    return s2.prototype.fetchPage = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, (0, n.fetchApi)(r2, { headers: this.headers })];
+            case 1:
+              if (!(t2 = e2.sent()).ok) throw Object.assign(new Error("Request failed: " + t2.status), { status: t2.status });
+              return [2, t2.text()];
+          }
+        });
+      });
+    }, s2.prototype.parseNovels = function(t2) {
       var e2 = this, r2 = [];
-      return t2(".flexbox2-item").each(function(n2, i2) {
-        var s3 = t2(i2).find(".flexbox2-title span").first().text(), o = t2(i2).find("img").attr("src"), a = t2(i2).find(".flexbox2-content > a").attr("href");
-        a && r2.push({ name: s3, cover: o, path: a.slice(e2.site.length) });
+      return (t2(".flexbox2-item").length ? t2(".flexbox2-item") : t2(".flexbox3-item").length ? t2(".flexbox3-item") : t2(".popular .flexbox-item")).each(function(n2, i2) {
+        var s3 = t2(i2), o = (s3.find(".flexbox2-title span").first().text() || s3.find(".title a").first().text() || s3.find(".flexbox-title").first().text()).trim(), a = s3.find("img").attr("src"), c = s3.find(".flexbox2-content > a").attr("href") || s3.find(".flexbox3-content > a").attr("href") || s3.find("a").attr("href");
+        c && r2.push({ name: o, cover: a, path: c.slice(e2.site.length) });
       }), r2;
     }, s2.prototype.popularNovels = function() {
       return t(this, arguments, void 0, function(t2) {
-        var i2, s3, o;
+        var n2, i2, s3;
         return void 0 === t2 && (t2 = 1), e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return i2 = this.site + "page/".concat(t2, "/?s"), [4, (0, n.fetchApi)(i2)];
+              return n2 = this.site + "page/".concat(t2, "/?s"), [4, this.fetchPage(n2)];
             case 1:
-              return [4, e2.sent().text()];
-            case 2:
+              return i2 = e2.sent(), s3 = (0, r.load)(i2), [2, this.parseNovels(s3)];
+          }
+        });
+      });
+    }, s2.prototype.parseNovel = function(n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, s3, o, a, c = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, this.fetchPage(this.site + n2)];
+            case 1:
+              return t2 = e2.sent(), (s3 = (0, r.load)(t2))(".series-synops div").remove(), (o = { path: n2, name: s3(".series-title h2").text().trim() || "Untitled", cover: s3(".series-thumb img").attr("src"), author: s3(".series-infolist li:contains('Author') span").text().trim(), status: "Completed" === s3(".status").text().trim() ? i.NovelStatus.Completed : i.NovelStatus.Ongoing, summary: s3(".series-synops").text().trim(), chapters: [] }).genres = s3(".series-genres a").map(function(t3, e3) {
+                return s3(e3).text().trim();
+              }).toArray().join(","), a = [], s3(".series-chapterlists li").each(function(t3, e3) {
+                var r2 = s3(e3).find("a span").not(".date").first().text().replace(/\s+/g, " ").trim(), n3 = s3(e3).find("a").attr("href");
+                if (n3) {
+                  var i2 = { name: r2, path: n3.slice(c.site.length) }, o2 = s3(e3).find("span.date").first().text().trim();
+                  o2 && !isNaN(Date.parse(o2)) && (i2.releaseTime = new Date(o2).toISOString()), a.push(i2);
+                }
+              }), o.chapters = a.reverse(), [2, o];
+          }
+        });
+      });
+    }, s2.prototype.parseChapter = function(n2) {
+      return t(this, void 0, void 0, function() {
+        var t2, i2;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, this.fetchPage(this.site + n2)];
+            case 1:
+              return t2 = e2.sent(), i2 = (0, r.load)(t2), [2, i2("main #content").html() || ""];
+          }
+        });
+      });
+    }, s2.prototype.searchNovels = function(n2) {
+      return t(this, arguments, void 0, function(t2, n3) {
+        var i2, s3, o;
+        return void 0 === n3 && (n3 = 1), e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return i2 = this.site + "page/".concat(n3, "/?s=").concat(t2), [4, this.fetchPage(i2)];
+            case 1:
               return s3 = e2.sent(), o = (0, r.load)(s3), [2, this.parseNovels(o)];
-          }
-        });
-      });
-    }, s2.prototype.parseNovel = function(s3) {
-      return t(this, void 0, void 0, function() {
-        var t2, o, a, c, u = this;
-        return e(this, function(e2) {
-          switch (e2.label) {
-            case 0:
-              return [4, (0, n.fetchApi)(this.site + s3)];
-            case 1:
-              return [4, e2.sent().text()];
-            case 2:
-              return t2 = e2.sent(), (o = (0, r.load)(t2))(".series-synops div").remove(), (a = { path: s3, name: o(".series-title h2").text().trim() || "Untitled", cover: o(".series-thumb img").attr("src"), author: o(".series-infolist li:contains('Author') span").text().trim(), status: "Completed" === o(".status").text().trim() ? i.NovelStatus.Completed : i.NovelStatus.Ongoing, summary: o(".series-synops").text().trim(), chapters: [] }).genres = o(".series-genres a").map(function(t3, e3) {
-                return o(e3).text().trim();
-              }).toArray().join(","), c = [], o(".series-chapterlist li").each(function(t3, e3) {
-                var r2 = o(e3).find("a").text().trim(), n2 = o(e3).find("a").attr("href");
-                n2 && c.push({ name: r2, path: n2.slice(u.site.length) });
-              }), a.chapters = c.reverse(), [2, a];
-          }
-        });
-      });
-    }, s2.prototype.parseChapter = function(i2) {
-      return t(this, void 0, void 0, function() {
-        var t2, s3;
-        return e(this, function(e2) {
-          switch (e2.label) {
-            case 0:
-              return [4, (0, n.fetchApi)(this.site + i2)];
-            case 1:
-              return [4, e2.sent().text()];
-            case 2:
-              return t2 = e2.sent(), s3 = (0, r.load)(t2), [2, s3(".adsads").html() || ""];
-          }
-        });
-      });
-    }, s2.prototype.searchNovels = function(i2) {
-      return t(this, arguments, void 0, function(t2, i3) {
-        var s3, o, a;
-        return void 0 === i3 && (i3 = 1), e(this, function(e2) {
-          switch (e2.label) {
-            case 0:
-              return s3 = this.site + "page/".concat(i3, "/?s=").concat(t2), [4, (0, n.fetchApi)(s3)];
-            case 1:
-              return [4, e2.sent().text()];
-            case 2:
-              return o = e2.sent(), a = (0, r.load)(o), [2, this.parseNovels(a)];
           }
         });
       });

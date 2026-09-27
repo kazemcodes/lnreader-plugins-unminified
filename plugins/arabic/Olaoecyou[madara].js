@@ -25774,11 +25774,11 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, a2, l2, t2) {
-    return new (l2 || (l2 = Promise))(function(r2, n2) {
+  var e = function(e2, a2, t2, l2) {
+    return new (t2 || (t2 = Promise))(function(r2, n2) {
       function u2(e3) {
         try {
-          o2(t2.next(e3));
+          o2(l2.next(e3));
         } catch (e4) {
           n2(e4);
         }
@@ -25786,7 +25786,7 @@ var LNReaderPlugin = (() => {
       __name(u2, "u");
       function i2(e3) {
         try {
-          o2(t2.throw(e3));
+          o2(l2.throw(e3));
         } catch (e4) {
           n2(e4);
         }
@@ -25794,15 +25794,15 @@ var LNReaderPlugin = (() => {
       __name(i2, "i");
       function o2(e3) {
         var a3;
-        e3.done ? r2(e3.value) : (a3 = e3.value, a3 instanceof l2 ? a3 : new l2(function(e4) {
+        e3.done ? r2(e3.value) : (a3 = e3.value, a3 instanceof t2 ? a3 : new t2(function(e4) {
           e4(a3);
         })).then(u2, i2);
       }
       __name(o2, "o");
-      o2((t2 = t2.apply(e2, a2 || [])).next());
+      o2((l2 = l2.apply(e2, a2 || [])).next());
     });
   }, a = function(e2, a2) {
-    var l2, t2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+    var t2, l2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & r2[0]) throw r2[1];
       return r2[1];
     }, "sent"), trys: [], ops: [] }, u2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
@@ -25812,10 +25812,10 @@ var LNReaderPlugin = (() => {
     function i2(i3) {
       return function(o2) {
         return function(i4) {
-          if (l2) throw new TypeError("Generator is already executing.");
+          if (t2) throw new TypeError("Generator is already executing.");
           for (; u2 && (u2 = 0, i4[0] && (n2 = 0)), n2; ) try {
-            if (l2 = 1, t2 && (r2 = 2 & i4[0] ? t2.return : i4[0] ? t2.throw || ((r2 = t2.return) && r2.call(t2), 0) : t2.next) && !(r2 = r2.call(t2, i4[1])).done) return r2;
-            switch (t2 = 0, r2 && (i4 = [2 & i4[0], r2.value]), i4[0]) {
+            if (t2 = 1, l2 && (r2 = 2 & i4[0] ? l2.return : i4[0] ? l2.throw || ((r2 = l2.return) && r2.call(l2), 0) : l2.next) && !(r2 = r2.call(l2, i4[1])).done) return r2;
+            switch (l2 = 0, r2 && (i4 = [2 & i4[0], r2.value]), i4[0]) {
               case 0:
               case 1:
                 r2 = i4;
@@ -25823,7 +25823,7 @@ var LNReaderPlugin = (() => {
               case 4:
                 return n2.label++, { value: i4[1], done: false };
               case 5:
-                n2.label++, t2 = i4[1], i4 = [0];
+                n2.label++, l2 = i4[1], i4 = [0];
                 continue;
               case 7:
                 i4 = n2.ops.pop(), n2.trys.pop();
@@ -25850,9 +25850,9 @@ var LNReaderPlugin = (() => {
             }
             i4 = a2.call(e2, n2);
           } catch (e3) {
-            i4 = [6, e3], t2 = 0;
+            i4 = [6, e3], l2 = 0;
           } finally {
-            l2 = r2 = 0;
+            t2 = r2 = 0;
           }
           if (5 & i4[0]) throw i4[1];
           return { value: i4[0] ? i4[1] : void 0, done: true };
@@ -25860,99 +25860,99 @@ var LNReaderPlugin = (() => {
       };
     }
     __name(i2, "i");
-  }, l = function(e2) {
+  }, t = function(e2) {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), u = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = l(require_dayjs_min()), o = (init_storage2(), __toCommonJS(storage_exports)), s = /* @__PURE__ */ __name(function(e2, a2) {
+  var l = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), u = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = t(require_dayjs_min()), o = (init_storage2(), __toCommonJS(storage_exports)), s = /* @__PURE__ */ __name(function(e2, a2) {
     return new RegExp(a2.join("|")).test(e2);
   }, "s"), v = function() {
-    function l2(e2) {
-      var a2, l3;
+    function t2(e2) {
+      var a2, t3;
       this.hideLocked = o.storage.get("hideLocked"), this.parseData = function(e3) {
-        var a3, l4 = (0, i.default)(), t3 = (null === (a3 = e3.match(/\d+/)) || void 0 === a3 ? void 0 : a3[0]) || "", r2 = parseInt(t3, 10);
-        if (!t3) return e3;
-        if (s(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) l4 = l4.subtract(r2, "second");
-        else if (s(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) l4 = l4.subtract(r2, "minute");
-        else if (s(e3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) l4 = l4.subtract(r2, "hours");
-        else if (s(e3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) l4 = l4.subtract(r2, "days");
-        else if (s(e3, ["week", "semana"])) l4 = l4.subtract(r2, "week");
-        else if (s(e3, ["month", "mes"])) l4 = l4.subtract(r2, "month");
+        var a3, t4 = (0, i.default)(), l3 = (null === (a3 = e3.match(/\d+/)) || void 0 === a3 ? void 0 : a3[0]) || "", r2 = parseInt(l3, 10);
+        if (!l3) return e3;
+        if (s(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) t4 = t4.subtract(r2, "second");
+        else if (s(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) t4 = t4.subtract(r2, "minute");
+        else if (s(e3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) t4 = t4.subtract(r2, "hours");
+        else if (s(e3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) t4 = t4.subtract(r2, "days");
+        else if (s(e3, ["week", "semana"])) t4 = t4.subtract(r2, "week");
+        else if (s(e3, ["month", "mes"])) t4 = t4.subtract(r2, "month");
         else {
           if (!s(e3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, i.default)(e3).format("LL") ? (0, i.default)(e3).format("LL") : e3;
-          l4 = l4.subtract(r2, "year");
+          t4 = t4.subtract(r2, "year");
         }
-        return l4.format("LL");
+        return t4.format("LL");
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
-      var t2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
-      this.version = "2.2.".concat(t2), this.options = e2.options, this.filters = e2.filters, (null === (l3 = this.options) || void 0 === l3 ? void 0 : l3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      var l2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
+      this.version = "2.2.".concat(l2), this.options = e2.options, this.filters = e2.filters, (null === (t3 = this.options) || void 0 === t3 ? void 0 : t3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
-    __name(l2, "l");
-    return l2.prototype.translateDragontea = function(e2) {
+    __name(t2, "t");
+    return t2.prototype.translateDragontea = function(e2) {
       var a2;
       if ("dragontea" !== this.id) return e2;
-      var l3 = (0, r.load)((null === (a2 = e2.html()) || void 0 === a2 ? void 0 : a2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
-      return e2.html(l3.html()), e2.find("*").addBack().contents().filter(function(e3, a3) {
+      var t3 = (0, r.load)((null === (a2 = e2.html()) || void 0 === a2 ? void 0 : a2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
+      return e2.html(t3.html()), e2.find("*").addBack().contents().filter(function(e3, a3) {
         return 3 === a3.nodeType;
       }).each(function(e3, a3) {
-        var t2 = l3(a3), r2 = t2.text().normalize("NFD").split("").map(function(e4) {
-          var a4 = e4.normalize("NFC"), l4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(a4);
-          return l4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[l4] + e4.slice(a4.length) : e4;
+        var l2 = t3(a3), r2 = l2.text().normalize("NFD").split("").map(function(e4) {
+          var a4 = e4.normalize("NFC"), t4 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(a4);
+          return t4 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[t4] + e4.slice(a4.length) : e4;
         }).join("");
-        t2.replaceWith(r2.replace("\n", "<br>"));
+        l2.replaceWith(r2.replace("\n", "<br>"));
       }), e2;
-    }, l2.prototype.getHostname = function(e2) {
+    }, t2.prototype.getHostname = function(e2) {
       var a2 = (e2 = e2.split("/")[2]).split(".");
       return a2.pop(), a2.join(".");
-    }, l2.prototype.getCheerio = function(l3, n2) {
+    }, t2.prototype.getCheerio = function(t3, n2) {
       return e(this, void 0, void 0, function() {
         var e2, u2, i2, o2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, (0, t.fetchApi)(l3)];
+              return [4, (0, l.fetchApi)(t3)];
             case 1:
               if (!(e2 = a2.sent()).ok && 1 != n2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
               return i2 = r.load, [4, e2.text()];
             case 2:
-              if (u2 = i2.apply(void 0, [a2.sent()]), o2 = u2("title").text().trim(), this.getHostname(l3) != this.getHostname(e2.url) || "Bot Verification" == o2 || "You are being redirected..." == o2 || "Un instant..." == o2 || "Just a moment..." == o2 || "Redirecting..." == o2) throw new Error("Captcha error, please open in webview");
+              if (u2 = i2.apply(void 0, [a2.sent()]), o2 = u2("title").text().trim(), this.getHostname(t3) != this.getHostname(e2.url) || "Bot Verification" == o2 || "You are being redirected..." == o2 || "Un instant..." == o2 || "Just a moment..." == o2 || "Redirecting..." == o2) throw new Error("Captcha error, please open in webview");
               return [2, u2];
           }
         });
       });
-    }, l2.prototype.parseNovels = function(e2) {
+    }, t2.prototype.parseNovels = function(e2) {
       var a2 = [];
-      return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(l3, t2) {
-        var r2 = e2(t2).find(".post-title").text().trim(), u2 = e2(t2).find(".post-title").find("a").attr("href") || "";
+      return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(t3, l2) {
+        var r2 = e2(l2).find(".post-title").text().trim(), u2 = e2(l2).find(".post-title").find("a").attr("href") || "";
         if (r2 && u2) {
-          var i2 = e2(t2).find("img"), o2 = { name: r2, cover: i2.attr("data-src") || i2.attr("src") || i2.attr("data-lazy-srcset") || n.defaultCover, path: u2.replace(/https?:\/\/.*?\//, "") };
+          var i2 = e2(l2).find("img"), o2 = { name: r2, cover: i2.attr("data-src") || i2.attr("src") || i2.attr("data-lazy-srcset") || n.defaultCover, path: u2.replace(/https?:\/\/.*?\//, "") };
           a2.push(o2);
         }
       }), a2;
-    }, l2.prototype.popularNovels = function(l3, t2) {
-      return e(this, arguments, void 0, function(e2, l4) {
-        var t3, r2, n2, u2, i2, o2, s2 = l4.filters, v2 = l4.showLatestNovels;
+    }, t2.prototype.popularNovels = function(t3, l2) {
+      return e(this, arguments, void 0, function(e2, t4) {
+        var l3, r2, n2, u2, i2, o2, s2 = t4.filters, v2 = t4.showLatestNovels;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              for (r2 in t3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", s2 || (s2 = this.filters || {}), v2 && (t3 += "&m_orderby=latest"), s2) if ("object" == typeof s2[r2].value) for (n2 = 0, u2 = s2[r2].value; n2 < u2.length; n2++) i2 = u2[n2], t3 += "&".concat(r2, "=").concat(i2);
-              else s2[r2].value && (t3 += "&".concat(r2, "=").concat(s2[r2].value));
-              return [4, this.getCheerio(t3, 1 != e2)];
+              for (r2 in l3 = this.site + "/page/" + e2 + "/?s=&post_type=wp-manga", s2 || (s2 = this.filters || {}), v2 && (l3 += "&m_orderby=latest"), s2) if ("object" == typeof s2[r2].value) for (n2 = 0, u2 = s2[r2].value; n2 < u2.length; n2++) i2 = u2[n2], l3 += "&".concat(r2, "=").concat(i2);
+              else s2[r2].value && (l3 += "&".concat(r2, "=").concat(s2[r2].value));
+              return [4, this.getCheerio(l3, 1 != e2)];
             case 1:
               return o2 = a2.sent(), [2, this.parseNovels(o2)];
           }
         });
       });
-    }, l2.prototype.parseNovel = function(l3) {
+    }, t2.prototype.parseNovel = function(t3) {
       return e(this, void 0, void 0, function() {
         var e2, o2, s2, v2, c2, b, p, h, d, m, f, g, y, x, w, k, _ = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, this.getCheerio(this.site + l3, false)];
+              return [4, this.getCheerio(this.site + t3, false)];
             case 1:
-              return (e2 = a2.sent())(".manga-title-badges, #manga-title span").remove(), (o2 = { path: l3, name: e2(".post-title h1").text().trim() || e2("#manga-title h1").text().trim() || e2(".manga-title").text().trim() || "" }).cover = e2(".summary_image > a > img").attr("data-lazy-src") || e2(".summary_image > a > img").attr("data-src") || e2(".summary_image > a > img").attr("src") || n.defaultCover, e2(".post-content_item, .post-content").each(function() {
-                var a3 = e2(this).find("h5").text().trim(), l4 = e2(this).find(".summary-content") || e2(this).find(".summary_content");
+              return (e2 = a2.sent())(".manga-title-badges, #manga-title span").remove(), (o2 = { path: t3, name: e2(".post-title h1").text().trim() || e2("#manga-title h1").text().trim() || e2(".manga-title").text().trim() || "" }).cover = e2(".summary_image > a > img").attr("data-lazy-src") || e2(".summary_image > a > img").attr("data-src") || e2(".summary_image > a > img").attr("src") || n.defaultCover, e2(".post-content_item, .post-content").each(function() {
+                var a3 = e2(this).find("h5").text().trim(), t4 = e2(this).find(".summary-content") || e2(this).find(".summary_content");
                 switch (a3) {
                   case "Genre(s)":
                   case "Genre":
@@ -25962,10 +25962,10 @@ var LNReaderPlugin = (() => {
                   case "G\xE9nero(s)":
                   case "Kategori":
                   case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
-                    o2.genres ? o2.genres += ", " + l4.find("a").map(function(a4, l5) {
-                      return e2(l5).text();
-                    }).get().join(", ") : o2.genres = l4.find("a").map(function(a4, l5) {
-                      return e2(l5).text();
+                    o2.genres ? o2.genres += ", " + t4.find("a").map(function(a4, t5) {
+                      return e2(t5).text();
+                    }).get().join(", ") : o2.genres = t4.find("a").map(function(a4, t5) {
+                      return e2(t5).text();
                     }).get().join(", ");
                     break;
                   case "Author(s)":
@@ -25973,24 +25973,31 @@ var LNReaderPlugin = (() => {
                   case "Autor(es)":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
-                    o2.author = l4.text().trim();
+                    o2.author = t4.text().trim();
+                    break;
+                  case "Translator(s)":
+                  case "Translator":
+                  case "Translators":
+                    o2.author || (o2.author = t4.text().trim());
                     break;
                   case "Status":
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    o2.status = l4.text().trim().includes("OnGoing") || l4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? u.NovelStatus.Ongoing : u.NovelStatus.Completed;
+                    o2.status = t4.text().trim().includes("OnGoing") || t4.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? u.NovelStatus.Ongoing : u.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
-                    o2.artist = l4.text().trim();
+                    o2.artist = t4.text().trim();
                 }
-              }), o2.genres || (o2.genres = e2(".genres-content").text().trim()), o2.status || (o2.status = e2(".manga-status").text().trim().includes("OnGoing") ? u.NovelStatus.Ongoing : u.NovelStatus.Completed), o2.author || (o2.author = e2(".manga-author a").text().trim()), o2.rating || (o2.rating = parseFloat(e2(".post-rating span").text().trim())), o2.author || (o2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), o2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(a3, l4) {
-                return e2(l4).text();
-              }).get().join("\n\n").trim() || e2(".manga-summary p").map(function(a3, l4) {
-                return e2(l4).text();
-              }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(a3, l4) {
-                return e2(l4).text();
-              }).get().join("\n\n").trim(), s2 = [], v2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, t.fetchApi)(this.site + l3 + "ajax/chapters/", { method: "POST", referrer: this.site + l3 }).then(function(e3) {
+              }), o2.genres || (o2.genres = e2(".genres-content").text().trim()), o2.status || (o2.status = e2(".manga-status").text().trim().includes("OnGoing") ? u.NovelStatus.Ongoing : u.NovelStatus.Completed), o2.author || (o2.author = e2(".manga-author a").text().trim()), o2.rating || (o2.rating = parseFloat(e2(".post-rating span").text().trim())), o2.author || (o2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), o2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(a3, t4) {
+                return e2(t4).text();
+              }).get().join("\n\n").trim() || e2('.post-content_item h5:contains("Summary")').next().find("p").map(function(a3, t4) {
+                return e2(t4).text();
+              }).get().join("\n\n").trim() || e2(".manga-summary p").map(function(a3, t4) {
+                return e2(t4).text();
+              }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(a3, t4) {
+                return e2(t4).text();
+              }).get().join("\n\n").trim(), s2 = [], v2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, l.fetchApi)(this.site + t3 + "ajax/chapters/", { method: "POST", referrer: this.site + t3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 7];
             case 2:
@@ -26000,7 +26007,7 @@ var LNReaderPlugin = (() => {
               }).get()), h = b.last().attr("href") || "", -1 === (d = h.indexOf("?"))) return [3, 6];
               m = h.slice(d).replace(/\d+$/, ""), f = 2, a2.label = 3;
             case 3:
-              return f <= p ? [4, (0, t.fetchApi)(this.site + l3 + "ajax/chapters/" + m + f, { method: "POST", referrer: this.site + l3 }).then(function(e3) {
+              return f <= p ? [4, (0, l.fetchApi)(this.site + t3 + "ajax/chapters/" + m + f, { method: "POST", referrer: this.site + t3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 6];
             case 4:
@@ -26010,48 +26017,48 @@ var LNReaderPlugin = (() => {
             case 6:
               return [3, 9];
             case 7:
-              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, t.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
+              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, l.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
                 return e3.text();
               })];
             case 8:
               v2 = a2.sent(), a2.label = 9;
             case 9:
-              return "0" !== v2 && (e2 = (0, r.load)(v2)), w = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(a3, l4) {
-                var t2 = e2(l4).find("a").text().trim(), r2 = l4.attribs.class.includes("premium-block");
-                r2 && (t2 = "\u{1F512} " + t2);
-                var n2 = e2(l4).find("span.chapter-release-date").text().trim();
+              return "0" !== v2 && (e2 = (0, r.load)(v2)), w = e2(".wp-manga-chapter").length, e2(".wp-manga-chapter").each(function(a3, t4) {
+                var l2 = e2(t4).find("a").text().trim(), r2 = t4.attribs.class.includes("premium-block");
+                r2 && (l2 = "\u{1F512} " + l2);
+                var n2 = e2(t4).find("span.chapter-release-date").text().trim();
                 n2 = n2 ? _.parseData(n2) : (0, i.default)().format("LL");
-                var u2 = e2(l4).find("a").attr("href") || "";
-                !u2 || "#" == u2 || r2 && _.hideLocked || s2.push({ name: t2, path: u2.replace(/https?:\/\/.*?\//, ""), releaseTime: n2 || null, chapterNumber: w - a3 });
+                var u2 = e2(t4).find("a").attr("href") || "";
+                !u2 || "#" == u2 || r2 && _.hideLocked || s2.push({ name: l2, path: u2.replace(/https?:\/\/.*?\//, ""), releaseTime: n2 || null, chapterNumber: w - a3 });
               }), o2.chapters = s2.reverse(), [2, o2];
           }
         });
       });
-    }, l2.prototype.parseChapter = function(l3) {
+    }, t2.prototype.parseChapter = function(t3) {
       return e(this, void 0, void 0, function() {
-        var e2, t2, r2;
+        var e2, l2, r2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, this.getCheerio(this.site + l3, false)];
+              return [4, this.getCheerio(this.site + t3, false)];
             case 1:
-              return e2 = a2.sent(), t2 = e2(".text-left") || e2(".text-right") || e2(".entry-content") || e2(".c-blog-post > div > div:nth-child(2)"), null === (r2 = this.options) || void 0 === r2 || r2.customJs, [2, this.translateDragontea(t2).html() || ""];
+              return e2 = a2.sent(), l2 = e2(".text-left") || e2(".text-right") || e2(".entry-content") || e2(".c-blog-post > div > div:nth-child(2)"), null === (r2 = this.options) || void 0 === r2 || r2.customJs, [2, this.translateDragontea(l2).html() || ""];
           }
         });
       });
-    }, l2.prototype.searchNovels = function(l3, t2) {
+    }, t2.prototype.searchNovels = function(t3, l2) {
       return e(this, void 0, void 0, function() {
         var e2, r2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return e2 = this.site + "/page/" + t2 + "/?s=" + encodeURIComponent(l3) + "&post_type=wp-manga", [4, this.getCheerio(e2, true)];
+              return e2 = this.site + "/page/" + l2 + "/?s=" + encodeURIComponent(t3) + "&post_type=wp-manga", [4, this.getCheerio(e2, true)];
             case 1:
               return r2 = a2.sent(), [2, this.parseNovels(r2)];
           }
         });
       });
-    }, l2;
+    }, t2;
   }();
   exports.MadaraPlugin = v;
   var c = new v({ id: "olaoe", sourceSite: "https://olaoe.cyou/", sourceName: "Olaoe.cyou", options: { useNewChapterEndpoint: true, lang: "Arabic", down: true, downSince: 1768289212938 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "+13", value: "13" }, { label: "+16", value: "16" }, { label: "+17", value: "17" }, { label: "Custom Genre 1", value: "custom-genre-1" }, { label: "Custom Genre 2", value: "custom-genre-2" }, { label: "Custom Genre 3", value: "custom-genre-3" }, { label: "\u0623\u0643\u0634\u0646", value: "\u0623\u0643\u0634\u0646" }, { label: "\u0625\u062B\u0627\u0631\u0629", value: "\u0625\u062B\u0627\u0631\u0629" }, { label: "\u0625\u0639\u0627\u062F\u0629 \u0625\u062D\u064A\u0627\u0621", value: "\u0625\u0639\u0627\u062F\u0629-\u0625\u062D\u064A\u0627\u0621" }, { label: "\u0625\u0646\u062A\u0642\u0627\u0645", value: "\u0625\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0625\u064A\u062A\u0634\u064A", value: "\u0625\u064A\u062A\u0634\u064A" }, { label: "\u0627\u062B\u0627\u0631\u0629", value: "\u0627\u062B\u0627\u0631\u0629" }, { label: "\u0627\u062B\u0627\u0631\u0647", value: "\u0627\u062B\u0627\u0631\u0647" }, { label: "\u0627\u0633\u0627\u0637\u064A\u0631", value: "\u0627\u0633\u0627\u0637\u064A\u0631" }, { label: "\u0627\u0634\u0628\u0627\u062D", value: "\u0627\u0634\u0628\u0627\u062D" }, { label: "\u0627\u0636\u0637\u0647\u0627\u062F", value: "\u0627\u0636\u0637\u0647\u0627\u062F" }, { label: "\u0627\u0639\u0627\u062F\u0629 \u0627\u062D\u064A\u0627\u0621", value: "\u0627\u0639\u0627\u062F\u0629-\u0627\u062D\u064A\u0627\u0621" }, { label: "\u0627\u0639\u0627\u062F\u0647 \u0628\u062D\u062B", value: "\u0627\u0639\u0627\u062F\u0647-\u0628\u062D\u062B" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u062C\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u062C\u0627" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u0647\u0648\u0627" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u0647\u0648\u0627-\u0627\u0646\u0645\u064A" }, { label: "\u0627\u0643\u0634\u0646", value: "\u0627\u0643\u0634\u0646" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0647", value: "\u0627\u0644\u062D\u064A\u0627\u0629-\u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0647" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u064A\u0648\u0645\u064A\u0629", value: "\u0627\u0644\u062D\u064A\u0627\u0629-\u0627\u0644\u064A\u0648\u0645\u064A\u0629" }, { label: "\u0627\u0644\u0633\u0641\u0631 \u0639\u0628\u0631 \u0627\u0644\u0632\u0645\u0646", value: "\u0627\u0644\u0633\u0641\u0631-\u0639\u0628\u0631-\u0627\u0644\u0632\u0645\u0646" }, { label: "\u0627\u0644\u0639\u0627\u0628", value: "\u0627\u0644\u0639\u0627\u0628" }, { label: "\u0627\u0644\u0639\u0627\u0628 \u0627\u0644\u0643\u062A\u0631\u0648\u0646\u064A\u0629", value: "\u0627\u0644\u0639\u0627\u0628-\u0627\u0644\u0643\u062A\u0631\u0648\u0646\u064A\u0629" }, { label: "\u0627\u0644\u0639\u0627\u0628 \u0641\u064A\u062F\u064A\u0648", value: "\u0627\u0644\u0639\u0627\u0628-\u0641\u064A\u062F\u064A\u0648" }, { label: "\u0627\u0644\u0646\u062C\u0627\u0629", value: "\u0627\u0644\u0646\u062C\u0627\u0629" }, { label: "\u0627\u0644\u0647\u0629", value: "\u0627\u0644\u0647\u0629" }, { label: "\u0627\u0644\u0647\u0647", value: "\u0627\u0644\u0647\u0647" }, { label: "\u0627\u0644\u0648\u0627\u0642\u0639 \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A", value: "\u0627\u0644\u0648\u0627\u0642\u0639-\u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A" }, { label: "\u0627\u0645\u0631\u0623\u0629 \u0634\u0631\u064A\u0631\u0629", value: "\u0627\u0645\u0631\u0623\u0629-\u0634\u0631\u064A\u0631\u0629" }, { label: "\u0627\u0646\u062A\u0642\u0627\u0645", value: "\u0627\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0627\u0646\u0645\u064A", value: "\u0627\u0646\u0645\u064A" }, { label: "\u0627\u0646\u0645\u064A \u064A\u0627\u0628\u0627\u0646\u064A", value: "\u0627\u0646\u0645\u064A-\u064A\u0627\u0628\u0627\u0646\u064A" }, { label: "\u0627\u064A\u062A\u0634\u0649", value: "\u0627\u064A\u062A\u0634\u0649" }, { label: "\u0627\u064A\u062A\u0634\u064A", value: "\u0627\u064A\u062A\u0634\u064A" }, { label: "\u0627\u064A\u0633\u0643\u0627\u0649", value: "\u0627\u064A\u0633\u0643\u0627\u0649" }, { label: "\u0628\u0627\u0644\u063A", value: "\u0628\u0627\u0644\u063A" }, { label: "\u0628\u0637\u0644 \u062E\u0627\u0631\u0642", value: "\u0628\u0637\u0644-\u062E\u0627\u0631\u0642" }, { label: "\u0628\u0637\u0644 \u063A\u064A\u0631 \u0627\u0639\u062A\u064A\u0627\u062F\u064A", value: "\u0628\u0637\u0644-\u063A\u064A\u0631-\u0627\u0639\u062A\u064A\u0627\u062F\u064A" }, { label: "\u0628\u0648\u0644\u064A\u0633\u064A", value: "\u0628\u0648\u0644\u064A\u0633\u064A" }, { label: "\u062A\u0627\u0631\u064A\u062E\u0649", value: "\u062A\u0627\u0631\u064A\u062E\u0649" }, { label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "\u062A\u0627\u0631\u064A\u062E\u064A" }, { label: "\u062A\u062C\u0633\u064A\u062F", value: "\u062A\u062C\u0633\u064A\u062F" }, { label: "\u062A\u062D\u0642\u064A\u0642", value: "\u062A\u062D\u0642\u064A\u0642" }, { label: "\u062A\u0631\u0627\u062C\u064A\u062F\u064A", value: "\u062A\u0631\u0627\u062C\u064A\u062F\u064A" }, { label: "\u062A\u0631\u062C\u0645\u0629 \u062C\u0648\u062C\u0644", value: "\u062A\u0631\u062C\u0645\u0629-\u062C\u0648\u062C\u0644" }, { label: "\u062A\u0634\u0648\u064A\u0642", value: "\u062A\u0634\u0648\u064A\u0642" }, { label: "\u062A\u0646\u0627\u0633\u062E", value: "\u062A\u0646\u0627\u0633\u062E" }, { label: "\u062A\u0646\u0627\u0633\u062E \u0627\u0644\u0627\u0631\u0648\u0627\u062D", value: "\u062A\u0646\u0627\u0633\u062E-\u0627\u0644\u0627\u0631\u0648\u0627\u062D" }, { label: "\u062C\u0631\u064A\u0645\u0629", value: "\u062C\u0631\u064A\u0645\u0629" }, { label: "\u062C\u0631\u064A\u0645\u0647", value: "\u062C\u0631\u064A\u0645\u0647" }, { label: "\u062C\u0646\u062F\u0631 \u0627\u0633\u0648\u0627\u0628", value: "\u062C\u0646\u062F\u0631-\u0627\u0633\u0648\u0627\u0628" }, { label: "\u062C\u0648\u0633\u0649", value: "\u062C\u0648\u0633\u0649" }, { label: "\u062C\u0648\u0633\u064A", value: "\u062C\u0648\u0633\u064A" }, { label: "\u062C\u0648\u0633\u064A\u0647", value: "\u062C\u0648\u0633\u064A\u0647" }, { label: "\u062D\u0627\u0626\u0632 \u0639\u0644\u0649 \u062C\u0627\u0626\u0632\u0629", value: "\u062D\u0627\u0626\u0632-\u0639\u0644\u0649-\u062C\u0627\u0626\u0632\u0629" }, { label: "\u062D\u0627\u0626\u0632 \u0639\u0644\u064A \u062C\u0627\u0626\u0632\u0629", value: "\u062D\u0627\u0626\u0632-\u0639\u0644\u064A-\u062C\u0627\u0626\u0632\u0629" }, { label: "\u062D\u062F\u064A\u062B", value: "\u062D\u062F\u064A\u062B" }, { label: "\u062D\u0631\u0628\u0649", value: "\u062D\u0631\u0628\u0649" }, { label: "\u062D\u0631\u0628\u064A", value: "\u062D\u0631\u0628\u064A" }, { label: "\u062D\u0631\u064A\u0645", value: "\u062D\u0631\u064A\u0645" }, { label: "\u062D\u064A\u0627\u0629", value: "\u062D\u064A\u0627\u0629" }, { label: "\u062D\u064A\u0627\u0629 \u0645\u062F\u0631\u0633\u064A\u0629", value: "\u062D\u064A\u0627\u0629-\u0645\u062F\u0631\u0633\u064A\u0629" }, { label: "\u062D\u064A\u0627\u0629 \u064A\u0648\u0645\u064A\u0629", value: "\u062D\u064A\u0627\u0629-\u064A\u0648\u0645\u064A\u0629" }, { label: "\u062E\u0627\u0631\u0642", value: "\u062E\u0627\u0631\u0642" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0637\u0628\u064A\u0639\u064A\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0637\u0628\u064A\u0639\u064A\u0629" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0629" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0647", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0647" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0639\u0627\u062F\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0639\u0627\u062F\u0629" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u0649", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u0649" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u064A" }, { label: "\u062E\u064A\u0627\u0644\u064A", value: "\u062E\u064A\u0627\u0644\u064A" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "\u062F\u0631\u0627\u0645\u0627" }, { label: "\u062F\u0645\u0627\u0621", value: "\u062F\u0645\u0627\u0621" }, { label: "\u062F\u0645\u0648\u0649", value: "\u062F\u0645\u0648\u0649" }, { label: "\u0631\u0627\u0634\u062F", value: "\u0631\u0627\u0634\u062F" }, { label: "\u0631\u0639\u0628", value: "\u0631\u0639\u0628" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u062E\u0641\u064A\u0641\u0629", value: "\u0631\u0648\u0627\u064A\u0629-\u062E\u0641\u064A\u0641\u0629" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u0649", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u0649" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A" }, { label: "\u0631\u064A\u0627\u0636\u0629", value: "\u0631\u064A\u0627\u0636\u0629" }, { label: "\u0631\u064A\u0627\u0636\u0647", value: "\u0631\u064A\u0627\u0636\u0647" }, { label: "\u0631\u064A\u0627\u0636\u0649", value: "\u0631\u064A\u0627\u0636\u0649" }, { label: "\u0631\u064A\u0627\u0636\u064A", value: "\u0631\u064A\u0627\u0636\u064A" }, { label: "\u0632\u0631\u0627\u0639\u0629", value: "\u0632\u0631\u0627\u0639\u0629" }, { label: "\u0632\u0645\u0643\u0627\u0646\u0649", value: "\u0632\u0645\u0643\u0627\u0646\u0649" }, { label: "\u0632\u0645\u0643\u0627\u0646\u064A", value: "\u0632\u0645\u0643\u0627\u0646\u064A" }, { label: "\u0632\u0645\u0646\u0643\u0627\u0646\u064A", value: "\u0632\u0645\u0646\u0643\u0627\u0646\u064A" }, { label: "\u0632\u0648\u0645\u0628\u064A", value: "\u0632\u0648\u0645\u0628\u064A" }, { label: "\u0633\u0627\u062E\u0631", value: "\u0633\u0627\u062E\u0631" }, { label: "\u0633\u0627\u0645\u0648\u0631\u0627\u064A", value: "\u0633\u0627\u0645\u0648\u0631\u0627\u064A" }, { label: "\u0633\u0628\u0627\u0642", value: "\u0633\u0628\u0627\u0642" }, { label: "\u0633\u062D\u0631", value: "\u0633\u062D\u0631" }, { label: "\u0633\u064A\u0646\u064A\u0646", value: "\u0633\u064A\u0646\u064A\u0646" }, { label: "\u0634\u0631\u0637\u0629", value: "\u0634\u0631\u0637\u0629" }, { label: "\u0634\u0631\u064A\u062D\u0629 \u0645\u0646 \u0627\u0644\u062D\u064A\u0627\u0629", value: "\u0634\u0631\u064A\u062D\u0629-\u0645\u0646-\u0627\u0644\u062D\u064A\u0627\u0629" }, { label: "\u0634\u0631\u064A\u0631", value: "\u0634\u0631\u064A\u0631" }, { label: "\u0634\u0648\u062C\u0648", value: "\u0634\u0648\u062C\u0648" }, { label: "\u0634\u0648\u0646\u064A\u0646", value: "\u0634\u0648\u0646\u064A\u0646" }, { label: "\u0634\u064A\u0627\u0637\u064A\u0646", value: "\u0634\u064A\u0627\u0637\u064A\u0646" }, { label: "\u0635\u0642\u0644", value: "\u0635\u0642\u0644" }, { label: "\u0637\u0628\u062E", value: "\u0637\u0628\u062E" }, { label: "\u0651\u0639\u0627\u0645\u0644 \u0645\u0643\u062A\u0628\u064A", value: "\u0651\u0639\u0627\u0645\u0644-\u0645\u0643\u062A\u0628\u064A" }, { label: "\u0639\u0633\u0643\u0631\u064A", value: "\u0639\u0633\u0643\u0631\u064A" }, { label: "\u0639\u0633\u0643\u0631\u064A\u0647", value: "\u0639\u0633\u0643\u0631\u064A\u0647" }, { label: "\u0639\u0644\u0645 \u0646\u0641\u0633", value: "\u0639\u0644\u0645-\u0646\u0641\u0633" }, { label: "\u0639\u0646\u0641", value: "\u0639\u0646\u0641" }, { label: "\u063A\u0645\u0648\u0636", value: "\u063A\u0645\u0648\u0636" }, { label: "\u0641\u0636\u0627\u0621", value: "\u0641\u0636\u0627\u0621" }, { label: "\u0641\u0644\u0633\u0641\u0647", value: "\u0641\u0644\u0633\u0641\u0647" }, { label: "\u0641\u0644\u0645 \u0627\u0646\u0645\u064A", value: "\u0641\u0644\u0645-\u0627\u0646\u0645\u064A" }, { label: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644\u064A\u0629", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644\u064A\u0629" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644\u064A\u0647", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644\u064A\u0647" }, { label: "\u0642\u062A\u0627\u0644", value: "\u0642\u062A\u0627\u0644" }, { label: "\u0642\u0648\u0629 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0629-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0649-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0643\u0648\u0645\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u062F\u064A\u0627" }, { label: "\u0643\u0648\u0645\u064A\u062F\u0649", value: "\u0643\u0648\u0645\u064A\u062F\u0649" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A", value: "\u0643\u0648\u0645\u064A\u062F\u064A" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627" }, { label: "\u0644\u0639\u0628\u0629", value: "\u0644\u0639\u0628\u0629" }, { label: "\u0644\u0639\u0628\u0647", value: "\u0644\u0639\u0628\u0647" }, { label: "\u0645\u0623\u0633\u0627\u0629", value: "\u0645\u0623\u0633\u0627\u0629" }, { label: "\u0645\u0627\u0633\u0627\u0629", value: "\u0645\u0627\u0633\u0627\u0629" }, { label: "\u0645\u0627\u0641\u064A\u0627", value: "\u0645\u0627\u0641\u064A\u0627" }, { label: "\u0645\u0627\u0646\u062C\u0627", value: "\u0645\u0627\u0646\u062C\u0627" }, { label: "\u0645\u0627\u0646\u062C\u0627 \u0639\u0644\u0649 \u0627\u0644\u0627\u0646\u062A\u0631\u0646\u062A", value: "\u0645\u0627\u0646\u062C\u0627-\u0639\u0644\u0649-\u0627\u0644\u0627\u0646\u062A\u0631\u0646\u062A" }, { label: "\u0645\u0627\u0646\u0647\u0627", value: "\u0645\u0627\u0646\u0647\u0627" }, { label: "\u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0645\u0627\u0646\u0647\u0648\u0627" }, { label: "\u0645\u062C\u0645\u0648\u0639\u0629 \u0642\u0635\u0635", value: "\u0645\u062C\u0645\u0648\u0639\u0629-\u0642\u0635\u0635" }, { label: "\u0645\u062D\u0627\u0643\u0627\u0629 \u0633\u0627\u062E\u0631\u0629", value: "\u0645\u062D\u0627\u0643\u0627\u0629-\u0633\u0627\u062E\u0631\u0629" }, { label: "\u0645\u062F\u0631\u0633\u0647", value: "\u0645\u062F\u0631\u0633\u0647" }, { label: "\u0645\u062F\u0631\u0633\u064A", value: "\u0645\u062F\u0631\u0633\u064A" }, { label: "\u0645\u0635\u0627\u0635\u0649 \u0627\u0644\u062F\u0645\u0627\u0621", value: "\u0645\u0635\u0627\u0635\u0649-\u0627\u0644\u062F\u0645\u0627\u0621" }, { label: "\u0645\u0635\u0627\u0635\u064A \u062F\u0645\u0627\u0621", value: "\u0645\u0635\u0627\u0635\u064A-\u062F\u0645\u0627\u0621" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A", value: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "\u0645\u063A\u0627\u0645\u0631\u0629" }, { label: "\u0645\u0642\u062A\u0628\u0633\u0629", value: "\u0645\u0642\u062A\u0628\u0633\u0629" }, { label: "\u0645\u0648\u0631\u064A\u0645", value: "\u0645\u0648\u0631\u064A\u0645" }, { label: "\u0645\u0648\u0633\u064A\u0642\u0649", value: "\u0645\u0648\u0633\u064A\u0642\u0649" }, { label: "\u0645\u0648\u0633\u064A\u0642\u064A", value: "\u0645\u0648\u0633\u064A\u0642\u064A" }, { label: "\u0645\u064A\u0643\u0627", value: "\u0645\u064A\u0643\u0627" }, { label: "\u0646\u0627\u0636\u062C", value: "\u0646\u0627\u0636\u062C" }, { label: "\u0646\u0638\u0627\u0645", value: "\u0646\u0638\u0627\u0645" }, { label: "\u0646\u0641\u0633\u0649", value: "\u0646\u0641\u0633\u0649" }, { label: "\u0646\u0641\u0633\u064A", value: "\u0646\u0641\u0633\u064A" }, { label: "\u0646\u064A\u0646\u062C\u0627", value: "\u0646\u064A\u0646\u062C\u0627" }, { label: "\u0648\u062D\u0648\u0634", value: "\u0648\u062D\u0648\u0634" }, { label: "\u0648\u064A\u0628 \u062A\u0648\u0646", value: "\u0648\u064A\u0628-\u062A\u0648\u0646" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "\u0645\u0633\u062A\u0645\u0631", value: "on-going" }, { label: "\u0645\u0643\u062A\u0645\u0644", value: "end" }, { label: "\u0645\u0644\u063A\u0649", value: "canceled" }, { label: "\u0641\u064A \u0627\u0644\u0627\u0646\u062A\u0638\u0627\u0631", value: "on-hold" }, { label: "\u0642\u0627\u062F\u0645 \u0642\u0631\u064A\u0628\u0627", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });

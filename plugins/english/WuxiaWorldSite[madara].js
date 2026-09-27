@@ -25945,7 +25945,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, u2, c2, h2, p, d, v, m, f, b, g, y, x, w, S, k = this;
+        var e2, s2, u2, c2, h2, p, d, m, v, f, b, g, y, x, w, S, k = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25975,6 +25975,11 @@ var LNReaderPlugin = (() => {
                   case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
                     s2.author = a4.text().trim();
                     break;
+                  case "Translator(s)":
+                  case "Translator":
+                  case "Translators":
+                    s2.author || (s2.author = a4.text().trim());
+                    break;
                   case "Status":
                   case "Novel":
                   case "Estado":
@@ -25985,6 +25990,8 @@ var LNReaderPlugin = (() => {
                     s2.artist = a4.text().trim();
                 }
               }), s2.genres || (s2.genres = e2(".genres-content").text().trim()), s2.status || (s2.status = e2(".manga-status").text().trim().includes("OnGoing") ? l.NovelStatus.Ongoing : l.NovelStatus.Completed), s2.author || (s2.author = e2(".manga-author a").text().trim()), s2.rating || (s2.rating = parseFloat(e2(".post-rating span").text().trim())), s2.author || (s2.author = e2(".manga-authors").text().trim()), e2("div.summary__content .code-block,script,noscript").remove(), s2.summary = this.translateDragontea(e2("div.summary__content")).text().trim() || e2("#tab-manga-about").text().trim() || e2('.post-content_item h5:contains("Summary")').next().find("span").map(function(t3, a4) {
+                return e2(a4).text();
+              }).get().join("\n\n").trim() || e2('.post-content_item h5:contains("Summary")').next().find("p").map(function(t3, a4) {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-summary p").map(function(t3, a4) {
                 return e2(a4).text();
@@ -25997,8 +26004,8 @@ var LNReaderPlugin = (() => {
               if (c2 = t2.sent(), h2 = (0, n.load)(c2), !((p = h2(".pagination a[data-page]")).length > 0)) return [3, 6];
               if (d = Math.max.apply(Math, p.map(function(e3, t3) {
                 return parseInt(h2(t3).attr("data-page") || "1", 10);
-              }).get()), v = p.last().attr("href") || "", -1 === (m = v.indexOf("?"))) return [3, 6];
-              f = v.slice(m).replace(/\d+$/, ""), b = 2, t2.label = 3;
+              }).get()), m = p.last().attr("href") || "", -1 === (v = m.indexOf("?"))) return [3, 6];
+              f = m.slice(v).replace(/\d+$/, ""), b = 2, t2.label = 3;
             case 3:
               return b <= d ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + f + b, { method: "POST", referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
