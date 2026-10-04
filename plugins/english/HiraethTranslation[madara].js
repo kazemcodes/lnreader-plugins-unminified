@@ -25888,7 +25888,10 @@ var LNReaderPlugin = (() => {
       this.version = "2.2.".concat(r2), this.options = e2.options, this.filters = e2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(a2, "a");
-    return a2.prototype.translateDragontea = function(e2) {
+    return Object.defineProperty(a2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
+      var e2;
+      if (null === (e2 = this.options) || void 0 === e2 ? void 0 : e2.browserHeaders) return { Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9" };
+    }, "get"), enumerable: false, configurable: true }), a2.prototype.translateDragontea = function(e2) {
       var t2;
       if ("dragontea" !== this.id) return e2;
       var a3 = (0, n.load)((null === (t2 = e2.html()) || void 0 === t2 ? void 0 : t2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
@@ -25910,7 +25913,7 @@ var LNReaderPlugin = (() => {
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(a3)];
+              return [4, (0, r.fetchApi)(a3, { headers: this.requestHeaders })];
             case 1:
               if (!(e2 = t2.sent()).ok && 1 != i2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
               return l2 = n.load, [4, e2.text()];
@@ -25945,7 +25948,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, u2, c2, h2, p, d, m, v, f, b, g, y, x, w, k, N = this;
+        var e2, s2, u2, c2, h2, p, d, m, v, f, b, g, y, x, w, k, S = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25997,7 +26000,7 @@ var LNReaderPlugin = (() => {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
                 return e2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", headers: this.requestHeaders, referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 7];
             case 2:
@@ -26007,7 +26010,7 @@ var LNReaderPlugin = (() => {
               }).get()), m = p.last().attr("href") || "", -1 === (v = m.indexOf("?"))) return [3, 6];
               f = m.slice(v).replace(/\d+$/, ""), b = 2, t2.label = 3;
             case 3:
-              return b <= d ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + f + b, { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              return b <= d ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + f + b, { method: "POST", headers: this.requestHeaders, referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 6];
             case 4:
@@ -26017,7 +26020,7 @@ var LNReaderPlugin = (() => {
             case 6:
               return [3, 9];
             case 7:
-              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
+              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", headers: this.requestHeaders, body: x }).then(function(e3) {
                 return e3.text();
               })];
             case 8:
@@ -26027,9 +26030,9 @@ var LNReaderPlugin = (() => {
                 var r2 = e2(a4).find("a").text().trim(), n2 = a4.attribs.class.includes("premium-block");
                 n2 && (r2 = "\u{1F512} " + r2);
                 var i2 = e2(a4).find("span.chapter-release-date").text().trim();
-                i2 = i2 ? N.parseData(i2) : (0, l.default)().format("LL");
+                i2 = i2 ? S.parseData(i2) : (0, l.default)().format("LL");
                 var o2 = e2(a4).find("a").attr("href") || "";
-                !o2 || "#" == o2 || n2 && N.hideLocked || u2.push({ name: r2, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: w - t3 });
+                !o2 || "#" == o2 || n2 && S.hideLocked || u2.push({ name: r2, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: w - t3 });
               }), s2.chapters = u2.reverse(), [2, s2];
           }
         });

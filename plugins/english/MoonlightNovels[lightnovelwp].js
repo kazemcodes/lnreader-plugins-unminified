@@ -25583,7 +25583,7 @@ var LNReaderPlugin = (() => {
       var a2, t2, l2;
       this.hideLocked = n.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var r2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
-      this.version = "1.1.".concat(10 + r2), this.options = null !== (t2 = e2.options) && void 0 !== t2 ? t2 : {}, this.filters = e2.filters, (null === (l2 = this.options) || void 0 === l2 ? void 0 : l2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "1.1.".concat(11 + r2), this.options = null !== (t2 = e2.options) && void 0 !== t2 ? t2 : {}, this.filters = e2.filters, (null === (l2 = this.options) || void 0 === l2 ? void 0 : l2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(o2, "o");
     return o2.prototype.getHostname = function(e2) {
@@ -25637,15 +25637,15 @@ var LNReaderPlugin = (() => {
       });
     }, o2.prototype.parseNovel = function(t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, n2, o3, c2, v, h, p, d, b, f, m, g, y, w, k, S, x, N, C, L;
+        var e2, r2, n2, o3, c2, v, h, p, d, f, b, m, g, y, w, k, S, x, C, N, L;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return e2 = this.site, [4, this.safeFecth(e2 + t2, false)];
             case 1:
-              return r2 = a2.sent(), n2 = { path: t2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, o3 = false, c2 = false, v = 0, h = false, p = false, d = false, b = false, f = false, m = false, g = false, y = 0, w = false, k = false, S = [], x = {}, N = this.hideLocked, C = new l.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, t3) {
+              return r2 = a2.sent(), n2 = { path: t2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, o3 = false, c2 = false, v = 0, h = false, p = false, d = false, f = false, b = false, m = false, g = false, y = 0, w = false, k = false, S = [], x = {}, C = this.hideLocked, N = new l.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, t3) {
                 var l2;
-                !n2.cover && (null === (l2 = t3.class) || void 0 === l2 ? void 0 : l2.includes("ts-post-image")) ? (n2.name = t3.title, n2.cover = t3["data-src"] || t3.src || s.defaultCover) : "genxed" === t3.class || "sertogenre" === t3.class ? o3 = true : o3 && "a" === a3 ? c2 = true : "div" !== a3 || "entry-content" !== t3.class && "description" !== t3.itemprop ? "spe" === t3.class || "serl" === t3.class ? h = true : h && "span" === a3 ? p = true : "div" === a3 && "sertostat" === t3.class ? (h = true, p = true, f = true) : t3.class && t3.class.includes("eplister") ? m = true : m && "li" === a3 ? g = true : g ? "a" === a3 && void 0 === x.path ? x.path = t3.href.replace(e2, "").trim() : "epl-num" === t3.class ? y = 1 : "epl-title" === t3.class ? y = 2 : "epl-date" === t3.class ? y = 3 : "epl-price" === t3.class && (y = 4) : !v || "div" !== a3 && "script" !== a3 || v++ : v++;
+                !n2.cover && (null === (l2 = t3.class) || void 0 === l2 ? void 0 : l2.includes("ts-post-image")) ? (n2.name = t3.title, n2.cover = t3["data-src"] || t3.src || s.defaultCover) : "genxed" === t3.class || "sertogenre" === t3.class ? o3 = true : o3 && "a" === a3 ? c2 = true : "div" !== a3 || "entry-content" !== t3.class && "description" !== t3.itemprop ? "spe" === t3.class || "serl" === t3.class ? h = true : h && "span" === a3 ? p = true : "div" === a3 && "sertostat" === t3.class ? (h = true, p = true, b = true) : t3.class && t3.class.includes("eplister") ? m = true : m && "li" === a3 ? g = true : g ? "a" === a3 && void 0 === x.path ? x.path = t3.href.replace(e2, "").trim() : "epl-num" === t3.class ? y = 1 : "epl-title" === t3.class ? y = 2 : "epl-date" === t3.class ? y = 3 : "epl-price" === t3.class && (y = 4) : !v || "div" !== a3 && "script" !== a3 || v++ : v++;
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
                 var a3, t3;
                 if (o3) c2 && (n2.genres += e3 + ", ");
@@ -25654,8 +25654,8 @@ var LNReaderPlugin = (() => {
                   if (p) {
                     var l2 = e3.toLowerCase().replace(":", "").trim();
                     if (d) n2.author += e3 || "Unknown";
-                    else if (b) n2.artist += e3 || "Unknown";
-                    else if (f) switch (l2) {
+                    else if (f) n2.artist += e3 || "Unknown";
+                    else if (b) switch (l2) {
                       case "\u0645\u0643\u062A\u0645\u0644\u0629":
                       case "completed":
                       case "compl\xE9t\xE9":
@@ -25697,14 +25697,14 @@ var LNReaderPlugin = (() => {
                       case "statut":
                       case "estado":
                       case "durum":
-                        f = true;
+                        b = true;
                         break;
                       case "\u0627\u0644\u0641\u0646\u0627\u0646":
                       case "artist":
                       case "artiste":
                       case "artista":
                       case "\xE7izer":
-                        b = true;
+                        f = true;
                     }
                   }
                 } else if (m && g) {
@@ -25727,25 +25727,49 @@ var LNReaderPlugin = (() => {
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 var a3, t3, l2;
-                o3 ? c2 ? c2 = false : (o3 = false, n2.genres = null === (a3 = n2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : v ? "p" === e3 ? n2.summary += "\n\n" : "br" === e3 ? n2.summary += "\n" : "div" !== e3 && "script" !== e3 || v-- : h ? p ? "span" === e3 && (p = false, d && n2.author ? d = false : b && n2.artist ? b = false : f && "" !== n2.status && (f = false)) : "div" === e3 && (h = false, n2.author = null === (t3 = n2.author) || void 0 === t3 ? void 0 : t3.trim(), n2.artist = null === (l2 = n2.artist) || void 0 === l2 ? void 0 : l2.trim()) : m && (g ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (g = false, x.chapterNumber || (x.chapterNumber = 0), w && (x.name = "\u{1F512} " + x.name), N && w || S.push(x), x = {}) : "ul" === e3 && (m = false));
-              }, "onclosetag") }), C.write(r2), C.end(), S.length && ((null === (L = this.options) || void 0 === L ? void 0 : L.reverseChapters) && S.reverse(), n2.chapters = S), n2.summary = n2.summary.trim(), [2, n2];
+                o3 ? c2 ? c2 = false : (o3 = false, n2.genres = null === (a3 = n2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : v ? "p" === e3 ? n2.summary += "\n\n" : "br" === e3 ? n2.summary += "\n" : "div" !== e3 && "script" !== e3 || v-- : h ? p ? "span" === e3 && (p = false, d && n2.author ? d = false : f && n2.artist ? f = false : b && "" !== n2.status && (b = false)) : "div" === e3 && (h = false, n2.author = null === (t3 = n2.author) || void 0 === t3 ? void 0 : t3.trim(), n2.artist = null === (l2 = n2.artist) || void 0 === l2 ? void 0 : l2.trim()) : m && (g ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (g = false, x.chapterNumber || (x.chapterNumber = 0), w && (x.name = "\u{1F512} " + x.name), C && w || S.push(x), x = {}) : "ul" === e3 && (m = false));
+              }, "onclosetag") }), N.write(r2), N.end(), S.length && ((null === (L = this.options) || void 0 === L ? void 0 : L.reverseChapters) && S.reverse(), n2.chapters = S), n2.summary = n2.summary.trim(), [2, n2];
           }
         });
       });
     }, o2.prototype.parseChapter = function(l2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, i2, s2, n2;
+        var e2, r2, i2, s2, n2, o3, u2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return [4, this.safeFecth(this.site + l2, false)];
             case 1:
-              if (e2 = a2.sent(), null === (i2 = this.options) || void 0 === i2 ? void 0 : i2.customJs) try {
+              if (e2 = a2.sent(), null === (u2 = this.options) || void 0 === u2 ? void 0 : u2.customJs) try {
                 r2 = (0, t.load)(e2), e2 = r2.html();
               } catch (e3) {
                 throw console.error("Error executing customJs:", e3), e3;
               }
-              return [2, (null === (n2 = null === (s2 = e2.match(/<div.*?class="epcontent ([^]*?)<div.*?class="?bottomnav/g)) || void 0 === s2 ? void 0 : s2[0].match(/<p[^>]*>([^]*?)<\/p>/g)) || void 0 === n2 ? void 0 : n2.join("\n")) || ""];
+              return i2 = (0, t.load)(e2), (s2 = i2(".epcontent").first()).length ? (s2.find("script, style, noscript").remove(), n2 = this.site + l2, s2.find("img").each(function(e3, a3) {
+                var t2 = i2(a3), l3 = t2.attr("src");
+                if (l3 && !l3.startsWith("data:") || (l3 = t2.attr("data-lazy-src") || t2.attr("data-src") || l3), l3) {
+                  if (!/^[a-z][a-z\d+.-]*:/i.test(l3)) try {
+                    l3 = new URL(l3, n2).href;
+                  } catch (e4) {
+                    return;
+                  }
+                  t2.attr("src", l3);
+                }
+              }), s2.find("*").each(function(e3, a3) {
+                for (var t2 = i2(a3), l3 = 0, r3 = Object.keys(a3.attribs); l3 < r3.length; l3++) {
+                  var s3 = r3[l3];
+                  if (/^on/i.test(s3)) t2.removeAttr(s3);
+                  else if ("href" === s3 || "src" === s3) {
+                    var n3 = a3.attribs[s3].split("").filter(function(e4) {
+                      return e4.charCodeAt(0) > 32;
+                    }).join("").toLowerCase();
+                    (/^(javascript|vbscript):/.test(n3) || n3.startsWith("data:") && !n3.startsWith("data:image/")) && t2.removeAttr(s3);
+                  }
+                }
+              }), o3 = [], s2.find("p, img").each(function(e3, a3) {
+                var t2 = i2(a3);
+                t2.is("img") ? t2.parents("p").length || o3.push(i2.html(t2)) : (t2.text().trim() || t2.find("img").length) && o3.push(i2.html(t2));
+              }), [2, o3.join("\n")]) : [2, ""];
           }
         });
       });

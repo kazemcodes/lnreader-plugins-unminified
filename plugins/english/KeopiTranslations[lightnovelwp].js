@@ -25583,7 +25583,7 @@ var LNReaderPlugin = (() => {
       var t2, a2, s2;
       this.hideLocked = n.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var r2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "1.1.".concat(10 + r2), this.options = null !== (a2 = e2.options) && void 0 !== a2 ? a2 : {}, this.filters = e2.filters, (null === (s2 = this.options) || void 0 === s2 ? void 0 : s2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "1.1.".concat(11 + r2), this.options = null !== (a2 = e2.options) && void 0 !== a2 ? a2 : {}, this.filters = e2.filters, (null === (s2 = this.options) || void 0 === s2 ? void 0 : s2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(l2, "l");
     return l2.prototype.getHostname = function(e2) {
@@ -25591,7 +25591,7 @@ var LNReaderPlugin = (() => {
       return t2.pop(), t2.join(".");
     }, l2.prototype.safeFecth = function(a2, s2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, o2, n2, l3, c2, u2, p;
+        var e2, i2, o2, n2, l3, c2, u2, h;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25600,7 +25600,7 @@ var LNReaderPlugin = (() => {
               if (!(n2 = t2.sent()).ok && 1 != s2) throw new Error("Could not reach site (" + n2.status + ") try to open in webview.");
               return [4, n2.text()];
             case 2:
-              if (l3 = t2.sent(), c2 = null === (p = null === (u2 = l3.match(/<title>(.*?)<\/title>/)) || void 0 === u2 ? void 0 : u2[1]) || void 0 === p ? void 0 : p.trim(), this.getHostname(a2) != this.getHostname(n2.url) || c2 && ("Bot Verification" == c2 || "You are being redirected..." == c2 || "Un instant..." == c2 || "Just a moment..." == c2 || "Redirecting..." == c2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
+              if (l3 = t2.sent(), c2 = null === (h = null === (u2 = l3.match(/<title>(.*?)<\/title>/)) || void 0 === u2 ? void 0 : u2[1]) || void 0 === h ? void 0 : h.trim(), this.getHostname(a2) != this.getHostname(n2.url) || c2 && ("Bot Verification" == c2 || "You are being redirected..." == c2 || "Un instant..." == c2 || "Just a moment..." == c2 || "Redirecting..." == c2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
               return [2, l3];
           }
         });
@@ -25623,12 +25623,12 @@ var LNReaderPlugin = (() => {
       }), s2;
     }, l2.prototype.popularNovels = function(a2, s2) {
       return e(this, arguments, void 0, function(e2, a3) {
-        var s3, r2, i2, o2, n2, l3, c2, u2, p, v = a3.filters, h = a3.showLatestNovels;
+        var s3, r2, i2, o2, n2, l3, c2, u2, h, p = a3.filters, v = a3.showLatestNovels;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              for (i2 in s3 = null !== (p = null === (u2 = this.options) || void 0 === u2 ? void 0 : u2.seriesPath) && void 0 !== p ? p : "/series/", r2 = this.site + s3 + "?page=" + e2, v || (v = this.filters || {}), h && (r2 += "&order=latest"), v) if ("object" == typeof v[i2].value) for (o2 = 0, n2 = v[i2].value; o2 < n2.length; o2++) l3 = n2[o2], r2 += "&".concat(i2, "=").concat(l3);
-              else v[i2].value && (r2 += "&".concat(i2, "=").concat(v[i2].value));
+              for (i2 in s3 = null !== (h = null === (u2 = this.options) || void 0 === u2 ? void 0 : u2.seriesPath) && void 0 !== h ? h : "/series/", r2 = this.site + s3 + "?page=" + e2, p || (p = this.filters || {}), v && (r2 += "&order=latest"), p) if ("object" == typeof p[i2].value) for (o2 = 0, n2 = p[i2].value; o2 < n2.length; o2++) l3 = n2[o2], r2 += "&".concat(i2, "=").concat(l3);
+              else p[i2].value && (r2 += "&".concat(i2, "=").concat(p[i2].value));
               return [4, this.safeFecth(r2, false)];
             case 1:
               return c2 = t2.sent(), [2, this.parseNovels(c2)];
@@ -25637,21 +25637,21 @@ var LNReaderPlugin = (() => {
       });
     }, l2.prototype.parseNovel = function(a2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, n2, l3, u2, p, v, h, d, f, m, b, g, y, w, k, N, C, x, S, L;
+        var e2, r2, n2, l3, u2, h, p, v, d, f, m, b, g, y, w, k, N, C, x, L, S;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return e2 = this.site, [4, this.safeFecth(e2 + a2, false)];
             case 1:
-              return r2 = t2.sent(), n2 = { path: a2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, l3 = false, u2 = false, p = 0, v = false, h = false, d = false, f = false, m = false, b = false, g = false, y = 0, w = false, k = false, N = [], C = {}, x = this.hideLocked, S = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(t3, a3) {
+              return r2 = t2.sent(), n2 = { path: a2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, l3 = false, u2 = false, h = 0, p = false, v = false, d = false, f = false, m = false, b = false, g = false, y = 0, w = false, k = false, N = [], C = {}, x = this.hideLocked, L = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(t3, a3) {
                 var s2;
-                !n2.cover && (null === (s2 = a3.class) || void 0 === s2 ? void 0 : s2.includes("ts-post-image")) ? (n2.name = a3.title, n2.cover = a3["data-src"] || a3.src || o.defaultCover) : "genxed" === a3.class || "sertogenre" === a3.class ? l3 = true : l3 && "a" === t3 ? u2 = true : "div" !== t3 || "entry-content" !== a3.class && "description" !== a3.itemprop ? "spe" === a3.class || "serl" === a3.class ? v = true : v && "span" === t3 ? h = true : "div" === t3 && "sertostat" === a3.class ? (v = true, h = true, m = true) : a3.class && a3.class.includes("eplister") ? b = true : b && "li" === t3 ? g = true : g ? "a" === t3 && void 0 === C.path ? C.path = a3.href.replace(e2, "").trim() : "epl-num" === a3.class ? y = 1 : "epl-title" === a3.class ? y = 2 : "epl-date" === a3.class ? y = 3 : "epl-price" === a3.class && (y = 4) : !p || "div" !== t3 && "script" !== t3 || p++ : p++;
+                !n2.cover && (null === (s2 = a3.class) || void 0 === s2 ? void 0 : s2.includes("ts-post-image")) ? (n2.name = a3.title, n2.cover = a3["data-src"] || a3.src || o.defaultCover) : "genxed" === a3.class || "sertogenre" === a3.class ? l3 = true : l3 && "a" === t3 ? u2 = true : "div" !== t3 || "entry-content" !== a3.class && "description" !== a3.itemprop ? "spe" === a3.class || "serl" === a3.class ? p = true : p && "span" === t3 ? v = true : "div" === t3 && "sertostat" === a3.class ? (p = true, v = true, m = true) : a3.class && a3.class.includes("eplister") ? b = true : b && "li" === t3 ? g = true : g ? "a" === t3 && void 0 === C.path ? C.path = a3.href.replace(e2, "").trim() : "epl-num" === a3.class ? y = 1 : "epl-title" === a3.class ? y = 2 : "epl-date" === a3.class ? y = 3 : "epl-price" === a3.class && (y = 4) : !h || "div" !== t3 && "script" !== t3 || h++ : h++;
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
                 var t3, a3;
                 if (l3) u2 && (n2.genres += e3 + ", ");
-                else if (1 === p && e3.trim()) n2.summary += e3;
-                else if (v) {
-                  if (h) {
+                else if (1 === h && e3.trim()) n2.summary += e3;
+                else if (p) {
+                  if (v) {
                     var s2 = e3.toLowerCase().replace(":", "").trim();
                     if (d) n2.author += e3 || "Unknown";
                     else if (f) n2.artist += e3 || "Unknown";
@@ -25727,25 +25727,49 @@ var LNReaderPlugin = (() => {
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 var t3, a3, s2;
-                l3 ? u2 ? u2 = false : (l3 = false, n2.genres = null === (t3 = n2.genres) || void 0 === t3 ? void 0 : t3.slice(0, -2)) : p ? "p" === e3 ? n2.summary += "\n\n" : "br" === e3 ? n2.summary += "\n" : "div" !== e3 && "script" !== e3 || p-- : v ? h ? "span" === e3 && (h = false, d && n2.author ? d = false : f && n2.artist ? f = false : m && "" !== n2.status && (m = false)) : "div" === e3 && (v = false, n2.author = null === (a3 = n2.author) || void 0 === a3 ? void 0 : a3.trim(), n2.artist = null === (s2 = n2.artist) || void 0 === s2 ? void 0 : s2.trim()) : b && (g ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (g = false, C.chapterNumber || (C.chapterNumber = 0), w && (C.name = "\u{1F512} " + C.name), x && w || N.push(C), C = {}) : "ul" === e3 && (b = false));
-              }, "onclosetag") }), S.write(r2), S.end(), N.length && ((null === (L = this.options) || void 0 === L ? void 0 : L.reverseChapters) && N.reverse(), n2.chapters = N), n2.summary = n2.summary.trim(), [2, n2];
+                l3 ? u2 ? u2 = false : (l3 = false, n2.genres = null === (t3 = n2.genres) || void 0 === t3 ? void 0 : t3.slice(0, -2)) : h ? "p" === e3 ? n2.summary += "\n\n" : "br" === e3 ? n2.summary += "\n" : "div" !== e3 && "script" !== e3 || h-- : p ? v ? "span" === e3 && (v = false, d && n2.author ? d = false : f && n2.artist ? f = false : m && "" !== n2.status && (m = false)) : "div" === e3 && (p = false, n2.author = null === (a3 = n2.author) || void 0 === a3 ? void 0 : a3.trim(), n2.artist = null === (s2 = n2.artist) || void 0 === s2 ? void 0 : s2.trim()) : b && (g ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (g = false, C.chapterNumber || (C.chapterNumber = 0), w && (C.name = "\u{1F512} " + C.name), x && w || N.push(C), C = {}) : "ul" === e3 && (b = false));
+              }, "onclosetag") }), L.write(r2), L.end(), N.length && ((null === (S = this.options) || void 0 === S ? void 0 : S.reverseChapters) && N.reverse(), n2.chapters = N), n2.summary = n2.summary.trim(), [2, n2];
           }
         });
       });
     }, l2.prototype.parseChapter = function(s2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, i2, o2, n2;
+        var e2, r2, i2, o2, n2, l3, c2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return [4, this.safeFecth(this.site + s2, false)];
             case 1:
-              if (e2 = t2.sent(), null === (i2 = this.options) || void 0 === i2 ? void 0 : i2.customJs) try {
+              if (e2 = t2.sent(), null === (c2 = this.options) || void 0 === c2 ? void 0 : c2.customJs) try {
                 r2 = (0, a.load)(e2), e2 = r2.html();
               } catch (e3) {
                 throw console.error("Error executing customJs:", e3), e3;
               }
-              return [2, (null === (n2 = null === (o2 = e2.match(/<div.*?class="epcontent ([^]*?)<div.*?class="?bottomnav/g)) || void 0 === o2 ? void 0 : o2[0].match(/<p[^>]*>([^]*?)<\/p>/g)) || void 0 === n2 ? void 0 : n2.join("\n")) || ""];
+              return i2 = (0, a.load)(e2), (o2 = i2(".epcontent").first()).length ? (o2.find("script, style, noscript").remove(), n2 = this.site + s2, o2.find("img").each(function(e3, t3) {
+                var a2 = i2(t3), s3 = a2.attr("src");
+                if (s3 && !s3.startsWith("data:") || (s3 = a2.attr("data-lazy-src") || a2.attr("data-src") || s3), s3) {
+                  if (!/^[a-z][a-z\d+.-]*:/i.test(s3)) try {
+                    s3 = new URL(s3, n2).href;
+                  } catch (e4) {
+                    return;
+                  }
+                  a2.attr("src", s3);
+                }
+              }), o2.find("*").each(function(e3, t3) {
+                for (var a2 = i2(t3), s3 = 0, r3 = Object.keys(t3.attribs); s3 < r3.length; s3++) {
+                  var o3 = r3[s3];
+                  if (/^on/i.test(o3)) a2.removeAttr(o3);
+                  else if ("href" === o3 || "src" === o3) {
+                    var n3 = t3.attribs[o3].split("").filter(function(e4) {
+                      return e4.charCodeAt(0) > 32;
+                    }).join("").toLowerCase();
+                    (/^(javascript|vbscript):/.test(n3) || n3.startsWith("data:") && !n3.startsWith("data:image/")) && a2.removeAttr(o3);
+                  }
+                }
+              }), l3 = [], o2.find("p, img").each(function(e3, t3) {
+                var a2 = i2(t3);
+                a2.is("img") ? a2.parents("p").length || l3.push(i2.html(a2)) : (a2.text().trim() || a2.find("img").length) && l3.push(i2.html(a2));
+              }), [2, l3.join("\n")]) : [2, ""];
           }
         });
       });

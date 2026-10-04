@@ -3033,7 +3033,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -3041,10 +3041,10 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
         for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
@@ -3299,7 +3299,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -3307,15 +3307,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -4093,7 +4093,7 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -4101,15 +4101,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -5028,7 +5028,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -5036,10 +5036,10 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
         for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
@@ -7341,7 +7341,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7349,15 +7349,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7483,7 +7483,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7491,15 +7491,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7714,7 +7714,7 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -7722,15 +7722,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -17911,7 +17911,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -17919,15 +17919,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18350,7 +18350,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -18358,15 +18358,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
+        Object.defineProperty(o2, k2, desc);
+      } : function(o2, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
+        o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -22965,10 +22965,10 @@ var LNReaderPlugin = (() => {
         // 14
       ];
       function bake(values, offset) {
-        var i = 0, o = /* @__PURE__ */ Object.create(null);
+        var i = 0, o2 = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i < values.length) o[s[i + offset]] = values[i++];
-        return o;
+        while (i < values.length) o2[s[i + offset]] = values[i++];
+        return o2;
       }
       __name(bake, "bake");
       types.basic = bake([
@@ -25415,224 +25415,212 @@ var LNReaderPlugin = (() => {
   init_buffer2();
   init_process2();
   var e = function(e2, a2, l2, t2) {
-    return new (l2 || (l2 = Promise))(function(r2, n2) {
-      function u2(e3) {
+    return new (l2 || (l2 = Promise))(function(r2, u2) {
+      function n2(e3) {
         try {
-          i(t2.next(e3));
+          s(t2.next(e3));
         } catch (e4) {
-          n2(e4);
+          u2(e4);
         }
       }
-      __name(u2, "u");
-      function o(e3) {
+      __name(n2, "n");
+      function o2(e3) {
         try {
-          i(t2.throw(e3));
+          s(t2.throw(e3));
         } catch (e4) {
-          n2(e4);
+          u2(e4);
         }
       }
-      __name(o, "o");
-      function i(e3) {
+      __name(o2, "o");
+      function s(e3) {
         var a3;
         e3.done ? r2(e3.value) : (a3 = e3.value, a3 instanceof l2 ? a3 : new l2(function(e4) {
           e4(a3);
-        })).then(u2, o);
+        })).then(n2, o2);
       }
-      __name(i, "i");
-      i((t2 = t2.apply(e2, a2 || [])).next());
+      __name(s, "s");
+      s((t2 = t2.apply(e2, a2 || [])).next());
     });
   }, a = function(e2, a2) {
-    var l2, t2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+    var l2, t2, r2, u2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & r2[0]) throw r2[1];
       return r2[1];
-    }, "sent"), trys: [], ops: [] }, u2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return u2.next = o(0), u2.throw = o(1), u2.return = o(2), "function" == typeof Symbol && (u2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, n2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return n2.next = o2(0), n2.throw = o2(1), n2.return = o2(2), "function" == typeof Symbol && (n2[Symbol.iterator] = function() {
       return this;
-    }), u2;
-    function o(o2) {
-      return function(i) {
-        return function(o3) {
+    }), n2;
+    function o2(o3) {
+      return function(s) {
+        return function(o4) {
           if (l2) throw new TypeError("Generator is already executing.");
-          for (; u2 && (u2 = 0, o3[0] && (n2 = 0)), n2; ) try {
-            if (l2 = 1, t2 && (r2 = 2 & o3[0] ? t2.return : o3[0] ? t2.throw || ((r2 = t2.return) && r2.call(t2), 0) : t2.next) && !(r2 = r2.call(t2, o3[1])).done) return r2;
-            switch (t2 = 0, r2 && (o3 = [2 & o3[0], r2.value]), o3[0]) {
+          for (; n2 && (n2 = 0, o4[0] && (u2 = 0)), u2; ) try {
+            if (l2 = 1, t2 && (r2 = 2 & o4[0] ? t2.return : o4[0] ? t2.throw || ((r2 = t2.return) && r2.call(t2), 0) : t2.next) && !(r2 = r2.call(t2, o4[1])).done) return r2;
+            switch (t2 = 0, r2 && (o4 = [2 & o4[0], r2.value]), o4[0]) {
               case 0:
               case 1:
-                r2 = o3;
+                r2 = o4;
                 break;
               case 4:
-                return n2.label++, { value: o3[1], done: false };
+                return u2.label++, { value: o4[1], done: false };
               case 5:
-                n2.label++, t2 = o3[1], o3 = [0];
+                u2.label++, t2 = o4[1], o4 = [0];
                 continue;
               case 7:
-                o3 = n2.ops.pop(), n2.trys.pop();
+                o4 = u2.ops.pop(), u2.trys.pop();
                 continue;
               default:
-                if (!(r2 = n2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o3[0] && 2 !== o3[0])) {
-                  n2 = 0;
+                if (!(r2 = u2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
+                  u2 = 0;
                   continue;
                 }
-                if (3 === o3[0] && (!r2 || o3[1] > r2[0] && o3[1] < r2[3])) {
-                  n2.label = o3[1];
+                if (3 === o4[0] && (!r2 || o4[1] > r2[0] && o4[1] < r2[3])) {
+                  u2.label = o4[1];
                   break;
                 }
-                if (6 === o3[0] && n2.label < r2[1]) {
-                  n2.label = r2[1], r2 = o3;
+                if (6 === o4[0] && u2.label < r2[1]) {
+                  u2.label = r2[1], r2 = o4;
                   break;
                 }
-                if (r2 && n2.label < r2[2]) {
-                  n2.label = r2[2], n2.ops.push(o3);
+                if (r2 && u2.label < r2[2]) {
+                  u2.label = r2[2], u2.ops.push(o4);
                   break;
                 }
-                r2[2] && n2.ops.pop(), n2.trys.pop();
+                r2[2] && u2.ops.pop(), u2.trys.pop();
                 continue;
             }
-            o3 = a2.call(e2, n2);
+            o4 = a2.call(e2, u2);
           } catch (e3) {
-            o3 = [6, e3], t2 = 0;
+            o4 = [6, e3], t2 = 0;
           } finally {
             l2 = r2 = 0;
           }
-          if (5 & o3[0]) throw o3[1];
-          return { value: o3[0] ? o3[1] : void 0, done: true };
-        }([o2, i]);
+          if (5 & o4[0]) throw o4[1];
+          return { value: o4[0] ? o4[1] : void 0, done: true };
+        }([o3, s]);
       };
     }
-    __name(o, "o");
+    __name(o2, "o");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var l = (init_browser(), __toCommonJS(browser_exports)), t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), u = function() {
-    function u2() {
-      this.id = "archiveofourown", this.name = "Archive Of Our Own", this.version = "1.0.4", this.icon = "src/en/ao3/icon.png", this.site = "https://archiveofourown.org/", this.filters = { sort: { value: "hits", label: "Sort by", options: [{ label: "Best Match", value: "_score" }, { label: "Hits", value: "hits" }, { label: "Kudos", value: "kudos" }, { label: "Comments", value: "comments" }, { label: "Bookmarks", value: "bookmarks" }, { label: "Word Count", value: "word_count" }, { label: "Date Updated", value: "revised_at" }, { label: "Date Posted", value: "created_at" }, { label: "Author", value: "authors_to_sort_on" }, { label: "Title", value: "title_to_sort_on" }], type: r.FilterTypes.Picker }, sortdir: { value: "desc", label: "Sort direction", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: r.FilterTypes.Picker }, ratings: { value: "", label: "Ratings", options: [{ label: "Not Rated", value: "9" }, { label: "General Audiences", value: "10" }, { label: "Teen And Up Audiences", value: "11" }, { label: "Mature", value: "12" }, { label: "Explicit", value: "13" }], type: r.FilterTypes.Picker }, language: { value: "en", label: "Language", options: [{ label: "None", value: "" }, { label: "af Soomaali", value: "so" }, { label: "Afrikaans", value: "afr" }, { label: "Aynu itak | \u30A2\u30A4\u30CC \u30A4\u30BF\u31F0", value: "ain" }, { label: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629", value: "ar" }, { label: "\u12A0\u121B\u122D\u129B", value: "amh" }, { label: "\u{1308B}\u{133FA}\u{13216} \u{1318E}\u{13153}\u{133CF}\u{13296}", value: "egy" }, { label: "\u0710\u072A\u0721\u071D\u0710 | \u05D0\u05E8\u05DE\u05D9\u05D0", value: "arc" }, { label: "\u0570\u0561\u0575\u0565\u0580\u0565\u0576", value: "hy" }, { label: "American Sign Language", value: "ase" }, { label: "asturianu", value: "ast" }, { label: "Bahasa Indonesia", value: "id" }, { label: "Bahasa Malaysia", value: "ms" }, { label: "\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438", value: "bg" }, { label: "\u09AC\u09BE\u0982\u09B2\u09BE", value: "bn" }, { label: "Basa Jawa", value: "jv" }, { label: "\u0411\u0430\u0448\u04A1\u043E\u0440\u0442 \u0442\u0435\u043B\u0435", value: "ba" }, { label: "\u0431\u0435\u043B\u0430\u0440\u0443\u0441\u043A\u0430\u044F", value: "be" }, { label: "Bosanski", value: "bos" }, { label: "Brezhoneg", value: "br" }, { label: "Catal\xE0", value: "ca" }, { label: "Cebuano", value: "ceb" }, { label: "\u010Ce\u0161tina", value: "cs" }, { label: "Chinuk Wawa", value: "chn" }, { label: "\u043A\u044A\u044B\u0440\u044B\u043C\u0442\u0430\u0442\u0430\u0440 \u0442\u0438\u043B\u0438 | q\u0131r\u0131mtatar tili", value: "crh" }, { label: "Cymraeg", value: "cy" }, { label: "Dansk", value: "da" }, { label: "Deutsch", value: "de" }, { label: "eesti keel", value: "et" }, { label: "\u0395\u03BB\u03BB\u03B7\u03BD\u03B9\u03BA\u03AC", value: "el" }, { label: "\u{12174}\u{120A0}", value: "sux" }, { label: "English", value: "en" }, { label: "Eald Englis\u010B", value: "ang" }, { label: "Espa\xF1ol", value: "es" }, { label: "Esperanto", value: "eo" }, { label: "Euskara", value: "eu" }, { label: "\u0641\u0627\u0631\u0633\u06CC", value: "fa" }, { label: "Filipino", value: "fil" }, { label: "Fran\xE7ais", value: "fr" }, { label: "Friisk", value: "frr" }, { label: "Furlan", value: "fur" }, { label: "Gaeilge", value: "ga" }, { label: "G\xE0idhlig", value: "gd" }, { label: "Galego", value: "gl" }, { label: "\u{10332}\u{1033F}\u{10344}\u{10339}\u{10343}\u{1033A}\u{10330}", value: "got" }, { label: "Creolese", value: "gyn" }, { label: "\u4E2D\u6587-\u5BA2\u5BB6\u8BDD", value: "hak" }, { label: "\uD55C\uAD6D\uC5B4", value: "ko" }, { label: "Hausa | \u0647\u064E\u0631\u0652\u0634\u064E\u0646 \u0647\u064E\u0648\u0652\u0633\u064E", value: "hau" }, { label: "\u0939\u093F\u0928\u094D\u0926\u0940", value: "hi" }, { label: "Hrvatski", value: "hr" }, { label: "\u02BB\u014Clelo Hawai\u02BBi", value: "haw" }, { label: "Interlingua", value: "ia" }, { label: "isiZulu", value: "zu" }, { label: "\xCDslenska", value: "is" }, { label: "Italiano", value: "it" }, { label: "\u05E2\u05D1\u05E8\u05D9\u05EA", value: "he" }, { label: "Kalaallisut", value: "kal" }, { label: "\u0C95\u0CA8\u0CCD\u0CA8\u0CA1", value: "kan" }, { label: "\u10E5\u10D0\u10E0\u10D7\u10E3\u10DA\u10D8", value: "kat" }, { label: "Kernewek", value: "cor" }, { label: "\u1797\u17B6\u179F\u17B6\u1781\u17D2\u1798\u17C2\u179A", value: "khm" }, { label: "Khuzdul", value: "qkz" }, { label: "Kiswahili", value: "sw" }, { label: "krey\xF2l ayisyen", value: "ht" }, { label: "Kurd\xEE | \u06A9\u0648\u0631\u062F\u06CC", value: "ku" }, { label: "\u041A\u044B\u0440\u0433\u044B\u0437\u0447\u0430", value: "kir" }, { label: "Langue des signes qu\xE9b\xE9coise", value: "fcs" }, { label: "Latvie\u0161u valoda", value: "lv" }, { label: "L\xEBtzebuergesch", value: "lb" }, { label: "Lietuvi\u0173 kalba", value: "lt" }, { label: "Lingua latina", value: "la" }, { label: "Magyar", value: "hu" }, { label: "\u043C\u0430\u043A\u0435\u0434\u043E\u043D\u0441\u043A\u0438", value: "mk" }, { label: "\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02", value: "ml" }, { label: "Malti", value: "mt" }, { label: "\u182E\u1820\u1828\u1835\u1860 \u1864\u1873\u1830\u1860\u1828", value: "mnc" }, { label: "Mando'a", value: "qmd" }, { label: "\u092E\u0930\u093E\u0920\u0940", value: "mr" }, { label: "Mikis\xFAk\xEE", value: "mik" }, { label: "\u182E\u1823\u1829\u182D\u1823\u182F \u182A\u1822\u1834\u1822\u182D\u180C | \u041C\u043E\u043D\u0433\u043E\u043B \u041A\u0438\u0440\u0438\u043B\u043B \u04AF\u0441\u044D\u0433", value: "mon" }, { label: "\u1019\u103C\u1014\u103A\u1019\u102C\u1018\u102C\u101E\u102C", value: "my" }, { label: "\u042D\u0440\u0437\u044F\u043D\u044C \u043A\u0435\u043B\u044C", value: "myv" }, { label: "N\u0101huatl", value: "nah" }, { label: "\u4E2D\u6587-\u95FD\u5357\u8BDD \u81FA\u8A9E", value: "nan" }, { label: "Nawat", value: "ppl" }, { label: "Nederlands", value: "nl" }, { label: "\u65E5\u672C\u8A9E", value: "ja" }, { label: "Norsk", value: "no" }, { label: "\u0410\u0437\u04D9\u0440\u0431\u0430\u0458\u04B9\u0430\u043D \u0434\u0438\u043B\u0438 | \u0622\u0630\u0631\u0628\u0627\u06CC\u062C\u0627\u0646 \u062F\u06CC\u0644\u06CC", value: "azj" }, { label: "\u041D\u043E\u0445\u0447\u0438\u0439\u043D \u043C\u043E\u0442\u0442", value: "ce" }, { label: "\u2018O\u2019odham \xD1iok", value: "ood" }, { label: "\u0644\u0633\u0627\u0646 \u0639\u062B\u0645\u0627\u0646\u0649", value: "ota" }, { label: "\u067E\u069A\u062A\u0648", value: "ps" }, { label: "Plattd\xFC\xFCtsch", value: "nds" }, { label: "Polski", value: "pl" }, { label: "Portugu\xEAs brasileiro", value: "ptBR" }, { label: "Portugu\xEAs europeu", value: "ptPT" }, { label: "\u0A2A\u0A70\u0A1C\u0A3E\u0A2C\u0A40", value: "pa" }, { label: "qazaq\u015Fa | \u049B\u0430\u0437\u0430\u049B\u0448\u0430", value: "kaz" }, { label: "Uncategorized Constructed Languages", value: "qlq" }, { label: "Quenya", value: "qya" }, { label: "Rom\xE2n\u0103", value: "ro" }, { label: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439", value: "ru" }, { label: "Scots", value: "sco" }, { label: "Shqip", value: "sq" }, { label: "Sindarin", value: "sjn" }, { label: "\u0DC3\u0DD2\u0D82\u0DC4\u0DBD", value: "si" }, { label: "Sloven\u010Dina", value: "sk" }, { label: "Sloven\u0161\u010Dina", value: "slv" }, { label: "Spr\u0113k\u014D \xDEiudisk\u014D", value: "gem" }, { label: "\u0421\u0440\u043F\u0441\u043A\u0438", value: "sr" }, { label: "suomi", value: "fi" }, { label: "Svenska", value: "sv" }, { label: "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD", value: "ta" }, { label: "\u0442\u0430\u0442\u0430\u0440 \u0442\u0435\u043B\u0435", value: "tat" }, { label: "te reo M\u0101ori", value: "mri" }, { label: "\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41", value: "tel" }, { label: "\u0E44\u0E17\u0E22", value: "th" }, { label: "Thermian", value: "tqx" }, { label: "\u0F56\u0F7C\u0F51\u0F0B\u0F66\u0F90\u0F51\u0F0B", value: "bod" }, { label: "Ti\u1EBFng Vi\u1EC7t", value: "vi" }, { label: "\u03EF\u2C99\u2C89\u2CA7\u2CA3\u2C89\u2C99\u2C9B\u0300\u2CAD\u2C8F\u2C99\u2C93", value: "cop" }, { label: "tlhIngan-Hol", value: "tlh" }, { label: "toki pona", value: "tok" }, { label: "Trinidadian Creole", value: "trf" }, { label: "\u03C4\u03C3\u03B1\u03BA\u03CE\u03BD\u03B9\u03BA\u03B1", value: "tsd" }, { label: "\u13E3\u13B3\u13A9 \u13A6\u13EC\u13C2\u13AF\u13CD\u13D7", value: "chr" }, { label: "T\xFCrk\xE7e", value: "tr" }, { label: "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430", value: "uk" }, { label: "\u0627\u064F\u0631\u062F\u064F\u0648", value: "urd" }, { label: "\u0626\u06C7\u064A\u063A\u06C7\u0631 \u062A\u0649\u0644\u0649", value: "uig" }, { label: "Volap\xFCk", value: "vol" }, { label: "\u4E2D\u6587-\u5434\u8BED", value: "wuu" }, { label: "\u05D9\u05D9\u05D3\u05D9\u05E9", value: "yi" }, { label: "maaya\u02BC t\u02BC\xE0an", value: "yua" }, { label: "\u4E2D\u6587-\u5E7F\u4E1C\u8BDD \u7CB5\u8A9E", value: "yue" }, { label: "\u4E2D\u6587-\u666E\u901A\u8BDD \u570B\u8A9E", value: "zh" }], type: r.FilterTypes.Picker }, completion: { value: "", label: "Completion Status", options: [{ label: "All works", value: "checked" }, { label: "Complete works only", value: "T" }, { label: "Works in progress only", value: "F" }], type: r.FilterTypes.Picker }, crossover: { value: "", label: "Crossover Status", options: [{ label: "Include crossovers", value: "checked" }, { label: "Exclude crossovers", value: "T" }, { label: "Only crossovers", value: "F" }], type: r.FilterTypes.Picker }, categories: { value: [], label: "Categories", options: [{ label: "F/F", value: "116" }, { label: "F/M", value: "22" }, { label: "Gen", value: "21" }, { label: "M/M", value: "23" }, { label: "Multi", value: "2246" }, { label: "Other", value: "24" }], type: r.FilterTypes.CheckboxGroup }, warningsFilter: { value: [], label: "Warnings", options: [{ label: "Creator Chose Not To Use Archive Warnings", value: "14" }, { label: "Graphic Depictions Of Violence", value: "17" }, { label: "Major Character Death", value: "18" }, { label: "No Archive Warnings Apply", value: "16" }, { label: "Rape/Non-Con", value: "19" }, { label: "Underage", value: "20" }], type: r.FilterTypes.CheckboxGroup }, singlechap: { value: false, label: "Single Chapter Stories", type: r.FilterTypes.Switch }, author: { value: "", label: "Author/Artist", type: r.FilterTypes.TextInput }, dateFilter: { value: "", label: "Enter single Number only Date", type: r.FilterTypes.TextInput }, dateIncrements: { value: "days+ago", label: "Must choose date type", options: [{ label: "Days", value: "days+ago" }, { label: "Weeks", value: "weeks+ago" }, { label: "Months", value: "months+ago" }, { label: "Years", value: "years+ago" }], type: r.FilterTypes.Picker }, words: { value: "", label: "Word Count, exact number eg. 40 or  less than eg. <40 or greater than eg. >40 or range eg. 10-100", type: r.FilterTypes.TextInput }, hits: { value: "", label: "Hits", type: r.FilterTypes.TextInput }, bookmarks: { value: "", label: "Bookmarks", type: r.FilterTypes.TextInput }, comments: { value: "", label: "Comments", type: r.FilterTypes.TextInput }, kudos: { value: "", label: "Kudos", type: r.FilterTypes.TextInput } };
+  var l = (init_browser(), __toCommonJS(browser_exports)), t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), u = (init_defaultCover(), __toCommonJS(defaultCover_exports));
+  function n(e2, a2, l2) {
+    if (!e2.ok) {
+      if (e2.status >= 500 || 429 === e2.status || 403 === e2.status) throw Object.assign(new Error("AO3 request timed out / blocked: HTTP ".concat(e2.status)), { status: e2.status, response: e2 });
+      throw new Error("Failed to ".concat(l2, ": HTTP ").concat(e2.status));
     }
-    __name(u2, "u");
-    return u2.prototype.parseNovels = function(e2) {
+    if (a2.includes("Retry later")) throw Object.assign(new Error("AO3 rate limit: request timed out by server (Retry later)"), { status: 429, response: e2 });
+  }
+  __name(n, "n");
+  var o = function() {
+    function o2() {
+      this.id = "archiveofourown", this.name = "Archive Of Our Own", this.version = "1.0.5", this.icon = "src/en/ao3/icon.png", this.site = "https://archiveofourown.org/", this.filters = { sort: { value: "hits", label: "Sort by", options: [{ label: "Best Match", value: "_score" }, { label: "Hits", value: "hits" }, { label: "Kudos", value: "kudos" }, { label: "Comments", value: "comments" }, { label: "Bookmarks", value: "bookmarks" }, { label: "Word Count", value: "word_count" }, { label: "Date Updated", value: "revised_at" }, { label: "Date Posted", value: "created_at" }, { label: "Author", value: "authors_to_sort_on" }, { label: "Title", value: "title_to_sort_on" }], type: r.FilterTypes.Picker }, sortdir: { value: "desc", label: "Sort direction", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: r.FilterTypes.Picker }, ratings: { value: "", label: "Ratings", options: [{ label: "Not Rated", value: "9" }, { label: "General Audiences", value: "10" }, { label: "Teen And Up Audiences", value: "11" }, { label: "Mature", value: "12" }, { label: "Explicit", value: "13" }], type: r.FilterTypes.Picker }, language: { value: "en", label: "Language", options: [{ label: "None", value: "" }, { label: "af Soomaali", value: "so" }, { label: "Afrikaans", value: "afr" }, { label: "Aynu itak | \u30A2\u30A4\u30CC \u30A4\u30BF\u31F0", value: "ain" }, { label: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629", value: "ar" }, { label: "\u12A0\u121B\u122D\u129B", value: "amh" }, { label: "\u{1308B}\u{133FA}\u{13216} \u{1318E}\u{13153}\u{133CF}\u{13296}", value: "egy" }, { label: "\u0710\u072A\u0721\u071D\u0710 | \u05D0\u05E8\u05DE\u05D9\u05D0", value: "arc" }, { label: "\u0570\u0561\u0575\u0565\u0580\u0565\u0576", value: "hy" }, { label: "American Sign Language", value: "ase" }, { label: "asturianu", value: "ast" }, { label: "Bahasa Indonesia", value: "id" }, { label: "Bahasa Malaysia", value: "ms" }, { label: "\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438", value: "bg" }, { label: "\u09AC\u09BE\u0982\u09B2\u09BE", value: "bn" }, { label: "Basa Jawa", value: "jv" }, { label: "\u0411\u0430\u0448\u04A1\u043E\u0440\u0442 \u0442\u0435\u043B\u0435", value: "ba" }, { label: "\u0431\u0435\u043B\u0430\u0440\u0443\u0441\u043A\u0430\u044F", value: "be" }, { label: "Bosanski", value: "bos" }, { label: "Brezhoneg", value: "br" }, { label: "Catal\xE0", value: "ca" }, { label: "Cebuano", value: "ceb" }, { label: "\u010Ce\u0161tina", value: "cs" }, { label: "Chinuk Wawa", value: "chn" }, { label: "\u043A\u044A\u044B\u0440\u044B\u043C\u0442\u0430\u0442\u0430\u0440 \u0442\u0438\u043B\u0438 | q\u0131r\u0131mtatar tili", value: "crh" }, { label: "Cymraeg", value: "cy" }, { label: "Dansk", value: "da" }, { label: "Deutsch", value: "de" }, { label: "eesti keel", value: "et" }, { label: "\u0395\u03BB\u03BB\u03B7\u03BD\u03B9\u03BA\u03AC", value: "el" }, { label: "\u{12174}\u{120A0}", value: "sux" }, { label: "English", value: "en" }, { label: "Eald Englis\u010B", value: "ang" }, { label: "Espa\xF1ol", value: "es" }, { label: "Esperanto", value: "eo" }, { label: "Euskara", value: "eu" }, { label: "\u0641\u0627\u0631\u0633\u06CC", value: "fa" }, { label: "Filipino", value: "fil" }, { label: "Fran\xE7ais", value: "fr" }, { label: "Friisk", value: "frr" }, { label: "Furlan", value: "fur" }, { label: "Gaeilge", value: "ga" }, { label: "G\xE0idhlig", value: "gd" }, { label: "Galego", value: "gl" }, { label: "\u{10332}\u{1033F}\u{10344}\u{10339}\u{10343}\u{1033A}\u{10330}", value: "got" }, { label: "Creolese", value: "gyn" }, { label: "\u4E2D\u6587-\u5BA2\u5BB6\u8BDD", value: "hak" }, { label: "\uD55C\uAD6D\uC5B4", value: "ko" }, { label: "Hausa | \u0647\u064E\u0631\u0652\u0634\u064E\u0646 \u0647\u064E\u0648\u0652\u0633\u064E", value: "hau" }, { label: "\u0939\u093F\u0928\u094D\u0926\u0940", value: "hi" }, { label: "Hrvatski", value: "hr" }, { label: "\u02BB\u014Clelo Hawai\u02BBi", value: "haw" }, { label: "Interlingua", value: "ia" }, { label: "isiZulu", value: "zu" }, { label: "\xCDslenska", value: "is" }, { label: "Italiano", value: "it" }, { label: "\u05E2\u05D1\u05E8\u05D9\u05EA", value: "he" }, { label: "Kalaallisut", value: "kal" }, { label: "\u0C95\u0CA8\u0CCD\u0CA8\u0CA1", value: "kan" }, { label: "\u10E5\u10D0\u10E0\u10D7\u10E3\u10DA\u10D8", value: "kat" }, { label: "Kernewek", value: "cor" }, { label: "\u1797\u17B6\u179F\u17B6\u1781\u17D2\u1798\u17C2\u179A", value: "khm" }, { label: "Khuzdul", value: "qkz" }, { label: "Kiswahili", value: "sw" }, { label: "krey\xF2l ayisyen", value: "ht" }, { label: "Kurd\xEE | \u06A9\u0648\u0631\u062F\u06CC", value: "ku" }, { label: "\u041A\u044B\u0440\u0433\u044B\u0437\u0447\u0430", value: "kir" }, { label: "Langue des signes qu\xE9b\xE9coise", value: "fcs" }, { label: "Latvie\u0161u valoda", value: "lv" }, { label: "L\xEBtzebuergesch", value: "lb" }, { label: "Lietuvi\u0173 kalba", value: "lt" }, { label: "Lingua latina", value: "la" }, { label: "Magyar", value: "hu" }, { label: "\u043C\u0430\u043A\u0435\u0434\u043E\u043D\u0441\u043A\u0438", value: "mk" }, { label: "\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02", value: "ml" }, { label: "Malti", value: "mt" }, { label: "\u182E\u1820\u1828\u1835\u1860 \u1864\u1873\u1830\u1860\u1828", value: "mnc" }, { label: "Mando'a", value: "qmd" }, { label: "\u092E\u0930\u093E\u0920\u0940", value: "mr" }, { label: "Mikis\xFAk\xEE", value: "mik" }, { label: "\u182E\u1823\u1829\u182D\u1823\u182F \u182A\u1822\u1834\u1822\u182D\u180C | \u041C\u043E\u043D\u0433\u043E\u043B \u041A\u0438\u0440\u0438\u043B\u043B \u04AF\u0441\u044D\u0433", value: "mon" }, { label: "\u1019\u103C\u1014\u103A\u1019\u102C\u1018\u102C\u101E\u102C", value: "my" }, { label: "\u042D\u0440\u0437\u044F\u043D\u044C \u043A\u0435\u043B\u044C", value: "myv" }, { label: "N\u0101huatl", value: "nah" }, { label: "\u4E2D\u6587-\u95FD\u5357\u8BDD \u81FA\u8A9E", value: "nan" }, { label: "Nawat", value: "ppl" }, { label: "Nederlands", value: "nl" }, { label: "\u65E5\u672C\u8A9E", value: "ja" }, { label: "Norsk", value: "no" }, { label: "\u0410\u0437\u04D9\u0440\u0431\u0430\u0458\u04B9\u0430\u043D \u0434\u0438\u043B\u0438 | \u0622\u0630\u0631\u0628\u0627\u06CC\u062C\u0627\u0646 \u062F\u06CC\u0644\u06CC", value: "azj" }, { label: "\u041D\u043E\u0445\u0447\u0438\u0439\u043D \u043C\u043E\u0442\u0442", value: "ce" }, { label: "\u2018O\u2019odham \xD1iok", value: "ood" }, { label: "\u0644\u0633\u0627\u0646 \u0639\u062B\u0645\u0627\u0646\u0649", value: "ota" }, { label: "\u067E\u069A\u062A\u0648", value: "ps" }, { label: "Plattd\xFC\xFCtsch", value: "nds" }, { label: "Polski", value: "pl" }, { label: "Portugu\xEAs brasileiro", value: "ptBR" }, { label: "Portugu\xEAs europeu", value: "ptPT" }, { label: "\u0A2A\u0A70\u0A1C\u0A3E\u0A2C\u0A40", value: "pa" }, { label: "qazaq\u015Fa | \u049B\u0430\u0437\u0430\u049B\u0448\u0430", value: "kaz" }, { label: "Uncategorized Constructed Languages", value: "qlq" }, { label: "Quenya", value: "qya" }, { label: "Rom\xE2n\u0103", value: "ro" }, { label: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439", value: "ru" }, { label: "Scots", value: "sco" }, { label: "Shqip", value: "sq" }, { label: "Sindarin", value: "sjn" }, { label: "\u0DC3\u0DD2\u0D82\u0DC4\u0DBD", value: "si" }, { label: "Sloven\u010Dina", value: "sk" }, { label: "Sloven\u0161\u010Dina", value: "slv" }, { label: "Spr\u0113k\u014D \xDEiudisk\u014D", value: "gem" }, { label: "\u0421\u0440\u043F\u0441\u043A\u0438", value: "sr" }, { label: "suomi", value: "fi" }, { label: "Svenska", value: "sv" }, { label: "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD", value: "ta" }, { label: "\u0442\u0430\u0442\u0430\u0440 \u0442\u0435\u043B\u0435", value: "tat" }, { label: "te reo M\u0101ori", value: "mri" }, { label: "\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41", value: "tel" }, { label: "\u0E44\u0E17\u0E22", value: "th" }, { label: "Thermian", value: "tqx" }, { label: "\u0F56\u0F7C\u0F51\u0F0B\u0F66\u0F90\u0F51\u0F0B", value: "bod" }, { label: "Ti\u1EBFng Vi\u1EC7t", value: "vi" }, { label: "\u03EF\u2C99\u2C89\u2CA7\u2CA3\u2C89\u2C99\u2C9B\u0300\u2CAD\u2C8F\u2C99\u2C93", value: "cop" }, { label: "tlhIngan-Hol", value: "tlh" }, { label: "toki pona", value: "tok" }, { label: "Trinidadian Creole", value: "trf" }, { label: "\u03C4\u03C3\u03B1\u03BA\u03CE\u03BD\u03B9\u03BA\u03B1", value: "tsd" }, { label: "\u13E3\u13B3\u13A9 \u13A6\u13EC\u13C2\u13AF\u13CD\u13D7", value: "chr" }, { label: "T\xFCrk\xE7e", value: "tr" }, { label: "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430", value: "uk" }, { label: "\u0627\u064F\u0631\u062F\u064F\u0648", value: "urd" }, { label: "\u0626\u06C7\u064A\u063A\u06C7\u0631 \u062A\u0649\u0644\u0649", value: "uig" }, { label: "Volap\xFCk", value: "vol" }, { label: "\u4E2D\u6587-\u5434\u8BED", value: "wuu" }, { label: "\u05D9\u05D9\u05D3\u05D9\u05E9", value: "yi" }, { label: "maaya\u02BC t\u02BC\xE0an", value: "yua" }, { label: "\u4E2D\u6587-\u5E7F\u4E1C\u8BDD \u7CB5\u8A9E", value: "yue" }, { label: "\u4E2D\u6587-\u666E\u901A\u8BDD \u570B\u8A9E", value: "zh" }], type: r.FilterTypes.Picker }, completion: { value: "", label: "Completion Status", options: [{ label: "All works", value: "checked" }, { label: "Complete works only", value: "T" }, { label: "Works in progress only", value: "F" }], type: r.FilterTypes.Picker }, crossover: { value: "", label: "Crossover Status", options: [{ label: "Include crossovers", value: "checked" }, { label: "Exclude crossovers", value: "T" }, { label: "Only crossovers", value: "F" }], type: r.FilterTypes.Picker }, categories: { value: [], label: "Categories", options: [{ label: "F/F", value: "116" }, { label: "F/M", value: "22" }, { label: "Gen", value: "21" }, { label: "M/M", value: "23" }, { label: "Multi", value: "2246" }, { label: "Other", value: "24" }], type: r.FilterTypes.CheckboxGroup }, warningsFilter: { value: [], label: "Warnings", options: [{ label: "Creator Chose Not To Use Archive Warnings", value: "14" }, { label: "Graphic Depictions Of Violence", value: "17" }, { label: "Major Character Death", value: "18" }, { label: "No Archive Warnings Apply", value: "16" }, { label: "Rape/Non-Con", value: "19" }, { label: "Underage", value: "20" }], type: r.FilterTypes.CheckboxGroup }, singlechap: { value: false, label: "Single Chapter Stories", type: r.FilterTypes.Switch }, author: { value: "", label: "Author/Artist", type: r.FilterTypes.TextInput }, dateFilter: { value: "", label: "Enter single Number only Date", type: r.FilterTypes.TextInput }, dateIncrements: { value: "days+ago", label: "Must choose date type", options: [{ label: "Days", value: "days+ago" }, { label: "Weeks", value: "weeks+ago" }, { label: "Months", value: "months+ago" }, { label: "Years", value: "years+ago" }], type: r.FilterTypes.Picker }, words: { value: "", label: "Word Count, exact number eg. 40 or  less than eg. <40 or greater than eg. >40 or range eg. 10-100", type: r.FilterTypes.TextInput }, hits: { value: "", label: "Hits", type: r.FilterTypes.TextInput }, bookmarks: { value: "", label: "Bookmarks", type: r.FilterTypes.TextInput }, comments: { value: "", label: "Comments", type: r.FilterTypes.TextInput }, kudos: { value: "", label: "Kudos", type: r.FilterTypes.TextInput } };
+    }
+    __name(o2, "o");
+    return o2.prototype.parseNovels = function(e2) {
       var a2 = [];
       return e2("li.work").each(function(l2, t2) {
-        var r2, u3 = e2(t2).find("h4.heading > a").first().text().trim(), o = null === (r2 = e2(t2).find("h4.heading > a").first().attr("href")) || void 0 === r2 ? void 0 : r2.trim();
-        if (o) {
-          var i = { name: u3, cover: n.defaultCover, path: o.slice(1) };
-          a2.push(i);
+        var r2, n2 = e2(t2).find("h4.heading > a").first().text().trim(), o3 = null === (r2 = e2(t2).find("h4.heading > a").first().attr("href")) || void 0 === r2 ? void 0 : r2.trim();
+        if (o3) {
+          var s = { name: n2, cover: u.defaultCover, path: o3.slice(1) };
+          a2.push(s);
         }
       }), a2;
-    }, u2.prototype.popularNovels = function(r2, n2) {
+    }, o2.prototype.popularNovels = function(r2, u2) {
       return e(this, arguments, void 0, function(e2, r3) {
-        var n3, u3, o, i, s = r3.showLatestNovels, v = r3.filters;
+        var u3, o3, s, i, v, c = r3.showLatestNovels, b = r3.filters;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return n3 = new URLSearchParams({ commit: "Search", page: e2.toString(), "work_search[language_id]": v.language.value }), s ? n3.set("work_search[sort_column]", "revised_at") : n3.set("work_search[sort_column]", v.sort.value), n3.set("work_search[sort_direction]", v.sortdir.value), "" !== v.completion.value && n3.set("work_search[complete]", v.completion.value), "" !== v.crossover.value && n3.set("work_search[crossover]", v.crossover.value), v.categories.value.length > 0 && v.categories.value.forEach(function(e3) {
-                n3.append("work_search[category_ids][]", e3);
-              }), v.warningsFilter.value.length > 0 && v.warningsFilter.value.forEach(function(e3) {
-                n3.append("work_search[archive_warning_ids][]", e3);
-              }), v.singlechap.value && n3.set("work_search[single_chapter]", "1"), "" !== v.author.value && n3.set("work_search[creators]", v.author.value), "" !== v.dateFilter.value && "" !== v.dateIncrements.value && n3.set("work_search[revised_at]", "".concat(v.dateFilter.value, " ").concat(v.dateIncrements.value)), "" !== v.words.value && n3.set("work_search[word_count]", v.words.value), "" !== v.hits.value && n3.set("work_search[hits]", v.hits.value), "" !== v.bookmarks.value && n3.set("work_search[bookmarks_count]", v.bookmarks.value), "" !== v.comments.value && n3.set("work_search[comments_count]", v.comments.value), "" !== v.kudos.value && n3.set("work_search[kudos_count]", v.kudos.value), u3 = "".concat(this.site, "works/search?").concat(n3.toString()), [4, (0, t.fetchApi)(u3).then(function(e3) {
-                return e3.text();
-              })];
+              return u3 = new URLSearchParams({ commit: "Search", page: e2.toString(), "work_search[language_id]": b.language.value }), c ? u3.set("work_search[sort_column]", "revised_at") : u3.set("work_search[sort_column]", b.sort.value), u3.set("work_search[sort_direction]", b.sortdir.value), "" !== b.completion.value && u3.set("work_search[complete]", b.completion.value), "" !== b.crossover.value && u3.set("work_search[crossover]", b.crossover.value), b.categories.value.length > 0 && b.categories.value.forEach(function(e3) {
+                u3.append("work_search[category_ids][]", e3);
+              }), b.warningsFilter.value.length > 0 && b.warningsFilter.value.forEach(function(e3) {
+                u3.append("work_search[archive_warning_ids][]", e3);
+              }), b.singlechap.value && u3.set("work_search[single_chapter]", "1"), "" !== b.author.value && u3.set("work_search[creators]", b.author.value), "" !== b.dateFilter.value && "" !== b.dateIncrements.value && u3.set("work_search[revised_at]", "".concat(b.dateFilter.value, " ").concat(b.dateIncrements.value)), "" !== b.words.value && u3.set("work_search[word_count]", b.words.value), "" !== b.hits.value && u3.set("work_search[hits]", b.hits.value), "" !== b.bookmarks.value && u3.set("work_search[bookmarks_count]", b.bookmarks.value), "" !== b.comments.value && u3.set("work_search[comments_count]", b.comments.value), "" !== b.kudos.value && u3.set("work_search[kudos_count]", b.kudos.value), o3 = "".concat(this.site, "works/search?").concat(u3.toString()), [4, (0, t.fetchApi)(o3, { headers: { Cookie: "view_adult=true" } })];
             case 1:
-              return o = a2.sent(), i = (0, l.load)(o), [2, this.parseNovels(i)];
+              return [4, (s = a2.sent()).text()];
+            case 2:
+              return i = a2.sent(), n(s, i, "fetch popular novels"), v = (0, l.load)(i), [2, this.parseNovels(v)];
           }
         });
       });
-    }, u2.prototype.parseNovel = function(r2) {
+    }, o2.prototype.parseNovel = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, u3, o, i, s, v, c, b, h, p, d, m, g, f, k, y, w, _, x, T, S;
+        var e2, o3, s, i, v, c, b, h, p, d, m, g, f, k, y, w, _, x, T, S, F;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, (0, t.fetchApi)(new URL(r2, this.site).toString())];
+              return (e2 = new URL(r2, this.site)).searchParams.set("view_adult", "true"), (o3 = new URL(e2.pathname.replace(/\/$/, "") + "/navigate", this.site)).searchParams.set("view_adult", "true"), s = { Cookie: "view_adult=true" }, [4, Promise.all([(0, t.fetchApi)(e2.toString(), { headers: s }), (0, t.fetchApi)(o3.toString(), { headers: s })])];
             case 1:
-              return e2 = a2.sent(), u3 = r2 + "/navigate", [4, (0, t.fetchApi)(new URL(u3, this.site).toString())];
+              return i = a2.sent(), v = i[0], c = i[1], [4, v.text()];
             case 2:
-              return o = a2.sent(), [4, e2.text()];
+              return b = a2.sent(), [4, c.text()];
             case 3:
-              return i = a2.sent(), [4, o.text()];
-            case 4:
-              return s = a2.sent(), v = (0, l.load)(s), c = (0, l.load)(i), (b = { path: r2, name: c("h2.title").text().trim() || "Untitled", cover: n.defaultCover, status: c("dt.status").text().includes("Updated") ? "Ongoing" : "Completed", chapters: [] }).author = c('a[rel="author"]').map(function(e3, a3) {
-                return c(a3).text().trim();
-              }).get().join(", "), b.genres = Array.from(c("dd.freeform.tags li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), h = c("blockquote.userstuff").text().trim(), p = Array.from(c("dd.fandom.tags li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), d = Array.from(c("dd.rating.tags li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), m = Array.from(c("dd.warning.tags li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), g = Array.from(c("dd.series li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), f = Array.from(c("dd.relationship.tags li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), k = Array.from(c("dd.character.tags li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), y = Array.from(c("dd.stats li a.tag")).map(function(e3) {
-                return c(e3).text().trim();
-              }).join(","), b.summary = "Fandom:\n".concat(p, "\n\nRating:\n").concat(d, "\n\nWarning:\n").concat(m, "\n\nSummary:\n").concat(h, "\n\nSeries:\n").concat(g, "\n\nRelationships:\n").concat(f, "\n\nCharacters:\n").concat(k, "\n\nStats:\n").concat(y), w = [], _ = [], v("ol.index").each(function(e3, a3) {
-                v(a3).find("li").each(function(e4, a4) {
-                  var l2 = v(a4).find("span.datetime").text().replace(/\(([^)]+)\)/g, "$1").trim(), t2 = l2 ? new Date(l2).toISOString() : "";
-                  _.push(t2);
-                });
-              }), x = c(".wrapper dd.published").text().trim(), T = x ? new Date(x).toISOString() : "", S = 0, c("#chapter_index select").length > 0 && c("#chapter_index select").each(function(e3, a3) {
-                c(a3).find("option").each(function(e4, a4) {
-                  var l2, t2 = c(a4).text().trim(), n2 = null === (l2 = c(a4).attr("value")) || void 0 === l2 ? void 0 : l2.trim(), u4 = "".concat(r2, "/chapters/").concat(n2), o2 = _[S];
-                  S++, u4 && w.push({ name: t2, path: u4, releaseTime: o2 });
-                });
-              }), 0 === w.length && (c("#chapters h3.title").each(function(e3, a3) {
-                var l2, t2, n2 = c(a3).text().trim().match(/:\s*(.*)$/), u4 = n2 ? n2[1].trim() : "", o2 = null === (l2 = c(a3).find("a").attr("href")) || void 0 === l2 ? void 0 : l2.trim(), i2 = null === (t2 = null == o2 ? void 0 : o2.match(/\/chapters\/(\d+)/)) || void 0 === t2 ? void 0 : t2[1], s2 = "".concat(r2, "/chapters/").concat(i2);
-                if (s2) {
-                  if ("" === u4) u4 = c(".work .title.heading").text().trim();
-                  w.push({ name: u4, path: s2, releaseTime: T });
+              return h = a2.sent(), n(v, b, "fetch novel details"), n(c, h, "fetch novel chapters"), p = (0, l.load)(h), d = (0, l.load)(b), (m = { path: r2, name: d("h2.title").text().trim() || "Untitled", cover: u.defaultCover, status: d("dt.status").text().includes("Updated") ? "Ongoing" : "Completed", chapters: [] }).author = d('a[rel="author"]').map(function(e3, a3) {
+                return d(a3).text().trim();
+              }).get().join(", "), m.genres = Array.from(d("dd.freeform.tags li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), g = d("blockquote.userstuff").text().trim(), f = Array.from(d("dd.fandom.tags li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), k = Array.from(d("dd.rating.tags li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), y = Array.from(d("dd.warning.tags li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), w = Array.from(d("dd.series li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), _ = Array.from(d("dd.relationship.tags li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), x = Array.from(d("dd.character.tags li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), T = Array.from(d("dd.stats li a.tag")).map(function(e3) {
+                return d(e3).text().trim();
+              }).join(","), m.summary = "Fandom:\n".concat(f, "\n\nRating:\n").concat(k, "\n\nWarning:\n").concat(y, "\n\nSummary:\n").concat(g, "\n\nSeries:\n").concat(w, "\n\nRelationships:\n").concat(_, "\n\nCharacters:\n").concat(x, "\n\nStats:\n").concat(T), S = [], p("ol.index li").each(function(e3, a3) {
+                var l2, t2 = p(a3).find("a"), r3 = null === (l2 = t2.attr("href")) || void 0 === l2 ? void 0 : l2.trim();
+                if (r3) {
+                  var u2 = p(a3).find("span.datetime").text().replace(/[()]/g, "").trim();
+                  S.push({ name: t2.text().trim() || "Chapter ".concat(e3 + 1), path: r3.replace(/^\//, ""), releaseTime: u2 ? new Date(u2).toISOString() : null });
                 }
-              }), 0 === w.length && c(".work.navigation.actions li a").each(function(e3, a3) {
-                var l2 = c(a3).attr("href");
-                if (l2 && l2.includes("/downloads/")) {
-                  var t2 = l2.match(/updated_at=(\d+)/), n2 = t2 ? t2[1] : null, u4 = c("h2.title.heading").text().trim(), o2 = "".concat(r2, "/chapters/").concat(n2);
-                  if (o2) {
-                    if ("" === u4) u4 = c(".work .title.heading").text().trim();
-                    w.push({ name: u4, path: o2, releaseTime: T });
-                  }
-                }
-              })), b.chapters = w, [2, b];
+              }), 0 === S.length && (F = d(".wrapper dd.published").text().trim(), S.push({ name: m.name, path: r2, releaseTime: F ? new Date(F).toISOString() : null })), m.chapters = S, [2, m];
           }
         });
       });
-    }, u2.prototype.parseChapter = function(r2) {
+    }, o2.prototype.parseChapter = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2;
+        var e2, u2, o3, s;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, (0, t.fetchApi)(new URL(r2, this.site).toString())];
+              return (e2 = new URL(r2, this.site)).searchParams.set("view_adult", "true"), [4, (0, t.fetchApi)(e2.toString(), { headers: { Cookie: "view_adult=true" } })];
             case 1:
-              return [4, a2.sent().text()];
+              return [4, (u2 = a2.sent()).text()];
             case 2:
-              return e2 = a2.sent(), (n2 = (0, l.load)(e2))("h3.title").each(function(e3, a3) {
-                var l2 = n2(a3), t2 = l2.find("a");
+              return o3 = a2.sent(), n(u2, o3, "fetch chapter"), (s = (0, l.load)(o3))("h3.title").each(function(e3, a3) {
+                var l2 = s(a3), t2 = l2.find("a");
                 t2.removeAttr("href");
                 var r3 = t2.text().trim(), u3 = l2.contents().filter(function(e4, a4) {
                   return 3 === a4.nodeType;
                 }).text().trim();
                 l2.html("".concat(r3, "<br>").concat(u3));
-              }), n2("h3.landmark.heading#work").remove(), [2, n2("div#chapters > div").html() || ""];
+              }), s("h3.landmark.heading#work").remove(), [2, s("div#chapters > div").html() || s("div#chapters").html() || ""];
           }
         });
       });
-    }, u2.prototype.searchNovels = function(r2, n2) {
+    }, o2.prototype.searchNovels = function(r2, u2) {
       return e(this, void 0, void 0, function() {
-        var e2, u3, o, i;
+        var e2, o3, s, i, v;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return e2 = new URLSearchParams({ commit: "Search", page: n2.toString(), "work_search[language_id]": "en", "work_search[query]": r2 }), u3 = "".concat(this.site, "works/search?").concat(e2.toString()), [4, (0, t.fetchApi)(u3)];
+              return e2 = new URLSearchParams({ commit: "Search", page: u2.toString(), "work_search[language_id]": "en", "work_search[query]": r2 }), o3 = "".concat(this.site, "works/search?").concat(e2.toString()), [4, (0, t.fetchApi)(o3, { headers: { Cookie: "view_adult=true" } })];
             case 1:
-              return [4, a2.sent().text()];
+              return [4, (s = a2.sent()).text()];
             case 2:
-              return o = a2.sent(), i = (0, l.load)(o), [2, this.parseNovels(i)];
+              return i = a2.sent(), n(s, i, "search novels"), v = (0, l.load)(i), [2, this.parseNovels(v)];
           }
         });
       });
-    }, u2;
+    }, o2;
   }();
-  exports.default = new u();
+  exports.default = new o();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

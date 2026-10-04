@@ -25888,7 +25888,10 @@ var LNReaderPlugin = (() => {
       this.version = "2.2.".concat(r2), this.options = e2.options, this.filters = e2.filters, (null === (a3 = this.options) || void 0 === a3 ? void 0 : a3.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(a2, "a");
-    return a2.prototype.translateDragontea = function(e2) {
+    return Object.defineProperty(a2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
+      var e2;
+      if (null === (e2 = this.options) || void 0 === e2 ? void 0 : e2.browserHeaders) return { Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9" };
+    }, "get"), enumerable: false, configurable: true }), a2.prototype.translateDragontea = function(e2) {
       var t2;
       if ("dragontea" !== this.id) return e2;
       var a3 = (0, n.load)((null === (t2 = e2.html()) || void 0 === t2 ? void 0 : t2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
@@ -25910,7 +25913,7 @@ var LNReaderPlugin = (() => {
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(a3)];
+              return [4, (0, r.fetchApi)(a3, { headers: this.requestHeaders })];
             case 1:
               if (!(e2 = t2.sent()).ok && 1 != l2) throw new Error("Could not reach site (" + e2.status + ") try to open in webview.");
               return o2 = n.load, [4, e2.text()];
@@ -25945,7 +25948,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, u2, c2, h2, p, v, m, d, b, f, g, y, x, w, k, S = this;
+        var e2, s2, u2, c2, h2, p, v, d, m, b, f, g, y, x, w, k, S = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25997,17 +26000,17 @@ var LNReaderPlugin = (() => {
                 return e2(a4).text();
               }).get().join("\n\n").trim() || e2(".manga-excerpt p").map(function(t3, a4) {
                 return e2(a4).text();
-              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              }).get().join("\n\n").trim(), u2 = [], c2 = "", (null === (k = this.options) || void 0 === k ? void 0 : k.useNewChapterEndpoint) ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/", { method: "POST", headers: this.requestHeaders, referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 7];
             case 2:
               if (c2 = t2.sent(), h2 = (0, n.load)(c2), !((p = h2(".pagination a[data-page]")).length > 0)) return [3, 6];
               if (v = Math.max.apply(Math, p.map(function(e3, t3) {
                 return parseInt(h2(t3).attr("data-page") || "1", 10);
-              }).get()), m = p.last().attr("href") || "", -1 === (d = m.indexOf("?"))) return [3, 6];
-              b = m.slice(d).replace(/\d+$/, ""), f = 2, t2.label = 3;
+              }).get()), d = p.last().attr("href") || "", -1 === (m = d.indexOf("?"))) return [3, 6];
+              b = d.slice(m).replace(/\d+$/, ""), f = 2, t2.label = 3;
             case 3:
-              return f <= v ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + b + f, { method: "POST", referrer: this.site + a3 }).then(function(e3) {
+              return f <= v ? [4, (0, r.fetchApi)(this.site + a3 + "ajax/chapters/" + b + f, { method: "POST", headers: this.requestHeaders, referrer: this.site + a3 }).then(function(e3) {
                 return e3.text();
               })] : [3, 6];
             case 4:
@@ -26017,7 +26020,7 @@ var LNReaderPlugin = (() => {
             case 6:
               return [3, 9];
             case 7:
-              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", body: x }).then(function(e3) {
+              return y = e2(".rating-post-id").attr("value") || e2("#manga-chapters-holder").attr("data-id") || "", (x = new FormData()).append("action", "manga_get_chapters"), x.append("manga", y), [4, (0, r.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", headers: this.requestHeaders, body: x }).then(function(e3) {
                 return e3.text();
               })];
             case 8:

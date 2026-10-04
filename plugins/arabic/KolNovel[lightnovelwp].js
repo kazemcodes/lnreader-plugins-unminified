@@ -25491,164 +25491,164 @@ var LNReaderPlugin = (() => {
   init_buffer2();
   init_process2();
   var e = function(e2, a2, l2, t2) {
-    return new (l2 || (l2 = Promise))(function(s2, r2) {
+    return new (l2 || (l2 = Promise))(function(r2, s2) {
       function i2(e3) {
         try {
-          u2(t2.next(e3));
+          n2(t2.next(e3));
         } catch (e4) {
-          r2(e4);
+          s2(e4);
         }
       }
       __name(i2, "i");
       function o2(e3) {
         try {
-          u2(t2.throw(e3));
+          n2(t2.throw(e3));
         } catch (e4) {
-          r2(e4);
+          s2(e4);
         }
       }
       __name(o2, "o");
-      function u2(e3) {
+      function n2(e3) {
         var a3;
-        e3.done ? s2(e3.value) : (a3 = e3.value, a3 instanceof l2 ? a3 : new l2(function(e4) {
+        e3.done ? r2(e3.value) : (a3 = e3.value, a3 instanceof l2 ? a3 : new l2(function(e4) {
           e4(a3);
         })).then(i2, o2);
       }
-      __name(u2, "u");
-      u2((t2 = t2.apply(e2, a2 || [])).next());
+      __name(n2, "n");
+      n2((t2 = t2.apply(e2, a2 || [])).next());
     });
   }, a = function(e2, a2) {
-    var l2, t2, s2, r2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & s2[0]) throw s2[1];
-      return s2[1];
+    var l2, t2, r2, s2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & r2[0]) throw r2[1];
+      return r2[1];
     }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
     return i2.next = o2(0), i2.throw = o2(1), i2.return = o2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
       return this;
     }), i2;
     function o2(o3) {
-      return function(u2) {
+      return function(n2) {
         return function(o4) {
           if (l2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, o4[0] && (r2 = 0)), r2; ) try {
-            if (l2 = 1, t2 && (s2 = 2 & o4[0] ? t2.return : o4[0] ? t2.throw || ((s2 = t2.return) && s2.call(t2), 0) : t2.next) && !(s2 = s2.call(t2, o4[1])).done) return s2;
-            switch (t2 = 0, s2 && (o4 = [2 & o4[0], s2.value]), o4[0]) {
+          for (; i2 && (i2 = 0, o4[0] && (s2 = 0)), s2; ) try {
+            if (l2 = 1, t2 && (r2 = 2 & o4[0] ? t2.return : o4[0] ? t2.throw || ((r2 = t2.return) && r2.call(t2), 0) : t2.next) && !(r2 = r2.call(t2, o4[1])).done) return r2;
+            switch (t2 = 0, r2 && (o4 = [2 & o4[0], r2.value]), o4[0]) {
               case 0:
               case 1:
-                s2 = o4;
+                r2 = o4;
                 break;
               case 4:
-                return r2.label++, { value: o4[1], done: false };
+                return s2.label++, { value: o4[1], done: false };
               case 5:
-                r2.label++, t2 = o4[1], o4 = [0];
+                s2.label++, t2 = o4[1], o4 = [0];
                 continue;
               case 7:
-                o4 = r2.ops.pop(), r2.trys.pop();
+                o4 = s2.ops.pop(), s2.trys.pop();
                 continue;
               default:
-                if (!(s2 = r2.trys, (s2 = s2.length > 0 && s2[s2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
-                  r2 = 0;
+                if (!(r2 = s2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
+                  s2 = 0;
                   continue;
                 }
-                if (3 === o4[0] && (!s2 || o4[1] > s2[0] && o4[1] < s2[3])) {
-                  r2.label = o4[1];
+                if (3 === o4[0] && (!r2 || o4[1] > r2[0] && o4[1] < r2[3])) {
+                  s2.label = o4[1];
                   break;
                 }
-                if (6 === o4[0] && r2.label < s2[1]) {
-                  r2.label = s2[1], s2 = o4;
+                if (6 === o4[0] && s2.label < r2[1]) {
+                  s2.label = r2[1], r2 = o4;
                   break;
                 }
-                if (s2 && r2.label < s2[2]) {
-                  r2.label = s2[2], r2.ops.push(o4);
+                if (r2 && s2.label < r2[2]) {
+                  s2.label = r2[2], s2.ops.push(o4);
                   break;
                 }
-                s2[2] && r2.ops.pop(), r2.trys.pop();
+                r2[2] && s2.ops.pop(), s2.trys.pop();
                 continue;
             }
-            o4 = a2.call(e2, r2);
+            o4 = a2.call(e2, s2);
           } catch (e3) {
             o4 = [6, e3], t2 = 0;
           } finally {
-            l2 = s2 = 0;
+            l2 = r2 = 0;
           }
           if (5 & o4[0]) throw o4[1];
           return { value: o4[0] ? o4[1] : void 0, done: true };
-        }([o3, u2]);
+        }([o3, n2]);
       };
     }
     __name(o2, "o");
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.LightNovelWPPlugin = void 0;
-  var l = (init_browser(), __toCommonJS(browser_exports)), t = require_lib9(), s = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), u = function() {
-    function u2(e2) {
+  var l = (init_browser(), __toCommonJS(browser_exports)), t = require_lib9(), r = (init_fetch2(), __toCommonJS(fetch_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), n = function() {
+    function n2(e2) {
       var a2, l2, t2;
       this.hideLocked = o.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
-      var s2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
-      this.version = "1.1.".concat(10 + s2), this.options = null !== (l2 = e2.options) && void 0 !== l2 ? l2 : {}, this.filters = e2.filters, (null === (t2 = this.options) || void 0 === t2 ? void 0 : t2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      var r2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
+      this.version = "1.1.".concat(11 + r2), this.options = null !== (l2 = e2.options) && void 0 !== l2 ? l2 : {}, this.filters = e2.filters, (null === (t2 = this.options) || void 0 === t2 ? void 0 : t2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
-    __name(u2, "u");
-    return u2.prototype.getHostname = function(e2) {
+    __name(n2, "n");
+    return n2.prototype.getHostname = function(e2) {
       var a2 = (e2 = e2.split("/")[2]).split(".");
       return a2.pop(), a2.join(".");
-    }, u2.prototype.safeFecth = function(l2, t2) {
+    }, n2.prototype.safeFecth = function(l2, t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, i2, o2, u3, n2, c2, v;
+        var e2, s2, i2, o2, n3, u2, c2, v;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return e2 = l2.split("://"), r2 = e2.shift(), i2 = e2[0].replace(/\/\//g, "/"), [4, (0, s.fetchApi)(r2 + "://" + i2)];
+              return e2 = l2.split("://"), s2 = e2.shift(), i2 = e2[0].replace(/\/\//g, "/"), [4, (0, r.fetchApi)(s2 + "://" + i2)];
             case 1:
               if (!(o2 = a2.sent()).ok && 1 != t2) throw new Error("Could not reach site (" + o2.status + ") try to open in webview.");
               return [4, o2.text()];
             case 2:
-              if (u3 = a2.sent(), n2 = null === (v = null === (c2 = u3.match(/<title>(.*?)<\/title>/)) || void 0 === c2 ? void 0 : c2[1]) || void 0 === v ? void 0 : v.trim(), this.getHostname(l2) != this.getHostname(o2.url) || n2 && ("Bot Verification" == n2 || "You are being redirected..." == n2 || "Un instant..." == n2 || "Just a moment..." == n2 || "Redirecting..." == n2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
-              return [2, u3];
+              if (n3 = a2.sent(), u2 = null === (v = null === (c2 = n3.match(/<title>(.*?)<\/title>/)) || void 0 === c2 ? void 0 : c2[1]) || void 0 === v ? void 0 : v.trim(), this.getHostname(l2) != this.getHostname(o2.url) || u2 && ("Bot Verification" == u2 || "You are being redirected..." == u2 || "Un instant..." == u2 || "Just a moment..." == u2 || "Redirecting..." == u2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
+              return [2, n3];
           }
         });
       });
-    }, u2.prototype.parseNovels = function(e2) {
+    }, n2.prototype.parseNovels = function(e2) {
       var a2 = this;
       e2 = (0, l.load)(e2).html();
       var t2 = [];
       return (e2.match(/<article([^]*?)<\/article>/g) || []).forEach(function(e3) {
-        var l2 = e3.match(/<a href="([^"]*)".*? title="([^"]*)"/) || [], s2 = l2[1], r2 = l2[2];
-        if (r2 && s2) {
-          var o2 = e3.match(/<img [^>]*?src="([^"]*)"[^>]*?(?: data-src="([^"]*)")?[^>]*>/) || [], u3 = void 0;
-          if (s2.includes(a2.site)) u3 = s2.replace(a2.site, "");
+        var l2 = e3.match(/<a href="([^"]*)".*? title="([^"]*)"/) || [], r2 = l2[1], s2 = l2[2];
+        if (s2 && r2) {
+          var o2 = e3.match(/<img [^>]*?src="([^"]*)"[^>]*?(?: data-src="([^"]*)")?[^>]*>/) || [], n3 = void 0;
+          if (r2.includes(a2.site)) n3 = r2.replace(a2.site, "");
           else {
-            var n2 = s2.split("/");
-            n2.shift(), n2.shift(), n2.shift(), u3 = n2.join("/");
+            var u2 = r2.split("/");
+            u2.shift(), u2.shift(), u2.shift(), n3 = u2.join("/");
           }
-          t2.push({ name: r2, cover: o2[2] || o2[1] || i.defaultCover, path: u3 });
+          t2.push({ name: s2, cover: o2[2] || o2[1] || i.defaultCover, path: n3 });
         }
       }), t2;
-    }, u2.prototype.popularNovels = function(l2, t2) {
+    }, n2.prototype.popularNovels = function(l2, t2) {
       return e(this, arguments, void 0, function(e2, l3) {
-        var t3, s2, r2, i2, o2, u3, n2, c2, v, b = l3.filters, h = l3.showLatestNovels;
+        var t3, r2, s2, i2, o2, n3, u2, c2, v, b = l3.filters, h = l3.showLatestNovels;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              for (r2 in t3 = null !== (v = null === (c2 = this.options) || void 0 === c2 ? void 0 : c2.seriesPath) && void 0 !== v ? v : "/series/", s2 = this.site + t3 + "?page=" + e2, b || (b = this.filters || {}), h && (s2 += "&order=latest"), b) if ("object" == typeof b[r2].value) for (i2 = 0, o2 = b[r2].value; i2 < o2.length; i2++) u3 = o2[i2], s2 += "&".concat(r2, "=").concat(u3);
-              else b[r2].value && (s2 += "&".concat(r2, "=").concat(b[r2].value));
-              return [4, this.safeFecth(s2, false)];
+              for (s2 in t3 = null !== (v = null === (c2 = this.options) || void 0 === c2 ? void 0 : c2.seriesPath) && void 0 !== v ? v : "/series/", r2 = this.site + t3 + "?page=" + e2, b || (b = this.filters || {}), h && (r2 += "&order=latest"), b) if ("object" == typeof b[s2].value) for (i2 = 0, o2 = b[s2].value; i2 < o2.length; i2++) n3 = o2[i2], r2 += "&".concat(s2, "=").concat(n3);
+              else b[s2].value && (r2 += "&".concat(s2, "=").concat(b[s2].value));
+              return [4, this.safeFecth(r2, false)];
             case 1:
-              return n2 = a2.sent(), [2, this.parseNovels(n2)];
+              return u2 = a2.sent(), [2, this.parseNovels(u2)];
           }
         });
       });
-    }, u2.prototype.parseNovel = function(l2) {
+    }, n2.prototype.parseNovel = function(l2) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, o2, u3, c2, v, b, h, p, d, f, m, g, y, w, k, x, N, C, S, L;
+        var e2, r2, o2, n3, c2, v, b, h, p, d, f, m, g, y, w, k, x, N, C, j, L;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return e2 = this.site, [4, this.safeFecth(e2 + l2, false)];
             case 1:
-              return s2 = a2.sent(), o2 = { path: l2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, u3 = false, c2 = false, v = 0, b = false, h = false, p = false, d = false, f = false, m = false, g = false, y = 0, w = false, k = false, x = [], N = {}, C = this.hideLocked, S = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, l3) {
+              return r2 = a2.sent(), o2 = { path: l2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, n3 = false, c2 = false, v = 0, b = false, h = false, p = false, d = false, f = false, m = false, g = false, y = 0, w = false, k = false, x = [], N = {}, C = this.hideLocked, j = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, l3) {
                 var t2;
-                !o2.cover && (null === (t2 = l3.class) || void 0 === t2 ? void 0 : t2.includes("ts-post-image")) ? (o2.name = l3.title, o2.cover = l3["data-src"] || l3.src || i.defaultCover) : "genxed" === l3.class || "sertogenre" === l3.class ? u3 = true : u3 && "a" === a3 ? c2 = true : "div" !== a3 || "entry-content" !== l3.class && "description" !== l3.itemprop ? "spe" === l3.class || "serl" === l3.class ? b = true : b && "span" === a3 ? h = true : "div" === a3 && "sertostat" === l3.class ? (b = true, h = true, f = true) : l3.class && l3.class.includes("eplister") ? m = true : m && "li" === a3 ? g = true : g ? "a" === a3 && void 0 === N.path ? N.path = l3.href.replace(e2, "").trim() : "epl-num" === l3.class ? y = 1 : "epl-title" === l3.class ? y = 2 : "epl-date" === l3.class ? y = 3 : "epl-price" === l3.class && (y = 4) : !v || "div" !== a3 && "script" !== a3 || v++ : v++;
+                !o2.cover && (null === (t2 = l3.class) || void 0 === t2 ? void 0 : t2.includes("ts-post-image")) ? (o2.name = l3.title, o2.cover = l3["data-src"] || l3.src || i.defaultCover) : "genxed" === l3.class || "sertogenre" === l3.class ? n3 = true : n3 && "a" === a3 ? c2 = true : "div" !== a3 || "entry-content" !== l3.class && "description" !== l3.itemprop ? "spe" === l3.class || "serl" === l3.class ? b = true : b && "span" === a3 ? h = true : "div" === a3 && "sertostat" === l3.class ? (b = true, h = true, f = true) : l3.class && l3.class.includes("eplister") ? m = true : m && "li" === a3 ? g = true : g ? "a" === a3 && void 0 === N.path ? N.path = l3.href.replace(e2, "").trim() : "epl-num" === l3.class ? y = 1 : "epl-title" === l3.class ? y = 2 : "epl-date" === l3.class ? y = 3 : "epl-price" === l3.class && (y = 4) : !v || "div" !== a3 && "script" !== a3 || v++ : v++;
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
                 var a3, l3;
-                if (u3) c2 && (o2.genres += e3 + ", ");
+                if (n3) c2 && (o2.genres += e3 + ", ");
                 else if (1 === v && e3.trim()) o2.summary += e3;
                 else if (b) {
                   if (h) {
@@ -25662,7 +25662,7 @@ var LNReaderPlugin = (() => {
                       case "completo":
                       case "completado":
                       case "tamamland\u0131":
-                        o2.status = r.NovelStatus.Completed;
+                        o2.status = s.NovelStatus.Completed;
                         break;
                       case "\u0645\u0633\u062A\u0645\u0631\u0629":
                       case "ongoing":
@@ -25670,7 +25670,7 @@ var LNReaderPlugin = (() => {
                       case "em andamento":
                       case "en progreso":
                       case "devam ediyor":
-                        o2.status = r.NovelStatus.Ongoing;
+                        o2.status = s.NovelStatus.Ongoing;
                         break;
                       case "\u0645\u062A\u0648\u0642\u0641\u0629":
                       case "hiatus":
@@ -25679,10 +25679,10 @@ var LNReaderPlugin = (() => {
                       case "pausa":
                       case "pausado":
                       case "duraklat\u0131ld\u0131":
-                        o2.status = r.NovelStatus.OnHiatus;
+                        o2.status = s.NovelStatus.OnHiatus;
                         break;
                       default:
-                        o2.status = r.NovelStatus.Unknown;
+                        o2.status = s.NovelStatus.Unknown;
                     }
                     switch (t2) {
                       case "\u0627\u0644\u0643\u0627\u062A\u0628":
@@ -25708,8 +25708,8 @@ var LNReaderPlugin = (() => {
                     }
                   }
                 } else if (m && g) {
-                  if (1 === y) e3.includes("\u{1F512}") ? (w = true, k = true) : k && (w = false), n(e3, N);
-                  else if (2 === y) N.name = (null === (l3 = null === (a3 = e3.match(RegExp("^".concat(o2.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "\\s*(.+)")))) || void 0 === a3 ? void 0 : a3[1]) || void 0 === l3 ? void 0 : l3.trim()) || e3.trim(), N.chapterNumber || n(e3, N);
+                  if (1 === y) e3.includes("\u{1F512}") ? (w = true, k = true) : k && (w = false), u(e3, N);
+                  else if (2 === y) N.name = (null === (l3 = null === (a3 = e3.match(RegExp("^".concat(o2.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "\\s*(.+)")))) || void 0 === a3 ? void 0 : a3[1]) || void 0 === l3 ? void 0 : l3.trim()) || e3.trim(), N.chapterNumber || u(e3, N);
                   else if (3 === y) N.releaseTime = e3;
                   else if (4 === y) {
                     switch (t2 = e3.toLowerCase().trim()) {
@@ -25727,51 +25727,75 @@ var LNReaderPlugin = (() => {
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 var a3, l3, t2;
-                u3 ? c2 ? c2 = false : (u3 = false, o2.genres = null === (a3 = o2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : v ? "p" === e3 ? o2.summary += "\n\n" : "br" === e3 ? o2.summary += "\n" : "div" !== e3 && "script" !== e3 || v-- : b ? h ? "span" === e3 && (h = false, p && o2.author ? p = false : d && o2.artist ? d = false : f && "" !== o2.status && (f = false)) : "div" === e3 && (b = false, o2.author = null === (l3 = o2.author) || void 0 === l3 ? void 0 : l3.trim(), o2.artist = null === (t2 = o2.artist) || void 0 === t2 ? void 0 : t2.trim()) : m && (g ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (g = false, N.chapterNumber || (N.chapterNumber = 0), w && (N.name = "\u{1F512} " + N.name), C && w || x.push(N), N = {}) : "ul" === e3 && (m = false));
-              }, "onclosetag") }), S.write(s2), S.end(), x.length && ((null === (L = this.options) || void 0 === L ? void 0 : L.reverseChapters) && x.reverse(), o2.chapters = x), o2.summary = o2.summary.trim(), [2, o2];
+                n3 ? c2 ? c2 = false : (n3 = false, o2.genres = null === (a3 = o2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : v ? "p" === e3 ? o2.summary += "\n\n" : "br" === e3 ? o2.summary += "\n" : "div" !== e3 && "script" !== e3 || v-- : b ? h ? "span" === e3 && (h = false, p && o2.author ? p = false : d && o2.artist ? d = false : f && "" !== o2.status && (f = false)) : "div" === e3 && (b = false, o2.author = null === (l3 = o2.author) || void 0 === l3 ? void 0 : l3.trim(), o2.artist = null === (t2 = o2.artist) || void 0 === t2 ? void 0 : t2.trim()) : m && (g ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (g = false, N.chapterNumber || (N.chapterNumber = 0), w && (N.name = "\u{1F512} " + N.name), C && w || x.push(N), N = {}) : "ul" === e3 && (m = false));
+              }, "onclosetag") }), j.write(r2), j.end(), x.length && ((null === (L = this.options) || void 0 === L ? void 0 : L.reverseChapters) && x.reverse(), o2.chapters = x), o2.summary = o2.summary.trim(), [2, o2];
           }
         });
       });
-    }, u2.prototype.parseChapter = function(t2) {
+    }, n2.prototype.parseChapter = function(t2) {
       return e(this, void 0, void 0, function() {
-        var e2, s2, r2, i2, o2, u3;
+        var e2, r2, s2, i2, o2, n3, u2, c2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return [4, this.safeFecth(this.site + t2, false)];
             case 1:
-              if (e2 = a2.sent(), null === (r2 = this.options) || void 0 === r2 ? void 0 : r2.customJs) try {
-                s2 = (0, l.load)(e2), null === (i2 = s2("article > style").text().match(/\.\w+(?=\s*[,{])/g)) || void 0 === i2 || i2.forEach(function(e3) {
-                  return s2("p".concat(e3)).remove();
-                }), s2(".epcontent .code-block").remove(), e2 = s2.html();
+              if (e2 = a2.sent(), null === (u2 = this.options) || void 0 === u2 ? void 0 : u2.customJs) try {
+                r2 = (0, l.load)(e2), null === (c2 = r2("article > style").text().match(/\.\w+(?=\s*[,{])/g)) || void 0 === c2 || c2.forEach(function(e3) {
+                  return r2("p".concat(e3)).remove();
+                }), r2(".epcontent .code-block").remove(), e2 = r2.html();
               } catch (e3) {
                 throw console.error("Error executing customJs:", e3), e3;
               }
-              return [2, (null === (u3 = null === (o2 = e2.match(/<div.*?class="epcontent ([^]*?)<div.*?class="?bottomnav/g)) || void 0 === o2 ? void 0 : o2[0].match(/<p[^>]*>([^]*?)<\/p>/g)) || void 0 === u3 ? void 0 : u3.join("\n")) || ""];
+              return s2 = (0, l.load)(e2), (i2 = s2(".epcontent").first()).length ? (i2.find("script, style, noscript").remove(), o2 = this.site + t2, i2.find("img").each(function(e3, a3) {
+                var l2 = s2(a3), t3 = l2.attr("src");
+                if (t3 && !t3.startsWith("data:") || (t3 = l2.attr("data-lazy-src") || l2.attr("data-src") || t3), t3) {
+                  if (!/^[a-z][a-z\d+.-]*:/i.test(t3)) try {
+                    t3 = new URL(t3, o2).href;
+                  } catch (e4) {
+                    return;
+                  }
+                  l2.attr("src", t3);
+                }
+              }), i2.find("*").each(function(e3, a3) {
+                for (var l2 = s2(a3), t3 = 0, r3 = Object.keys(a3.attribs); t3 < r3.length; t3++) {
+                  var i3 = r3[t3];
+                  if (/^on/i.test(i3)) l2.removeAttr(i3);
+                  else if ("href" === i3 || "src" === i3) {
+                    var o3 = a3.attribs[i3].split("").filter(function(e4) {
+                      return e4.charCodeAt(0) > 32;
+                    }).join("").toLowerCase();
+                    (/^(javascript|vbscript):/.test(o3) || o3.startsWith("data:") && !o3.startsWith("data:image/")) && l2.removeAttr(i3);
+                  }
+                }
+              }), n3 = [], i2.find("p, img").each(function(e3, a3) {
+                var l2 = s2(a3);
+                l2.is("img") ? l2.parents("p").length || n3.push(s2.html(l2)) : (l2.text().trim() || l2.find("img").length) && n3.push(s2.html(l2));
+              }), [2, n3.join("\n")]) : [2, ""];
           }
         });
       });
-    }, u2.prototype.searchNovels = function(l2, t2) {
+    }, n2.prototype.searchNovels = function(l2, t2) {
       return e(this, void 0, void 0, function() {
-        var e2, s2;
+        var e2, r2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return e2 = this.site + "page/" + t2 + "/?s=" + encodeURIComponent(l2), [4, this.safeFecth(e2, true)];
             case 1:
-              return s2 = a2.sent(), [2, this.parseNovels(s2)];
+              return r2 = a2.sent(), [2, this.parseNovels(r2)];
           }
         });
       });
-    }, u2;
+    }, n2;
   }();
-  function n(e2, a2) {
+  function u(e2, a2) {
     var l2 = e2.match(/(\d+)$/);
     l2 && l2[0] && (a2.chapterNumber = parseInt(l2[0]));
   }
-  __name(n, "n");
-  exports.LightNovelWPPlugin = u;
-  var c = new u({ id: "kolnovel", sourceSite: "https://kolnovel.com/", sourceName: "Kol Novel", options: { lang: "Arabic", reverseChapters: true, customJs: "$('article > style').text().match(/\\.\\w+(?=\\s*[,{])/g)?.forEach(tag => $(`p${tag}`).remove());$('.epcontent .code-block').remove();", versionIncrements: 10 }, filters: { "genre[]": { type: "Checkbox", label: "\u062A\u0635\u0646\u064A\u0641", value: [], options: [{ label: "Romance", value: "romance" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "XUANHUAN", value: "xuanhuan" }, { label: "\u0623\u0628\u0637\u0627\u0644 \u062E\u0627\u0631\u0642\u064A\u0646", value: "\u0623\u0628\u0637\u0627\u0644-\u062E\u0627\u0631\u0642\u064A\u0646" }, { label: "\u0623\u0633\u0627\u0637\u064A\u0631", value: "\u0623\u0633\u0627\u0637\u064A\u0631" }, { label: "\u0623\u0634\u0628\u0627\u062D", value: "\u0623\u0634\u0628\u0627\u062D" }, { label: "\u0623\u0643\u0634\u0646", value: "action" }, { label: "\u0623\u0644\u0639\u0627\u0628", value: "\u0623\u0644\u0639\u0627\u0628" }, { label: "\u0625\u062B\u0627\u0631\u0629", value: "excitement" }, { label: "\u0625\u0633\u0644\u0627\u0645\u064A", value: "\u0625\u0633\u0644\u0627\u0645\u064A" }, { label: "\u0625\u0646\u062A\u0642\u0627\u0644 \u0627\u0644\u0649 \u0639\u0627\u0644\u0645 \u0623\u062E\u0631", value: "isekai" }, { label: "\u0625\u064A\u062A\u0634\u064A", value: "etchi" }, { label: "\u0627\u0643\u0627\u062F\u064A\u0645\u064A", value: "\u0627\u0643\u0627\u062F\u064A\u0645\u064A" }, { label: "\u0627\u0643\u0634\u0646", value: "\u0627\u0643\u0634\u0646" }, { label: "\u0627\u0644\u0625\u062B\u0627\u0631\u0629", value: "\u0627\u0644\u0625\u062B\u0627\u0631\u0629" }, { label: "\u0627\u0644\u062E\u064A\u0627\u0644 \u0627\u0644\u0639\u0644\u0645\u064A", value: "sci-fi" }, { label: "\u0627\u0644\u062F\u0631\u0627\u0645\u0627", value: "\u0627\u0644\u062F\u0631\u0627\u0645\u0627" }, { label: "\u0627\u0644\u0645\u063A\u0627\u0645\u0631\u0627\u062A", value: "\u0627\u0644\u0645\u063A\u0627\u0645\u0631\u0627\u062A" }, { label: "\u0627\u0646\u062A\u0642\u0627\u0645", value: "\u0627\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0628\u0637\u0644 \u0645\u0636\u0627\u062F", value: "\u0628\u0637\u0644-\u0645\u0636\u0627\u062F" }, { label: "\u0628\u0637\u0644 \u0646\u0627\u0636\u062C", value: "\u0628\u0637\u0644-\u0646\u0627\u0636\u062C" }, { label: "\u0628\u0642\u0627\u0621", value: "\u0628\u0642\u0627\u0621" }, { label: "\u0628\u0646\u0627\u0621 \u0645\u0645\u0644\u0643\u0629", value: "\u0628\u0646\u0627\u0621-\u0645\u0645\u0644\u0643\u0629" }, { label: "\u0628\u0648\u0644\u064A\u0633\u064A", value: "policy" }, { label: "\u062A\u0627\u0631\u064A\u062E", value: "\u062A\u0627\u0631\u064A\u062E" }, { label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "historical" }, { label: "\u062A\u062D\u0642\u064A\u0642\u0627\u062A", value: "\u062A\u062D\u0642\u064A\u0642" }, { label: "\u062A\u0634\u0648\u064A\u0642", value: "\u062A\u0634\u0648\u064A\u0642" }, { label: "\u062A\u0642\u0645\u0635 \u0634\u062E\u0635\u064A\u0627\u062A", value: "rpg" }, { label: "\u062A\u0644\u0627\u0639\u0628", value: "\u062A\u0644\u0627\u0639\u0628" }, { label: "\u062A\u0646\u0627\u0633\u062E", value: "\u062A\u0646\u0627\u0633\u062E" }, { label: "\u062C\u0631\u064A\u0645\u0629", value: "crime" }, { label: "\u062C\u0648\u0633\u0649", value: "josei" }, { label: "\u062C\u0648\u0633\u064A", value: "\u062C\u0648\u0633\u064A" }, { label: "\u062D\u0631\u064A\u0645", value: "harem" }, { label: "\u062D\u0644 \u0627\u0644\u0623\u0644\u063A\u0627\u0632", value: "\u062D\u0644-\u0627\u0644\u0623\u0644\u063A\u0627\u0632" }, { label: "\u062D\u064A\u0627\u0629 \u0645\u062F\u0631\u0633\u064A\u0629", value: "school-life" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0629" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u064A" }, { label: "\u062E\u064A\u0627\u0644\u064A", value: "\u062E\u064A\u0627\u0644\u064A" }, { label: "\u062E\u064A\u0627\u0644\u064A(\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627)", value: "fantasy" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "drama" }, { label: "\u062F\u0631\u0627\u0645\u064A", value: "\u062F\u0631\u0627\u0645\u064A" }, { label: "\u0631\u0639\u0628", value: "horror" }, { label: "\u0631\u0639\u0628 \u0643\u0648\u0646\u064A", value: "\u0631\u0639\u0628-\u0643\u0648\u0646\u064A" }, { label: "\u0631\u0639\u0628 \u0646\u0641\u0633\u064A", value: "\u0631\u0639\u0628-\u0646\u0641\u0633\u064A" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A", value: "romantic" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A\u0629", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A\u0629" }, { label: "\u0631\u0648\u0645\u0646\u0633\u064A\u0629", value: "\u0631\u0648\u0645\u0646\u0633\u064A\u0629" }, { label: "\u0632\u0646\u0632\u0627\u0646\u0629", value: "\u0632\u0646\u0632\u0627\u0646\u0629" }, { label: "\u0632\u064A\u0627\u0646\u0634\u064A\u0627", value: "\u0632\u064A\u0627\u0646\u0634\u064A\u0627" }, { label: "\u0633\u062A\u064A\u0645 \u0628\u0627\u0646\u0643", value: "\u0633\u062A\u064A\u0645-\u0628\u0627\u0646\u0643" }, { label: "\u0633\u062D\u0631", value: "magic" }, { label: "\u0633\u0641\u0631 \u0628\u0627\u0644\u0632\u0645\u0646", value: "\u0633\u0641\u0631-\u0628\u0627\u0644\u0632\u0645\u0646" }, { label: "\u0633\u0641\u0631 \u0639\u0628\u0631 \u0627\u0644\u0632\u0645\u0646", value: "\u0633\u0641\u0631-\u0639\u0628\u0631-\u0627\u0644\u0632\u0645\u0646" }, { label: "\u0633\u064A\u0627\u0633\u0629", value: "\u0633\u064A\u0627\u0633\u0629" }, { label: "\u0633\u064A\u0646\u0646", value: "senen" }, { label: "\u0634\u0631\u064A\u062D\u0629 \u0645\u0646 \u0627\u0644\u062D\u064A\u0627\u0629", value: "slice-of-life" }, { label: "\u0634\u0639\u0631", value: "\u0634\u0639\u0631" }, { label: "\u0634\u0648\u0627\u0646\u0647\u0627\u0646", value: "\u0634\u0648\u0627\u0646\u0647\u0627\u0646" }, { label: "\u0634\u0648\u0627\u0646\u0647\u0648\u0627\u0646", value: "\u0634\u0648\u0627\u0646\u0647\u0648\u0627\u0646" }, { label: "\u0634\u0648\u062C\u0648", value: "shojo" }, { label: "\u0634\u0648\u0646\u064A\u0646", value: "shonen" }, { label: "\u0634\u064A\u0627\u0646\u0634\u064A\u0627", value: "\u0634\u064A\u0627\u0646\u0634\u064A\u0627" }, { label: "\u0637\u0628\u064A", value: "medical" }, { label: "\u0638\u0648\u0627\u0647\u0631 \u062E\u0627\u0631\u0642\u0629 \u0644\u0644\u0637\u0628\u064A\u0639\u0629", value: "supernatural" }, { label: "\u0639\u0627\u0626\u0644\u064A", value: "\u0639\u0627\u0626\u0644\u064A" }, { label: "\u0639\u0645\u0648\u0636", value: "\u0639\u0645\u0648\u0636" }, { label: "\u063A\u0645\u0648\u0636", value: "mysteries" }, { label: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A", value: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A" }, { label: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0627\u0646\u0641\u064A\u0643", value: "\u0641\u0627\u0646\u0641\u064A\u0643" }, { label: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0646\u0648\u0646 \u0627\u0644\u0642\u062A\u0627\u0644", value: "martial-arts" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644" }, { label: "\u0642\u0635\u0629 \u0642\u0635\u064A\u0631\u0629", value: "\u0642\u0635\u0629-\u0642\u0635\u064A\u0631\u0629" }, { label: "\u0642\u0648\u0629 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0629-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "superpower" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A", value: "comedy" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0629", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0629" }, { label: "\u0645\u0623\u0633\u0623\u0629", value: "\u0645\u0623\u0633\u0623\u0629" }, { label: "\u0645\u0623\u0633\u0627\u0629", value: "\u0645\u0623\u0633\u0627\u0629" }, { label: "\u0645\u0623\u0633\u0627\u0648\u064A", value: "tragedy" }, { label: "\u0645\u0624\u0627\u0645\u0631\u0629", value: "\u0645\u0624\u0627\u0645\u0631\u0629" }, { label: "\u0645\u0627 \u0628\u0639\u062F \u0627\u0644\u0643\u0627\u0631\u062B\u0629", value: "after-the-disaster" }, { label: "\u0645\u0627 \u0628\u0639\u062F \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0639\u0627\u0644\u0645", value: "\u0645\u0627-\u0628\u0639\u062F-\u0646\u0647\u0627\u064A\u0629-\u0627\u0644\u0639\u0627\u0644\u0645" }, { label: "\u0645\u0636\u0627\u062F \u0627\u0644\u0628\u0637\u0644", value: "\u0645\u0636\u0627\u062F-\u0627\u0644\u0628\u0637\u0644" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A", value: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "adventure" }, { label: "\u0645\u064A\u0643\u0627", value: "mechanical" }, { label: "\u0646\u0627\u0636\u062C", value: "mature" }, { label: "\u0646\u0638\u0627\u0645", value: "\u0646\u0638\u0627\u0645" }, { label: "\u0646\u0641\u0633\u064A", value: "psychological" }, { label: "\u0648\u0646 \u0634\u0648\u062A", value: "\u0648\u0646-\u0634\u0648\u062A" }, { label: "\u0648\u0648\u0634\u064A\u0627", value: "\u0648\u0648\u0634\u064A\u0627" }, { label: "\u0648\u0648\u0643\u0633\u064A\u0627", value: "\u0648\u0648\u0643\u0633\u064A\u0627" }] }, "type[]": { type: "Checkbox", label: "\u0627\u0644\u0646\u0648\u0639", value: [], options: [{ label: "\u0625\u0646\u062C\u0644\u064A\u0632\u064A\u0629", value: "english" }, { label: "\u062A\u0631\u062C\u0645\u0629 \u0625\u062D\u062A\u0631\u0627\u0641\u064A\u0629", value: "\u062A\u0631\u062C\u0645\u0629-\u0625\u062D\u062A\u0631\u0627\u0641\u064A\u0629" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0644\u0627\u064A\u062A", value: "light-novel" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0645\u0624\u0644\u0641\u0629", value: "\u0631\u0648\u0627\u064A\u0629-\u0645\u0624\u0644\u0641\u0629" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0645\u062A\u0631\u062C\u0645\u0629", value: "\u0631\u0648\u0627\u064A\u0629-\u0645\u062A\u0631\u062C\u0645\u0629" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0648\u064A\u0628", value: "web-novel" }, { label: "\u0635\u064A\u0646\u064A\u0629", value: "chinese" }, { label: "\u0639\u0631\u0628\u064A\u0629", value: "arabic" }, { label: "\u0643\u0648\u0631\u064A\u0629", value: "korean" }, { label: "\u0645\u0624\u0644\u0641\u0629", value: "\u0645\u0624\u0644\u0641\u0629" }, { label: "\u0648\u0646 \u0634\u0648\u062A", value: "\u0648\u0646-\u0634\u0648\u062A" }, { label: "\u064A\u0627\u0628\u0627\u0646\u064A\u0629", value: "japanese" }] }, status: { type: "Picker", label: "\u0627\u0644\u062D\u0627\u0644\u0629", value: "", options: [{ label: "\u0627\u0644\u0643\u0644", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }, { label: "Completed", value: "completed" }] }, order: { type: "Picker", label: "\u062A\u0631\u062A\u064A\u0628 \u062D\u0633\u0628", value: "", options: [{ label: "\u0627\u0644\u0625\u0639\u062F\u0627\u062F \u0627\u0644\u0623\u0648\u0644\u064A", value: "" }, { label: "A-Z", value: "title" }, { label: "Z-A", value: "titlereverse" }, { label: "\u0623\u062E\u0631 \u0627\u0644\u062A\u062D\u062F\u064A\u062B\u0627\u062A", value: "update" }, { label: "\u0623\u062E\u0631 \u0645\u0627 \u062A\u0645 \u0625\u0636\u0627\u0641\u062A\u0647", value: "latest" }, { label: "\u0627\u0644\u0631\u0627\u0626\u062C\u0629", value: "popular" }, { label: "\u0627\u0644\u062A\u0642\u064A\u064A\u0645", value: "rating" }] } } });
+  __name(u, "u");
+  exports.LightNovelWPPlugin = n;
+  var c = new n({ id: "kolnovel", sourceSite: "https://kolnovel.com/", sourceName: "Kol Novel", options: { lang: "Arabic", reverseChapters: true, customJs: "$('article > style').text().match(/\\.\\w+(?=\\s*[,{])/g)?.forEach(tag => $(`p${tag}`).remove());$('.epcontent .code-block').remove();", versionIncrements: 10 }, filters: { "genre[]": { type: "Checkbox", label: "\u062A\u0635\u0646\u064A\u0641", value: [], options: [{ label: "Romance", value: "romance" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "XUANHUAN", value: "xuanhuan" }, { label: "\u0623\u0628\u0637\u0627\u0644 \u062E\u0627\u0631\u0642\u064A\u0646", value: "\u0623\u0628\u0637\u0627\u0644-\u062E\u0627\u0631\u0642\u064A\u0646" }, { label: "\u0623\u0633\u0627\u0637\u064A\u0631", value: "\u0623\u0633\u0627\u0637\u064A\u0631" }, { label: "\u0623\u0634\u0628\u0627\u062D", value: "\u0623\u0634\u0628\u0627\u062D" }, { label: "\u0623\u0643\u0634\u0646", value: "action" }, { label: "\u0623\u0644\u0639\u0627\u0628", value: "\u0623\u0644\u0639\u0627\u0628" }, { label: "\u0625\u062B\u0627\u0631\u0629", value: "excitement" }, { label: "\u0625\u0633\u0644\u0627\u0645\u064A", value: "\u0625\u0633\u0644\u0627\u0645\u064A" }, { label: "\u0625\u0646\u062A\u0642\u0627\u0644 \u0627\u0644\u0649 \u0639\u0627\u0644\u0645 \u0623\u062E\u0631", value: "isekai" }, { label: "\u0625\u064A\u062A\u0634\u064A", value: "etchi" }, { label: "\u0627\u0643\u0627\u062F\u064A\u0645\u064A", value: "\u0627\u0643\u0627\u062F\u064A\u0645\u064A" }, { label: "\u0627\u0643\u0634\u0646", value: "\u0627\u0643\u0634\u0646" }, { label: "\u0627\u0644\u0625\u062B\u0627\u0631\u0629", value: "\u0627\u0644\u0625\u062B\u0627\u0631\u0629" }, { label: "\u0627\u0644\u062E\u064A\u0627\u0644 \u0627\u0644\u0639\u0644\u0645\u064A", value: "sci-fi" }, { label: "\u0627\u0644\u062F\u0631\u0627\u0645\u0627", value: "\u0627\u0644\u062F\u0631\u0627\u0645\u0627" }, { label: "\u0627\u0644\u0645\u063A\u0627\u0645\u0631\u0627\u062A", value: "\u0627\u0644\u0645\u063A\u0627\u0645\u0631\u0627\u062A" }, { label: "\u0627\u0646\u062A\u0642\u0627\u0645", value: "\u0627\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0628\u0637\u0644 \u0645\u0636\u0627\u062F", value: "\u0628\u0637\u0644-\u0645\u0636\u0627\u062F" }, { label: "\u0628\u0637\u0644 \u0646\u0627\u0636\u062C", value: "\u0628\u0637\u0644-\u0646\u0627\u0636\u062C" }, { label: "\u0628\u0642\u0627\u0621", value: "\u0628\u0642\u0627\u0621" }, { label: "\u0628\u0646\u0627\u0621 \u0645\u0645\u0644\u0643\u0629", value: "\u0628\u0646\u0627\u0621-\u0645\u0645\u0644\u0643\u0629" }, { label: "\u0628\u0648\u0644\u064A\u0633\u064A", value: "policy" }, { label: "\u062A\u0627\u0631\u064A\u062E", value: "\u062A\u0627\u0631\u064A\u062E" }, { label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "historical" }, { label: "\u062A\u062D\u0642\u064A\u0642\u0627\u062A", value: "\u062A\u062D\u0642\u064A\u0642" }, { label: "\u062A\u0634\u0648\u064A\u0642", value: "\u062A\u0634\u0648\u064A\u0642" }, { label: "\u062A\u0642\u0645\u0635 \u0634\u062E\u0635\u064A\u0627\u062A", value: "rpg" }, { label: "\u062A\u0644\u0627\u0639\u0628", value: "\u062A\u0644\u0627\u0639\u0628" }, { label: "\u062A\u0646\u0627\u0633\u062E", value: "\u062A\u0646\u0627\u0633\u062E" }, { label: "\u062C\u0631\u064A\u0645\u0629", value: "crime" }, { label: "\u062C\u0648\u0633\u0649", value: "josei" }, { label: "\u062C\u0648\u0633\u064A", value: "\u062C\u0648\u0633\u064A" }, { label: "\u062D\u0631\u064A\u0645", value: "harem" }, { label: "\u062D\u0644 \u0627\u0644\u0623\u0644\u063A\u0627\u0632", value: "\u062D\u0644-\u0627\u0644\u0623\u0644\u063A\u0627\u0632" }, { label: "\u062D\u064A\u0627\u0629 \u0645\u062F\u0631\u0633\u064A\u0629", value: "school-life" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0629" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u064A" }, { label: "\u062E\u064A\u0627\u0644\u064A", value: "\u062E\u064A\u0627\u0644\u064A" }, { label: "\u062E\u064A\u0627\u0644\u064A(\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627)", value: "fantasy" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "drama" }, { label: "\u062F\u0631\u0627\u0645\u064A", value: "\u062F\u0631\u0627\u0645\u064A" }, { label: "\u0631\u0639\u0628", value: "horror" }, { label: "\u0631\u0639\u0628 \u0643\u0648\u0646\u064A", value: "\u0631\u0639\u0628-\u0643\u0648\u0646\u064A" }, { label: "\u0631\u0639\u0628 \u0646\u0641\u0633\u064A", value: "\u0631\u0639\u0628-\u0646\u0641\u0633\u064A" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A", value: "romantic" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A\u0629", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A\u0629" }, { label: "\u0631\u0648\u0645\u0646\u0633\u064A\u0629", value: "\u0631\u0648\u0645\u0646\u0633\u064A\u0629" }, { label: "\u0632\u0646\u0632\u0627\u0646\u0629", value: "\u0632\u0646\u0632\u0627\u0646\u0629" }, { label: "\u0632\u064A\u0627\u0646\u0634\u064A\u0627", value: "\u0632\u064A\u0627\u0646\u0634\u064A\u0627" }, { label: "\u0633\u062A\u064A\u0645 \u0628\u0627\u0646\u0643", value: "\u0633\u062A\u064A\u0645-\u0628\u0627\u0646\u0643" }, { label: "\u0633\u062D\u0631", value: "magic" }, { label: "\u0633\u0641\u0631 \u0628\u0627\u0644\u0632\u0645\u0646", value: "\u0633\u0641\u0631-\u0628\u0627\u0644\u0632\u0645\u0646" }, { label: "\u0633\u0641\u0631 \u0639\u0628\u0631 \u0627\u0644\u0632\u0645\u0646", value: "\u0633\u0641\u0631-\u0639\u0628\u0631-\u0627\u0644\u0632\u0645\u0646" }, { label: "\u0633\u064A\u0627\u0633\u0629", value: "\u0633\u064A\u0627\u0633\u0629" }, { label: "\u0633\u064A\u0646\u0646", value: "senen" }, { label: "\u0634\u0631\u064A\u062D\u0629 \u0645\u0646 \u0627\u0644\u062D\u064A\u0627\u0629", value: "slice-of-life" }, { label: "\u0634\u0639\u0631", value: "\u0634\u0639\u0631" }, { label: "\u0634\u0648\u0627\u0646\u0647\u0627\u0646", value: "\u0634\u0648\u0627\u0646\u0647\u0627\u0646" }, { label: "\u0634\u0648\u0627\u0646\u0647\u0648\u0627\u0646", value: "\u0634\u0648\u0627\u0646\u0647\u0648\u0627\u0646" }, { label: "\u0634\u0648\u062C\u0648", value: "shojo" }, { label: "\u0634\u0648\u0646\u064A\u0646", value: "shonen" }, { label: "\u0634\u064A\u0627\u0646\u0634\u064A\u0627", value: "\u0634\u064A\u0627\u0646\u0634\u064A\u0627" }, { label: "\u0637\u0628\u064A", value: "medical" }, { label: "\u0638\u0648\u0627\u0647\u0631 \u062E\u0627\u0631\u0642\u0629 \u0644\u0644\u0637\u0628\u064A\u0639\u0629", value: "supernatural" }, { label: "\u0639\u0627\u0626\u0644\u064A", value: "\u0639\u0627\u0626\u0644\u064A" }, { label: "\u0639\u0645\u0648\u0636", value: "\u0639\u0645\u0648\u0636" }, { label: "\u063A\u0645\u0648\u0636", value: "mysteries" }, { label: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A", value: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A" }, { label: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0627\u0646\u0641\u064A\u0643", value: "\u0641\u0627\u0646\u0641\u064A\u0643" }, { label: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0646\u0648\u0646 \u0627\u0644\u0642\u062A\u0627\u0644", value: "martial-arts" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644" }, { label: "\u0642\u0635\u0629 \u0642\u0635\u064A\u0631\u0629", value: "\u0642\u0635\u0629-\u0642\u0635\u064A\u0631\u0629" }, { label: "\u0642\u0648\u0629 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0629-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "superpower" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A", value: "comedy" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0629", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0629" }, { label: "\u0645\u0623\u0633\u0623\u0629", value: "\u0645\u0623\u0633\u0623\u0629" }, { label: "\u0645\u0623\u0633\u0627\u0629", value: "\u0645\u0623\u0633\u0627\u0629" }, { label: "\u0645\u0623\u0633\u0627\u0648\u064A", value: "tragedy" }, { label: "\u0645\u0624\u0627\u0645\u0631\u0629", value: "\u0645\u0624\u0627\u0645\u0631\u0629" }, { label: "\u0645\u0627 \u0628\u0639\u062F \u0627\u0644\u0643\u0627\u0631\u062B\u0629", value: "after-the-disaster" }, { label: "\u0645\u0627 \u0628\u0639\u062F \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0639\u0627\u0644\u0645", value: "\u0645\u0627-\u0628\u0639\u062F-\u0646\u0647\u0627\u064A\u0629-\u0627\u0644\u0639\u0627\u0644\u0645" }, { label: "\u0645\u0636\u0627\u062F \u0627\u0644\u0628\u0637\u0644", value: "\u0645\u0636\u0627\u062F-\u0627\u0644\u0628\u0637\u0644" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A", value: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "adventure" }, { label: "\u0645\u064A\u0643\u0627", value: "mechanical" }, { label: "\u0646\u0627\u0636\u062C", value: "mature" }, { label: "\u0646\u0638\u0627\u0645", value: "\u0646\u0638\u0627\u0645" }, { label: "\u0646\u0641\u0633\u064A", value: "psychological" }, { label: "\u0648\u0646 \u0634\u0648\u062A", value: "\u0648\u0646-\u0634\u0648\u062A" }, { label: "\u0648\u0648\u0634\u064A\u0627", value: "\u0648\u0648\u0634\u064A\u0627" }, { label: "\u0648\u0648\u0643\u0633\u064A\u0627", value: "\u0648\u0648\u0643\u0633\u064A\u0627" }] }, "type[]": { type: "Checkbox", label: "\u0627\u0644\u0646\u0648\u0639", value: [], options: [{ label: "\u0625\u0646\u062C\u0644\u064A\u0632\u064A\u0629", value: "english" }, { label: "\u062A\u0631\u062C\u0645\u0629 \u0625\u062D\u062A\u0631\u0627\u0641\u064A\u0629", value: "\u062A\u0631\u062C\u0645\u0629-\u0625\u062D\u062A\u0631\u0627\u0641\u064A\u0629" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0644\u0627\u064A\u062A", value: "light-novel" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0645\u0624\u0644\u0641\u0629", value: "\u0631\u0648\u0627\u064A\u0629-\u0645\u0624\u0644\u0641\u0629" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0645\u062A\u0631\u062C\u0645\u0629", value: "\u0631\u0648\u0627\u064A\u0629-\u0645\u062A\u0631\u062C\u0645\u0629" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u0648\u064A\u0628", value: "web-novel" }, { label: "\u0635\u064A\u0646\u064A\u0629", value: "chinese" }, { label: "\u0639\u0631\u0628\u064A\u0629", value: "arabic" }, { label: "\u0643\u0648\u0631\u064A\u0629", value: "korean" }, { label: "\u0645\u0624\u0644\u0641\u0629", value: "\u0645\u0624\u0644\u0641\u0629" }, { label: "\u0648\u0646 \u0634\u0648\u062A", value: "\u0648\u0646-\u0634\u0648\u062A" }, { label: "\u064A\u0627\u0628\u0627\u0646\u064A\u0629", value: "japanese" }] }, status: { type: "Picker", label: "\u0627\u0644\u062D\u0627\u0644\u0629", value: "", options: [{ label: "\u0627\u0644\u0643\u0644", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }, { label: "Completed", value: "completed" }] }, order: { type: "Picker", label: "\u062A\u0631\u062A\u064A\u0628 \u062D\u0633\u0628", value: "", options: [{ label: "\u0627\u0644\u0625\u0639\u062F\u0627\u062F \u0627\u0644\u0623\u0648\u0644\u064A", value: "" }, { label: "A-Z", value: "title" }, { label: "Z-A", value: "titlereverse" }, { label: "\u0623\u062E\u0631 \u0627\u0644\u062A\u062D\u062F\u064A\u062B\u0627\u062A", value: "update" }, { label: "\u0623\u062E\u0631 \u0645\u0627 \u062A\u0645 \u0625\u0636\u0627\u0641\u062A\u0647", value: "latest" }, { label: "\u0627\u0644\u0631\u0627\u0626\u062C\u0629", value: "popular" }, { label: "\u0627\u0644\u062A\u0642\u064A\u064A\u0645", value: "rating" }] } } });
   exports.default = c;
 })();
 
