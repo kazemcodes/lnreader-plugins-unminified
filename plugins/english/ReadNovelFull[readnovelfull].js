@@ -25493,28 +25493,28 @@ var LNReaderPlugin = (() => {
         });
       });
     }, c2.prototype.parseNovels = function(t2) {
-      var a2, n2 = this, o2 = [], i2 = {}, l2 = [r.Idle], c3 = /* @__PURE__ */ __name(function() {
-        return l2[l2.length - 1];
-      }, "c"), u2 = /* @__PURE__ */ __name(function(e2) {
-        return l2.push(e2);
-      }, "u"), h = /* @__PURE__ */ __name(function() {
-        return l2.length > 1 ? l2.pop() : c3();
-      }, "h"), p = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
-        var s2, o3 = c3();
-        if (((null === (s2 = t3.class) || void 0 === s2 ? void 0 : s2.includes("archive")) || "col-content" === t3.class) && (u2(r.NovelList), a2 = 0), o3 === r.NovelList || o3 === r.NovelName) switch (e2) {
+      var a2, n2 = this, o2 = [], i2 = {}, l2 = this.options.listClass, c3 = [r.Idle], u2 = /* @__PURE__ */ __name(function() {
+        return c3[c3.length - 1];
+      }, "u"), h = /* @__PURE__ */ __name(function(e2) {
+        return c3.push(e2);
+      }, "h"), p = /* @__PURE__ */ __name(function() {
+        return c3.length > 1 ? c3.pop() : u2();
+      }, "p"), v = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
+        var s2, o3 = u2();
+        if (!(s2 = t3.class) || !(l2 ? s2.split(/\s+/).includes(l2) : s2.includes("archive") || "col-content" === s2) || l2 && o3 !== r.Idle || (h(r.NovelList), a2 = 0), o3 === r.NovelList || o3 === r.NovelName) switch (e2) {
           case "img":
-            var l3 = [t3["data-src"], t3["data-cfsrc"], t3["data-original"], t3.src].find(function(e3) {
+            var c4 = [t3["data-src"], t3["data-cfsrc"], t3["data-original"], t3.src].find(function(e3) {
               return e3 && !e3.startsWith("data:");
             });
-            l3 && (i2.cover = new URL(l3, n2.site).href);
+            c4 && (i2.cover = new URL(c4, n2.site).href);
             break;
           case "h3":
-            o3 === r.NovelList && u2(r.NovelName);
+            o3 === r.NovelList && h(r.NovelName);
             break;
           case "a":
             if (o3 === r.NovelName) {
-              var h2 = t3.href;
-              h2 && (i2.path = new URL(h2, n2.site).pathname.substring(1), i2.name = t3.title);
+              var p2 = t3.href;
+              p2 && (i2.path = new URL(p2, n2.site).pathname.substring(1), i2.name = t3.title);
             }
             break;
           case "div":
@@ -25524,10 +25524,10 @@ var LNReaderPlugin = (() => {
             return;
         }
       }, "onopentag"), onclosetag: /* @__PURE__ */ __name(function(t3) {
-        var n3 = c3();
-        "a" === t3 && n3 === r.NovelName && (i2.name && i2.path && o2.push(e({}, i2)), i2 = {}, h()), "div" === t3 && n3 === r.NovelList && --a2 < 0 && h();
+        var n3 = u2();
+        "a" === t3 && n3 === r.NovelName && (i2.name && i2.path && o2.push(e({}, i2)), i2 = {}, p()), "div" === t3 && n3 === r.NovelList && --a2 < 0 && p();
       }, "onclosetag") });
-      return p.write(t2), p.end(), o2;
+      return v.write(t2), v.end(), o2;
     }, c2.prototype.parseChapterListFragment = function(t2, a2) {
       var n2 = [], r2 = {}, o2 = a2, i2 = false, l2 = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
         "a" === e2 && t3.href && (o2++, i2 = true, r2.name = t3.title || "Chapter ".concat(o2), r2.releaseTime = null, r2.chapterNumber = o2, r2.path = t3.href.startsWith("/") ? t3.href.substring(1) : t3.href);
@@ -25597,11 +25597,11 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.popularNovels = function(e2, n2) {
       return t(this, arguments, void 0, function(e3, t2) {
-        var n3, r2, s2, i2, l2, c3, u2, h, p, v, d, f, g, m, b, y, w, S, C, N, k, P, x = t2.filters, L = t2.showLatestNovels;
+        var n3, r2, s2, i2, l2, c3, u2, h, p, v, d, f, g, m, b, y, w, S, C, N, k, P, L = t2.filters, x = t2.showLatestNovels;
         return a(this, function(t3) {
           switch (t3.label) {
             case 0:
-              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, i2 = n3.novelListing, l2 = n3.typeParam, c3 = void 0 === l2 ? "type" : l2, u2 = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, m = n3.noPages, b = void 0 === m ? [] : m, y = n3.pageAsPath, w = void 0 !== y && y, 1 !== e3 && !L && !x.genres.value.length && b.length > 0 && b.includes(x.type.value) ? [2, []] : (S = "", i2 ? (C = new URLSearchParams(), L ? C.append(c3, u2) : x.genres.value.length ? (C.append(c3, p), C.append(d, x.genres.value)) : C.append(c3, x.type.value), f && g && C.append(f, g), C.append(s2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(C.toString())) : (N = L ? u2 : x.genres.value.length ? x.genres.value : x.type.value, S = w ? e3 > 1 ? "".concat(this.site).concat(N, "/").concat(e3.toString()) : "".concat(this.site).concat(N) : "".concat(this.site).concat(N, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
+              return n3 = this.options, r2 = n3.pageParam, s2 = void 0 === r2 ? "page" : r2, i2 = n3.novelListing, l2 = n3.typeParam, c3 = void 0 === l2 ? "type" : l2, u2 = n3.latestPage, h = n3.genreParam, p = void 0 === h ? "category_novel" : h, v = n3.genreKey, d = void 0 === v ? "id" : v, f = n3.langParam, g = n3.urlLangCode, m = n3.noPages, b = void 0 === m ? [] : m, y = n3.pageAsPath, w = void 0 !== y && y, 1 !== e3 && !x && !L.genres.value.length && b.length > 0 && b.includes(L.type.value) ? [2, []] : (S = "", i2 ? (C = new URLSearchParams(), x ? C.append(c3, u2) : L.genres.value.length ? (C.append(c3, p), C.append(d, L.genres.value)) : C.append(c3, L.type.value), f && g && C.append(f, g), C.append(s2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(C.toString())) : (N = x ? u2 : L.genres.value.length ? L.genres.value : L.type.value, S = w ? e3 > 1 ? "".concat(this.site).concat(N, "/").concat(e3.toString()) : "".concat(this.site).concat(N) : "".concat(this.site).concat(N, "?").concat(s2, "=").concat(e3.toString())), [4, (0, o.fetchApi)(S)]);
             case 1:
               if (!(k = t3.sent()).ok) throw new Error("Could not reach site (".concat(k.status, ": ").concat(k.statusText, ") try to open in webview."));
               return [4, k.text()];
@@ -25612,7 +25612,7 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, l2, c3, u2, h, p, v, d, f, g, m, b, y, w, S, C, N, k, P, x, L, A, j, I, R, H, T, U, O, q, _, G, M, E, W = this;
+        var t2, l2, c3, u2, h, p, v, d, f, g, m, b, y, w, S, C, N, k, P, L, x, A, j, I, R, H, U, T, O, q, _, G, M, E, F = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -25626,7 +25626,7 @@ var LNReaderPlugin = (() => {
                 return C.push(e2);
               }, "k"), P = /* @__PURE__ */ __name(function() {
                 return C.length > 1 ? C.pop() : N();
-              }, "P"), x = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
+              }, "P"), L = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
                 var a3, s2, o2, i2 = N();
                 switch (e2) {
                   case "div":
@@ -25642,14 +25642,14 @@ var LNReaderPlugin = (() => {
                       case "info":
                         k(r.Info), S = 0;
                     }
-                    W.options.noAjax || "rating" !== t3.id || (g = t3["data-novel-id"]), "indexListPage" === t3.id && (g = t3["data-novel-id"], m = Number(t3["data-total-chapters"])), i2 === r.Info && S++;
+                    F.options.noAjax || "rating" !== t3.id || (g = t3["data-novel-id"]), "indexListPage" === t3.id && (g = t3["data-novel-id"], m = Number(t3["data-total-chapters"])), i2 === r.Info && S++;
                     break;
                   case "img":
                     if (i2 === r.Cover) {
                       var l3 = [t3["data-src"], t3["data-cfsrc"], t3["data-original"], t3.src].find(function(e3) {
                         return e3 && !e3.startsWith("data:");
                       }), h2 = t3.title;
-                      l3 && (c3.cover = new URL(l3, W.site).href), h2 ? c3.name = h2 : P();
+                      l3 && (c3.cover = new URL(l3, F.site).href), h2 ? c3.name = h2 : P();
                     }
                     break;
                   case "h3":
@@ -25666,7 +25666,7 @@ var LNReaderPlugin = (() => {
                     i2 === r.Summary && u2.push("\n");
                     break;
                   case "ul":
-                    (null === (s2 = t3.class) || void 0 === s2 ? void 0 : s2.includes("info-meta")) && k(r.Info), W.options.noAjax && "idData" === t3.id && k(r.ChapterList);
+                    (null === (s2 = t3.class) || void 0 === s2 ? void 0 : s2.includes("info-meta")) && k(r.Info), F.options.noAjax && "idData" === t3.id && k(r.ChapterList);
                     break;
                   case "a":
                     if ((null === (o2 = t3.class) || void 0 === o2 ? void 0 : o2.includes("set-case")) && (g = t3["data-articleid"]), i2 === r.ChapterList) {
@@ -25771,27 +25771,27 @@ var LNReaderPlugin = (() => {
                   return e3.toUpperCase();
                 });
                 c3.summary = u2.join("\n\n").trim();
-              }, "onend") }), x.write(l2), x.end(), this.options.chapterListPaginated ? (L = c3, [4, this.fetchAllChaptersViaJsonAjax(n2)]) : [3, 4];
+              }, "onend") }), L.write(l2), L.end(), this.options.chapterListPaginated ? (x = c3, [4, this.fetchAllChaptersViaJsonAjax(n2)]) : [3, 4];
             case 3:
-              return L.chapters = a2.sent(), [3, 9];
+              return x.chapters = a2.sent(), [3, 9];
             case 4:
               return this.options.noAjax && f.length > 0 && !m ? (c3.chapters = f, [3, 9]) : [3, 5];
             case 5:
               return null === g ? [3, 9] : (A = this.options.chapterListing || "ajax/chapter-archive", j = this.options.chapterParam || "novelId", I = new URLSearchParams(((E = {})[j] = g, E)), R = void 0, H = void 0, m ? (R = "".concat(this.site).concat(A), I.set("acode", b || n2.split("/").pop()), I.set("cid", String(Math.floor(Math.random() * m))), H = { method: "POST", body: I.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" } }) : R = "".concat(this.site).concat(A, "?").concat(I.toString()), [4, (0, o.fetchApi)(R, H)]);
             case 6:
-              return (T = a2.sent()).ok ? [3, 7] : (console.error("Failed to fetch chapters: ".concat(T.status)), c3.chapters = [], [3, 9]);
+              return (U = a2.sent()).ok ? [3, 7] : (console.error("Failed to fetch chapters: ".concat(U.status)), c3.chapters = [], [3, 9]);
             case 7:
-              return [4, T.text()];
+              return [4, U.text()];
             case 8:
-              U = a2.sent(), O = U;
+              T = a2.sent(), O = T;
               try {
-                "string" == typeof (q = JSON.parse(U)).html && (O = q.html);
+                "string" == typeof (q = JSON.parse(T)).html && (O = q.html);
               } catch (e2) {
               }
               _ = [], G = {}, (M = new s.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
                 var a3, n3;
                 if ("a" === e2 && t3.href ? (a3 = t3.href, n3 = t3.title || "", k(r.Chapter)) : "option" === e2 && t3.value && (a3 = t3.value, n3 = "", k(r.Chapter)), void 0 !== a3) {
-                  var s2 = a3.startsWith("/") ? a3.slice(1) : a3.replace(W.site + "/", "");
+                  var s2 = new URL(a3, F.site).pathname.substring(1);
                   G.path = s2, G.name = n3;
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {

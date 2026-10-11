@@ -7017,7 +7017,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -7742,7 +7742,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -25372,6 +25372,101 @@ var LNReaderPlugin = (() => {
     }
   });
 
+  // src/lib/storage.ts
+  var _Storage, Storage, storage, _LocalStorage, LocalStorage, localStorage, sessionStorage;
+  var init_storage = __esm({
+    "src/lib/storage.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      _Storage = class _Storage {
+        /**
+         * Initializes a new instance of the Storage class.
+         */
+        constructor() {
+          this.db = {};
+        }
+        /**
+         * Sets a key-value pair in storage.
+         *
+         * @param {string} key - The key to set.
+         * @param {T} value - The value to set.
+         * @param {Date | number} [expires] - Optional expiry date or time in milliseconds.
+         */
+        set(key, value, expires) {
+          this.db[key] = {
+            created: /* @__PURE__ */ new Date(),
+            value,
+            expires: expires instanceof Date ? expires.getTime() : expires
+          };
+        }
+        get(key, raw) {
+          const item = this.db[key];
+          if (item?.expires && Date.now() > item.expires) {
+            this.delete(key);
+            return void 0;
+          }
+          return raw ? item : item?.value;
+        }
+        /**
+         * Retrieves all keys set by the `set` method.
+         *
+         * @returns {string[]} An array of keys.
+         */
+        getAllKeys() {
+          return Object.keys(this.db);
+        }
+        /**
+         * Deletes a key from the storage.
+         *
+         * @param key - The key to delete.
+         */
+        delete(key) {
+          delete this.db[key];
+        }
+        /**
+         * Clears all stored items from storage.
+         */
+        clearAll() {
+          this.db = {};
+        }
+      };
+      __name(_Storage, "Storage");
+      Storage = _Storage;
+      storage = new Storage();
+      _LocalStorage = class _LocalStorage {
+        constructor() {
+          this.db = {};
+        }
+        get() {
+          return this.db;
+        }
+      };
+      __name(_LocalStorage, "LocalStorage");
+      LocalStorage = _LocalStorage;
+      localStorage = new LocalStorage();
+      sessionStorage = new LocalStorage();
+    }
+  });
+
+  // src/libs/storage.ts
+  var storage_exports = {};
+  __export(storage_exports, {
+    localStorage: () => localStorage,
+    sessionStorage: () => sessionStorage,
+    storage: () => storage
+  });
+  var init_storage2 = __esm({
+    "src/libs/storage.ts"() {
+      "use strict";
+      init_dirname();
+      init_buffer2();
+      init_process2();
+      init_storage();
+    }
+  });
+
   // src/types/constants.ts
   var NovelStatus, defaultCover;
   var init_constants = __esm({
@@ -25433,7 +25528,7 @@ var LNReaderPlugin = (() => {
     return new (r2 || (r2 = Promise))(function(a2, o2) {
       function i2(t3) {
         try {
-          l(n2.next(t3));
+          l2(n2.next(t3));
         } catch (t4) {
           o2(t4);
         }
@@ -25441,20 +25536,20 @@ var LNReaderPlugin = (() => {
       __name(i2, "i");
       function s2(t3) {
         try {
-          l(n2.throw(t3));
+          l2(n2.throw(t3));
         } catch (t4) {
           o2(t4);
         }
       }
       __name(s2, "s");
-      function l(t3) {
+      function l2(t3) {
         var e3;
         t3.done ? a2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
           t4(e3);
         })).then(i2, s2);
       }
-      __name(l, "l");
-      l((n2 = n2.apply(t2, e2 || [])).next());
+      __name(l2, "l");
+      l2((n2 = n2.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
     var r2, n2, a2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
@@ -25465,7 +25560,7 @@ var LNReaderPlugin = (() => {
       return this;
     }), i2;
     function s2(s3) {
-      return function(l) {
+      return function(l2) {
         return function(s4) {
           if (r2) throw new TypeError("Generator is already executing.");
           for (; i2 && (i2 = 0, s4[0] && (o2 = 0)), o2; ) try {
@@ -25511,21 +25606,21 @@ var LNReaderPlugin = (() => {
           }
           if (5 & s4[0]) throw s4[1];
           return { value: s4[0] ? s4[1] : void 0, done: true };
-        }([s3, l]);
+        }([s3, l2]);
       };
     }
     __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = function() {
-    function s2() {
+  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = function() {
+    function l2() {
       var t2 = this;
-      this.id = "beastnovels", this.name = "Beast Novels", this.version = "1.0.0", this.icon = "src/en/beastnovels/icon.png", this.site = "https://beastnovels.com/", this.resolveUrl = function(e2) {
+      this.id = "beastnovels", this.name = "Beast Novels", this.version = "1.1.0", this.icon = "src/en/beastnovels/icon.png", this.site = "https://beastnovels.com/", this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.resolveUrl = function(e2) {
         return t2.site + e2;
       }, this.filters = { sort: { label: "Sort By", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }], type: a.FilterTypes.Picker }, status: { label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }], type: a.FilterTypes.Picker }, genres: { label: "Genres", value: [], options: [{ label: "Action", value: "3" }, { label: "Adventure", value: "6" }, { label: "Comedy", value: "8" }, { label: "Fantasy", value: "5" }, { label: "Shounen", value: "7" }], type: a.FilterTypes.CheckboxGroup } };
     }
-    __name(s2, "s");
-    return s2.prototype.fetchText = function(r2) {
+    __name(l2, "l");
+    return l2.prototype.fetchText = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25538,28 +25633,28 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.fetchCatalog = function() {
+    }, l2.prototype.fetchCatalog = function() {
       return t(this, void 0, void 0, function() {
-        var t2, r2, n2, a2, o2, i2, s3;
+        var t2, r2, n2, a2, o2, i2, s2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return [4, this.fetchText(this.site + "novels")];
             case 1:
               if (t2 = e2.sent(), -1 === (r2 = t2.search(/allBooks\s*:\s*\[/))) throw new Error("Could not find the novel catalog");
-              for (n2 = t2.indexOf("[", r2), a2 = 0, o2 = false, i2 = n2; i2 < t2.length; i2++) if (s3 = t2[i2], o2) "\\" === s3 ? i2++ : '"' === s3 && (o2 = false);
-              else if ('"' === s3) o2 = true;
-              else if ("[" === s3 || "{" === s3) a2++;
-              else if (("]" === s3 || "}" === s3) && 0 === --a2) return [2, JSON.parse(t2.slice(n2, i2 + 1))];
+              for (n2 = t2.indexOf("[", r2), a2 = 0, o2 = false, i2 = n2; i2 < t2.length; i2++) if (s2 = t2[i2], o2) "\\" === s2 ? i2++ : '"' === s2 && (o2 = false);
+              else if ('"' === s2) o2 = true;
+              else if ("[" === s2 || "{" === s2) a2++;
+              else if (("]" === s2 || "}" === s2) && 0 === --a2) return [2, JSON.parse(t2.slice(n2, i2 + 1))];
               throw new Error("Could not parse the novel catalog");
           }
         });
       });
-    }, s2.prototype.toNovelItem = function(t2) {
-      return { name: t2.bookname, path: "series/" + t2.bookslug, cover: t2.image_url || o.defaultCover };
-    }, s2.prototype.popularNovels = function(r2, n2) {
+    }, l2.prototype.toNovelItem = function(t2) {
+      return { name: t2.bookname, path: "series/" + t2.bookslug, cover: t2.image_url || i.defaultCover };
+    }, l2.prototype.popularNovels = function(r2, n2) {
       return t(this, arguments, void 0, function(t2, r3) {
-        var n3, a2, o2, i2, s3, l = this, u = r3.showLatestNovels, c = r3.filters;
+        var n3, a2, o2, i2, s2, l3 = this, u = r3.showLatestNovels, c = r3.filters;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25573,17 +25668,17 @@ var LNReaderPlugin = (() => {
                 });
               }), "popular" === n3 ? i2.sort(function(t3, e3) {
                 return (e3.totalview || 0) - (t3.totalview || 0);
-              }) : (s3 = "updated" === n3 ? "updated_at" : "created_at", i2.sort(function(t3, e3) {
-                return Date.parse(e3[s3]) - Date.parse(t3[s3]);
+              }) : (s2 = "updated" === n3 ? "updated_at" : "created_at", i2.sort(function(t3, e3) {
+                return Date.parse(e3[s2]) - Date.parse(t3[s2]);
               })), [2, i2.map(function(t3) {
-                return l.toNovelItem(t3);
+                return l3.toNovelItem(t3);
               })];
           }
         });
       });
-    }, s2.prototype.parseNovel = function(n2) {
+    }, l2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, a2, s3, l, u, c, h, f, p = this;
+        var t2, a2, l3, u, c, h, p, f, v, d = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25591,34 +25686,37 @@ var LNReaderPlugin = (() => {
                 return [];
               })])];
             case 1:
-              switch (t2 = e2.sent(), a2 = t2[0], s3 = t2[1], l = (0, r.load)(a2), u = { path: n2, name: l("h1").first().text().trim() || "Untitled", cover: l("#heroImg").attr("src") || o.defaultCover, author: l("h1").first().next("p").find("span").text().trim(), summary: l('h2:contains("Synopsis")').next().find("p").text().trim(), genres: l('a[href*="/novels?genre="]').map(function(t3, e3) {
-                return l(e3).text().trim();
-              }).get().join(", ") }, c = n2.split("/").pop(), null == (h = s3.find(function(t3) {
-                return t3.bookslug === c;
-              })) ? void 0 : h.novel_status) {
+              switch (t2 = e2.sent(), a2 = t2[0], l3 = t2[1], u = (0, r.load)(a2), c = { path: n2, name: u("h1").first().text().trim() || "Untitled", cover: u("#heroImg").attr("src") || i.defaultCover, author: u("h1").first().next("p").find("span").text().trim(), summary: u('h2:contains("Synopsis")').next().find("p").text().trim(), genres: u('a[href*="/novels?genre="]').map(function(t3, e3) {
+                return u(e3).text().trim();
+              }).get().join(", ") }, h = n2.split("/").pop(), null == (p = l3.find(function(t3) {
+                return t3.bookslug === h;
+              })) ? void 0 : p.novel_status) {
                 case "ongoing":
-                  u.status = i.NovelStatus.Ongoing;
+                  c.status = s.NovelStatus.Ongoing;
                   break;
                 case "completed":
-                  u.status = i.NovelStatus.Completed;
+                  c.status = s.NovelStatus.Completed;
                   break;
                 case "hiatus":
-                  u.status = i.NovelStatus.OnHiatus;
+                  c.status = s.NovelStatus.OnHiatus;
               }
-              return f = [], l('a.chapter-row[data-premium="0"]').each(function(t3, e3) {
-                var r2 = l(e3).attr("href");
+              return f = o.storage.get("hideLocked"), v = [], u("a.chapter-row").each(function(t3, e3) {
+                var r2 = u(e3).attr("href");
                 if (r2) {
-                  var n3 = l(e3).find(".chapter-card__num").text().trim(), a3 = parseFloat(l(e3).attr("data-chapter-number") || "");
-                  f.push({ name: l(e3).find(".chapter-card__title").text().trim() || n3, path: r2.replace(p.site, ""), chapterNumber: isNaN(a3) ? void 0 : a3 });
+                  var n3 = "1" === u(e3).attr("data-premium");
+                  if (!n3 || !f) {
+                    var a3 = u(e3).find(".chapter-card__num").text().trim(), o2 = parseFloat(u(e3).attr("data-chapter-number") || ""), i2 = u(e3).find(".chapter-card__title").text().trim() || a3;
+                    v.push({ name: n3 ? "\u{1F512} ".concat(i2) : i2, path: r2.replace(d.site, ""), chapterNumber: isNaN(o2) ? void 0 : o2 });
+                  }
                 }
-              }), u.chapters = f, [2, u];
+              }), c.chapters = v, [2, c];
           }
         });
       });
-    }, s2.prototype.isUnsafeUrl = function(t2) {
+    }, l2.prototype.isUnsafeUrl = function(t2) {
       var e2 = t2.replace(/[\u0000- \u007f]/g, "").toLowerCase();
       return e2.startsWith("javascript:") || e2.startsWith("vbscript:") || e2.startsWith("data:") && !e2.startsWith("data:image/");
-    }, s2.prototype.parseChapter = function(n2) {
+    }, l2.prototype.parseChapter = function(n2) {
       return t(this, void 0, void 0, function() {
         var t2, a2, o2, i2 = this;
         return e(this, function(e2) {
@@ -25626,7 +25724,8 @@ var LNReaderPlugin = (() => {
             case 0:
               return [4, this.fetchText(this.site + n2)];
             case 1:
-              return t2 = e2.sent(), a2 = (0, r.load)(t2), (o2 = a2(".chapter-content")).find("script, style, iframe").remove(), o2.find("*").each(function(t3, e3) {
+              if (t2 = e2.sent(), a2 = (0, r.load)(t2), !(o2 = a2(".chapter-content")).length) throw new Error(a2('input[type="password"]').length ? "This chapter is locked. Unlock it on Beast Novels to read it." : "Could not find the chapter text.");
+              return o2.find("script, style, iframe").remove(), o2.find("*").each(function(t3, e3) {
                 if ("tag" === e3.type) for (var r2 = 0, n3 = Object.keys(e3.attribs); r2 < n3.length; r2++) {
                   var o3 = n3[r2];
                   (/^on/i.test(o3) || i2.isUnsafeUrl(e3.attribs[o3])) && a2(e3).removeAttr(o3);
@@ -25635,7 +25734,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.searchNovels = function(r2, n2) {
+    }, l2.prototype.searchNovels = function(r2, n2) {
       return t(this, void 0, void 0, function() {
         var t2, a2 = this;
         return e(this, function(e2) {
@@ -25651,9 +25750,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2;
+    }, l2;
   }();
-  exports.default = new s();
+  exports.default = new l();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }
