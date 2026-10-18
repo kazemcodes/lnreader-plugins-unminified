@@ -25583,7 +25583,7 @@ var LNReaderPlugin = (() => {
       var t2, a2, s2;
       this.hideLocked = n.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var r2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "1.1.".concat(11 + r2), this.options = null !== (a2 = e2.options) && void 0 !== a2 ? a2 : {}, this.filters = e2.filters, (null === (s2 = this.options) || void 0 === s2 ? void 0 : s2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "1.1.".concat(12 + r2), this.options = null !== (a2 = e2.options) && void 0 !== a2 ? a2 : {}, this.filters = e2.filters, (null === (s2 = this.options) || void 0 === s2 ? void 0 : s2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(o2, "o");
     return o2.prototype.getHostname = function(e2) {
@@ -25779,7 +25779,7 @@ var LNReaderPlugin = (() => {
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = this.site + "page/" + s2 + "/?s=" + encodeURIComponent(a2), [4, this.safeFecth(e2, true)];
+              return e2 = this.site.replace(/\/?$/, "/") + "page/" + s2 + "/?s=" + encodeURIComponent(a2), [4, this.safeFecth(e2, true)];
             case 1:
               return r2 = t2.sent(), [2, this.parseNovels(r2)];
           }
