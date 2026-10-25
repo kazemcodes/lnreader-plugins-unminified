@@ -25805,7 +25805,7 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var u = (init_filterInputs(), __toCommonJS(filterInputs_exports)), v = (init_fetch2(), __toCommonJS(fetch_exports)), b = (init_novelStatus(), __toCommonJS(novelStatus_exports)), t = (init_browser(), __toCommonJS(browser_exports)), r = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = a(require_dayjs_min()), n = function() {
     function a2() {
-      this.id = "ficbook", this.name = "ficbook", this.site = "https://ficbook.net", this.imageSite = "https://images.ficbook.net/fanfic-covers/", this.version = "1.0.1", this.icon = "src/ru/ficbook/icon.png", this.parseDate = function(l2) {
+      this.id = "ficbook", this.name = "ficbook", this.site = "https://ficbook.net", this.version = "1.0.2", this.icon = "src/ru/ficbook/icon.png", this.parseDate = function(l2) {
         void 0 === l2 && (l2 = "");
         var e2 = { "\u044F\u043D\u0432\u0430\u0440\u044F": 1, "\u0444\u0435\u0432\u0440\u0430\u043B\u044F": 2, "\u043C\u0430\u0440\u0442\u0430": 3, "\u0430\u043F\u0440\u0435\u043B\u044F": 4, "\u043C\u0430\u044F": 5, "\u0438\u044E\u043D\u044F": 6, "\u0438\u044E\u043B\u044F": 7, "\u0430\u0432\u0433\u0443\u0441\u0442\u0430": 8, "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044F": 9, "\u043E\u043A\u0442\u044F\u0431\u0440\u044F": 10, "\u043D\u043E\u044F\u0431\u0440\u044F": 11, "\u0434\u0435\u043A\u0430\u0431\u0440\u044F": 12 }, a3 = l2.split(" "), u2 = a3[0], v2 = a3[1], b2 = a3[2], t2 = a3[4];
         return u2 && v2 && b2 && e2[v2] && t2 ? (0, i.default)(b2 + "-" + e2[v2] + "-" + u2 + " " + t2).format("LLL") : l2 || null;
@@ -25814,73 +25814,92 @@ var LNReaderPlugin = (() => {
     __name(a2, "a");
     return a2.prototype.popularNovels = function(a3, u2) {
       return l(this, arguments, void 0, function(l2, a4) {
-        var u3, b2, i2, n2, o, s, c, f = a4.filters;
+        var u3, v2, b2, t2, r2, i2 = a4.filters;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return u3 = this.site, (null === (o = null == f ? void 0 : f.directions) || void 0 === o ? void 0 : o.value) ? u3 += "/popular-fanfics/" + f.directions.value : (null === (s = null == f ? void 0 : f.tags) || void 0 === s ? void 0 : s.value) ? u3 += "/tags/" + f.tags.value + "?p=" + l2 : u3 += "/" + ((null === (c = null == f ? void 0 : f.sort) || void 0 === c ? void 0 : c.value) || "fanfiction") + "?p=" + l2, [4, (0, v.fetchApi)(u3).then(function(l3) {
-                return l3.text();
-              })];
+              return u3 = this.site, (null === (b2 = null == i2 ? void 0 : i2.directions) || void 0 === b2 ? void 0 : b2.value) ? u3 += "/popular-fanfics/" + i2.directions.value : (null === (t2 = null == i2 ? void 0 : i2.tags) || void 0 === t2 ? void 0 : t2.value) ? u3 += "/tags/" + i2.tags.value + "?p=" + l2 : u3 += "/" + ((null === (r2 = null == i2 ? void 0 : i2.sort) || void 0 === r2 ? void 0 : r2.value) || "fanfiction") + "?p=" + l2, [4, this.fetchPage(u3)];
             case 1:
-              return b2 = e2.sent(), i2 = (0, t.load)(b2), n2 = [], i2("article.fanfic-inline").each(function(l3, e3) {
-                var a5 = i2(e3).find("h3 > a").text().trim(), u4 = i2(e3).find("picture > img").attr("src"), v2 = i2(e3).find("h3 > a").attr("href");
-                u4 = u4 ? u4.replace(/covers\/m_|covers\/d_/g, "covers/") : r.defaultCover, a5 && v2 && n2.push({ name: a5, cover: u4, path: v2.replace(/\?.*/g, "") });
-              }), [2, n2];
+              return v2 = e2.sent(), [2, this.parseNovelList(v2)];
           }
         });
       });
+    }, a2.prototype.parseNovelList = function(l2) {
+      var e2 = (0, t.load)(l2), a3 = [];
+      return e2("article.fanfic-inline").each(function(l3, u2) {
+        var v2 = e2(u2).find("h3 > a").text().trim(), b2 = e2(u2).find("picture > img").attr("src"), t2 = e2(u2).find("h3 > a").attr("href");
+        b2 = b2 ? b2.replace(/covers\/m_|covers\/d_/g, "covers/") : r.defaultCover, v2 && t2 && a3.push({ name: v2, cover: b2, path: t2.replace(/\?.*/g, "") });
+      }), a3;
     }, a2.prototype.parseNovel = function(a3) {
       return l(this, void 0, void 0, function() {
-        var l2, u2, i2, n2, o, s, c, f, h = this;
+        var l2, u2, v2, i2, n2, o, s, c, f, h, p, d = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, (0, v.fetchApi)(this.site + a3).then(function(l3) {
-                return l3.text();
-              })];
+              return [4, this.fetchPage(this.site + a3)];
             case 1:
-              return l2 = e2.sent(), u2 = (0, t.load)(l2), (i2 = { path: a3, name: (u2('h1[itemprop="headline"]').text() || u2('h1[itemprop="name"]').text() || "").trim() }).cover = u2('meta[property="og:image"]').attr("content"), i2.summary = u2('div[itemprop="description"]').text().trim(), i2.author = u2('a[itemprop="author"]').text(), i2.status = "\u0412 \u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0435" === u2("div.fanfic-main-info > section:nth-child(3) > div:nth-child(3) > span:nth-child(2)").text() ? b.NovelStatus.Ongoing : b.NovelStatus.Completed, (n2 = u2('div[class="tags"] > a').map(function(l3, e3) {
+              return l2 = e2.sent(), u2 = (0, t.load)(l2), (v2 = { path: a3, name: (u2('h1[itemprop="headline"]').text() || u2('h1[itemprop="name"]').text() || "").trim() }).cover = u2('meta[property="og:image"]').attr("content"), v2.summary = u2('div[itemprop="description"]').text().trim(), v2.author = u2('a[itemprop="author"]').text(), v2.status = "\u0412 \u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0435" === u2("div.fanfic-main-info > section:nth-child(3) > div:nth-child(3) > span:nth-child(2)").text() ? b.NovelStatus.Ongoing : b.NovelStatus.Completed, (i2 = u2('div[class="tags"] > a').map(function(l3, e3) {
                 return u2(e3).text();
-              }).get()).length && (i2.genres = n2.join(",")), !i2.cover || (null === (f = i2.cover) || void 0 === f ? void 0 : f.includes("/design/")) ? i2.cover = r.defaultCover : i2.cover = i2.cover.replace(/covers\/m_|covers\/d_/g, "covers/"), o = [], 1 == u2("#content").length ? (s = u2(".title-area > h2").text(), c = u2(".part-date > span").attr("title"), s && o.push({ name: s, path: a3, releaseTime: c })) : u2("li.part").each(function(l3, e3) {
-                var a4 = u2(e3).find("h3").text(), v2 = u2(e3).find("a:nth-child(1)").attr("href");
-                if (a4 && v2) {
+              }).get()).length && (v2.genres = i2.join(",")), v2.cover && !(null === (h = v2.cover) || void 0 === h ? void 0 : h.includes("/design/")) ? [3, 4] : (n2 = v2, (o = v2.name) ? [4, this.searchNovels(v2.name, 1).catch(function() {
+                return [];
+              })] : [3, 3]);
+            case 2:
+              o = null === (p = e2.sent().find(function(l3) {
+                return l3.path === a3;
+              })) || void 0 === p ? void 0 : p.cover, e2.label = 3;
+            case 3:
+              return n2.cover = o || r.defaultCover, [3, 5];
+            case 4:
+              v2.cover = v2.cover.replace(/covers\/m_|covers\/d_/g, "covers/"), e2.label = 5;
+            case 5:
+              return s = [], 1 == u2("#content").length ? (c = u2(".title-area > h2").text(), f = u2(".part-date > span").attr("title"), c && s.push({ name: c, path: a3, releaseTime: f })) : u2("li.part").each(function(l3, e3) {
+                var a4 = u2(e3).find("h3").text(), v3 = u2(e3).find("a:nth-child(1)").attr("href");
+                if (a4 && v3) {
                   var b2 = u2(e3).find("div > span").attr("title");
-                  o.push({ name: a4, path: v2.replace(h.site, ""), releaseTime: b2, chapterNumber: l3 + 1 });
+                  s.push({ name: a4, path: v3.replace(d.site, ""), releaseTime: b2, chapterNumber: l3 + 1 });
                 }
-              }), i2.chapters = o, [2, i2];
+              }), v2.chapters = s, [2, v2];
           }
         });
       });
     }, a2.prototype.parseChapter = function(a3) {
       return l(this, void 0, void 0, function() {
-        var l2, u2, b2, r2, i2;
+        var l2, u2, v2, b2, r2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, (0, v.fetchApi)(this.site + a3).then(function(l3) {
-                return l3.text();
-              })];
+              return [4, this.fetchPage(this.site + a3)];
             case 1:
-              return l2 = e2.sent(), u2 = (0, t.load)(l2), b2 = "", null === (i2 = null === (r2 = u2("#content").html()) || void 0 === r2 ? void 0 : r2.split("\n")) || void 0 === i2 || i2.forEach(function(l3) {
-                l3.trim() && (l3.includes("</p>") ? b2 += l3 : b2 += "<p>" + l3 + "</p>");
-              }), [2, b2];
+              return l2 = e2.sent(), u2 = (0, t.load)(l2), v2 = "", null === (r2 = null === (b2 = u2("#content").html()) || void 0 === b2 ? void 0 : b2.split("\n")) || void 0 === r2 || r2.forEach(function(l3) {
+                l3.trim() && (l3.includes("</p>") ? v2 += l3 : v2 += "<p>" + l3 + "</p>");
+              }), [2, v2];
           }
         });
       });
     }, a2.prototype.searchNovels = function(a3) {
       return l(this, arguments, void 0, function(l2, a4) {
-        var u2, b2, t2, i2, n2 = this;
+        var u2;
         return void 0 === a4 && (a4 = 1), e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return (u2 = new FormData()).append("term", l2), u2.append("page", a4.toString()), [4, (0, v.fetchApi)(this.site + "/search/fanfic", { method: "POST", body: u2 }).then(function(l3) {
-                return l3.json();
-              })];
+              return [4, this.fetchPage(this.site + "/find-fanfics-846555?title=" + encodeURIComponent(l2) + "&p=" + a4)];
             case 1:
-              return b2 = e2.sent().data, t2 = [], null === (i2 = null == b2 ? void 0 : b2.data) || void 0 === i2 || i2.forEach(function(l3) {
-                var e3 = l3.title.trim(), a5 = "/readfic/" + l3.slug, u3 = l3.cover ? n2.imageSite + l3.cover : r.defaultCover;
-                t2.push({ name: e3, cover: u3, path: a5 });
-              }), [2, t2];
+              return u2 = e2.sent(), [2, this.parseNovelList(u2)];
+          }
+        });
+      });
+    }, a2.prototype.fetchPage = function(a3) {
+      return l(this, void 0, void 0, function() {
+        var l2, u2;
+        return e(this, function(e2) {
+          switch (e2.label) {
+            case 0:
+              return [4, (0, v.fetchApi)(a3)];
+            case 1:
+              return [4, (l2 = e2.sent()).text()];
+            case 2:
+              if (u2 = e2.sent(), !l2.ok || /<title>\s*Just a moment/i.test(u2)) throw new Error("ficbook \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D (" + l2.status + "), \u043E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0441\u0430\u0439\u0442 \u0432 WebView");
+              return [2, u2];
           }
         });
       });

@@ -13532,20 +13532,20 @@ var LNReaderPlugin = (() => {
   init_buffer2();
   init_process2();
   var e = function(e2, l2, a2, t2) {
-    return new (a2 || (a2 = Promise))(function(r2, i2) {
-      function n2(e3) {
+    return new (a2 || (a2 = Promise))(function(r2, n2) {
+      function i2(e3) {
         try {
           u2(t2.next(e3));
         } catch (e4) {
-          i2(e4);
+          n2(e4);
         }
       }
-      __name(n2, "n");
+      __name(i2, "i");
       function o2(e3) {
         try {
           u2(t2.throw(e3));
         } catch (e4) {
-          i2(e4);
+          n2(e4);
         }
       }
       __name(o2, "o");
@@ -13553,24 +13553,24 @@ var LNReaderPlugin = (() => {
         var l3;
         e3.done ? r2(e3.value) : (l3 = e3.value, l3 instanceof a2 ? l3 : new a2(function(e4) {
           e4(l3);
-        })).then(n2, o2);
+        })).then(i2, o2);
       }
       __name(u2, "u");
       u2((t2 = t2.apply(e2, l2 || [])).next());
     });
   }, l = function(e2, l2) {
-    var a2, t2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+    var a2, t2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & r2[0]) throw r2[1];
       return r2[1];
-    }, "sent"), trys: [], ops: [] }, n2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return n2.next = o2(0), n2.throw = o2(1), n2.return = o2(2), "function" == typeof Symbol && (n2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return i2.next = o2(0), i2.throw = o2(1), i2.return = o2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
       return this;
-    }), n2;
+    }), i2;
     function o2(o3) {
       return function(u2) {
         return function(o4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; n2 && (n2 = 0, o4[0] && (i2 = 0)), i2; ) try {
+          for (; i2 && (i2 = 0, o4[0] && (n2 = 0)), n2; ) try {
             if (a2 = 1, t2 && (r2 = 2 & o4[0] ? t2.return : o4[0] ? t2.throw || ((r2 = t2.return) && r2.call(t2), 0) : t2.next) && !(r2 = r2.call(t2, o4[1])).done) return r2;
             switch (t2 = 0, r2 && (o4 = [2 & o4[0], r2.value]), o4[0]) {
               case 0:
@@ -13578,34 +13578,34 @@ var LNReaderPlugin = (() => {
                 r2 = o4;
                 break;
               case 4:
-                return i2.label++, { value: o4[1], done: false };
+                return n2.label++, { value: o4[1], done: false };
               case 5:
-                i2.label++, t2 = o4[1], o4 = [0];
+                n2.label++, t2 = o4[1], o4 = [0];
                 continue;
               case 7:
-                o4 = i2.ops.pop(), i2.trys.pop();
+                o4 = n2.ops.pop(), n2.trys.pop();
                 continue;
               default:
-                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
-                  i2 = 0;
+                if (!(r2 = n2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== o4[0] && 2 !== o4[0])) {
+                  n2 = 0;
                   continue;
                 }
                 if (3 === o4[0] && (!r2 || o4[1] > r2[0] && o4[1] < r2[3])) {
-                  i2.label = o4[1];
+                  n2.label = o4[1];
                   break;
                 }
-                if (6 === o4[0] && i2.label < r2[1]) {
-                  i2.label = r2[1], r2 = o4;
+                if (6 === o4[0] && n2.label < r2[1]) {
+                  n2.label = r2[1], r2 = o4;
                   break;
                 }
-                if (r2 && i2.label < r2[2]) {
-                  i2.label = r2[2], i2.ops.push(o4);
+                if (r2 && n2.label < r2[2]) {
+                  n2.label = r2[2], n2.ops.push(o4);
                   break;
                 }
-                r2[2] && i2.ops.pop(), i2.trys.pop();
+                r2[2] && n2.ops.pop(), n2.trys.pop();
                 continue;
             }
-            o4 = l2.call(e2, i2);
+            o4 = l2.call(e2, n2);
           } catch (e3) {
             o4 = [6, e3], t2 = 0;
           } finally {
@@ -13621,88 +13621,89 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var t = (init_filterInputs(), __toCommonJS(filterInputs_exports)), r = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = require_lib6(), u = a(require_dayjs_min()), s = function() {
+  var t = (init_filterInputs(), __toCommonJS(filterInputs_exports)), r = (init_defaultCover(), __toCommonJS(defaultCover_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = require_lib6(), u = a(require_dayjs_min()), s = function() {
     function a2() {
       var e2 = this;
-      this.id = "AT", this.name = "\u0410\u0432\u0442\u043E\u0440 \u0422\u0443\u0434\u0435\u0439", this.icon = "src/ru/authortoday/icon.png", this.site = "https://author.today", this.version = "1.2.2", this.userAgent = "Mozilla/5.0 (Android 15; Mobile; rv:138.0) Gecko/138.0 Firefox/138.0", this.resolveUrl = function(l2, a3) {
+      this.id = "AT", this.name = "\u0410\u0432\u0442\u043E\u0440 \u0422\u0443\u0434\u0435\u0439", this.icon = "src/ru/authortoday/icon.png", this.site = "https://author.today", this.version = "1.2.3", this.userAgent = "Mozilla/5.0 (Android 15; Mobile; rv:138.0) Gecko/138.0 Firefox/138.0", this.resolveUrl = function(l2, a3) {
         return e2.site + (a3 ? "/work/" : "/reader/") + l2;
       }, this.filters = { sort: { label: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430", value: "popular", options: [{ label: "\u041F\u043E \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u0438", value: "popular" }, { label: "\u041F\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u0443 \u043B\u0430\u0439\u043A\u043E\u0432", value: "likes" }, { label: "\u041F\u043E \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u044F\u043C", value: "comments" }, { label: "\u041F\u043E \u043D\u043E\u0432\u0438\u0437\u043D\u0435", value: "recent" }, { label: "\u041F\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430\u043C", value: "views" }, { label: "\u041D\u0430\u0431\u0438\u0440\u0430\u044E\u0449\u0438\u0435 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u044C", value: "trending" }], type: t.FilterTypes.Picker }, genre: { label: "\u0416\u0430\u043D\u0440\u044B", value: "", options: [{ label: "\u0412\u0441\u0435", value: "" }, { label: "\u0410\u043B\u044C\u0442\u0435\u0440\u043D\u0430\u0442\u0438\u0432\u043D\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F", value: "sf-history" }, { label: "\u0410\u043D\u0442\u0438\u0443\u0442\u043E\u043F\u0438\u044F", value: "dystopia" }, { label: "\u0411\u0438\u0437\u043D\u0435\u0441-\u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u0430", value: "biznes-literatura" }, { label: "\u0411\u043E\u0435\u0432\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "sf-action" }, { label: "\u0411\u043E\u0435\u0432\u0438\u043A", value: "action" }, { label: "\u0411\u043E\u0435\u0432\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "fantasy-action" }, { label: "\u0411\u043E\u044F\u0440\u044A-\u0410\u043D\u0438\u043C\u0435", value: "boyar-anime" }, { label: "\u0413\u0435\u0440\u043E\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "sf-heroic" }, { label: "\u0413\u0435\u0440\u043E\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "heroic-fantasy" }, { label: "\u0413\u043E\u0440\u043E\u0434\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "urban-fantasy" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "detective" }, { label: "\u0414\u0435\u0442\u0441\u043A\u0430\u044F \u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u0430", value: "detskaya-literatura" }, { label: "\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u043B\u044C\u043D\u0430\u044F \u043F\u0440\u043E\u0437\u0430", value: "non-fiction" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u043F\u0440\u043E\u0437\u0430", value: "historical-fiction" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "historical-adventure" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0434\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "historical-mystery" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043B\u044E\u0431\u043E\u0432\u043D\u044B\u0439 \u0440\u043E\u043C\u0430\u043D", value: "historical-romance" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "historical-fantasy" }, { label: "\u041A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A", value: "cyberpunk" }, { label: "\u041A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u043B\u044E\u0431\u043E\u0432\u043D\u044B\u0439 \u0440\u043E\u043C\u0430\u043D", value: "short-romance" }, { label: "\u041A\u043E\u0441\u043C\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "sf-space" }, { label: "\u041B\u0438\u0442\u0420\u041F\u0413", value: "litrpg" }, { label: "\u041B\u044E\u0431\u043E\u0432\u043D\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "love-fantasy" }, { label: "\u041B\u044E\u0431\u043E\u0432\u043D\u044B\u0435 \u0440\u043E\u043C\u0430\u043D\u044B", value: "romance" }, { label: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430", value: "paranormal" }, { label: "\u041D\u0430\u0437\u0430\u0434 \u0432 \u0421\u0421\u0421\u0420", value: "back-to-ussr" }, { label: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "science-fiction" }, { label: "\u041F\u043E\u0434\u0440\u043E\u0441\u0442\u043A\u043E\u0432\u0430\u044F \u043F\u0440\u043E\u0437\u0430", value: "teen-prose" }, { label: "\u041F\u043E\u043B\u0438\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0440\u043E\u043C\u0430\u043D", value: "political-fiction" }, { label: "\u041F\u043E\u043F\u0430\u0434\u0430\u043D\u0446\u044B", value: "popadantsy" }, { label: "\u041F\u043E\u043F\u0430\u0434\u0430\u043D\u0446\u044B \u0432 \u043A\u043E\u0441\u043C\u043E\u0441", value: "popadantsy-v-kosmos" }, { label: "\u041F\u043E\u043F\u0430\u0434\u0430\u043D\u0446\u044B \u0432 \u043C\u0430\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u043C\u0438\u0440\u044B", value: "popadantsy-v-magicheskie-miry" }, { label: "\u041F\u043E\u043F\u0430\u0434\u0430\u043D\u0446\u044B \u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438", value: "popadantsy-vo-vremeni" }, { label: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0441\u0438\u0441", value: "postapocalyptic" }, { label: "\u041F\u043E\u044D\u0437\u0438\u044F", value: "poetry" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "adventure" }, { label: "\u041F\u0443\u0431\u043B\u0438\u0446\u0438\u0441\u0442\u0438\u043A\u0430", value: "publicism" }, { label: "\u0420\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u0438", value: "razvitie-lichnosti" }, { label: "\u0420\u0430\u0437\u043D\u043E\u0435", value: "other" }, { label: "\u0420\u0435\u0430\u043B\u0420\u041F\u0413", value: "realrpg" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u044D\u0440\u043E\u0442\u0438\u043A\u0430", value: "romantic-erotika" }, { label: "\u0421\u043A\u0430\u0437\u043A\u0430", value: "fairy-tale" }, { label: "\u0421\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u0430\u044F \u043F\u0440\u043E\u0437\u0430", value: "modern-prose" }, { label: "\u0421\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0439 \u043B\u044E\u0431\u043E\u0432\u043D\u044B\u0439 \u0440\u043E\u043C\u0430\u043D", value: "contemporary-romance" }, { label: "\u0421\u043E\u0446\u0438\u0430\u043B\u044C\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "sf-social" }, { label: "\u0421\u0442\u0438\u043C\u043F\u0430\u043D\u043A", value: "steampunk" }, { label: "\u0422\u0435\u043C\u043D\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "dark-fantasy" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "thriller" }, { label: "\u0423\u0436\u0430\u0441\u044B", value: "horror" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "sci-fi" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0434\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "detective-science-fiction" }, { label: "\u0424\u0430\u043D\u0444\u0438\u043A", value: "fanfiction" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "fantasy" }, { label: "\u0428\u043F\u0438\u043E\u043D\u0441\u043A\u0438\u0439 \u0434\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "spy-mystery" }, { label: "\u042D\u043F\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "epic-fantasy" }, { label: "\u042D\u0440\u043E\u0442\u0438\u043A\u0430", value: "erotica" }, { label: "\u042D\u0440\u043E\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "sf-erotika" }, { label: "\u042D\u0440\u043E\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0444\u0430\u043D\u0444\u0438\u043A", value: "fanfiction-erotika" }, { label: "\u042D\u0440\u043E\u0442\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "fantasy-erotika" }, { label: "\u042E\u043C\u043E\u0440", value: "humor" }, { label: "\u042E\u043C\u043E\u0440\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "sf-humor" }, { label: "\u042E\u043C\u043E\u0440\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "ironical-fantasy" }], type: t.FilterTypes.Picker }, form: { label: "\u0424\u043E\u0440\u043C\u0430 \u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F", value: "", options: [{ label: "\u041B\u044E\u0431\u043E\u0439", value: "" }, { label: "\u041F\u0435\u0440\u0435\u0432\u043E\u0434", value: "translation" }, { label: "\u041F\u043E\u0432\u0435\u0441\u0442\u044C", value: "tale" }, { label: "\u0420\u0430\u0441\u0441\u043A\u0430\u0437", value: "story" }, { label: "\u0420\u043E\u043C\u0430\u043D", value: "novel" }, { label: "\u0421\u0431\u043E\u0440\u043D\u0438\u043A \u043F\u043E\u044D\u0437\u0438\u0438", value: "poetry" }, { label: "\u0421\u0431\u043E\u0440\u043D\u0438\u043A \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u043E\u0432", value: "story-book" }], type: t.FilterTypes.Picker }, state: { label: "\u0421\u0442\u0430\u0442\u0443\u0441 \u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F", value: "", options: [{ label: "\u041B\u044E\u0431\u043E\u0439 \u0441\u0442\u0430\u0442\u0443\u0441", value: "" }, { label: "\u0412 \u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0435", value: "in-progress" }, { label: "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043E", value: "finished" }], type: t.FilterTypes.Picker }, series: { label: "\u0421\u0442\u0430\u0442\u0443\u0441 \u0446\u0438\u043A\u043B\u0430", value: "", options: [{ label: "\u041D\u0435 \u0432\u0430\u0436\u043D\u043E", value: "" }, { label: "\u0412\u043D\u0435 \u0446\u0438\u043A\u043B\u0430", value: "out" }, { label: "\u0426\u0438\u043A\u043B \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D", value: "finished" }, { label: "\u0426\u0438\u043A\u043B \u043D\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D", value: "unfinished" }], type: t.FilterTypes.Picker }, access: { label: "\u0422\u0438\u043F \u0434\u043E\u0441\u0442\u0443\u043F\u0430", value: "", options: [{ label: "\u041B\u044E\u0431\u043E\u0439", value: "" }, { label: "\u041F\u043B\u0430\u0442\u043D\u044B\u0439", value: "paid" }, { label: "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0439", value: "free" }], type: t.FilterTypes.Picker }, promo: { label: "\u041F\u0440\u043E\u043C\u043E-\u0444\u0440\u0430\u0433\u043C\u0435\u043D\u0442", value: "hide", options: [{ label: "\u0421\u043A\u0440\u044B\u0432\u0430\u0442\u044C", value: "hide" }, { label: "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C", value: "show" }], type: t.FilterTypes.Picker } };
     }
     __name(a2, "a");
     return a2.prototype.parseNovels = function(e2) {
-      return (0, i.fetchApi)(e2, { headers: { "User-Agent": this.userAgent } }).then(function(e3) {
+      return (0, n.fetchApi)(e2, { headers: { "User-Agent": this.userAgent } }).then(function(e3) {
         return e3.text();
       }).then(function(e3) {
-        var l2 = [], a3 = {}, t2 = false, i2 = false, n2 = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e4, l3) {
-          "a" === e4 && "work-row item-link item-content" === l3.class && l3.href && (a3.path = l3.href.replace(/\D/g, ""), t2 = true), t2 && "h4" === e4 && "work-title" === l3.class && (i2 = true), t2 && "img" === e4 && "\u041E\u0431\u043B\u043E\u0436\u043A\u0430" === l3.alt && (a3.cover = l3["data-src"]);
+        var l2 = [], a3 = {}, t2 = false, n2 = false, i2 = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e4, l3) {
+          "a" === e4 && "work-row item-link item-content" === l3.class && l3.href && (a3.path = l3.href.replace(/\D/g, ""), t2 = true), t2 && "h4" === e4 && "work-title" === l3.class && (n2 = true), t2 && "img" === e4 && "\u041E\u0431\u043B\u043E\u0436\u043A\u0430" === l3.alt && (a3.cover = l3["data-src"]);
         }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e4) {
-          i2 && (a3.name = e4.trim());
+          n2 && (a3.name = e4.trim());
         }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e4) {
-          "h4" === e4 && (i2 = false), "a" === e4 && t2 && (a3.cover || (a3.cover = r.defaultCover), l2.push(a3), a3 = {}, t2 = false);
+          "h4" === e4 && (n2 = false), "a" === e4 && t2 && (a3.cover || (a3.cover = r.defaultCover), l2.push(a3), a3 = {}, t2 = false);
         }, "onclosetag") });
-        return n2.write(e3), n2.end(), l2;
+        return i2.write(e3), i2.end(), l2;
       });
     }, a2.prototype.popularNovels = function(a3, t2) {
       return e(this, arguments, void 0, function(e2, a4) {
-        var t3, r2, i2, n2, o2, u2, s2, v, c = a4.showLatestNovels, h = a4.filters;
+        var t3, r2, n2, i2, o2, u2, s2, v, c = a4.showLatestNovels, p = a4.filters;
         return l(this, function(l2) {
-          return t3 = this.site + "/work/genre/" + ((null === (r2 = null == h ? void 0 : h.genre) || void 0 === r2 ? void 0 : r2.value) || "all"), t3 += "?sorting=" + (c ? "recent" : (null === (i2 = null == h ? void 0 : h.sort) || void 0 === i2 ? void 0 : i2.value) || "popular"), (null === (n2 = null == h ? void 0 : h.form) || void 0 === n2 ? void 0 : n2.value) && (t3 += "&form=" + h.form.value), (null === (o2 = null == h ? void 0 : h.state) || void 0 === o2 ? void 0 : o2.value) && (t3 += "&state=" + h.state.value), (null === (u2 = null == h ? void 0 : h.series) || void 0 === u2 ? void 0 : u2.value) && (t3 += "&series=" + h.series.value), (null === (s2 = null == h ? void 0 : h.access) || void 0 === s2 ? void 0 : s2.value) && (t3 += "&access=" + h.access.value), (null === (v = null == h ? void 0 : h.promo) || void 0 === v ? void 0 : v.value) && (t3 += "&promo=" + h.promo.value), t3 += "&page=" + e2, [2, this.parseNovels(t3)];
+          return t3 = this.site + "/work/genre/" + ((null === (r2 = null == p ? void 0 : p.genre) || void 0 === r2 ? void 0 : r2.value) || "all"), t3 += "?sorting=" + (c ? "recent" : (null === (n2 = null == p ? void 0 : p.sort) || void 0 === n2 ? void 0 : n2.value) || "popular"), (null === (i2 = null == p ? void 0 : p.form) || void 0 === i2 ? void 0 : i2.value) && (t3 += "&form=" + p.form.value), (null === (o2 = null == p ? void 0 : p.state) || void 0 === o2 ? void 0 : o2.value) && (t3 += "&state=" + p.state.value), (null === (u2 = null == p ? void 0 : p.series) || void 0 === u2 ? void 0 : u2.value) && (t3 += "&series=" + p.series.value), (null === (s2 = null == p ? void 0 : p.access) || void 0 === s2 ? void 0 : s2.value) && (t3 += "&access=" + p.access.value), (null === (v = null == p ? void 0 : p.promo) || void 0 === v ? void 0 : v.value) && (t3 += "&promo=" + p.promo.value), t3 += "&page=" + e2, [2, this.parseNovels(t3)];
         });
       });
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, t2, s2, v, c, h, p, b, f, d, y, m;
+        var e2, t2, s2, v, c, p, h, b, f, d, y, m, g;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return [4, (0, i.fetchApi)(this.resolveUrl(a3, true), { headers: { "User-Agent": this.userAgent } }).then(function(e3) {
+              return [4, (0, n.fetchApi)(this.resolveUrl(a3, true), { headers: { "User-Agent": this.userAgent } }).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              return e2 = l2.sent(), t2 = { path: a3, name: "", author: "", summary: "" }, s2 = [], v = false, c = false, h = false, p = false, b = false, f = false, d = false, y = {}, m = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, l3) {
-                "h1" === e3 && "card-title" === l3.class && (v = true), "img" === e3 && "cover-image" === l3.class && (t2.cover = l3.src), "a" === e3 && l3.href && l3.href.endsWith("/works") && (c = true), "div" === e3 && "rich-content" === l3.class && (h = true), "br" === e3 && h && (t2.summary += "\n"), "noindex" === e3 && (p = true, t2.genres && (t2.genres = "")), "label" === e3 && l3.class && l3.class.includes("label") && (b = true), "li" === e3 && "clearfix" === l3.class && (f = true), "a" === e3 && f && l3.href && (d = true, y.path = l3.href.replace("/reader/", "")), "span" === e3 && l3["data-time"] && (y.releaseTime = (0, u.default)(l3["data-time"]).format("LLL"));
+              return e2 = l2.sent(), t2 = { path: a3, name: "", author: "", summary: "" }, s2 = [], v = false, c = false, p = false, h = false, b = false, f = false, d = false, y = {}, m = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, l3) {
+                var a4;
+                "h1" === e3 && "card-title" === l3.class && (v = true), "img" === e3 && "cover-image" === l3.class && (t2.cover = l3.src), "a" === e3 && l3.href && l3.href.endsWith("/works") && (c = true), "div" === e3 && (null === (a4 = l3.class) || void 0 === a4 ? void 0 : a4.split(" ").includes("rich-content")) && !l3.class.includes("fr-view") && (p = true), "br" === e3 && p && (t2.summary += "\n"), "noindex" === e3 && (h = true, t2.genres && (t2.genres = "")), "label" === e3 && l3.class && l3.class.includes("label") && (b = true), "li" === e3 && "clearfix" === l3.class && (f = true), "a" === e3 && f && l3.href && (d = true, y.path = l3.href.replace("/reader/", "")), "span" === e3 && l3["data-time"] && (y.releaseTime = (0, u.default)(l3["data-time"]).format("LLL"));
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
-                if (v && (t2.name = e3.trim(), v = false), c && e3.trim() && (t2.author += e3.trim() + ", "), h && (t2.summary += e3.trim()), p && (t2.genres += e3), b) switch (e3.trim()) {
+                if (v && (t2.name = e3.trim(), v = false), c && e3.trim() && (t2.author += e3.trim() + ", "), p && (t2.summary += e3), h && (t2.genres += e3), b) switch (e3.trim()) {
                   case "\u0432 \u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0435":
-                    t2.status = n.NovelStatus.Ongoing;
+                    t2.status = i.NovelStatus.Ongoing;
                     break;
                   case "\u0432\u0435\u0441\u044C \u0442\u0435\u043A\u0441\u0442":
-                    t2.status = n.NovelStatus.Completed;
+                    t2.status = i.NovelStatus.Completed;
                     break;
                   default:
-                    t2.status = n.NovelStatus.Unknown;
+                    t2.status = i.NovelStatus.Unknown;
                 }
                 d && (y.name = e3.trim(), d = false);
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 var l3;
-                "div" === e3 && c && (c = false, t2.author = null === (l3 = t2.author) || void 0 === l3 ? void 0 : l3.slice(0, -2)), "div" === e3 && h && (h = false), "noindex" === e3 && (p = false), "label" === e3 && (b = false), "li" === e3 && f && (y.chapterNumber = s2.length, y.path && (null == s2 || s2.push(y)), y = {}, f = false);
-              }, "onclosetag") }), m.write(e2), m.end(), t2.cover || (t2.cover = r.defaultCover), s2.length || s2.push({ name: "\u0420\u0430\u0441\u0441\u043A\u0430\u0437", path: a3 }), t2.chapters = s2, [2, t2];
+                "div" === e3 && c && (c = false, t2.author = null === (l3 = t2.author) || void 0 === l3 ? void 0 : l3.slice(0, -2)), "p" === e3 && p && (t2.summary += "\n\n"), "div" === e3 && p && (p = false), "noindex" === e3 && (h = false), "label" === e3 && (b = false), "li" === e3 && f && (y.chapterNumber = s2.length, y.path && (null == s2 || s2.push(y)), y = {}, f = false);
+              }, "onclosetag") }), m.write(e2), m.end(), t2.summary = null === (g = t2.summary) || void 0 === g ? void 0 : g.replace(/[ \t]*\n[ \t]*/g, "\n").replace(/[ \t]{2,}/g, " ").replace(/\n{3,}/g, "\n\n").trim(), t2.cover || (t2.cover = r.defaultCover), s2.length || s2.push({ name: "\u0420\u0430\u0441\u0441\u043A\u0430\u0437", path: a3 }), t2.chapters = s2, [2, t2];
           }
         });
       });
     }, a2.prototype.parseChapter = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, t2, r2, n2, o2, u2, s2, v, c, h, p, b, f, d, y;
+        var e2, t2, r2, i2, o2, u2, s2, v, c, p, h, b, f, d, y;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return [4, (0, i.fetchApi)(this.resolveUrl(a3), { headers: { "User-Agent": this.userAgent } }).then(function(e3) {
+              return [4, (0, n.fetchApi)(this.resolveUrl(a3), { headers: { "User-Agent": this.userAgent } }).then(function(e3) {
                 return e3.text();
               })];
             case 1:
-              if (e2 = l2.sent(), t2 = a3.split("/"), r2 = t2[0], n2 = t2[1], o2 = n2, u2 = null === (f = null === (b = e2.match(/userId:(.*?),/)) || void 0 === b ? void 0 : b[1]) || void 0 === f ? void 0 : f.trim(), s2 = "null" === u2 ? "" : u2, o2 || (o2 = (null === (y = null === (d = e2.match(/chapterId:(.*?),/)) || void 0 === d ? void 0 : d[1]) || void 0 === y ? void 0 : y.trim()) || ""), !o2) throw new Error("Chapter ID not found");
-              return [4, (0, i.fetchApi)(this.site + "/reader/" + r2 + "/chapter?id=" + o2, { headers: { "User-Agent": this.userAgent } })];
+              if (e2 = l2.sent(), t2 = a3.split("/"), r2 = t2[0], i2 = t2[1], o2 = i2, u2 = null === (f = null === (b = e2.match(/userId:(.*?),/)) || void 0 === b ? void 0 : b[1]) || void 0 === f ? void 0 : f.trim(), s2 = "null" === u2 ? "" : u2, o2 || (o2 = (null === (y = null === (d = e2.match(/chapterId:(.*?),/)) || void 0 === d ? void 0 : d[1]) || void 0 === y ? void 0 : y.trim()) || ""), !o2) throw new Error("Chapter ID not found");
+              return [4, (0, n.fetchApi)(this.site + "/reader/" + r2 + "/chapter?id=" + o2, { headers: { "User-Agent": this.userAgent } })];
             case 2:
               return [4, (v = l2.sent()).json()];
             case 3:
-              if (c = l2.sent(), !(h = v.headers.get("reader-secret"))) throw new Error("Failed to find the token\n" + c.messages);
-              return p = function(e3, l3, a4) {
+              if (c = l2.sent(), !(p = v.headers.get("reader-secret"))) throw new Error("Failed to find the token\n" + c.messages);
+              return h = function(e3, l3, a4) {
                 void 0 === a4 && (a4 = "");
                 for (var t3 = (l3.split("").reverse().join("") + "@_@" + a4).split("").map(function(e4) {
                   return e4.charCodeAt(0);
-                }), r3 = t3.length, i2 = "", n3 = 0; n3 < e3.length; n3++) i2 += String.fromCharCode(e3.charCodeAt(n3) ^ t3[n3 % r3]);
-                return i2;
-              }(c.data.text, h, s2), [2, p];
+                }), r3 = t3.length, n2 = "", i3 = 0; i3 < e3.length; i3++) n2 += String.fromCharCode(e3.charCodeAt(i3) ^ t3[i3 % r3]);
+                return n2;
+              }(c.data.text, p, s2), [2, h];
           }
         });
       });

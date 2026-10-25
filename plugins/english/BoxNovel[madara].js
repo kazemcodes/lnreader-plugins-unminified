@@ -824,47 +824,47 @@ var LNReaderPlugin = (() => {
     _dewExec$1 = true;
     /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
     exports$1.read = function(buffer, offset, isLE, mLen, nBytes) {
-      var e2, m;
+      var e2, m2;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
-      var d = isLE ? -1 : 1;
+      var d2 = isLE ? -1 : 1;
       var s2 = buffer[offset + i2];
-      i2 += d;
+      i2 += d2;
       e2 = s2 & (1 << -nBits) - 1;
       s2 >>= -nBits;
       nBits += eLen;
-      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
-      m = e2 & (1 << -nBits) - 1;
+      m2 = e2 & (1 << -nBits) - 1;
       e2 >>= -nBits;
       nBits += mLen;
-      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; m2 = m2 * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s2 ? -1 : 1) * Infinity;
+        return m2 ? NaN : (s2 ? -1 : 1) * Infinity;
       } else {
-        m = m + Math.pow(2, mLen);
+        m2 = m2 + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s2 ? -1 : 1) * m2 * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
-      var e2, m, c2;
+      var e2, m2, c2;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
-      var d = isLE ? 1 : -1;
+      var d2 = isLE ? 1 : -1;
       var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
-        m = isNaN(value) ? 1 : 0;
+        m2 = isNaN(value) ? 1 : 0;
         e2 = eMax;
       } else {
         e2 = Math.floor(Math.log(value) / Math.LN2);
@@ -882,23 +882,23 @@ var LNReaderPlugin = (() => {
           c2 /= 2;
         }
         if (e2 + eBias >= eMax) {
-          m = 0;
+          m2 = 0;
           e2 = eMax;
         } else if (e2 + eBias >= 1) {
-          m = (value * c2 - 1) * Math.pow(2, mLen);
+          m2 = (value * c2 - 1) * Math.pow(2, mLen);
           e2 = e2 + eBias;
         } else {
-          m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+          m2 = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
           e2 = 0;
         }
       }
-      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d, m /= 256, mLen -= 8) {
+      for (; mLen >= 8; buffer[offset + i2] = m2 & 255, i2 += d2, m2 /= 256, mLen -= 8) {
       }
-      e2 = e2 << mLen | m;
+      e2 = e2 << mLen | m2;
       eLen += mLen;
-      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
+      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d2, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s2 * 128;
+      buffer[offset + i2 - d2] |= s2 * 128;
     };
     return exports$1;
   }
@@ -990,8 +990,8 @@ var LNReaderPlugin = (() => {
       if (valueOf != null && valueOf !== value) {
         return Buffer3.from(valueOf, encodingOrOffset, length);
       }
-      const b = fromObject(value);
-      if (b) return b;
+      const b2 = fromObject(value);
+      if (b2) return b2;
       if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function") {
         return Buffer3.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
       }
@@ -1123,22 +1123,22 @@ var LNReaderPlugin = (() => {
       return Buffer3.alloc(+length);
     }
     __name(SlowBuffer, "SlowBuffer");
-    Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
-      return b != null && b._isBuffer === true && b !== Buffer3.prototype;
+    Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b2) {
+      return b2 != null && b2._isBuffer === true && b2 !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b2) {
       if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
-      if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
+      if (isInstance(b2, Uint8Array)) b2 = Buffer3.from(b2, b2.offset, b2.byteLength);
+      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b2)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b) return 0;
+      if (a2 === b2) return 0;
       let x = a2.length;
-      let y = b.length;
+      let y = b2.length;
       for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b[i2]) {
+        if (a2[i2] !== b2[i2]) {
           x = a2[i2];
-          y = b[i2];
+          y = b2[i2];
           break;
         }
       }
@@ -1289,10 +1289,10 @@ var LNReaderPlugin = (() => {
     }
     __name(slowToString, "slowToString");
     Buffer3.prototype._isBuffer = true;
-    function swap(b, n2, m) {
-      const i2 = b[n2];
-      b[n2] = b[m];
-      b[m] = i2;
+    function swap(b2, n2, m2) {
+      const i2 = b2[n2];
+      b2[n2] = b2[m2];
+      b2[m2] = i2;
     }
     __name(swap, "swap");
     Buffer3.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
@@ -1336,10 +1336,10 @@ var LNReaderPlugin = (() => {
       return slowToString.apply(this, arguments);
     }, "toString");
     Buffer3.prototype.toLocaleString = Buffer3.prototype.toString;
-    Buffer3.prototype.equals = /* @__PURE__ */ __name(function equals2(b) {
-      if (!Buffer3.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
-      if (this === b) return true;
-      return Buffer3.compare(this, b) === 0;
+    Buffer3.prototype.equals = /* @__PURE__ */ __name(function equals2(b2) {
+      if (!Buffer3.isBuffer(b2)) throw new TypeError("Argument must be a Buffer");
+      if (this === b2) return true;
+      return Buffer3.compare(this, b2) === 0;
     }, "equals");
     Buffer3.prototype.inspect = /* @__PURE__ */ __name(function inspect() {
       let str = "";
@@ -2581,11 +2581,11 @@ var LNReaderPlugin = (() => {
       init_process2();
       var base64 = exports4;
       base64.length = /* @__PURE__ */ __name(function length(string) {
-        var p = string.length;
-        if (!p)
+        var p2 = string.length;
+        if (!p2)
           return 0;
         var n2 = 0;
-        while (--p % 4 > 1 && string.charAt(p) === "=")
+        while (--p2 % 4 > 1 && string.charAt(p2) === "=")
           ++n2;
         return Math.ceil(string.length * 3) / 4 - n2;
       }, "length");
@@ -2597,21 +2597,21 @@ var LNReaderPlugin = (() => {
         var parts = null, chunk = [];
         var i3 = 0, j = 0, t2;
         while (start < end2) {
-          var b = buffer[start++];
+          var b2 = buffer[start++];
           switch (j) {
             case 0:
-              chunk[i3++] = b64[b >> 2];
-              t2 = (b & 3) << 4;
+              chunk[i3++] = b64[b2 >> 2];
+              t2 = (b2 & 3) << 4;
               j = 1;
               break;
             case 1:
-              chunk[i3++] = b64[t2 | b >> 4];
-              t2 = (b & 15) << 2;
+              chunk[i3++] = b64[t2 | b2 >> 4];
+              t2 = (b2 & 15) << 2;
               j = 2;
               break;
             case 2:
-              chunk[i3++] = b64[t2 | b >> 6];
-              chunk[i3++] = b64[b & 63];
+              chunk[i3++] = b64[t2 | b2 >> 6];
+              chunk[i3++] = b64[b2 & 63];
               j = 0;
               break;
           }
@@ -3234,9 +3234,9 @@ var LNReaderPlugin = (() => {
       return unsigned ? UZERO : ZERO;
     radix = radix || 10;
     if (radix < 2 || 36 < radix) throw RangeError("radix");
-    var p;
-    if ((p = str.indexOf("-")) > 0) throw Error("interior hyphen");
-    else if (p === 0) {
+    var p2;
+    if ((p2 = str.indexOf("-")) > 0) throw Error("interior hyphen");
+    else if (p2 === 0) {
       return fromString(str.substring(1), unsigned, radix).neg();
     }
     var radixToPower = fromNumber(pow_dbl(radix, 8));
@@ -4007,45 +4007,45 @@ var LNReaderPlugin = (() => {
       LongPrototype.shru = LongPrototype.shiftRightUnsigned;
       LongPrototype.shr_u = LongPrototype.shiftRightUnsigned;
       LongPrototype.rotateLeft = /* @__PURE__ */ __name(function rotateLeft(numBits) {
-        var b;
+        var b2;
         if (isLong(numBits)) numBits = numBits.toInt();
         if ((numBits &= 63) === 0) return this;
         if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
         if (numBits < 32) {
-          b = 32 - numBits;
+          b2 = 32 - numBits;
           return fromBits(
-            this.low << numBits | this.high >>> b,
-            this.high << numBits | this.low >>> b,
+            this.low << numBits | this.high >>> b2,
+            this.high << numBits | this.low >>> b2,
             this.unsigned
           );
         }
         numBits -= 32;
-        b = 32 - numBits;
+        b2 = 32 - numBits;
         return fromBits(
-          this.high << numBits | this.low >>> b,
-          this.low << numBits | this.high >>> b,
+          this.high << numBits | this.low >>> b2,
+          this.low << numBits | this.high >>> b2,
           this.unsigned
         );
       }, "rotateLeft");
       LongPrototype.rotl = LongPrototype.rotateLeft;
       LongPrototype.rotateRight = /* @__PURE__ */ __name(function rotateRight(numBits) {
-        var b;
+        var b2;
         if (isLong(numBits)) numBits = numBits.toInt();
         if ((numBits &= 63) === 0) return this;
         if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
         if (numBits < 32) {
-          b = 32 - numBits;
+          b2 = 32 - numBits;
           return fromBits(
-            this.high << b | this.low >>> numBits,
-            this.low << b | this.high >>> numBits,
+            this.high << b2 | this.low >>> numBits,
+            this.low << b2 | this.high >>> numBits,
             this.unsigned
           );
         }
         numBits -= 32;
-        b = 32 - numBits;
+        b2 = 32 - numBits;
         return fromBits(
-          this.low << b | this.high >>> numBits,
-          this.high << b | this.low >>> numBits,
+          this.low << b2 | this.high >>> numBits,
+          this.high << b2 | this.low >>> numBits,
           this.unsigned
         );
       }, "rotateRight");
@@ -6907,8 +6907,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
-        return a2.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b2) {
+        return a2.id - b2.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -9435,31 +9435,31 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __extends = exports4 && exports4.__extends || /* @__PURE__ */ function() {
-        var extendStatics = /* @__PURE__ */ __name(function(d, b) {
-          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-            d2.__proto__ = b2;
-          } || function(d2, b2) {
-            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+        var extendStatics = /* @__PURE__ */ __name(function(d2, b2) {
+          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, b3) {
+            d3.__proto__ = b3;
+          } || function(d3, b3) {
+            for (var p2 in b3) if (Object.prototype.hasOwnProperty.call(b3, p2)) d3[p2] = b3[p2];
           };
-          return extendStatics(d, b);
+          return extendStatics(d2, b2);
         }, "extendStatics");
-        return function(d, b) {
-          if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-          extendStatics(d, b);
+        return function(d2, b2) {
+          if (typeof b2 !== "function" && b2 !== null)
+            throw new TypeError("Class extends value " + String(b2) + " is not a constructor or null");
+          extendStatics(d2, b2);
           function __() {
-            this.constructor = d;
+            this.constructor = d2;
           }
           __name(__, "__");
-          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+          d2.prototype = b2 === null ? Object.create(b2) : (__.prototype = b2.prototype, new __());
         };
       }();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
@@ -9890,21 +9890,21 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
-      var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
+      var __exportStar = exports4 && exports4.__exportStar || function(m2, exports5) {
+        for (var p2 in m2) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m2, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.DomHandler = void 0;
@@ -10156,18 +10156,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -10943,25 +10943,25 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -11564,9 +11564,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a2, b) {
+      function combineFuncs(a2, b2) {
         return function(elem) {
-          return a2(elem) || b(elem);
+          return a2(elem) || b2(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -11710,8 +11710,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i2, arr) {
           return !arr.includes(node, i2 + 1);
         });
-        nodes.sort(function(a2, b) {
-          var relative = compareDocumentPosition(a2, b);
+        nodes.sort(function(a2, b2) {
+          var relative = compareDocumentPosition(a2, b2);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -11885,21 +11885,21 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
-      var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
+      var __exportStar = exports4 && exports4.__exportStar || function(m2, exports5) {
+        for (var p2 in m2) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m2, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.hasChildren = exports4.isDocument = exports4.isComment = exports4.isText = exports4.isCDATA = exports4.isTag = void 0;
@@ -13174,8 +13174,8 @@ var LNReaderPlugin = (() => {
           } else if (token.name === "has" || token.name === "contains") {
             proc = 0;
           } else if (Array.isArray(token.data)) {
-            proc = Math.min.apply(Math, token.data.map(function(d) {
-              return Math.min.apply(Math, d.map(getProcedure));
+            proc = Math.min.apply(Math, token.data.map(function(d2) {
+              return Math.min.apply(Math, d2.map(getProcedure));
             }));
             if (proc < 0) {
               proc = 0;
@@ -13480,45 +13480,45 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
         var a2 = parsed[0];
-        var b = parsed[1] - 1;
-        if (b < 0 && a2 <= 0)
+        var b2 = parsed[1] - 1;
+        if (b2 < 0 && a2 <= 0)
           return boolbase_1.default.falseFunc;
         if (a2 === -1)
           return function(index2) {
-            return index2 <= b;
+            return index2 <= b2;
           };
         if (a2 === 0)
           return function(index2) {
-            return index2 === b;
+            return index2 === b2;
           };
         if (a2 === 1)
-          return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
-            return index2 >= b;
+          return b2 < 0 ? boolbase_1.default.trueFunc : function(index2) {
+            return index2 >= b2;
           };
         var absA = Math.abs(a2);
-        var bMod = (b % absA + absA) % absA;
+        var bMod = (b2 % absA + absA) % absA;
         return a2 > 1 ? function(index2) {
-          return index2 >= b && index2 % absA === bMod;
+          return index2 >= b2 && index2 % absA === bMod;
         } : function(index2) {
-          return index2 <= b && index2 % absA === bMod;
+          return index2 <= b2 && index2 % absA === bMod;
         };
       }
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
         var a2 = parsed[0];
-        var b = parsed[1] - 1;
+        var b2 = parsed[1] - 1;
         var n2 = 0;
         if (a2 < 0) {
           var aPos_1 = -a2;
-          var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
+          var minValue_1 = (b2 % aPos_1 + aPos_1) % aPos_1;
           return function() {
             var val2 = minValue_1 + aPos_1 * n2++;
-            return val2 > b ? null : val2;
+            return val2 > b2 ? null : val2;
           };
         }
         if (a2 === 0)
-          return b < 0 ? (
+          return b2 < 0 ? (
             // There are no result — always return `null`
             function() {
               return null;
@@ -13526,14 +13526,14 @@ var LNReaderPlugin = (() => {
           ) : (
             // Return `b` exactly once
             function() {
-              return n2++ === 0 ? b : null;
+              return n2++ === 0 ? b2 : null;
             }
           );
-        if (b < 0) {
-          b += a2 * Math.ceil(-b / a2);
+        if (b2 < 0) {
+          b2 += a2 * Math.ceil(-b2 / a2);
         }
         return function() {
-          return a2 * n2++ + b;
+          return a2 * n2++ + b2;
         };
       }
       __name(generate, "generate");
@@ -14198,18 +14198,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14318,15 +14318,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a2, b) {
-        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
+      function reduceRules(a2, b2) {
+        if (b2 === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
           return a2;
         }
-        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
-          return b;
+        if (a2 === boolbase_1.default.falseFunc || b2 === boolbase_1.default.trueFunc) {
+          return b2;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a2(elem) || b(elem);
+          return a2(elem) || b2(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -14340,18 +14340,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14376,8 +14376,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
-        return a2 === b;
+      var defaultEquals = /* @__PURE__ */ __name(function(a2, b2) {
+        return a2 === b2;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -14564,25 +14564,25 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14770,8 +14770,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
-          return __spreadArray(__spreadArray([], a2, true), b, true);
+        return DomUtils.uniqueSort(results.reduce(function(a2, b2) {
+          return __spreadArray(__spreadArray([], a2, true), b2, true);
         }));
       }
       __name(select3, "select");
@@ -20484,214 +20484,214 @@ var LNReaderPlugin = (() => {
   });
 
   // node_modules/parse5/dist/parser/index.js
-  function aaObtainFormattingElementEntry(p, token) {
-    let formattingElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
+  function aaObtainFormattingElementEntry(p2, token) {
+    let formattingElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
     if (formattingElementEntry) {
-      if (!p.openElements.contains(formattingElementEntry.element)) {
-        p.activeFormattingElements.removeEntry(formattingElementEntry);
+      if (!p2.openElements.contains(formattingElementEntry.element)) {
+        p2.activeFormattingElements.removeEntry(formattingElementEntry);
         formattingElementEntry = null;
-      } else if (!p.openElements.hasInScope(token.tagID)) {
+      } else if (!p2.openElements.hasInScope(token.tagID)) {
         formattingElementEntry = null;
       }
     } else {
-      genericEndTagInBody(p, token);
+      genericEndTagInBody(p2, token);
     }
     return formattingElementEntry;
   }
-  function aaObtainFurthestBlock(p, formattingElementEntry) {
+  function aaObtainFurthestBlock(p2, formattingElementEntry) {
     let furthestBlock = null;
-    let idx = p.openElements.stackTop;
+    let idx = p2.openElements.stackTop;
     for (; idx >= 0; idx--) {
-      const element = p.openElements.items[idx];
+      const element = p2.openElements.items[idx];
       if (element === formattingElementEntry.element) {
         break;
       }
-      if (p._isSpecialElement(element, p.openElements.tagIDs[idx])) {
+      if (p2._isSpecialElement(element, p2.openElements.tagIDs[idx])) {
         furthestBlock = element;
       }
     }
     if (!furthestBlock) {
-      p.openElements.shortenToLength(idx < 0 ? 0 : idx);
-      p.activeFormattingElements.removeEntry(formattingElementEntry);
+      p2.openElements.shortenToLength(idx < 0 ? 0 : idx);
+      p2.activeFormattingElements.removeEntry(formattingElementEntry);
     }
     return furthestBlock;
   }
-  function aaInnerLoop(p, furthestBlock, formattingElement) {
+  function aaInnerLoop(p2, furthestBlock, formattingElement) {
     let lastElement = furthestBlock;
-    let nextElement = p.openElements.getCommonAncestor(furthestBlock);
+    let nextElement = p2.openElements.getCommonAncestor(furthestBlock);
     for (let i2 = 0, element = nextElement; element !== formattingElement; i2++, element = nextElement) {
-      nextElement = p.openElements.getCommonAncestor(element);
-      const elementEntry = p.activeFormattingElements.getElementEntry(element);
+      nextElement = p2.openElements.getCommonAncestor(element);
+      const elementEntry = p2.activeFormattingElements.getElementEntry(element);
       const counterOverflow = elementEntry && i2 >= AA_INNER_LOOP_ITER;
       const shouldRemoveFromOpenElements = !elementEntry || counterOverflow;
       if (shouldRemoveFromOpenElements) {
         if (counterOverflow) {
-          p.activeFormattingElements.removeEntry(elementEntry);
+          p2.activeFormattingElements.removeEntry(elementEntry);
         }
-        p.openElements.remove(element);
+        p2.openElements.remove(element);
       } else {
-        element = aaRecreateElementFromEntry(p, elementEntry);
+        element = aaRecreateElementFromEntry(p2, elementEntry);
         if (lastElement === furthestBlock) {
-          p.activeFormattingElements.bookmark = elementEntry;
+          p2.activeFormattingElements.bookmark = elementEntry;
         }
-        p.treeAdapter.detachNode(lastElement);
-        p.treeAdapter.appendChild(element, lastElement);
+        p2.treeAdapter.detachNode(lastElement);
+        p2.treeAdapter.appendChild(element, lastElement);
         lastElement = element;
       }
     }
     return lastElement;
   }
-  function aaRecreateElementFromEntry(p, elementEntry) {
-    const ns = p.treeAdapter.getNamespaceURI(elementEntry.element);
-    const newElement = p.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
-    p.openElements.replace(elementEntry.element, newElement);
+  function aaRecreateElementFromEntry(p2, elementEntry) {
+    const ns = p2.treeAdapter.getNamespaceURI(elementEntry.element);
+    const newElement = p2.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
+    p2.openElements.replace(elementEntry.element, newElement);
     elementEntry.element = newElement;
     return newElement;
   }
-  function aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement) {
-    const tn = p.treeAdapter.getTagName(commonAncestor);
+  function aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement) {
+    const tn = p2.treeAdapter.getTagName(commonAncestor);
     const tid = getTagID(tn);
-    if (p._isElementCausesFosterParenting(tid)) {
-      p._fosterParentElement(lastElement);
+    if (p2._isElementCausesFosterParenting(tid)) {
+      p2._fosterParentElement(lastElement);
     } else {
-      const ns = p.treeAdapter.getNamespaceURI(commonAncestor);
+      const ns = p2.treeAdapter.getNamespaceURI(commonAncestor);
       if (tid === TAG_ID.TEMPLATE && ns === NS.HTML) {
-        commonAncestor = p.treeAdapter.getTemplateContent(commonAncestor);
+        commonAncestor = p2.treeAdapter.getTemplateContent(commonAncestor);
       }
-      p.treeAdapter.appendChild(commonAncestor, lastElement);
+      p2.treeAdapter.appendChild(commonAncestor, lastElement);
     }
   }
-  function aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry) {
-    const ns = p.treeAdapter.getNamespaceURI(formattingElementEntry.element);
+  function aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry) {
+    const ns = p2.treeAdapter.getNamespaceURI(formattingElementEntry.element);
     const { token } = formattingElementEntry;
-    const newElement = p.treeAdapter.createElement(token.tagName, ns, token.attrs);
-    p._adoptNodes(furthestBlock, newElement);
-    p.treeAdapter.appendChild(furthestBlock, newElement);
-    p.activeFormattingElements.insertElementAfterBookmark(newElement, token);
-    p.activeFormattingElements.removeEntry(formattingElementEntry);
-    p.openElements.remove(formattingElementEntry.element);
-    p.openElements.insertAfter(furthestBlock, newElement, token.tagID);
+    const newElement = p2.treeAdapter.createElement(token.tagName, ns, token.attrs);
+    p2._adoptNodes(furthestBlock, newElement);
+    p2.treeAdapter.appendChild(furthestBlock, newElement);
+    p2.activeFormattingElements.insertElementAfterBookmark(newElement, token);
+    p2.activeFormattingElements.removeEntry(formattingElementEntry);
+    p2.openElements.remove(formattingElementEntry.element);
+    p2.openElements.insertAfter(furthestBlock, newElement, token.tagID);
   }
-  function callAdoptionAgency(p, token) {
+  function callAdoptionAgency(p2, token) {
     for (let i2 = 0; i2 < AA_OUTER_LOOP_ITER; i2++) {
-      const formattingElementEntry = aaObtainFormattingElementEntry(p, token);
+      const formattingElementEntry = aaObtainFormattingElementEntry(p2, token);
       if (!formattingElementEntry) {
         break;
       }
-      const furthestBlock = aaObtainFurthestBlock(p, formattingElementEntry);
+      const furthestBlock = aaObtainFurthestBlock(p2, formattingElementEntry);
       if (!furthestBlock) {
         break;
       }
-      p.activeFormattingElements.bookmark = formattingElementEntry;
-      const lastElement = aaInnerLoop(p, furthestBlock, formattingElementEntry.element);
-      const commonAncestor = p.openElements.getCommonAncestor(formattingElementEntry.element);
-      p.treeAdapter.detachNode(lastElement);
+      p2.activeFormattingElements.bookmark = formattingElementEntry;
+      const lastElement = aaInnerLoop(p2, furthestBlock, formattingElementEntry.element);
+      const commonAncestor = p2.openElements.getCommonAncestor(formattingElementEntry.element);
+      p2.treeAdapter.detachNode(lastElement);
       if (commonAncestor)
-        aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement);
-      aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry);
+        aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement);
+      aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry);
     }
   }
-  function appendComment(p, token) {
-    p._appendCommentNode(token, p.openElements.currentTmplContentOrNode);
+  function appendComment(p2, token) {
+    p2._appendCommentNode(token, p2.openElements.currentTmplContentOrNode);
   }
-  function appendCommentToRootHtmlElement(p, token) {
-    p._appendCommentNode(token, p.openElements.items[0]);
+  function appendCommentToRootHtmlElement(p2, token) {
+    p2._appendCommentNode(token, p2.openElements.items[0]);
   }
-  function appendCommentToDocument(p, token) {
-    p._appendCommentNode(token, p.document);
+  function appendCommentToDocument(p2, token) {
+    p2._appendCommentNode(token, p2.document);
   }
-  function stopParsing(p, token) {
-    p.stopped = true;
+  function stopParsing(p2, token) {
+    p2.stopped = true;
     if (token.location) {
-      const target = p.fragmentContext ? 0 : 2;
-      for (let i2 = p.openElements.stackTop; i2 >= target; i2--) {
-        p._setEndLocation(p.openElements.items[i2], token);
+      const target = p2.fragmentContext ? 0 : 2;
+      for (let i2 = p2.openElements.stackTop; i2 >= target; i2--) {
+        p2._setEndLocation(p2.openElements.items[i2], token);
       }
-      if (!p.fragmentContext && p.openElements.stackTop >= 0) {
-        const htmlElement = p.openElements.items[0];
-        const htmlLocation = p.treeAdapter.getNodeSourceCodeLocation(htmlElement);
+      if (!p2.fragmentContext && p2.openElements.stackTop >= 0) {
+        const htmlElement = p2.openElements.items[0];
+        const htmlLocation = p2.treeAdapter.getNodeSourceCodeLocation(htmlElement);
         if (htmlLocation && !htmlLocation.endTag) {
-          p._setEndLocation(htmlElement, token);
-          if (p.openElements.stackTop >= 1) {
-            const bodyElement = p.openElements.items[1];
-            const bodyLocation = p.treeAdapter.getNodeSourceCodeLocation(bodyElement);
+          p2._setEndLocation(htmlElement, token);
+          if (p2.openElements.stackTop >= 1) {
+            const bodyElement = p2.openElements.items[1];
+            const bodyLocation = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement);
             if (bodyLocation && !bodyLocation.endTag) {
-              p._setEndLocation(bodyElement, token);
+              p2._setEndLocation(bodyElement, token);
             }
           }
         }
       }
     }
   }
-  function doctypeInInitialMode(p, token) {
-    p._setDocumentType(token);
+  function doctypeInInitialMode(p2, token) {
+    p2._setDocumentType(token);
     const mode = token.forceQuirks ? DOCUMENT_MODE.QUIRKS : getDocumentMode(token);
     if (!isConforming(token)) {
-      p._err(token, ERR.nonConformingDoctype);
+      p2._err(token, ERR.nonConformingDoctype);
     }
-    p.treeAdapter.setDocumentMode(p.document, mode);
-    p.insertionMode = InsertionMode.BEFORE_HTML;
+    p2.treeAdapter.setDocumentMode(p2.document, mode);
+    p2.insertionMode = InsertionMode.BEFORE_HTML;
   }
-  function tokenInInitialMode(p, token) {
-    p._err(token, ERR.missingDoctype, true);
-    p.treeAdapter.setDocumentMode(p.document, DOCUMENT_MODE.QUIRKS);
-    p.insertionMode = InsertionMode.BEFORE_HTML;
-    p._processToken(token);
+  function tokenInInitialMode(p2, token) {
+    p2._err(token, ERR.missingDoctype, true);
+    p2.treeAdapter.setDocumentMode(p2.document, DOCUMENT_MODE.QUIRKS);
+    p2.insertionMode = InsertionMode.BEFORE_HTML;
+    p2._processToken(token);
   }
-  function startTagBeforeHtml(p, token) {
+  function startTagBeforeHtml(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p._insertElement(token, NS.HTML);
-      p.insertionMode = InsertionMode.BEFORE_HEAD;
+      p2._insertElement(token, NS.HTML);
+      p2.insertionMode = InsertionMode.BEFORE_HEAD;
     } else {
-      tokenBeforeHtml(p, token);
+      tokenBeforeHtml(p2, token);
     }
   }
-  function endTagBeforeHtml(p, token) {
+  function endTagBeforeHtml(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HTML || tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.BR) {
-      tokenBeforeHtml(p, token);
+      tokenBeforeHtml(p2, token);
     }
   }
-  function tokenBeforeHtml(p, token) {
-    p._insertFakeRootElement();
-    p.insertionMode = InsertionMode.BEFORE_HEAD;
-    p._processToken(token);
+  function tokenBeforeHtml(p2, token) {
+    p2._insertFakeRootElement();
+    p2.insertionMode = InsertionMode.BEFORE_HEAD;
+    p2._processToken(token);
   }
-  function startTagBeforeHead(p, token) {
+  function startTagBeforeHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.HEAD: {
-        p._insertElement(token, NS.HTML);
-        p.headElement = p.openElements.current;
-        p.insertionMode = InsertionMode.IN_HEAD;
+        p2._insertElement(token, NS.HTML);
+        p2.headElement = p2.openElements.current;
+        p2.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       default: {
-        tokenBeforeHead(p, token);
+        tokenBeforeHead(p2, token);
       }
     }
   }
-  function endTagBeforeHead(p, token) {
+  function endTagBeforeHead(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.HTML || tn === TAG_ID.BR) {
-      tokenBeforeHead(p, token);
+      tokenBeforeHead(p2, token);
     } else {
-      p._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenBeforeHead(p, token) {
-    p._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
-    p.headElement = p.openElements.current;
-    p.insertionMode = InsertionMode.IN_HEAD;
-    p._processToken(token);
+  function tokenBeforeHead(p2, token) {
+    p2._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
+    p2.headElement = p2.openElements.current;
+    p2.insertionMode = InsertionMode.IN_HEAD;
+    p2._processToken(token);
   }
-  function startTagInHead(p, token) {
+  function startTagInHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASE:
@@ -20699,94 +20699,94 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.LINK:
       case TAG_ID.META: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TITLE: {
-        p._switchToTextParsing(token, TokenizerMode.RCDATA);
+        p2._switchToTextParsing(token, TokenizerMode.RCDATA);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p.options.scriptingEnabled) {
-          p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        if (p2.options.scriptingEnabled) {
+          p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         } else {
-          p._insertElement(token, NS.HTML);
-          p.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
+          p2._insertElement(token, NS.HTML);
+          p2.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
         }
         break;
       }
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         break;
       }
       case TAG_ID.SCRIPT: {
-        p._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
+        p2._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        p._insertTemplate(token);
-        p.activeFormattingElements.insertMarker();
-        p.framesetOk = false;
-        p.insertionMode = InsertionMode.IN_TEMPLATE;
-        p.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
+        p2._insertTemplate(token);
+        p2.activeFormattingElements.insertMarker();
+        p2.framesetOk = false;
+        p2.insertionMode = InsertionMode.IN_TEMPLATE;
+        p2.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
         break;
       }
       case TAG_ID.HEAD: {
-        p._err(token, ERR.misplacedStartTagForHeadElement);
+        p2._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenInHead(p, token);
+        tokenInHead(p2, token);
       }
     }
   }
-  function endTagInHead(p, token) {
+  function endTagInHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HEAD: {
-        p.openElements.pop();
-        p.insertionMode = InsertionMode.AFTER_HEAD;
+        p2.openElements.pop();
+        p2.insertionMode = InsertionMode.AFTER_HEAD;
         break;
       }
       case TAG_ID.BODY:
       case TAG_ID.BR:
       case TAG_ID.HTML: {
-        tokenInHead(p, token);
+        tokenInHead(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function templateEndTagInHead(p, token) {
-    if (p.openElements.tmplCount > 0) {
-      p.openElements.generateImpliedEndTagsThoroughly();
-      if (p.openElements.currentTagId !== TAG_ID.TEMPLATE) {
-        p._err(token, ERR.closingOfElementWithOpenChildElements);
+  function templateEndTagInHead(p2, token) {
+    if (p2.openElements.tmplCount > 0) {
+      p2.openElements.generateImpliedEndTagsThoroughly();
+      if (p2.openElements.currentTagId !== TAG_ID.TEMPLATE) {
+        p2._err(token, ERR.closingOfElementWithOpenChildElements);
       }
-      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p.activeFormattingElements.clearToLastMarker();
-      p.tmplInsertionModeStack.shift();
-      p._resetInsertionMode();
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p2.activeFormattingElements.clearToLastMarker();
+      p2.tmplInsertionModeStack.shift();
+      p2._resetInsertionMode();
     } else {
-      p._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenInHead(p, token) {
-    p.openElements.pop();
-    p.insertionMode = InsertionMode.AFTER_HEAD;
-    p._processToken(token);
+  function tokenInHead(p2, token) {
+    p2.openElements.pop();
+    p2.insertionMode = InsertionMode.AFTER_HEAD;
+    p2._processToken(token);
   }
-  function startTagInHeadNoScript(p, token) {
+  function startTagInHeadNoScript(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASEFONT:
@@ -20796,56 +20796,56 @@ var LNReaderPlugin = (() => {
       case TAG_ID.META:
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        p._err(token, ERR.nestedNoscriptInHead);
+        p2._err(token, ERR.nestedNoscriptInHead);
         break;
       }
       default: {
-        tokenInHeadNoScript(p, token);
+        tokenInHeadNoScript(p2, token);
       }
     }
   }
-  function endTagInHeadNoScript(p, token) {
+  function endTagInHeadNoScript(p2, token) {
     switch (token.tagID) {
       case TAG_ID.NOSCRIPT: {
-        p.openElements.pop();
-        p.insertionMode = InsertionMode.IN_HEAD;
+        p2.openElements.pop();
+        p2.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       case TAG_ID.BR: {
-        tokenInHeadNoScript(p, token);
+        tokenInHeadNoScript(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenInHeadNoScript(p, token) {
+  function tokenInHeadNoScript(p2, token) {
     const errCode = token.type === TokenType.EOF ? ERR.openElementsLeftAfterEof : ERR.disallowedContentInNoscriptInHead;
-    p._err(token, errCode);
-    p.openElements.pop();
-    p.insertionMode = InsertionMode.IN_HEAD;
-    p._processToken(token);
+    p2._err(token, errCode);
+    p2.openElements.pop();
+    p2.insertionMode = InsertionMode.IN_HEAD;
+    p2._processToken(token);
   }
-  function startTagAfterHead(p, token) {
+  function startTagAfterHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BODY: {
-        p._insertElement(token, NS.HTML);
-        p.framesetOk = false;
-        p.insertionMode = InsertionMode.IN_BODY;
+        p2._insertElement(token, NS.HTML);
+        p2.framesetOk = false;
+        p2.insertionMode = InsertionMode.IN_BODY;
         break;
       }
       case TAG_ID.FRAMESET: {
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_FRAMESET;
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_FRAMESET;
         break;
       }
       case TAG_ID.BASE:
@@ -20858,321 +20858,321 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        p._err(token, ERR.abandonedHeadElementChild);
-        p.openElements.push(p.headElement, TAG_ID.HEAD);
-        startTagInHead(p, token);
-        p.openElements.remove(p.headElement);
+        p2._err(token, ERR.abandonedHeadElementChild);
+        p2.openElements.push(p2.headElement, TAG_ID.HEAD);
+        startTagInHead(p2, token);
+        p2.openElements.remove(p2.headElement);
         break;
       }
       case TAG_ID.HEAD: {
-        p._err(token, ERR.misplacedStartTagForHeadElement);
+        p2._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenAfterHead(p, token);
+        tokenAfterHead(p2, token);
       }
     }
   }
-  function endTagAfterHead(p, token) {
+  function endTagAfterHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.BODY:
       case TAG_ID.HTML:
       case TAG_ID.BR: {
-        tokenAfterHead(p, token);
+        tokenAfterHead(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenAfterHead(p, token) {
-    p._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterHead(p2, token) {
+    p2._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function modeInBody(p, token) {
+  function modeInBody(p2, token) {
     switch (token.type) {
       case TokenType.CHARACTER: {
-        characterInBody(p, token);
+        characterInBody(p2, token);
         break;
       }
       case TokenType.WHITESPACE_CHARACTER: {
-        whitespaceCharacterInBody(p, token);
+        whitespaceCharacterInBody(p2, token);
         break;
       }
       case TokenType.COMMENT: {
-        appendComment(p, token);
+        appendComment(p2, token);
         break;
       }
       case TokenType.START_TAG: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TokenType.END_TAG: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
         break;
       }
       case TokenType.EOF: {
-        eofInBody(p, token);
+        eofInBody(p2, token);
         break;
       }
       default:
     }
   }
-  function whitespaceCharacterInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertCharacters(token);
+  function whitespaceCharacterInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertCharacters(token);
   }
-  function characterInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertCharacters(token);
-    p.framesetOk = false;
+  function characterInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertCharacters(token);
+    p2.framesetOk = false;
   }
-  function htmlStartTagInBody(p, token) {
-    if (p.openElements.tmplCount === 0) {
-      p.treeAdapter.adoptAttributes(p.openElements.items[0], token.attrs);
+  function htmlStartTagInBody(p2, token) {
+    if (p2.openElements.tmplCount === 0) {
+      p2.treeAdapter.adoptAttributes(p2.openElements.items[0], token.attrs);
     }
   }
-  function bodyStartTagInBody(p, token) {
-    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
-    if (bodyElement && p.openElements.tmplCount === 0) {
-      p.framesetOk = false;
-      p.treeAdapter.adoptAttributes(bodyElement, token.attrs);
+  function bodyStartTagInBody(p2, token) {
+    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+    if (bodyElement && p2.openElements.tmplCount === 0) {
+      p2.framesetOk = false;
+      p2.treeAdapter.adoptAttributes(bodyElement, token.attrs);
     }
   }
-  function framesetStartTagInBody(p, token) {
-    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
-    if (p.framesetOk && bodyElement) {
-      p.treeAdapter.detachNode(bodyElement);
-      p.openElements.popAllUpToHtmlElement();
-      p._insertElement(token, NS.HTML);
-      p.insertionMode = InsertionMode.IN_FRAMESET;
+  function framesetStartTagInBody(p2, token) {
+    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+    if (p2.framesetOk && bodyElement) {
+      p2.treeAdapter.detachNode(bodyElement);
+      p2.openElements.popAllUpToHtmlElement();
+      p2._insertElement(token, NS.HTML);
+      p2.insertionMode = InsertionMode.IN_FRAMESET;
     }
   }
-  function addressStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function addressStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function numberedHeaderStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function numberedHeaderStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    if (NUMBERED_HEADERS.has(p.openElements.currentTagId)) {
-      p.openElements.pop();
+    if (NUMBERED_HEADERS.has(p2.openElements.currentTagId)) {
+      p2.openElements.pop();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function preStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function preStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.skipNextNewLine = true;
-    p.framesetOk = false;
+    p2._insertElement(token, NS.HTML);
+    p2.skipNextNewLine = true;
+    p2.framesetOk = false;
   }
-  function formStartTagInBody(p, token) {
-    const inTemplate = p.openElements.tmplCount > 0;
-    if (!p.formElement || inTemplate) {
-      if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-        p._closePElement();
+  function formStartTagInBody(p2, token) {
+    const inTemplate = p2.openElements.tmplCount > 0;
+    if (!p2.formElement || inTemplate) {
+      if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+        p2._closePElement();
       }
-      p._insertElement(token, NS.HTML);
+      p2._insertElement(token, NS.HTML);
       if (!inTemplate) {
-        p.formElement = p.openElements.current;
+        p2.formElement = p2.openElements.current;
       }
     }
   }
-  function listItemStartTagInBody(p, token) {
-    p.framesetOk = false;
+  function listItemStartTagInBody(p2, token) {
+    p2.framesetOk = false;
     const tn = token.tagID;
-    for (let i2 = p.openElements.stackTop; i2 >= 0; i2--) {
-      const elementId = p.openElements.tagIDs[i2];
+    for (let i2 = p2.openElements.stackTop; i2 >= 0; i2--) {
+      const elementId = p2.openElements.tagIDs[i2];
       if (tn === TAG_ID.LI && elementId === TAG_ID.LI || (tn === TAG_ID.DD || tn === TAG_ID.DT) && (elementId === TAG_ID.DD || elementId === TAG_ID.DT)) {
-        p.openElements.generateImpliedEndTagsWithExclusion(elementId);
-        p.openElements.popUntilTagNamePopped(elementId);
+        p2.openElements.generateImpliedEndTagsWithExclusion(elementId);
+        p2.openElements.popUntilTagNamePopped(elementId);
         break;
       }
-      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p._isSpecialElement(p.openElements.items[i2], elementId)) {
+      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p2._isSpecialElement(p2.openElements.items[i2], elementId)) {
         break;
       }
     }
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function plaintextStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function plaintextStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.tokenizer.state = TokenizerMode.PLAINTEXT;
+    p2._insertElement(token, NS.HTML);
+    p2.tokenizer.state = TokenizerMode.PLAINTEXT;
   }
-  function buttonStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BUTTON)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
+  function buttonStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BUTTON)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
   }
-  function aStartTagInBody(p, token) {
-    const activeElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
+  function aStartTagInBody(p2, token) {
+    const activeElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
     if (activeElementEntry) {
-      callAdoptionAgency(p, token);
-      p.openElements.remove(activeElementEntry.element);
-      p.activeFormattingElements.removeEntry(activeElementEntry);
+      callAdoptionAgency(p2, token);
+      p2.openElements.remove(activeElementEntry.element);
+      p2.activeFormattingElements.removeEntry(activeElementEntry);
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function bStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+  function bStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function nobrStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    if (p.openElements.hasInScope(TAG_ID.NOBR)) {
-      callAdoptionAgency(p, token);
-      p._reconstructActiveFormattingElements();
+  function nobrStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    if (p2.openElements.hasInScope(TAG_ID.NOBR)) {
+      callAdoptionAgency(p2, token);
+      p2._reconstructActiveFormattingElements();
     }
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function appletStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.insertMarker();
-    p.framesetOk = false;
+  function appletStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.insertMarker();
+    p2.framesetOk = false;
   }
-  function tableStartTagInBody(p, token) {
-    if (p.treeAdapter.getDocumentMode(p.document) !== DOCUMENT_MODE.QUIRKS && p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function tableStartTagInBody(p2, token) {
+    if (p2.treeAdapter.getDocumentMode(p2.document) !== DOCUMENT_MODE.QUIRKS && p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
-    p.insertionMode = InsertionMode.IN_TABLE;
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
+    p2.insertionMode = InsertionMode.IN_TABLE;
   }
-  function areaStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._appendElement(token, NS.HTML);
-    p.framesetOk = false;
+  function areaStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._appendElement(token, NS.HTML);
+    p2.framesetOk = false;
     token.ackSelfClosing = true;
   }
   function isHiddenInput(token) {
     const inputType = getTokenAttr(token, ATTRS.TYPE);
     return inputType != null && inputType.toLowerCase() === HIDDEN_INPUT_TYPE;
   }
-  function inputStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._appendElement(token, NS.HTML);
+  function inputStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._appendElement(token, NS.HTML);
     if (!isHiddenInput(token)) {
-      p.framesetOk = false;
+      p2.framesetOk = false;
     }
     token.ackSelfClosing = true;
   }
-  function paramStartTagInBody(p, token) {
-    p._appendElement(token, NS.HTML);
+  function paramStartTagInBody(p2, token) {
+    p2._appendElement(token, NS.HTML);
     token.ackSelfClosing = true;
   }
-  function hrStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function hrStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._appendElement(token, NS.HTML);
-    p.framesetOk = false;
+    p2._appendElement(token, NS.HTML);
+    p2.framesetOk = false;
     token.ackSelfClosing = true;
   }
-  function imageStartTagInBody(p, token) {
+  function imageStartTagInBody(p2, token) {
     token.tagName = TAG_NAMES.IMG;
     token.tagID = TAG_ID.IMG;
-    areaStartTagInBody(p, token);
+    areaStartTagInBody(p2, token);
   }
-  function textareaStartTagInBody(p, token) {
-    p._insertElement(token, NS.HTML);
-    p.skipNextNewLine = true;
-    p.tokenizer.state = TokenizerMode.RCDATA;
-    p.originalInsertionMode = p.insertionMode;
-    p.framesetOk = false;
-    p.insertionMode = InsertionMode.TEXT;
+  function textareaStartTagInBody(p2, token) {
+    p2._insertElement(token, NS.HTML);
+    p2.skipNextNewLine = true;
+    p2.tokenizer.state = TokenizerMode.RCDATA;
+    p2.originalInsertionMode = p2.insertionMode;
+    p2.framesetOk = false;
+    p2.insertionMode = InsertionMode.TEXT;
   }
-  function xmpStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function xmpStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._reconstructActiveFormattingElements();
-    p.framesetOk = false;
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+    p2._reconstructActiveFormattingElements();
+    p2.framesetOk = false;
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function iframeStartTagInBody(p, token) {
-    p.framesetOk = false;
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function iframeStartTagInBody(p2, token) {
+    p2.framesetOk = false;
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function rawTextStartTagInBody(p, token) {
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function rawTextStartTagInBody(p2, token) {
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function selectStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
-    p.insertionMode = p.insertionMode === InsertionMode.IN_TABLE || p.insertionMode === InsertionMode.IN_CAPTION || p.insertionMode === InsertionMode.IN_TABLE_BODY || p.insertionMode === InsertionMode.IN_ROW || p.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
+  function selectStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
+    p2.insertionMode = p2.insertionMode === InsertionMode.IN_TABLE || p2.insertionMode === InsertionMode.IN_CAPTION || p2.insertionMode === InsertionMode.IN_TABLE_BODY || p2.insertionMode === InsertionMode.IN_ROW || p2.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
   }
-  function optgroupStartTagInBody(p, token) {
-    if (p.openElements.currentTagId === TAG_ID.OPTION) {
-      p.openElements.pop();
+  function optgroupStartTagInBody(p2, token) {
+    if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+      p2.openElements.pop();
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
   }
-  function rbStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
-      p.openElements.generateImpliedEndTags();
+  function rbStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
+      p2.openElements.generateImpliedEndTags();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function rtStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
+  function rtStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function mathStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
+  function mathStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
     adjustTokenMathMLAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p._appendElement(token, NS.MATHML);
+      p2._appendElement(token, NS.MATHML);
     } else {
-      p._insertElement(token, NS.MATHML);
+      p2._insertElement(token, NS.MATHML);
     }
     token.ackSelfClosing = true;
   }
-  function svgStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
+  function svgStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
     adjustTokenSVGAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p._appendElement(token, NS.SVG);
+      p2._appendElement(token, NS.SVG);
     } else {
-      p._insertElement(token, NS.SVG);
+      p2._insertElement(token, NS.SVG);
     }
     token.ackSelfClosing = true;
   }
-  function genericStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
+  function genericStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
   }
-  function startTagInBody(p, token) {
+  function startTagInBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.I:
       case TAG_ID.S:
@@ -21186,11 +21186,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        bStartTagInBody(p, token);
+        bStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.A: {
-        aStartTagInBody(p, token);
+        aStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.H1:
@@ -21199,7 +21199,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderStartTagInBody(p, token);
+        numberedHeaderStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.P:
@@ -21227,13 +21227,13 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressStartTagInBody(p, token);
+        addressStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.LI:
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        listItemStartTagInBody(p, token);
+        listItemStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BR:
@@ -21242,38 +21242,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.AREA:
       case TAG_ID.EMBED:
       case TAG_ID.KEYGEN: {
-        areaStartTagInBody(p, token);
+        areaStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.HR: {
-        hrStartTagInBody(p, token);
+        hrStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.RB:
       case TAG_ID.RTC: {
-        rbStartTagInBody(p, token);
+        rbStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.RT:
       case TAG_ID.RP: {
-        rtStartTagInBody(p, token);
+        rtStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.PRE:
       case TAG_ID.LISTING: {
-        preStartTagInBody(p, token);
+        preStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.XMP: {
-        xmpStartTagInBody(p, token);
+        xmpStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.SVG: {
-        svgStartTagInBody(p, token);
+        svgStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlStartTagInBody(p, token);
+        htmlStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASE:
@@ -21285,89 +21285,89 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.BASEFONT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.BODY: {
-        bodyStartTagInBody(p, token);
+        bodyStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInBody(p, token);
+        formStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOBR: {
-        nobrStartTagInBody(p, token);
+        nobrStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.MATH: {
-        mathStartTagInBody(p, token);
+        mathStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInBody(p, token);
+        tableStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInBody(p, token);
+        inputStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.PARAM:
       case TAG_ID.TRACK:
       case TAG_ID.SOURCE: {
-        paramStartTagInBody(p, token);
+        paramStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.IMAGE: {
-        imageStartTagInBody(p, token);
+        imageStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BUTTON: {
-        buttonStartTagInBody(p, token);
+        buttonStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletStartTagInBody(p, token);
+        appletStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.IFRAME: {
-        iframeStartTagInBody(p, token);
+        iframeStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.SELECT: {
-        selectStartTagInBody(p, token);
+        selectStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.OPTION:
       case TAG_ID.OPTGROUP: {
-        optgroupStartTagInBody(p, token);
+        optgroupStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOEMBED:
       case TAG_ID.NOFRAMES: {
-        rawTextStartTagInBody(p, token);
+        rawTextStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        framesetStartTagInBody(p, token);
+        framesetStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.TEXTAREA: {
-        textareaStartTagInBody(p, token);
+        textareaStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p.options.scriptingEnabled) {
-          rawTextStartTagInBody(p, token);
+        if (p2.options.scriptingEnabled) {
+          rawTextStartTagInBody(p2, token);
         } else {
-          genericStartTagInBody(p, token);
+          genericStartTagInBody(p2, token);
         }
         break;
       }
       case TAG_ID.PLAINTEXT: {
-        plaintextStartTagInBody(p, token);
+        plaintextStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.COL:
@@ -21384,106 +21384,106 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        genericStartTagInBody(p, token);
+        genericStartTagInBody(p2, token);
       }
     }
   }
-  function bodyEndTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BODY)) {
-      p.insertionMode = InsertionMode.AFTER_BODY;
-      if (p.options.sourceCodeLocationInfo) {
-        const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
+  function bodyEndTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
+      p2.insertionMode = InsertionMode.AFTER_BODY;
+      if (p2.options.sourceCodeLocationInfo) {
+        const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
         if (bodyElement) {
-          p._setEndLocation(bodyElement, token);
+          p2._setEndLocation(bodyElement, token);
         }
       }
     }
   }
-  function htmlEndTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BODY)) {
-      p.insertionMode = InsertionMode.AFTER_BODY;
-      endTagAfterBody(p, token);
+  function htmlEndTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
+      p2.insertionMode = InsertionMode.AFTER_BODY;
+      endTagAfterBody(p2, token);
     }
   }
-  function addressEndTagInBody(p, token) {
+  function addressEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(tn);
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function formEndTagInBody(p) {
-    const inTemplate = p.openElements.tmplCount > 0;
-    const { formElement } = p;
+  function formEndTagInBody(p2) {
+    const inTemplate = p2.openElements.tmplCount > 0;
+    const { formElement } = p2;
     if (!inTemplate) {
-      p.formElement = null;
+      p2.formElement = null;
     }
-    if ((formElement || inTemplate) && p.openElements.hasInScope(TAG_ID.FORM)) {
-      p.openElements.generateImpliedEndTags();
+    if ((formElement || inTemplate) && p2.openElements.hasInScope(TAG_ID.FORM)) {
+      p2.openElements.generateImpliedEndTags();
       if (inTemplate) {
-        p.openElements.popUntilTagNamePopped(TAG_ID.FORM);
+        p2.openElements.popUntilTagNamePopped(TAG_ID.FORM);
       } else if (formElement) {
-        p.openElements.remove(formElement);
+        p2.openElements.remove(formElement);
       }
     }
   }
-  function pEndTagInBody(p) {
-    if (!p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
+  function pEndTagInBody(p2) {
+    if (!p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
     }
-    p._closePElement();
+    p2._closePElement();
   }
-  function liEndTagInBody(p) {
-    if (p.openElements.hasInListItemScope(TAG_ID.LI)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
-      p.openElements.popUntilTagNamePopped(TAG_ID.LI);
+  function liEndTagInBody(p2) {
+    if (p2.openElements.hasInListItemScope(TAG_ID.LI)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
+      p2.openElements.popUntilTagNamePopped(TAG_ID.LI);
     }
   }
-  function ddEndTagInBody(p, token) {
+  function ddEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(tn);
-      p.openElements.popUntilTagNamePopped(tn);
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(tn);
+      p2.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function numberedHeaderEndTagInBody(p) {
-    if (p.openElements.hasNumberedHeaderInScope()) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilNumberedHeaderPopped();
+  function numberedHeaderEndTagInBody(p2) {
+    if (p2.openElements.hasNumberedHeaderInScope()) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilNumberedHeaderPopped();
     }
   }
-  function appletEndTagInBody(p, token) {
+  function appletEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(tn);
-      p.activeFormattingElements.clearToLastMarker();
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(tn);
+      p2.activeFormattingElements.clearToLastMarker();
     }
   }
-  function brEndTagInBody(p) {
-    p._reconstructActiveFormattingElements();
-    p._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
-    p.openElements.pop();
-    p.framesetOk = false;
+  function brEndTagInBody(p2) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
+    p2.openElements.pop();
+    p2.framesetOk = false;
   }
-  function genericEndTagInBody(p, token) {
+  function genericEndTagInBody(p2, token) {
     const tn = token.tagName;
     const tid = token.tagID;
-    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
-      const element = p.openElements.items[i2];
-      const elementId = p.openElements.tagIDs[i2];
-      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p.treeAdapter.getTagName(element) === tn)) {
-        p.openElements.generateImpliedEndTagsWithExclusion(tid);
-        if (p.openElements.stackTop >= i2)
-          p.openElements.shortenToLength(i2);
+    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
+      const element = p2.openElements.items[i2];
+      const elementId = p2.openElements.tagIDs[i2];
+      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p2.treeAdapter.getTagName(element) === tn)) {
+        p2.openElements.generateImpliedEndTagsWithExclusion(tid);
+        if (p2.openElements.stackTop >= i2)
+          p2.openElements.shortenToLength(i2);
         break;
       }
-      if (p._isSpecialElement(element, elementId)) {
+      if (p2._isSpecialElement(element, elementId)) {
         break;
       }
     }
   }
-  function endTagInBody(p, token) {
+  function endTagInBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.A:
       case TAG_ID.B:
@@ -21499,11 +21499,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        callAdoptionAgency(p, token);
+        callAdoptionAgency(p2, token);
         break;
       }
       case TAG_ID.P: {
-        pEndTagInBody(p);
+        pEndTagInBody(p2);
         break;
       }
       case TAG_ID.DL:
@@ -21533,16 +21533,16 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressEndTagInBody(p, token);
+        addressEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.LI: {
-        liEndTagInBody(p);
+        liEndTagInBody(p2);
         break;
       }
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        ddEndTagInBody(p, token);
+        ddEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.H1:
@@ -21551,191 +21551,191 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderEndTagInBody(p);
+        numberedHeaderEndTagInBody(p2);
         break;
       }
       case TAG_ID.BR: {
-        brEndTagInBody(p);
+        brEndTagInBody(p2);
         break;
       }
       case TAG_ID.BODY: {
-        bodyEndTagInBody(p, token);
+        bodyEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlEndTagInBody(p, token);
+        htmlEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formEndTagInBody(p);
+        formEndTagInBody(p2);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletEndTagInBody(p, token);
+        appletEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        genericEndTagInBody(p, token);
+        genericEndTagInBody(p2, token);
       }
     }
   }
-  function eofInBody(p, token) {
-    if (p.tmplInsertionModeStack.length > 0) {
-      eofInTemplate(p, token);
+  function eofInBody(p2, token) {
+    if (p2.tmplInsertionModeStack.length > 0) {
+      eofInTemplate(p2, token);
     } else {
-      stopParsing(p, token);
+      stopParsing(p2, token);
     }
   }
-  function endTagInText(p, token) {
+  function endTagInText(p2, token) {
     var _a;
     if (token.tagID === TAG_ID.SCRIPT) {
-      (_a = p.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p, p.openElements.current);
+      (_a = p2.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p2, p2.openElements.current);
     }
-    p.openElements.pop();
-    p.insertionMode = p.originalInsertionMode;
+    p2.openElements.pop();
+    p2.insertionMode = p2.originalInsertionMode;
   }
-  function eofInText(p, token) {
-    p._err(token, ERR.eofInElementThatCanContainOnlyText);
-    p.openElements.pop();
-    p.insertionMode = p.originalInsertionMode;
-    p.onEof(token);
+  function eofInText(p2, token) {
+    p2._err(token, ERR.eofInElementThatCanContainOnlyText);
+    p2.openElements.pop();
+    p2.insertionMode = p2.originalInsertionMode;
+    p2.onEof(token);
   }
-  function characterInTable(p, token) {
-    if (TABLE_STRUCTURE_TAGS.has(p.openElements.currentTagId)) {
-      p.pendingCharacterTokens.length = 0;
-      p.hasNonWhitespacePendingCharacterToken = false;
-      p.originalInsertionMode = p.insertionMode;
-      p.insertionMode = InsertionMode.IN_TABLE_TEXT;
+  function characterInTable(p2, token) {
+    if (TABLE_STRUCTURE_TAGS.has(p2.openElements.currentTagId)) {
+      p2.pendingCharacterTokens.length = 0;
+      p2.hasNonWhitespacePendingCharacterToken = false;
+      p2.originalInsertionMode = p2.insertionMode;
+      p2.insertionMode = InsertionMode.IN_TABLE_TEXT;
       switch (token.type) {
         case TokenType.CHARACTER: {
-          characterInTableText(p, token);
+          characterInTableText(p2, token);
           break;
         }
         case TokenType.WHITESPACE_CHARACTER: {
-          whitespaceCharacterInTableText(p, token);
+          whitespaceCharacterInTableText(p2, token);
           break;
         }
       }
     } else {
-      tokenInTable(p, token);
+      tokenInTable(p2, token);
     }
   }
-  function captionStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p.activeFormattingElements.insertMarker();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_CAPTION;
+  function captionStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2.activeFormattingElements.insertMarker();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_CAPTION;
   }
-  function colgroupStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+  function colgroupStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
   }
-  function colStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
-    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-    startTagInColumnGroup(p, token);
+  function colStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
+    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+    startTagInColumnGroup(p2, token);
   }
-  function tbodyStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_TABLE_BODY;
+  function tbodyStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
   }
-  function tdStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
-    p.insertionMode = InsertionMode.IN_TABLE_BODY;
-    startTagInTableBody(p, token);
+  function tdStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
+    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+    startTagInTableBody(p2, token);
   }
-  function tableStartTagInTable(p, token) {
-    if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-      p._resetInsertionMode();
-      p._processStartTag(token);
+  function tableStartTagInTable(p2, token) {
+    if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+      p2._resetInsertionMode();
+      p2._processStartTag(token);
     }
   }
-  function inputStartTagInTable(p, token) {
+  function inputStartTagInTable(p2, token) {
     if (isHiddenInput(token)) {
-      p._appendElement(token, NS.HTML);
+      p2._appendElement(token, NS.HTML);
     } else {
-      tokenInTable(p, token);
+      tokenInTable(p2, token);
     }
     token.ackSelfClosing = true;
   }
-  function formStartTagInTable(p, token) {
-    if (!p.formElement && p.openElements.tmplCount === 0) {
-      p._insertElement(token, NS.HTML);
-      p.formElement = p.openElements.current;
-      p.openElements.pop();
+  function formStartTagInTable(p2, token) {
+    if (!p2.formElement && p2.openElements.tmplCount === 0) {
+      p2._insertElement(token, NS.HTML);
+      p2.formElement = p2.openElements.current;
+      p2.openElements.pop();
     }
   }
-  function startTagInTable(p, token) {
+  function startTagInTable(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TD:
       case TAG_ID.TH:
       case TAG_ID.TR: {
-        tdStartTagInTable(p, token);
+        tdStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.STYLE:
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        colStartTagInTable(p, token);
+        colStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInTable(p, token);
+        formStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInTable(p, token);
+        tableStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        tbodyStartTagInTable(p, token);
+        tbodyStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInTable(p, token);
+        inputStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.CAPTION: {
-        captionStartTagInTable(p, token);
+        captionStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.COLGROUP: {
-        colgroupStartTagInTable(p, token);
+        colgroupStartTagInTable(p2, token);
         break;
       }
       default: {
-        tokenInTable(p, token);
+        tokenInTable(p2, token);
       }
     }
   }
-  function endTagInTable(p, token) {
+  function endTagInTable(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+          p2._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       case TAG_ID.BODY:
@@ -21752,63 +21752,63 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        tokenInTable(p, token);
+        tokenInTable(p2, token);
       }
     }
   }
-  function tokenInTable(p, token) {
-    const savedFosterParentingState = p.fosterParentingEnabled;
-    p.fosterParentingEnabled = true;
-    modeInBody(p, token);
-    p.fosterParentingEnabled = savedFosterParentingState;
+  function tokenInTable(p2, token) {
+    const savedFosterParentingState = p2.fosterParentingEnabled;
+    p2.fosterParentingEnabled = true;
+    modeInBody(p2, token);
+    p2.fosterParentingEnabled = savedFosterParentingState;
   }
-  function whitespaceCharacterInTableText(p, token) {
-    p.pendingCharacterTokens.push(token);
+  function whitespaceCharacterInTableText(p2, token) {
+    p2.pendingCharacterTokens.push(token);
   }
-  function characterInTableText(p, token) {
-    p.pendingCharacterTokens.push(token);
-    p.hasNonWhitespacePendingCharacterToken = true;
+  function characterInTableText(p2, token) {
+    p2.pendingCharacterTokens.push(token);
+    p2.hasNonWhitespacePendingCharacterToken = true;
   }
-  function tokenInTableText(p, token) {
+  function tokenInTableText(p2, token) {
     let i2 = 0;
-    if (p.hasNonWhitespacePendingCharacterToken) {
-      for (; i2 < p.pendingCharacterTokens.length; i2++) {
-        tokenInTable(p, p.pendingCharacterTokens[i2]);
+    if (p2.hasNonWhitespacePendingCharacterToken) {
+      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
+        tokenInTable(p2, p2.pendingCharacterTokens[i2]);
       }
     } else {
-      for (; i2 < p.pendingCharacterTokens.length; i2++) {
-        p._insertCharacters(p.pendingCharacterTokens[i2]);
+      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
+        p2._insertCharacters(p2.pendingCharacterTokens[i2]);
       }
     }
-    p.insertionMode = p.originalInsertionMode;
-    p._processToken(token);
+    p2.insertionMode = p2.originalInsertionMode;
+    p2._processToken(token);
   }
-  function startTagInCaption(p, token) {
+  function startTagInCaption(p2, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-        p.openElements.generateImpliedEndTags();
-        p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-        p.activeFormattingElements.clearToLastMarker();
-        p.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p, token);
+      if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+        p2.openElements.generateImpliedEndTags();
+        p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+        p2.activeFormattingElements.clearToLastMarker();
+        p2.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p2, token);
       }
     } else {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     }
   }
-  function endTagInCaption(p, token) {
+  function endTagInCaption(p2, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.CAPTION:
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-          p.openElements.generateImpliedEndTags();
-          p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-          p.activeFormattingElements.clearToLastMarker();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+          p2.openElements.generateImpliedEndTags();
+          p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+          p2.activeFormattingElements.clearToLastMarker();
+          p2.insertionMode = InsertionMode.IN_TABLE;
           if (tn === TAG_ID.TABLE) {
-            endTagInTable(p, token);
+            endTagInTable(p2, token);
           }
         }
         break;
@@ -21826,72 +21826,72 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
       }
     }
   }
-  function startTagInColumnGroup(p, token) {
+  function startTagInColumnGroup(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default: {
-        tokenInColumnGroup(p, token);
+        tokenInColumnGroup(p2, token);
       }
     }
   }
-  function endTagInColumnGroup(p, token) {
+  function endTagInColumnGroup(p2, token) {
     switch (token.tagID) {
       case TAG_ID.COLGROUP: {
-        if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       case TAG_ID.COL: {
         break;
       }
       default: {
-        tokenInColumnGroup(p, token);
+        tokenInColumnGroup(p2, token);
       }
     }
   }
-  function tokenInColumnGroup(p, token) {
-    if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
-      p.openElements.pop();
-      p.insertionMode = InsertionMode.IN_TABLE;
-      p._processToken(token);
+  function tokenInColumnGroup(p2, token) {
+    if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
+      p2.openElements.pop();
+      p2.insertionMode = InsertionMode.IN_TABLE;
+      p2._processToken(token);
     }
   }
-  function startTagInTableBody(p, token) {
+  function startTagInTableBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        p.openElements.clearBackToTableBodyContext();
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_ROW;
+        p2.openElements.clearBackToTableBodyContext();
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_ROW;
         break;
       }
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p.openElements.clearBackToTableBodyContext();
-        p._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
-        p.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p, token);
+        p2.openElements.clearBackToTableBodyContext();
+        p2._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
+        p2.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p2, token);
         break;
       }
       case TAG_ID.CAPTION:
@@ -21900,38 +21900,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasTableBodyContextInTableScope()) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
-          startTagInTable(p, token);
+        if (p2.openElements.hasTableBodyContextInTableScope()) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
+          startTagInTable(p2, token);
         }
         break;
       }
       default: {
-        startTagInTable(p, token);
+        startTagInTable(p2, token);
       }
     }
   }
-  function endTagInTableBody(p, token) {
+  function endTagInTableBody(p2, token) {
     const tn = token.tagID;
     switch (token.tagID) {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p.openElements.hasTableBodyContextInTableScope()) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
-          endTagInTable(p, token);
+        if (p2.openElements.hasTableBodyContextInTableScope()) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
+          endTagInTable(p2, token);
         }
         break;
       }
@@ -21946,18 +21946,18 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p, token);
+        endTagInTable(p2, token);
       }
     }
   }
-  function startTagInRow(p, token) {
+  function startTagInRow(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p.openElements.clearBackToTableRowContext();
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_CELL;
-        p.activeFormattingElements.insertMarker();
+        p2.openElements.clearBackToTableRowContext();
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_CELL;
+        p2.activeFormattingElements.insertMarker();
         break;
       }
       case TAG_ID.CAPTION:
@@ -21967,46 +21967,46 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          startTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          startTagInTableBody(p2, token);
         }
         break;
       }
       default: {
-        startTagInTable(p, token);
+        startTagInTable(p2, token);
       }
     }
   }
-  function endTagInRow(p, token) {
+  function endTagInRow(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p2, token);
         }
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasInTableScope(token.tagID) || p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(token.tagID) || p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p2, token);
         }
         break;
       }
@@ -22020,31 +22020,31 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p, token);
+        endTagInTable(p2, token);
       }
     }
   }
-  function startTagInCell(p, token) {
+  function startTagInCell(p2, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p.openElements.hasInTableScope(TAG_ID.TD) || p.openElements.hasInTableScope(TAG_ID.TH)) {
-        p._closeTableCell();
-        startTagInRow(p, token);
+      if (p2.openElements.hasInTableScope(TAG_ID.TD) || p2.openElements.hasInTableScope(TAG_ID.TH)) {
+        p2._closeTableCell();
+        startTagInRow(p2, token);
       }
     } else {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     }
   }
-  function endTagInCell(p, token) {
+  function endTagInCell(p2, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p.openElements.generateImpliedEndTags();
-          p.openElements.popUntilTagNamePopped(tn);
-          p.activeFormattingElements.clearToLastMarker();
-          p.insertionMode = InsertionMode.IN_ROW;
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2.openElements.generateImpliedEndTags();
+          p2.openElements.popUntilTagNamePopped(tn);
+          p2.activeFormattingElements.clearToLastMarker();
+          p2.insertionMode = InsertionMode.IN_ROW;
         }
         break;
       }
@@ -22053,9 +22053,9 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p._closeTableCell();
-          endTagInRow(p, token);
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2._closeTableCell();
+          endTagInRow(p2, token);
         }
         break;
       }
@@ -22067,41 +22067,41 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
       }
     }
   }
-  function startTagInSelect(p, token) {
+  function startTagInSelect(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.OPTION: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.OPTGROUP: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.HR: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
@@ -22109,77 +22109,77 @@ var LNReaderPlugin = (() => {
       case TAG_ID.KEYGEN:
       case TAG_ID.TEXTAREA:
       case TAG_ID.SELECT: {
-        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p2._resetInsertionMode();
           if (token.tagID !== TAG_ID.SELECT) {
-            p._processStartTag(token);
+            p2._processStartTag(token);
           }
         }
         break;
       }
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagInSelect(p, token) {
+  function endTagInSelect(p2, token) {
     switch (token.tagID) {
       case TAG_ID.OPTGROUP: {
-        if (p.openElements.stackTop > 0 && p.openElements.currentTagId === TAG_ID.OPTION && p.openElements.tagIDs[p.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.stackTop > 0 && p2.openElements.currentTagId === TAG_ID.OPTION && p2.openElements.tagIDs[p2.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
         break;
       }
       case TAG_ID.OPTION: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
         break;
       }
       case TAG_ID.SELECT: {
-        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p2._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function startTagInSelectInTable(p, token) {
+  function startTagInSelectInTable(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-      p._resetInsertionMode();
-      p._processStartTag(token);
+      p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+      p2._resetInsertionMode();
+      p2._processStartTag(token);
     } else {
-      startTagInSelect(p, token);
+      startTagInSelect(p2, token);
     }
   }
-  function endTagInSelectInTable(p, token) {
+  function endTagInSelectInTable(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      if (p.openElements.hasInTableScope(tn)) {
-        p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-        p._resetInsertionMode();
-        p.onEndTag(token);
+      if (p2.openElements.hasInTableScope(tn)) {
+        p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+        p2._resetInsertionMode();
+        p2.onEndTag(token);
       }
     } else {
-      endTagInSelect(p, token);
+      endTagInSelect(p2, token);
     }
   }
-  function startTagInTemplate(p, token) {
+  function startTagInTemplate(p2, token) {
     switch (token.tagID) {
       // First, handle tags that can start without a mode change
       case TAG_ID.BASE:
@@ -22192,7 +22192,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       // Re-process the token in the appropriate mode
@@ -22201,173 +22201,173 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
-        p.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
+        p2.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
-        p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-        startTagInColumnGroup(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
+        p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+        startTagInColumnGroup(p2, token);
         break;
       }
       case TAG_ID.TR: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
-        p.insertionMode = InsertionMode.IN_TABLE_BODY;
-        startTagInTableBody(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
+        p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+        startTagInTableBody(p2, token);
         break;
       }
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
-        p.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
+        p2.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p2, token);
         break;
       }
       default: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
-        p.insertionMode = InsertionMode.IN_BODY;
-        startTagInBody(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
+        p2.insertionMode = InsertionMode.IN_BODY;
+        startTagInBody(p2, token);
       }
     }
   }
-  function endTagInTemplate(p, token) {
+  function endTagInTemplate(p2, token) {
     if (token.tagID === TAG_ID.TEMPLATE) {
-      templateEndTagInHead(p, token);
+      templateEndTagInHead(p2, token);
     }
   }
-  function eofInTemplate(p, token) {
-    if (p.openElements.tmplCount > 0) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p.activeFormattingElements.clearToLastMarker();
-      p.tmplInsertionModeStack.shift();
-      p._resetInsertionMode();
-      p.onEof(token);
+  function eofInTemplate(p2, token) {
+    if (p2.openElements.tmplCount > 0) {
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p2.activeFormattingElements.clearToLastMarker();
+      p2.tmplInsertionModeStack.shift();
+      p2._resetInsertionMode();
+      p2.onEof(token);
     } else {
-      stopParsing(p, token);
+      stopParsing(p2, token);
     }
   }
-  function startTagAfterBody(p, token) {
+  function startTagAfterBody(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     } else {
-      tokenAfterBody(p, token);
+      tokenAfterBody(p2, token);
     }
   }
-  function endTagAfterBody(p, token) {
+  function endTagAfterBody(p2, token) {
     var _a;
     if (token.tagID === TAG_ID.HTML) {
-      if (!p.fragmentContext) {
-        p.insertionMode = InsertionMode.AFTER_AFTER_BODY;
+      if (!p2.fragmentContext) {
+        p2.insertionMode = InsertionMode.AFTER_AFTER_BODY;
       }
-      if (p.options.sourceCodeLocationInfo && p.openElements.tagIDs[0] === TAG_ID.HTML) {
-        p._setEndLocation(p.openElements.items[0], token);
-        const bodyElement = p.openElements.items[1];
-        if (bodyElement && !((_a = p.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
-          p._setEndLocation(bodyElement, token);
+      if (p2.options.sourceCodeLocationInfo && p2.openElements.tagIDs[0] === TAG_ID.HTML) {
+        p2._setEndLocation(p2.openElements.items[0], token);
+        const bodyElement = p2.openElements.items[1];
+        if (bodyElement && !((_a = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
+          p2._setEndLocation(bodyElement, token);
         }
       }
     } else {
-      tokenAfterBody(p, token);
+      tokenAfterBody(p2, token);
     }
   }
-  function tokenAfterBody(p, token) {
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterBody(p2, token) {
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function startTagInFrameset(p, token) {
+  function startTagInFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.FRAME: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagInFrameset(p, token) {
-    if (token.tagID === TAG_ID.FRAMESET && !p.openElements.isRootHtmlElementCurrent()) {
-      p.openElements.pop();
-      if (!p.fragmentContext && p.openElements.currentTagId !== TAG_ID.FRAMESET) {
-        p.insertionMode = InsertionMode.AFTER_FRAMESET;
+  function endTagInFrameset(p2, token) {
+    if (token.tagID === TAG_ID.FRAMESET && !p2.openElements.isRootHtmlElementCurrent()) {
+      p2.openElements.pop();
+      if (!p2.fragmentContext && p2.openElements.currentTagId !== TAG_ID.FRAMESET) {
+        p2.insertionMode = InsertionMode.AFTER_FRAMESET;
       }
     }
   }
-  function startTagAfterFrameset(p, token) {
+  function startTagAfterFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagAfterFrameset(p, token) {
+  function endTagAfterFrameset(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
+      p2.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
     }
   }
-  function startTagAfterAfterBody(p, token) {
+  function startTagAfterAfterBody(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     } else {
-      tokenAfterAfterBody(p, token);
+      tokenAfterAfterBody(p2, token);
     }
   }
-  function tokenAfterAfterBody(p, token) {
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterAfterBody(p2, token) {
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function startTagAfterAfterFrameset(p, token) {
+  function startTagAfterAfterFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function nullCharacterInForeignContent(p, token) {
+  function nullCharacterInForeignContent(p2, token) {
     token.chars = REPLACEMENT_CHARACTER;
-    p._insertCharacters(token);
+    p2._insertCharacters(token);
   }
-  function characterInForeignContent(p, token) {
-    p._insertCharacters(token);
-    p.framesetOk = false;
+  function characterInForeignContent(p2, token) {
+    p2._insertCharacters(token);
+    p2.framesetOk = false;
   }
-  function popUntilHtmlOrIntegrationPoint(p) {
-    while (p.treeAdapter.getNamespaceURI(p.openElements.current) !== NS.HTML && !p._isIntegrationPoint(p.openElements.currentTagId, p.openElements.current)) {
-      p.openElements.pop();
+  function popUntilHtmlOrIntegrationPoint(p2) {
+    while (p2.treeAdapter.getNamespaceURI(p2.openElements.current) !== NS.HTML && !p2._isIntegrationPoint(p2.openElements.currentTagId, p2.openElements.current)) {
+      p2.openElements.pop();
     }
   }
-  function startTagInForeignContent(p, token) {
+  function startTagInForeignContent(p2, token) {
     if (causesExit(token)) {
-      popUntilHtmlOrIntegrationPoint(p);
-      p._startTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p2);
+      p2._startTagOutsideForeignContent(token);
     } else {
-      const current = p._getAdjustedCurrentElement();
-      const currentNs = p.treeAdapter.getNamespaceURI(current);
+      const current = p2._getAdjustedCurrentElement();
+      const currentNs = p2.treeAdapter.getNamespaceURI(current);
       if (currentNs === NS.MATHML) {
         adjustTokenMathMLAttrs(token);
       } else if (currentNs === NS.SVG) {
@@ -22376,29 +22376,29 @@ var LNReaderPlugin = (() => {
       }
       adjustTokenXMLAttrs(token);
       if (token.selfClosing) {
-        p._appendElement(token, currentNs);
+        p2._appendElement(token, currentNs);
       } else {
-        p._insertElement(token, currentNs);
+        p2._insertElement(token, currentNs);
       }
       token.ackSelfClosing = true;
     }
   }
-  function endTagInForeignContent(p, token) {
+  function endTagInForeignContent(p2, token) {
     if (token.tagID === TAG_ID.P || token.tagID === TAG_ID.BR) {
-      popUntilHtmlOrIntegrationPoint(p);
-      p._endTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p2);
+      p2._endTagOutsideForeignContent(token);
       return;
     }
-    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
-      const element = p.openElements.items[i2];
-      if (p.treeAdapter.getNamespaceURI(element) === NS.HTML) {
-        p._endTagOutsideForeignContent(token);
+    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
+      const element = p2.openElements.items[i2];
+      if (p2.treeAdapter.getNamespaceURI(element) === NS.HTML) {
+        p2._endTagOutsideForeignContent(token);
         break;
       }
-      const tagName = p.treeAdapter.getTagName(element);
+      const tagName = p2.treeAdapter.getTagName(element);
       if (tagName.toLowerCase() === token.tagName) {
         token.tagName = tagName;
-        p.openElements.shortenToLength(i2);
+        p2.openElements.shortenToLength(i2);
         break;
       }
     }
@@ -24768,18 +24768,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -25207,18 +25207,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -25401,15 +25401,15 @@ var LNReaderPlugin = (() => {
         "object" == typeof exports4 && "undefined" != typeof module ? module.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
       }(exports4, function() {
         "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h2 = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
+        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f2 = "quarter", h2 = "year", d2 = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
           var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
           return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
-        }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
+        }, "ordinal") }, m2 = /* @__PURE__ */ __name(function(t3, e3, n3) {
           var r3 = String(t3);
           return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v2 = { s: m, z: /* @__PURE__ */ __name(function(t3) {
+        }, "m"), v2 = { s: m2, z: /* @__PURE__ */ __name(function(t3) {
           var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
-          return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
+          return (e3 <= 0 ? "+" : "-") + m2(r3, 2, "0") + ":" + m2(i3, 2, "0");
         }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
           if (e3.date() < n3.date()) return -t3(n3, e3);
           var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()), i3 = e3.clone().add(r3, c2), s3 = n3 - i3 < 0, u3 = e3.clone().add(r3 + (s3 ? -1 : 1), c2);
@@ -25417,16 +25417,16 @@ var LNReaderPlugin = (() => {
         }, "t"), a: /* @__PURE__ */ __name(function(t3) {
           return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
         }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c2, y: h2, w: o2, d: a2, D: d, h: u2, m: s2, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
+          return { M: c2, y: h2, w: o2, d: a2, D: d2, h: u2, m: s2, s: i2, ms: r2, Q: f2 }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
         }, "p"), u: /* @__PURE__ */ __name(function(t3) {
           return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
-        var p = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
-          return t3 instanceof _ || !(!t3 || !t3[p]);
+        }, "u") }, g2 = "en", D = {};
+        D[g2] = M;
+        var p2 = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
+          return t3 instanceof _ || !(!t3 || !t3[p2]);
         }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
           var i3;
-          if (!e3) return g;
+          if (!e3) return g2;
           if ("string" == typeof e3) {
             var s3 = e3.toLowerCase();
             D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
@@ -25436,26 +25436,26 @@ var LNReaderPlugin = (() => {
             var a3 = e3.name;
             D[a3] = e3, i3 = a3;
           }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
+          return !r3 && i3 && (g2 = i3), i3 || !r3 && g2;
         }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
           if (S(t3)) return t3.clone();
           var n3 = "object" == typeof e3 ? e3 : {};
           return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v2;
-        b.l = w, b.i = S, b.w = function(t3, e3) {
+        }, "O"), b2 = v2;
+        b2.l = w, b2.i = S, b2.w = function(t3, e3) {
           return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
         };
         var _ = function() {
           function M2(t3) {
-            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p] = true;
+            this.$L = w(t3.locale, null, true), this.parse(t3), this.$x = this.$x || t3.x || {}, this[p2] = true;
           }
           __name(M2, "M");
-          var m2 = M2.prototype;
-          return m2.parse = function(t3) {
+          var m3 = M2.prototype;
+          return m3.parse = function(t3) {
             this.$d = function(t4) {
               var e3 = t4.date, n3 = t4.utc;
               if (null === e3) return /* @__PURE__ */ new Date(NaN);
-              if (b.u(e3)) return /* @__PURE__ */ new Date();
+              if (b2.u(e3)) return /* @__PURE__ */ new Date();
               if (e3 instanceof Date) return new Date(e3);
               if ("string" == typeof e3 && !/Z$/i.test(e3)) {
                 var r3 = e3.match($2);
@@ -25466,43 +25466,43 @@ var LNReaderPlugin = (() => {
               }
               return new Date(e3);
             }(t3), this.init();
-          }, m2.init = function() {
+          }, m3.init = function() {
             var t3 = this.$d;
             this.$y = t3.getFullYear(), this.$M = t3.getMonth(), this.$D = t3.getDate(), this.$W = t3.getDay(), this.$H = t3.getHours(), this.$m = t3.getMinutes(), this.$s = t3.getSeconds(), this.$ms = t3.getMilliseconds();
-          }, m2.$utils = function() {
-            return b;
-          }, m2.isValid = function() {
+          }, m3.$utils = function() {
+            return b2;
+          }, m3.isValid = function() {
             return !(this.$d.toString() === l2);
-          }, m2.isSame = function(t3, e3) {
+          }, m3.isSame = function(t3, e3) {
             var n3 = O(t3);
             return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
-          }, m2.isAfter = function(t3, e3) {
+          }, m3.isAfter = function(t3, e3) {
             return O(t3) < this.startOf(e3);
-          }, m2.isBefore = function(t3, e3) {
+          }, m3.isBefore = function(t3, e3) {
             return this.endOf(e3) < O(t3);
-          }, m2.$g = function(t3, e3, n3) {
-            return b.u(t3) ? this[e3] : this.set(n3, t3);
-          }, m2.unix = function() {
+          }, m3.$g = function(t3, e3, n3) {
+            return b2.u(t3) ? this[e3] : this.set(n3, t3);
+          }, m3.unix = function() {
             return Math.floor(this.valueOf() / 1e3);
-          }, m2.valueOf = function() {
+          }, m3.valueOf = function() {
             return this.$d.getTime();
-          }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
-              var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
+          }, m3.startOf = function(t3, e3) {
+            var n3 = this, r3 = !!b2.u(e3) || e3, f3 = b2.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
+              var i3 = b2.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
               return r3 ? i3 : i3.endOf(a2);
             }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
-              return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v3 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
+              return b2.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
+            }, "$"), y2 = this.$W, M3 = this.$M, m4 = this.$D, v3 = "set" + (this.$u ? "UTC" : "");
+            switch (f3) {
               case h2:
                 return r3 ? l3(1, 0) : l3(31, 11);
               case c2:
                 return r3 ? l3(1, M3) : l3(0, M3 + 1);
               case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
+                var g3 = this.$locale().weekStart || 0, D2 = (y2 < g3 ? y2 + 7 : y2) - g3;
+                return l3(r3 ? m4 - D2 : m4 + (6 - D2), M3);
               case a2:
-              case d:
+              case d2:
                 return $3(v3 + "Hours", 0);
               case u2:
                 return $3(v3 + "Minutes", 1);
@@ -25513,42 +25513,42 @@ var LNReaderPlugin = (() => {
               default:
                 return this.clone();
             }
-          }, m2.endOf = function(t3) {
+          }, m3.endOf = function(t3) {
             return this.startOf(t3, false);
-          }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c2] = f2 + "Month", n3[h2] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
+          }, m3.$set = function(t3, e3) {
+            var n3, o3 = b2.p(t3), f3 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f3 + "Date", n3[d2] = f3 + "Date", n3[c2] = f3 + "Month", n3[h2] = f3 + "FullYear", n3[u2] = f3 + "Hours", n3[s2] = f3 + "Minutes", n3[i2] = f3 + "Seconds", n3[r2] = f3 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
             if (o3 === c2 || o3 === h2) {
-              var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
+              var y2 = this.clone().set(d2, 1);
+              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d2, Math.min(this.$D, y2.daysInMonth())).$d;
             } else l3 && this.$d[l3]($3);
             return this.init(), this;
-          }, m2.set = function(t3, e3) {
+          }, m3.set = function(t3, e3) {
             return this.clone().$set(t3, e3);
-          }, m2.get = function(t3) {
-            return this[b.p(t3)]();
-          }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
+          }, m3.get = function(t3) {
+            return this[b2.p(t3)]();
+          }, m3.add = function(r3, f3) {
+            var d3, l3 = this;
             r3 = Number(r3);
-            var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
+            var $3 = b2.p(f3), y2 = /* @__PURE__ */ __name(function(t3) {
               var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
+              return b2.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
             }, "y");
             if ($3 === c2) return this.set(c2, this.$M + r3);
             if ($3 === h2) return this.set(h2, this.$y + r3);
             if ($3 === a2) return y2(1);
             if ($3 === o2) return y2(7);
-            var M3 = (d2 = {}, d2[s2] = e2, d2[u2] = n2, d2[i2] = t2, d2)[$3] || 1, m3 = this.$d.getTime() + r3 * M3;
-            return b.w(m3, this);
-          }, m2.subtract = function(t3, e3) {
+            var M3 = (d3 = {}, d3[s2] = e2, d3[u2] = n2, d3[i2] = t2, d3)[$3] || 1, m4 = this.$d.getTime() + r3 * M3;
+            return b2.w(m4, this);
+          }, m3.subtract = function(t3, e3) {
             return this.add(-1 * t3, e3);
-          }, m2.format = function(t3) {
+          }, m3.format = function(t3) {
             var e3 = this, n3 = this.$locale();
             if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f2 = n3.meridiem, h3 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
+            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b2.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f3 = n3.meridiem, h3 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
               return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
-            }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
-              return b.s(s3 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
+            }, "h"), d3 = /* @__PURE__ */ __name(function(t4) {
+              return b2.s(s3 % 12 || 12, t4, "0");
+            }, "d"), $3 = f3 || function(t4, e4, n4) {
               var r4 = t4 < 12 ? "AM" : "PM";
               return n4 ? r4.toLowerCase() : r4;
             };
@@ -25558,11 +25558,11 @@ var LNReaderPlugin = (() => {
                   case "YY":
                     return String(e3.$y).slice(-2);
                   case "YYYY":
-                    return b.s(e3.$y, 4, "0");
+                    return b2.s(e3.$y, 4, "0");
                   case "M":
                     return a3 + 1;
                   case "MM":
-                    return b.s(a3 + 1, 2, "0");
+                    return b2.s(a3 + 1, 2, "0");
                   case "MMM":
                     return h3(n3.monthsShort, a3, c3, 3);
                   case "MMMM":
@@ -25570,7 +25570,7 @@ var LNReaderPlugin = (() => {
                   case "D":
                     return e3.$D;
                   case "DD":
-                    return b.s(e3.$D, 2, "0");
+                    return b2.s(e3.$D, 2, "0");
                   case "d":
                     return String(e3.$W);
                   case "dd":
@@ -25582,11 +25582,11 @@ var LNReaderPlugin = (() => {
                   case "H":
                     return String(s3);
                   case "HH":
-                    return b.s(s3, 2, "0");
+                    return b2.s(s3, 2, "0");
                   case "h":
-                    return d2(1);
+                    return d3(1);
                   case "hh":
-                    return d2(2);
+                    return d3(2);
                   case "a":
                     return $3(s3, u3, true);
                   case "A":
@@ -25594,24 +25594,24 @@ var LNReaderPlugin = (() => {
                   case "m":
                     return String(u3);
                   case "mm":
-                    return b.s(u3, 2, "0");
+                    return b2.s(u3, 2, "0");
                   case "s":
                     return String(e3.$s);
                   case "ss":
-                    return b.s(e3.$s, 2, "0");
+                    return b2.s(e3.$s, 2, "0");
                   case "SSS":
-                    return b.s(e3.$ms, 3, "0");
+                    return b2.s(e3.$ms, 3, "0");
                   case "Z":
                     return i3;
                 }
                 return null;
               }(t4) || i3.replace(":", "");
             });
-          }, m2.utcOffset = function() {
+          }, m3.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
-              return b.m(y2, m3);
+          }, m3.diff = function(r3, d3, l3) {
+            var $3, y2 = this, M3 = b2.p(d3), m4 = O(r3), v3 = (m4.utcOffset() - this.utcOffset()) * e2, g3 = this - m4, D2 = /* @__PURE__ */ __name(function() {
+              return b2.m(y2, m4);
             }, "D");
             switch (M3) {
               case h2:
@@ -25620,49 +25620,49 @@ var LNReaderPlugin = (() => {
               case c2:
                 $3 = D2();
                 break;
-              case f:
+              case f2:
                 $3 = D2() / 3;
                 break;
               case o2:
-                $3 = (g2 - v3) / 6048e5;
+                $3 = (g3 - v3) / 6048e5;
                 break;
               case a2:
-                $3 = (g2 - v3) / 864e5;
+                $3 = (g3 - v3) / 864e5;
                 break;
               case u2:
-                $3 = g2 / n2;
+                $3 = g3 / n2;
                 break;
               case s2:
-                $3 = g2 / e2;
+                $3 = g3 / e2;
                 break;
               case i2:
-                $3 = g2 / t2;
+                $3 = g3 / t2;
                 break;
               default:
-                $3 = g2;
+                $3 = g3;
             }
-            return l3 ? $3 : b.a($3);
-          }, m2.daysInMonth = function() {
+            return l3 ? $3 : b2.a($3);
+          }, m3.daysInMonth = function() {
             return this.endOf(c2).$D;
-          }, m2.$locale = function() {
+          }, m3.$locale = function() {
             return D[this.$L];
-          }, m2.locale = function(t3, e3) {
+          }, m3.locale = function(t3, e3) {
             if (!t3) return this.$L;
             var n3 = this.clone(), r3 = w(t3, e3, true);
             return r3 && (n3.$L = r3), n3;
-          }, m2.clone = function() {
-            return b.w(this.$d, this);
-          }, m2.toDate = function() {
+          }, m3.clone = function() {
+            return b2.w(this.$d, this);
+          }, m3.toDate = function() {
             return new Date(this.valueOf());
-          }, m2.toJSON = function() {
+          }, m3.toJSON = function() {
             return this.isValid() ? this.toISOString() : null;
-          }, m2.toISOString = function() {
+          }, m3.toISOString = function() {
             return this.$d.toISOString();
-          }, m2.toString = function() {
+          }, m3.toString = function() {
             return this.$d.toUTCString();
           }, M2;
         }(), k = _.prototype;
-        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s2], ["$H", u2], ["$W", a2], ["$M", c2], ["$y", h2], ["$D", d]].forEach(function(t3) {
+        return O.prototype = k, [["$ms", r2], ["$s", i2], ["$m", s2], ["$H", u2], ["$W", a2], ["$M", c2], ["$y", h2], ["$D", d2]].forEach(function(t3) {
           k[t3[1]] = function(e3) {
             return this.$g(e3, t3[0], t3[1]);
           };
@@ -25670,7 +25670,7 @@ var LNReaderPlugin = (() => {
           return t3.$i || (t3(e3, _, O), t3.$i = true), O;
         }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
           return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
+        }, O.en = D[g2], O.Ls = D, O.p = {}, O;
       });
     }
   });
@@ -25869,28 +25869,30 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /* @__PURE__ */ __name(function(e2, t2) {
-    return new RegExp(t2.join("|")).test(e2);
-  }, "c"), h = function() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, v = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, d = /week|semana/i, f = /month|mes/i, m = /year|año/i, b = function() {
     function r2(e2) {
-      var t2, a2;
-      this.hideLocked = u.storage.get("hideLocked"), this.parseData = function(e3) {
-        var t3, a3 = (0, s.default)(), r4 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", n2 = parseInt(r4, 10);
-        if (!r4) return e3;
-        if (c(e3, ["detik", "segundo", "second", "\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35"])) a3 = a3.subtract(n2, "second");
-        else if (c(e3, ["menit", "dakika", "min", "minute", "minuto", "\u0E19\u0E32\u0E17\u0E35", "\u062F\u0642\u0627\u0626\u0642"])) a3 = a3.subtract(n2, "minute");
-        else if (c(e3, ["jam", "saat", "heure", "hora", "hour", "\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07", "gi\u1EDD", "ore", "\u0633\u0627\u0639\u0629", "\u5C0F\u65F6"])) a3 = a3.subtract(n2, "hours");
-        else if (c(e3, ["hari", "g\xFCn", "jour", "d\xEDa", "dia", "day", "\u0E27\u0E31\u0E19", "ng\xE0y", "giorni", "\u0623\u064A\u0627\u0645", "\u5929"])) a3 = a3.subtract(n2, "days");
-        else if (c(e3, ["week", "semana"])) a3 = a3.subtract(n2, "week");
-        else if (c(e3, ["month", "mes"])) a3 = a3.subtract(n2, "month");
+      var t2, a2, r3 = this;
+      this.hideLocked = u.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
+        var t3, a3 = r3.dateCache.get(e3);
+        if (void 0 !== a3) return a3;
+        r3.dateCache.size > 2e3 && r3.dateCache.clear();
+        var n3, i2 = (0, s.default)(), l2 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", o2 = parseInt(l2, 10);
+        if (!l2) return r3.dateCache.set(e3, e3), e3;
+        if (c.test(e3)) n3 = i2.subtract(o2, "second").format("LL");
+        else if (h.test(e3)) n3 = i2.subtract(o2, "minute").format("LL");
+        else if (p.test(e3)) n3 = i2.subtract(o2, "hours").format("LL");
+        else if (v.test(e3)) n3 = i2.subtract(o2, "days").format("LL");
+        else if (d.test(e3)) n3 = i2.subtract(o2, "week").format("LL");
+        else if (f.test(e3)) n3 = i2.subtract(o2, "month").format("LL");
+        else if (m.test(e3)) n3 = i2.subtract(o2, "year").format("LL");
         else {
-          if (!c(e3, ["year", "a\xF1o"])) return "Invalid Date" !== (0, s.default)(e3).format("LL") ? (0, s.default)(e3).format("LL") : e3;
-          a3 = a3.subtract(n2, "year");
+          var u2 = (0, s.default)(e3).format("LL");
+          n3 = "Invalid Date" !== u2 ? u2 : e3;
         }
-        return a3.format("LL");
+        return r3.dateCache.set(e3, n3), n3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
-      var r3 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.2.".concat(r3), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
+      this.version = "2.3.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(r2, "r");
     return Object.defineProperty(r2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -25921,10 +25923,10 @@ var LNReaderPlugin = (() => {
               return [4, (0, n.fetchApi)(e2, { headers: this.requestHeaders })];
             case 1:
               if (!(t2 = a2.sent()).ok && 1 != r3) throw new Error("Could not reach site (" + t2.status + ") try to open in webview.");
-              return o2 = i.load, [4, t2.text()];
+              return [4, t2.text()];
             case 2:
-              if (l2 = o2.apply(void 0, [a2.sent()]), s2 = l2("title").text().trim(), this.getHostname(e2) != this.getHostname(t2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
-              return [2, l2];
+              if (l2 = a2.sent(), o2 = l2.match(/<title[^>]*>([^<]+)<\/title>/i), s2 = o2 ? o2[1].trim() : "", this.getHostname(e2) != this.getHostname(t2.url) || "Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2) throw new Error("Captcha error, please open in webview");
+              return [2, (0, i.load)(l2)];
           }
         });
       });
@@ -25937,10 +25939,10 @@ var LNReaderPlugin = (() => {
     }, r2.prototype.parseNovels = function(e2) {
       var t2 = this, a2 = [];
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(r3, n2) {
-        var i2 = e2(n2).find(".post-title").text().trim(), l2 = e2(n2).find(".post-title").find("a").attr("href") || "";
-        if (i2 && l2) {
-          var o2 = { name: i2, cover: t2.extractCover(e2(n2).find("img")), path: l2.replace(/https?:\/\/.*?\//, "") };
-          a2.push(o2);
+        var i2 = e2(n2), l2 = i2.find(".post-title"), o2 = l2.text().trim(), s2 = l2.find("a").attr("href") || "";
+        if (o2 && s2) {
+          var u2 = { name: o2, cover: t2.extractCover(i2.find("img")), path: s2.replace(/https?:\/\/.*?\//, "") };
+          a2.push(u2);
         }
       }), a2;
     }, r2.prototype.resolveCoverAsDataUri = function(r3) {
@@ -26007,15 +26009,15 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.popularNovels = function(e2, r3) {
       return t(this, arguments, void 0, function(e3, t2) {
-        var r4, n2, i2, l2, o2, s2, u2, c2 = t2.filters, h2 = t2.showLatestNovels;
+        var r4, n2, i2, l2, o2, s2, u2, c2, h2 = t2.filters, p2 = t2.showLatestNovels;
         return a(this, function(t3) {
           switch (t3.label) {
             case 0:
-              for (n2 in r4 = this.site + "/page/" + e3 + "/?s=&post_type=wp-manga", c2 || (c2 = this.filters || {}), h2 && (r4 += "&m_orderby=latest"), c2) if ("object" == typeof c2[n2].value) for (i2 = 0, l2 = c2[n2].value; i2 < l2.length; i2++) o2 = l2[i2], r4 += "&".concat(n2, "=").concat(o2);
-              else c2[n2].value && (r4 += "&".concat(n2, "=").concat(c2[n2].value));
-              return [4, this.getCheerio(r4, 1 != e3)];
+              for (i2 in r4 = this.site.replace(/\/+$/, ""), n2 = "".concat(r4, "/page/").concat(e3, "/?s=&post_type=wp-manga"), h2 || (h2 = this.filters || {}), p2 && (n2 += "&m_orderby=latest"), h2) if ("object" == typeof h2[i2].value) for (l2 = 0, o2 = h2[i2].value; l2 < o2.length; l2++) s2 = o2[l2], n2 += "&".concat(i2, "=").concat(s2);
+              else h2[i2].value && (n2 += "&".concat(i2, "=").concat(h2[i2].value));
+              return [4, this.getCheerio(n2, 1 != e3)];
             case 1:
-              return s2 = t3.sent(), u2 = this.parseNovels(s2), [4, this.resolveNovelsCovers(u2)];
+              return u2 = t3.sent(), c2 = this.parseNovels(u2), [4, this.resolveNovelsCovers(c2)];
             case 2:
               return [2, t3.sent()];
           }
@@ -26023,14 +26025,24 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, l2, u2, c2, h2, v2, p, d, f, m, b, g, y, x, w, C = this;
+        var t2, r3, l2, u2, c2, h2, p2, v2, d2, f2, m2, b2, g2, y, x, w, C, L, S, k, A, _, N, j, O, T, P, q, H, D, M, G, R = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, this.getCheerio(this.site + e2, false)];
+              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), l2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(l2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (M = this.options) || void 0 === M ? void 0 : M.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
+                return e3.text();
+              }).catch(function() {
+                return "";
+              }), [4, Promise.all([this.getCheerio(l2, false), c2])]) : [3, 2];
             case 1:
-              return (t2 = a2.sent())(".manga-title-badges, #manga-title span").remove(), (r3 = { path: e2, name: t2(".post-title h1").text().trim() || t2("#manga-title h1").text().trim() || t2(".manga-title").text().trim() || "" }).cover = this.extractCover(t2(".summary_image > a > img")), t2(".post-content_item, .post-content").each(function() {
-                var e3 = t2(this).find("h5").text().trim(), a3 = t2(this).find(".summary-content") || t2(this).find(".summary_content");
+              return u2 = a2.sent()[0], [3, 4];
+            case 2:
+              return [4, this.getCheerio(l2, false)];
+            case 3:
+              u2 = a2.sent(), a2.label = 4;
+            case 4:
+              return u2(".manga-title-badges, #manga-title span").remove(), (p2 = { path: e2, name: u2(".post-title h1").text().trim() || u2("#manga-title h1").text().trim() || u2(".manga-title").text().trim() || "" }).cover = this.extractCover(u2(".summary_image > a > img")), u2(".post-content_item, .post-content").each(function() {
+                var e3 = u2(this).find("h5").text().trim(), t3 = u2(this).find(".summary-content") || u2(this).find(".summary_content");
                 switch (e3) {
                   case "Genre(s)":
                   case "Genre":
@@ -26040,10 +26052,10 @@ var LNReaderPlugin = (() => {
                   case "G\xE9nero(s)":
                   case "Kategori":
                   case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
-                    r3.genres ? r3.genres += ", " + a3.find("a").map(function(e4, a4) {
-                      return t2(a4).text();
-                    }).get().join(", ") : r3.genres = a3.find("a").map(function(e4, a4) {
-                      return t2(a4).text();
+                    p2.genres ? p2.genres += ", " + t3.find("a").map(function(e4, t4) {
+                      return u2(t4).text();
+                    }).get().join(", ") : p2.genres = t3.find("a").map(function(e4, t4) {
+                      return u2(t4).text();
                     }).get().join(", ");
                     break;
                   case "Author(s)":
@@ -26051,88 +26063,108 @@ var LNReaderPlugin = (() => {
                   case "Autor(es)":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
-                    r3.author = a3.text().trim();
+                    p2.author = t3.text().trim();
                     break;
                   case "Translator(s)":
                   case "Translator":
                   case "Translators":
-                    r3.author || (r3.author = a3.text().trim());
+                    p2.author || (p2.author = t3.text().trim());
                     break;
                   case "Status":
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    r3.status = a3.text().trim().includes("OnGoing") || a3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
+                    p2.status = t3.text().trim().includes("OnGoing") || t3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
-                    r3.artist = a3.text().trim();
+                    p2.artist = t3.text().trim();
                 }
-              }), r3.genres || (r3.genres = t2(".genres-content").text().trim()), r3.status || (r3.status = t2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), r3.author || (r3.author = t2(".manga-author a").text().trim()), r3.rating || (r3.rating = parseFloat(t2(".post-rating span").text().trim())), r3.author || (r3.author = t2(".manga-authors").text().trim()), t2("div.summary__content .code-block,script,noscript").remove(), r3.summary = this.translateDragontea(t2("div.summary__content")).text().trim() || t2("#tab-manga-about").text().trim() || t2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, a3) {
-                return t2(a3).text();
-              }).get().join("\n\n").trim() || t2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, a3) {
-                return t2(a3).text();
-              }).get().join("\n\n").trim() || t2(".manga-summary p").map(function(e3, a3) {
-                return t2(a3).text();
-              }).get().join("\n\n").trim() || t2(".manga-excerpt p").map(function(e3, a3) {
-                return t2(a3).text();
-              }).get().join("\n\n").trim(), l2 = [], u2 = "", (null === (w = this.options) || void 0 === w ? void 0 : w.useNewChapterEndpoint) ? [4, (0, n.fetchApi)(this.site + e2 + "ajax/chapters/", { method: "POST", headers: this.requestHeaders, referrer: this.site + e2 }).then(function(e3) {
-                return e3.text();
-              })] : [3, 7];
-            case 2:
-              if (u2 = a2.sent(), c2 = (0, i.load)(u2), !((h2 = c2(".pagination a[data-page]")).length > 0)) return [3, 6];
-              if (v2 = Math.max.apply(Math, h2.map(function(e3, t3) {
-                return parseInt(c2(t3).attr("data-page") || "1", 10);
-              }).get()), p = h2.last().attr("href") || "", -1 === (d = p.indexOf("?"))) return [3, 6];
-              f = p.slice(d).replace(/\d+$/, ""), m = 2, a2.label = 3;
-            case 3:
-              return m <= v2 ? [4, (0, n.fetchApi)(this.site + e2 + "ajax/chapters/" + f + m, { method: "POST", headers: this.requestHeaders, referrer: this.site + e2 }).then(function(e3) {
-                return e3.text();
-              })] : [3, 6];
-            case 4:
-              (b = a2.sent()) && "0" !== b && (u2 += b), a2.label = 5;
+              }), p2.genres || (p2.genres = u2(".genres-content").text().trim()), p2.status || (p2.status = u2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), p2.author || (p2.author = u2(".manga-author a").text().trim()), p2.rating || (p2.rating = parseFloat(u2(".post-rating span").text().trim())), p2.author || (p2.author = u2(".manga-authors").text().trim()), u2("div.summary__content .code-block,script,noscript").remove(), p2.summary = this.translateDragontea(u2("div.summary__content")).text().trim() || u2("#tab-manga-about").text().trim() || u2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim() || u2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim() || u2(".manga-summary p").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim() || u2(".manga-excerpt p").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim(), v2 = [], d2 = "", (null === (G = this.options) || void 0 === G ? void 0 : G.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
             case 5:
-              return m++, [3, 3];
+              return f2 = a2.sent(), [3, 7];
             case 6:
-              return [3, 9];
+              f2 = "", a2.label = 7;
             case 7:
-              return g = t2(".rating-post-id").attr("value") || t2("#manga-chapters-holder").attr("data-id") || "", (y = new FormData()).append("action", "manga_get_chapters"), y.append("manga", g), [4, (0, n.fetchApi)(this.site + "wp-admin/admin-ajax.php", { method: "POST", headers: this.requestHeaders, body: y }).then(function(e3) {
+              return (d2 = f2 || "") ? [3, 9] : [4, (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
                 return e3.text();
+              }).catch(function() {
+                return "";
               })];
             case 8:
-              u2 = a2.sent(), a2.label = 9;
+              d2 = a2.sent(), a2.label = 9;
             case 9:
-              return "0" !== u2 && (t2 = (0, i.load)(u2)), x = t2(".wp-manga-chapter").length, t2(".wp-manga-chapter").each(function(e3, a3) {
-                var r4 = t2(a3).find("a").text().trim(), n2 = a3.attribs.class.includes("premium-block");
-                n2 && (r4 = "\u{1F512} " + r4);
-                var i2 = t2(a3).find("span.chapter-release-date").text().trim();
-                i2 = i2 ? C.parseData(i2) : (0, s.default)().format("LL");
-                var o2 = t2(a3).find("a").attr("href") || "";
-                !o2 || "#" == o2 || n2 && C.hideLocked || l2.push({ name: r4, path: o2.replace(/https?:\/\/.*?\//, ""), releaseTime: i2 || null, chapterNumber: x - e3 });
-              }), r3.chapters = l2.reverse(), [2, r3];
+              if (m2 = (0, i.load)(d2), !((b2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
+              if (g2 = Math.max.apply(Math, b2.map(function(e3, t3) {
+                return parseInt(m2(t3).attr("data-page") || "1", 10);
+              }).get()), y = b2.last().attr("href") || "", -1 === (x = y.indexOf("?"))) return [3, 13];
+              for (w = y.slice(x).replace(/\d+$/, ""), C = [], L = 2; L <= g2; L++) C.push("".concat(h2).concat(w).concat(L));
+              S = 6, k = 0, a2.label = 10;
+            case 10:
+              return k < C.length ? (A = C.slice(k, k + S), [4, Promise.all(A.map(function(e3) {
+                return (0, n.fetchApi)(e3, { method: "POST", headers: R.requestHeaders, referrer: l2 }).then(function(e4) {
+                  return e4.text();
+                }).catch(function() {
+                  return "";
+                });
+              }))]) : [3, 13];
+            case 11:
+              for (_ = a2.sent(), N = 0, j = _; N < j.length; N++) (O = j[N]) && "0" !== O && (d2 += O);
+              a2.label = 12;
+            case 12:
+              return k += S, [3, 10];
+            case 13:
+              return [3, 16];
+            case 14:
+              return T = u2(".rating-post-id").attr("value") || u2("#manga-chapters-holder").attr("data-id") || "", (P = new FormData()).append("action", "manga_get_chapters"), P.append("manga", T), [4, (0, n.fetchApi)("".concat(t2, "/wp-admin/admin-ajax.php"), { method: "POST", headers: this.requestHeaders, body: P }).then(function(e3) {
+                return e3.text();
+              })];
+            case 15:
+              d2 = a2.sent(), a2.label = 16;
+            case 16:
+              return "0" !== d2 && d2 && (u2 = (0, i.load)(d2)), q = u2(".wp-manga-chapter"), H = q.length, D = (0, s.default)().format("LL"), q.each(function(e3, t3) {
+                var a3, r4 = u2(t3), n2 = r4.find("a"), i2 = n2.attr("href") || "";
+                if (i2 && "#" !== i2) {
+                  var l3 = ((null === (a3 = t3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
+                  if (!l3 || !R.hideLocked) {
+                    var o2 = n2.text().trim();
+                    l3 && (o2 = "\u{1F512} " + o2);
+                    var s2 = r4.find("span.chapter-release-date").text().trim(), c3 = s2 ? R.parseData(s2) : D;
+                    v2.push({ name: o2, path: i2.replace(/https?:\/\/.*?\//, ""), releaseTime: c3 || null, chapterNumber: H - e3 });
+                  }
+                }
+              }), p2.chapters = v2.reverse(), [2, p2];
           }
         });
       });
     }, r2.prototype.parseChapter = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, n2;
+        var t2, r3, n2, i2, l2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, this.getCheerio(this.site + e2, false)];
+              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), [4, this.getCheerio("".concat(t2, "/").concat(r3), false)];
             case 1:
-              return t2 = a2.sent(), r3 = t2(".text-left") || t2(".text-right") || t2(".entry-content") || t2(".c-blog-post > div > div:nth-child(2)"), null === (n2 = this.options) || void 0 === n2 || n2.customJs, [2, this.translateDragontea(r3).html() || ""];
+              return n2 = a2.sent(), (i2 = n2(".text-left")).length || (i2 = n2(".text-right")), i2.length || (i2 = n2(".entry-content")), i2.length || (i2 = n2(".c-blog-post > div > div:nth-child(2)")), null === (l2 = this.options) || void 0 === l2 || l2.customJs, [2, this.translateDragontea(i2).html() || ""];
           }
         });
       });
     }, r2.prototype.searchNovels = function(e2, r3) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, i2;
+        var t2, n2, i2, l2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site + "/page/" + r3 + "/?s=" + encodeURIComponent(e2) + "&post_type=wp-manga", [4, this.getCheerio(t2, true)];
+              return t2 = this.site.replace(/\/+$/, ""), n2 = "".concat(t2, "/page/").concat(null != r3 ? r3 : 1, "/?s=").concat(encodeURIComponent(e2), "&post_type=wp-manga"), [4, this.getCheerio(n2, true)];
             case 1:
-              return n2 = a2.sent(), i2 = this.parseNovels(n2), [4, this.resolveNovelsCovers(i2)];
+              return i2 = a2.sent(), l2 = this.parseNovels(i2), [4, this.resolveNovelsCovers(l2)];
             case 2:
               return [2, a2.sent()];
           }
@@ -26140,9 +26172,9 @@ var LNReaderPlugin = (() => {
       });
     }, r2;
   }();
-  exports.MadaraPlugin = h;
-  var v = new h({ id: "boxnovel", sourceSite: "https://novelnice.com/", sourceName: "BoxNovel", options: { lang: "English", useNewChapterEndpoint: true, versionIncrements: 2 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Anime & Comics", value: "anime-comics" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Eastern", value: "eastern" }, { label: "Fan-fiction", value: "fan-fiction" }, { label: "Fanfiction", value: "fanfiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Game", value: "game" }, { label: "Games", value: "games" }, { label: "Gender Bender", value: "gender-bender" }, { label: "General", value: "general" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Isekai", value: "isekai" }, { label: "Josei", value: "josei" }, { label: "LitRPG", value: "litrpg" }, { label: "Magic", value: "magic" }, { label: "Magical Realism", value: "magical-realism" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Modern Life", value: "modern-life" }, { label: "Mystery", value: "mystery" }, { label: "Other", value: "other" }, { label: "Psychological", value: "psychological" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "System", value: "system" }, { label: "Thriller", value: "thriller" }, { label: "Tragedy", value: "tragedy" }, { label: "Urban", value: "urban" }, { label: "Urban Life", value: "urban-life" }, { label: "Video Games", value: "video-games" }, { label: "War", value: "war" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
-  exports.default = v;
+  exports.MadaraPlugin = b;
+  var g = new b({ id: "boxnovel", sourceSite: "https://novelnice.com/", sourceName: "BoxNovel", options: { lang: "English", useNewChapterEndpoint: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Anime & Comics", value: "anime-comics" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Eastern", value: "eastern" }, { label: "Fan-fiction", value: "fan-fiction" }, { label: "Fanfiction", value: "fanfiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Game", value: "game" }, { label: "Games", value: "games" }, { label: "Gender Bender", value: "gender-bender" }, { label: "General", value: "general" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Isekai", value: "isekai" }, { label: "Josei", value: "josei" }, { label: "LitRPG", value: "litrpg" }, { label: "Magic", value: "magic" }, { label: "Magical Realism", value: "magical-realism" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Modern Life", value: "modern-life" }, { label: "Mystery", value: "mystery" }, { label: "Other", value: "other" }, { label: "Psychological", value: "psychological" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "System", value: "system" }, { label: "Thriller", value: "thriller" }, { label: "Tragedy", value: "tragedy" }, { label: "Urban", value: "urban" }, { label: "Urban Life", value: "urban-life" }, { label: "Video Games", value: "video-games" }, { label: "War", value: "war" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
+  exports.default = g;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

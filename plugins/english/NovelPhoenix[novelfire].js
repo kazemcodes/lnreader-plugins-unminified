@@ -25624,13 +25624,13 @@ var LNReaderPlugin = (() => {
       return o2;
     }, e2.prototype.popularNovels = function(e3, t2) {
       return a(this, arguments, void 0, function(e4, t3) {
-        var a2, n2, r2, o2, i2, s2, u2, c2, v2, p2, h, d, b, g, f, m, y, w, S, x, N, _, C, k, A, P, L = t3.showLatestNovels, M = t3.filters;
+        var a2, n2, r2, o2, i2, s2, u2, c2, v2, p2, h, d, b, g, f, m, w, y, S, x, N, _, C, k, A, P, L = t3.showLatestNovels, M = t3.filters;
         return l(this, function(t4) {
           switch (t4.label) {
             case 0:
               for (1 === e4 && (this.novelList.clear(), this.draw = 0), a2 = this.site + "search-adv", n2 = new URLSearchParams(), r2 = 0, o2 = (null === (f = null == M ? void 0 : M.language) || void 0 === f ? void 0 : f.value) || []; r2 < o2.length; r2++) i2 = o2[r2], n2.append("country_id[]", i2);
-              for (n2.append("ctgcon", (null === (m = null == M ? void 0 : M.genre_operator) || void 0 === m ? void 0 : m.value) || "and"), s2 = 0, u2 = (null === (y = null == M ? void 0 : M.genres) || void 0 === y ? void 0 : y.value) || []; s2 < u2.length; s2++) c2 = u2[s2], n2.append("categories[]", c2);
-              for (n2.append("totalchapter", (null === (w = null == M ? void 0 : M.chapters) || void 0 === w ? void 0 : w.value) || "0"), n2.append("ratcon", (null === (S = null == M ? void 0 : M.rating_operator) || void 0 === S ? void 0 : S.value) || "min"), n2.append("rating", (null === (x = null == M ? void 0 : M.rating) || void 0 === x ? void 0 : x.value) || "0"), n2.append("status", (null === (N = null == M ? void 0 : M.status) || void 0 === N ? void 0 : N.value) || "-1"), n2.append("sort", L ? "date" : (null === (_ = null == M ? void 0 : M.sort) || void 0 === _ ? void 0 : _.value) || "rank-top"), n2.append("tagcon", (null === (C = null == M ? void 0 : M.tagcon) || void 0 === C ? void 0 : C.value) || "and"), v2 = 0, p2 = (null === (k = null == M ? void 0 : M.tags) || void 0 === k ? void 0 : k.value) || []; v2 < p2.length; v2++) b = p2[v2], n2.append("tags[]", b);
+              for (n2.append("ctgcon", (null === (m = null == M ? void 0 : M.genre_operator) || void 0 === m ? void 0 : m.value) || "and"), s2 = 0, u2 = (null === (w = null == M ? void 0 : M.genres) || void 0 === w ? void 0 : w.value) || []; s2 < u2.length; s2++) c2 = u2[s2], n2.append("categories[]", c2);
+              for (n2.append("totalchapter", (null === (y = null == M ? void 0 : M.chapters) || void 0 === y ? void 0 : y.value) || "0"), n2.append("ratcon", (null === (S = null == M ? void 0 : M.rating_operator) || void 0 === S ? void 0 : S.value) || "min"), n2.append("rating", (null === (x = null == M ? void 0 : M.rating) || void 0 === x ? void 0 : x.value) || "0"), n2.append("status", (null === (N = null == M ? void 0 : M.status) || void 0 === N ? void 0 : N.value) || "-1"), n2.append("sort", L ? "date" : (null === (_ = null == M ? void 0 : M.sort) || void 0 === _ ? void 0 : _.value) || "rank-top"), n2.append("tagcon", (null === (C = null == M ? void 0 : M.tagcon) || void 0 === C ? void 0 : C.value) || "and"), v2 = 0, p2 = (null === (k = null == M ? void 0 : M.tags) || void 0 === k ? void 0 : k.value) || []; v2 < p2.length; v2++) b = p2[v2], n2.append("tags[]", b);
               for (h = 0, d = (null === (A = null == M ? void 0 : M.tags_excluded) || void 0 === A ? void 0 : A.value) || []; h < d.length; h++) b = d[h], n2.append("tags_excluded[]", b);
               return (null === (P = null == M ? void 0 : M.author) || void 0 === P ? void 0 : P.value) && n2.append("author", M.author.value), n2.append("page", e4.toString()), [4, this.getCheerio("".concat(a2, "?").concat(n2.toString()), false)];
             case 1:
@@ -25662,7 +25662,7 @@ var LNReaderPlugin = (() => {
       });
     }, e2.prototype.getAllChaptersForce = function(e3, t2) {
       return a(this, void 0, void 0, function() {
-        var a2, n2, r2, o2, i2, s2, u2, v2, p2, h, d, b, g, f, m, y, w, S, x, N = this;
+        var a2, n2, r2, o2, i2, s2, u2, v2, p2, h, d, b, g, f, m, w, y, S, x, N = this;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
@@ -25698,24 +25698,24 @@ var LNReaderPlugin = (() => {
             case 10:
               return u2 += r2, [3, 1];
             case 11:
-              for (f = 0, m = s2; f < m.length; f++) if ((y = m[f]).chapters) for (w = 0, S = y.chapters; w < S.length; w++) x = S[w], n2.push(x);
+              for (f = 0, m = s2; f < m.length; f++) if ((w = m[f]).chapters) for (y = 0, S = w.chapters; y < S.length; y++) x = S[y], n2.push(x);
               return [2, n2];
           }
         });
       });
     }, e2.prototype.parseNovel = function(e3) {
       return a(this, void 0, void 0, function() {
-        var t2, a2, n2, r2, u2, c2, v2, p2, h, d, b, g, f, m, y, w, S;
+        var t2, a2, n2, r2, u2, c2, v2, p2, h, d, b, g, f, m, w, y, S;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
               return this.draw = 0, [4, this.getCheerio(this.site + e3, false)];
             case 1:
-              return t2 = l2.sent(), a2 = this.site, (n2 = t2("#novel-report").attr("report-post_id")) && s.storage.set("".concat(this.id, "_").concat(e3.split("/").pop()), n2), (r2 = { path: e3, totalPages: 1 }).name = null !== (m = null !== (f = t2(".novel-title").text().trim()) && void 0 !== f ? f : t2(".cover > img").attr("alt")) && void 0 !== m ? m : "No Titled Found", u2 = null !== (y = t2(".cover > img").attr("data-src")) && void 0 !== y ? y : t2(".cover > img").attr("src"), r2.cover = u2 ? new URL(u2, a2).href : i.defaultCover, r2.genres = t2(".categories .property-item").map(function(e4, a3) {
+              return t2 = l2.sent(), a2 = this.site, (n2 = t2("#novel-report").attr("report-post_id")) && s.storage.set("".concat(this.id, "_").concat(e3.split("/").pop()), n2), (r2 = { path: e3, totalPages: 1 }).name = null !== (m = null !== (f = t2(".novel-title").text().trim()) && void 0 !== f ? f : t2(".cover > img").attr("alt")) && void 0 !== m ? m : "No Titled Found", u2 = null !== (w = t2(".cover > img").attr("data-src")) && void 0 !== w ? w : t2(".cover > img").attr("src"), r2.cover = u2 ? new URL(u2, a2).href : i.defaultCover, r2.genres = t2(".categories .property-item").map(function(e4, a3) {
                 return t2(a3).text();
-              }).toArray().join(","), (c2 = t2(".summary .content")).find(".expand").remove(), c2.find("br").replaceWith("\n"), c2.find("p").before("\n").after("\n\n"), r2.summary = (null === (w = c2.text().split("\n").map(function(e4) {
+              }).toArray().join(","), (c2 = t2(".summary .content")).find(".expand").remove(), c2.find("br").replaceWith("\n"), c2.find("p").before("\n").after("\n\n"), r2.summary = (null === (y = c2.text().split("\n").map(function(e4) {
                 return e4.trim();
-              }).join("\n")) || void 0 === w ? void 0 : w.replace(/\n{3,}/g, "\n\n").trim()) || "Summary Not Found", r2.author = t2(".author .property-item > span").text(), v2 = t2(".header-stats .ongoing").text() || t2(".header-stats .completed").text() || "Unknown", p2 = { ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled, cancelled: o.NovelStatus.Cancelled, completed: o.NovelStatus.Completed, unknown: o.NovelStatus.Unknown }, r2.status = null !== (S = p2[v2.toLowerCase()]) && void 0 !== S ? S : o.NovelStatus.Unknown, r2.rating = parseFloat(t2(".nub").text().trim()), h = t2(".header-stats i.icon-book-open").parent().text().trim(), d = this.pageLength ? 100 : -1, r2.totalPages = -1 === d ? 1 : Math.ceil(parseInt(h) / d) || 1, 1 === r2.totalPages && n2 ? (b = r2, [4, this.getAllChapters(e3, n2, "1")]) : [3, 3];
+              }).join("\n")) || void 0 === y ? void 0 : y.replace(/\n{3,}/g, "\n\n").trim()) || "Summary Not Found", r2.author = t2(".author .property-item > span").text(), v2 = t2(".header-stats .ongoing").text() || t2(".header-stats .completed").text() || "Unknown", p2 = { ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled, cancelled: o.NovelStatus.Cancelled, completed: o.NovelStatus.Completed, unknown: o.NovelStatus.Unknown }, r2.status = null !== (S = p2[v2.toLowerCase()]) && void 0 !== S ? S : o.NovelStatus.Unknown, r2.rating = parseFloat(t2(".nub").text().trim()), h = t2(".header-stats i.icon-book-open").parent().text().trim(), d = this.pageLength ? 100 : -1, r2.totalPages = -1 === d ? 1 : Math.ceil(parseInt(h) / d) || 1, 1 === r2.totalPages && n2 ? (b = r2, [4, this.getAllChapters(e3, n2, "1")]) : [3, 3];
             case 2:
               b.chapters = l2.sent(), l2.label = 3;
             case 3:
@@ -25759,16 +25759,20 @@ var LNReaderPlugin = (() => {
       });
     }, e2.prototype.parseChapter = function(e3) {
       return a(this, void 0, void 0, function() {
-        var t2, a2, n2, r2, o2, i2, s2, u2, c2, v2;
+        var t2, a2, n2, r2, o2, i2, s2, u2, c2, v2, p2, h;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
               return t2 = this.site + e3, [4, this.getCheerio(t2, false)];
             case 1:
-              if (a2 = l2.sent(), 0 === (n2 = a2("#content")).length) throw new Error("Chapter content container (#content) not found for ".concat(e3, " \u2014 possible transient fetch issue. Retry"));
-              for (r2 = n2.find(":not(p, h1, span, i, b, u, img, a, div, strong)"), o2 = 0, i2 = r2.toArray(); o2 < i2.length; o2++) s2 = i2[o2], (u2 = s2.name.toString()).length > 5 && "nf" == u2.substring(0, 1) && a2(s2).remove();
-              if (!(c2 = null === (v2 = n2.html()) || void 0 === v2 ? void 0 : v2.replace(/&nbsp;/g, " ")) || 0 === c2.trim().length) throw new Error("Chapter content was empty after parsing for ".concat(e3, "."));
-              return [2, c2];
+              return 0 !== (a2 = l2.sent())("#content").length ? [3, 3] : (n2 = a2("script").text().match(/window\.location\.href\s*=\s*["']([^"']+)["']/)) ? (r2 = n2[1].replace(/\\\//g, "/"), [4, this.getCheerio(r2, false)]) : [3, 3];
+            case 2:
+              a2 = l2.sent(), l2.label = 3;
+            case 3:
+              if (0 === (o2 = a2("#content")).length) throw new Error("Chapter content container (#content) not found for ".concat(e3, " \u2014 possible transient fetch issue. Retry"));
+              for (i2 = o2.find(":not(p, h1, span, i, b, u, img, a, div, strong)"), s2 = 0, u2 = i2.toArray(); s2 < u2.length; s2++) c2 = u2[s2], (v2 = c2.name.toString()).length > 5 && "nf" == v2.substring(0, 1) && a2(c2).remove();
+              if (!(p2 = null === (h = o2.html()) || void 0 === h ? void 0 : h.replace(/&nbsp;/g, " ")) || 0 === p2.trim().length) throw new Error("Chapter content was empty after parsing for ".concat(e3, "."));
+              return [2, p2];
           }
         });
       });
