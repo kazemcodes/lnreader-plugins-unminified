@@ -854,7 +854,7 @@ var LNReaderPlugin = (() => {
       return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
-      var e2, m, c;
+      var e2, m, c2;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
@@ -868,24 +868,24 @@ var LNReaderPlugin = (() => {
         e2 = eMax;
       } else {
         e2 = Math.floor(Math.log(value) / Math.LN2);
-        if (value * (c = Math.pow(2, -e2)) < 1) {
+        if (value * (c2 = Math.pow(2, -e2)) < 1) {
           e2--;
-          c *= 2;
+          c2 *= 2;
         }
         if (e2 + eBias >= 1) {
-          value += rt / c;
+          value += rt / c2;
         } else {
           value += rt * Math.pow(2, 1 - eBias);
         }
-        if (value * c >= 2) {
+        if (value * c2 >= 2) {
           e2++;
-          c /= 2;
+          c2 /= 2;
         }
         if (e2 + eBias >= eMax) {
           m = 0;
           e2 = eMax;
         } else if (e2 + eBias >= 1) {
-          m = (value * c - 1) * Math.pow(2, mLen);
+          m = (value * c2 - 1) * Math.pow(2, mLen);
           e2 = e2 + eBias;
         } else {
           m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
@@ -2436,13 +2436,13 @@ var LNReaderPlugin = (() => {
     }
     __name(asciiToBytes, "asciiToBytes");
     function utf16leToBytes(str, units) {
-      let c, hi, lo;
+      let c2, hi, lo;
       const byteArray = [];
       for (let i = 0; i < str.length; ++i) {
         if ((units -= 2) < 0) break;
-        c = str.charCodeAt(i);
-        hi = c >> 8;
-        lo = c % 256;
+        c2 = str.charCodeAt(i);
+        hi = c2 >> 8;
+        lo = c2 % 256;
         byteArray.push(lo);
         byteArray.push(hi);
       }
@@ -2638,28 +2638,28 @@ var LNReaderPlugin = (() => {
         var start = offset;
         var j = 0, t2;
         for (var i2 = 0; i2 < string.length; ) {
-          var c = string.charCodeAt(i2++);
-          if (c === 61 && j > 1)
+          var c2 = string.charCodeAt(i2++);
+          if (c2 === 61 && j > 1)
             break;
-          if ((c = s64[c]) === void 0)
+          if ((c2 = s64[c2]) === void 0)
             throw Error(invalidEncoding);
           switch (j) {
             case 0:
-              t2 = c;
+              t2 = c2;
               j = 1;
               break;
             case 1:
-              buffer[offset++] = t2 << 2 | (c & 48) >> 4;
-              t2 = c;
+              buffer[offset++] = t2 << 2 | (c2 & 48) >> 4;
+              t2 = c2;
               j = 2;
               break;
             case 2:
-              buffer[offset++] = (t2 & 15) << 4 | (c & 60) >> 2;
-              t2 = c;
+              buffer[offset++] = (t2 & 15) << 4 | (c2 & 60) >> 2;
+              t2 = c2;
               j = 3;
               break;
             case 3:
-              buffer[offset++] = (t2 & 3) << 6 | c;
+              buffer[offset++] = (t2 & 3) << 6 | c2;
               j = 0;
               break;
           }
@@ -2950,14 +2950,14 @@ var LNReaderPlugin = (() => {
       init_process2();
       var utf8 = exports4, replacementCharCode = 65533;
       utf8.length = /* @__PURE__ */ __name(function utf8_length(string) {
-        var len = 0, c = 0;
+        var len = 0, c2 = 0;
         for (var i = 0; i < string.length; ++i) {
-          c = string.charCodeAt(i);
-          if (c < 128)
+          c2 = string.charCodeAt(i);
+          if (c2 < 128)
             len += 1;
-          else if (c < 2048)
+          else if (c2 < 2048)
             len += 2;
-          else if ((c & 64512) === 55296 && (string.charCodeAt(i + 1) & 64512) === 56320) {
+          else if ((c2 & 64512) === 55296 && (string.charCodeAt(i + 1) & 64512) === 56320) {
             ++i;
             len += 4;
           } else
@@ -3178,8 +3178,8 @@ var LNReaderPlugin = (() => {
     return (obj && obj["__isLong__"]) === true;
   }
   function ctz32(value) {
-    var c = Math.clz32(value & -value);
-    return value ? 31 - c : c;
+    var c2 = Math.clz32(value & -value);
+    return value ? 31 - c2 : c2;
   }
   function fromInt(value, unsigned) {
     var obj, cachedObj, cache;
@@ -7959,13 +7959,13 @@ var LNReaderPlugin = (() => {
           } else {
             lookback = 3;
           }
-          var commentOffset = start - lookback, c;
+          var commentOffset = start - lookback, c2;
           do {
-            if (--commentOffset < 0 || (c = source.charAt(commentOffset)) === "\n") {
+            if (--commentOffset < 0 || (c2 = source.charAt(commentOffset)) === "\n") {
               comment.lineEmpty = true;
               break;
             }
-          } while (c === " " || c === "	");
+          } while (c2 === " " || c2 === "	");
           var lines = source.substring(start, end).split(setCommentSplitRe);
           for (var i = 0; i < lines.length; ++i)
             lines[i] = lines[i].replace(alternateCommentMode ? setCommentAltRe : setCommentRe, "").trim();
@@ -9480,179 +9480,193 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, a2, n2) {
-    return new (a2 || (a2 = Promise))(function(r2, o2) {
+  var e = function(e2, t2, a2, r2) {
+    return new (a2 || (a2 = Promise))(function(n2, o2) {
       function l2(e3) {
         try {
-          c(n2.next(e3));
+          i(r2.next(e3));
         } catch (e4) {
           o2(e4);
         }
       }
       __name(l2, "l");
-      function i(e3) {
+      function c2(e3) {
         try {
-          c(n2.throw(e3));
+          i(r2.throw(e3));
         } catch (e4) {
           o2(e4);
         }
       }
-      __name(i, "i");
-      function c(e3) {
+      __name(c2, "c");
+      function i(e3) {
         var t3;
-        e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
+        e3.done ? n2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
           e4(t3);
-        })).then(l2, i);
+        })).then(l2, c2);
       }
-      __name(c, "c");
-      c((n2 = n2.apply(e2, t2 || [])).next());
+      __name(i, "i");
+      i((r2 = r2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
-    var a2, n2, r2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & r2[0]) throw r2[1];
-      return r2[1];
+    var a2, r2, n2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & n2[0]) throw n2[1];
+      return n2[1];
     }, "sent"), trys: [], ops: [] }, l2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return l2.next = i(0), l2.throw = i(1), l2.return = i(2), "function" == typeof Symbol && (l2[Symbol.iterator] = function() {
+    return l2.next = c2(0), l2.throw = c2(1), l2.return = c2(2), "function" == typeof Symbol && (l2[Symbol.iterator] = function() {
       return this;
     }), l2;
-    function i(i2) {
-      return function(c) {
-        return function(i3) {
+    function c2(c3) {
+      return function(i) {
+        return function(c4) {
           if (a2) throw new TypeError("Generator is already executing.");
-          for (; l2 && (l2 = 0, i3[0] && (o2 = 0)), o2; ) try {
-            if (a2 = 1, n2 && (r2 = 2 & i3[0] ? n2.return : i3[0] ? n2.throw || ((r2 = n2.return) && r2.call(n2), 0) : n2.next) && !(r2 = r2.call(n2, i3[1])).done) return r2;
-            switch (n2 = 0, r2 && (i3 = [2 & i3[0], r2.value]), i3[0]) {
+          for (; l2 && (l2 = 0, c4[0] && (o2 = 0)), o2; ) try {
+            if (a2 = 1, r2 && (n2 = 2 & c4[0] ? r2.return : c4[0] ? r2.throw || ((n2 = r2.return) && n2.call(r2), 0) : r2.next) && !(n2 = n2.call(r2, c4[1])).done) return n2;
+            switch (r2 = 0, n2 && (c4 = [2 & c4[0], n2.value]), c4[0]) {
               case 0:
               case 1:
-                r2 = i3;
+                n2 = c4;
                 break;
               case 4:
-                return o2.label++, { value: i3[1], done: false };
+                return o2.label++, { value: c4[1], done: false };
               case 5:
-                o2.label++, n2 = i3[1], i3 = [0];
+                o2.label++, r2 = c4[1], c4 = [0];
                 continue;
               case 7:
-                i3 = o2.ops.pop(), o2.trys.pop();
+                c4 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(r2 = o2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== i3[0] && 2 !== i3[0])) {
+                if (!(n2 = o2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== c4[0] && 2 !== c4[0])) {
                   o2 = 0;
                   continue;
                 }
-                if (3 === i3[0] && (!r2 || i3[1] > r2[0] && i3[1] < r2[3])) {
-                  o2.label = i3[1];
+                if (3 === c4[0] && (!n2 || c4[1] > n2[0] && c4[1] < n2[3])) {
+                  o2.label = c4[1];
                   break;
                 }
-                if (6 === i3[0] && o2.label < r2[1]) {
-                  o2.label = r2[1], r2 = i3;
+                if (6 === c4[0] && o2.label < n2[1]) {
+                  o2.label = n2[1], n2 = c4;
                   break;
                 }
-                if (r2 && o2.label < r2[2]) {
-                  o2.label = r2[2], o2.ops.push(i3);
+                if (n2 && o2.label < n2[2]) {
+                  o2.label = n2[2], o2.ops.push(c4);
                   break;
                 }
-                r2[2] && o2.ops.pop(), o2.trys.pop();
+                n2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            i3 = t2.call(e2, o2);
+            c4 = t2.call(e2, o2);
           } catch (e3) {
-            i3 = [6, e3], n2 = 0;
+            c4 = [6, e3], r2 = 0;
           } finally {
-            a2 = r2 = 0;
+            a2 = n2 = 0;
           }
-          if (5 & i3[0]) throw i3[1];
-          return { value: i3[0] ? i3[1] : void 0, done: true };
-        }([i2, c]);
+          if (5 & c4[0]) throw c4[1];
+          return { value: c4[0] ? c4[1] : void 0, done: true };
+        }([c3, i]);
       };
     }
-    __name(i, "i");
+    __name(c2, "c");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var a = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), r = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = function() {
-    function l2() {
+  var a = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports));
+  function l(r2, n2) {
+    return e(this, void 0, void 0, function() {
+      var e2, o2, l2;
+      return t(this, function(t2) {
+        switch (t2.label) {
+          case 0:
+            return [4, (0, a.fetchApi)(r2)];
+          case 1:
+            if (!(e2 = t2.sent()).ok) throw new Error("Failed to fetch ".concat(n2, ": ").concat(e2.status, " ").concat(e2.statusText));
+            return [4, e2.text()];
+          case 2:
+            o2 = t2.sent();
+            try {
+              return [2, JSON.parse(o2)];
+            } catch (e3) {
+              throw l2 = o2.slice(0, 80).replace(/\s+/g, " ").trim(), new Error("Failed to parse ".concat(n2, ': Expected JSON response but received unexpected content ("').concat(l2, '...")'));
+            }
+            return [2];
+        }
+      });
+    });
+  }
+  __name(l, "l");
+  var c = function() {
+    function a2() {
       var e2 = this;
-      this.id = "chikari", this.name = "Chikari", this.icon = "src/en/chikari/icon.png", this.site = "https://chikari.moe", this.version = "1.0.1", this.imageRequestInit = void 0, this.filters = { sort: { type: n.FilterTypes.Picker, label: "Sort By", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Trending", value: "trending" }, { label: "Top Rated", value: "top_rated" }, { label: "Recently Updated", value: "updated" }, { label: "Recently Added", value: "added" }, { label: "Most Bookmarked", value: "most_bookmarked" }] }, genres: { type: n.FilterTypes.ExcludableCheckboxGroup, label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Gender Bender", value: "gender_bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Martial Arts", value: "martial_arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school_life" }, { label: "Sci-Fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo_ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen_ai" }, { label: "Slice of Life", value: "slice_of_life" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] } }, this.resolveUrl = function(t2, a2) {
-        return a2 ? "".concat(e2.site, "/novels/").concat(t2) : "".concat(e2.site, "/").concat(t2);
+      this.id = "chikari", this.name = "Chikari", this.icon = "src/en/chikari/icon.png", this.site = "https://chikari.moe", this.version = "1.0.2", this.imageRequestInit = void 0, this.filters = { sort: { type: r.FilterTypes.Picker, label: "Sort By", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Trending", value: "trending" }, { label: "Top Rated", value: "top_rated" }, { label: "Recently Updated", value: "updated" }, { label: "Recently Added", value: "added" }, { label: "Most Bookmarked", value: "most_bookmarked" }] }, genres: { type: r.FilterTypes.ExcludableCheckboxGroup, label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Gender Bender", value: "gender_bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Martial Arts", value: "martial_arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "Psychological", value: "psychological" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school_life" }, { label: "Sci-Fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo_ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen_ai" }, { label: "Slice of Life", value: "slice_of_life" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] } }, this.resolveUrl = function(t2, a3) {
+        return a3 ? "".concat(e2.site, "/novels/").concat(t2) : "".concat(e2.site, "/").concat(t2);
       };
     }
-    __name(l2, "l");
-    return l2.prototype.popularNovels = function(n2, o2) {
-      return e(this, arguments, void 0, function(e2, n3) {
-        var o3, l3, i, c, u, s, h, p = n3.showLatestNovels, v = n3.filters;
+    __name(a2, "a");
+    return a2.prototype.popularNovels = function(a3, r2) {
+      return e(this, arguments, void 0, function(e2, a4) {
+        var r3, o2, c2, i, u, s, p = a4.showLatestNovels, h = a4.filters;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return o3 = 60 * (e2 - 1), l3 = "popular", i = "", p ? l3 = "updated" : v && v.sort && (l3 = "object" == typeof v.sort ? v.sort.value : v.sort), c = null == v ? void 0 : v.genres, (u = "object" == typeof c && "value" in c ? c.value : c) && (Array.isArray(u) ? u.forEach(function(e3) {
-                e3.startsWith("-") ? i += "&genre_exclude=".concat(e3.substring(1)) : i += "&genre=".concat(e3);
+              return r3 = 60 * (e2 - 1), o2 = "popular", c2 = "", p ? o2 = "updated" : h && h.sort && (o2 = "object" == typeof h.sort ? h.sort.value : h.sort), i = null == h ? void 0 : h.genres, (u = "object" == typeof i && "value" in i ? i.value : i) && (Array.isArray(u) ? u.forEach(function(e3) {
+                e3.startsWith("-") ? c2 += "&genre_exclude=".concat(e3.substring(1)) : c2 += "&genre=".concat(e3);
               }) : "object" == typeof u && (Array.isArray(u.include) && u.include.forEach(function(e3) {
-                i += "&genre=".concat(e3);
+                c2 += "&genre=".concat(e3);
               }), Array.isArray(u.exclude) && u.exclude.forEach(function(e3) {
-                i += "&genre_exclude=".concat(e3);
-              }))), s = "".concat(this.site, "/api/novels?sort=").concat(l3).concat(i, "&limit=").concat(60, "&offset=").concat(o3), [4, (0, a.fetchApi)(s)];
+                c2 += "&genre_exclude=".concat(e3);
+              }))), [4, l("".concat(this.site, "/api/series?type=novel&sort=").concat(o2).concat(c2, "&limit=").concat(60, "&offset=").concat(r3), "popular novels")];
             case 1:
-              return [4, t2.sent().json()];
-            case 2:
-              return h = t2.sent(), [2, (h.items || []).map(function(e3) {
-                return { name: e3.title, path: e3.slug, cover: e3.cover_url || r.defaultCover };
+              return s = t2.sent(), [2, (s.items || []).map(function(e3) {
+                return { name: e3.title, path: e3.slug, cover: e3.cover_url || n.defaultCover };
               })];
           }
         });
       });
-    }, l2.prototype.searchNovels = function(n2, o2) {
+    }, a2.prototype.searchNovels = function(a3, r2) {
       return e(this, void 0, void 0, function() {
-        var e2, l3, i;
+        var e2, o2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = 36 * (o2 - 1), l3 = "".concat(this.site, "/api/novels?sort=popular&q=").concat(encodeURIComponent(n2), "&limit=").concat(36, "&offset=").concat(e2), [4, (0, a.fetchApi)(l3)];
+              return e2 = 36 * (r2 - 1), [4, l("".concat(this.site, "/api/series?type=novel&sort=popular&q=").concat(encodeURIComponent(a3), "&limit=").concat(36, "&offset=").concat(e2), "search novels")];
             case 1:
-              return [4, t2.sent().json()];
-            case 2:
-              return i = t2.sent(), [2, (i.items || []).map(function(e3) {
-                return { name: e3.title, path: e3.slug, cover: e3.cover_url || r.defaultCover };
+              return o2 = t2.sent(), [2, (o2.items || []).map(function(e3) {
+                return { name: e3.title, path: e3.slug, cover: e3.cover_url || n.defaultCover };
               })];
           }
         });
       });
-    }, l2.prototype.parseNovel = function(n2) {
+    }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, l3, i, c, u, s, h, p, v, f, b, d;
+        var e2, r2, c2, i, u, s, p, h, v, f;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = "".concat(this.site, "/api/novels/").concat(n2), [4, (0, a.fetchApi)(e2)];
+              return [4, l("".concat(this.site, "/api/novels/").concat(a3), "novel details")];
             case 1:
-              return [4, t2.sent().json()];
+              e2 = t2.sent(), r2 = e2.authors && e2.authors.length > 0 ? e2.authors.map(function(e3) {
+                return e3.name;
+              }).join(", ") : "Unknown", c2 = e2.genres && e2.genres.length > 0 ? e2.genres.map(function(e3) {
+                return e3.name;
+              }).join(", ") : "", i = { path: a3, name: e2.title || "Untitled", cover: e2.cover_url || n.defaultCover, author: r2, summary: e2.description || "", genres: c2, status: "releasing" === e2.status ? o.NovelStatus.Ongoing : o.NovelStatus.Completed }, u = [], s = 0, p = 500, h = true, t2.label = 2;
             case 2:
-              l3 = t2.sent(), i = l3.authors && l3.authors.length > 0 ? l3.authors.map(function(e3) {
-                return e3.name;
-              }).join(", ") : "Unknown", c = l3.genres && l3.genres.length > 0 ? l3.genres.map(function(e3) {
-                return e3.name;
-              }).join(", ") : "", u = { path: n2, name: l3.title || "Untitled", cover: l3.cover_url || r.defaultCover, author: i, summary: l3.description || "", genres: c, status: "releasing" === l3.status ? o.NovelStatus.Ongoing : o.NovelStatus.Completed }, s = [], h = 0, p = 500, v = true, t2.label = 3;
+              return h ? [4, l("".concat(this.site, "/api/novels/").concat(a3, "/chapters?order=asc&limit=").concat(p, "&offset=").concat(s), "chapters")] : [3, 4];
             case 3:
-              return v ? (f = "".concat(this.site, "/api/novels/").concat(n2, "/chapters?order=asc&limit=").concat(p, "&offset=").concat(h), [4, (0, a.fetchApi)(f)]) : [3, 6];
+              return v = t2.sent(), (f = v.items) && 0 !== f.length ? (f.forEach(function(e3) {
+                u.push({ name: e3.title || "Chapter ".concat(e3.number), path: "api/novels/".concat(a3, "/chapters/").concat(e3.number, "/read"), releaseTime: e3.created_at || "", chapterNumber: e3.number });
+              }), f.length === p ? s += p : h = false, [3, 2]) : (h = false, [3, 4]);
             case 4:
-              return [4, t2.sent().json()];
-            case 5:
-              return b = t2.sent(), (d = b.items) && 0 !== d.length ? (d.forEach(function(e3) {
-                s.push({ name: e3.title || "Chapter ".concat(e3.number), path: "api/novels/".concat(n2, "/chapters/").concat(e3.number, "/read"), releaseTime: e3.created_at || "", chapterNumber: e3.number });
-              }), d.length === p ? h += p : v = false, [3, 3]) : (v = false, [3, 6]);
-            case 6:
-              return u.chapters = s, [2, u];
+              return i.chapters = u, [2, i];
           }
         });
       });
-    }, l2.prototype.parseChapter = function(n2) {
+    }, a2.prototype.parseChapter = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, o2;
+        var e2, r2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = "".concat(this.site, "/").concat(n2), [4, (0, a.fetchApi)(e2)];
+              return [4, l("".concat(this.site, "/").concat(a3), "chapter")];
             case 1:
-              return [4, t2.sent().json()];
-            case 2:
-              return r2 = t2.sent(), o2 = r2.body || "", [2, o2.split("\n").map(function(e3) {
+              return e2 = t2.sent(), r2 = e2.body || "", [2, r2.split("\n").map(function(e3) {
                 return "<p>".concat(e3.trim(), "</p>");
               }).filter(function(e3) {
                 return "<p></p>" !== e3;
@@ -9660,9 +9674,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, l2;
+    }, a2;
   }();
-  exports.default = new l();
+  exports.default = new c();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

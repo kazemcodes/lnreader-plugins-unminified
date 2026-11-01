@@ -25892,7 +25892,7 @@ var LNReaderPlugin = (() => {
         return r3.dateCache.set(e3, n3), n3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.3.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "2.4.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(r2, "r");
     return Object.defineProperty(r2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -26025,11 +26025,11 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, o2, u2, c2, h2, p2, d2, v2, f2, m2, b2, g2, y, x, w, C, k, S, L, A, _, N, j, O, T, H, P, q, D, M, R, F = this;
+        var t2, r3, o2, u2, c2, h2, p2, d2, v2, f2, m2, b2, g2, y, x, w, C, k, S, L, A, _, j, N, O, T, H, P, q, D, F, M, E, R, I = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), o2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(o2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (M = this.options) || void 0 === M ? void 0 : M.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
+              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), o2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(o2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (E = this.options) || void 0 === E ? void 0 : E.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
@@ -26109,14 +26109,14 @@ var LNReaderPlugin = (() => {
               S = 6, L = 0, a2.label = 10;
             case 10:
               return L < C.length ? (A = C.slice(L, L + S), [4, Promise.all(A.map(function(e3) {
-                return (0, n.fetchApi)(e3, { method: "POST", headers: F.requestHeaders, referrer: o2 }).then(function(e4) {
+                return (0, n.fetchApi)(e3, { method: "POST", headers: I.requestHeaders, referrer: o2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
                 });
               }))]) : [3, 13];
             case 11:
-              for (_ = a2.sent(), N = 0, j = _; N < j.length; N++) (O = j[N]) && "0" !== O && (v2 += O);
+              for (_ = a2.sent(), j = 0, N = _; j < N.length; j++) (O = N[j]) && "0" !== O && (v2 += O);
               a2.label = 12;
             case 12:
               return L += S, [3, 10];
@@ -26129,18 +26129,32 @@ var LNReaderPlugin = (() => {
             case 15:
               v2 = a2.sent(), a2.label = 16;
             case 16:
-              return "0" !== v2 && v2 && (u2 = (0, i.load)(v2)), P = u2(".wp-manga-chapter"), q = P.length, D = (0, s.default)().format("LL"), P.each(function(e3, t3) {
-                var a3, r4 = u2(t3), n2 = r4.find("a"), i2 = n2.attr("href") || "";
-                if (i2 && "#" !== i2) {
-                  var o3 = ((null === (a3 = t3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
-                  if (!o3 || !F.hideLocked) {
-                    var l2 = n2.text().trim();
-                    o3 && (l2 = "\u{1F512} " + l2);
-                    var s2 = r4.find("span.chapter-release-date").text().trim(), c3 = s2 ? F.parseData(s2) : D;
-                    d2.push({ name: l2, path: i2.replace(/https?:\/\/.*?\//, ""), releaseTime: c3 || null, chapterNumber: q - e3 });
-                  }
+              return "0" !== v2 && v2 && (u2 = (0, i.load)(v2)), P = (0, s.default)().format("LL"), q = /* @__PURE__ */ __name(function(e3) {
+                var t3, a3 = u2(e3), r4 = a3.find("a"), n2 = r4.attr("href") || "";
+                if (!n2 || "#" === n2) return null;
+                var i2 = ((null === (t3 = e3.attribs) || void 0 === t3 ? void 0 : t3.class) || "").includes("premium-block");
+                if (i2 && I.hideLocked) return null;
+                var o3 = r4.text().trim();
+                i2 && (o3 = "\u{1F512} " + o3);
+                var l2 = a3.find("span.chapter-release-date").text().trim(), s2 = l2 ? I.parseData(l2) : P;
+                return { name: o3, path: n2.replace(/https?:\/\/.*?\//, ""), releaseTime: s2 || null };
+              }, "q"), (D = u2("li.parent.has-child")).length > 0 ? (D.each(function(e3, t3) {
+                var a3 = [];
+                u2(t3).find(".wp-manga-chapter").each(function(e4, t4) {
+                  var r4 = q(t4);
+                  r4 && a3.push(r4);
+                }), d2.push.apply(d2, a3.reverse());
+              }), F = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                if (!u2(t3).parents("li.parent.has-child").length) {
+                  var a3 = q(t3);
+                  a3 && F.push(a3);
                 }
-              }), p2.chapters = d2.reverse(), [2, p2];
+              }), F.length > 0 && d2.push.apply(d2, F.reverse())) : (M = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                var a3 = q(t3);
+                a3 && M.push(a3);
+              }), d2.push.apply(d2, M.reverse())), d2.forEach(function(e3, t3) {
+                e3.chapterNumber = t3 + 1;
+              }), p2.chapters = d2, [2, p2];
           }
         });
       });
@@ -26152,7 +26166,24 @@ var LNReaderPlugin = (() => {
             case 0:
               return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), [4, this.getCheerio("".concat(t2, "/").concat(r3), false)];
             case 1:
-              return n2 = a2.sent(), (i2 = n2(".text-left")).length || (i2 = n2(".text-right")), i2.length || (i2 = n2(".entry-content")), i2.length || (i2 = n2(".c-blog-post > div > div:nth-child(2)")), null === (o2 = this.options) || void 0 === o2 || o2.customJs, [2, this.translateDragontea(i2).html() || ""];
+              if (n2 = a2.sent(), (i2 = n2(".text-left")).length || (i2 = n2(".text-right")), i2.length || (i2 = n2(".entry-content")), i2.length || (i2 = n2(".c-blog-post > div > div:nth-child(2)")), null === (o2 = this.options) || void 0 === o2 ? void 0 : o2.customJs) try {
+                i2.find("p").each(function(e3, t3) {
+                  var a3 = n2(t3);
+                  if (a3.find("br").length) {
+                    var r4 = (a3.html() || "").split(/<br\s*\/?>/i).map(function(e4) {
+                      return e4.replace(/\uFEFF/g, "").trim();
+                    }).filter(function(e4) {
+                      return e4.replace(/&nbsp;|\u00A0/g, "").trim();
+                    });
+                    a3.replaceWith(r4.map(function(e4) {
+                      return "<p>" + e4 + "</p>";
+                    }).join(""));
+                  }
+                });
+              } catch (e3) {
+                throw console.error("Error executing customJs:", e3), e3;
+              }
+              return [2, this.translateDragontea(i2).html() || ""];
           }
         });
       });
@@ -26173,7 +26204,7 @@ var LNReaderPlugin = (() => {
     }, r2;
   }();
   exports.MadaraPlugin = b;
-  var g = new b({ id: "meionovel", sourceSite: "https://meionovels.com/", sourceName: "MeioNovel", options: { useNewChapterEndpoint: true, lang: "Indonesian" }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Cooking", value: "cooking" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fanfiction", value: "fanfiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Isekai", value: "isekai" }, { label: "Josei", value: "josei" }, { label: "Magic", value: "magic" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "One shot", value: "one-shot" }, { label: "Psychological", value: "psychological" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Virtual Reality", value: "virtual-reality" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
+  var g = new b({ id: "meionovel", sourceSite: "https://meionovels.com/", sourceName: "MeioNovel", options: { useNewChapterEndpoint: true, versionIncrements: 1, customJs: "chapterText.find('p').each((_, p) => { const el = loadedCheerio(p); if (!el.find('br').length) return; const lines = (el.html() || '').split(/<br\\s*\\/?>/i).map(l => l.replace(/\\uFEFF/g, '').trim()).filter(l => l.replace(/&nbsp;|\\u00A0/g, '').trim()); el.replaceWith(lines.map(l => '<p>' + l + '</p>').join('')); });", lang: "Indonesian" }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Cooking", value: "cooking" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fanfiction", value: "fanfiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Harem", value: "harem" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Isekai", value: "isekai" }, { label: "Josei", value: "josei" }, { label: "Magic", value: "magic" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Mystery", value: "mystery" }, { label: "One shot", value: "one-shot" }, { label: "Psychological", value: "psychological" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sports", value: "sports" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }, { label: "Virtual Reality", value: "virtual-reality" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
   exports.default = g;
 })();
 

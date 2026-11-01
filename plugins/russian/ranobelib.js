@@ -9581,7 +9581,7 @@ var LNReaderPlugin = (() => {
         "object" == typeof exports4 && "undefined" != typeof module ? module.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
       }(exports4, function() {
         "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h2 = "year", d2 = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
+        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f2 = "quarter", h2 = "year", d2 = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
           var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
           return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
         }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
@@ -9597,16 +9597,16 @@ var LNReaderPlugin = (() => {
         }, "t"), a: /* @__PURE__ */ __name(function(t3) {
           return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
         }, "a"), p: /* @__PURE__ */ __name(function(t3) {
-          return { M: c2, y: h2, w: o2, d: a2, D: d2, h: u2, m: s2, s: i2, ms: r2, Q: f }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
+          return { M: c2, y: h2, w: o2, d: a2, D: d2, h: u2, m: s2, s: i2, ms: r2, Q: f2 }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
         }, "p"), u: /* @__PURE__ */ __name(function(t3) {
           return void 0 === t3;
-        }, "u") }, g = "en", D = {};
-        D[g] = M;
+        }, "u") }, g2 = "en", D = {};
+        D[g2] = M;
         var p2 = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
           return t3 instanceof _ || !(!t3 || !t3[p2]);
         }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
           var i3;
-          if (!e3) return g;
+          if (!e3) return g2;
           if ("string" == typeof e3) {
             var s3 = e3.toLowerCase();
             D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
@@ -9616,7 +9616,7 @@ var LNReaderPlugin = (() => {
             var a3 = e3.name;
             D[a3] = e3, i3 = a3;
           }
-          return !r3 && i3 && (g = i3), i3 || !r3 && g;
+          return !r3 && i3 && (g2 = i3), i3 || !r3 && g2;
         }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
           if (S(t3)) return t3.clone();
           var n3 = "object" == typeof e3 ? e3 : {};
@@ -9667,19 +9667,19 @@ var LNReaderPlugin = (() => {
           }, m2.valueOf = function() {
             return this.$d.getTime();
           }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b2.u(e3) || e3, f2 = b2.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
+            var n3 = this, r3 = !!b2.u(e3) || e3, f3 = b2.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
               var i3 = b2.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
               return r3 ? i3 : i3.endOf(a2);
             }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
               return b2.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
             }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v3 = "set" + (this.$u ? "UTC" : "");
-            switch (f2) {
+            switch (f3) {
               case h2:
                 return r3 ? l3(1, 0) : l3(31, 11);
               case c2:
                 return r3 ? l3(1, M3) : l3(0, M3 + 1);
               case o2:
-                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
+                var g3 = this.$locale().weekStart || 0, D2 = (y2 < g3 ? y2 + 7 : y2) - g3;
                 return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
               case a2:
               case d2:
@@ -9696,7 +9696,7 @@ var LNReaderPlugin = (() => {
           }, m2.endOf = function(t3) {
             return this.startOf(t3, false);
           }, m2.$set = function(t3, e3) {
-            var n3, o3 = b2.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d2] = f2 + "Date", n3[c2] = f2 + "Month", n3[h2] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
+            var n3, o3 = b2.p(t3), f3 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f3 + "Date", n3[d2] = f3 + "Date", n3[c2] = f3 + "Month", n3[h2] = f3 + "FullYear", n3[u2] = f3 + "Hours", n3[s2] = f3 + "Minutes", n3[i2] = f3 + "Seconds", n3[r2] = f3 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
             if (o3 === c2 || o3 === h2) {
               var y2 = this.clone().set(d2, 1);
               y2.$d[l3]($3), y2.init(), this.$d = y2.set(d2, Math.min(this.$D, y2.daysInMonth())).$d;
@@ -9706,10 +9706,10 @@ var LNReaderPlugin = (() => {
             return this.clone().$set(t3, e3);
           }, m2.get = function(t3) {
             return this[b2.p(t3)]();
-          }, m2.add = function(r3, f2) {
+          }, m2.add = function(r3, f3) {
             var d3, l3 = this;
             r3 = Number(r3);
-            var $3 = b2.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
+            var $3 = b2.p(f3), y2 = /* @__PURE__ */ __name(function(t3) {
               var e3 = O(l3);
               return b2.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
             }, "y");
@@ -9724,11 +9724,11 @@ var LNReaderPlugin = (() => {
           }, m2.format = function(t3) {
             var e3 = this, n3 = this.$locale();
             if (!this.isValid()) return n3.invalidDate || l2;
-            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b2.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f2 = n3.meridiem, h3 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
+            var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b2.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f3 = n3.meridiem, h3 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
               return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
             }, "h"), d3 = /* @__PURE__ */ __name(function(t4) {
               return b2.s(s3 % 12 || 12, t4, "0");
-            }, "d"), $3 = f2 || function(t4, e4, n4) {
+            }, "d"), $3 = f3 || function(t4, e4, n4) {
               var r4 = t4 < 12 ? "AM" : "PM";
               return n4 ? r4.toLowerCase() : r4;
             };
@@ -9790,7 +9790,7 @@ var LNReaderPlugin = (() => {
           }, m2.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
           }, m2.diff = function(r3, d3, l3) {
-            var $3, y2 = this, M3 = b2.p(d3), m3 = O(r3), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
+            var $3, y2 = this, M3 = b2.p(d3), m3 = O(r3), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g3 = this - m3, D2 = /* @__PURE__ */ __name(function() {
               return b2.m(y2, m3);
             }, "D");
             switch (M3) {
@@ -9800,26 +9800,26 @@ var LNReaderPlugin = (() => {
               case c2:
                 $3 = D2();
                 break;
-              case f:
+              case f2:
                 $3 = D2() / 3;
                 break;
               case o2:
-                $3 = (g2 - v3) / 6048e5;
+                $3 = (g3 - v3) / 6048e5;
                 break;
               case a2:
-                $3 = (g2 - v3) / 864e5;
+                $3 = (g3 - v3) / 864e5;
                 break;
               case u2:
-                $3 = g2 / n2;
+                $3 = g3 / n2;
                 break;
               case s2:
-                $3 = g2 / e2;
+                $3 = g3 / e2;
                 break;
               case i2:
-                $3 = g2 / t2;
+                $3 = g3 / t2;
                 break;
               default:
-                $3 = g2;
+                $3 = g3;
             }
             return l3 ? $3 : b2.a($3);
           }, m2.daysInMonth = function() {
@@ -9850,7 +9850,7 @@ var LNReaderPlugin = (() => {
           return t3.$i || (t3(e3, _, O), t3.$i = true), O;
         }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
           return O(1e3 * t3);
-        }, O.en = D[g], O.Ls = D, O.p = {}, O;
+        }, O.en = D[g2], O.Ls = D, O.p = {}, O;
       });
     }
   });
@@ -25808,12 +25808,12 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function() {
-    return e = Object.assign || function(e2) {
+  var e, l, a = function() {
+    return a = Object.assign || function(e2) {
       for (var l2, a2 = 1, t2 = arguments.length; a2 < t2; a2++) for (var n2 in l2 = arguments[a2]) Object.prototype.hasOwnProperty.call(l2, n2) && (e2[n2] = l2[n2]);
       return e2;
-    }, e.apply(this, arguments);
-  }, l = function(e2, l2, a2, t2) {
+    }, a.apply(this, arguments);
+  }, t = function(e2, l2, a2, t2) {
     return new (a2 || (a2 = Promise))(function(n2, u2) {
       function r2(e3) {
         try {
@@ -25840,7 +25840,7 @@ var LNReaderPlugin = (() => {
       __name(o2, "o");
       o2((t2 = t2.apply(e2, l2 || [])).next());
     });
-  }, a = function(e2, l2) {
+  }, n = function(e2, l2) {
     var a2, t2, n2, u2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & n2[0]) throw n2[1];
       return n2[1];
@@ -25899,120 +25899,120 @@ var LNReaderPlugin = (() => {
       };
     }
     __name(i2, "i");
-  }, t = function(e2) {
+  }, u = function(e2) {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), u = (init_defaultCover(), __toCommonJS(defaultCover_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), s = t(require_dayjs_min()), v = (init_browser(), __toCommonJS(browser_exports)), c = { 1: i.NovelStatus.Ongoing, 2: i.NovelStatus.Completed, 3: i.NovelStatus.OnHiatus, 4: i.NovelStatus.Cancelled }, b = { Accept: "application/json", Referer: "https://ranobelib.me", Origin: "https://ranobelib.me/", "Site-Id": "3", "client-time-zone": Intl.DateTimeFormat().resolvedOptions().timeZone || "Europe/Moscow", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 YaBrowser/25.12.0.0 Safari/537.36" }, d = function() {
-    function t2() {
-      var l2 = this;
-      this.id = "RLIB", this.name = "RanobeLib", this.site = "https://ranobelib.me", this.apiSite = "https://api.cdnlibs.org/api/manga/", this.version = "2.2.7", this.icon = "src/ru/ranobelib/icon.png", this.webStorageUtilized = true, this.imageRequestInit = { headers: e(e({}, b), { Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8" }) }, this.resolveUrl = function(e2, a2) {
-        var t3, n2 = (null === (t3 = l2.user) || void 0 === t3 ? void 0 : t3.ui) ? "ui=" + l2.user.ui : "";
-        if (a2) return l2.site + "/ru/book/" + e2 + (n2 ? "?" + n2 : "");
-        var u2 = e2.split("/"), r2 = u2[0], i2 = u2[1], o2 = u2[2], s2 = u2[3], v2 = r2 + "/read/v" + i2 + "/c" + o2 + (s2 ? "?bid=" + s2 : "");
-        return l2.site + "/ru/" + v2 + (n2 ? (s2 ? "&" : "?") + n2 : "");
+  var r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_fetch2(), __toCommonJS(fetch_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), v = (init_storage2(), __toCommonJS(storage_exports)), c = u(require_dayjs_min()), b = (init_browser(), __toCommonJS(browser_exports)), d = { 1: s.NovelStatus.Ongoing, 2: s.NovelStatus.Completed, 3: s.NovelStatus.OnHiatus, 4: s.NovelStatus.Cancelled }, h = { Accept: "application/json", Referer: "https://ranobelib.me", Origin: "https://ranobelib.me/", "Site-Id": "3", "client-time-zone": (null === (l = (e = Intl.DateTimeFormat()).resolvedOptions) || void 0 === l ? void 0 : l.call(e).timeZone) || "Europe/Moscow", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 YaBrowser/25.12.0.0 Safari/537.36" }, p = function() {
+    function e2() {
+      var e3 = this;
+      this.id = "RLIB", this.name = "RanobeLib", this.site = "https://ranobelib.me", this.apiSite = "https://api.cdnlibs.org/api/manga/", this.version = "2.2.8", this.icon = "src/ru/ranobelib/icon.png", this.webStorageUtilized = true, this.imageRequestInit = { headers: a(a({}, h), { Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8" }) }, this.resolveUrl = function(l2, a2) {
+        var t2, n2 = (null === (t2 = e3.user) || void 0 === t2 ? void 0 : t2.ui) ? "ui=" + e3.user.ui : "";
+        if (a2) return e3.site + "/ru/book/" + l2 + (n2 ? "?" + n2 : "");
+        var u2 = l2.split("/"), r2 = u2[0], i2 = u2[1], o2 = u2[2], s2 = u2[3], v2 = r2 + "/read/v" + i2 + "/c" + o2 + (s2 ? "?bid=" + s2 : "");
+        return e3.site + "/ru/" + v2 + (n2 ? (s2 ? "&" : "?") + n2 : "");
       }, this.getUser = function() {
-        var e2, l3, a2 = o.storage.get("user");
+        var e4, l2, a2 = v.storage.get("user");
         if (a2) return { token: { Authorization: "Bearer " + a2.token }, ui: a2.id };
-        var t3 = null === (e2 = o.localStorage.get()) || void 0 === e2 ? void 0 : e2.auth;
-        if (!t3) return {};
-        var n2 = JSON.parse(t3);
-        return (null === (l3 = null == n2 ? void 0 : n2.token) || void 0 === l3 ? void 0 : l3.access_token) ? (o.storage.set("user", { id: n2.auth.id, token: n2.token.access_token }, n2.token.timestamp + n2.token.expires_in), { token: { Authorization: "Bearer " + n2.token.access_token }, ui: n2.auth.id }) : void 0;
-      }, this.user = this.getUser(), this.filters = { sort_by: { label: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430", value: "rating_score", options: [{ label: "\u041F\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443", value: "rate_avg" }, { label: "\u041F\u043E \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u0438", value: "rating_score" }, { label: "\u041F\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430\u043C", value: "views" }, { label: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u0443 \u0433\u043B\u0430\u0432", value: "chap_count" }, { label: "\u0414\u0430\u0442\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F", value: "last_chapter_at" }, { label: "\u0414\u0430\u0442\u0435 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F", value: "created_at" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E (A-Z)", value: "name" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E (\u0410-\u042F)", value: "rus_name" }], type: n.FilterTypes.Picker }, sort_type: { label: "\u041F\u043E\u0440\u044F\u0434\u043E\u043A", value: "desc", options: [{ label: "\u041F\u043E \u0443\u0431\u044B\u0432\u0430\u043D\u0438\u044E", value: "desc" }, { label: "\u041F\u043E \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u0430\u043D\u0438\u044E", value: "asc" }], type: n.FilterTypes.Picker }, types: { label: "\u0422\u0438\u043F", value: [], options: [{ label: "\u042F\u043F\u043E\u043D\u0438\u044F", value: "10" }, { label: "\u041A\u043E\u0440\u0435\u044F", value: "11" }, { label: "\u041A\u0438\u0442\u0430\u0439", value: "12" }, { label: "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439", value: "13" }, { label: "\u0410\u0432\u0442\u043E\u0440\u0441\u043A\u0438\u0439", value: "14" }, { label: "\u0424\u0430\u043D\u0444\u0438\u043A", value: "15" }], type: n.FilterTypes.CheckboxGroup }, scanlateStatus: { label: "\u0421\u0442\u0430\u0442\u0443\u0441 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0430", value: [], options: [{ label: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F", value: "1" }, { label: "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D", value: "2" }, { label: "\u0417\u0430\u043C\u043E\u0440\u043E\u0436\u0435\u043D", value: "3" }, { label: "\u0417\u0430\u0431\u0440\u043E\u0448\u0435\u043D", value: "4" }], type: n.FilterTypes.CheckboxGroup }, manga_status: { label: "\u0421\u0442\u0430\u0442\u0443\u0441 \u0442\u0430\u0439\u0442\u043B\u0430", value: [], options: [{ label: "\u041E\u043D\u0433\u043E\u0438\u043D\u0433", value: "1" }, { label: "\u0417\u0430\u0432\u0435\u0440\u0448\u0451\u043D", value: "2" }, { label: "\u0410\u043D\u043E\u043D\u0441", value: "3" }, { label: "\u041F\u0440\u0438\u043E\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D", value: "4" }, { label: "\u0412\u044B\u043F\u0443\u0441\u043A \u043F\u0440\u0435\u043A\u0440\u0430\u0449\u0451\u043D", value: "5" }], type: n.FilterTypes.CheckboxGroup }, genres: { label: "\u0416\u0430\u043D\u0440\u044B", value: { include: [], exclude: [] }, options: [{ label: "\u0410\u0440\u0442", value: "32" }, { label: "\u0411\u0435\u0437\u0443\u043C\u0438\u0435", value: "91" }, { label: "\u0411\u043E\u0435\u0432\u0438\u043A", value: "34" }, { label: "\u0411\u043E\u0435\u0432\u044B\u0435 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0430", value: "35" }, { label: "\u0412\u0430\u043C\u043F\u0438\u0440\u044B", value: "36" }, { label: "\u0412\u043E\u0435\u043D\u043D\u043E\u0435", value: "89" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "37" }, { label: "\u0413\u0435\u043D\u0434\u0435\u0440\u043D\u0430\u044F \u0438\u043D\u0442\u0440\u0438\u0433\u0430", value: "38" }, { label: "\u0413\u0435\u0440\u043E\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "39" }, { label: "\u0414\u0435\u043C\u043E\u043D\u044B", value: "81" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "40" }, { label: "\u0414\u0435\u0442\u0441\u043A\u043E\u0435", value: "88" }, { label: "\u0414\u0437\u0451\u0441\u044D\u0439", value: "41" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "43" }, { label: "\u0418\u0433\u0440\u0430", value: "44" }, { label: "\u0418\u0441\u0435\u043A\u0430\u0439", value: "79" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u044F", value: "45" }, { label: "\u041A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A", value: "46" }, { label: "\u041A\u043E\u0434\u043E\u043C\u043E", value: "76" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0438\u044F", value: "47" }, { label: "\u041A\u043E\u0441\u043C\u043E\u0441", value: "83" }, { label: "\u041C\u0430\u0433\u0438\u044F", value: "85" }, { label: "\u041C\u0430\u0445\u043E-\u0441\u0451\u0434\u0437\u0451", value: "48" }, { label: "\u041C\u0430\u0448\u0438\u043D\u044B", value: "90" }, { label: "\u041C\u0435\u0445\u0430", value: "49" }, { label: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430", value: "50" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "80" }, { label: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "51" }, { label: "\u041E\u043C\u0435\u0433\u0430\u0432\u0435\u0440\u0441", value: "77" }, { label: "\u041F\u0430\u0440\u043E\u0434\u0438\u044F", value: "86" }, { label: "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "52" }, { label: "\u041F\u043E\u043B\u0438\u0446\u0438\u044F", value: "82" }, { label: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0442\u0438\u043A\u0430", value: "53" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "54" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0438\u044F", value: "55" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "56" }, { label: "\u0421\u0430\u043C\u0443\u0440\u0430\u0439\u0441\u043A\u0438\u0439 \u0431\u043E\u0435\u0432\u0438\u043A", value: "57" }, { label: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "58" }, { label: "\u0421\u0451\u0434\u0437\u0451", value: "59" }, { label: "\u0421\u0451\u0434\u0437\u0451-\u0430\u0439", value: "60" }, { label: "\u0421\u0451\u043D\u044D\u043D", value: "61" }, { label: "\u0421\u0451\u043D\u044D\u043D-\u0430\u0439", value: "62" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "63" }, { label: "\u0421\u0443\u043F\u0435\u0440 \u0441\u0438\u043B\u0430", value: "87" }, { label: "\u0421\u044D\u0439\u043D\u044D\u043D", value: "64" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "65" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "66" }, { label: "\u0423\u0436\u0430\u0441\u044B", value: "67" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "68" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "69" }, { label: "\u0425\u0435\u043D\u0442\u0430\u0439", value: "84" }, { label: "\u0428\u043A\u043E\u043B\u0430", value: "70" }, { label: "\u042D\u0440\u043E\u0442\u0438\u043A\u0430", value: "71" }, { label: "\u042D\u0442\u0442\u0438", value: "72" }, { label: "\u042E\u0440\u0438", value: "73" }, { label: "\u042F\u043E\u0439", value: "74" }], type: n.FilterTypes.ExcludableCheckboxGroup }, tags: { label: "\u0422\u0435\u0433\u0438", value: { include: [], exclude: [] }, options: [{ label: "\u0410\u0432\u0430\u043D\u0442\u044E\u0440\u0438\u0441\u0442\u044B", value: "328" }, { label: "\u0410\u043D\u0442\u0438\u0433\u0435\u0440\u043E\u0439", value: "175" }, { label: "\u0411\u0435\u0441\u0441\u043C\u0435\u0440\u0442\u043D\u044B\u0435", value: "333" }, { label: "\u0411\u043E\u0433\u0438", value: "218" }, { label: "\u0411\u043E\u0440\u044C\u0431\u0430 \u0437\u0430 \u0432\u043B\u0430\u0441\u0442\u044C", value: "309" }, { label: "\u0411\u0440\u0430\u0442 \u0438 \u0441\u0435\u0441\u0442\u0440\u0430", value: "360" }, { label: "\u0412\u0435\u0434\u044C\u043C\u0430", value: "339" }, { label: "\u0412\u0438\u0434\u0435\u043E\u0438\u0433\u0440\u044B", value: "204" }, { label: "\u0412\u0438\u0440\u0442\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C", value: "214" }, { label: "\u0412\u043B\u0430\u0434\u044B\u043A\u0430 \u0434\u0435\u043C\u043E\u043D\u043E\u0432", value: "349" }, { label: "\u0412\u043E\u0435\u043D\u043D\u044B\u0435", value: "198" }, { label: "\u0412\u043E\u0441\u043F\u043E\u043C\u0438\u043D\u0430\u043D\u0438\u044F \u0438\u0437 \u0434\u0440\u0443\u0433\u043E\u0433\u043E \u043C\u0438\u0440\u0430", value: "310" }, { label: "\u0412\u044B\u0436\u0438\u0432\u0430\u043D\u0438\u0435", value: "212" }, { label: "\u0413\u0413 \u0436\u0435\u043D\u0449\u0438\u043D\u0430", value: "294" }, { label: "\u0413\u0413 \u0438\u043C\u0431\u0430", value: "292" }, { label: "\u0413\u0413 \u043C\u0443\u0436\u0447\u0438\u043D\u0430", value: "295" }, { label: "\u0413\u0413 \u043D\u0435 \u043E\u044F\u0448", value: "325" }, { label: "\u0413\u0413 \u043D\u0435 \u0447\u0435\u043B\u043E\u0432\u0435\u043A", value: "331" }, { label: "\u0413\u0413 \u043E\u044F\u0448", value: "326" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u0431\u043E\u0433", value: "324" }, { label: "\u0413\u043B\u0443\u043F\u044B\u0439 \u0413\u0413", value: "298" }, { label: "\u0413\u043E\u0440\u043D\u0438\u0447\u043D\u044B\u0435", value: "171" }, { label: "\u0413\u0443\u0440\u043E", value: "306" }, { label: "\u0413\u044F\u0440\u0443", value: "197" }, { label: "\u0414\u0435\u043C\u043E\u043D\u044B", value: "157" }, { label: "\u0414\u0440\u0430\u043A\u043E\u043D\u044B", value: "313" }, { label: "\u0414\u0440\u0435\u0432\u043D\u0438\u0439 \u043C\u0438\u0440", value: "317" }, { label: "\u0417\u0432\u0435\u0440\u043E\u043B\u044E\u0434\u0438", value: "163" }, { label: "\u0417\u043E\u043C\u0431\u0438", value: "155" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0444\u0438\u0433\u0443\u0440\u044B", value: "323" }, { label: "\u041A\u0443\u043B\u0438\u043D\u0430\u0440\u0438\u044F", value: "158" }, { label: "\u041A\u0443\u043B\u044C\u0442\u0438\u0432\u0430\u0446\u0438\u044F", value: "161" }, { label: "\u041B\u0413\u0411\u0422", value: "344" }, { label: "\u041B\u0438\u0442\u0420\u041F\u0413", value: "319" }, { label: "\u041B\u043E\u043B\u0438", value: "206" }, { label: "\u041C\u0430\u0433\u0438\u044F", value: "170" }, { label: "\u041C\u0430\u0448\u0438\u043D\u043D\u044B\u0439 \u043F\u0435\u0440\u0435\u0432\u043E\u0434", value: "345" }, { label: "\u041C\u0435\u0434\u0438\u0446\u0438\u043D\u0430", value: "159" }, { label: "\u041C\u0435\u0436\u0433\u0430\u043B\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0432\u043E\u0439\u043D\u0430", value: "330" }, { label: "\u041C\u043E\u043D\u0441\u0442\u0440 \u0414\u0435\u0432\u0443\u0448\u043A\u0438", value: "207" }, { label: "\u041C\u043E\u043D\u0441\u0442\u0440\u044B", value: "208" }, { label: "\u041C\u0440\u0430\u0447\u043D\u044B\u0439 \u043C\u0438\u0440", value: "316" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "358" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "209" }, { label: "\u041D\u0438\u043D\u0434\u0437\u044F", value: "199" }, { label: "\u041E\u0431\u0440\u0430\u0442\u043D\u044B\u0439 \u0413\u0430\u0440\u0435\u043C", value: "210" }, { label: "\u041E\u0444\u0438\u0441\u043D\u044B\u0435 \u0420\u0430\u0431\u043E\u0442\u043D\u0438\u043A\u0438", value: "200" }, { label: "\u041F\u0438\u0440\u0430\u0442\u044B", value: "341" }, { label: "\u041F\u043E\u0434\u0437\u0435\u043C\u0435\u043B\u044C\u044F", value: "314" }, { label: "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430", value: "311" }, { label: "\u041F\u043E\u043B\u0438\u0446\u0438\u044F", value: "201" }, { label: "\u041F\u0440\u0435\u0441\u0442\u0443\u043F\u043D\u0438\u043A\u0438 / \u041A\u0440\u0438\u043C\u0438\u043D\u0430\u043B", value: "205" }, { label: "\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438 / \u0414\u0443\u0445\u0438", value: "196" }, { label: "\u041F\u0440\u0438\u0437\u044B\u0432\u0430\u0442\u0435\u043B\u0438", value: "329" }, { label: "\u041F\u0440\u044B\u0436\u043A\u0438 \u043C\u0435\u0436\u0434\u0443 \u043C\u0438\u0440\u0430\u043C\u0438", value: "321" }, { label: "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u0435 \u0432 \u0434\u0440\u0443\u0433\u043E\u0439 \u043C\u0438\u0440", value: "318" }, { label: "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u0435 \u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438", value: "213" }, { label: "\u0420\u0430\u0431\u044B", value: "355" }, { label: "\u0420\u0430\u043D\u0433\u0438 \u0441\u0438\u043B\u044B", value: "312" }, { label: "\u0420\u0435\u0438\u043D\u043A\u0430\u0440\u043D\u0430\u0446\u0438\u044F", value: "154" }, { label: "\u0421\u0430\u043C\u0443\u0440\u0430\u0438", value: "202" }, { label: "\u0421\u043A\u0440\u044B\u0442\u0438\u0435 \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u0438", value: "315" }, { label: "\u0421\u0440\u0435\u0434\u043D\u0435\u0432\u0435\u043A\u043E\u0432\u044C\u0435", value: "174" }, { label: "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u043E\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u044B", value: "203" }, { label: "\u0423\u043C\u043D\u044B\u0439 \u0413\u0413", value: "303" }, { label: "\u0425\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u043D\u044B\u0439 \u0440\u043E\u0441\u0442", value: "332" }, { label: "\u0425\u0438\u043A\u0438\u043A\u043E\u043C\u043E\u0440\u0438", value: "167" }, { label: "\u042D\u0432\u043E\u043B\u044E\u0446\u0438\u044F", value: "322" }, { label: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u0420\u041F\u0413", value: "327" }, { label: "\u042D\u043B\u044C\u0444\u044B", value: "217" }, { label: "\u042F\u043A\u0443\u0434\u0437\u0430", value: "165" }], type: n.FilterTypes.ExcludableCheckboxGroup }, require_chapters: { label: "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u0440\u043E\u0435\u043A\u0442\u044B \u0441 \u0433\u043B\u0430\u0432\u0430\u043C\u0438", value: true, type: n.FilterTypes.Switch } };
+        var t2 = null === (e4 = v.localStorage.get()) || void 0 === e4 ? void 0 : e4.auth;
+        if (!t2) return {};
+        var n2 = JSON.parse(t2);
+        return (null === (l2 = null == n2 ? void 0 : n2.token) || void 0 === l2 ? void 0 : l2.access_token) ? (v.storage.set("user", { id: n2.auth.id, token: n2.token.access_token }, n2.token.timestamp + n2.token.expires_in), { token: { Authorization: "Bearer " + n2.token.access_token }, ui: n2.auth.id }) : void 0;
+      }, this.user = this.getUser(), this.filters = { sort_by: { label: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430", value: "rating_score", options: [{ label: "\u041F\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443", value: "rate_avg" }, { label: "\u041F\u043E \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u0438", value: "rating_score" }, { label: "\u041F\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430\u043C", value: "views" }, { label: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u0443 \u0433\u043B\u0430\u0432", value: "chap_count" }, { label: "\u0414\u0430\u0442\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F", value: "last_chapter_at" }, { label: "\u0414\u0430\u0442\u0435 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F", value: "created_at" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E (A-Z)", value: "name" }, { label: "\u041F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E (\u0410-\u042F)", value: "rus_name" }], type: r.FilterTypes.Picker }, sort_type: { label: "\u041F\u043E\u0440\u044F\u0434\u043E\u043A", value: "desc", options: [{ label: "\u041F\u043E \u0443\u0431\u044B\u0432\u0430\u043D\u0438\u044E", value: "desc" }, { label: "\u041F\u043E \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u0430\u043D\u0438\u044E", value: "asc" }], type: r.FilterTypes.Picker }, types: { label: "\u0422\u0438\u043F", value: [], options: [{ label: "\u042F\u043F\u043E\u043D\u0438\u044F", value: "10" }, { label: "\u041A\u043E\u0440\u0435\u044F", value: "11" }, { label: "\u041A\u0438\u0442\u0430\u0439", value: "12" }, { label: "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439", value: "13" }, { label: "\u0410\u0432\u0442\u043E\u0440\u0441\u043A\u0438\u0439", value: "14" }, { label: "\u0424\u0430\u043D\u0444\u0438\u043A", value: "15" }], type: r.FilterTypes.CheckboxGroup }, scanlateStatus: { label: "\u0421\u0442\u0430\u0442\u0443\u0441 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0430", value: [], options: [{ label: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F", value: "1" }, { label: "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D", value: "2" }, { label: "\u0417\u0430\u043C\u043E\u0440\u043E\u0436\u0435\u043D", value: "3" }, { label: "\u0417\u0430\u0431\u0440\u043E\u0448\u0435\u043D", value: "4" }], type: r.FilterTypes.CheckboxGroup }, manga_status: { label: "\u0421\u0442\u0430\u0442\u0443\u0441 \u0442\u0430\u0439\u0442\u043B\u0430", value: [], options: [{ label: "\u041E\u043D\u0433\u043E\u0438\u043D\u0433", value: "1" }, { label: "\u0417\u0430\u0432\u0435\u0440\u0448\u0451\u043D", value: "2" }, { label: "\u0410\u043D\u043E\u043D\u0441", value: "3" }, { label: "\u041F\u0440\u0438\u043E\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D", value: "4" }, { label: "\u0412\u044B\u043F\u0443\u0441\u043A \u043F\u0440\u0435\u043A\u0440\u0430\u0449\u0451\u043D", value: "5" }], type: r.FilterTypes.CheckboxGroup }, genres: { label: "\u0416\u0430\u043D\u0440\u044B", value: { include: [], exclude: [] }, options: [{ label: "\u0410\u0440\u0442", value: "32" }, { label: "\u0411\u0435\u0437\u0443\u043C\u0438\u0435", value: "91" }, { label: "\u0411\u043E\u0435\u0432\u0438\u043A", value: "34" }, { label: "\u0411\u043E\u0435\u0432\u044B\u0435 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0430", value: "35" }, { label: "\u0412\u0430\u043C\u043F\u0438\u0440\u044B", value: "36" }, { label: "\u0412\u043E\u0435\u043D\u043D\u043E\u0435", value: "89" }, { label: "\u0413\u0430\u0440\u0435\u043C", value: "37" }, { label: "\u0413\u0435\u043D\u0434\u0435\u0440\u043D\u0430\u044F \u0438\u043D\u0442\u0440\u0438\u0433\u0430", value: "38" }, { label: "\u0413\u0435\u0440\u043E\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0444\u044D\u043D\u0442\u0435\u0437\u0438", value: "39" }, { label: "\u0414\u0435\u043C\u043E\u043D\u044B", value: "81" }, { label: "\u0414\u0435\u0442\u0435\u043A\u0442\u0438\u0432", value: "40" }, { label: "\u0414\u0435\u0442\u0441\u043A\u043E\u0435", value: "88" }, { label: "\u0414\u0437\u0451\u0441\u044D\u0439", value: "41" }, { label: "\u0414\u0440\u0430\u043C\u0430", value: "43" }, { label: "\u0418\u0433\u0440\u0430", value: "44" }, { label: "\u0418\u0441\u0435\u043A\u0430\u0439", value: "79" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u044F", value: "45" }, { label: "\u041A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A", value: "46" }, { label: "\u041A\u043E\u0434\u043E\u043C\u043E", value: "76" }, { label: "\u041A\u043E\u043C\u0435\u0434\u0438\u044F", value: "47" }, { label: "\u041A\u043E\u0441\u043C\u043E\u0441", value: "83" }, { label: "\u041C\u0430\u0433\u0438\u044F", value: "85" }, { label: "\u041C\u0430\u0445\u043E-\u0441\u0451\u0434\u0437\u0451", value: "48" }, { label: "\u041C\u0430\u0448\u0438\u043D\u044B", value: "90" }, { label: "\u041C\u0435\u0445\u0430", value: "49" }, { label: "\u041C\u0438\u0441\u0442\u0438\u043A\u0430", value: "50" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "80" }, { label: "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "51" }, { label: "\u041E\u043C\u0435\u0433\u0430\u0432\u0435\u0440\u0441", value: "77" }, { label: "\u041F\u0430\u0440\u043E\u0434\u0438\u044F", value: "86" }, { label: "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u043E\u0441\u0442\u044C", value: "52" }, { label: "\u041F\u043E\u043B\u0438\u0446\u0438\u044F", value: "82" }, { label: "\u041F\u043E\u0441\u0442\u0430\u043F\u043E\u043A\u0430\u043B\u0438\u043F\u0442\u0438\u043A\u0430", value: "53" }, { label: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F", value: "54" }, { label: "\u041F\u0441\u0438\u0445\u043E\u043B\u043E\u0433\u0438\u044F", value: "55" }, { label: "\u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430", value: "56" }, { label: "\u0421\u0430\u043C\u0443\u0440\u0430\u0439\u0441\u043A\u0438\u0439 \u0431\u043E\u0435\u0432\u0438\u043A", value: "57" }, { label: "\u0421\u0432\u0435\u0440\u0445\u044A\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435", value: "58" }, { label: "\u0421\u0451\u0434\u0437\u0451", value: "59" }, { label: "\u0421\u0451\u0434\u0437\u0451-\u0430\u0439", value: "60" }, { label: "\u0421\u0451\u043D\u044D\u043D", value: "61" }, { label: "\u0421\u0451\u043D\u044D\u043D-\u0430\u0439", value: "62" }, { label: "\u0421\u043F\u043E\u0440\u0442", value: "63" }, { label: "\u0421\u0443\u043F\u0435\u0440 \u0441\u0438\u043B\u0430", value: "87" }, { label: "\u0421\u044D\u0439\u043D\u044D\u043D", value: "64" }, { label: "\u0422\u0440\u0430\u0433\u0435\u0434\u0438\u044F", value: "65" }, { label: "\u0422\u0440\u0438\u043B\u043B\u0435\u0440", value: "66" }, { label: "\u0423\u0436\u0430\u0441\u044B", value: "67" }, { label: "\u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430", value: "68" }, { label: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438", value: "69" }, { label: "\u0425\u0435\u043D\u0442\u0430\u0439", value: "84" }, { label: "\u0428\u043A\u043E\u043B\u0430", value: "70" }, { label: "\u042D\u0440\u043E\u0442\u0438\u043A\u0430", value: "71" }, { label: "\u042D\u0442\u0442\u0438", value: "72" }, { label: "\u042E\u0440\u0438", value: "73" }, { label: "\u042F\u043E\u0439", value: "74" }], type: r.FilterTypes.ExcludableCheckboxGroup }, tags: { label: "\u0422\u0435\u0433\u0438", value: { include: [], exclude: [] }, options: [{ label: "\u0410\u0432\u0430\u043D\u0442\u044E\u0440\u0438\u0441\u0442\u044B", value: "328" }, { label: "\u0410\u043D\u0442\u0438\u0433\u0435\u0440\u043E\u0439", value: "175" }, { label: "\u0411\u0435\u0441\u0441\u043C\u0435\u0440\u0442\u043D\u044B\u0435", value: "333" }, { label: "\u0411\u043E\u0433\u0438", value: "218" }, { label: "\u0411\u043E\u0440\u044C\u0431\u0430 \u0437\u0430 \u0432\u043B\u0430\u0441\u0442\u044C", value: "309" }, { label: "\u0411\u0440\u0430\u0442 \u0438 \u0441\u0435\u0441\u0442\u0440\u0430", value: "360" }, { label: "\u0412\u0435\u0434\u044C\u043C\u0430", value: "339" }, { label: "\u0412\u0438\u0434\u0435\u043E\u0438\u0433\u0440\u044B", value: "204" }, { label: "\u0412\u0438\u0440\u0442\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C", value: "214" }, { label: "\u0412\u043B\u0430\u0434\u044B\u043A\u0430 \u0434\u0435\u043C\u043E\u043D\u043E\u0432", value: "349" }, { label: "\u0412\u043E\u0435\u043D\u043D\u044B\u0435", value: "198" }, { label: "\u0412\u043E\u0441\u043F\u043E\u043C\u0438\u043D\u0430\u043D\u0438\u044F \u0438\u0437 \u0434\u0440\u0443\u0433\u043E\u0433\u043E \u043C\u0438\u0440\u0430", value: "310" }, { label: "\u0412\u044B\u0436\u0438\u0432\u0430\u043D\u0438\u0435", value: "212" }, { label: "\u0413\u0413 \u0436\u0435\u043D\u0449\u0438\u043D\u0430", value: "294" }, { label: "\u0413\u0413 \u0438\u043C\u0431\u0430", value: "292" }, { label: "\u0413\u0413 \u043C\u0443\u0436\u0447\u0438\u043D\u0430", value: "295" }, { label: "\u0413\u0413 \u043D\u0435 \u043E\u044F\u0448", value: "325" }, { label: "\u0413\u0413 \u043D\u0435 \u0447\u0435\u043B\u043E\u0432\u0435\u043A", value: "331" }, { label: "\u0413\u0413 \u043E\u044F\u0448", value: "326" }, { label: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439 \u0431\u043E\u0433", value: "324" }, { label: "\u0413\u043B\u0443\u043F\u044B\u0439 \u0413\u0413", value: "298" }, { label: "\u0413\u043E\u0440\u043D\u0438\u0447\u043D\u044B\u0435", value: "171" }, { label: "\u0413\u0443\u0440\u043E", value: "306" }, { label: "\u0413\u044F\u0440\u0443", value: "197" }, { label: "\u0414\u0435\u043C\u043E\u043D\u044B", value: "157" }, { label: "\u0414\u0440\u0430\u043A\u043E\u043D\u044B", value: "313" }, { label: "\u0414\u0440\u0435\u0432\u043D\u0438\u0439 \u043C\u0438\u0440", value: "317" }, { label: "\u0417\u0432\u0435\u0440\u043E\u043B\u044E\u0434\u0438", value: "163" }, { label: "\u0417\u043E\u043C\u0431\u0438", value: "155" }, { label: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0444\u0438\u0433\u0443\u0440\u044B", value: "323" }, { label: "\u041A\u0443\u043B\u0438\u043D\u0430\u0440\u0438\u044F", value: "158" }, { label: "\u041A\u0443\u043B\u044C\u0442\u0438\u0432\u0430\u0446\u0438\u044F", value: "161" }, { label: "\u041B\u0413\u0411\u0422", value: "344" }, { label: "\u041B\u0438\u0442\u0420\u041F\u0413", value: "319" }, { label: "\u041B\u043E\u043B\u0438", value: "206" }, { label: "\u041C\u0430\u0433\u0438\u044F", value: "170" }, { label: "\u041C\u0430\u0448\u0438\u043D\u043D\u044B\u0439 \u043F\u0435\u0440\u0435\u0432\u043E\u0434", value: "345" }, { label: "\u041C\u0435\u0434\u0438\u0446\u0438\u043D\u0430", value: "159" }, { label: "\u041C\u0435\u0436\u0433\u0430\u043B\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0432\u043E\u0439\u043D\u0430", value: "330" }, { label: "\u041C\u043E\u043D\u0441\u0442\u0440 \u0414\u0435\u0432\u0443\u0448\u043A\u0438", value: "207" }, { label: "\u041C\u043E\u043D\u0441\u0442\u0440\u044B", value: "208" }, { label: "\u041C\u0440\u0430\u0447\u043D\u044B\u0439 \u043C\u0438\u0440", value: "316" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "358" }, { label: "\u041C\u0443\u0437\u044B\u043A\u0430", value: "209" }, { label: "\u041D\u0438\u043D\u0434\u0437\u044F", value: "199" }, { label: "\u041E\u0431\u0440\u0430\u0442\u043D\u044B\u0439 \u0413\u0430\u0440\u0435\u043C", value: "210" }, { label: "\u041E\u0444\u0438\u0441\u043D\u044B\u0435 \u0420\u0430\u0431\u043E\u0442\u043D\u0438\u043A\u0438", value: "200" }, { label: "\u041F\u0438\u0440\u0430\u0442\u044B", value: "341" }, { label: "\u041F\u043E\u0434\u0437\u0435\u043C\u0435\u043B\u044C\u044F", value: "314" }, { label: "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430", value: "311" }, { label: "\u041F\u043E\u043B\u0438\u0446\u0438\u044F", value: "201" }, { label: "\u041F\u0440\u0435\u0441\u0442\u0443\u043F\u043D\u0438\u043A\u0438 / \u041A\u0440\u0438\u043C\u0438\u043D\u0430\u043B", value: "205" }, { label: "\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438 / \u0414\u0443\u0445\u0438", value: "196" }, { label: "\u041F\u0440\u0438\u0437\u044B\u0432\u0430\u0442\u0435\u043B\u0438", value: "329" }, { label: "\u041F\u0440\u044B\u0436\u043A\u0438 \u043C\u0435\u0436\u0434\u0443 \u043C\u0438\u0440\u0430\u043C\u0438", value: "321" }, { label: "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u0435 \u0432 \u0434\u0440\u0443\u0433\u043E\u0439 \u043C\u0438\u0440", value: "318" }, { label: "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u0435 \u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438", value: "213" }, { label: "\u0420\u0430\u0431\u044B", value: "355" }, { label: "\u0420\u0430\u043D\u0433\u0438 \u0441\u0438\u043B\u044B", value: "312" }, { label: "\u0420\u0435\u0438\u043D\u043A\u0430\u0440\u043D\u0430\u0446\u0438\u044F", value: "154" }, { label: "\u0421\u0430\u043C\u0443\u0440\u0430\u0438", value: "202" }, { label: "\u0421\u043A\u0440\u044B\u0442\u0438\u0435 \u043B\u0438\u0447\u043D\u043E\u0441\u0442\u0438", value: "315" }, { label: "\u0421\u0440\u0435\u0434\u043D\u0435\u0432\u0435\u043A\u043E\u0432\u044C\u0435", value: "174" }, { label: "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u043E\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u044B", value: "203" }, { label: "\u0423\u043C\u043D\u044B\u0439 \u0413\u0413", value: "303" }, { label: "\u0425\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u043D\u044B\u0439 \u0440\u043E\u0441\u0442", value: "332" }, { label: "\u0425\u0438\u043A\u0438\u043A\u043E\u043C\u043E\u0440\u0438", value: "167" }, { label: "\u042D\u0432\u043E\u043B\u044E\u0446\u0438\u044F", value: "322" }, { label: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u0420\u041F\u0413", value: "327" }, { label: "\u042D\u043B\u044C\u0444\u044B", value: "217" }, { label: "\u042F\u043A\u0443\u0434\u0437\u0430", value: "165" }], type: r.FilterTypes.ExcludableCheckboxGroup }, require_chapters: { label: "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u0440\u043E\u0435\u043A\u0442\u044B \u0441 \u0433\u043B\u0430\u0432\u0430\u043C\u0438", value: true, type: r.FilterTypes.Switch } };
     }
-    __name(t2, "t");
-    return t2.prototype.popularNovels = function(e2, t3) {
-      return l(this, arguments, void 0, function(e3, l2) {
-        var t4, n2, i2, o2, s2, v2, c2, b2, d2, h2, p2, f, g, m, y, _, k, w, x, S, j = l2.showLatestNovels, q = l2.filters;
-        return a(this, function(l3) {
-          switch (l3.label) {
+    __name(e2, "e");
+    return e2.prototype.popularNovels = function(e3, l2) {
+      return t(this, arguments, void 0, function(e4, l3) {
+        var a2, t2, u2, r2, s2, v2, c2, b2, d2, h2, p2, f2, g2, m, y, _, k, w, x, S, j = l3.showLatestNovels, q = l3.filters;
+        return n(this, function(l4) {
+          switch (l4.label) {
             case 0:
-              return t4 = this.apiSite + "?site_id[0]=3&page=" + e3, t4 += "&sort_by=" + (j ? "last_chapter_at" : (null === (o2 = null == q ? void 0 : q.sort_by) || void 0 === o2 ? void 0 : o2.value) || "rating_score"), t4 += "&sort_type=" + ((null === (s2 = null == q ? void 0 : q.sort_type) || void 0 === s2 ? void 0 : s2.value) || "desc"), (null === (v2 = null == q ? void 0 : q.require_chapters) || void 0 === v2 ? void 0 : v2.value) && (t4 += "&chapters[min]=1"), (null === (b2 = null === (c2 = null == q ? void 0 : q.types) || void 0 === c2 ? void 0 : c2.value) || void 0 === b2 ? void 0 : b2.length) && (t4 += "&types[]=" + q.types.value.join("&types[]=")), (null === (h2 = null === (d2 = null == q ? void 0 : q.scanlateStatus) || void 0 === d2 ? void 0 : d2.value) || void 0 === h2 ? void 0 : h2.length) && (t4 += "&scanlateStatus[]=" + q.scanlateStatus.value.join("&scanlateStatus[]=")), (null === (f = null === (p2 = null == q ? void 0 : q.manga_status) || void 0 === p2 ? void 0 : p2.value) || void 0 === f ? void 0 : f.length) && (t4 += "&manga_status[]=" + q.manga_status.value.join("&manga_status[]=")), (null == q ? void 0 : q.genres) && ((null === (m = null === (g = q.genres.value) || void 0 === g ? void 0 : g.include) || void 0 === m ? void 0 : m.length) && (t4 += "&genres[]=" + q.genres.value.include.join("&genres[]=")), (null === (_ = null === (y = q.genres.value) || void 0 === y ? void 0 : y.exclude) || void 0 === _ ? void 0 : _.length) && (t4 += "&genres_exclude[]=" + q.genres.value.exclude.join("&genres_exclude[]="))), (null == q ? void 0 : q.tags) && ((null === (w = null === (k = q.tags.value) || void 0 === k ? void 0 : k.include) || void 0 === w ? void 0 : w.length) && (t4 += "&tags[]=" + q.tags.value.include.join("&tags[]=")), (null === (S = null === (x = q.tags.value) || void 0 === x ? void 0 : x.exclude) || void 0 === S ? void 0 : S.length) && (t4 += "&tags_exclude[]=" + q.tags.value.exclude.join("&tags_exclude[]="))), [4, (0, r.fetchApi)(t4, { headers: this.getHeaders() }).then(function(e4) {
+              return a2 = this.apiSite + "?site_id[0]=3&page=" + e4, a2 += "&sort_by=" + (j ? "last_chapter_at" : (null === (r2 = null == q ? void 0 : q.sort_by) || void 0 === r2 ? void 0 : r2.value) || "rating_score"), a2 += "&sort_type=" + ((null === (s2 = null == q ? void 0 : q.sort_type) || void 0 === s2 ? void 0 : s2.value) || "desc"), (null === (v2 = null == q ? void 0 : q.require_chapters) || void 0 === v2 ? void 0 : v2.value) && (a2 += "&chapters[min]=1"), (null === (b2 = null === (c2 = null == q ? void 0 : q.types) || void 0 === c2 ? void 0 : c2.value) || void 0 === b2 ? void 0 : b2.length) && (a2 += "&types[]=" + q.types.value.join("&types[]=")), (null === (h2 = null === (d2 = null == q ? void 0 : q.scanlateStatus) || void 0 === d2 ? void 0 : d2.value) || void 0 === h2 ? void 0 : h2.length) && (a2 += "&scanlateStatus[]=" + q.scanlateStatus.value.join("&scanlateStatus[]=")), (null === (f2 = null === (p2 = null == q ? void 0 : q.manga_status) || void 0 === p2 ? void 0 : p2.value) || void 0 === f2 ? void 0 : f2.length) && (a2 += "&manga_status[]=" + q.manga_status.value.join("&manga_status[]=")), (null == q ? void 0 : q.genres) && ((null === (m = null === (g2 = q.genres.value) || void 0 === g2 ? void 0 : g2.include) || void 0 === m ? void 0 : m.length) && (a2 += "&genres[]=" + q.genres.value.include.join("&genres[]=")), (null === (_ = null === (y = q.genres.value) || void 0 === y ? void 0 : y.exclude) || void 0 === _ ? void 0 : _.length) && (a2 += "&genres_exclude[]=" + q.genres.value.exclude.join("&genres_exclude[]="))), (null == q ? void 0 : q.tags) && ((null === (w = null === (k = q.tags.value) || void 0 === k ? void 0 : k.include) || void 0 === w ? void 0 : w.length) && (a2 += "&tags[]=" + q.tags.value.include.join("&tags[]=")), (null === (S = null === (x = q.tags.value) || void 0 === x ? void 0 : x.exclude) || void 0 === S ? void 0 : S.length) && (a2 += "&tags_exclude[]=" + q.tags.value.exclude.join("&tags_exclude[]="))), [4, (0, o.fetchApi)(a2, { headers: this.getHeaders() }).then(function(e5) {
+                return e5.json();
+              })];
+            case 1:
+              return t2 = l4.sent(), u2 = [], t2.data instanceof Array && t2.data.forEach(function(e5) {
+                var l5;
+                return u2.push({ name: e5.rus_name || e5.eng_name || e5.name, cover: (null === (l5 = e5.cover) || void 0 === l5 ? void 0 : l5.default) || i.defaultCover, path: e5.slug_url || e5.id + "--" + e5.slug });
+              }), [2, u2];
+          }
+        });
+      });
+    }, e2.prototype.parseNovel = function(e3) {
+      return t(this, void 0, void 0, function() {
+        var l2, a2, t2, u2, r2, v2, b2, h2, p2, m, y, _, k;
+        return n(this, function(n2) {
+          switch (n2.label) {
+            case 0:
+              return [4, (0, o.fetchApi)("".concat(this.apiSite).concat(e3, "?fields[]=summary&fields[]=genres&fields[]=tags&fields[]=teams&fields[]=authors&fields[]=status_id&fields[]=artists"), { headers: this.getHeaders() }).then(function(e4) {
                 return e4.json();
               })];
             case 1:
-              return n2 = l3.sent(), i2 = [], n2.data instanceof Array && n2.data.forEach(function(e4) {
-                var l4;
-                return i2.push({ name: e4.rus_name || e4.eng_name || e4.name, cover: (null === (l4 = e4.cover) || void 0 === l4 ? void 0 : l4.default) || u.defaultCover, path: e4.slug_url || e4.id + "--" + e4.slug });
-              }), [2, i2];
-          }
-        });
-      });
-    }, t2.prototype.parseNovel = function(e2) {
-      return l(this, void 0, void 0, function() {
-        var l2, t3, n2, o2, v2, b2, d2, f, g, m, y, _, k;
-        return a(this, function(a2) {
-          switch (a2.label) {
-            case 0:
-              return [4, (0, r.fetchApi)("".concat(this.apiSite).concat(e2, "?fields[]=summary&fields[]=genres&fields[]=tags&fields[]=teams&fields[]=authors&fields[]=status_id&fields[]=artists"), { headers: this.getHeaders() }).then(function(e3) {
-                return e3.json();
-              })];
-            case 1:
-              return l2 = a2.sent().data, t3 = { path: e2, name: l2.rus_name || l2.name, cover: (null === (d2 = l2.cover) || void 0 === d2 ? void 0 : d2.default) || u.defaultCover, summary: h("string" == typeof l2.summary ? l2.summary : "doc" === (null === (f = l2.summary) || void 0 === f ? void 0 : f.type) ? p(l2.summary.content, []) : "") }, (null === (g = l2.status) || void 0 === g ? void 0 : g.id) && (t3.status = c[l2.status.id] || i.NovelStatus.Unknown), (null === (m = l2.authors) || void 0 === m ? void 0 : m.length) && (t3.author = l2.authors[0].name), (null === (y = l2.artists) || void 0 === y ? void 0 : y.length) && (t3.artist = l2.artists[0].name), (n2 = [l2.genres || [], l2.tags || []].flat().map(function(e3) {
-                return null == e3 ? void 0 : e3.name;
-              }).filter(function(e3) {
-                return e3;
-              })).length && (t3.genres = n2.join(", ")), o2 = (null === (_ = l2.teams) || void 0 === _ ? void 0 : _.reduce(function(e3, l3) {
-                var a3, t4 = l3.name, n3 = l3.details;
-                return e3[String(null !== (a3 = null == n3 ? void 0 : n3.branch_id) && void 0 !== a3 ? a3 : "0")] = t4, e3;
-              }, { 0: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430" })) || { 0: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430" }, [4, (0, r.fetchApi)("".concat(this.apiSite).concat(e2, "/chapters"), { headers: this.getHeaders() }).then(function(e3) {
-                return e3.json();
+              return l2 = n2.sent().data, a2 = { path: e3, name: l2.rus_name || l2.name, cover: (null === (b2 = l2.cover) || void 0 === b2 ? void 0 : b2.default) || i.defaultCover, summary: f("string" == typeof l2.summary ? l2.summary : "doc" === (null === (h2 = l2.summary) || void 0 === h2 ? void 0 : h2.type) ? g(l2.summary.content, []) : "") }, (null === (p2 = l2.status) || void 0 === p2 ? void 0 : p2.id) && (a2.status = d[l2.status.id] || s.NovelStatus.Unknown), (null === (m = l2.authors) || void 0 === m ? void 0 : m.length) && (a2.author = l2.authors[0].name), (null === (y = l2.artists) || void 0 === y ? void 0 : y.length) && (a2.artist = l2.artists[0].name), (t2 = [l2.genres || [], l2.tags || []].flat().map(function(e4) {
+                return null == e4 ? void 0 : e4.name;
+              }).filter(function(e4) {
+                return e4;
+              })).length && (a2.genres = t2.join(", ")), u2 = (null === (_ = l2.teams) || void 0 === _ ? void 0 : _.reduce(function(e4, l3) {
+                var a3, t3 = l3.name, n3 = l3.details;
+                return e4[String(null !== (a3 = null == n3 ? void 0 : n3.branch_id) && void 0 !== a3 ? a3 : "0")] = t3, e4;
+              }, { 0: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430" })) || { 0: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430" }, [4, (0, o.fetchApi)("".concat(this.apiSite).concat(e3, "/chapters"), { headers: this.getHeaders() }).then(function(e4) {
+                return e4.json();
               })];
             case 2:
-              return v2 = a2.sent(), (null === (k = v2.data) || void 0 === k ? void 0 : k.length) && (b2 = v2.data.flatMap(function(l3) {
+              return r2 = n2.sent(), (null === (k = r2.data) || void 0 === k ? void 0 : k.length) && (v2 = r2.data.flatMap(function(l3) {
                 return l3.branches.map(function(a3) {
-                  var t4 = a3.branch_id, n3 = a3.created_at, u2 = String(null != t4 ? t4 : "0");
-                  return { name: "\u0422\u043E\u043C ".concat(l3.volume, " \u0413\u043B\u0430\u0432\u0430 ").concat(l3.number).concat(l3.name ? " " + l3.name.trim() : ""), path: "".concat(e2, "/").concat(l3.volume, "/").concat(l3.number, "/").concat(u2), releaseTime: n3 ? (0, s.default)(n3).format("LLL") : null, chapterNumber: l3.index, scanlator: o2[u2] || "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439" };
+                  var t3 = a3.branch_id, n3 = a3.created_at, r3 = String(null != t3 ? t3 : "0");
+                  return { name: "\u0422\u043E\u043C ".concat(l3.volume, " \u0413\u043B\u0430\u0432\u0430 ").concat(l3.number).concat(l3.name ? " " + l3.name.trim() : ""), path: "".concat(e3, "/").concat(l3.volume, "/").concat(l3.number, "/").concat(r3), releaseTime: n3 ? (0, c.default)(n3).format("LLL") : null, chapterNumber: l3.index, scanlator: u2[r3] || "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439" };
                 });
-              }), b2.length && (t3.chapters = b2)), [2, t3];
+              }), v2.length && (a2.chapters = v2)), [2, a2];
           }
         });
       });
-    }, t2.prototype.parseChapter = function(e2) {
-      return l(this, void 0, void 0, function() {
-        var l2, t3, n2, u2, i2, o2, s2, v2, c2, b2, d2;
-        return a(this, function(a2) {
-          switch (a2.label) {
+    }, e2.prototype.parseChapter = function(e3) {
+      return t(this, void 0, void 0, function() {
+        var l2, a2, t2, u2, r2, i2, s2, v2, c2, b2, d2;
+        return n(this, function(n2) {
+          switch (n2.label) {
             case 0:
-              if (l2 = e2.split("/"), t3 = l2[0], n2 = l2[1], u2 = l2[2], i2 = l2[3], !t3 || !n2 || !u2) throw new Error("Invalid chapter path: ".concat(e2));
-              return o2 = this.apiSite + t3 + "/chapter?" + (i2 ? "branch_id=" + i2 + "&" : "") + "number=" + u2 + "&volume=" + n2, [4, (0, r.fetchApi)(o2, { headers: this.getHeaders() })];
+              if (l2 = e3.split("/"), a2 = l2[0], t2 = l2[1], u2 = l2[2], r2 = l2[3], !a2 || !t2 || !u2) throw new Error("Invalid chapter path: ".concat(e3));
+              return i2 = this.apiSite + a2 + "/chapter?" + (r2 ? "branch_id=" + r2 + "&" : "") + "number=" + u2 + "&volume=" + t2, [4, (0, o.fetchApi)(i2, { headers: this.getHeaders() })];
             case 1:
-              if (!(s2 = a2.sent()).ok) throw new Error("Could not load chapter (HTTP ".concat(s2.status, ")"));
+              if (!(s2 = n2.sent()).ok) throw new Error("Could not load chapter (HTTP ".concat(s2.status, ")"));
               return [4, s2.json()];
             case 2:
-              if (v2 = a2.sent(), c2 = null === (d2 = null == v2 ? void 0 : v2.data) || void 0 === d2 ? void 0 : d2.content, !(b2 = "object" == typeof c2 && "doc" === (null == c2 ? void 0 : c2.type) ? p(c2.content, v2.data.attachments || []) : c2 || "")) throw new Error("Could not load chapter");
+              if (v2 = n2.sent(), c2 = null === (d2 = null == v2 ? void 0 : v2.data) || void 0 === d2 ? void 0 : d2.content, !(b2 = "object" == typeof c2 && "doc" === (null == c2 ? void 0 : c2.type) ? g(c2.content, v2.data.attachments || []) : c2 || "")) throw new Error("Could not load chapter");
               return [2, b2];
           }
         });
       });
-    }, t2.prototype.searchNovels = function(e2) {
-      return l(this, void 0, void 0, function() {
-        var l2, t3, n2;
-        return a(this, function(a2) {
-          switch (a2.label) {
+    }, e2.prototype.searchNovels = function(e3) {
+      return t(this, void 0, void 0, function() {
+        var l2, a2, t2;
+        return n(this, function(n2) {
+          switch (n2.label) {
             case 0:
-              return l2 = this.apiSite + "?site_id[0]=3&q=" + encodeURIComponent(e2), [4, (0, r.fetchApi)(l2, { headers: this.getHeaders() }).then(function(e3) {
-                return e3.json();
+              return l2 = this.apiSite + "?site_id[0]=3&q=" + encodeURIComponent(e3), [4, (0, o.fetchApi)(l2, { headers: this.getHeaders() }).then(function(e4) {
+                return e4.json();
               })];
             case 1:
-              return t3 = a2.sent(), n2 = [], t3.data instanceof Array && t3.data.forEach(function(e3) {
+              return a2 = n2.sent(), t2 = [], a2.data instanceof Array && a2.data.forEach(function(e4) {
                 var l3;
-                return n2.push({ name: e3.rus_name || e3.eng_name || e3.name, cover: (null === (l3 = e3.cover) || void 0 === l3 ? void 0 : l3.default) || u.defaultCover, path: e3.slug_url || e3.id + "--" + e3.slug });
-              }), [2, n2];
+                return t2.push({ name: e4.rus_name || e4.eng_name || e4.name, cover: (null === (l3 = e4.cover) || void 0 === l3 ? void 0 : l3.default) || i.defaultCover, path: e4.slug_url || e4.id + "--" + e4.slug });
+              }), [2, t2];
           }
         });
       });
-    }, t2.prototype.getHeaders = function() {
-      var l2, a2 = new URL(this.apiSite);
-      return e(e(e({}, b), { Host: a2.host }), (null === (l2 = this.user) || void 0 === l2 ? void 0 : l2.token) || {});
-    }, t2;
+    }, e2.prototype.getHeaders = function() {
+      var e3, l2 = new URL(this.apiSite);
+      return a(a(a({}, h), { Host: l2.host }), (null === (e3 = this.user) || void 0 === e3 ? void 0 : e3.token) || {});
+    }, e2;
   }();
-  function h(e2) {
-    var l2 = (0, v.load)(e2);
+  function f(e2) {
+    var l2 = (0, b.load)(e2);
     return l2("br").replaceWith("\n"), l2("p, div, li, h1, h2, h3, h4, h5, h6, blockquote").after("\n\n"), l2.root().text().replace(/[ \t]*\n[ \t]*/g, "\n").replace(/\n{3,}/g, "\n\n").trim() || void 0;
   }
-  __name(h, "h");
-  function p(e2, l2, a2) {
+  __name(f, "f");
+  function g(e2, l2, a2) {
     return void 0 === a2 && (a2 = ""), e2.forEach(function(e3) {
       var t2, n2;
       switch (e3.type) {
@@ -26039,28 +26039,28 @@ var LNReaderPlugin = (() => {
           }
           break;
         case "paragraph":
-          a2 += "<p>" + (e3.content ? p(e3.content, l2) : "<br>") + "</p>";
+          a2 += "<p>" + (e3.content ? g(e3.content, l2) : "<br>") + "</p>";
           break;
         case "orderedList":
-          a2 += "<ol>" + (e3.content ? p(e3.content, l2) : "<br>") + "</ol>";
+          a2 += "<ol>" + (e3.content ? g(e3.content, l2) : "<br>") + "</ol>";
           break;
         case "listItem":
-          a2 += "<li>" + (e3.content ? p(e3.content, l2) : "<br>") + "</li>";
+          a2 += "<li>" + (e3.content ? g(e3.content, l2) : "<br>") + "</li>";
           break;
         case "blockquote":
-          a2 += "<blockquote>" + (e3.content ? p(e3.content, l2) : "<br>") + "</blockquote>";
+          a2 += "<blockquote>" + (e3.content ? g(e3.content, l2) : "<br>") + "</blockquote>";
           break;
         case "italic":
-          a2 += "<i>" + (e3.content ? p(e3.content, l2) : "<br>") + "</i>";
+          a2 += "<i>" + (e3.content ? g(e3.content, l2) : "<br>") + "</i>";
           break;
         case "bold":
-          a2 += "<b>" + (e3.content ? p(e3.content, l2) : "<br>") + "</b>";
+          a2 += "<b>" + (e3.content ? g(e3.content, l2) : "<br>") + "</b>";
           break;
         case "underline":
-          a2 += "<u>" + (e3.content ? p(e3.content, l2) : "<br>") + "</u>";
+          a2 += "<u>" + (e3.content ? g(e3.content, l2) : "<br>") + "</u>";
           break;
         case "heading":
-          a2 += "<h2>" + (e3.content ? p(e3.content, l2) : "<br>") + "</h2>";
+          a2 += "<h2>" + (e3.content ? g(e3.content, l2) : "<br>") + "</h2>";
           break;
         case "text":
           a2 += (e3.text || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -26070,8 +26070,8 @@ var LNReaderPlugin = (() => {
       }
     }), a2;
   }
-  __name(p, "p");
-  exports.default = new d();
+  __name(g, "g");
+  exports.default = new p();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

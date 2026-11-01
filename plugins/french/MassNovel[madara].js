@@ -25869,7 +25869,7 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, d = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, v = /week|semana/i, f = /month|mes/i, m = /year|año/i, b = function() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, v = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, d = /week|semana/i, f = /month|mes/i, m = /year|año/i, b = function() {
     function r2(e2) {
       var t2, a2, r3 = this;
       this.hideLocked = u.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
@@ -25881,8 +25881,8 @@ var LNReaderPlugin = (() => {
         if (c.test(e3)) n3 = i2.subtract(o2, "second").format("LL");
         else if (h.test(e3)) n3 = i2.subtract(o2, "minute").format("LL");
         else if (p.test(e3)) n3 = i2.subtract(o2, "hours").format("LL");
-        else if (d.test(e3)) n3 = i2.subtract(o2, "days").format("LL");
-        else if (v.test(e3)) n3 = i2.subtract(o2, "week").format("LL");
+        else if (v.test(e3)) n3 = i2.subtract(o2, "days").format("LL");
+        else if (d.test(e3)) n3 = i2.subtract(o2, "week").format("LL");
         else if (f.test(e3)) n3 = i2.subtract(o2, "month").format("LL");
         else if (m.test(e3)) n3 = i2.subtract(o2, "year").format("LL");
         else {
@@ -25892,7 +25892,7 @@ var LNReaderPlugin = (() => {
         return r3.dateCache.set(e3, n3), n3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.3.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "2.4.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(r2, "r");
     return Object.defineProperty(r2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -26025,11 +26025,11 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, l2, u2, c2, h2, p2, d2, v2, f2, m2, b2, g2, y, x, w, C, L, k, S, _, N, A, T, j, O, q, P, H, D, M, G, R = this;
+        var t2, r3, l2, u2, c2, h2, p2, v2, d2, f2, m2, b2, g2, y, x, w, C, L, k, S, _, N, A, T, j, O, q, P, H, D, M, G, R, E, F = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), l2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(l2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (M = this.options) || void 0 === M ? void 0 : M.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
+              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), l2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(l2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (R = this.options) || void 0 === R ? void 0 : R.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
@@ -26087,21 +26087,21 @@ var LNReaderPlugin = (() => {
                 return u2(t3).text();
               }).get().join("\n\n").trim() || u2(".manga-excerpt p").map(function(e3, t3) {
                 return u2(t3).text();
-              }).get().join("\n\n").trim(), d2 = [], v2 = "", (null === (G = this.options) || void 0 === G ? void 0 : G.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
+              }).get().join("\n\n").trim(), v2 = [], d2 = "", (null === (E = this.options) || void 0 === E ? void 0 : E.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
             case 5:
               return f2 = a2.sent(), [3, 7];
             case 6:
               f2 = "", a2.label = 7;
             case 7:
-              return (v2 = f2 || "") ? [3, 9] : [4, (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
+              return (d2 = f2 || "") ? [3, 9] : [4, (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
               })];
             case 8:
-              v2 = a2.sent(), a2.label = 9;
+              d2 = a2.sent(), a2.label = 9;
             case 9:
-              if (m2 = (0, i.load)(v2), !((b2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
+              if (m2 = (0, i.load)(d2), !((b2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
               if (g2 = Math.max.apply(Math, b2.map(function(e3, t3) {
                 return parseInt(m2(t3).attr("data-page") || "1", 10);
               }).get()), y = b2.last().attr("href") || "", -1 === (x = y.indexOf("?"))) return [3, 13];
@@ -26109,14 +26109,14 @@ var LNReaderPlugin = (() => {
               k = 6, S = 0, a2.label = 10;
             case 10:
               return S < C.length ? (_ = C.slice(S, S + k), [4, Promise.all(_.map(function(e3) {
-                return (0, n.fetchApi)(e3, { method: "POST", headers: R.requestHeaders, referrer: l2 }).then(function(e4) {
+                return (0, n.fetchApi)(e3, { method: "POST", headers: F.requestHeaders, referrer: l2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
                 });
               }))]) : [3, 13];
             case 11:
-              for (N = a2.sent(), A = 0, T = N; A < T.length; A++) (j = T[A]) && "0" !== j && (v2 += j);
+              for (N = a2.sent(), A = 0, T = N; A < T.length; A++) (j = T[A]) && "0" !== j && (d2 += j);
               a2.label = 12;
             case 12:
               return S += k, [3, 10];
@@ -26127,20 +26127,34 @@ var LNReaderPlugin = (() => {
                 return e3.text();
               })];
             case 15:
-              v2 = a2.sent(), a2.label = 16;
+              d2 = a2.sent(), a2.label = 16;
             case 16:
-              return "0" !== v2 && v2 && (u2 = (0, i.load)(v2)), P = u2(".wp-manga-chapter"), H = P.length, D = (0, s.default)().format("LL"), P.each(function(e3, t3) {
-                var a3, r4 = u2(t3), n2 = r4.find("a"), i2 = n2.attr("href") || "";
-                if (i2 && "#" !== i2) {
-                  var l3 = ((null === (a3 = t3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
-                  if (!l3 || !R.hideLocked) {
-                    var o2 = n2.text().trim();
-                    l3 && (o2 = "\u{1F512} " + o2);
-                    var s2 = r4.find("span.chapter-release-date").text().trim(), c3 = s2 ? R.parseData(s2) : D;
-                    d2.push({ name: o2, path: i2.replace(/https?:\/\/.*?\//, ""), releaseTime: c3 || null, chapterNumber: H - e3 });
-                  }
+              return "0" !== d2 && d2 && (u2 = (0, i.load)(d2)), P = (0, s.default)().format("LL"), H = /* @__PURE__ */ __name(function(e3) {
+                var t3, a3 = u2(e3), r4 = a3.find("a"), n2 = r4.attr("href") || "";
+                if (!n2 || "#" === n2) return null;
+                var i2 = ((null === (t3 = e3.attribs) || void 0 === t3 ? void 0 : t3.class) || "").includes("premium-block");
+                if (i2 && F.hideLocked) return null;
+                var l3 = r4.text().trim();
+                i2 && (l3 = "\u{1F512} " + l3);
+                var o2 = a3.find("span.chapter-release-date").text().trim(), s2 = o2 ? F.parseData(o2) : P;
+                return { name: l3, path: n2.replace(/https?:\/\/.*?\//, ""), releaseTime: s2 || null };
+              }, "H"), (D = u2("li.parent.has-child")).length > 0 ? (D.each(function(e3, t3) {
+                var a3 = [];
+                u2(t3).find(".wp-manga-chapter").each(function(e4, t4) {
+                  var r4 = H(t4);
+                  r4 && a3.push(r4);
+                }), v2.push.apply(v2, a3.reverse());
+              }), M = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                if (!u2(t3).parents("li.parent.has-child").length) {
+                  var a3 = H(t3);
+                  a3 && M.push(a3);
                 }
-              }), p2.chapters = d2.reverse(), [2, p2];
+              }), M.length > 0 && v2.push.apply(v2, M.reverse())) : (G = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                var a3 = H(t3);
+                a3 && G.push(a3);
+              }), v2.push.apply(v2, G.reverse())), v2.forEach(function(e3, t3) {
+                e3.chapterNumber = t3 + 1;
+              }), p2.chapters = v2, [2, p2];
           }
         });
       });

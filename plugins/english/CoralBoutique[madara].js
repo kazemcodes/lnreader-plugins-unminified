@@ -25869,30 +25869,30 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = r(require_dayjs_min()), c = (init_storage2(), __toCommonJS(storage_exports)), u = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, d = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, v = /week|semana/i, f = /month|mes/i, m = /year|año/i, g = function() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, d = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, f = /week|semana/i, v = /month|mes/i, m = /year|año/i, g = function() {
     function r2(e2) {
       var t2, a2, r3 = this;
-      this.hideLocked = c.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
+      this.hideLocked = u.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
         var t3, a3 = r3.dateCache.get(e3);
         if (void 0 !== a3) return a3;
         r3.dateCache.size > 2e3 && r3.dateCache.clear();
         var n3, i2 = (0, l.default)(), o2 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", s2 = parseInt(o2, 10);
         if (!o2) return r3.dateCache.set(e3, e3), e3;
-        if (u.test(e3)) n3 = i2.subtract(s2, "second").format("LL");
+        if (c.test(e3)) n3 = i2.subtract(s2, "second").format("LL");
         else if (h.test(e3)) n3 = i2.subtract(s2, "minute").format("LL");
         else if (p.test(e3)) n3 = i2.subtract(s2, "hours").format("LL");
         else if (d.test(e3)) n3 = i2.subtract(s2, "days").format("LL");
-        else if (v.test(e3)) n3 = i2.subtract(s2, "week").format("LL");
-        else if (f.test(e3)) n3 = i2.subtract(s2, "month").format("LL");
+        else if (f.test(e3)) n3 = i2.subtract(s2, "week").format("LL");
+        else if (v.test(e3)) n3 = i2.subtract(s2, "month").format("LL");
         else if (m.test(e3)) n3 = i2.subtract(s2, "year").format("LL");
         else {
-          var c2 = (0, l.default)(e3).format("LL");
-          n3 = "Invalid Date" !== c2 ? c2 : e3;
+          var u2 = (0, l.default)(e3).format("LL");
+          n3 = "Invalid Date" !== u2 ? u2 : e3;
         }
         return r3.dateCache.set(e3, n3), n3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.3.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "2.4.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(r2, "r");
     return Object.defineProperty(r2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -25941,8 +25941,8 @@ var LNReaderPlugin = (() => {
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(r3, n2) {
         var i2 = e2(n2), o2 = i2.find(".post-title"), s2 = o2.text().trim(), l2 = o2.find("a").attr("href") || "";
         if (s2 && l2) {
-          var c2 = { name: s2, cover: t2.extractCover(i2.find("img")), path: l2.replace(/https?:\/\/.*?\//, "") };
-          a2.push(c2);
+          var u2 = { name: s2, cover: t2.extractCover(i2.find("img")), path: l2.replace(/https?:\/\/.*?\//, "") };
+          a2.push(u2);
         }
       }), a2;
     }, r2.prototype.resolveCoverAsDataUri = function(r3) {
@@ -26009,7 +26009,7 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.popularNovels = function(e2, r3) {
       return t(this, arguments, void 0, function(e3, t2) {
-        var r4, n2, i2, o2, s2, l2, c2, u2, h2 = t2.filters, p2 = t2.showLatestNovels;
+        var r4, n2, i2, o2, s2, l2, u2, c2, h2 = t2.filters, p2 = t2.showLatestNovels;
         return a(this, function(t3) {
           switch (t3.label) {
             case 0:
@@ -26017,7 +26017,7 @@ var LNReaderPlugin = (() => {
               else h2[i2].value && (n2 += "&".concat(i2, "=").concat(h2[i2].value));
               return [4, this.getCheerio(n2, 1 != e3)];
             case 1:
-              return c2 = t3.sent(), u2 = this.parseNovels(c2), [4, this.resolveNovelsCovers(u2)];
+              return u2 = t3.sent(), c2 = this.parseNovels(u2), [4, this.resolveNovelsCovers(c2)];
             case 2:
               return [2, t3.sent()];
           }
@@ -26025,24 +26025,24 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, o2, c2, u2, h2, p2, d2, v2, f2, m2, g2, b2, y, x, w, C, L, k, _, A, N, S, O, T, j, q, P, D, H, M, R, G = this;
+        var t2, r3, o2, u2, c2, h2, p2, d2, f2, v2, m2, g2, b2, y, x, w, C, L, k, _, A, N, S, O, T, j, q, P, D, H, M, R, E, G, F = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), o2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), u2 = null, h2 = "".concat(o2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (M = this.options) || void 0 === M ? void 0 : M.useNewChapterEndpoint) ? (u2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
+              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), o2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(o2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (E = this.options) || void 0 === E ? void 0 : E.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
-              }), [4, Promise.all([this.getCheerio(o2, false), u2])]) : [3, 2];
+              }), [4, Promise.all([this.getCheerio(o2, false), c2])]) : [3, 2];
             case 1:
-              return c2 = a2.sent()[0], [3, 4];
+              return u2 = a2.sent()[0], [3, 4];
             case 2:
               return [4, this.getCheerio(o2, false)];
             case 3:
-              c2 = a2.sent(), a2.label = 4;
+              u2 = a2.sent(), a2.label = 4;
             case 4:
-              return c2(".manga-title-badges, #manga-title span").remove(), (p2 = { path: e2, name: c2(".post-title h1").text().trim() || c2("#manga-title h1").text().trim() || c2(".manga-title").text().trim() || "" }).cover = this.extractCover(c2(".summary_image > a > img")), c2(".post-content_item, .post-content").each(function() {
-                var e3 = c2(this).find("h5").text().trim(), t3 = c2(this).find(".summary-content") || c2(this).find(".summary_content");
+              return u2(".manga-title-badges, #manga-title span").remove(), (p2 = { path: e2, name: u2(".post-title h1").text().trim() || u2("#manga-title h1").text().trim() || u2(".manga-title").text().trim() || "" }).cover = this.extractCover(u2(".summary_image > a > img")), u2(".post-content_item, .post-content").each(function() {
+                var e3 = u2(this).find("h5").text().trim(), t3 = u2(this).find(".summary-content") || u2(this).find(".summary_content");
                 switch (e3) {
                   case "Genre(s)":
                   case "Genre":
@@ -26053,9 +26053,9 @@ var LNReaderPlugin = (() => {
                   case "Kategori":
                   case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
                     p2.genres ? p2.genres += ", " + t3.find("a").map(function(e4, t4) {
-                      return c2(t4).text();
+                      return u2(t4).text();
                     }).get().join(", ") : p2.genres = t3.find("a").map(function(e4, t4) {
-                      return c2(t4).text();
+                      return u2(t4).text();
                     }).get().join(", ");
                     break;
                   case "Author(s)":
@@ -26079,29 +26079,29 @@ var LNReaderPlugin = (() => {
                   case "Artist(s)":
                     p2.artist = t3.text().trim();
                 }
-              }), p2.genres || (p2.genres = c2(".genres-content").text().trim()), p2.status || (p2.status = c2(".manga-status").text().trim().includes("OnGoing") ? s.NovelStatus.Ongoing : s.NovelStatus.Completed), p2.author || (p2.author = c2(".manga-author a").text().trim()), p2.rating || (p2.rating = parseFloat(c2(".post-rating span").text().trim())), p2.author || (p2.author = c2(".manga-authors").text().trim()), c2("div.summary__content .code-block,script,noscript").remove(), p2.summary = this.translateDragontea(c2("div.summary__content")).text().trim() || c2("#tab-manga-about").text().trim() || c2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, t3) {
-                return c2(t3).text();
-              }).get().join("\n\n").trim() || c2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, t3) {
-                return c2(t3).text();
-              }).get().join("\n\n").trim() || c2(".manga-summary p").map(function(e3, t3) {
-                return c2(t3).text();
-              }).get().join("\n\n").trim() || c2(".manga-excerpt p").map(function(e3, t3) {
-                return c2(t3).text();
-              }).get().join("\n\n").trim(), d2 = [], v2 = "", (null === (R = this.options) || void 0 === R ? void 0 : R.useNewChapterEndpoint) ? u2 ? [4, u2] : [3, 6] : [3, 14];
+              }), p2.genres || (p2.genres = u2(".genres-content").text().trim()), p2.status || (p2.status = u2(".manga-status").text().trim().includes("OnGoing") ? s.NovelStatus.Ongoing : s.NovelStatus.Completed), p2.author || (p2.author = u2(".manga-author a").text().trim()), p2.rating || (p2.rating = parseFloat(u2(".post-rating span").text().trim())), p2.author || (p2.author = u2(".manga-authors").text().trim()), u2("div.summary__content .code-block,script,noscript").remove(), p2.summary = this.translateDragontea(u2("div.summary__content")).text().trim() || u2("#tab-manga-about").text().trim() || u2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim() || u2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim() || u2(".manga-summary p").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim() || u2(".manga-excerpt p").map(function(e3, t3) {
+                return u2(t3).text();
+              }).get().join("\n\n").trim(), d2 = [], f2 = "", (null === (G = this.options) || void 0 === G ? void 0 : G.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
             case 5:
-              return f2 = a2.sent(), [3, 7];
+              return v2 = a2.sent(), [3, 7];
             case 6:
-              f2 = "", a2.label = 7;
+              v2 = "", a2.label = 7;
             case 7:
-              return (v2 = f2 || "") ? [3, 9] : [4, (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
+              return (f2 = v2 || "") ? [3, 9] : [4, (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
               })];
             case 8:
-              v2 = a2.sent(), a2.label = 9;
+              f2 = a2.sent(), a2.label = 9;
             case 9:
-              if (m2 = (0, i.load)(v2), !((g2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
+              if (m2 = (0, i.load)(f2), !((g2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
               if (b2 = Math.max.apply(Math, g2.map(function(e3, t3) {
                 return parseInt(m2(t3).attr("data-page") || "1", 10);
               }).get()), y = g2.last().attr("href") || "", -1 === (x = y.indexOf("?"))) return [3, 13];
@@ -26109,38 +26109,52 @@ var LNReaderPlugin = (() => {
               k = 6, _ = 0, a2.label = 10;
             case 10:
               return _ < C.length ? (A = C.slice(_, _ + k), [4, Promise.all(A.map(function(e3) {
-                return (0, n.fetchApi)(e3, { method: "POST", headers: G.requestHeaders, referrer: o2 }).then(function(e4) {
+                return (0, n.fetchApi)(e3, { method: "POST", headers: F.requestHeaders, referrer: o2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
                 });
               }))]) : [3, 13];
             case 11:
-              for (N = a2.sent(), S = 0, O = N; S < O.length; S++) (T = O[S]) && "0" !== T && (v2 += T);
+              for (N = a2.sent(), S = 0, O = N; S < O.length; S++) (T = O[S]) && "0" !== T && (f2 += T);
               a2.label = 12;
             case 12:
               return _ += k, [3, 10];
             case 13:
               return [3, 16];
             case 14:
-              return j = c2(".rating-post-id").attr("value") || c2("#manga-chapters-holder").attr("data-id") || "", (q = new FormData()).append("action", "manga_get_chapters"), q.append("manga", j), [4, (0, n.fetchApi)("".concat(t2, "/wp-admin/admin-ajax.php"), { method: "POST", headers: this.requestHeaders, body: q }).then(function(e3) {
+              return j = u2(".rating-post-id").attr("value") || u2("#manga-chapters-holder").attr("data-id") || "", (q = new FormData()).append("action", "manga_get_chapters"), q.append("manga", j), [4, (0, n.fetchApi)("".concat(t2, "/wp-admin/admin-ajax.php"), { method: "POST", headers: this.requestHeaders, body: q }).then(function(e3) {
                 return e3.text();
               })];
             case 15:
-              v2 = a2.sent(), a2.label = 16;
+              f2 = a2.sent(), a2.label = 16;
             case 16:
-              return "0" !== v2 && v2 && (c2 = (0, i.load)(v2)), P = c2(".wp-manga-chapter"), D = P.length, H = (0, l.default)().format("LL"), P.each(function(e3, t3) {
-                var a3, r4 = c2(t3), n2 = r4.find("a"), i2 = n2.attr("href") || "";
-                if (i2 && "#" !== i2) {
-                  var o3 = ((null === (a3 = t3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
-                  if (!o3 || !G.hideLocked) {
-                    var s2 = n2.text().trim();
-                    o3 && (s2 = "\u{1F512} " + s2);
-                    var l2 = r4.find("span.chapter-release-date").text().trim(), u3 = l2 ? G.parseData(l2) : H;
-                    d2.push({ name: s2, path: i2.replace(/https?:\/\/.*?\//, ""), releaseTime: u3 || null, chapterNumber: D - e3 });
-                  }
+              return "0" !== f2 && f2 && (u2 = (0, i.load)(f2)), P = (0, l.default)().format("LL"), D = /* @__PURE__ */ __name(function(e3) {
+                var t3, a3 = u2(e3), r4 = a3.find("a"), n2 = r4.attr("href") || "";
+                if (!n2 || "#" === n2) return null;
+                var i2 = ((null === (t3 = e3.attribs) || void 0 === t3 ? void 0 : t3.class) || "").includes("premium-block");
+                if (i2 && F.hideLocked) return null;
+                var o3 = r4.text().trim();
+                i2 && (o3 = "\u{1F512} " + o3);
+                var s2 = a3.find("span.chapter-release-date").text().trim(), l2 = s2 ? F.parseData(s2) : P;
+                return { name: o3, path: n2.replace(/https?:\/\/.*?\//, ""), releaseTime: l2 || null };
+              }, "D"), (H = u2("li.parent.has-child")).length > 0 ? (H.each(function(e3, t3) {
+                var a3 = [];
+                u2(t3).find(".wp-manga-chapter").each(function(e4, t4) {
+                  var r4 = D(t4);
+                  r4 && a3.push(r4);
+                }), d2.push.apply(d2, a3.reverse());
+              }), M = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                if (!u2(t3).parents("li.parent.has-child").length) {
+                  var a3 = D(t3);
+                  a3 && M.push(a3);
                 }
-              }), p2.chapters = d2.reverse(), [2, p2];
+              }), M.length > 0 && d2.push.apply(d2, M.reverse())) : (R = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                var a3 = D(t3);
+                a3 && R.push(a3);
+              }), d2.push.apply(d2, R.reverse())), d2.forEach(function(e3, t3) {
+                e3.chapterNumber = t3 + 1;
+              }), p2.chapters = d2, [2, p2];
           }
         });
       });

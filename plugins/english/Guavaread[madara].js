@@ -25869,7 +25869,7 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, d = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, v = /week|semana/i, f = /month|mes/i, m = /year|año/i, b = function() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, d = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, v = /week|semana/i, f = /month|mes/i, m = /year|año/i, g = function() {
     function r2(e2) {
       var t2, a2, r3 = this;
       this.hideLocked = u.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
@@ -25892,7 +25892,7 @@ var LNReaderPlugin = (() => {
         return r3.dateCache.set(e3, n3), n3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.3.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "2.4.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(r2, "r");
     return Object.defineProperty(r2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -26025,11 +26025,11 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, o2, u2, c2, h2, p2, d2, v2, f2, m2, b2, g2, y, x, w, C, k, L, S, _, A, N, j, O, T, P, D, q, H, R, G, M = this;
+        var t2, r3, o2, u2, c2, h2, p2, d2, v2, f2, m2, g2, b2, y, x, w, C, k, L, S, _, A, N, j, O, T, P, D, q, H, R, G, M, E, F = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), o2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(o2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (R = this.options) || void 0 === R ? void 0 : R.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
+              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), o2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(o2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (M = this.options) || void 0 === M ? void 0 : M.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
@@ -26087,7 +26087,7 @@ var LNReaderPlugin = (() => {
                 return u2(t3).text();
               }).get().join("\n\n").trim() || u2(".manga-excerpt p").map(function(e3, t3) {
                 return u2(t3).text();
-              }).get().join("\n\n").trim(), d2 = [], v2 = "", (null === (G = this.options) || void 0 === G ? void 0 : G.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
+              }).get().join("\n\n").trim(), d2 = [], v2 = "", (null === (E = this.options) || void 0 === E ? void 0 : E.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
             case 5:
               return f2 = a2.sent(), [3, 7];
             case 6:
@@ -26101,15 +26101,15 @@ var LNReaderPlugin = (() => {
             case 8:
               v2 = a2.sent(), a2.label = 9;
             case 9:
-              if (m2 = (0, i.load)(v2), !((b2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
-              if (g2 = Math.max.apply(Math, b2.map(function(e3, t3) {
+              if (m2 = (0, i.load)(v2), !((g2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
+              if (b2 = Math.max.apply(Math, g2.map(function(e3, t3) {
                 return parseInt(m2(t3).attr("data-page") || "1", 10);
-              }).get()), y = b2.last().attr("href") || "", -1 === (x = y.indexOf("?"))) return [3, 13];
-              for (w = y.slice(x).replace(/\d+$/, ""), C = [], k = 2; k <= g2; k++) C.push("".concat(h2).concat(w).concat(k));
+              }).get()), y = g2.last().attr("href") || "", -1 === (x = y.indexOf("?"))) return [3, 13];
+              for (w = y.slice(x).replace(/\d+$/, ""), C = [], k = 2; k <= b2; k++) C.push("".concat(h2).concat(w).concat(k));
               L = 6, S = 0, a2.label = 10;
             case 10:
               return S < C.length ? (_ = C.slice(S, S + L), [4, Promise.all(_.map(function(e3) {
-                return (0, n.fetchApi)(e3, { method: "POST", headers: M.requestHeaders, referrer: o2 }).then(function(e4) {
+                return (0, n.fetchApi)(e3, { method: "POST", headers: F.requestHeaders, referrer: o2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
@@ -26129,18 +26129,32 @@ var LNReaderPlugin = (() => {
             case 15:
               v2 = a2.sent(), a2.label = 16;
             case 16:
-              return "0" !== v2 && v2 && (u2 = (0, i.load)(v2)), D = u2(".wp-manga-chapter"), q = D.length, H = (0, l.default)().format("LL"), D.each(function(e3, t3) {
-                var a3, r4 = u2(t3), n2 = r4.find("a"), i2 = n2.attr("href") || "";
-                if (i2 && "#" !== i2) {
-                  var o3 = ((null === (a3 = t3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
-                  if (!o3 || !M.hideLocked) {
-                    var s2 = n2.text().trim();
-                    o3 && (s2 = "\u{1F512} " + s2);
-                    var l2 = r4.find("span.chapter-release-date").text().trim(), c3 = l2 ? M.parseData(l2) : H;
-                    d2.push({ name: s2, path: i2.replace(/https?:\/\/.*?\//, ""), releaseTime: c3 || null, chapterNumber: q - e3 });
-                  }
+              return "0" !== v2 && v2 && (u2 = (0, i.load)(v2)), D = (0, l.default)().format("LL"), q = /* @__PURE__ */ __name(function(e3) {
+                var t3, a3 = u2(e3), r4 = a3.find("a"), n2 = r4.attr("href") || "";
+                if (!n2 || "#" === n2) return null;
+                var i2 = ((null === (t3 = e3.attribs) || void 0 === t3 ? void 0 : t3.class) || "").includes("premium-block");
+                if (i2 && F.hideLocked) return null;
+                var o3 = r4.text().trim();
+                i2 && (o3 = "\u{1F512} " + o3);
+                var s2 = a3.find("span.chapter-release-date").text().trim(), l2 = s2 ? F.parseData(s2) : D;
+                return { name: o3, path: n2.replace(/https?:\/\/.*?\//, ""), releaseTime: l2 || null };
+              }, "q"), (H = u2("li.parent.has-child")).length > 0 ? (H.each(function(e3, t3) {
+                var a3 = [];
+                u2(t3).find(".wp-manga-chapter").each(function(e4, t4) {
+                  var r4 = q(t4);
+                  r4 && a3.push(r4);
+                }), d2.push.apply(d2, a3.reverse());
+              }), R = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                if (!u2(t3).parents("li.parent.has-child").length) {
+                  var a3 = q(t3);
+                  a3 && R.push(a3);
                 }
-              }), p2.chapters = d2.reverse(), [2, p2];
+              }), R.length > 0 && d2.push.apply(d2, R.reverse())) : (G = [], u2(".wp-manga-chapter").each(function(e3, t3) {
+                var a3 = q(t3);
+                a3 && G.push(a3);
+              }), d2.push.apply(d2, G.reverse())), d2.forEach(function(e3, t3) {
+                e3.chapterNumber = t3 + 1;
+              }), p2.chapters = d2, [2, p2];
           }
         });
       });
@@ -26172,9 +26186,9 @@ var LNReaderPlugin = (() => {
       });
     }, r2;
   }();
-  exports.MadaraPlugin = b;
-  var g = new b({ id: "guavaread", sourceSite: "https://guavaread.com/", sourceName: "Guavaread", options: { useNewChapterEndpoint: true, down: true, downSince: 1768289212912 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adult", value: "adult" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Complete", value: "complete" }, { label: "Cooking", value: "cooking" }, { label: "Detective", value: "detective" }, { label: "Drama", value: "drama" }, { label: "Dropped", value: "dropped" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Mature", value: "mature" }, { label: "Mystery", value: "mystery" }, { label: "Original Story", value: "original-story" }, { label: "Pilot", value: "pilot" }, { label: "Psychological", value: "psychological" }, { label: "R-15", value: "r-15" }, { label: "R-19", value: "r-19" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Shoujo", value: "shoujo" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
-  exports.default = g;
+  exports.MadaraPlugin = g;
+  var b = new g({ id: "guavaread", sourceSite: "https://guavaread.com/", sourceName: "Guavaread", options: { useNewChapterEndpoint: true, down: true, downSince: 1768289212912 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Action", value: "action" }, { label: "Adult", value: "adult" }, { label: "Adventure", value: "adventure" }, { label: "Comedy", value: "comedy" }, { label: "Complete", value: "complete" }, { label: "Cooking", value: "cooking" }, { label: "Detective", value: "detective" }, { label: "Drama", value: "drama" }, { label: "Dropped", value: "dropped" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantasy", value: "fantasy" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Josei", value: "josei" }, { label: "Mature", value: "mature" }, { label: "Mystery", value: "mystery" }, { label: "Original Story", value: "original-story" }, { label: "Pilot", value: "pilot" }, { label: "Psychological", value: "psychological" }, { label: "R-15", value: "r-15" }, { label: "R-19", value: "r-19" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Shoujo", value: "shoujo" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Supernatural", value: "supernatural" }, { label: "Tragedy", value: "tragedy" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
+  exports.default = b;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

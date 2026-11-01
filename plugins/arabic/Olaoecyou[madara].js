@@ -25892,7 +25892,7 @@ var LNReaderPlugin = (() => {
         return l3.dateCache.set(e3, r3), r3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var r2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.3.".concat(r2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "2.4.".concat(r2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(l2, "l");
     return Object.defineProperty(l2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -26025,11 +26025,11 @@ var LNReaderPlugin = (() => {
       });
     }, l2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, l3, u2, s2, c2, v2, b2, h2, p2, d2, f2, m2, g2, y, x, w, C, k, L, _, N, A, S, j, O, T, q, P, D, H, G, R, M = this;
+        var t2, l3, u2, s2, c2, v2, b2, h2, p2, d2, f2, m2, g2, y, x, w, C, k, L, _, N, A, S, j, O, T, q, P, D, H, G, R, E, M, F = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), u2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(l3), c2 = null, v2 = "".concat(u2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (G = this.options) || void 0 === G ? void 0 : G.useNewChapterEndpoint) ? (c2 = (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: u2 }).then(function(e3) {
+              return t2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), u2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(l3), c2 = null, v2 = "".concat(u2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (E = this.options) || void 0 === E ? void 0 : E.useNewChapterEndpoint) ? (c2 = (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: u2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
@@ -26087,7 +26087,7 @@ var LNReaderPlugin = (() => {
                 return s2(t3).text();
               }).get().join("\n\n").trim() || s2(".manga-excerpt p").map(function(e3, t3) {
                 return s2(t3).text();
-              }).get().join("\n\n").trim(), h2 = [], p2 = "", (null === (R = this.options) || void 0 === R ? void 0 : R.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
+              }).get().join("\n\n").trim(), h2 = [], p2 = "", (null === (M = this.options) || void 0 === M ? void 0 : M.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
             case 5:
               return d2 = a2.sent(), [3, 7];
             case 6:
@@ -26109,7 +26109,7 @@ var LNReaderPlugin = (() => {
               L = 6, _ = 0, a2.label = 10;
             case 10:
               return _ < C.length ? (N = C.slice(_, _ + L), [4, Promise.all(N.map(function(e3) {
-                return (0, r.fetchApi)(e3, { method: "POST", headers: M.requestHeaders, referrer: u2 }).then(function(e4) {
+                return (0, r.fetchApi)(e3, { method: "POST", headers: F.requestHeaders, referrer: u2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
@@ -26129,18 +26129,32 @@ var LNReaderPlugin = (() => {
             case 15:
               p2 = a2.sent(), a2.label = 16;
             case 16:
-              return "0" !== p2 && p2 && (s2 = (0, n.load)(p2)), P = s2(".wp-manga-chapter"), D = P.length, H = (0, o.default)().format("LL"), P.each(function(e3, t3) {
-                var a3, l4 = s2(t3), r2 = l4.find("a"), n2 = r2.attr("href") || "";
-                if (n2 && "#" !== n2) {
-                  var u3 = ((null === (a3 = t3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
-                  if (!u3 || !M.hideLocked) {
-                    var i2 = r2.text().trim();
-                    u3 && (i2 = "\u{1F512} " + i2);
-                    var o2 = l4.find("span.chapter-release-date").text().trim(), c3 = o2 ? M.parseData(o2) : H;
-                    h2.push({ name: i2, path: n2.replace(/https?:\/\/.*?\//, ""), releaseTime: c3 || null, chapterNumber: D - e3 });
-                  }
+              return "0" !== p2 && p2 && (s2 = (0, n.load)(p2)), P = (0, o.default)().format("LL"), D = /* @__PURE__ */ __name(function(e3) {
+                var t3, a3 = s2(e3), l4 = a3.find("a"), r2 = l4.attr("href") || "";
+                if (!r2 || "#" === r2) return null;
+                var n2 = ((null === (t3 = e3.attribs) || void 0 === t3 ? void 0 : t3.class) || "").includes("premium-block");
+                if (n2 && F.hideLocked) return null;
+                var u3 = l4.text().trim();
+                n2 && (u3 = "\u{1F512} " + u3);
+                var i2 = a3.find("span.chapter-release-date").text().trim(), o2 = i2 ? F.parseData(i2) : P;
+                return { name: u3, path: r2.replace(/https?:\/\/.*?\//, ""), releaseTime: o2 || null };
+              }, "D"), (H = s2("li.parent.has-child")).length > 0 ? (H.each(function(e3, t3) {
+                var a3 = [];
+                s2(t3).find(".wp-manga-chapter").each(function(e4, t4) {
+                  var l4 = D(t4);
+                  l4 && a3.push(l4);
+                }), h2.push.apply(h2, a3.reverse());
+              }), G = [], s2(".wp-manga-chapter").each(function(e3, t3) {
+                if (!s2(t3).parents("li.parent.has-child").length) {
+                  var a3 = D(t3);
+                  a3 && G.push(a3);
                 }
-              }), b2.chapters = h2.reverse(), [2, b2];
+              }), G.length > 0 && h2.push.apply(h2, G.reverse())) : (R = [], s2(".wp-manga-chapter").each(function(e3, t3) {
+                var a3 = D(t3);
+                a3 && R.push(a3);
+              }), h2.push.apply(h2, R.reverse())), h2.forEach(function(e3, t3) {
+                e3.chapterNumber = t3 + 1;
+              }), b2.chapters = h2, [2, b2];
           }
         });
       });
