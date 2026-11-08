@@ -28471,7 +28471,7 @@ var LNReaderPlugin = (() => {
   function cn(...inputs) {
     return (0, import_tailwind_merge.twMerge)(clsx(inputs));
   }
-  var import_tailwind_merge, isUrlAbsolute;
+  var import_tailwind_merge, isUrlAbsolute, getCoverUrl;
   var init_utils2 = __esm({
     "src/lib/utils.ts"() {
       "use strict";
@@ -28504,6 +28504,18 @@ var LNReaderPlugin = (() => {
         }
         return false;
       }, "isUrlAbsolute");
+      getCoverUrl = /* @__PURE__ */ __name((cover) => {
+        if (!cover) {
+          return "/static/coverNotAvailable.webp";
+        }
+        if (cover.startsWith("//")) {
+          return `/https:${cover}`;
+        }
+        if (cover.startsWith("http://") || cover.startsWith("https://")) {
+          return `/${cover}`;
+        }
+        return cover;
+      }, "getCoverUrl");
     }
   });
 

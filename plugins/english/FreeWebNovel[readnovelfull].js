@@ -830,18 +830,18 @@ var LNReaderPlugin = (() => {
       var eBias = eMax >> 1;
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
-      var d = isLE ? -1 : 1;
+      var d2 = isLE ? -1 : 1;
       var s2 = buffer[offset + i2];
-      i2 += d;
+      i2 += d2;
       e2 = s2 & (1 << -nBits) - 1;
       s2 >>= -nBits;
       nBits += eLen;
-      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
       m = e2 & (1 << -nBits) - 1;
       e2 >>= -nBits;
       nBits += mLen;
-      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
       if (e2 === 0) {
         e2 = 1 - eBias;
@@ -860,7 +860,7 @@ var LNReaderPlugin = (() => {
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
-      var d = isLE ? 1 : -1;
+      var d2 = isLE ? 1 : -1;
       var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
@@ -892,13 +892,13 @@ var LNReaderPlugin = (() => {
           e2 = 0;
         }
       }
-      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d, m /= 256, mLen -= 8) {
+      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d2, m /= 256, mLen -= 8) {
       }
       e2 = e2 << mLen | m;
       eLen += mLen;
-      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
+      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d2, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s2 * 128;
+      buffer[offset + i2 - d2] |= s2 * 128;
     };
     return exports$1;
   }
@@ -4174,31 +4174,31 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __extends = exports4 && exports4.__extends || /* @__PURE__ */ function() {
-        var extendStatics = /* @__PURE__ */ __name(function(d, b) {
-          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-            d2.__proto__ = b2;
-          } || function(d2, b2) {
-            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+        var extendStatics = /* @__PURE__ */ __name(function(d2, b) {
+          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, b2) {
+            d3.__proto__ = b2;
+          } || function(d3, b2) {
+            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d3[p2] = b2[p2];
           };
-          return extendStatics(d, b);
+          return extendStatics(d2, b);
         }, "extendStatics");
-        return function(d, b) {
+        return function(d2, b) {
           if (typeof b !== "function" && b !== null)
             throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-          extendStatics(d, b);
+          extendStatics(d2, b);
           function __() {
-            this.constructor = d;
+            this.constructor = d2;
           }
           __name(__, "__");
-          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+          d2.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
       }();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
@@ -4643,7 +4643,7 @@ var LNReaderPlugin = (() => {
         o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
+        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.DomHandler = void 0;
@@ -5206,8 +5206,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
@@ -6162,7 +6162,7 @@ var LNReaderPlugin = (() => {
         o2[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
+        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.hasChildren = exports4.isDocument = exports4.isComment = exports4.isText = exports4.isCDATA = exports4.isTag = void 0;
@@ -6348,11 +6348,11 @@ var LNReaderPlugin = (() => {
       init_process2();
       var base64 = exports4;
       base64.length = /* @__PURE__ */ __name(function length(string) {
-        var p = string.length;
-        if (!p)
+        var p2 = string.length;
+        if (!p2)
           return 0;
         var n2 = 0;
-        while (--p % 4 > 1 && string.charAt(p) === "=")
+        while (--p2 % 4 > 1 && string.charAt(p2) === "=")
           ++n2;
         return Math.ceil(string.length * 3) / 4 - n2;
       }, "length");
@@ -7001,9 +7001,9 @@ var LNReaderPlugin = (() => {
       return unsigned ? UZERO : ZERO;
     radix = radix || 10;
     if (radix < 2 || 36 < radix) throw RangeError("radix");
-    var p;
-    if ((p = str.indexOf("-")) > 0) throw Error("interior hyphen");
-    else if (p === 0) {
+    var p2;
+    if ((p2 = str.indexOf("-")) > 0) throw Error("interior hyphen");
+    else if (p2 === 0) {
       return fromString(str.substring(1), unsigned, radix).neg();
     }
     var radixToPower = fromNumber(pow_dbl(radix, 8));
@@ -14436,8 +14436,8 @@ var LNReaderPlugin = (() => {
           } else if (token.name === "has" || token.name === "contains") {
             proc = 0;
           } else if (Array.isArray(token.data)) {
-            proc = Math.min.apply(Math, token.data.map(function(d) {
-              return Math.min.apply(Math, d.map(getProcedure));
+            proc = Math.min.apply(Math, token.data.map(function(d2) {
+              return Math.min.apply(Math, d2.map(getProcedure));
             }));
             if (proc < 0) {
               proc = 0;
@@ -15826,8 +15826,8 @@ var LNReaderPlugin = (() => {
         __assign = Object.assign || function(t2) {
           for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
             s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+            for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2))
+              t2[p2] = s2[p2];
           }
           return t2;
         };
@@ -21746,214 +21746,214 @@ var LNReaderPlugin = (() => {
   });
 
   // node_modules/parse5/dist/parser/index.js
-  function aaObtainFormattingElementEntry(p, token) {
-    let formattingElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
+  function aaObtainFormattingElementEntry(p2, token) {
+    let formattingElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(token.tagName);
     if (formattingElementEntry) {
-      if (!p.openElements.contains(formattingElementEntry.element)) {
-        p.activeFormattingElements.removeEntry(formattingElementEntry);
+      if (!p2.openElements.contains(formattingElementEntry.element)) {
+        p2.activeFormattingElements.removeEntry(formattingElementEntry);
         formattingElementEntry = null;
-      } else if (!p.openElements.hasInScope(token.tagID)) {
+      } else if (!p2.openElements.hasInScope(token.tagID)) {
         formattingElementEntry = null;
       }
     } else {
-      genericEndTagInBody(p, token);
+      genericEndTagInBody(p2, token);
     }
     return formattingElementEntry;
   }
-  function aaObtainFurthestBlock(p, formattingElementEntry) {
+  function aaObtainFurthestBlock(p2, formattingElementEntry) {
     let furthestBlock = null;
-    let idx = p.openElements.stackTop;
+    let idx = p2.openElements.stackTop;
     for (; idx >= 0; idx--) {
-      const element = p.openElements.items[idx];
+      const element = p2.openElements.items[idx];
       if (element === formattingElementEntry.element) {
         break;
       }
-      if (p._isSpecialElement(element, p.openElements.tagIDs[idx])) {
+      if (p2._isSpecialElement(element, p2.openElements.tagIDs[idx])) {
         furthestBlock = element;
       }
     }
     if (!furthestBlock) {
-      p.openElements.shortenToLength(idx < 0 ? 0 : idx);
-      p.activeFormattingElements.removeEntry(formattingElementEntry);
+      p2.openElements.shortenToLength(idx < 0 ? 0 : idx);
+      p2.activeFormattingElements.removeEntry(formattingElementEntry);
     }
     return furthestBlock;
   }
-  function aaInnerLoop(p, furthestBlock, formattingElement) {
+  function aaInnerLoop(p2, furthestBlock, formattingElement) {
     let lastElement = furthestBlock;
-    let nextElement = p.openElements.getCommonAncestor(furthestBlock);
+    let nextElement = p2.openElements.getCommonAncestor(furthestBlock);
     for (let i2 = 0, element = nextElement; element !== formattingElement; i2++, element = nextElement) {
-      nextElement = p.openElements.getCommonAncestor(element);
-      const elementEntry = p.activeFormattingElements.getElementEntry(element);
+      nextElement = p2.openElements.getCommonAncestor(element);
+      const elementEntry = p2.activeFormattingElements.getElementEntry(element);
       const counterOverflow = elementEntry && i2 >= AA_INNER_LOOP_ITER;
       const shouldRemoveFromOpenElements = !elementEntry || counterOverflow;
       if (shouldRemoveFromOpenElements) {
         if (counterOverflow) {
-          p.activeFormattingElements.removeEntry(elementEntry);
+          p2.activeFormattingElements.removeEntry(elementEntry);
         }
-        p.openElements.remove(element);
+        p2.openElements.remove(element);
       } else {
-        element = aaRecreateElementFromEntry(p, elementEntry);
+        element = aaRecreateElementFromEntry(p2, elementEntry);
         if (lastElement === furthestBlock) {
-          p.activeFormattingElements.bookmark = elementEntry;
+          p2.activeFormattingElements.bookmark = elementEntry;
         }
-        p.treeAdapter.detachNode(lastElement);
-        p.treeAdapter.appendChild(element, lastElement);
+        p2.treeAdapter.detachNode(lastElement);
+        p2.treeAdapter.appendChild(element, lastElement);
         lastElement = element;
       }
     }
     return lastElement;
   }
-  function aaRecreateElementFromEntry(p, elementEntry) {
-    const ns = p.treeAdapter.getNamespaceURI(elementEntry.element);
-    const newElement = p.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
-    p.openElements.replace(elementEntry.element, newElement);
+  function aaRecreateElementFromEntry(p2, elementEntry) {
+    const ns = p2.treeAdapter.getNamespaceURI(elementEntry.element);
+    const newElement = p2.treeAdapter.createElement(elementEntry.token.tagName, ns, elementEntry.token.attrs);
+    p2.openElements.replace(elementEntry.element, newElement);
     elementEntry.element = newElement;
     return newElement;
   }
-  function aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement) {
-    const tn = p.treeAdapter.getTagName(commonAncestor);
+  function aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement) {
+    const tn = p2.treeAdapter.getTagName(commonAncestor);
     const tid = getTagID(tn);
-    if (p._isElementCausesFosterParenting(tid)) {
-      p._fosterParentElement(lastElement);
+    if (p2._isElementCausesFosterParenting(tid)) {
+      p2._fosterParentElement(lastElement);
     } else {
-      const ns = p.treeAdapter.getNamespaceURI(commonAncestor);
+      const ns = p2.treeAdapter.getNamespaceURI(commonAncestor);
       if (tid === TAG_ID.TEMPLATE && ns === NS.HTML) {
-        commonAncestor = p.treeAdapter.getTemplateContent(commonAncestor);
+        commonAncestor = p2.treeAdapter.getTemplateContent(commonAncestor);
       }
-      p.treeAdapter.appendChild(commonAncestor, lastElement);
+      p2.treeAdapter.appendChild(commonAncestor, lastElement);
     }
   }
-  function aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry) {
-    const ns = p.treeAdapter.getNamespaceURI(formattingElementEntry.element);
+  function aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry) {
+    const ns = p2.treeAdapter.getNamespaceURI(formattingElementEntry.element);
     const { token } = formattingElementEntry;
-    const newElement = p.treeAdapter.createElement(token.tagName, ns, token.attrs);
-    p._adoptNodes(furthestBlock, newElement);
-    p.treeAdapter.appendChild(furthestBlock, newElement);
-    p.activeFormattingElements.insertElementAfterBookmark(newElement, token);
-    p.activeFormattingElements.removeEntry(formattingElementEntry);
-    p.openElements.remove(formattingElementEntry.element);
-    p.openElements.insertAfter(furthestBlock, newElement, token.tagID);
+    const newElement = p2.treeAdapter.createElement(token.tagName, ns, token.attrs);
+    p2._adoptNodes(furthestBlock, newElement);
+    p2.treeAdapter.appendChild(furthestBlock, newElement);
+    p2.activeFormattingElements.insertElementAfterBookmark(newElement, token);
+    p2.activeFormattingElements.removeEntry(formattingElementEntry);
+    p2.openElements.remove(formattingElementEntry.element);
+    p2.openElements.insertAfter(furthestBlock, newElement, token.tagID);
   }
-  function callAdoptionAgency(p, token) {
+  function callAdoptionAgency(p2, token) {
     for (let i2 = 0; i2 < AA_OUTER_LOOP_ITER; i2++) {
-      const formattingElementEntry = aaObtainFormattingElementEntry(p, token);
+      const formattingElementEntry = aaObtainFormattingElementEntry(p2, token);
       if (!formattingElementEntry) {
         break;
       }
-      const furthestBlock = aaObtainFurthestBlock(p, formattingElementEntry);
+      const furthestBlock = aaObtainFurthestBlock(p2, formattingElementEntry);
       if (!furthestBlock) {
         break;
       }
-      p.activeFormattingElements.bookmark = formattingElementEntry;
-      const lastElement = aaInnerLoop(p, furthestBlock, formattingElementEntry.element);
-      const commonAncestor = p.openElements.getCommonAncestor(formattingElementEntry.element);
-      p.treeAdapter.detachNode(lastElement);
+      p2.activeFormattingElements.bookmark = formattingElementEntry;
+      const lastElement = aaInnerLoop(p2, furthestBlock, formattingElementEntry.element);
+      const commonAncestor = p2.openElements.getCommonAncestor(formattingElementEntry.element);
+      p2.treeAdapter.detachNode(lastElement);
       if (commonAncestor)
-        aaInsertLastNodeInCommonAncestor(p, commonAncestor, lastElement);
-      aaReplaceFormattingElement(p, furthestBlock, formattingElementEntry);
+        aaInsertLastNodeInCommonAncestor(p2, commonAncestor, lastElement);
+      aaReplaceFormattingElement(p2, furthestBlock, formattingElementEntry);
     }
   }
-  function appendComment(p, token) {
-    p._appendCommentNode(token, p.openElements.currentTmplContentOrNode);
+  function appendComment(p2, token) {
+    p2._appendCommentNode(token, p2.openElements.currentTmplContentOrNode);
   }
-  function appendCommentToRootHtmlElement(p, token) {
-    p._appendCommentNode(token, p.openElements.items[0]);
+  function appendCommentToRootHtmlElement(p2, token) {
+    p2._appendCommentNode(token, p2.openElements.items[0]);
   }
-  function appendCommentToDocument(p, token) {
-    p._appendCommentNode(token, p.document);
+  function appendCommentToDocument(p2, token) {
+    p2._appendCommentNode(token, p2.document);
   }
-  function stopParsing(p, token) {
-    p.stopped = true;
+  function stopParsing(p2, token) {
+    p2.stopped = true;
     if (token.location) {
-      const target = p.fragmentContext ? 0 : 2;
-      for (let i2 = p.openElements.stackTop; i2 >= target; i2--) {
-        p._setEndLocation(p.openElements.items[i2], token);
+      const target = p2.fragmentContext ? 0 : 2;
+      for (let i2 = p2.openElements.stackTop; i2 >= target; i2--) {
+        p2._setEndLocation(p2.openElements.items[i2], token);
       }
-      if (!p.fragmentContext && p.openElements.stackTop >= 0) {
-        const htmlElement = p.openElements.items[0];
-        const htmlLocation = p.treeAdapter.getNodeSourceCodeLocation(htmlElement);
+      if (!p2.fragmentContext && p2.openElements.stackTop >= 0) {
+        const htmlElement = p2.openElements.items[0];
+        const htmlLocation = p2.treeAdapter.getNodeSourceCodeLocation(htmlElement);
         if (htmlLocation && !htmlLocation.endTag) {
-          p._setEndLocation(htmlElement, token);
-          if (p.openElements.stackTop >= 1) {
-            const bodyElement = p.openElements.items[1];
-            const bodyLocation = p.treeAdapter.getNodeSourceCodeLocation(bodyElement);
+          p2._setEndLocation(htmlElement, token);
+          if (p2.openElements.stackTop >= 1) {
+            const bodyElement = p2.openElements.items[1];
+            const bodyLocation = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement);
             if (bodyLocation && !bodyLocation.endTag) {
-              p._setEndLocation(bodyElement, token);
+              p2._setEndLocation(bodyElement, token);
             }
           }
         }
       }
     }
   }
-  function doctypeInInitialMode(p, token) {
-    p._setDocumentType(token);
+  function doctypeInInitialMode(p2, token) {
+    p2._setDocumentType(token);
     const mode = token.forceQuirks ? DOCUMENT_MODE.QUIRKS : getDocumentMode(token);
     if (!isConforming(token)) {
-      p._err(token, ERR.nonConformingDoctype);
+      p2._err(token, ERR.nonConformingDoctype);
     }
-    p.treeAdapter.setDocumentMode(p.document, mode);
-    p.insertionMode = InsertionMode.BEFORE_HTML;
+    p2.treeAdapter.setDocumentMode(p2.document, mode);
+    p2.insertionMode = InsertionMode.BEFORE_HTML;
   }
-  function tokenInInitialMode(p, token) {
-    p._err(token, ERR.missingDoctype, true);
-    p.treeAdapter.setDocumentMode(p.document, DOCUMENT_MODE.QUIRKS);
-    p.insertionMode = InsertionMode.BEFORE_HTML;
-    p._processToken(token);
+  function tokenInInitialMode(p2, token) {
+    p2._err(token, ERR.missingDoctype, true);
+    p2.treeAdapter.setDocumentMode(p2.document, DOCUMENT_MODE.QUIRKS);
+    p2.insertionMode = InsertionMode.BEFORE_HTML;
+    p2._processToken(token);
   }
-  function startTagBeforeHtml(p, token) {
+  function startTagBeforeHtml(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p._insertElement(token, NS.HTML);
-      p.insertionMode = InsertionMode.BEFORE_HEAD;
+      p2._insertElement(token, NS.HTML);
+      p2.insertionMode = InsertionMode.BEFORE_HEAD;
     } else {
-      tokenBeforeHtml(p, token);
+      tokenBeforeHtml(p2, token);
     }
   }
-  function endTagBeforeHtml(p, token) {
+  function endTagBeforeHtml(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HTML || tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.BR) {
-      tokenBeforeHtml(p, token);
+      tokenBeforeHtml(p2, token);
     }
   }
-  function tokenBeforeHtml(p, token) {
-    p._insertFakeRootElement();
-    p.insertionMode = InsertionMode.BEFORE_HEAD;
-    p._processToken(token);
+  function tokenBeforeHtml(p2, token) {
+    p2._insertFakeRootElement();
+    p2.insertionMode = InsertionMode.BEFORE_HEAD;
+    p2._processToken(token);
   }
-  function startTagBeforeHead(p, token) {
+  function startTagBeforeHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.HEAD: {
-        p._insertElement(token, NS.HTML);
-        p.headElement = p.openElements.current;
-        p.insertionMode = InsertionMode.IN_HEAD;
+        p2._insertElement(token, NS.HTML);
+        p2.headElement = p2.openElements.current;
+        p2.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       default: {
-        tokenBeforeHead(p, token);
+        tokenBeforeHead(p2, token);
       }
     }
   }
-  function endTagBeforeHead(p, token) {
+  function endTagBeforeHead(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.HEAD || tn === TAG_ID.BODY || tn === TAG_ID.HTML || tn === TAG_ID.BR) {
-      tokenBeforeHead(p, token);
+      tokenBeforeHead(p2, token);
     } else {
-      p._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenBeforeHead(p, token) {
-    p._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
-    p.headElement = p.openElements.current;
-    p.insertionMode = InsertionMode.IN_HEAD;
-    p._processToken(token);
+  function tokenBeforeHead(p2, token) {
+    p2._insertFakeElement(TAG_NAMES.HEAD, TAG_ID.HEAD);
+    p2.headElement = p2.openElements.current;
+    p2.insertionMode = InsertionMode.IN_HEAD;
+    p2._processToken(token);
   }
-  function startTagInHead(p, token) {
+  function startTagInHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASE:
@@ -21961,94 +21961,94 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.LINK:
       case TAG_ID.META: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TITLE: {
-        p._switchToTextParsing(token, TokenizerMode.RCDATA);
+        p2._switchToTextParsing(token, TokenizerMode.RCDATA);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p.options.scriptingEnabled) {
-          p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        if (p2.options.scriptingEnabled) {
+          p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         } else {
-          p._insertElement(token, NS.HTML);
-          p.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
+          p2._insertElement(token, NS.HTML);
+          p2.insertionMode = InsertionMode.IN_HEAD_NO_SCRIPT;
         }
         break;
       }
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+        p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
         break;
       }
       case TAG_ID.SCRIPT: {
-        p._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
+        p2._switchToTextParsing(token, TokenizerMode.SCRIPT_DATA);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        p._insertTemplate(token);
-        p.activeFormattingElements.insertMarker();
-        p.framesetOk = false;
-        p.insertionMode = InsertionMode.IN_TEMPLATE;
-        p.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
+        p2._insertTemplate(token);
+        p2.activeFormattingElements.insertMarker();
+        p2.framesetOk = false;
+        p2.insertionMode = InsertionMode.IN_TEMPLATE;
+        p2.tmplInsertionModeStack.unshift(InsertionMode.IN_TEMPLATE);
         break;
       }
       case TAG_ID.HEAD: {
-        p._err(token, ERR.misplacedStartTagForHeadElement);
+        p2._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenInHead(p, token);
+        tokenInHead(p2, token);
       }
     }
   }
-  function endTagInHead(p, token) {
+  function endTagInHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HEAD: {
-        p.openElements.pop();
-        p.insertionMode = InsertionMode.AFTER_HEAD;
+        p2.openElements.pop();
+        p2.insertionMode = InsertionMode.AFTER_HEAD;
         break;
       }
       case TAG_ID.BODY:
       case TAG_ID.BR:
       case TAG_ID.HTML: {
-        tokenInHead(p, token);
+        tokenInHead(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function templateEndTagInHead(p, token) {
-    if (p.openElements.tmplCount > 0) {
-      p.openElements.generateImpliedEndTagsThoroughly();
-      if (p.openElements.currentTagId !== TAG_ID.TEMPLATE) {
-        p._err(token, ERR.closingOfElementWithOpenChildElements);
+  function templateEndTagInHead(p2, token) {
+    if (p2.openElements.tmplCount > 0) {
+      p2.openElements.generateImpliedEndTagsThoroughly();
+      if (p2.openElements.currentTagId !== TAG_ID.TEMPLATE) {
+        p2._err(token, ERR.closingOfElementWithOpenChildElements);
       }
-      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p.activeFormattingElements.clearToLastMarker();
-      p.tmplInsertionModeStack.shift();
-      p._resetInsertionMode();
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p2.activeFormattingElements.clearToLastMarker();
+      p2.tmplInsertionModeStack.shift();
+      p2._resetInsertionMode();
     } else {
-      p._err(token, ERR.endTagWithoutMatchingOpenElement);
+      p2._err(token, ERR.endTagWithoutMatchingOpenElement);
     }
   }
-  function tokenInHead(p, token) {
-    p.openElements.pop();
-    p.insertionMode = InsertionMode.AFTER_HEAD;
-    p._processToken(token);
+  function tokenInHead(p2, token) {
+    p2.openElements.pop();
+    p2.insertionMode = InsertionMode.AFTER_HEAD;
+    p2._processToken(token);
   }
-  function startTagInHeadNoScript(p, token) {
+  function startTagInHeadNoScript(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASEFONT:
@@ -22058,56 +22058,56 @@ var LNReaderPlugin = (() => {
       case TAG_ID.META:
       case TAG_ID.NOFRAMES:
       case TAG_ID.STYLE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        p._err(token, ERR.nestedNoscriptInHead);
+        p2._err(token, ERR.nestedNoscriptInHead);
         break;
       }
       default: {
-        tokenInHeadNoScript(p, token);
+        tokenInHeadNoScript(p2, token);
       }
     }
   }
-  function endTagInHeadNoScript(p, token) {
+  function endTagInHeadNoScript(p2, token) {
     switch (token.tagID) {
       case TAG_ID.NOSCRIPT: {
-        p.openElements.pop();
-        p.insertionMode = InsertionMode.IN_HEAD;
+        p2.openElements.pop();
+        p2.insertionMode = InsertionMode.IN_HEAD;
         break;
       }
       case TAG_ID.BR: {
-        tokenInHeadNoScript(p, token);
+        tokenInHeadNoScript(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenInHeadNoScript(p, token) {
+  function tokenInHeadNoScript(p2, token) {
     const errCode = token.type === TokenType.EOF ? ERR.openElementsLeftAfterEof : ERR.disallowedContentInNoscriptInHead;
-    p._err(token, errCode);
-    p.openElements.pop();
-    p.insertionMode = InsertionMode.IN_HEAD;
-    p._processToken(token);
+    p2._err(token, errCode);
+    p2.openElements.pop();
+    p2.insertionMode = InsertionMode.IN_HEAD;
+    p2._processToken(token);
   }
-  function startTagAfterHead(p, token) {
+  function startTagAfterHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.BODY: {
-        p._insertElement(token, NS.HTML);
-        p.framesetOk = false;
-        p.insertionMode = InsertionMode.IN_BODY;
+        p2._insertElement(token, NS.HTML);
+        p2.framesetOk = false;
+        p2.insertionMode = InsertionMode.IN_BODY;
         break;
       }
       case TAG_ID.FRAMESET: {
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_FRAMESET;
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_FRAMESET;
         break;
       }
       case TAG_ID.BASE:
@@ -22120,321 +22120,321 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        p._err(token, ERR.abandonedHeadElementChild);
-        p.openElements.push(p.headElement, TAG_ID.HEAD);
-        startTagInHead(p, token);
-        p.openElements.remove(p.headElement);
+        p2._err(token, ERR.abandonedHeadElementChild);
+        p2.openElements.push(p2.headElement, TAG_ID.HEAD);
+        startTagInHead(p2, token);
+        p2.openElements.remove(p2.headElement);
         break;
       }
       case TAG_ID.HEAD: {
-        p._err(token, ERR.misplacedStartTagForHeadElement);
+        p2._err(token, ERR.misplacedStartTagForHeadElement);
         break;
       }
       default: {
-        tokenAfterHead(p, token);
+        tokenAfterHead(p2, token);
       }
     }
   }
-  function endTagAfterHead(p, token) {
+  function endTagAfterHead(p2, token) {
     switch (token.tagID) {
       case TAG_ID.BODY:
       case TAG_ID.HTML:
       case TAG_ID.BR: {
-        tokenAfterHead(p, token);
+        tokenAfterHead(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        p._err(token, ERR.endTagWithoutMatchingOpenElement);
+        p2._err(token, ERR.endTagWithoutMatchingOpenElement);
       }
     }
   }
-  function tokenAfterHead(p, token) {
-    p._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterHead(p2, token) {
+    p2._insertFakeElement(TAG_NAMES.BODY, TAG_ID.BODY);
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function modeInBody(p, token) {
+  function modeInBody(p2, token) {
     switch (token.type) {
       case TokenType.CHARACTER: {
-        characterInBody(p, token);
+        characterInBody(p2, token);
         break;
       }
       case TokenType.WHITESPACE_CHARACTER: {
-        whitespaceCharacterInBody(p, token);
+        whitespaceCharacterInBody(p2, token);
         break;
       }
       case TokenType.COMMENT: {
-        appendComment(p, token);
+        appendComment(p2, token);
         break;
       }
       case TokenType.START_TAG: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TokenType.END_TAG: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
         break;
       }
       case TokenType.EOF: {
-        eofInBody(p, token);
+        eofInBody(p2, token);
         break;
       }
       default:
     }
   }
-  function whitespaceCharacterInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertCharacters(token);
+  function whitespaceCharacterInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertCharacters(token);
   }
-  function characterInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertCharacters(token);
-    p.framesetOk = false;
+  function characterInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertCharacters(token);
+    p2.framesetOk = false;
   }
-  function htmlStartTagInBody(p, token) {
-    if (p.openElements.tmplCount === 0) {
-      p.treeAdapter.adoptAttributes(p.openElements.items[0], token.attrs);
+  function htmlStartTagInBody(p2, token) {
+    if (p2.openElements.tmplCount === 0) {
+      p2.treeAdapter.adoptAttributes(p2.openElements.items[0], token.attrs);
     }
   }
-  function bodyStartTagInBody(p, token) {
-    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
-    if (bodyElement && p.openElements.tmplCount === 0) {
-      p.framesetOk = false;
-      p.treeAdapter.adoptAttributes(bodyElement, token.attrs);
+  function bodyStartTagInBody(p2, token) {
+    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+    if (bodyElement && p2.openElements.tmplCount === 0) {
+      p2.framesetOk = false;
+      p2.treeAdapter.adoptAttributes(bodyElement, token.attrs);
     }
   }
-  function framesetStartTagInBody(p, token) {
-    const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
-    if (p.framesetOk && bodyElement) {
-      p.treeAdapter.detachNode(bodyElement);
-      p.openElements.popAllUpToHtmlElement();
-      p._insertElement(token, NS.HTML);
-      p.insertionMode = InsertionMode.IN_FRAMESET;
+  function framesetStartTagInBody(p2, token) {
+    const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
+    if (p2.framesetOk && bodyElement) {
+      p2.treeAdapter.detachNode(bodyElement);
+      p2.openElements.popAllUpToHtmlElement();
+      p2._insertElement(token, NS.HTML);
+      p2.insertionMode = InsertionMode.IN_FRAMESET;
     }
   }
-  function addressStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function addressStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function numberedHeaderStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function numberedHeaderStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    if (NUMBERED_HEADERS.has(p.openElements.currentTagId)) {
-      p.openElements.pop();
+    if (NUMBERED_HEADERS.has(p2.openElements.currentTagId)) {
+      p2.openElements.pop();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function preStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function preStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.skipNextNewLine = true;
-    p.framesetOk = false;
+    p2._insertElement(token, NS.HTML);
+    p2.skipNextNewLine = true;
+    p2.framesetOk = false;
   }
-  function formStartTagInBody(p, token) {
-    const inTemplate = p.openElements.tmplCount > 0;
-    if (!p.formElement || inTemplate) {
-      if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-        p._closePElement();
+  function formStartTagInBody(p2, token) {
+    const inTemplate = p2.openElements.tmplCount > 0;
+    if (!p2.formElement || inTemplate) {
+      if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+        p2._closePElement();
       }
-      p._insertElement(token, NS.HTML);
+      p2._insertElement(token, NS.HTML);
       if (!inTemplate) {
-        p.formElement = p.openElements.current;
+        p2.formElement = p2.openElements.current;
       }
     }
   }
-  function listItemStartTagInBody(p, token) {
-    p.framesetOk = false;
+  function listItemStartTagInBody(p2, token) {
+    p2.framesetOk = false;
     const tn = token.tagID;
-    for (let i2 = p.openElements.stackTop; i2 >= 0; i2--) {
-      const elementId = p.openElements.tagIDs[i2];
+    for (let i2 = p2.openElements.stackTop; i2 >= 0; i2--) {
+      const elementId = p2.openElements.tagIDs[i2];
       if (tn === TAG_ID.LI && elementId === TAG_ID.LI || (tn === TAG_ID.DD || tn === TAG_ID.DT) && (elementId === TAG_ID.DD || elementId === TAG_ID.DT)) {
-        p.openElements.generateImpliedEndTagsWithExclusion(elementId);
-        p.openElements.popUntilTagNamePopped(elementId);
+        p2.openElements.generateImpliedEndTagsWithExclusion(elementId);
+        p2.openElements.popUntilTagNamePopped(elementId);
         break;
       }
-      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p._isSpecialElement(p.openElements.items[i2], elementId)) {
+      if (elementId !== TAG_ID.ADDRESS && elementId !== TAG_ID.DIV && elementId !== TAG_ID.P && p2._isSpecialElement(p2.openElements.items[i2], elementId)) {
         break;
       }
     }
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function plaintextStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function plaintextStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.tokenizer.state = TokenizerMode.PLAINTEXT;
+    p2._insertElement(token, NS.HTML);
+    p2.tokenizer.state = TokenizerMode.PLAINTEXT;
   }
-  function buttonStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BUTTON)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
+  function buttonStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BUTTON)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(TAG_ID.BUTTON);
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
   }
-  function aStartTagInBody(p, token) {
-    const activeElementEntry = p.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
+  function aStartTagInBody(p2, token) {
+    const activeElementEntry = p2.activeFormattingElements.getElementEntryInScopeWithTagName(TAG_NAMES.A);
     if (activeElementEntry) {
-      callAdoptionAgency(p, token);
-      p.openElements.remove(activeElementEntry.element);
-      p.activeFormattingElements.removeEntry(activeElementEntry);
+      callAdoptionAgency(p2, token);
+      p2.openElements.remove(activeElementEntry.element);
+      p2.activeFormattingElements.removeEntry(activeElementEntry);
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function bStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+  function bStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function nobrStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    if (p.openElements.hasInScope(TAG_ID.NOBR)) {
-      callAdoptionAgency(p, token);
-      p._reconstructActiveFormattingElements();
+  function nobrStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    if (p2.openElements.hasInScope(TAG_ID.NOBR)) {
+      callAdoptionAgency(p2, token);
+      p2._reconstructActiveFormattingElements();
     }
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.pushElement(p.openElements.current, token);
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.pushElement(p2.openElements.current, token);
   }
-  function appletStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.activeFormattingElements.insertMarker();
-    p.framesetOk = false;
+  function appletStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.activeFormattingElements.insertMarker();
+    p2.framesetOk = false;
   }
-  function tableStartTagInBody(p, token) {
-    if (p.treeAdapter.getDocumentMode(p.document) !== DOCUMENT_MODE.QUIRKS && p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function tableStartTagInBody(p2, token) {
+    if (p2.treeAdapter.getDocumentMode(p2.document) !== DOCUMENT_MODE.QUIRKS && p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
-    p.insertionMode = InsertionMode.IN_TABLE;
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
+    p2.insertionMode = InsertionMode.IN_TABLE;
   }
-  function areaStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._appendElement(token, NS.HTML);
-    p.framesetOk = false;
+  function areaStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._appendElement(token, NS.HTML);
+    p2.framesetOk = false;
     token.ackSelfClosing = true;
   }
   function isHiddenInput(token) {
     const inputType = getTokenAttr(token, ATTRS.TYPE);
     return inputType != null && inputType.toLowerCase() === HIDDEN_INPUT_TYPE;
   }
-  function inputStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._appendElement(token, NS.HTML);
+  function inputStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._appendElement(token, NS.HTML);
     if (!isHiddenInput(token)) {
-      p.framesetOk = false;
+      p2.framesetOk = false;
     }
     token.ackSelfClosing = true;
   }
-  function paramStartTagInBody(p, token) {
-    p._appendElement(token, NS.HTML);
+  function paramStartTagInBody(p2, token) {
+    p2._appendElement(token, NS.HTML);
     token.ackSelfClosing = true;
   }
-  function hrStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function hrStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._appendElement(token, NS.HTML);
-    p.framesetOk = false;
+    p2._appendElement(token, NS.HTML);
+    p2.framesetOk = false;
     token.ackSelfClosing = true;
   }
-  function imageStartTagInBody(p, token) {
+  function imageStartTagInBody(p2, token) {
     token.tagName = TAG_NAMES.IMG;
     token.tagID = TAG_ID.IMG;
-    areaStartTagInBody(p, token);
+    areaStartTagInBody(p2, token);
   }
-  function textareaStartTagInBody(p, token) {
-    p._insertElement(token, NS.HTML);
-    p.skipNextNewLine = true;
-    p.tokenizer.state = TokenizerMode.RCDATA;
-    p.originalInsertionMode = p.insertionMode;
-    p.framesetOk = false;
-    p.insertionMode = InsertionMode.TEXT;
+  function textareaStartTagInBody(p2, token) {
+    p2._insertElement(token, NS.HTML);
+    p2.skipNextNewLine = true;
+    p2.tokenizer.state = TokenizerMode.RCDATA;
+    p2.originalInsertionMode = p2.insertionMode;
+    p2.framesetOk = false;
+    p2.insertionMode = InsertionMode.TEXT;
   }
-  function xmpStartTagInBody(p, token) {
-    if (p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._closePElement();
+  function xmpStartTagInBody(p2, token) {
+    if (p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._closePElement();
     }
-    p._reconstructActiveFormattingElements();
-    p.framesetOk = false;
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+    p2._reconstructActiveFormattingElements();
+    p2.framesetOk = false;
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function iframeStartTagInBody(p, token) {
-    p.framesetOk = false;
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function iframeStartTagInBody(p2, token) {
+    p2.framesetOk = false;
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function rawTextStartTagInBody(p, token) {
-    p._switchToTextParsing(token, TokenizerMode.RAWTEXT);
+  function rawTextStartTagInBody(p2, token) {
+    p2._switchToTextParsing(token, TokenizerMode.RAWTEXT);
   }
-  function selectStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
-    p.framesetOk = false;
-    p.insertionMode = p.insertionMode === InsertionMode.IN_TABLE || p.insertionMode === InsertionMode.IN_CAPTION || p.insertionMode === InsertionMode.IN_TABLE_BODY || p.insertionMode === InsertionMode.IN_ROW || p.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
+  function selectStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
+    p2.framesetOk = false;
+    p2.insertionMode = p2.insertionMode === InsertionMode.IN_TABLE || p2.insertionMode === InsertionMode.IN_CAPTION || p2.insertionMode === InsertionMode.IN_TABLE_BODY || p2.insertionMode === InsertionMode.IN_ROW || p2.insertionMode === InsertionMode.IN_CELL ? InsertionMode.IN_SELECT_IN_TABLE : InsertionMode.IN_SELECT;
   }
-  function optgroupStartTagInBody(p, token) {
-    if (p.openElements.currentTagId === TAG_ID.OPTION) {
-      p.openElements.pop();
+  function optgroupStartTagInBody(p2, token) {
+    if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+      p2.openElements.pop();
     }
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
   }
-  function rbStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
-      p.openElements.generateImpliedEndTags();
+  function rbStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
+      p2.openElements.generateImpliedEndTags();
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function rtStartTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.RUBY)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
+  function rtStartTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.RUBY)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.RTC);
     }
-    p._insertElement(token, NS.HTML);
+    p2._insertElement(token, NS.HTML);
   }
-  function mathStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
+  function mathStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
     adjustTokenMathMLAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p._appendElement(token, NS.MATHML);
+      p2._appendElement(token, NS.MATHML);
     } else {
-      p._insertElement(token, NS.MATHML);
+      p2._insertElement(token, NS.MATHML);
     }
     token.ackSelfClosing = true;
   }
-  function svgStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
+  function svgStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
     adjustTokenSVGAttrs(token);
     adjustTokenXMLAttrs(token);
     if (token.selfClosing) {
-      p._appendElement(token, NS.SVG);
+      p2._appendElement(token, NS.SVG);
     } else {
-      p._insertElement(token, NS.SVG);
+      p2._insertElement(token, NS.SVG);
     }
     token.ackSelfClosing = true;
   }
-  function genericStartTagInBody(p, token) {
-    p._reconstructActiveFormattingElements();
-    p._insertElement(token, NS.HTML);
+  function genericStartTagInBody(p2, token) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertElement(token, NS.HTML);
   }
-  function startTagInBody(p, token) {
+  function startTagInBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.I:
       case TAG_ID.S:
@@ -22448,11 +22448,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        bStartTagInBody(p, token);
+        bStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.A: {
-        aStartTagInBody(p, token);
+        aStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.H1:
@@ -22461,7 +22461,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderStartTagInBody(p, token);
+        numberedHeaderStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.P:
@@ -22489,13 +22489,13 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressStartTagInBody(p, token);
+        addressStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.LI:
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        listItemStartTagInBody(p, token);
+        listItemStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BR:
@@ -22504,38 +22504,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.AREA:
       case TAG_ID.EMBED:
       case TAG_ID.KEYGEN: {
-        areaStartTagInBody(p, token);
+        areaStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.HR: {
-        hrStartTagInBody(p, token);
+        hrStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.RB:
       case TAG_ID.RTC: {
-        rbStartTagInBody(p, token);
+        rbStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.RT:
       case TAG_ID.RP: {
-        rtStartTagInBody(p, token);
+        rtStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.PRE:
       case TAG_ID.LISTING: {
-        preStartTagInBody(p, token);
+        preStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.XMP: {
-        xmpStartTagInBody(p, token);
+        xmpStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.SVG: {
-        svgStartTagInBody(p, token);
+        svgStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlStartTagInBody(p, token);
+        htmlStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BASE:
@@ -22547,89 +22547,89 @@ var LNReaderPlugin = (() => {
       case TAG_ID.BGSOUND:
       case TAG_ID.BASEFONT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.BODY: {
-        bodyStartTagInBody(p, token);
+        bodyStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInBody(p, token);
+        formStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOBR: {
-        nobrStartTagInBody(p, token);
+        nobrStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.MATH: {
-        mathStartTagInBody(p, token);
+        mathStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInBody(p, token);
+        tableStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInBody(p, token);
+        inputStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.PARAM:
       case TAG_ID.TRACK:
       case TAG_ID.SOURCE: {
-        paramStartTagInBody(p, token);
+        paramStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.IMAGE: {
-        imageStartTagInBody(p, token);
+        imageStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.BUTTON: {
-        buttonStartTagInBody(p, token);
+        buttonStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletStartTagInBody(p, token);
+        appletStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.IFRAME: {
-        iframeStartTagInBody(p, token);
+        iframeStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.SELECT: {
-        selectStartTagInBody(p, token);
+        selectStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.OPTION:
       case TAG_ID.OPTGROUP: {
-        optgroupStartTagInBody(p, token);
+        optgroupStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOEMBED:
       case TAG_ID.NOFRAMES: {
-        rawTextStartTagInBody(p, token);
+        rawTextStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        framesetStartTagInBody(p, token);
+        framesetStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.TEXTAREA: {
-        textareaStartTagInBody(p, token);
+        textareaStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOSCRIPT: {
-        if (p.options.scriptingEnabled) {
-          rawTextStartTagInBody(p, token);
+        if (p2.options.scriptingEnabled) {
+          rawTextStartTagInBody(p2, token);
         } else {
-          genericStartTagInBody(p, token);
+          genericStartTagInBody(p2, token);
         }
         break;
       }
       case TAG_ID.PLAINTEXT: {
-        plaintextStartTagInBody(p, token);
+        plaintextStartTagInBody(p2, token);
         break;
       }
       case TAG_ID.COL:
@@ -22646,106 +22646,106 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        genericStartTagInBody(p, token);
+        genericStartTagInBody(p2, token);
       }
     }
   }
-  function bodyEndTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BODY)) {
-      p.insertionMode = InsertionMode.AFTER_BODY;
-      if (p.options.sourceCodeLocationInfo) {
-        const bodyElement = p.openElements.tryPeekProperlyNestedBodyElement();
+  function bodyEndTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
+      p2.insertionMode = InsertionMode.AFTER_BODY;
+      if (p2.options.sourceCodeLocationInfo) {
+        const bodyElement = p2.openElements.tryPeekProperlyNestedBodyElement();
         if (bodyElement) {
-          p._setEndLocation(bodyElement, token);
+          p2._setEndLocation(bodyElement, token);
         }
       }
     }
   }
-  function htmlEndTagInBody(p, token) {
-    if (p.openElements.hasInScope(TAG_ID.BODY)) {
-      p.insertionMode = InsertionMode.AFTER_BODY;
-      endTagAfterBody(p, token);
+  function htmlEndTagInBody(p2, token) {
+    if (p2.openElements.hasInScope(TAG_ID.BODY)) {
+      p2.insertionMode = InsertionMode.AFTER_BODY;
+      endTagAfterBody(p2, token);
     }
   }
-  function addressEndTagInBody(p, token) {
+  function addressEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(tn);
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function formEndTagInBody(p) {
-    const inTemplate = p.openElements.tmplCount > 0;
-    const { formElement } = p;
+  function formEndTagInBody(p2) {
+    const inTemplate = p2.openElements.tmplCount > 0;
+    const { formElement } = p2;
     if (!inTemplate) {
-      p.formElement = null;
+      p2.formElement = null;
     }
-    if ((formElement || inTemplate) && p.openElements.hasInScope(TAG_ID.FORM)) {
-      p.openElements.generateImpliedEndTags();
+    if ((formElement || inTemplate) && p2.openElements.hasInScope(TAG_ID.FORM)) {
+      p2.openElements.generateImpliedEndTags();
       if (inTemplate) {
-        p.openElements.popUntilTagNamePopped(TAG_ID.FORM);
+        p2.openElements.popUntilTagNamePopped(TAG_ID.FORM);
       } else if (formElement) {
-        p.openElements.remove(formElement);
+        p2.openElements.remove(formElement);
       }
     }
   }
-  function pEndTagInBody(p) {
-    if (!p.openElements.hasInButtonScope(TAG_ID.P)) {
-      p._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
+  function pEndTagInBody(p2) {
+    if (!p2.openElements.hasInButtonScope(TAG_ID.P)) {
+      p2._insertFakeElement(TAG_NAMES.P, TAG_ID.P);
     }
-    p._closePElement();
+    p2._closePElement();
   }
-  function liEndTagInBody(p) {
-    if (p.openElements.hasInListItemScope(TAG_ID.LI)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
-      p.openElements.popUntilTagNamePopped(TAG_ID.LI);
+  function liEndTagInBody(p2) {
+    if (p2.openElements.hasInListItemScope(TAG_ID.LI)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(TAG_ID.LI);
+      p2.openElements.popUntilTagNamePopped(TAG_ID.LI);
     }
   }
-  function ddEndTagInBody(p, token) {
+  function ddEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTagsWithExclusion(tn);
-      p.openElements.popUntilTagNamePopped(tn);
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTagsWithExclusion(tn);
+      p2.openElements.popUntilTagNamePopped(tn);
     }
   }
-  function numberedHeaderEndTagInBody(p) {
-    if (p.openElements.hasNumberedHeaderInScope()) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilNumberedHeaderPopped();
+  function numberedHeaderEndTagInBody(p2) {
+    if (p2.openElements.hasNumberedHeaderInScope()) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilNumberedHeaderPopped();
     }
   }
-  function appletEndTagInBody(p, token) {
+  function appletEndTagInBody(p2, token) {
     const tn = token.tagID;
-    if (p.openElements.hasInScope(tn)) {
-      p.openElements.generateImpliedEndTags();
-      p.openElements.popUntilTagNamePopped(tn);
-      p.activeFormattingElements.clearToLastMarker();
+    if (p2.openElements.hasInScope(tn)) {
+      p2.openElements.generateImpliedEndTags();
+      p2.openElements.popUntilTagNamePopped(tn);
+      p2.activeFormattingElements.clearToLastMarker();
     }
   }
-  function brEndTagInBody(p) {
-    p._reconstructActiveFormattingElements();
-    p._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
-    p.openElements.pop();
-    p.framesetOk = false;
+  function brEndTagInBody(p2) {
+    p2._reconstructActiveFormattingElements();
+    p2._insertFakeElement(TAG_NAMES.BR, TAG_ID.BR);
+    p2.openElements.pop();
+    p2.framesetOk = false;
   }
-  function genericEndTagInBody(p, token) {
+  function genericEndTagInBody(p2, token) {
     const tn = token.tagName;
     const tid = token.tagID;
-    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
-      const element = p.openElements.items[i2];
-      const elementId = p.openElements.tagIDs[i2];
-      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p.treeAdapter.getTagName(element) === tn)) {
-        p.openElements.generateImpliedEndTagsWithExclusion(tid);
-        if (p.openElements.stackTop >= i2)
-          p.openElements.shortenToLength(i2);
+    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
+      const element = p2.openElements.items[i2];
+      const elementId = p2.openElements.tagIDs[i2];
+      if (tid === elementId && (tid !== TAG_ID.UNKNOWN || p2.treeAdapter.getTagName(element) === tn)) {
+        p2.openElements.generateImpliedEndTagsWithExclusion(tid);
+        if (p2.openElements.stackTop >= i2)
+          p2.openElements.shortenToLength(i2);
         break;
       }
-      if (p._isSpecialElement(element, elementId)) {
+      if (p2._isSpecialElement(element, elementId)) {
         break;
       }
     }
   }
-  function endTagInBody(p, token) {
+  function endTagInBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.A:
       case TAG_ID.B:
@@ -22761,11 +22761,11 @@ var LNReaderPlugin = (() => {
       case TAG_ID.SMALL:
       case TAG_ID.STRIKE:
       case TAG_ID.STRONG: {
-        callAdoptionAgency(p, token);
+        callAdoptionAgency(p2, token);
         break;
       }
       case TAG_ID.P: {
-        pEndTagInBody(p);
+        pEndTagInBody(p2);
         break;
       }
       case TAG_ID.DL:
@@ -22795,16 +22795,16 @@ var LNReaderPlugin = (() => {
       case TAG_ID.FIELDSET:
       case TAG_ID.BLOCKQUOTE:
       case TAG_ID.FIGCAPTION: {
-        addressEndTagInBody(p, token);
+        addressEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.LI: {
-        liEndTagInBody(p);
+        liEndTagInBody(p2);
         break;
       }
       case TAG_ID.DD:
       case TAG_ID.DT: {
-        ddEndTagInBody(p, token);
+        ddEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.H1:
@@ -22813,191 +22813,191 @@ var LNReaderPlugin = (() => {
       case TAG_ID.H4:
       case TAG_ID.H5:
       case TAG_ID.H6: {
-        numberedHeaderEndTagInBody(p);
+        numberedHeaderEndTagInBody(p2);
         break;
       }
       case TAG_ID.BR: {
-        brEndTagInBody(p);
+        brEndTagInBody(p2);
         break;
       }
       case TAG_ID.BODY: {
-        bodyEndTagInBody(p, token);
+        bodyEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.HTML: {
-        htmlEndTagInBody(p, token);
+        htmlEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formEndTagInBody(p);
+        formEndTagInBody(p2);
         break;
       }
       case TAG_ID.APPLET:
       case TAG_ID.OBJECT:
       case TAG_ID.MARQUEE: {
-        appletEndTagInBody(p, token);
+        appletEndTagInBody(p2, token);
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default: {
-        genericEndTagInBody(p, token);
+        genericEndTagInBody(p2, token);
       }
     }
   }
-  function eofInBody(p, token) {
-    if (p.tmplInsertionModeStack.length > 0) {
-      eofInTemplate(p, token);
+  function eofInBody(p2, token) {
+    if (p2.tmplInsertionModeStack.length > 0) {
+      eofInTemplate(p2, token);
     } else {
-      stopParsing(p, token);
+      stopParsing(p2, token);
     }
   }
-  function endTagInText(p, token) {
+  function endTagInText(p2, token) {
     var _a;
     if (token.tagID === TAG_ID.SCRIPT) {
-      (_a = p.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p, p.openElements.current);
+      (_a = p2.scriptHandler) === null || _a === void 0 ? void 0 : _a.call(p2, p2.openElements.current);
     }
-    p.openElements.pop();
-    p.insertionMode = p.originalInsertionMode;
+    p2.openElements.pop();
+    p2.insertionMode = p2.originalInsertionMode;
   }
-  function eofInText(p, token) {
-    p._err(token, ERR.eofInElementThatCanContainOnlyText);
-    p.openElements.pop();
-    p.insertionMode = p.originalInsertionMode;
-    p.onEof(token);
+  function eofInText(p2, token) {
+    p2._err(token, ERR.eofInElementThatCanContainOnlyText);
+    p2.openElements.pop();
+    p2.insertionMode = p2.originalInsertionMode;
+    p2.onEof(token);
   }
-  function characterInTable(p, token) {
-    if (TABLE_STRUCTURE_TAGS.has(p.openElements.currentTagId)) {
-      p.pendingCharacterTokens.length = 0;
-      p.hasNonWhitespacePendingCharacterToken = false;
-      p.originalInsertionMode = p.insertionMode;
-      p.insertionMode = InsertionMode.IN_TABLE_TEXT;
+  function characterInTable(p2, token) {
+    if (TABLE_STRUCTURE_TAGS.has(p2.openElements.currentTagId)) {
+      p2.pendingCharacterTokens.length = 0;
+      p2.hasNonWhitespacePendingCharacterToken = false;
+      p2.originalInsertionMode = p2.insertionMode;
+      p2.insertionMode = InsertionMode.IN_TABLE_TEXT;
       switch (token.type) {
         case TokenType.CHARACTER: {
-          characterInTableText(p, token);
+          characterInTableText(p2, token);
           break;
         }
         case TokenType.WHITESPACE_CHARACTER: {
-          whitespaceCharacterInTableText(p, token);
+          whitespaceCharacterInTableText(p2, token);
           break;
         }
       }
     } else {
-      tokenInTable(p, token);
+      tokenInTable(p2, token);
     }
   }
-  function captionStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p.activeFormattingElements.insertMarker();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_CAPTION;
+  function captionStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2.activeFormattingElements.insertMarker();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_CAPTION;
   }
-  function colgroupStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+  function colgroupStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
   }
-  function colStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
-    p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-    startTagInColumnGroup(p, token);
+  function colStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertFakeElement(TAG_NAMES.COLGROUP, TAG_ID.COLGROUP);
+    p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+    startTagInColumnGroup(p2, token);
   }
-  function tbodyStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertElement(token, NS.HTML);
-    p.insertionMode = InsertionMode.IN_TABLE_BODY;
+  function tbodyStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertElement(token, NS.HTML);
+    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
   }
-  function tdStartTagInTable(p, token) {
-    p.openElements.clearBackToTableContext();
-    p._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
-    p.insertionMode = InsertionMode.IN_TABLE_BODY;
-    startTagInTableBody(p, token);
+  function tdStartTagInTable(p2, token) {
+    p2.openElements.clearBackToTableContext();
+    p2._insertFakeElement(TAG_NAMES.TBODY, TAG_ID.TBODY);
+    p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+    startTagInTableBody(p2, token);
   }
-  function tableStartTagInTable(p, token) {
-    if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-      p._resetInsertionMode();
-      p._processStartTag(token);
+  function tableStartTagInTable(p2, token) {
+    if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+      p2._resetInsertionMode();
+      p2._processStartTag(token);
     }
   }
-  function inputStartTagInTable(p, token) {
+  function inputStartTagInTable(p2, token) {
     if (isHiddenInput(token)) {
-      p._appendElement(token, NS.HTML);
+      p2._appendElement(token, NS.HTML);
     } else {
-      tokenInTable(p, token);
+      tokenInTable(p2, token);
     }
     token.ackSelfClosing = true;
   }
-  function formStartTagInTable(p, token) {
-    if (!p.formElement && p.openElements.tmplCount === 0) {
-      p._insertElement(token, NS.HTML);
-      p.formElement = p.openElements.current;
-      p.openElements.pop();
+  function formStartTagInTable(p2, token) {
+    if (!p2.formElement && p2.openElements.tmplCount === 0) {
+      p2._insertElement(token, NS.HTML);
+      p2.formElement = p2.openElements.current;
+      p2.openElements.pop();
     }
   }
-  function startTagInTable(p, token) {
+  function startTagInTable(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TD:
       case TAG_ID.TH:
       case TAG_ID.TR: {
-        tdStartTagInTable(p, token);
+        tdStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.STYLE:
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        colStartTagInTable(p, token);
+        colStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.FORM: {
-        formStartTagInTable(p, token);
+        formStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.TABLE: {
-        tableStartTagInTable(p, token);
+        tableStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        tbodyStartTagInTable(p, token);
+        tbodyStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.INPUT: {
-        inputStartTagInTable(p, token);
+        inputStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.CAPTION: {
-        captionStartTagInTable(p, token);
+        captionStartTagInTable(p2, token);
         break;
       }
       case TAG_ID.COLGROUP: {
-        colgroupStartTagInTable(p, token);
+        colgroupStartTagInTable(p2, token);
         break;
       }
       default: {
-        tokenInTable(p, token);
+        tokenInTable(p2, token);
       }
     }
   }
-  function endTagInTable(p, token) {
+  function endTagInTable(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.TABLE)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInTableScope(TAG_ID.TABLE)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.TABLE);
+          p2._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       case TAG_ID.BODY:
@@ -23014,63 +23014,63 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        tokenInTable(p, token);
+        tokenInTable(p2, token);
       }
     }
   }
-  function tokenInTable(p, token) {
-    const savedFosterParentingState = p.fosterParentingEnabled;
-    p.fosterParentingEnabled = true;
-    modeInBody(p, token);
-    p.fosterParentingEnabled = savedFosterParentingState;
+  function tokenInTable(p2, token) {
+    const savedFosterParentingState = p2.fosterParentingEnabled;
+    p2.fosterParentingEnabled = true;
+    modeInBody(p2, token);
+    p2.fosterParentingEnabled = savedFosterParentingState;
   }
-  function whitespaceCharacterInTableText(p, token) {
-    p.pendingCharacterTokens.push(token);
+  function whitespaceCharacterInTableText(p2, token) {
+    p2.pendingCharacterTokens.push(token);
   }
-  function characterInTableText(p, token) {
-    p.pendingCharacterTokens.push(token);
-    p.hasNonWhitespacePendingCharacterToken = true;
+  function characterInTableText(p2, token) {
+    p2.pendingCharacterTokens.push(token);
+    p2.hasNonWhitespacePendingCharacterToken = true;
   }
-  function tokenInTableText(p, token) {
+  function tokenInTableText(p2, token) {
     let i2 = 0;
-    if (p.hasNonWhitespacePendingCharacterToken) {
-      for (; i2 < p.pendingCharacterTokens.length; i2++) {
-        tokenInTable(p, p.pendingCharacterTokens[i2]);
+    if (p2.hasNonWhitespacePendingCharacterToken) {
+      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
+        tokenInTable(p2, p2.pendingCharacterTokens[i2]);
       }
     } else {
-      for (; i2 < p.pendingCharacterTokens.length; i2++) {
-        p._insertCharacters(p.pendingCharacterTokens[i2]);
+      for (; i2 < p2.pendingCharacterTokens.length; i2++) {
+        p2._insertCharacters(p2.pendingCharacterTokens[i2]);
       }
     }
-    p.insertionMode = p.originalInsertionMode;
-    p._processToken(token);
+    p2.insertionMode = p2.originalInsertionMode;
+    p2._processToken(token);
   }
-  function startTagInCaption(p, token) {
+  function startTagInCaption(p2, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-        p.openElements.generateImpliedEndTags();
-        p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-        p.activeFormattingElements.clearToLastMarker();
-        p.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p, token);
+      if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+        p2.openElements.generateImpliedEndTags();
+        p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+        p2.activeFormattingElements.clearToLastMarker();
+        p2.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p2, token);
       }
     } else {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     }
   }
-  function endTagInCaption(p, token) {
+  function endTagInCaption(p2, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.CAPTION:
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.CAPTION)) {
-          p.openElements.generateImpliedEndTags();
-          p.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
-          p.activeFormattingElements.clearToLastMarker();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.hasInTableScope(TAG_ID.CAPTION)) {
+          p2.openElements.generateImpliedEndTags();
+          p2.openElements.popUntilTagNamePopped(TAG_ID.CAPTION);
+          p2.activeFormattingElements.clearToLastMarker();
+          p2.insertionMode = InsertionMode.IN_TABLE;
           if (tn === TAG_ID.TABLE) {
-            endTagInTable(p, token);
+            endTagInTable(p2, token);
           }
         }
         break;
@@ -23088,72 +23088,72 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
       }
     }
   }
-  function startTagInColumnGroup(p, token) {
+  function startTagInColumnGroup(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default: {
-        tokenInColumnGroup(p, token);
+        tokenInColumnGroup(p2, token);
       }
     }
   }
-  function endTagInColumnGroup(p, token) {
+  function endTagInColumnGroup(p2, token) {
     switch (token.tagID) {
       case TAG_ID.COLGROUP: {
-        if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       case TAG_ID.COL: {
         break;
       }
       default: {
-        tokenInColumnGroup(p, token);
+        tokenInColumnGroup(p2, token);
       }
     }
   }
-  function tokenInColumnGroup(p, token) {
-    if (p.openElements.currentTagId === TAG_ID.COLGROUP) {
-      p.openElements.pop();
-      p.insertionMode = InsertionMode.IN_TABLE;
-      p._processToken(token);
+  function tokenInColumnGroup(p2, token) {
+    if (p2.openElements.currentTagId === TAG_ID.COLGROUP) {
+      p2.openElements.pop();
+      p2.insertionMode = InsertionMode.IN_TABLE;
+      p2._processToken(token);
     }
   }
-  function startTagInTableBody(p, token) {
+  function startTagInTableBody(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        p.openElements.clearBackToTableBodyContext();
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_ROW;
+        p2.openElements.clearBackToTableBodyContext();
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_ROW;
         break;
       }
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p.openElements.clearBackToTableBodyContext();
-        p._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
-        p.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p, token);
+        p2.openElements.clearBackToTableBodyContext();
+        p2._insertFakeElement(TAG_NAMES.TR, TAG_ID.TR);
+        p2.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p2, token);
         break;
       }
       case TAG_ID.CAPTION:
@@ -23162,38 +23162,38 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasTableBodyContextInTableScope()) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
-          startTagInTable(p, token);
+        if (p2.openElements.hasTableBodyContextInTableScope()) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
+          startTagInTable(p2, token);
         }
         break;
       }
       default: {
-        startTagInTable(p, token);
+        startTagInTable(p2, token);
       }
     }
   }
-  function endTagInTableBody(p, token) {
+  function endTagInTableBody(p2, token) {
     const tn = token.tagID;
     switch (token.tagID) {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p.openElements.hasTableBodyContextInTableScope()) {
-          p.openElements.clearBackToTableBodyContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE;
-          endTagInTable(p, token);
+        if (p2.openElements.hasTableBodyContextInTableScope()) {
+          p2.openElements.clearBackToTableBodyContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE;
+          endTagInTable(p2, token);
         }
         break;
       }
@@ -23208,18 +23208,18 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p, token);
+        endTagInTable(p2, token);
       }
     }
   }
-  function startTagInRow(p, token) {
+  function startTagInRow(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TH:
       case TAG_ID.TD: {
-        p.openElements.clearBackToTableRowContext();
-        p._insertElement(token, NS.HTML);
-        p.insertionMode = InsertionMode.IN_CELL;
-        p.activeFormattingElements.insertMarker();
+        p2.openElements.clearBackToTableRowContext();
+        p2._insertElement(token, NS.HTML);
+        p2.insertionMode = InsertionMode.IN_CELL;
+        p2.activeFormattingElements.insertMarker();
         break;
       }
       case TAG_ID.CAPTION:
@@ -23229,46 +23229,46 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          startTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          startTagInTableBody(p2, token);
         }
         break;
       }
       default: {
-        startTagInTable(p, token);
+        startTagInTable(p2, token);
       }
     }
   }
-  function endTagInRow(p, token) {
+  function endTagInRow(p2, token) {
     switch (token.tagID) {
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
         }
         break;
       }
       case TAG_ID.TABLE: {
-        if (p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p2, token);
         }
         break;
       }
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        if (p.openElements.hasInTableScope(token.tagID) || p.openElements.hasInTableScope(TAG_ID.TR)) {
-          p.openElements.clearBackToTableRowContext();
-          p.openElements.pop();
-          p.insertionMode = InsertionMode.IN_TABLE_BODY;
-          endTagInTableBody(p, token);
+        if (p2.openElements.hasInTableScope(token.tagID) || p2.openElements.hasInTableScope(TAG_ID.TR)) {
+          p2.openElements.clearBackToTableRowContext();
+          p2.openElements.pop();
+          p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+          endTagInTableBody(p2, token);
         }
         break;
       }
@@ -23282,31 +23282,31 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInTable(p, token);
+        endTagInTable(p2, token);
       }
     }
   }
-  function startTagInCell(p, token) {
+  function startTagInCell(p2, token) {
     const tn = token.tagID;
     if (TABLE_VOID_ELEMENTS.has(tn)) {
-      if (p.openElements.hasInTableScope(TAG_ID.TD) || p.openElements.hasInTableScope(TAG_ID.TH)) {
-        p._closeTableCell();
-        startTagInRow(p, token);
+      if (p2.openElements.hasInTableScope(TAG_ID.TD) || p2.openElements.hasInTableScope(TAG_ID.TH)) {
+        p2._closeTableCell();
+        startTagInRow(p2, token);
       }
     } else {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     }
   }
-  function endTagInCell(p, token) {
+  function endTagInCell(p2, token) {
     const tn = token.tagID;
     switch (tn) {
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p.openElements.generateImpliedEndTags();
-          p.openElements.popUntilTagNamePopped(tn);
-          p.activeFormattingElements.clearToLastMarker();
-          p.insertionMode = InsertionMode.IN_ROW;
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2.openElements.generateImpliedEndTags();
+          p2.openElements.popUntilTagNamePopped(tn);
+          p2.activeFormattingElements.clearToLastMarker();
+          p2.insertionMode = InsertionMode.IN_ROW;
         }
         break;
       }
@@ -23315,9 +23315,9 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD:
       case TAG_ID.TR: {
-        if (p.openElements.hasInTableScope(tn)) {
-          p._closeTableCell();
-          endTagInRow(p, token);
+        if (p2.openElements.hasInTableScope(tn)) {
+          p2._closeTableCell();
+          endTagInRow(p2, token);
         }
         break;
       }
@@ -23329,41 +23329,41 @@ var LNReaderPlugin = (() => {
         break;
       }
       default: {
-        endTagInBody(p, token);
+        endTagInBody(p2, token);
       }
     }
   }
-  function startTagInSelect(p, token) {
+  function startTagInSelect(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.OPTION: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.OPTGROUP: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.HR: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
@@ -23371,77 +23371,77 @@ var LNReaderPlugin = (() => {
       case TAG_ID.KEYGEN:
       case TAG_ID.TEXTAREA:
       case TAG_ID.SELECT: {
-        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p2._resetInsertionMode();
           if (token.tagID !== TAG_ID.SELECT) {
-            p._processStartTag(token);
+            p2._processStartTag(token);
           }
         }
         break;
       }
       case TAG_ID.SCRIPT:
       case TAG_ID.TEMPLATE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagInSelect(p, token) {
+  function endTagInSelect(p2, token) {
     switch (token.tagID) {
       case TAG_ID.OPTGROUP: {
-        if (p.openElements.stackTop > 0 && p.openElements.currentTagId === TAG_ID.OPTION && p.openElements.tagIDs[p.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.stackTop > 0 && p2.openElements.currentTagId === TAG_ID.OPTION && p2.openElements.tagIDs[p2.openElements.stackTop - 1] === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
-        if (p.openElements.currentTagId === TAG_ID.OPTGROUP) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTGROUP) {
+          p2.openElements.pop();
         }
         break;
       }
       case TAG_ID.OPTION: {
-        if (p.openElements.currentTagId === TAG_ID.OPTION) {
-          p.openElements.pop();
+        if (p2.openElements.currentTagId === TAG_ID.OPTION) {
+          p2.openElements.pop();
         }
         break;
       }
       case TAG_ID.SELECT: {
-        if (p.openElements.hasInSelectScope(TAG_ID.SELECT)) {
-          p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-          p._resetInsertionMode();
+        if (p2.openElements.hasInSelectScope(TAG_ID.SELECT)) {
+          p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+          p2._resetInsertionMode();
         }
         break;
       }
       case TAG_ID.TEMPLATE: {
-        templateEndTagInHead(p, token);
+        templateEndTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function startTagInSelectInTable(p, token) {
+  function startTagInSelectInTable(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-      p._resetInsertionMode();
-      p._processStartTag(token);
+      p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+      p2._resetInsertionMode();
+      p2._processStartTag(token);
     } else {
-      startTagInSelect(p, token);
+      startTagInSelect(p2, token);
     }
   }
-  function endTagInSelectInTable(p, token) {
+  function endTagInSelectInTable(p2, token) {
     const tn = token.tagID;
     if (tn === TAG_ID.CAPTION || tn === TAG_ID.TABLE || tn === TAG_ID.TBODY || tn === TAG_ID.TFOOT || tn === TAG_ID.THEAD || tn === TAG_ID.TR || tn === TAG_ID.TD || tn === TAG_ID.TH) {
-      if (p.openElements.hasInTableScope(tn)) {
-        p.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
-        p._resetInsertionMode();
-        p.onEndTag(token);
+      if (p2.openElements.hasInTableScope(tn)) {
+        p2.openElements.popUntilTagNamePopped(TAG_ID.SELECT);
+        p2._resetInsertionMode();
+        p2.onEndTag(token);
       }
     } else {
-      endTagInSelect(p, token);
+      endTagInSelect(p2, token);
     }
   }
-  function startTagInTemplate(p, token) {
+  function startTagInTemplate(p2, token) {
     switch (token.tagID) {
       // First, handle tags that can start without a mode change
       case TAG_ID.BASE:
@@ -23454,7 +23454,7 @@ var LNReaderPlugin = (() => {
       case TAG_ID.STYLE:
       case TAG_ID.TEMPLATE:
       case TAG_ID.TITLE: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       // Re-process the token in the appropriate mode
@@ -23463,173 +23463,173 @@ var LNReaderPlugin = (() => {
       case TAG_ID.TBODY:
       case TAG_ID.TFOOT:
       case TAG_ID.THEAD: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
-        p.insertionMode = InsertionMode.IN_TABLE;
-        startTagInTable(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE;
+        p2.insertionMode = InsertionMode.IN_TABLE;
+        startTagInTable(p2, token);
         break;
       }
       case TAG_ID.COL: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
-        p.insertionMode = InsertionMode.IN_COLUMN_GROUP;
-        startTagInColumnGroup(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_COLUMN_GROUP;
+        p2.insertionMode = InsertionMode.IN_COLUMN_GROUP;
+        startTagInColumnGroup(p2, token);
         break;
       }
       case TAG_ID.TR: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
-        p.insertionMode = InsertionMode.IN_TABLE_BODY;
-        startTagInTableBody(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_TABLE_BODY;
+        p2.insertionMode = InsertionMode.IN_TABLE_BODY;
+        startTagInTableBody(p2, token);
         break;
       }
       case TAG_ID.TD:
       case TAG_ID.TH: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
-        p.insertionMode = InsertionMode.IN_ROW;
-        startTagInRow(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_ROW;
+        p2.insertionMode = InsertionMode.IN_ROW;
+        startTagInRow(p2, token);
         break;
       }
       default: {
-        p.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
-        p.insertionMode = InsertionMode.IN_BODY;
-        startTagInBody(p, token);
+        p2.tmplInsertionModeStack[0] = InsertionMode.IN_BODY;
+        p2.insertionMode = InsertionMode.IN_BODY;
+        startTagInBody(p2, token);
       }
     }
   }
-  function endTagInTemplate(p, token) {
+  function endTagInTemplate(p2, token) {
     if (token.tagID === TAG_ID.TEMPLATE) {
-      templateEndTagInHead(p, token);
+      templateEndTagInHead(p2, token);
     }
   }
-  function eofInTemplate(p, token) {
-    if (p.openElements.tmplCount > 0) {
-      p.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
-      p.activeFormattingElements.clearToLastMarker();
-      p.tmplInsertionModeStack.shift();
-      p._resetInsertionMode();
-      p.onEof(token);
+  function eofInTemplate(p2, token) {
+    if (p2.openElements.tmplCount > 0) {
+      p2.openElements.popUntilTagNamePopped(TAG_ID.TEMPLATE);
+      p2.activeFormattingElements.clearToLastMarker();
+      p2.tmplInsertionModeStack.shift();
+      p2._resetInsertionMode();
+      p2.onEof(token);
     } else {
-      stopParsing(p, token);
+      stopParsing(p2, token);
     }
   }
-  function startTagAfterBody(p, token) {
+  function startTagAfterBody(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     } else {
-      tokenAfterBody(p, token);
+      tokenAfterBody(p2, token);
     }
   }
-  function endTagAfterBody(p, token) {
+  function endTagAfterBody(p2, token) {
     var _a;
     if (token.tagID === TAG_ID.HTML) {
-      if (!p.fragmentContext) {
-        p.insertionMode = InsertionMode.AFTER_AFTER_BODY;
+      if (!p2.fragmentContext) {
+        p2.insertionMode = InsertionMode.AFTER_AFTER_BODY;
       }
-      if (p.options.sourceCodeLocationInfo && p.openElements.tagIDs[0] === TAG_ID.HTML) {
-        p._setEndLocation(p.openElements.items[0], token);
-        const bodyElement = p.openElements.items[1];
-        if (bodyElement && !((_a = p.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
-          p._setEndLocation(bodyElement, token);
+      if (p2.options.sourceCodeLocationInfo && p2.openElements.tagIDs[0] === TAG_ID.HTML) {
+        p2._setEndLocation(p2.openElements.items[0], token);
+        const bodyElement = p2.openElements.items[1];
+        if (bodyElement && !((_a = p2.treeAdapter.getNodeSourceCodeLocation(bodyElement)) === null || _a === void 0 ? void 0 : _a.endTag)) {
+          p2._setEndLocation(bodyElement, token);
         }
       }
     } else {
-      tokenAfterBody(p, token);
+      tokenAfterBody(p2, token);
     }
   }
-  function tokenAfterBody(p, token) {
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterBody(p2, token) {
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function startTagInFrameset(p, token) {
+  function startTagInFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.FRAMESET: {
-        p._insertElement(token, NS.HTML);
+        p2._insertElement(token, NS.HTML);
         break;
       }
       case TAG_ID.FRAME: {
-        p._appendElement(token, NS.HTML);
+        p2._appendElement(token, NS.HTML);
         token.ackSelfClosing = true;
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagInFrameset(p, token) {
-    if (token.tagID === TAG_ID.FRAMESET && !p.openElements.isRootHtmlElementCurrent()) {
-      p.openElements.pop();
-      if (!p.fragmentContext && p.openElements.currentTagId !== TAG_ID.FRAMESET) {
-        p.insertionMode = InsertionMode.AFTER_FRAMESET;
+  function endTagInFrameset(p2, token) {
+    if (token.tagID === TAG_ID.FRAMESET && !p2.openElements.isRootHtmlElementCurrent()) {
+      p2.openElements.pop();
+      if (!p2.fragmentContext && p2.openElements.currentTagId !== TAG_ID.FRAMESET) {
+        p2.insertionMode = InsertionMode.AFTER_FRAMESET;
       }
     }
   }
-  function startTagAfterFrameset(p, token) {
+  function startTagAfterFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function endTagAfterFrameset(p, token) {
+  function endTagAfterFrameset(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      p.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
+      p2.insertionMode = InsertionMode.AFTER_AFTER_FRAMESET;
     }
   }
-  function startTagAfterAfterBody(p, token) {
+  function startTagAfterAfterBody(p2, token) {
     if (token.tagID === TAG_ID.HTML) {
-      startTagInBody(p, token);
+      startTagInBody(p2, token);
     } else {
-      tokenAfterAfterBody(p, token);
+      tokenAfterAfterBody(p2, token);
     }
   }
-  function tokenAfterAfterBody(p, token) {
-    p.insertionMode = InsertionMode.IN_BODY;
-    modeInBody(p, token);
+  function tokenAfterAfterBody(p2, token) {
+    p2.insertionMode = InsertionMode.IN_BODY;
+    modeInBody(p2, token);
   }
-  function startTagAfterAfterFrameset(p, token) {
+  function startTagAfterAfterFrameset(p2, token) {
     switch (token.tagID) {
       case TAG_ID.HTML: {
-        startTagInBody(p, token);
+        startTagInBody(p2, token);
         break;
       }
       case TAG_ID.NOFRAMES: {
-        startTagInHead(p, token);
+        startTagInHead(p2, token);
         break;
       }
       default:
     }
   }
-  function nullCharacterInForeignContent(p, token) {
+  function nullCharacterInForeignContent(p2, token) {
     token.chars = REPLACEMENT_CHARACTER;
-    p._insertCharacters(token);
+    p2._insertCharacters(token);
   }
-  function characterInForeignContent(p, token) {
-    p._insertCharacters(token);
-    p.framesetOk = false;
+  function characterInForeignContent(p2, token) {
+    p2._insertCharacters(token);
+    p2.framesetOk = false;
   }
-  function popUntilHtmlOrIntegrationPoint(p) {
-    while (p.treeAdapter.getNamespaceURI(p.openElements.current) !== NS.HTML && !p._isIntegrationPoint(p.openElements.currentTagId, p.openElements.current)) {
-      p.openElements.pop();
+  function popUntilHtmlOrIntegrationPoint(p2) {
+    while (p2.treeAdapter.getNamespaceURI(p2.openElements.current) !== NS.HTML && !p2._isIntegrationPoint(p2.openElements.currentTagId, p2.openElements.current)) {
+      p2.openElements.pop();
     }
   }
-  function startTagInForeignContent(p, token) {
+  function startTagInForeignContent(p2, token) {
     if (causesExit(token)) {
-      popUntilHtmlOrIntegrationPoint(p);
-      p._startTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p2);
+      p2._startTagOutsideForeignContent(token);
     } else {
-      const current = p._getAdjustedCurrentElement();
-      const currentNs = p.treeAdapter.getNamespaceURI(current);
+      const current = p2._getAdjustedCurrentElement();
+      const currentNs = p2.treeAdapter.getNamespaceURI(current);
       if (currentNs === NS.MATHML) {
         adjustTokenMathMLAttrs(token);
       } else if (currentNs === NS.SVG) {
@@ -23638,29 +23638,29 @@ var LNReaderPlugin = (() => {
       }
       adjustTokenXMLAttrs(token);
       if (token.selfClosing) {
-        p._appendElement(token, currentNs);
+        p2._appendElement(token, currentNs);
       } else {
-        p._insertElement(token, currentNs);
+        p2._insertElement(token, currentNs);
       }
       token.ackSelfClosing = true;
     }
   }
-  function endTagInForeignContent(p, token) {
+  function endTagInForeignContent(p2, token) {
     if (token.tagID === TAG_ID.P || token.tagID === TAG_ID.BR) {
-      popUntilHtmlOrIntegrationPoint(p);
-      p._endTagOutsideForeignContent(token);
+      popUntilHtmlOrIntegrationPoint(p2);
+      p2._endTagOutsideForeignContent(token);
       return;
     }
-    for (let i2 = p.openElements.stackTop; i2 > 0; i2--) {
-      const element = p.openElements.items[i2];
-      if (p.treeAdapter.getNamespaceURI(element) === NS.HTML) {
-        p._endTagOutsideForeignContent(token);
+    for (let i2 = p2.openElements.stackTop; i2 > 0; i2--) {
+      const element = p2.openElements.items[i2];
+      if (p2.treeAdapter.getNamespaceURI(element) === NS.HTML) {
+        p2._endTagOutsideForeignContent(token);
         break;
       }
-      const tagName = p.treeAdapter.getTagName(element);
+      const tagName = p2.treeAdapter.getTagName(element);
       if (tagName.toLowerCase() === token.tagName) {
         token.tagName = tagName;
-        p.openElements.shortenToLength(i2);
+        p2.openElements.shortenToLength(i2);
         break;
       }
     }
@@ -25476,15 +25476,23 @@ var LNReaderPlugin = (() => {
     return e2.concat(r2 || Array.prototype.slice.call(t2));
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.ReadNovelFullPlugin = void 0;
-  var n, o = require_lib6(), s = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = (init_browser(), __toCommonJS(browser_exports)), c = function() {
+  var n, o = require_lib6(), s = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = (init_browser(), __toCommonJS(browser_exports)), c = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;", "\xA0": "&nbsp;", "\u200C": "" }, u = /[&<>"'\xA0\u200C]/g, h = /* @__PURE__ */ __name(function(e2) {
+    return e2.replace(u, function(e3) {
+      return c[e3];
+    });
+  }, "h"), p = function() {
     function c2(e2) {
       var t2, a2;
       this.lastPage = null, this.lastSearch = null, this.searchInterval = 3400, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/readnovelfull/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var r2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.3.".concat(3 + r2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.imageReferer) && (this.imageRequestInit = { headers: { Referer: this.site } });
+      this.version = "2.3.".concat(4 + r2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.imageReferer) && (this.imageRequestInit = { headers: { Referer: this.site } });
     }
     __name(c2, "c");
-    return c2.prototype.sleep = function(e2) {
+    return c2.prototype.resolvePath = function(e2) {
+      return e2.startsWith("/") ? e2.substring(1) : e2.startsWith("http") ? new URL(e2).pathname.substring(1) : e2;
+    }, c2.prototype.resolveCover = function(e2) {
+      if (e2) return e2.startsWith("http") ? e2 : new URL(e2, this.site).href;
+    }, c2.prototype.sleep = function(e2) {
       return t(this, void 0, void 0, function() {
         return a(this, function(t2) {
           return [2, new Promise(function(t3) {
@@ -25495,26 +25503,26 @@ var LNReaderPlugin = (() => {
     }, c2.prototype.parseNovels = function(t2) {
       var a2, r2 = this, s2 = [], i2 = {}, l2 = this.options.listClass, c3 = [n.Idle], u2 = /* @__PURE__ */ __name(function() {
         return c3[c3.length - 1];
-      }, "u"), h = /* @__PURE__ */ __name(function(e2) {
+      }, "u"), h2 = /* @__PURE__ */ __name(function(e2) {
         return c3.push(e2);
-      }, "h"), p = /* @__PURE__ */ __name(function() {
+      }, "h"), p2 = /* @__PURE__ */ __name(function() {
         return c3.length > 1 ? c3.pop() : u2();
-      }, "p"), d = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
+      }, "p"), d2 = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
         var o2, s3 = u2();
-        if (!(o2 = t3.class) || !(l2 ? o2.split(/\s+/).includes(l2) : o2.includes("archive") || "col-content" === o2) || l2 && s3 !== n.Idle || (h(n.NovelList), a2 = 0), s3 === n.NovelList || s3 === n.NovelName) switch (e2) {
+        if (!(o2 = t3.class) || !(l2 ? o2 === l2 || o2.startsWith(l2 + " ") || o2.endsWith(" " + l2) || o2.includes(" " + l2 + " ") : o2.includes("archive") || "col-content" === o2) || l2 && s3 !== n.Idle || (h2(n.NovelList), a2 = 0), s3 === n.NovelList || s3 === n.NovelName) switch (e2) {
           case "img":
             var c4 = [t3["data-src"], t3["data-cfsrc"], t3["data-original"], t3.src].find(function(e3) {
               return e3 && !e3.startsWith("data:");
-            });
-            c4 && (i2.cover = new URL(c4, r2.site).href);
+            }), p3 = r2.resolveCover(c4);
+            p3 && (i2.cover = p3);
             break;
           case "h3":
-            s3 === n.NovelList && h(n.NovelName);
+            s3 === n.NovelList && h2(n.NovelName);
             break;
           case "a":
             if (s3 === n.NovelName) {
-              var p2 = t3.href;
-              p2 && (i2.path = new URL(p2, r2.site).pathname.substring(1), i2.name = t3.title);
+              var d3 = t3.href;
+              d3 && (i2.path = r2.resolvePath(d3), i2.name = t3.title);
             }
             break;
           case "div":
@@ -25525,9 +25533,9 @@ var LNReaderPlugin = (() => {
         }
       }, "onopentag"), onclosetag: /* @__PURE__ */ __name(function(t3) {
         var r3 = u2();
-        "a" === t3 && r3 === n.NovelName && (i2.name && i2.path && s2.push(e({}, i2)), i2 = {}, p()), "div" === t3 && r3 === n.NovelList && --a2 < 0 && p();
+        "a" === t3 && r3 === n.NovelName && (i2.name && i2.path && s2.push(e({}, i2)), i2 = {}, p2()), "div" === t3 && r3 === n.NovelList && --a2 < 0 && p2();
       }, "onclosetag") });
-      return d.write(t2), d.end(), s2;
+      return d2.write(t2), d2.end(), s2;
     }, c2.prototype.parseChapterListFragment = function(t2, a2) {
       var r2 = [], n2 = {}, s2 = a2, i2 = false, l2 = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
         "a" === e2 && t3.href && (s2++, i2 = true, n2.name = t3.title || "Chapter ".concat(s2), n2.releaseTime = null, n2.chapterNumber = s2, n2.path = t3.href.startsWith("/") ? t3.href.substring(1) : t3.href);
@@ -25559,7 +25567,7 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.fetchChapterPageWithRetry = function(e2, r2, n2, o2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, l2, c3, u2, h, p, d, v, f, g, m;
+        var t2, i2, l2, c3, u2, h2, p2, d2, v, f, g, m;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -25573,11 +25581,11 @@ var LNReaderPlugin = (() => {
             case 4:
               return (u2 = a2.sent()).ok ? [4, u2.json()] : [3, 7];
             case 5:
-              return h = a2.sent(), p = this.parseChapterListFragment(h.html || "", (r2 - 1) * n2), [4, this.sleep(150)];
+              return h2 = a2.sent(), p2 = this.parseChapterListFragment(h2.html || "", (r2 - 1) * n2), [4, this.sleep(150)];
             case 6:
-              return a2.sent(), [2, { totalPages: h.totalPage || 1, chapters: p }];
+              return a2.sent(), [2, { totalPages: h2.totalPage || 1, chapters: p2 }];
             case 7:
-              return 429 !== u2.status ? [3, 8] : (d = null === (m = null === (g = u2.headers) || void 0 === g ? void 0 : g.get) || void 0 === m ? void 0 : m.call(g, "Retry-After"), v = d ? 1e3 * Number(d) : 3e3 * (l2 + 1), (f = Date.now() + v) > o2.backoffUntil && (o2.backoffUntil = f), [3, 10]);
+              return 429 !== u2.status ? [3, 8] : (d2 = null === (m = null === (g = u2.headers) || void 0 === g ? void 0 : g.get) || void 0 === m ? void 0 : m.call(g, "Retry-After"), v = d2 ? 1e3 * Number(d2) : 3e3 * (l2 + 1), (f = Date.now() + v) > o2.backoffUntil && (o2.backoffUntil = f), [3, 10]);
             case 8:
               return [4, this.sleep(800 * (l2 + 1))];
             case 9:
@@ -25597,14 +25605,14 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.popularNovels = function(e2, r2) {
       return t(this, arguments, void 0, function(e3, t2) {
-        var r3, n2, o2, i2, l2, c3, u2, h, p, d, v, f, g, m, b, y, w, S, k, x, C, N, P, A, L, j = t2.filters, I = t2.showLatestNovels;
+        var r3, n2, o2, i2, l2, c3, u2, h2, p2, d2, v, f, g, m, b, y, w, S, C, k, x, N, P, A, L, I = t2.filters, j = t2.showLatestNovels;
         return a(this, function(t3) {
           switch (t3.label) {
             case 0:
-              return r3 = this.options, n2 = r3.pageParam, o2 = void 0 === n2 ? "page" : n2, i2 = r3.novelListing, l2 = r3.typeParam, c3 = void 0 === l2 ? "type" : l2, u2 = r3.latestPage, h = r3.genreParam, p = void 0 === h ? "category_novel" : h, d = r3.genreKey, v = void 0 === d ? "id" : d, f = r3.langParam, g = r3.urlLangCode, m = r3.noPages, b = void 0 === m ? [] : m, y = r3.pageAsPath, w = void 0 !== y && y, 1 !== e3 && !I && !j.genres.value.length && b.length > 0 && b.includes(j.type.value) ? [2, []] : (S = "", i2 ? (k = new URLSearchParams(), I ? k.append(c3, u2) : j.genres.value.length ? (k.append(c3, p), k.append(v, j.genres.value)) : k.append(c3, j.type.value), f && g && k.append(f, g), k.append(o2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(k.toString())) : (x = I ? u2 : j.genres.value.length ? j.genres.value : j.type.value, S = w ? e3 > 1 ? "".concat(this.site).concat(x, "/").concat(e3.toString()) : "".concat(this.site).concat(x) : "".concat(this.site).concat(x, "?").concat(o2, "=").concat(e3.toString())), [4, (0, s.fetchApi)(S)]);
+              return r3 = this.options, n2 = r3.pageParam, o2 = void 0 === n2 ? "page" : n2, i2 = r3.novelListing, l2 = r3.typeParam, c3 = void 0 === l2 ? "type" : l2, u2 = r3.latestPage, h2 = r3.genreParam, p2 = void 0 === h2 ? "category_novel" : h2, d2 = r3.genreKey, v = void 0 === d2 ? "id" : d2, f = r3.langParam, g = r3.urlLangCode, m = r3.noPages, b = void 0 === m ? [] : m, y = r3.pageAsPath, w = void 0 !== y && y, 1 !== e3 && !j && !I.genres.value.length && b.length > 0 && b.includes(I.type.value) ? [2, []] : (S = "", i2 ? (C = new URLSearchParams(), j ? C.append(c3, u2) : I.genres.value.length ? (C.append(c3, p2), C.append(v, I.genres.value)) : C.append(c3, I.type.value), f && g && C.append(f, g), C.append(o2, e3.toString()), S = "".concat(this.site).concat(i2, "?").concat(C.toString())) : (k = j ? u2 : I.genres.value.length ? I.genres.value : I.type.value, S = w ? e3 > 1 ? "".concat(this.site).concat(k, "/").concat(e3.toString()) : "".concat(this.site).concat(k) : "".concat(this.site).concat(k, "?").concat(o2, "=").concat(e3.toString())), [4, (0, s.fetchApi)(S)]);
             case 1:
-              if (!(C = t3.sent()).ok) throw new Error("Could not reach site (".concat(C.status, ": ").concat(C.statusText, ") try to open in webview."));
-              return [4, C.text()];
+              if (!(x = t3.sent()).ok) throw new Error("Could not reach site (".concat(x.status, ": ").concat(x.statusText, ") try to open in webview."));
+              return [4, x.text()];
             case 2:
               return N = t3.sent(), P = this.parseNovels(N), A = P.map(function(e4) {
                 return e4.path;
@@ -25616,7 +25624,7 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.parseNovel = function(l2) {
       return t(this, void 0, void 0, function() {
-        var t2, c3, u2, h, p, d, v, f, g, m, b, y, w, S, k, x, C, N, P, A, L, j, I, R, $2, E, H, T, W, O, U, _, M, G, q, F = this;
+        var t2, c3, u2, h2, p2, d2, v, f, g, m, b, y, w, S, C, k, x, N, P, A, L, I, j, R, $2, E, W, H, T, O, _, M, G, U, q, F = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -25625,12 +25633,12 @@ var LNReaderPlugin = (() => {
               if (!(c3 = a2.sent()).ok) throw new Error(404 === c3.status ? "Novel not found (404), it may have been removed from this source." : "Could not reach site (".concat(c3.status, ": ").concat(c3.statusText, ") try to open in webview."));
               return [4, c3.text()];
             case 2:
-              return u2 = a2.sent(), h = { path: l2, chapters: [] }, p = [], d = [], v = [], f = [], g = [], m = [], b = null, y = null, w = null, S = {}, k = 0, C = [n.Idle], N = /* @__PURE__ */ __name(function() {
-                return C[C.length - 1];
+              return u2 = a2.sent(), h2 = { path: l2, chapters: [] }, p2 = [], d2 = [], v = [], f = [], g = [], m = [], b = null, y = null, w = null, S = {}, C = 0, x = [n.Idle], N = /* @__PURE__ */ __name(function() {
+                return x[x.length - 1];
               }, "N"), P = /* @__PURE__ */ __name(function(e2) {
-                return C.push(e2);
+                return x.push(e2);
               }, "P"), A = /* @__PURE__ */ __name(function() {
-                return C.length > 1 ? C.pop() : N();
+                return x.length > 1 ? x.pop() : N();
               }, "A"), L = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
                 var a3, r2, o2, s2 = N();
                 switch (e2) {
@@ -25645,16 +25653,16 @@ var LNReaderPlugin = (() => {
                         s2 === n.Cover && A(), P(n.Summary);
                         break;
                       case "info":
-                        P(n.Info), x = 0;
+                        P(n.Info), k = 0;
                     }
-                    F.options.noAjax || "rating" !== t3.id || (b = t3["data-novel-id"]), "indexListPage" === t3.id && (b = t3["data-novel-id"], y = Number(t3["data-total-chapters"])), s2 === n.Info && x++;
+                    F.options.noAjax || "rating" !== t3.id || (b = t3["data-novel-id"]), "indexListPage" === t3.id && (b = t3["data-novel-id"], y = Number(t3["data-total-chapters"])), s2 === n.Info && k++;
                     break;
                   case "img":
                     if (s2 === n.Cover) {
                       var i2 = [t3["data-src"], t3["data-cfsrc"], t3["data-original"], t3.src].find(function(e3) {
                         return e3 && !e3.startsWith("data:");
-                      }), c4 = t3.title;
-                      i2 && (h.cover = new URL(i2, F.site).href), c4 ? h.name = c4 : A();
+                      }), c4 = t3.title, u3 = F.resolveCover(i2);
+                      u3 && (h2.cover = u3), c4 ? h2.name = c4 : A();
                     }
                     break;
                   case "h3":
@@ -25662,22 +25670,22 @@ var LNReaderPlugin = (() => {
                     break;
                   case "span":
                     if (s2 === n.Cover && t3.title) {
-                      var u3 = { Genre: n.Genres, Author: n.Author, Status: n.Status }[t3.title];
-                      u3 && P(u3);
+                      var d3 = { Genre: n.Genres, Author: n.Author, Status: n.Status }[t3.title];
+                      d3 && P(d3);
                     }
                     (null === (a3 = t3.class) || void 0 === a3 ? void 0 : a3.includes("disqus")) && (w = t3["data-disqus-identifier"]);
                     break;
                   case "br":
-                    s2 === n.Summary && p.push("\n");
+                    s2 === n.Summary && p2.push("\n");
                     break;
                   case "ul":
                     (null === (r2 = t3.class) || void 0 === r2 ? void 0 : r2.includes("info-meta")) && P(n.Info), F.options.noAjax && "idData" === t3.id && P(n.ChapterList);
                     break;
                   case "a":
                     if ((null === (o2 = t3.class) || void 0 === o2 ? void 0 : o2.includes("set-case")) && (b = t3["data-articleid"]), s2 === n.ChapterList) {
-                      k++;
-                      var d2 = t3.href;
-                      P(n.Chapter), S.name = t3.title || "Chapter ".concat(k), S.releaseTime = null, S.chapterNumber = k, S.path = (null == d2 ? void 0 : d2.substring(1)) || l2.replace(".html", "/chapter-".concat(k, ".html"));
+                      C++;
+                      var v2 = t3.href;
+                      P(n.Chapter), S.name = t3.title || "Chapter ".concat(C), S.releaseTime = null, S.chapterNumber = C, S.path = (null == v2 ? void 0 : v2.substring(1)) || l2.replace(".html", "/chapter-".concat(C, ".html"));
                     }
                     break;
                   case "script":
@@ -25687,10 +25695,10 @@ var LNReaderPlugin = (() => {
                 var t3 = e2.trim();
                 if (t3) switch (N()) {
                   case n.NovelName:
-                    h.name = (h.name || "") + t3;
+                    h2.name = (h2.name || "") + t3;
                     break;
                   case n.Summary:
-                    p.push(e2);
+                    p2.push(e2);
                     break;
                   case n.Info:
                     g.push(t3);
@@ -25702,7 +25710,7 @@ var LNReaderPlugin = (() => {
                     v.push(e2);
                     break;
                   case n.Status:
-                    d.push(t3);
+                    d2.push(t3);
                     break;
                   case n.Hidden:
                     t3.includes("window.chapterPagination") ? y = Number(t3.match(/totalChapters:\s*(\d+)/)[1]) : t3.includes("sourceid") && (b = t3.match(/sourceid=(\d+)/)[1]);
@@ -25713,7 +25721,7 @@ var LNReaderPlugin = (() => {
                   case "div":
                     switch (a3) {
                       case n.Info:
-                        x--, g.push("\n"), x < 0 && A();
+                        k--, g.push("\n"), k < 0 && A();
                         break;
                       case n.Genres:
                       case n.Author:
@@ -25757,8 +25765,8 @@ var LNReaderPlugin = (() => {
                       if ("genre" === l3) {
                         var u3 = e3.findIndex(function(e4) {
                           return e4.includes(":");
-                        }), p2 = null !== (t4 = e3[u3]) && void 0 !== t4 ? t4 : "", d2 = p2.slice(p2.indexOf(":") + 1).trim();
-                        o3 = r(r([], d2 ? d2.split(",").map(function(e4) {
+                        }), p3 = null !== (t4 = e3[u3]) && void 0 !== t4 ? t4 : "", d3 = p3.slice(p3.indexOf(":") + 1).trim();
+                        o3 = r(r([], d3 ? d3.split(",").map(function(e4) {
                           return e4.trim();
                         }).filter(Boolean) : [], true), e3.slice(u3 + 1).map(function(e4) {
                           return e4.trim();
@@ -25768,14 +25776,14 @@ var LNReaderPlugin = (() => {
                       }).join(", ");
                       switch (l3) {
                         case "author":
-                          h.author = o3;
+                          h2.author = o3;
                           break;
                         case "genre":
-                          h.genres = o3;
+                          h2.genres = o3;
                           break;
                         case "status":
                           var v2 = { ongoing: i.NovelStatus.Ongoing, hiatus: i.NovelStatus.OnHiatus, dropped: i.NovelStatus.Cancelled, cancelled: i.NovelStatus.Cancelled, completed: i.NovelStatus.Completed };
-                          h.status = null !== (a4 = v2[o3.toLowerCase()]) && void 0 !== a4 ? a4 : i.NovelStatus.Unknown;
+                          h2.status = null !== (a4 = v2[o3.toLowerCase()]) && void 0 !== a4 ? a4 : i.NovelStatus.Unknown;
                           break;
                         default:
                           return;
@@ -25785,49 +25793,46 @@ var LNReaderPlugin = (() => {
                     var s2 = l2.match(/\d+/);
                     b = s2 ? s2[0] : null;
                   }
-                } else h.genres = f.map(function(e3) {
+                } else h2.genres = f.map(function(e3) {
                   return e3.trim();
-                }).filter(Boolean).join(", "), h.author = v.join("").trim(), h.status = d.join("").toLowerCase().replace(/\b\w/g, function(e3) {
+                }).filter(Boolean).join(", "), h2.author = v.join("").trim(), h2.status = d2.join("").toLowerCase().replace(/\b\w/g, function(e3) {
                   return e3.toUpperCase();
                 });
-                h.summary = p.join("\n\n").trim();
-              }, "onend") }), L.write(u2), L.end(), this.options.chapterListPaginated ? (j = h, [4, this.fetchAllChaptersViaJsonAjax(l2)]) : [3, 4];
+                h2.summary = p2.join("\n\n").trim();
+              }, "onend") }), L.write(u2), L.end(), this.options.chapterListPaginated ? (I = h2, [4, this.fetchAllChaptersViaJsonAjax(l2)]) : [3, 4];
             case 3:
-              return j.chapters = a2.sent(), [3, 9];
+              return I.chapters = a2.sent(), [3, 9];
             case 4:
-              return this.options.noAjax && m.length > 0 && !y ? (h.chapters = m, [3, 9]) : [3, 5];
+              return this.options.noAjax && m.length > 0 && !y ? (h2.chapters = m, [3, 9]) : [3, 5];
             case 5:
-              return null === b ? [3, 9] : (I = this.options.chapterListing || "ajax/chapter-archive", R = this.options.chapterParam || "novelId", $2 = new URLSearchParams(((q = {})[R] = b, q)), E = void 0, H = void 0, y ? (E = "".concat(this.site).concat(I), $2.set("acode", w || l2.split("/").pop()), $2.set("cid", String(Math.floor(Math.random() * y))), H = { method: "POST", body: $2.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" } }) : E = "".concat(this.site).concat(I, "?").concat($2.toString()), [4, (0, s.fetchApi)(E, H)]);
+              return null === b ? [3, 9] : (j = this.options.chapterListing || "ajax/chapter-archive", R = this.options.chapterParam || "novelId", $2 = new URLSearchParams(((q = {})[R] = b, q)), E = void 0, W = void 0, y ? (E = "".concat(this.site).concat(j), $2.set("acode", w || l2.split("/").pop()), $2.set("cid", String(Math.floor(Math.random() * y))), W = { method: "POST", body: $2.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" } }) : E = "".concat(this.site).concat(j, "?").concat($2.toString()), [4, (0, s.fetchApi)(E, W)]);
             case 6:
-              return (T = a2.sent()).ok ? [3, 7] : (console.error("Failed to fetch chapters: ".concat(T.status)), h.chapters = [], [3, 9]);
+              return (H = a2.sent()).ok ? [3, 7] : (console.error("Failed to fetch chapters: ".concat(H.status)), h2.chapters = [], [3, 9]);
             case 7:
-              return [4, T.text()];
+              return [4, H.text()];
             case 8:
-              W = a2.sent(), O = W;
+              T = a2.sent(), O = T;
               try {
-                "string" == typeof (U = JSON.parse(W)).html && (O = U.html);
+                "string" == typeof (_ = JSON.parse(T)).html && (O = _.html);
               } catch (e2) {
               }
-              _ = [], M = {}, (G = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
+              M = [], G = {}, (U = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e2, t3) {
                 var a3, r2;
-                if ("a" === e2 && t3.href ? (a3 = t3.href, r2 = t3.title || "", P(n.Chapter)) : "option" === e2 && t3.value && (a3 = t3.value, r2 = "", P(n.Chapter)), void 0 !== a3) {
-                  var o2 = new URL(a3, F.site).pathname.substring(1);
-                  M.path = o2, M.name = r2;
-                }
+                "a" === e2 && t3.href ? (a3 = t3.href, r2 = t3.title || "", P(n.Chapter)) : "option" === e2 && t3.value && (a3 = t3.value, r2 = "", P(n.Chapter)), void 0 !== a3 && (G.path = F.resolvePath(a3), G.name = r2);
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
                 var t3 = e2.trim();
-                N() === n.Chapter && !M.name && t3 && (M.name += t3);
+                N() === n.Chapter && !G.name && t3 && (G.name += t3);
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(t3) {
-                "a" !== t3 && "option" !== t3 || N() !== n.Chapter || (M.name && M.path && (M.name = M.name.trim(), M.releaseTime = null, _.push(e({}, M))), M = {}, A());
-              }, "onclosetag") })).write(O), G.end(), h.chapters = _, a2.label = 9;
+                "a" !== t3 && "option" !== t3 || N() !== n.Chapter || (G.name && G.path && (G.name = G.name.trim(), G.releaseTime = null, M.push(e({}, G))), G = {}, A());
+              }, "onclosetag") })).write(O), U.end(), h2.chapters = M, a2.label = 9;
             case 9:
-              return [2, h];
+              return [2, h2];
           }
         });
       });
     }, c2.prototype.parseChapter = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, i2, c3, u2, h, p, d, v, f, g, m, b, y, w, S;
+        var t2, r2, i2, c3, u2, p2, d2, v, f, g, m, b, y, w;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -25836,7 +25841,7 @@ var LNReaderPlugin = (() => {
               if (!(t2 = a2.sent()).ok) throw new Error(404 === t2.status ? "Chapter not found (404), it may have been removed from this source." : "Could not reach site (".concat(t2.status, ": ").concat(t2.statusText, ") try to open in webview."));
               return [4, t2.text()];
             case 2:
-              if (r2 = a2.sent(), null === (S = this.options) || void 0 === S ? void 0 : S.customJs) try {
+              if (r2 = a2.sent(), null === (w = this.options) || void 0 === w ? void 0 : w.customJs) try {
                 (i2 = (0, l.load)(r2))('#article[data-reader-order="pending"]').each(function(e3, t3) {
                   var a3 = i2(t3).children().toArray(), r3 = [], n2 = [];
                   a3.forEach(function(e4, t4) {
@@ -25867,89 +25872,82 @@ var LNReaderPlugin = (() => {
               } catch (e3) {
                 throw console.error("Error executing customJs:", e3), e3;
               }
-              return h = [], p = false, d = "", v = [n.Idle], f = /* @__PURE__ */ __name(function() {
-                return v[v.length - 1];
-              }, "f"), g = /* @__PURE__ */ __name(function(e3) {
-                return v.push(e3);
-              }, "g"), m = /* @__PURE__ */ __name(function() {
-                return v.length > 1 ? v.pop() : f();
-              }, "m"), b = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;", " ": "&nbsp;", "\u200C": "" }, y = /* @__PURE__ */ __name(function(e3) {
-                return e3.replace(/[&<>"'\xA0\u200C]/g, function(e4) {
-                  return b[e4];
-                });
-              }, "y"), w = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, t3) {
-                var a3, r3 = f(), o2 = null === (a3 = t3.class) || void 0 === a3 ? void 0 : a3.trim();
+              return p2 = [], d2 = false, v = "", f = [n.Idle], g = /* @__PURE__ */ __name(function() {
+                return f[f.length - 1];
+              }, "g"), m = /* @__PURE__ */ __name(function(e3) {
+                return f.push(e3);
+              }, "m"), b = /* @__PURE__ */ __name(function() {
+                return f.length > 1 ? f.pop() : g();
+              }, "b"), y = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, t3) {
+                var a3, r3 = g(), o2 = null === (a3 = t3.class) || void 0 === a3 ? void 0 : a3.trim();
                 switch (r3) {
                   case n.Idle:
-                    "txt" !== o2 && "chr-content" !== t3.id && "chapter-content" !== t3.id || (g(n.Chapter), c3 = 0);
+                    "txt" !== o2 && "chr-content" !== t3.id && "chapter-content" !== t3.id || (m(n.Chapter), c3 = 0);
                     break;
                   case n.Chapter:
-                    "sub" === e3 || "iframe" === e3 ? g(n.Hidden) : "div" === e3 && (c3++, ((null == o2 ? void 0 : o2.includes("unlock-buttons")) || (null == o2 ? void 0 : o2.includes("ads"))) && (g(n.Hidden), u2 = 0));
+                    "sub" === e3 || "iframe" === e3 ? m(n.Hidden) : "div" === e3 && (c3++, ((null == o2 ? void 0 : o2.includes("unlock-buttons")) || (null == o2 ? void 0 : o2.includes("ads"))) && (m(n.Hidden), u2 = 0));
                     break;
                   case n.Hidden:
-                    "sub" === e3 ? g(n.Hidden) : "div" === e3 && u2++;
+                    "sub" === e3 ? m(n.Hidden) : "div" === e3 && u2++;
                     break;
                   default:
                     return;
                 }
-                if (f() === n.Chapter) {
+                if (g() === n.Chapter) {
                   var s2 = Object.keys(t3);
-                  if (0 === s2.length) h.push("<".concat(e3, ">"));
-                  else if (s2.every(function(e4) {
-                    return "" === t3[e4].trim();
-                  })) {
-                    p = true, d = e3;
-                    var i3 = e3.replace(/\b\w/g, function(e4) {
-                      return e4.toUpperCase();
-                    });
-                    h.push(y("<".concat(i3, " ").concat(s2.join(" "), ">")));
-                  } else {
-                    var l2 = s2.map(function(e4) {
-                      return " ".concat(e4, '="').concat(t3[e4].replace(/"/g, "&quot;"), '"');
-                    }).join("");
-                    h.push("<".concat(e3).concat(l2, ">"));
+                  if (0 === s2.length) p2.push("<".concat(e3, ">"));
+                  else {
+                    for (var i3 = false, l2 = "", f2 = 0, b2 = s2; f2 < b2.length; f2++) {
+                      var y2 = b2[f2], w2 = t3[y2];
+                      "" !== w2.trim() && (i3 = true), l2 += " ".concat(y2, '="').concat(w2.replace(/"/g, "&quot;"), '"');
+                    }
+                    if (i3) p2.push("<".concat(e3).concat(l2, ">"));
+                    else {
+                      d2 = true, v = e3;
+                      var S = e3.replace(/\b\w/g, function(e4) {
+                        return e4.toUpperCase();
+                      });
+                      p2.push(h("<".concat(S, " ").concat(s2.join(" "), ">")));
+                    }
                   }
                 }
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
-                if (f() === n.Chapter) {
-                  var t3 = y(e3);
-                  h.push(t3.trim().replace(/\s\s+/, " "));
-                }
+                g() === n.Chapter && p2.push(h(e3).replace(/\s+/g, " "));
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
-                var t3 = f();
-                t3 === n.Hidden && ("sub" === e3 || "iframe" === e3 ? m() : "div" === e3 && --u2 < 0 && (m(), c3--)), t3 === n.Chapter && (w.isVoidElement(e3) || (p && e3 === d ? (p = false, d = "") : h.push("</".concat(e3, ">"))), "div" === e3 && --c3 < 0 && g(n.Stopped));
-              }, "onclosetag") }), w.write(r2), w.end(), [2, h.join("")];
+                var t3 = g();
+                t3 === n.Hidden && ("sub" === e3 || "iframe" === e3 ? b() : "div" === e3 && --u2 < 0 && (b(), c3--)), t3 === n.Chapter && (y.isVoidElement(e3) || (d2 && e3 === v ? (d2 = false, v = "") : p2.push("</".concat(e3, ">"))), "div" === e3 && --c3 < 0 && m(n.Stopped));
+              }, "onclosetag") }), y.write(r2), y.end(), [2, p2.join("")];
           }
         });
       });
     }, c2.prototype.searchNovels = function(r2, n2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, i2, l2, c3, u2, h, p, d, v, f, g, m, b, y, w, S, k, x, C;
+        var t2, o2, i2, l2, c3, u2, h2, p2, d2, v, f, g, m, b, y, w, S, C, k, x, N;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = Date.now(), this.lastSearch && t2 - this.lastSearch <= this.searchInterval ? [4, this.sleep(this.searchInterval)] : [3, 2];
+              return t2 = Date.now(), this.lastSearch ? (o2 = t2 - this.lastSearch) < this.searchInterval ? [4, this.sleep(this.searchInterval - o2)] : [3, 2] : [3, 2];
             case 1:
               a2.sent(), a2.label = 2;
             case 2:
-              return o2 = this.options, i2 = o2.pageParam, l2 = void 0 === i2 ? "page" : i2, c3 = o2.searchKey, u2 = void 0 === c3 ? "keyword" : c3, h = o2.postSearch, p = o2.langParam, d = o2.urlLangCode, v = o2.searchPage, f = new URLSearchParams(e(e(((S = {})[u2] = r2, S), p && d && ((k = {})[p] = d, k)), !h && ((x = {})[l2] = n2.toString(), x))), g = "".concat(this.site).concat(v).concat(h ? "" : "?".concat(f.toString())), m = h ? { method: "POST", body: f.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } } : void 0, [4, (0, s.fetchApi)(g, m)];
+              return i2 = this.options, l2 = i2.pageParam, c3 = void 0 === l2 ? "page" : l2, u2 = i2.searchKey, h2 = void 0 === u2 ? "keyword" : u2, p2 = i2.postSearch, d2 = i2.langParam, v = i2.urlLangCode, f = i2.searchPage, g = new URLSearchParams(e(e(((C = {})[h2] = r2, C), d2 && v && ((k = {})[d2] = v, k)), !p2 && ((x = {})[c3] = n2.toString(), x))), m = "".concat(this.site).concat(f).concat(p2 ? "" : "?".concat(g.toString())), b = p2 ? { method: "POST", body: g.toString(), headers: { "Content-Type": "application/x-www-form-urlencoded" } } : void 0, [4, (0, s.fetchApi)(m, b)];
             case 3:
-              if (b = a2.sent(), this.lastSearch = Date.now(), 404 === b.status && n2 > 1) return [2, []];
-              if (!b.ok) throw new Error("Could not reach site ('".concat(b.status, "') try to open in webview."));
-              return [4, b.text()];
+              if (y = a2.sent(), this.lastSearch = Date.now(), 404 === y.status && n2 > 1) return [2, []];
+              if (!y.ok) throw new Error("Could not reach site ('".concat(y.status, "') try to open in webview."));
+              return [4, y.text()];
             case 4:
-              if (y = a2.sent(), w = (null === (C = y.match(/alert\((.*?)\)/)) || void 0 === C ? void 0 : C[1]) || "") throw new Error(w);
-              return [2, this.parseNovels(y)];
+              if (w = a2.sent(), S = (null === (N = w.match(/alert\((.*?)\)/)) || void 0 === N ? void 0 : N[1]) || "") throw new Error(S);
+              return [2, this.parseNovels(w)];
           }
         });
       });
     }, c2;
   }();
-  exports.ReadNovelFullPlugin = c, function(e2) {
+  exports.ReadNovelFullPlugin = p, function(e2) {
     e2[e2.Idle = 0] = "Idle", e2[e2.Info = 1] = "Info", e2[e2.Cover = 2] = "Cover", e2[e2.Author = 3] = "Author", e2[e2.Genres = 4] = "Genres", e2[e2.Status = 5] = "Status", e2[e2.Hidden = 6] = "Hidden", e2[e2.Summary = 7] = "Summary", e2[e2.Stopped = 8] = "Stopped", e2[e2.Chapter = 9] = "Chapter", e2[e2.ChapterList = 10] = "ChapterList", e2[e2.NovelName = 11] = "NovelName", e2[e2.NovelList = 12] = "NovelList";
   }(n || (n = {}));
-  var u = new c({ id: "FWN.com", sourceSite: "https://freewebnovel.com/", sourceName: "Free Web Novel", options: { latestPage: "sort/latest-release", searchPage: "search", postSearch: false, noAjax: true, listClass: "ss-custom", pageAsPath: true, chapterListing: "api/chapterlist.php", chapterParam: "aid", versionIncrements: 6, imageReferer: true, customJs: `$('#article[data-reader-order="pending"]').each((_, art) => { const kids = $(art).children().toArray(); const items = []; const slots = []; kids.forEach((n, i) => { const $n = $(n); if ($n.attr('data-reader-order-anchor') !== undefined) return; let raw = $n.attr('data-reader-order-index'); if (raw === undefined && /^(p|h4|img)$/i.test(n.tagName || '')) { const m = /(?:^|;)\\s*order\\s*:\\s*(\\d+)/i.exec($n.attr('style') || ''); if (m) raw = m[1]; } if (raw === undefined || !/^\\d+$/.test(raw)) return; items.push({ idx: Number(raw), node: n }); slots.push(i); }); items.sort((a, b) => a.idx - b.idx); slots.forEach((s, k) => $(kids[s]).replaceWith('<i data-ro-slot="' + k + '"></i>')); items.forEach((it, k) => { const $n = $(it.node); $n.removeAttr('data-reader-order-index'); const st = ($n.attr('style') || '').replace(/(?:^|;)\\s*order\\s*:\\s*\\d+\\s*(?:!important)?\\s*;?/gi, ''); if (st.trim()) $n.attr('style', st); else $n.removeAttr('style'); $(art).find('i[data-ro-slot="' + k + '"]').replaceWith($n); }); }); $('.txt, #chr-content, #chapter-content').find('*').addBack().contents().filter((_, el) => el.type === 'text').each((_, el) => { el.data = el.data.replace(/(?:\u{1D41F}|\u1D6E|\u{1D453}|\u{1D487}|\u{1D4BB}|\u{1D4EF}|\u{1D523}|\u{1D557}|\u{1D5BF}|\u{1D5F3}|\u{1D65B}|\u{1D68F}|\uAB35|\uA799|\u1E9D|\u{1D58B}|\u24D5|\uFF46|\u0192|\u1E1F|\u0283|\u0562|\u1DA0|\u24A1|\u017F|\uA2B0|\u0284|\u2231|\u1D82|\u{1D627}|\\bf)(?:\u{1D69B}|\uAB47|\u18F4|\u213E|\u{1D6AA}|\u{1D6E4}|\u{1D71E}|\u{1D758}|\u{1D792}|\u2C84|\u0413|\u13B1|\u14A5|\uAB48|\u2C85|\uAB81|\u24E1|\uFF52|\u0155|\u1E59|\u0159|\u0211|\u0213|\u1E5B|\u1E5D|\u0157|\u0433|\u0550|\u027E|\u196C|\u1E5F|\u024D|\u02B3|\u24AD|\u027C|\u0453|\u1D26|\u1D89|\u{1D42B}|\u{1D45F}|\u{1D493}|\u{1D4C7}|\u{1D4FB}|\u{1D52F}|\u{1D563}|\u{1D597}|\u{1D5CB}|\u{1D5FF}|\u{1D633}|\u{1D667}|\u1D72|\u0491|\u1D63|r)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)+(?:\u{1D430}|\uA761|\u{1D464}|\u{1D498}|\u{1D4CC}|\u{1D500}|\u{1D534}|\u{1D568}|\u{1D59C}|\u{1D5D0}|\u{1D604}|\u{1D638}|\u{1D66C}|\u{1D6A0}|\u0561|\u1E81|\uAB83|\u1E83|\u24E6|\u2375|\u0175|\u1E87|\u1E85|\u1E98|\u1E89|\u2C73|\u1F7C|\u1F60|\u1F61|\u1F62|\u1F63|\u03C9|\u1F64|\u1F65|\u1F66|\u1F67|\u1FF2|\u1FF3|\u1FF4|\u1FF6|\u1FF7|\u2C72|\u0461|\u051D|\u1D21|\u1F7D|\u1FA0|\u1FA1|\u1FA2|\u1FA3|\u1FA4|\u1FA5|\u1FA6|\u026F|\u{1D755}|\u{1D7C9}|\u{1D78F}|w)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\uAB9F|\u13CF|\u{1D41B}|\u{1D623}|\u{1D4B7}|\u{1D51F}|\u{1D4EB}|\u{1D587}|\u{1D5BB}|\u{1D44F}|\u{1D657}|\u{1D553}|\u{1D483}|\u{1D5EF}|\u{1D68B}|\u266D|\u1473|\u1488|\uFF42|\u159A|\u1579|\u157A|\u24D1|\u1E03|\u1E05|\u048D|\u044A|\u1E07|\u0183|\u0253|\u0185|\u15AF|\u0184|\u042C|\u1472|\xFE|\u0182|\u249D|\u042A|\u1D80|\u147F|\u1480|\u1482|\u1481|\u147E|\u044C|\u0180|\u048C|\u0462|\u0463|\u150E |b)(?:\u0578|\u057C|\u05D7|\u{1D48F}|\u{1D4F7}|\u{1D663}|\u{1D45B}|\u{1D593}|\u{1D52B}|\u{1D5C7}|\u{1D697}|\u{1D5FB}|\u1952|\u24DD|\u03AE|\uFF4E|\u01F9|\u1D12|\u0144|\xF1|\u1F97|\u03B7|\u1E45|\u0148|\u1E47|\u0272|\u0146|\u1E4B|\u1E49|\u0572|\u0E96|\u054C|\u019E|\u014B|\u24A9|\u0E20|\u0E01|\u0273|\u043F|\u0149|\u043B|\u0509|\u0220|\u1F20|\u1F21|\u1FC3|\u0564|\u1F90|\u1F91|\u1F92|\u1F93|\u1F94|\u1F95|\u1F96|\u1FC4|\u1FC6|\u1FC7|\u1FC2|\u1F22|\u1F23|\u1F24|\u1F25|\u1F26|\u1F27|\u1F74|\u1F75|\u1260|\u1261|\u1262|\u1263|\u1264|\u1265|\u1266|\u0235|\u{1D6C8}|\u{1D702}|\u{1D73C}|\u{1D776}|\u{1D7B0}|\u{1D55F}|\u{1D62F}|\u{1D427}|\u{1D4C3}|\u1D87|\u1D70|\u1965|\u2229|n)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u2228|\u2304|\u22C1|\u2174|\u{1D42F}|\u{1D463}|\u{1D497}|\u{1D4CB}|\u{1D533}|\u{1D567}|\u{1D59B}|\u{1D5CF}|\uABA9|\u1200|\u24E5|\uFF56|\u{1D710}|\u{1D74A}|\u1E7D|\u1E7F|\u0C6E|\u0E07|\u0475|\u05E2|\u1D20|\u03BD|\u05D8|\u1D65|\u0477|\u17F4|\u1601|\u{1D66B}|\u{1D69F}|\u{1D6CE}|\u{1D708}|\u{1D742}|\u{1D77C}|\u{1D7B6}|\u{1D637}|\u{1D603}|\u{1D4FF}|v)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\u24DB|\uFF4C|\u0140|\u013A|\u013E|\u1E37|\u1E39|\u013C|\u04C0|\u2113|\u1E3D|\u1E3B|\u0142|\uFF9A|\u026D|\u019A|\u026B|\u2C61|\\||\u0196|\u24A7|\u0285|\u01C0|\u05D5|\u05DF|\u0399|\u0406|\uFF5C|\u1DA9|\u04CF|\u{1D4D8}|\u{1D540}|\u{1D5A8}|\u{1D5DC}|\u{1D610}|\u{1D425}|\u{1D459}|\u{1D48D}|\u{1D4C1}|\u{1D529}|\u{1D55D}|\u{1D591}|\u{1D5C5}|\u{1D5F9}|\u{1D62D}|\u{1D695}|\u{1D724}|\u{1D75E}|\u0131|\u{1D6A4}|\u0269|\u1FBE|\u{1D6CA}|\u{1D704}|\u{1D73E}|\u{1D7B2}|I|l)(?:.?(?:\u{1F74C}|\uFF43|\u217D|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u1D04|\u03F2|\u2CA5|\u0441|\uABAF|\u{1043D}|\u2CA5|\u{1043D}|\uABAF|\u0109|\uFF43|\u24D2|\u0107|\u010D|\u010B|\xE7|\u0481|\u0188|\u1E09|\u023C|\u2184|\u0441|\u122D|\u1D04|\u03F2|\u04AB|\uA49D|\u03C2|\u027D|\u03DB|\u{1D672}|\u1466|\u19DA|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u20B5|\u{1F1E8}|\u1974|\u14BC|\u217D|c)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u20A5|\u1D6F|\u{1D592}|\u{1D426}|\u{1D5C6}|\u{1D52A}|\u{1D55E}|\u{1D4C2}|\u24DC|\uFF4D|\u0D28|\u1662|\u0D69|\u1E3F|\u1E41|\u217F|\u03FB|\u1E43|\u1320|\u0271|\u17F3|\u1D86|\u{1D48E}|\u{1D662}|\u{1D4F6}|\u{1D696}|\u{1D45A}|\u{1D5FA}|\u19D5|\u19D7|m))?/g, ''); });` }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
-  exports.default = u;
+  var d = new p({ id: "FWN.com", sourceSite: "https://freewebnovel.com/", sourceName: "Free Web Novel", options: { latestPage: "sort/latest-release", searchPage: "search", postSearch: false, noAjax: true, listClass: "ss-custom", pageAsPath: true, chapterListing: "api/chapterlist.php", chapterParam: "aid", versionIncrements: 6, imageReferer: true, customJs: `$('#article[data-reader-order="pending"]').each((_, art) => { const kids = $(art).children().toArray(); const items = []; const slots = []; kids.forEach((n, i) => { const $n = $(n); if ($n.attr('data-reader-order-anchor') !== undefined) return; let raw = $n.attr('data-reader-order-index'); if (raw === undefined && /^(p|h4|img)$/i.test(n.tagName || '')) { const m = /(?:^|;)\\s*order\\s*:\\s*(\\d+)/i.exec($n.attr('style') || ''); if (m) raw = m[1]; } if (raw === undefined || !/^\\d+$/.test(raw)) return; items.push({ idx: Number(raw), node: n }); slots.push(i); }); items.sort((a, b) => a.idx - b.idx); slots.forEach((s, k) => $(kids[s]).replaceWith('<i data-ro-slot="' + k + '"></i>')); items.forEach((it, k) => { const $n = $(it.node); $n.removeAttr('data-reader-order-index'); const st = ($n.attr('style') || '').replace(/(?:^|;)\\s*order\\s*:\\s*\\d+\\s*(?:!important)?\\s*;?/gi, ''); if (st.trim()) $n.attr('style', st); else $n.removeAttr('style'); $(art).find('i[data-ro-slot="' + k + '"]').replaceWith($n); }); }); $('.txt, #chr-content, #chapter-content').find('*').addBack().contents().filter((_, el) => el.type === 'text').each((_, el) => { el.data = el.data.replace(/(?:\u{1D41F}|\u1D6E|\u{1D453}|\u{1D487}|\u{1D4BB}|\u{1D4EF}|\u{1D523}|\u{1D557}|\u{1D5BF}|\u{1D5F3}|\u{1D65B}|\u{1D68F}|\uAB35|\uA799|\u1E9D|\u{1D58B}|\u24D5|\uFF46|\u0192|\u1E1F|\u0283|\u0562|\u1DA0|\u24A1|\u017F|\uA2B0|\u0284|\u2231|\u1D82|\u{1D627}|\\bf)(?:\u{1D69B}|\uAB47|\u18F4|\u213E|\u{1D6AA}|\u{1D6E4}|\u{1D71E}|\u{1D758}|\u{1D792}|\u2C84|\u0413|\u13B1|\u14A5|\uAB48|\u2C85|\uAB81|\u24E1|\uFF52|\u0155|\u1E59|\u0159|\u0211|\u0213|\u1E5B|\u1E5D|\u0157|\u0433|\u0550|\u027E|\u196C|\u1E5F|\u024D|\u02B3|\u24AD|\u027C|\u0453|\u1D26|\u1D89|\u{1D42B}|\u{1D45F}|\u{1D493}|\u{1D4C7}|\u{1D4FB}|\u{1D52F}|\u{1D563}|\u{1D597}|\u{1D5CB}|\u{1D5FF}|\u{1D633}|\u{1D667}|\u1D72|\u0491|\u1D63|r)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)+(?:\u{1D430}|\uA761|\u{1D464}|\u{1D498}|\u{1D4CC}|\u{1D500}|\u{1D534}|\u{1D568}|\u{1D59C}|\u{1D5D0}|\u{1D604}|\u{1D638}|\u{1D66C}|\u{1D6A0}|\u0561|\u1E81|\uAB83|\u1E83|\u24E6|\u2375|\u0175|\u1E87|\u1E85|\u1E98|\u1E89|\u2C73|\u1F7C|\u1F60|\u1F61|\u1F62|\u1F63|\u03C9|\u1F64|\u1F65|\u1F66|\u1F67|\u1FF2|\u1FF3|\u1FF4|\u1FF6|\u1FF7|\u2C72|\u0461|\u051D|\u1D21|\u1F7D|\u1FA0|\u1FA1|\u1FA2|\u1FA3|\u1FA4|\u1FA5|\u1FA6|\u026F|\u{1D755}|\u{1D7C9}|\u{1D78F}|w)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\uAB9F|\u13CF|\u{1D41B}|\u{1D623}|\u{1D4B7}|\u{1D51F}|\u{1D4EB}|\u{1D587}|\u{1D5BB}|\u{1D44F}|\u{1D657}|\u{1D553}|\u{1D483}|\u{1D5EF}|\u{1D68B}|\u266D|\u1473|\u1488|\uFF42|\u159A|\u1579|\u157A|\u24D1|\u1E03|\u1E05|\u048D|\u044A|\u1E07|\u0183|\u0253|\u0185|\u15AF|\u0184|\u042C|\u1472|\xFE|\u0182|\u249D|\u042A|\u1D80|\u147F|\u1480|\u1482|\u1481|\u147E|\u044C|\u0180|\u048C|\u0462|\u0463|\u150E |b)(?:\u0578|\u057C|\u05D7|\u{1D48F}|\u{1D4F7}|\u{1D663}|\u{1D45B}|\u{1D593}|\u{1D52B}|\u{1D5C7}|\u{1D697}|\u{1D5FB}|\u1952|\u24DD|\u03AE|\uFF4E|\u01F9|\u1D12|\u0144|\xF1|\u1F97|\u03B7|\u1E45|\u0148|\u1E47|\u0272|\u0146|\u1E4B|\u1E49|\u0572|\u0E96|\u054C|\u019E|\u014B|\u24A9|\u0E20|\u0E01|\u0273|\u043F|\u0149|\u043B|\u0509|\u0220|\u1F20|\u1F21|\u1FC3|\u0564|\u1F90|\u1F91|\u1F92|\u1F93|\u1F94|\u1F95|\u1F96|\u1FC4|\u1FC6|\u1FC7|\u1FC2|\u1F22|\u1F23|\u1F24|\u1F25|\u1F26|\u1F27|\u1F74|\u1F75|\u1260|\u1261|\u1262|\u1263|\u1264|\u1265|\u1266|\u0235|\u{1D6C8}|\u{1D702}|\u{1D73C}|\u{1D776}|\u{1D7B0}|\u{1D55F}|\u{1D62F}|\u{1D427}|\u{1D4C3}|\u1D87|\u1D70|\u1965|\u2229|n)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u2228|\u2304|\u22C1|\u2174|\u{1D42F}|\u{1D463}|\u{1D497}|\u{1D4CB}|\u{1D533}|\u{1D567}|\u{1D59B}|\u{1D5CF}|\uABA9|\u1200|\u24E5|\uFF56|\u{1D710}|\u{1D74A}|\u1E7D|\u1E7F|\u0C6E|\u0E07|\u0475|\u05E2|\u1D20|\u03BD|\u05D8|\u1D65|\u0477|\u17F4|\u1601|\u{1D66B}|\u{1D69F}|\u{1D6CE}|\u{1D708}|\u{1D742}|\u{1D77C}|\u{1D7B6}|\u{1D637}|\u{1D603}|\u{1D4FF}|v)(?:\u0259|\u04D9|\u2147|\uAB32|\uA793|\u22F4|\u{1D6C6}|\u{1D6DC}|\u{1D700}|\u{1D716}|\u{1D73A}|\u{1D750}|\u{1D774}|\u{1D78A}|\u{1D7AE}|\u{1D7C4}|\u2C89|\uAB9B|\u{10429}|\uA792|\u2C88|\u2377|\u{1D452}|\u{1D4EE}|\u{1D556}|\u{1D58A}|\u{1D626}|\u{1D5F2}|\u{1D68E}|\u{1D65A}|\u{1D486}|\u{1D522}|\u{1D5BE}|\u{1D41E}|\u04BE|\u04BF|\u24D4|\uFF45|\u24A0|\xE8|\u19C9|\xE9|\u1D92|\xEA|\u0258|\u1F14|\u1EC1|\u1EBF|\u1EC5|\u0AEF|\u01DD|\u0454|\u03B5|\u0113|\u04BD|\u025B|\u1EC3|\u1EBD|\u1E15|\u1E17|\u0115|\u0117|\xEB|\u1EBB|\u011B|\u0205|\u0207|\u1EB9|\u1EC7|\u0229|\u0247|\u2091|\u0119|\u1E1D|\u1E19|\u1E1B|\u212E|\u0435|\u0511|\u0450|\u04D7|\u1971|\u0451|\u1F10|\u1F11|\u1F12|\u1F13|\u1F15|\u212F|e)(?:\u24DB|\uFF4C|\u0140|\u013A|\u013E|\u1E37|\u1E39|\u013C|\u04C0|\u2113|\u1E3D|\u1E3B|\u0142|\uFF9A|\u026D|\u019A|\u026B|\u2C61|\\||\u0196|\u24A7|\u0285|\u01C0|\u05D5|\u05DF|\u0399|\u0406|\uFF5C|\u1DA9|\u04CF|\u{1D4D8}|\u{1D540}|\u{1D5A8}|\u{1D5DC}|\u{1D610}|\u{1D425}|\u{1D459}|\u{1D48D}|\u{1D4C1}|\u{1D529}|\u{1D55D}|\u{1D591}|\u{1D5C5}|\u{1D5F9}|\u{1D62D}|\u{1D695}|\u{1D724}|\u{1D75E}|\u0131|\u{1D6A4}|\u0269|\u1FBE|\u{1D6CA}|\u{1D704}|\u{1D73E}|\u{1D7B2}|I|l)(?:.?(?:\u{1F74C}|\uFF43|\u217D|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u1D04|\u03F2|\u2CA5|\u0441|\uABAF|\u{1043D}|\u2CA5|\u{1043D}|\uABAF|\u0109|\uFF43|\u24D2|\u0107|\u010D|\u010B|\xE7|\u0481|\u0188|\u1E09|\u023C|\u2184|\u0441|\u122D|\u1D04|\u03F2|\u04AB|\uA49D|\u03C2|\u027D|\u03DB|\u{1D672}|\u1466|\u19DA|\u{1D41C}|\u{1D450}|\u{1D484}|\u{1D4B8}|\u{1D4EC}|\u{1D520}|\u{1D554}|\u{1D588}|\u{1D5BC}|\u{1D5F0}|\u{1D624}|\u{1D658}|\u{1D68C}|\u20B5|\u{1F1E8}|\u1974|\u14BC|\u217D|c)(?:\u0C02|\u0C82|\u0D02|\u0D82|\u0AE6|\u0BE6|\u06F5|\u2134|\u{1D45C}|\u{1D490}|\u{1D594}|\uAB3D|\u{1D744}|\u{1D6D4}|\u{1D70E}|\u{1D748}|\u{1D782}|\u10FF|\u{1D698}|\u09E6|\u0B66|\u12D0|\u{1D6D0}|\u{1D5C8}|\u{1D7BC}|\u101D|\u2C9F|\u{1D664}|\u1040|\u{1042C}|\u{1D52C}|\u{104EA}|\u{1D4F8}|\u{1F1F4}|\u2364|\u25CB|\u03D9|\u{1F17E}|\u{1D4AA}|\u{1D5AE}|\u{1D7E2}|\u{1D7F6}|\u{1D67E}|\u{1D630}|\u{1D5FC}|\u{1D560}|\u{1D70A}|\u{1D428}|\u{1D77E}|\u{1D7B8}|\u1424|\u24DE|\u0473|\u19D0|\u1972|\xF0|\uFF4F|\u0C20|\u199E|\u0553|\xF2|\u04E9|\u04E7|\xF3|\xBA|\u014D|\xF4|\u01D2|\u020F|\u014F|\u1ED3|\u022D|\u1E4F|\u1F44|\u1E51|\u1E53|\u022F|\u022B|\u0E4F|\u1D0F|\u0151|\xF6|\u047B|\u043E|\u12D0|\u01ED|\u0231|\u09E6|\u0B66|\u0665|\u0C66|\u0CE6|\u0D66|\u0E50|\u0ED0|\u03BF|\u0585|\u1D11|\u0966|\u0A66|\u1ECF|\u01A1|\u1EDD|\u1EDB|\u1EE1|\u1EDF|\u1EE3|\u1ECD|\u1ED9|\u01EB|\xF8|\u01FF|\u0275|\u056E|\u1F40|\u1F41|\u03CC|\u1F78|\u1F79|\u1F42|\u1F43|\u1F45|o)(?:\u20A5|\u1D6F|\u{1D592}|\u{1D426}|\u{1D5C6}|\u{1D52A}|\u{1D55E}|\u{1D4C2}|\u24DC|\uFF4D|\u0D28|\u1662|\u0D69|\u1E3F|\u1E41|\u217F|\u03FB|\u1E43|\u1320|\u0271|\u17F3|\u1D86|\u{1D48E}|\u{1D662}|\u{1D4F6}|\u{1D696}|\u{1D45A}|\u{1D5FA}|\u19D5|\u19D7|m))?/g, ''); });` }, filters: { type: { type: "Picker", label: "Novel Type", value: "sort/most-popular", options: [{ label: "All", value: "sort/latest-release" }, { label: "Chinese Novel", value: "sort/latest-release/chinese-novel" }, { label: "Korean Novel", value: "sort/latest-release/korean-novel" }, { label: "Japanese Novel", value: "sort/latest-release/japanese-novel" }, { label: "English Novel", value: "sort/latest-release/english-novel" }, { label: "Most Popular", value: "sort/most-popular" }] }, genres: { type: "Picker", label: "Genre", value: "", options: [{ label: "Action", value: "genre/Action" }, { label: "Adult", value: "genre/Adult" }, { label: "Adventure", value: "genre/Adventure" }, { label: "Comedy", value: "genre/Comedy" }, { label: "Drama", value: "genre/Drama" }, { label: "Eastern", value: "genre/Eastern" }, { label: "Ecchi", value: "genre/Ecchi" }, { label: "Fantasy", value: "genre/Fantasy" }, { label: "Game", value: "genre/Game" }, { label: "Gender Bender", value: "genre/Gender+Bender" }, { label: "Harem", value: "genre/Harem" }, { label: "Historical", value: "genre/Historical" }, { label: "Horror", value: "genre/Horror" }, { label: "Josei", value: "genre/Josei" }, { label: "Martial Arts", value: "genre/Martial+Arts" }, { label: "Mature", value: "genre/Mature" }, { label: "Mecha", value: "genre/Mecha" }, { label: "Mystery", value: "genre/Mystery" }, { label: "Psychological", value: "genre/Psychological" }, { label: "Reincarnation", value: "genre/Reincarnation" }, { label: "Romance", value: "genre/Romance" }, { label: "School Life", value: "genre/School+Life" }, { label: "Sci-fi", value: "genre/Sci-fi" }, { label: "Seinen", value: "genre/Seinen" }, { label: "Shoujo", value: "genre/Shoujo" }, { label: "Shounen Ai", value: "genre/Shounen+Ai" }, { label: "Shounen", value: "genre/Shounen" }, { label: "Slice of Life", value: "genre/Slice+of+Life" }, { label: "Smut", value: "genre/Smut" }, { label: "Sports", value: "genre/Sports" }, { label: "Supernatural", value: "genre/Supernatural" }, { label: "Tragedy", value: "genre/Tragedy" }, { label: "Wuxia", value: "genre/Wuxia" }, { label: "Xianxia", value: "genre/Xianxia" }, { label: "Xuanhuan", value: "genre/Xuanhuan" }, { label: "Yaoi", value: "genre/Yaoi" }] } } });
+  exports.default = d;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

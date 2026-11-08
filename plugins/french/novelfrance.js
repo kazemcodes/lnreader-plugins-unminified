@@ -9571,7 +9571,7 @@ var LNReaderPlugin = (() => {
   var a = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = 24, o = function() {
     function o2() {
       var e2 = this;
-      this.id = "novelfrance", this.name = "NovelFrance", this.icon = "src/fr/novelfrance/icon.png", this.site = "https://novelfrance.fr/", this.version = "1.0.1", this.resolveUrl = function(t2) {
+      this.id = "novelfrance", this.name = "NovelFrance", this.icon = "src/fr/novelfrance/icon.png", this.site = "https://novelfrance.fr/", this.version = "1.0.2", this.resolveUrl = function(t2) {
         return new URL("novel/".concat(t2), e2.site).href;
       }, this.filters = { genre: { type: n.FilterTypes.Picker, label: "Genre", value: "", options: [{ label: "Tous", value: "" }, { label: "Action", value: "action" }, { label: "Adulte", value: "adulte" }, { label: "Anti-H\xE9ros", value: "anti-h-ros" }, { label: "Arts Martiaux", value: "arts-martiaux" }, { label: "Aventure", value: "aventure" }, { label: "Com\xE9die", value: "com-die" }, { label: "Drame", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantaisie", value: "fantaisie" }, { label: "Fantastique", value: "fantastique" }, { label: "Harem", value: "harem" }, { label: "Historique", value: "historical" }, { label: "Horreur", value: "horreur" }, { label: "Isekai", value: "isekai" }, { label: "Josei", value: "josei" }, { label: "Magie", value: "magie" }, { label: "Mature", value: "mature" }, { label: "M\xE9cha", value: "mcha" }, { label: "Myst\xE8re", value: "myst-re" }, { label: "Psychologique", value: "psychologique" }, { label: "R\xE9incarnation", value: "r-incarnation" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Seinen", value: "seinen" }, { label: "Shounen", value: "shounen" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Sport", value: "sport" }, { label: "Surnaturel", value: "surnaturel" }, { label: "Syst\xE8me", value: "syst-me" }, { label: "Thriller", value: "thriller" }, { label: "Trag\xE9die", value: "trag-die" }, { label: "Transmigration", value: "transmigration" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, status: { type: n.FilterTypes.Picker, label: "Statut", value: "", options: [{ label: "Tous", value: "" }, { label: "En cours", value: "ONGOING" }, { label: "Termin\xE9", value: "COMPLETED" }, { label: "En pause", value: "HIATUS" }, { label: "Abandonn\xE9", value: "DROPPED" }] } };
     }
@@ -9667,7 +9667,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, o2.prototype.escapeHtml = function(e2) {
-      return e2.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      return e2.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/&lt;(\/?)(i|em|b|strong|u)&gt;/gi, "<$1$2>");
     }, o2.prototype.parseChapter = function(a2) {
       return e(this, void 0, void 0, function() {
         var e2, r2, n2, l2, i2, o3, u;

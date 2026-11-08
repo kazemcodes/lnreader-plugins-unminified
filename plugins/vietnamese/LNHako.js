@@ -25415,102 +25415,88 @@ var LNReaderPlugin = (() => {
   init_buffer2();
   init_process2();
   Object.defineProperty(exports, "__esModule", { value: true });
-  var e, t = (init_fetch2(), __toCommonJS(fetch_exports)), n = require_lib6(), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_filterInputs(), __toCommonJS(filterInputs_exports));
+  var e, t = (init_fetch2(), __toCommonJS(fetch_exports)), n = require_lib6(), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = (init_filterInputs(), __toCommonJS(filterInputs_exports));
   !function(e2) {
     e2.Unknown = "Unknown", e2.GetName = "GetName", e2.GetSummary = "GetSummary", e2.GetInfos = "GetInfos", e2.GetGenres = "GetGenres", e2.GetCover = "GetCover", e2.GetVolumes = "GetVolumes";
   }(e || (e = {}));
-  var s = function() {
-    function s2() {
-      this.id = "ln.hako", this.name = "Hako", this.icon = "src/vi/hakolightnovel/icon.png", this.site = "https://ln.hako.vn", this.version = "1.2.0", this.imageRequestInit = { headers: { Referer: this.site } }, this.filters = { alphabet: { type: o.FilterTypes.Picker, value: "", label: "Ch\u1EEF c\xE1i", options: [{ label: "T\u1EA5t c\u1EA3", value: "" }, { label: "Kh\xE1c", value: "khac" }, { label: "A", value: "a" }, { label: "B", value: "b" }, { label: "C", value: "c" }, { label: "D", value: "d" }, { label: "E", value: "e" }, { label: "F", value: "f" }, { label: "G", value: "g" }, { label: "H", value: "h" }, { label: "I", value: "i" }, { label: "J", value: "j" }, { label: "K", value: "k" }, { label: "L", value: "l" }, { label: "M", value: "m" }, { label: "N", value: "n" }, { label: "O", value: "o" }, { label: "P", value: "p" }, { label: "Q", value: "q" }, { label: "R", value: "r" }, { label: "S", value: "s" }, { label: "T", value: "t" }, { label: "U", value: "u" }, { label: "V", value: "v" }, { label: "W", value: "w" }, { label: "X", value: "x" }, { label: "Y", value: "y" }, { label: "Z", value: "z" }] }, type: { type: o.FilterTypes.CheckboxGroup, label: "Ph\xE2n lo\u1EA1i", value: [], options: [{ label: "Truy\u1EC7n d\u1ECBch", value: "truyendich" }, { label: "Truy\u1EC7n s\xE1ng t\xE1c", value: "sangtac" }, { label: "Convert", value: "convert" }] }, status: { type: o.FilterTypes.CheckboxGroup, label: "T\xECnh tr\u1EA1ng", value: [], options: [{ label: "\u0110ang ti\u1EBFn h\xE0nh", value: "dangtienhanh" }, { label: "T\u1EA1m ng\u01B0ng", value: "tamngung" }, { label: "\u0110\xE3 ho\xE0n th\xE0nh", value: "hoanthanh" }] }, sort: { type: o.FilterTypes.Picker, label: "S\u1EAFp x\u1EBFp", value: "top", options: [{ label: "A-Z", value: "tentruyen" }, { label: "Z-A", value: "tentruyenza" }, { label: "M\u1EDBi c\u1EADp nh\u1EADt", value: "capnhat" }, { label: "Truy\u1EC7n m\u1EDBi", value: "truyenmoi" }, { label: "Theo d\xF5i", value: "theodoi" }, { label: "Top to\xE0n th\u1EDDi gian", value: "top" }, { label: "Top th\xE1ng", value: "topthang" }, { label: "S\u1ED1 t\u1EEB", value: "sotu" }] } };
+  var o = function() {
+    function o2() {
+      this.id = "ln.hako", this.name = "Hako", this.icon = "src/vi/hakolightnovel/icon.png", this.site = "https://ln.hako.vn", this.version = "1.2.1", this.imageRequestInit = { headers: { Referer: this.site } }, this.filters = { alphabet: { type: l.FilterTypes.Picker, value: "", label: "Ch\u1EEF c\xE1i", options: [{ label: "T\u1EA5t c\u1EA3", value: "" }, { label: "Kh\xE1c", value: "khac" }, { label: "A", value: "a" }, { label: "B", value: "b" }, { label: "C", value: "c" }, { label: "D", value: "d" }, { label: "E", value: "e" }, { label: "F", value: "f" }, { label: "G", value: "g" }, { label: "H", value: "h" }, { label: "I", value: "i" }, { label: "J", value: "j" }, { label: "K", value: "k" }, { label: "L", value: "l" }, { label: "M", value: "m" }, { label: "N", value: "n" }, { label: "O", value: "o" }, { label: "P", value: "p" }, { label: "Q", value: "q" }, { label: "R", value: "r" }, { label: "S", value: "s" }, { label: "T", value: "t" }, { label: "U", value: "u" }, { label: "V", value: "v" }, { label: "W", value: "w" }, { label: "X", value: "x" }, { label: "Y", value: "y" }, { label: "Z", value: "z" }] }, type: { type: l.FilterTypes.CheckboxGroup, label: "Ph\xE2n lo\u1EA1i", value: [], options: [{ label: "Truy\u1EC7n d\u1ECBch", value: "truyendich" }, { label: "Truy\u1EC7n s\xE1ng t\xE1c", value: "sangtac" }, { label: "Convert", value: "convert" }] }, status: { type: l.FilterTypes.CheckboxGroup, label: "T\xECnh tr\u1EA1ng", value: [], options: [{ label: "\u0110ang ti\u1EBFn h\xE0nh", value: "dangtienhanh" }, { label: "T\u1EA1m ng\u01B0ng", value: "tamngung" }, { label: "\u0110\xE3 ho\xE0n th\xE0nh", value: "hoanthanh" }] }, sort: { type: l.FilterTypes.Picker, label: "S\u1EAFp x\u1EBFp", value: "top", options: [{ label: "A-Z", value: "tentruyen" }, { label: "Z-A", value: "tentruyenza" }, { label: "M\u1EDBi c\u1EADp nh\u1EADt", value: "capnhat" }, { label: "Truy\u1EC7n m\u1EDBi", value: "truyenmoi" }, { label: "Theo d\xF5i", value: "theodoi" }, { label: "Top to\xE0n th\u1EDDi gian", value: "top" }, { label: "Top th\xE1ng", value: "topthang" }, { label: "S\u1ED1 t\u1EEB", value: "sotu" }] } };
     }
-    __name(s2, "s");
-    return s2.prototype.parseNovels = function(e2) {
+    __name(o2, "o");
+    return o2.prototype.parseNovels = function(e2) {
       return (0, t.fetchApi)(e2).then(function(e3) {
         return e3.text();
       }).then(function(e3) {
-        var t2 = [], a2 = {}, i2 = false, o2 = false, s3 = new n.Parser({ onopentag: /* @__PURE__ */ __name(function(e4, n2) {
-          var s4, l2, r;
-          (null === (s4 = n2.class) || void 0 === s4 ? void 0 : s4.includes("thumb-item-flow")) && (o2 = true), o2 && ((null === (l2 = n2.class) || void 0 === l2 ? void 0 : l2.includes("series-title")) && (i2 = true), (null === (r = n2.class) || void 0 === r ? void 0 : r.includes("img-in-ratio")) && (a2.cover = n2["data-bg"]), i2 && "a" === e4 && (a2.name = n2.title, a2.path = n2.href, t2.push(a2), a2 = {}, i2 = false, o2 = false));
+        var t2 = [], a2 = {}, i2 = false, l2 = false, o3 = new n.Parser({ onopentag: /* @__PURE__ */ __name(function(e4, n2) {
+          var o4, s2, r;
+          (null === (o4 = n2.class) || void 0 === o4 ? void 0 : o4.includes("thumb-item-flow")) && (l2 = true), l2 && ((null === (s2 = n2.class) || void 0 === s2 ? void 0 : s2.includes("series-title")) && (i2 = true), (null === (r = n2.class) || void 0 === r ? void 0 : r.includes("img-in-ratio")) && (a2.cover = n2["data-bg"]), i2 && "a" === e4 && (a2.name = n2.title, a2.path = n2.href, t2.push(a2), a2 = {}, i2 = false, l2 = false));
         }, "onopentag") });
-        return s3.write(e3), s3.end(), t2;
+        return o3.write(e3), o3.end(), t2;
       });
-    }, s2.prototype.popularNovels = function(e2, t2) {
+    }, o2.prototype.popularNovels = function(e2, t2) {
       var n2 = t2.showLatestNovels, a2 = t2.filters, i2 = this.site + "/danh-sach";
       if (n2) i2 += "?sapxep=capnhat&page=" + e2;
       else if (a2) {
         a2.alphabet.value && (i2 += "/" + a2.alphabet.value);
-        for (var o2 = new URLSearchParams(), s3 = 0, l2 = a2.type.value; s3 < l2.length; s3++) {
-          var r = l2[s3];
-          o2.append(r, "1");
+        for (var l2 = new URLSearchParams(), o3 = 0, s2 = a2.type.value; o3 < s2.length; o3++) {
+          var r = s2[o3];
+          l2.append(r, "1");
         }
-        for (var u = 0, c = a2.status.value; u < c.length; u++) {
-          var h = c[u];
-          o2.append(h, "1");
+        for (var u = 0, h = a2.status.value; u < h.length; u++) {
+          var c = h[u];
+          l2.append(c, "1");
         }
-        o2.append("sapxep", a2.sort.value), i2 += "?" + o2.toString() + "&page=" + e2;
+        l2.append("sapxep", a2.sort.value), i2 += "?" + l2.toString() + "&page=" + e2;
       } else i2 += "?page=" + e2;
       return this.parseNovels(i2);
-    }, s2.prototype.parseNovel = function(a2) {
-      var o2, s3 = { path: a2, name: "", author: "", artist: "", summary: "", genres: "", status: "" }, l2 = [], r = { isDone: false, isStarted: false, onopentag: /* @__PURE__ */ __name(function(e2) {
+    }, o2.prototype.parseNovel = function(a2) {
+      var l2, o3 = { path: a2, name: "", author: "", artist: "", summary: "", genres: "", status: "" }, s2 = [], r = { isDone: false, isStarted: false, onopentag: /* @__PURE__ */ __name(function(e2) {
         "a" === e2 && (this.isStarted = true);
       }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
-        s3.name += e2;
+        o3.name += e2;
       }, "ontext"), onclosetag: /* @__PURE__ */ __name(function() {
         this.isStarted && (this.isDone = true);
       }, "onclosetag") }, u = { newLine: false, ontext: /* @__PURE__ */ __name(function(e2) {
-        this.newLine ? (this.newLine = false, s3.summary += "\n" + e2) : s3.summary += e2;
+        this.newLine ? (this.newLine = false, o3.summary += "\n" + e2) : o3.summary += e2;
       }, "ontext"), onclosetag: /* @__PURE__ */ __name(function() {
         this.newLine = true;
-      }, "onclosetag") }, c = { ontext: /* @__PURE__ */ __name(function(e2) {
-        s3.genres += e2;
+      }, "onclosetag") }, h = { ontext: /* @__PURE__ */ __name(function(e2) {
+        o3.genres += e2;
       }, "ontext") };
       !function(e2) {
         e2[e2.Author = 0] = "Author", e2[e2.Artist = 1] = "Artist", e2[e2.Status = 2] = "Status", e2[e2.Unknown = 3] = "Unknown";
-      }(o2 || (o2 = {}));
-      var h = { isStarted: false, info: o2.Unknown, onopentag: /* @__PURE__ */ __name(function(e2, t2) {
-        if ("info-item" === t2.class) switch (this.info) {
-          case o2.Unknown:
-            s3.author || (this.info = o2.Author);
-            break;
-          case o2.Author:
-            this.info = o2.Artist;
-            break;
-          case o2.Artist:
-            this.info = o2.Status;
-            break;
-          case o2.Status:
-            this.info = o2.Unknown;
-        }
-        "a" === e2 && (this.isStarted = true);
+      }(l2 || (l2 = {}));
+      var c = { isStarted: false, isDone: false, info: l2.Unknown, label: "", isReadingLabel: false, onopentag: /* @__PURE__ */ __name(function(e2, t2) {
+        "info-name" === t2.class ? (this.isReadingLabel = true, this.label = "") : "a" === e2 && (this.isStarted = true);
       }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
-        if (this.isStarted) switch (this.info) {
-          case o2.Author:
-            s3.author += e2;
+        if (this.isReadingLabel) this.label += e2;
+        else if (this.isStarted) switch (this.info) {
+          case l2.Author:
+            o3.author += e2;
             break;
-          case o2.Artist:
-            s3.artist += e2;
+          case l2.Artist:
+            o3.artist += e2;
             break;
-          case o2.Status:
-            s3.status += e2;
+          case l2.Status:
+            o3.status += e2;
         }
       }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e2) {
-        this.isStarted && (this.isStarted = false), "a" === e2 && this.info === o2.Status && (this.isDone = true);
+        this.isReadingLabel ? (this.isReadingLabel = false, this.label.includes("T\xE1c gi\u1EA3") ? this.info = l2.Author : this.label.includes("H\u1ECDa s\u0129") ? this.info = l2.Artist : this.label.includes("T\xECnh tr\u1EA1ng") ? this.info = l2.Status : this.info = l2.Unknown) : "a" === e2 ? this.isStarted = false : "div" === e2 && (this.isDone = true);
       }, "onclosetag") }, v = { currentVolume: "", num: 0, part: 1, isStarted: false, readingTime: false, tempChapter: {}, onopentag: /* @__PURE__ */ __name(function(e2, t2) {
         var n2, a3;
-        if (this.isStarted) if ("a" === e2 && null !== t2.title) {
-          var i2 = t2.title, o3 = Number(null === (n2 = i2.match(/Chương\s*(\d+)/i)) || void 0 === n2 ? void 0 : n2[1]);
-          o3 ? this.num === o3 ? (o3 = this.num + this.part / 10, this.part += 1) : (this.num = o3, this.part = 1) : (o3 = this.num + this.part / 10, this.part++), this.tempChapter = { path: null === (a3 = t2.href) || void 0 === a3 ? void 0 : a3.replace(/^(https?:\/\/[^/]+)/, ""), name: i2, page: this.currentVolume, chapterNumber: o3 };
-        } else "chapter-time" === t2.class && (this.readingTime = true);
+        if (this.isStarted) if ("a" === e2 && t2.title) {
+          var i2 = t2.title, l3 = Number(null === (n2 = i2.match(/Chương\s*(\d+)/i)) || void 0 === n2 ? void 0 : n2[1]);
+          l3 ? this.num === l3 ? (l3 = this.num + this.part / 10, this.part += 1) : (this.num = l3, this.part = 1) : (l3 = this.num + this.part / 10, this.part++), this.tempChapter = { path: null === (a3 = t2.href) || void 0 === a3 ? void 0 : a3.replace(/^(https?:\/\/[^/]+)/, ""), name: i2, page: this.currentVolume, chapterNumber: l3 };
+        } else "chapter-time" === t2.class && this.tempChapter.path && (this.readingTime = true);
       }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
         if (this.readingTime) {
-          var t2 = e2.split("/").map(function(e3) {
-            return Number(e3);
-          });
-          this.tempChapter.releaseTime = new Date(t2[2], t2[1], t2[0]).toISOString(), l2.push(this.tempChapter), this.readingTime = false, this.tempChapter = {};
+          var t2 = e2.trim().split("/");
+          3 === t2.length && (this.tempChapter.releaseTime = [t2[2], t2[1], t2[0]].join("-")), s2.push(this.tempChapter), this.readingTime = false, this.tempChapter = {};
         }
       }, "ontext"), onclosetag: /* @__PURE__ */ __name(function() {
         this.readingTime && (this.readingTime = false);
-      }, "onclosetag") }, p = { handlers: { Unknown: void 0, GetName: r, GetCover: void 0, GetSummary: u, GetGenres: c, GetInfos: h, GetVolumes: { isStarted: false, isDone: false, isParsingChapterList: false, onopentag: /* @__PURE__ */ __name(function(e2, t2) {
+      }, "onclosetag") }, d = { handlers: { Unknown: void 0, GetName: r, GetCover: void 0, GetSummary: u, GetGenres: h, GetInfos: c, GetVolumes: { isStarted: false, isDone: false, isParsingChapterList: false, onopentag: /* @__PURE__ */ __name(function(e2, t2) {
         var n2;
         "sect-title" === t2.class && (this.isStarted = true, v.currentVolume = ""), "ul" === e2 && (v.isStarted = true, v.num = 0, v.part = 1), null === (n2 = v.onopentag) || void 0 === n2 || n2.call(v, e2, t2);
       }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e2) {
@@ -25520,12 +25506,12 @@ var LNReaderPlugin = (() => {
         var n2;
         null === (n2 = v.onclosetag) || void 0 === n2 || n2.call(v, e2, t2), this.isStarted = false, "ul" === e2 && (v.isStarted = false);
       }, "onclosetag") } }, action: e.Unknown, onopentag: /* @__PURE__ */ __name(function(t2, n2) {
-        var a3, i2;
+        var a3, i2, l3;
         if ("series-name" === n2.class) this.action = e.GetName;
-        else if (!s3.cover && (null === (a3 = n2.class) || void 0 === a3 ? void 0 : a3.includes("img-in-ratio"))) {
-          var o3 = n2.style;
-          o3 && (s3.cover = o3.substring(o3.indexOf("http"), o3.length - 2));
-        } else "summary-content" === n2.class ? this.action = e.GetSummary : "series-gerne-item" === n2.class ? this.action = e.GetGenres : "info-item" === n2.class ? this.action = e.GetInfos : (null === (i2 = n2.class) || void 0 === i2 ? void 0 : i2.includes("volume-list")) && (this.action = e.GetVolumes);
+        else if (!o3.cover && (null === (a3 = n2.class) || void 0 === a3 ? void 0 : a3.includes("img-in-ratio"))) {
+          var s3 = n2.style;
+          s3 && (o3.cover = s3.substring(s3.indexOf("http"), s3.length - 2));
+        } else "summary-content" === n2.class ? this.action = e.GetSummary : (null === (i2 = n2.class) || void 0 === i2 ? void 0 : i2.includes("series-gerne-item")) ? this.action = e.GetGenres : "info-item" === n2.class ? this.action = e.GetInfos : (null === (l3 = n2.class) || void 0 === l3 ? void 0 : l3.includes("volume-list")) && (this.action = e.GetVolumes);
       }, "onopentag"), onclosetag: /* @__PURE__ */ __name(function(t2) {
         var n2, a3, i2;
         switch (this.action) {
@@ -25536,10 +25522,10 @@ var LNReaderPlugin = (() => {
             "div" === t2 && (this.action = e.Unknown);
             break;
           case e.GetGenres:
-            this.action = e.Unknown, s3.genres += ",";
+            this.action = e.Unknown, o3.genres += ",";
             break;
           case e.GetInfos:
-            (null === (a3 = this.handlers.GetInfos) || void 0 === a3 ? void 0 : a3.isDone) && (this.action = e.Unknown);
+            (null === (a3 = this.handlers.GetInfos) || void 0 === a3 ? void 0 : a3.isDone) && (this.handlers.GetInfos.isDone = false, this.action = e.Unknown);
             break;
           case e.GetVolumes:
             (null === (i2 = this.handlers.GetVolumes) || void 0 === i2 ? void 0 : i2.isDone) && (this.action = e.Unknown);
@@ -25548,58 +25534,66 @@ var LNReaderPlugin = (() => {
       return (0, t.fetchApi)(this.site + a2).then(function(e2) {
         return e2.text();
       }).then(function(e2) {
-        var t2, a3, o3, r2 = new n.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, t3) {
+        var n2 = e2.match(/http-equiv="refresh"[^>]*url='([^']+)'/i);
+        return n2 ? (0, t.fetchApi)(n2[1]).then(function(e3) {
+          return e3.text();
+        }) : e2;
+      }).then(function(e2) {
+        var t2, a3, l3, r2, u2, h2 = new n.Parser({ onopentag: /* @__PURE__ */ __name(function(e3, t3) {
           var n2, a4, i2;
-          null === (n2 = p.onopentag) || void 0 === n2 || n2.call(p, e3, t3), p.action && (null === (i2 = null === (a4 = p.handlers[p.action]) || void 0 === a4 ? void 0 : a4.onopentag) || void 0 === i2 || i2.call(a4, e3, t3));
+          null === (n2 = d.onopentag) || void 0 === n2 || n2.call(d, e3, t3), d.action && (null === (i2 = null === (a4 = d.handlers[d.action]) || void 0 === a4 ? void 0 : a4.onopentag) || void 0 === i2 || i2.call(a4, e3, t3));
         }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
           var t3, n2;
-          p.action && (null === (n2 = null === (t3 = p.handlers[p.action]) || void 0 === t3 ? void 0 : t3.ontext) || void 0 === n2 || n2.call(t3, e3));
+          d.action && (null === (n2 = null === (t3 = d.handlers[d.action]) || void 0 === t3 ? void 0 : t3.ontext) || void 0 === n2 || n2.call(t3, e3));
         }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3, t3) {
           var n2, a4, i2;
-          p.action && (null === (a4 = null === (n2 = p.handlers[p.action]) || void 0 === n2 ? void 0 : n2.onclosetag) || void 0 === a4 || a4.call(n2, e3, t3)), null === (i2 = p.onclosetag) || void 0 === i2 || i2.call(p, e3, t3);
+          d.action && (null === (a4 = null === (n2 = d.handlers[d.action]) || void 0 === n2 ? void 0 : n2.onclosetag) || void 0 === a4 || a4.call(n2, e3, t3)), null === (i2 = d.onclosetag) || void 0 === i2 || i2.call(d, e3, t3);
         }, "onclosetag") });
-        switch (r2.write(e2), r2.end(), s3.chapters = l2, null === (t2 = s3.status) || void 0 === t2 ? void 0 : t2.trim()) {
+        switch (h2.write(e2), h2.end(), o3.chapters = s2, null === (t2 = o3.status) || void 0 === t2 ? void 0 : t2.trim()) {
           case "\u0110ang ti\u1EBFn h\xE0nh":
-            s3.status = i.NovelStatus.Ongoing;
+            o3.status = i.NovelStatus.Ongoing;
             break;
           case "T\u1EA1m ng\u01B0ng":
-            s3.status = i.NovelStatus.OnHiatus;
+            o3.status = i.NovelStatus.OnHiatus;
             break;
+          case "\u0110\xE3 ho\xE0n th\xE0nh":
           case "Completed":
-            s3.status = i.NovelStatus.Completed;
+            o3.status = i.NovelStatus.Completed;
             break;
           default:
-            s3.status = i.NovelStatus.Unknown;
+            o3.status = i.NovelStatus.Unknown;
         }
-        return s3.genres = null === (a3 = s3.genres) || void 0 === a3 ? void 0 : a3.replace(/,*\s*$/, ""), s3.name = s3.name.trim(), s3.summary = null === (o3 = s3.summary) || void 0 === o3 ? void 0 : o3.trim(), s3;
+        return o3.genres = null === (a3 = o3.genres) || void 0 === a3 ? void 0 : a3.split(",").map(function(e3) {
+          return e3.trim();
+        }).filter(Boolean).join(","), o3.author = null === (l3 = o3.author) || void 0 === l3 ? void 0 : l3.trim(), o3.artist = null === (r2 = o3.artist) || void 0 === r2 ? void 0 : r2.trim(), o3.name = o3.name.trim(), o3.summary = null === (u2 = o3.summary) || void 0 === u2 ? void 0 : u2.trim(), o3;
       });
-    }, s2.prototype.parseChapter = function(e2) {
+    }, o2.prototype.parseChapter = function(e2) {
       return (0, t.fetchApi)(this.site + e2).then(function(e3) {
         return e3.text();
       }).then(function(e3) {
         var t2 = (0, a.load)(e3), n2 = t2("#chapter-c-protected");
         if (n2.length) {
-          var i2 = n2.attr("data-s") || "none", o2 = n2.attr("data-k") || "", s3 = [];
+          var i2 = n2.attr("data-s") || "none", l2 = n2.attr("data-k") || "", o3 = [];
           try {
-            s3 = JSON.parse(n2.attr("data-c") || "[]");
+            o3 = JSON.parse(n2.attr("data-c") || "[]");
           } catch (e4) {
           }
-          if (Array.isArray(s3) && s3.length > 0) {
-            s3.sort(function(e4, t3) {
+          if (Array.isArray(o3) && o3.length > 0) {
+            o3.sort(function(e4, t3) {
               return +e4.substring(0, 4) - +t3.substring(0, 4);
             });
-            var r = s3.map(function(e4) {
+            var r = o3.map(function(e4) {
               var t3 = e4.substring(4);
               return "xor_shuffle" === i2 ? function(e5, t4) {
-                var n3 = l(e5), a2 = t4.length, i3 = n3.map(function(e6, n4) {
+                var n3 = s(e5), a2 = t4.length, i3 = n3.map(function(e6, n4) {
                   return e6 ^ t4.charCodeAt(n4 % a2);
                 });
                 return new TextDecoder("utf-8").decode(i3);
-              }(t3, o2) : "base64_reverse" === i2 ? function(e5) {
+              }(t3, l2) : "base64_reverse" === i2 ? function(e5) {
                 var t4 = e5.split("").reverse().join("");
-                return new TextDecoder("utf-8").decode(l(t4));
+                return new TextDecoder("utf-8").decode(s(t4));
               }(t3) : function(e5) {
-                return new TextDecoder("utf-8").decode(l(e5));
+                return new TextDecoder("utf-8").decode(s(e5));
               }(t3);
             }).join("");
             r = r.replace(/\[note(\d+)\]/gi, '<span id="anchor-note$1" class="note-icon none-print inline note-tooltip" data-tooltip-content="#note$1 .note-content" data-note-id="note$1"><i class="fas fa-sticky-note"></i></span><a id="anchor-note$1" class="inline-print none" href="#note$1">[note]</a>'), n2.replaceWith(r);
@@ -25607,18 +25601,18 @@ var LNReaderPlugin = (() => {
         }
         return t2('a[href^="/truyen/"]').has('img[src*="chapter-banners"]').remove(), t2("#chapter-content").html() || "Kh\xF4ng t\xECm th\u1EA5y n\u1ED9i dung";
       });
-    }, s2.prototype.searchNovels = function(e2, t2) {
+    }, o2.prototype.searchNovels = function(e2, t2) {
       var n2 = this.site + "/tim-kiem?keywords=" + e2 + "&page=" + t2;
       return this.parseNovels(n2);
-    }, s2;
+    }, o2;
   }();
-  function l(e2) {
+  function s(e2) {
     return Uint8Array.from(atob(e2), function(e3) {
       return e3.charCodeAt(0);
     });
   }
-  __name(l, "l");
-  exports.default = new s();
+  __name(s, "s");
+  exports.default = new o();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

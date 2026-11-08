@@ -27089,7 +27089,7 @@ var LNReaderPlugin = (() => {
     return new (n2 || (n2 = Promise))(function(a2, i2) {
       function o2(e3) {
         try {
-          c2(r2.next(e3));
+          s2(r2.next(e3));
         } catch (e4) {
           i2(e4);
         }
@@ -27097,20 +27097,20 @@ var LNReaderPlugin = (() => {
       __name(o2, "o");
       function l2(e3) {
         try {
-          c2(r2.throw(e3));
+          s2(r2.throw(e3));
         } catch (e4) {
           i2(e4);
         }
       }
       __name(l2, "l");
-      function c2(e3) {
+      function s2(e3) {
         var t3;
         e3.done ? a2(e3.value) : (t3 = e3.value, t3 instanceof n2 ? t3 : new n2(function(e4) {
           e4(t3);
         })).then(o2, l2);
       }
-      __name(c2, "c");
-      c2((r2 = r2.apply(e2, t2 || [])).next());
+      __name(s2, "s");
+      s2((r2 = r2.apply(e2, t2 || [])).next());
     });
   }, n = function(e2, t2) {
     var n2, r2, a2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
@@ -27121,7 +27121,7 @@ var LNReaderPlugin = (() => {
       return this;
     }), o2;
     function l2(l3) {
-      return function(c2) {
+      return function(s2) {
         return function(l4) {
           if (n2) throw new TypeError("Generator is already executing.");
           for (; o2 && (o2 = 0, l4[0] && (i2 = 0)), i2; ) try {
@@ -27167,13 +27167,13 @@ var LNReaderPlugin = (() => {
           }
           if (5 & l4[0]) throw l4[1];
           return { value: l4[0] ? l4[1] : void 0, done: true };
-        }([l3, c2]);
+        }([l3, s2]);
       };
     }
     __name(l2, "l");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), c = (init_aes3(), __toCommonJS(aes_exports)), s = new Uint32Array([1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298]);
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_aes3(), __toCommonJS(aes_exports)), c = new Uint32Array([1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298]);
   function u(e2, t2) {
     return e2 >>> t2 | e2 << 32 - t2;
   }
@@ -27183,21 +27183,21 @@ var LNReaderPlugin = (() => {
     a2.set(t2), a2[t2.length] = 128;
     var i2 = new DataView(a2.buffer);
     i2.setUint32(r2 - 4, n2 >>> 0, false), i2.setUint32(r2 - 8, Math.floor(n2 / 4294967296) >>> 0, false);
-    for (var o2 = 1779033703, l2 = 3144134277, c2 = 1013904242, d2 = 2773480762, p2 = 1359893119, h2 = 2600822924, v2 = 528734635, f2 = 1541459225, b = new Uint32Array(64), m = 0; m < r2; m += 64) {
+    for (var o2 = 1779033703, l2 = 3144134277, s2 = 1013904242, d2 = 2773480762, p2 = 1359893119, h2 = 2600822924, v2 = 528734635, f2 = 1541459225, b = new Uint32Array(64), m = 0; m < r2; m += 64) {
       for (var y = 0; y < 16; y++) b[y] = i2.getUint32(m + 4 * y, false);
       for (y = 16; y < 64; y++) {
         var g = u(b[y - 15], 7) ^ u(b[y - 15], 18) ^ b[y - 15] >>> 3, k = u(b[y - 2], 17) ^ u(b[y - 2], 19) ^ b[y - 2] >>> 10;
         b[y] = b[y - 16] + g + b[y - 7] + k >>> 0;
       }
-      var w = o2, T = l2, R = c2, A = d2, x = p2, C = h2, _ = v2, j = f2;
+      var w = o2, T = l2, R = s2, A = d2, x = p2, C = h2, _ = v2, j = f2;
       for (y = 0; y < 64; y++) {
-        var U = j + (u(x, 6) ^ u(x, 11) ^ u(x, 25)) + (x & C ^ ~x & _) + s[y] + b[y] >>> 0, S = w & T ^ w & R ^ T & R;
+        var U = j + (u(x, 6) ^ u(x, 11) ^ u(x, 25)) + (x & C ^ ~x & _) + c[y] + b[y] >>> 0, S = w & T ^ w & R ^ T & R;
         j = _, _ = C, C = x, x = A + U >>> 0, A = R, R = T, T = w, w = U + ((u(w, 2) ^ u(w, 13) ^ u(w, 22)) + S >>> 0) >>> 0;
       }
-      o2 = o2 + w >>> 0, l2 = l2 + T >>> 0, c2 = c2 + R >>> 0, d2 = d2 + A >>> 0, p2 = p2 + x >>> 0, h2 = h2 + C >>> 0, v2 = v2 + _ >>> 0, f2 = f2 + j >>> 0;
+      o2 = o2 + w >>> 0, l2 = l2 + T >>> 0, s2 = s2 + R >>> 0, d2 = d2 + A >>> 0, p2 = p2 + x >>> 0, h2 = h2 + C >>> 0, v2 = v2 + _ >>> 0, f2 = f2 + j >>> 0;
     }
-    var F = new Uint8Array(32), N = new DataView(F.buffer);
-    return N.setUint32(0, o2, false), N.setUint32(4, l2, false), N.setUint32(8, c2, false), N.setUint32(12, d2, false), N.setUint32(16, p2, false), N.setUint32(20, h2, false), N.setUint32(24, v2, false), N.setUint32(28, f2, false), F;
+    var F = new Uint8Array(32), E = new DataView(F.buffer);
+    return E.setUint32(0, o2, false), E.setUint32(4, l2, false), E.setUint32(8, s2, false), E.setUint32(12, d2, false), E.setUint32(16, p2, false), E.setUint32(20, h2, false), E.setUint32(24, v2, false), E.setUint32(28, f2, false), F;
   }
   __name(d, "d");
   function p(e2) {
@@ -27227,38 +27227,40 @@ var LNReaderPlugin = (() => {
   }
   __name(v, "v");
   var f = function() {
-    function s2() {
-      this.id = "fenrir", this.name = "Fenrir Realm", this.icon = "src/en/fenrirrealm/icon.png", this.site = "https://fenrirealm.com", this.version = "1.1.4", this.imageRequestInit = void 0, this.cachedReadToken = null, this.hideLocked = o.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { status: { type: i.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "on-going" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "On Hold", value: "on-hold" }, { label: "Dropped", value: "dropped" }] }, sort: { type: i.FilterTypes.Picker, label: "Sort", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }] }, genres: { type: i.FilterTypes.CheckboxGroup, label: "Genres", value: [], options: [{ label: "Action", value: "1" }, { label: "Adult", value: "2" }, { label: "Adventure", value: "3" }, { label: "Comedy", value: "4" }, { label: "Drama", value: "5" }, { label: "Ecchi", value: "6" }, { label: "Fantasy", value: "7" }, { label: "Gender Bender", value: "8" }, { label: "Harem", value: "9" }, { label: "Historical", value: "10" }, { label: "Horror", value: "11" }, { label: "Josei", value: "12" }, { label: "Martial Arts", value: "13" }, { label: "Mature", value: "14" }, { label: "Mecha", value: "15" }, { label: "Mystery", value: "16" }, { label: "Psychological", value: "17" }, { label: "Romance", value: "18" }, { label: "School Life", value: "19" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Shounen", value: "24" }, { label: "Shounen Ai", value: "25" }, { label: "Slice of Life", value: "26" }, { label: "Smut", value: "27" }, { label: "Sports", value: "28" }, { label: "Supernatural", value: "29" }, { label: "Tragedy", value: "30" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "32" }, { label: "Xuanhuan", value: "33" }, { label: "Yaoi", value: "34" }, { label: "Yuri", value: "35" }] } };
+    function c2() {
+      this.id = "fenrir", this.name = "Fenrir Realm", this.icon = "src/en/fenrirrealm/icon.png", this.site = "https://fenrirealm.com", this.version = "1.1.5", this.imageRequestInit = void 0, this.cachedReadToken = null, this.lastMintRefusal = null, this.hideLocked = o.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { status: { type: i.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "on-going" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "On Hold", value: "on-hold" }, { label: "Dropped", value: "dropped" }] }, sort: { type: i.FilterTypes.Picker, label: "Sort", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }] }, genres: { type: i.FilterTypes.CheckboxGroup, label: "Genres", value: [], options: [{ label: "Action", value: "1" }, { label: "Adult", value: "2" }, { label: "Adventure", value: "3" }, { label: "Comedy", value: "4" }, { label: "Drama", value: "5" }, { label: "Ecchi", value: "6" }, { label: "Fantasy", value: "7" }, { label: "Gender Bender", value: "8" }, { label: "Harem", value: "9" }, { label: "Historical", value: "10" }, { label: "Horror", value: "11" }, { label: "Josei", value: "12" }, { label: "Martial Arts", value: "13" }, { label: "Mature", value: "14" }, { label: "Mecha", value: "15" }, { label: "Mystery", value: "16" }, { label: "Psychological", value: "17" }, { label: "Romance", value: "18" }, { label: "School Life", value: "19" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Shounen", value: "24" }, { label: "Shounen Ai", value: "25" }, { label: "Slice of Life", value: "26" }, { label: "Smut", value: "27" }, { label: "Sports", value: "28" }, { label: "Supernatural", value: "29" }, { label: "Tragedy", value: "30" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "32" }, { label: "Xuanhuan", value: "33" }, { label: "Yaoi", value: "34" }, { label: "Yuri", value: "35" }] } };
     }
-    __name(s2, "s");
-    return s2.prototype.setCachedReadToken = function(e2, t2, n2) {
+    __name(c2, "c");
+    return c2.prototype.setCachedReadToken = function(e2, t2, n2) {
       if (e2) {
         var r2 = v(e2), a2 = "number" == typeof t2 && t2 > 0 ? t2 : null !== r2.exp ? r2.exp : Math.floor(Date.now() / 1e3) + 300, i2 = null !== r2.cid ? r2.cid : "number" == typeof n2 && n2 > 0 ? n2 : null;
         this.cachedReadToken = { value: e2, expiresAt: a2, cid: i2 };
       }
-    }, s2.prototype.getActiveTokenValue = function() {
+    }, c2.prototype.getActiveTokenValue = function() {
       return this.cachedReadToken ? 1e3 * this.cachedReadToken.expiresAt - Date.now() < 5e3 ? (this.cachedReadToken = null, null) : this.cachedReadToken.value : null;
-    }, s2.prototype.getCachedReadToken = function(e2) {
+    }, c2.prototype.getCachedReadToken = function(e2) {
       var t2 = this.getActiveTokenValue();
       return t2 && this.cachedReadToken ? null != e2 && null !== this.cachedReadToken.cid && this.cachedReadToken.cid !== e2 ? null : t2 : null;
-    }, s2.prototype.captureReadTokenHeader = function(e2, t2) {
+    }, c2.prototype.captureReadTokenHeader = function(e2, t2) {
       var n2, r2, a2, i2, o2 = null === (r2 = null === (n2 = e2.headers) || void 0 === n2 ? void 0 : n2.get) || void 0 === r2 ? void 0 : r2.call(n2, "x-read-token-issued");
       if (o2) {
-        var l2 = null === (i2 = null === (a2 = e2.headers) || void 0 === a2 ? void 0 : a2.get) || void 0 === i2 ? void 0 : i2.call(a2, "x-read-token-expires-at"), c2 = l2 ? parseInt(l2, 10) : NaN;
-        this.setCachedReadToken(o2, Number.isFinite(c2) ? c2 : null, t2);
+        var l2 = null === (i2 = null === (a2 = e2.headers) || void 0 === a2 ? void 0 : a2.get) || void 0 === i2 ? void 0 : i2.call(a2, "x-read-token-expires-at"), s2 = l2 ? parseInt(l2, 10) : NaN;
+        this.setCachedReadToken(o2, Number.isFinite(s2) ? s2 : null, t2);
       }
-    }, s2.prototype.resolveRemintTarget = function(e2, t2) {
+    }, c2.prototype.resolveRemintTarget = function(e2, t2) {
       return e2.remint_chapter_uuid || e2.remint_chapter_id || e2.uuid || e2.id || t2 || null;
-    }, s2.prototype.buildChapterHeaders = function() {
+    }, c2.prototype.buildChapterHeaders = function() {
       var e2 = { Accept: "application/json", "X-Accepts-Encrypted-Content": "3" }, t2 = this.getActiveTokenValue();
       return t2 && (e2.Cookie = "fr_read=".concat(t2)), e2;
-    }, s2.prototype.mintReadToken = function(e2, a2) {
+    }, c2.prototype.mintReadToken = function(e2, a2) {
       return t(this, void 0, void 0, function() {
-        var i2, o2, l2, c2, s3, u2 = this;
+        var i2, o2, l2, s2, c3, u2 = this;
         return n(this, function(d2) {
           switch (d2.label) {
             case 0:
-              return d2.trys.push([0, 4, , 5]), i2 = {}, null != e2 && "" !== e2 && (i2.chapter_id = String(e2)), o2 = /* @__PURE__ */ __name(function(e3) {
+              this.lastMintRefusal = null, d2.label = 1;
+            case 1:
+              return d2.trys.push([1, 5, , 6]), i2 = {}, null != e2 && "" !== e2 && (i2.chapter_id = String(e2)), o2 = /* @__PURE__ */ __name(function(e3) {
                 return t(u2, void 0, void 0, function() {
                   var t2, a3, o3;
                   return n(this, function(n2) {
@@ -27266,27 +27268,30 @@ var LNReaderPlugin = (() => {
                       case 0:
                         return t2 = { "Content-Type": "application/json", Accept: "application/json" }, e3 && (t2.Cookie = "fr_read=".concat(e3)), [4, (0, r.fetchApi)("".concat(this.site, "/api/read-token"), { method: "POST", headers: t2, body: JSON.stringify(i2) })];
                       case 1:
-                        return (a3 = n2.sent()).ok ? [4, a3.json()] : [2, null];
+                        return (a3 = n2.sent()).ok ? [4, a3.json()] : (this.lastMintRefusal = a3, [2, null]);
                       case 2:
                         return [2, (null == (o3 = n2.sent()) ? void 0 : o3.active) && "string" == typeof o3.token && "" !== o3.token ? o3 : null];
                     }
                   });
                 });
               }, "o"), l2 = this.getActiveTokenValue(), [4, o2(l2)];
-            case 1:
-              return (c2 = d2.sent()) || !l2 ? [3, 3] : (this.cachedReadToken = null, [4, o2(null)]);
             case 2:
-              c2 = d2.sent(), d2.label = 3;
+              return (s2 = d2.sent()) || !l2 ? [3, 4] : (this.cachedReadToken = null, [4, o2(null)]);
             case 3:
-              return c2 ? (s3 = "number" == typeof a2 && a2 > 0 ? a2 : "number" == typeof e2 ? e2 : null, this.setCachedReadToken(c2.token, c2.expires_at, s3), [2, true]) : (this.cachedReadToken = null, [2, false]);
+              s2 = d2.sent(), d2.label = 4;
             case 4:
-              return d2.sent(), [2, false];
+              return s2 ? (this.lastMintRefusal = null, c3 = "number" == typeof a2 && a2 > 0 ? a2 : "number" == typeof e2 ? e2 : null, this.setCachedReadToken(s2.token, s2.expires_at, c3), [2, true]) : (this.cachedReadToken = null, [2, false]);
             case 5:
+              return d2.sent(), [2, false];
+            case 6:
               return [2];
           }
         });
       });
-    }, s2.prototype.getReadToken = function(e2) {
+    }, c2.prototype.verifyInWebViewError = function(e2) {
+      var t2 = new Error("Chapter is protected by Cloudflare Turnstile. Please open this chapter in WebView to verify and try again.");
+      return e2 && !e2.ok && (t2.status = e2.status, t2.response = e2), t2;
+    }, c2.prototype.getReadToken = function(e2) {
       return t(this, void 0, void 0, function() {
         var t2, a2, i2, o2, l2;
         return n(this, function(n2) {
@@ -27307,7 +27312,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.decryptWithToken = function(e2, t2) {
+    }, c2.prototype.decryptWithToken = function(e2, t2) {
       try {
         var n2 = "fragmented-v2" === e2.content_scheme, r2 = n2 ? function(e3) {
           return v(e3).vid;
@@ -27316,8 +27321,8 @@ var LNReaderPlugin = (() => {
           if (n3 < 2) return 1 === n3 ? e3[0] : "";
           for (var r3 = d(t3), a3 = new DataView(r3.buffer, r3.byteOffset, r3.byteLength), i3 = new Uint32Array([a3.getUint32(0, true), a3.getUint32(4, true), a3.getUint32(8, true), a3.getUint32(12, true)]), o3 = new Array(n3), l3 = 0; l3 < n3; l3++) o3[l3] = l3;
           for (l3 = n3 - 1; l3 > 0; l3--) {
-            var c2 = p(i3) % (l3 + 1), s4 = o3[l3];
-            o3[l3] = o3[c2], o3[c2] = s4;
+            var s2 = p(i3) % (l3 + 1), c4 = o3[l3];
+            o3[l3] = o3[s2], o3[s2] = c4;
           }
           var u3 = new Array(n3);
           for (l3 = 0; l3 < n3; l3++) u3[o3[l3]] = e3[l3];
@@ -27326,12 +27331,12 @@ var LNReaderPlugin = (() => {
         if (!a2) return null;
         var i2 = h(a2);
         if (i2.length <= 28) return null;
-        var o2 = d(n2 && "" !== r2 ? "".concat(t2, ":").concat(r2, ":").concat(e2.id, ":").concat("fr-content-v2") : "".concat(t2, ":").concat(e2.id, ":").concat("fr-content-v1")), l2 = i2.slice(0, 12), s3 = i2.slice(12), u2 = (0, c.gcm)(o2, l2).decrypt(s3);
+        var o2 = d(n2 && "" !== r2 ? "".concat(t2, ":").concat(r2, ":").concat(e2.id, ":").concat("fr-content-v2") : "".concat(t2, ":").concat(e2.id, ":").concat("fr-content-v1")), l2 = i2.slice(0, 12), c3 = i2.slice(12), u2 = (0, s.gcm)(o2, l2).decrypt(c3);
         return new TextDecoder().decode(u2);
       } catch (e3) {
         return null;
       }
-    }, s2.prototype.formatChapterContent = function(e2) {
+    }, c2.prototype.formatChapterContent = function(e2) {
       try {
         var t2 = JSON.parse(e2);
         if ("doc" === t2.type || "systemWindow" === t2.type) return t2.content.map(function(e3) {
@@ -27367,39 +27372,45 @@ var LNReaderPlugin = (() => {
         var r2 = n2(t3).text().trim();
         (r2.startsWith("Copy reference:") || r2.startsWith("Bookmark:")) && n2(t3).remove();
       }), (n2.html() || e2).replace(/[\u200B-\u200D\uFEFF]/g, "");
-    }, s2.prototype.popularNovels = function(e2, a2) {
-      return t(this, arguments, void 0, function(e3, t2) {
-        var a3, i2 = this, o2 = t2.showLatestNovels, l2 = t2.filters;
-        return n(this, function(t3) {
-          switch (t3.label) {
+    }, c2.prototype.popularNovels = function(e2, a2) {
+      return t(this, arguments, void 0, function(e3, a3) {
+        var i2, o2 = this, l2 = a3.showLatestNovels, s2 = a3.filters;
+        return n(this, function(a4) {
+          switch (a4.label) {
             case 0:
-              return a3 = new URLSearchParams({ page: e3.toString(), per_page: "20", sort: o2 ? "latest" : l2.sort.value }), l2.status.value && a3.append("statuses[]", l2.status.value), l2.genres.value.forEach(function(e4) {
-                return a3.append("genres[]", e4);
-              }), [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series?").concat(a3.toString())).then(function(e4) {
-                return e4.json().catch(function() {
-                  throw new Error("There was an error fetching the data from the server. Please try to open it in WebView");
+              return i2 = new URLSearchParams({ page: e3.toString(), per_page: "20", sort: l2 ? "latest" : s2.sort.value }), s2.status.value && i2.append("statuses[]", s2.status.value), s2.genres.value.forEach(function(e4) {
+                return i2.append("genres[]", e4);
+              }), [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series?").concat(i2.toString())).then(function(e4) {
+                return t(o2, void 0, void 0, function() {
+                  var t2;
+                  return n(this, function(n2) {
+                    if (t2 = new Error("There was an error fetching the data from the server. Please try to open it in WebView"), !e4.ok) throw t2.status = e4.status, t2;
+                    return [2, e4.json().catch(function() {
+                      throw t2;
+                    })];
+                  });
                 });
               })];
             case 1:
-              return [2, (t3.sent().data || []).map(function(e4) {
-                return i2.parseNovelFromApi(e4);
+              return [2, (a4.sent().data || []).map(function(e4) {
+                return o2.parseNovelFromApi(e4);
               })];
           }
         });
       });
-    }, s2.prototype.parseNovel = function(e2) {
+    }, c2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, c2, s3, u2, d2, p2, h2, v2, f2, b, m;
+        var t2, i2, o2, s2, c3, u2, d2, p2, h2, v2, f2, b, m;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
               return t2 = e2, [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(e2, "/chapters"), {})];
             case 1:
-              return (i2 = n2.sent()).ok ? [3, 6] : (o2 = e2.match(/^\d+-(.+)$/), c2 = o2 ? o2[1] : e2, [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(c2, "/chapters"), {})]);
+              return (i2 = n2.sent()).ok ? [3, 6] : (o2 = e2.match(/^\d+-(.+)$/), s2 = o2 ? o2[1] : e2, [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(s2, "/chapters"), {})]);
             case 2:
-              return i2 = n2.sent(), t2 = c2, i2.ok ? [3, 5] : (s3 = c2.replace(/-/g, " ").split(" "), u2 = s3.find(function(e3) {
+              return i2 = n2.sent(), t2 = s2, i2.ok ? [3, 5] : (c3 = s2.replace(/-/g, " ").split(" "), u2 = c3.find(function(e3) {
                 return e3.length > 3;
-              }) || s3[0], [4, (0, r.fetchApi)("".concat(this.site, "/api/series/filter?page=1&per_page=20&search=").concat(encodeURIComponent(u2))).then(function(e3) {
+              }) || c3[0], [4, (0, r.fetchApi)("".concat(this.site, "/api/series/filter?page=1&per_page=20&search=").concat(encodeURIComponent(u2))).then(function(e3) {
                 return e3.json();
               })]);
             case 3:
@@ -27432,90 +27443,94 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.parseChapter = function(i2) {
+    }, c2.prototype.parseChapter = function(i2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, l2, c2, s3, u2, d2, p2, h2, v2, f2, b, m, y, g, k, w, T, R, A, x, C, _, j, U, S;
+        var t2, o2, l2, s2, c3, u2, d2, p2, h2, v2, f2, b, m, y, g, k, w, T, R, A, x, C, _, j, U, S, F;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
-              return t2 = i2.split("~~"), o2 = t2[0], l2 = t2[1], c2 = l2 ? "".concat(this.site, "/api/new/v2/chapters/").concat(l2) : "".concat(this.site, "/api/new/v2/series/").concat(o2), s3 = l2 ? parseInt(l2, 10) : NaN, u2 = Number.isFinite(s3) ? s3 : null, null !== this.getCachedReadToken(u2) ? [3, 2] : [4, this.mintReadToken(l2 || null, u2)];
+              return t2 = i2.split("~~"), o2 = t2[0], l2 = t2[1], this.lastMintRefusal = null, s2 = l2 ? "".concat(this.site, "/api/new/v2/chapters/").concat(l2) : "".concat(this.site, "/api/new/v2/series/").concat(o2), c3 = l2 ? parseInt(l2, 10) : NaN, u2 = Number.isFinite(c3) ? c3 : null, null !== this.getCachedReadToken(u2) ? [3, 2] : [4, this.mintReadToken(l2 || null, u2)];
             case 1:
               n2.sent(), n2.label = 2;
             case 2:
-              return [4, (0, r.fetchApi)(c2, { headers: this.buildChapterHeaders() })];
+              return [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })];
             case 3:
               if (429 === (d2 = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              return this.captureReadTokenHeader(d2, u2), 403 !== d2.status ? [3, 6] : [4, this.mintReadToken(l2 || null, u2)];
+              return this.captureReadTokenHeader(d2, u2), 403 !== d2.status ? [3, 7] : [4, this.mintReadToken(l2 || null, u2)];
             case 4:
-              return n2.sent() ? [4, (0, r.fetchApi)(c2, { headers: this.buildChapterHeaders() })] : [3, 6];
+              return n2.sent() ? [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })] : [3, 6];
             case 5:
               if (429 === (d2 = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
               this.captureReadTokenHeader(d2, u2), n2.label = 6;
             case 6:
-              return d2.ok ? [4, d2.json()] : [3, 20];
+              if (!d2.ok && 403 === d2.status) throw this.verifyInWebViewError(403 === (null === (j = this.lastMintRefusal) || void 0 === j ? void 0 : j.status) ? this.lastMintRefusal : d2);
+              n2.label = 7;
             case 7:
-              if (A = n2.sent(), this.captureReadTokenHeader(d2, A.id), "locked" !== A.content_format) return [3, 11];
-              if ((null === (j = A.locked) || void 0 === j ? void 0 : j.price) && A.locked.price > 0 && !(null === (U = A.bought) || void 0 === U ? void 0 : U.bought_at) && !A.bypass) throw new Error("This chapter is locked (paid). Please unlock it on Fenrir Realm first.");
-              return f2 = this.resolveRemintTarget(A, l2), p2 = A.remint_chapter_id || A.id || u2, [4, this.mintReadToken(f2, p2)];
+              if (401 === d2.status || 503 === d2.status) throw this.verifyInWebViewError(d2);
+              return d2.ok ? [4, d2.json()] : [3, 21];
             case 8:
-              return n2.sent() ? [4, (0, r.fetchApi)(c2, { headers: this.buildChapterHeaders() })] : [3, 11];
+              if (A = n2.sent(), this.captureReadTokenHeader(d2, A.id), "locked" !== A.content_format) return [3, 12];
+              if ((null === (U = A.locked) || void 0 === U ? void 0 : U.price) && A.locked.price > 0 && !(null === (S = A.bought) || void 0 === S ? void 0 : S.bought_at) && !A.bypass) throw new Error("This chapter is locked (paid). Please unlock it on Fenrir Realm first.");
+              return f2 = this.resolveRemintTarget(A, l2), p2 = A.remint_chapter_id || A.id || u2, [4, this.mintReadToken(f2, p2)];
             case 9:
-              if (429 === (b = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              return b.ok ? [4, b.json()] : [3, 11];
+              return n2.sent() ? [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })] : [3, 12];
             case 10:
-              A = n2.sent(), this.captureReadTokenHeader(b, A.id), n2.label = 11;
-            case 11:
-              return "encrypted" !== A.content_format ? [3, 19] : [4, this.getReadToken(A.id)];
-            case 12:
-              return h2 = n2.sent(), (v2 = h2 ? this.decryptWithToken(A, h2) : null) ? [3, 18] : (f2 = this.resolveRemintTarget(A, l2), [4, this.mintReadToken(f2, A.id)]);
-            case 13:
-              return n2.sent() ? [4, (0, r.fetchApi)(c2, { headers: this.buildChapterHeaders() })] : [3, 18];
-            case 14:
               if (429 === (b = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              return b.ok ? [4, b.json()] : [3, 18];
+              return b.ok ? [4, b.json()] : [3, 12];
+            case 11:
+              A = n2.sent(), this.captureReadTokenHeader(b, A.id), n2.label = 12;
+            case 12:
+              return "encrypted" !== A.content_format ? [3, 20] : [4, this.getReadToken(A.id)];
+            case 13:
+              return h2 = n2.sent(), (v2 = h2 ? this.decryptWithToken(A, h2) : null) ? [3, 19] : (f2 = this.resolveRemintTarget(A, l2), [4, this.mintReadToken(f2, A.id)]);
+            case 14:
+              return n2.sent() ? [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })] : [3, 19];
             case 15:
-              return m = n2.sent(), this.captureReadTokenHeader(b, m.id), "encrypted" !== m.content_format ? [3, 17] : [4, this.getReadToken(m.id)];
+              if (429 === (b = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              return b.ok ? [4, b.json()] : [3, 19];
             case 16:
-              return y = n2.sent(), v2 = y ? this.decryptWithToken(m, y) : null, [3, 18];
+              return m = n2.sent(), this.captureReadTokenHeader(b, m.id), "encrypted" !== m.content_format ? [3, 18] : [4, this.getReadToken(m.id)];
             case 17:
-              "locked" !== m.content_format && "string" == typeof m.content && m.content && (v2 = m.content), n2.label = 18;
+              return y = n2.sent(), v2 = y ? this.decryptWithToken(m, y) : null, [3, 19];
             case 18:
-              if (v2) return [2, this.formatChapterContent(v2)];
-              A = e(e({}, A), { content: "", content_format: "locked" }), n2.label = 19;
+              "locked" !== m.content_format && "string" == typeof m.content && m.content && (v2 = m.content), n2.label = 19;
             case 19:
-              if ("locked" === A.content_format) throw this.cachedReadToken = null, new Error("Chapter is protected by Cloudflare Turnstile. Please open this chapter in WebView to verify and try again.");
-              if ("string" == typeof A.content && A.content) return [2, this.formatChapterContent(A.content)];
-              n2.label = 20;
+              if (v2) return [2, this.formatChapterContent(v2)];
+              A = e(e({}, A), { content: "", content_format: "locked" }), n2.label = 20;
             case 20:
-              return g = "".concat(this.site, "/series/").concat(o2), [4, (0, r.fetchApi)(g)];
+              if ("locked" === A.content_format) throw this.cachedReadToken = null, this.verifyInWebViewError(this.lastMintRefusal);
+              if ("string" == typeof A.content && A.content) return [2, this.formatChapterContent(A.content)];
+              n2.label = 21;
             case 21:
-              return [4, n2.sent().text()];
+              return g = this.resolveUrl(i2), [4, (0, r.fetchApi)(g)];
             case 22:
+              return [4, n2.sent().text()];
+            case 23:
               if (k = n2.sent(), (w = (0, a.load)(k))('[aria-hidden="true"]').remove(), w(".reader-attribution").remove(), w("[data-fr-attr]").remove(), T = w('.reader-area p, div.content-area p, [id^="reader-area"] p').map(function(e2, t3) {
                 var n3, r2 = null === (n3 = w(t3).html()) || void 0 === n3 ? void 0 : n3.trim();
                 return r2 ? "<p>".concat(r2, "</p>") : "";
               }).get().filter(Boolean).join("\n").replace(/[\u200B-\u200D\uFEFF]/g, ""), T) return [2, T];
-              n2.label = 23;
-            case 23:
-              return n2.trys.push([23, 26, , 27]), R = "".concat(this.site, "/series/").concat(o2, "/__data.json?x-sveltekit-invalidated=001"), [4, (0, r.fetchApi)(R)];
+              n2.label = 24;
             case 24:
-              return [4, n2.sent().json()];
+              return n2.trys.push([24, 27, , 28]), R = "".concat(this.resolveUrl(i2), "/__data.json?x-sveltekit-invalidated=001"), [4, (0, r.fetchApi)(R)];
             case 25:
-              return A = n2.sent(), x = A.nodes, (C = null === (S = null == x ? void 0 : x.find(function(e2) {
-                return "data" === e2.type;
-              })) || void 0 === S ? void 0 : S.data) && (_ = C.find(function(e2) {
-                return "string" == typeof e2 && e2.includes('{"type":"doc"');
-              })) ? [2, this.formatChapterContent(_)] : [3, 27];
+              return [4, n2.sent().json()];
             case 26:
-              return n2.sent(), [3, 27];
+              return A = n2.sent(), x = A.nodes, (C = null === (F = null == x ? void 0 : x.find(function(e2) {
+                return "data" === e2.type;
+              })) || void 0 === F ? void 0 : F.data) && (_ = C.find(function(e2) {
+                return "string" == typeof e2 && e2.includes('{"type":"doc"');
+              })) ? [2, this.formatChapterContent(_)] : [3, 28];
             case 27:
+              return n2.sent(), [3, 28];
+            case 28:
               return [2, T];
           }
         });
       });
-    }, s2.prototype.searchNovels = function(e2, a2) {
+    }, c2.prototype.searchNovels = function(e2, a2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, l2, c2 = this;
+        var t2, i2, o2, l2, s2 = this;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
@@ -27532,18 +27547,19 @@ var LNReaderPlugin = (() => {
               i2 = n2.sent(), n2.label = 3;
             case 3:
               return [2, (i2.data || []).map(function(e3) {
-                return c2.parseNovelFromApi(e3);
+                return s2.parseNovelFromApi(e3);
               })];
           }
         });
       });
-    }, s2.prototype.parseNovelFromApi = function(e2) {
+    }, c2.prototype.parseNovelFromApi = function(e2) {
       return { name: e2.title, path: e2.slug, cover: this.site + "/" + e2.cover, summary: e2.description, status: e2.status, genres: e2.genres.map(function(e3) {
         return e3.name;
       }).join(",") };
-    }, s2.prototype.resolveUrl = function(e2) {
-      return "".concat(this.site, "/series/").concat(e2.split("~~")[0]);
-    }, s2;
+    }, c2.prototype.resolveUrl = function(e2) {
+      var t2 = e2.split("~~")[0].replace(/^([^/]+)\/([^/]+)\/\2\//, "$1/$2/");
+      return "".concat(this.site, "/series/").concat(t2);
+    }, c2;
   }();
   exports.default = new f();
 })();
