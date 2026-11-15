@@ -25236,7 +25236,10 @@ var LNReaderPlugin = (() => {
           "Accept": "*/*",
           "Accept-Language": "*",
           "Sec-Fetch-Mode": "cors",
-          "Accept-Encoding": "gzip, deflate"
+          "Accept-Encoding": "gzip, deflate",
+          ...typeof window === "undefined" ? {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36"
+          } : {}
         };
         if (init?.headers) {
           if (init.headers instanceof Headers) {
@@ -25466,7 +25469,7 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = function() {
     function o2() {
-      this.id = "novelupdates", this.name = "Novel Updates", this.version = "0.9.9", this.icon = "src/en/novelupdates/icon.png", this.customCSS = "src/en/novelupdates/customCSS.css", this.site = "https://www.novelupdates.com/", this.filters = { sort: { label: "Sort Results By", value: "popmonth", options: [{ label: "Popular (Month)", value: "popmonth" }, { label: "Popular (All)", value: "popular" }, { label: "Last Updated", value: "sdate" }, { label: "Rating", value: "srate" }, { label: "Rank", value: "srank" }, { label: "Reviews", value: "sreview" }, { label: "Chapters", value: "srel" }, { label: "Title", value: "abc" }, { label: "Readers", value: "sread" }, { label: "Frequency", value: "sfrel" }], type: a.FilterTypes.Picker }, order: { label: "Order (Not for Popular)", value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: a.FilterTypes.Picker }, storyStatus: { label: "Story Status (Translation)", value: "", options: [{ label: "All", value: "" }, { label: "Completed", value: "2" }, { label: "Ongoing", value: "3" }, { label: "Hiatus", value: "4" }], type: a.FilterTypes.Picker }, genre_operator: { label: "Genre (And/Or) (Not for Popular)", value: "and", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: a.FilterTypes.Picker }, genres: { label: "Genres", type: a.FilterTypes.ExcludableCheckboxGroup, value: { include: [], exclude: [] }, options: [{ label: "Action", value: "8" }, { label: "Adult", value: "280" }, { label: "Adventure", value: "13" }, { label: "Comedy", value: "17" }, { label: "Drama", value: "9" }, { label: "Ecchi", value: "292" }, { label: "Fantasy", value: "5" }, { label: "Gender Bender", value: "168" }, { label: "Harem", value: "3" }, { label: "Historical", value: "330" }, { label: "Horror", value: "343" }, { label: "Josei", value: "324" }, { label: "Martial Arts", value: "14" }, { label: "Mature", value: "4" }, { label: "Mecha", value: "10" }, { label: "Mystery", value: "245" }, { label: "Psychoical", value: "486" }, { label: "Romance", value: "15" }, { label: "School Life", value: "6" }, { label: "Sci-fi", value: "11" }, { label: "Seinen", value: "18" }, { label: "Shoujo", value: "157" }, { label: "Shoujo Ai", value: "851" }, { label: "Shounen", value: "12" }, { label: "Shounen Ai", value: "1692" }, { label: "Slice of Life", value: "7" }, { label: "Smut", value: "281" }, { label: "Sports", value: "1357" }, { label: "Supernatural", value: "16" }, { label: "Tragedy", value: "132" }, { label: "Wuxia", value: "479" }, { label: "Xianxia", value: "480" }, { label: "Xuanhuan", value: "3954" }, { label: "Yaoi", value: "560" }, { label: "Yuri", value: "922" }] }, language: { label: "Language", value: [], options: [{ label: "Chinese", value: "495" }, { label: "Filipino", value: "9181" }, { label: "Indonesian", value: "9179" }, { label: "Japanese", value: "496" }, { label: "Khmer", value: "18657" }, { label: "Korean", value: "497" }, { label: "Malaysian", value: "9183" }, { label: "Thai", value: "9954" }, { label: "Vietnamese", value: "9177" }], type: a.FilterTypes.CheckboxGroup }, novelType: { label: "Novel Type (Not for Popular)", value: [], options: [{ label: "Light Novel", value: "2443" }, { label: "Published Novel", value: "26874" }, { label: "Web Novel", value: "2444" }], type: a.FilterTypes.CheckboxGroup }, reading_list_operator: { label: "Reading List (Include/Exclude) (Not for Popular)", value: "include", options: [{ label: "Include", value: "include" }, { label: "Exclude", value: "exclude" }], type: a.FilterTypes.Picker }, reading_lists: { label: "Reading Lists (Not for Popular)", value: [], options: [{ label: "All Reading Lists", value: "-1" }], type: a.FilterTypes.CheckboxGroup } };
+      this.id = "novelupdates", this.name = "Novel Updates", this.version = "0.9.10", this.icon = "src/en/novelupdates/icon.png", this.customCSS = "src/en/novelupdates/customCSS.css", this.site = "https://www.novelupdates.com/", this.filters = { sort: { label: "Sort Results By", value: "popmonth", options: [{ label: "Popular (Month)", value: "popmonth" }, { label: "Popular (All)", value: "popular" }, { label: "Last Updated", value: "sdate" }, { label: "Rating", value: "srate" }, { label: "Rank", value: "srank" }, { label: "Reviews", value: "sreview" }, { label: "Chapters", value: "srel" }, { label: "Title", value: "abc" }, { label: "Readers", value: "sread" }, { label: "Frequency", value: "sfrel" }], type: a.FilterTypes.Picker }, order: { label: "Order (Not for Popular)", value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: a.FilterTypes.Picker }, storyStatus: { label: "Story Status (Translation)", value: "", options: [{ label: "All", value: "" }, { label: "Completed", value: "2" }, { label: "Ongoing", value: "3" }, { label: "Hiatus", value: "4" }], type: a.FilterTypes.Picker }, genre_operator: { label: "Genre (And/Or) (Not for Popular)", value: "and", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: a.FilterTypes.Picker }, genres: { label: "Genres", type: a.FilterTypes.ExcludableCheckboxGroup, value: { include: [], exclude: [] }, options: [{ label: "Action", value: "8" }, { label: "Adult", value: "280" }, { label: "Adventure", value: "13" }, { label: "Comedy", value: "17" }, { label: "Drama", value: "9" }, { label: "Ecchi", value: "292" }, { label: "Fantasy", value: "5" }, { label: "Gender Bender", value: "168" }, { label: "Harem", value: "3" }, { label: "Historical", value: "330" }, { label: "Horror", value: "343" }, { label: "Josei", value: "324" }, { label: "Martial Arts", value: "14" }, { label: "Mature", value: "4" }, { label: "Mecha", value: "10" }, { label: "Mystery", value: "245" }, { label: "Psychoical", value: "486" }, { label: "Romance", value: "15" }, { label: "School Life", value: "6" }, { label: "Sci-fi", value: "11" }, { label: "Seinen", value: "18" }, { label: "Shoujo", value: "157" }, { label: "Shoujo Ai", value: "851" }, { label: "Shounen", value: "12" }, { label: "Shounen Ai", value: "1692" }, { label: "Slice of Life", value: "7" }, { label: "Smut", value: "281" }, { label: "Sports", value: "1357" }, { label: "Supernatural", value: "16" }, { label: "Tragedy", value: "132" }, { label: "Wuxia", value: "479" }, { label: "Xianxia", value: "480" }, { label: "Xuanhuan", value: "3954" }, { label: "Yaoi", value: "560" }, { label: "Yuri", value: "922" }] }, language: { label: "Language", value: [], options: [{ label: "Chinese", value: "495" }, { label: "Filipino", value: "9181" }, { label: "Indonesian", value: "9179" }, { label: "Japanese", value: "496" }, { label: "Khmer", value: "18657" }, { label: "Korean", value: "497" }, { label: "Malaysian", value: "9183" }, { label: "Thai", value: "9954" }, { label: "Vietnamese", value: "9177" }], type: a.FilterTypes.CheckboxGroup }, novelType: { label: "Novel Type (Not for Popular)", value: [], options: [{ label: "Light Novel", value: "2443" }, { label: "Published Novel", value: "26874" }, { label: "Web Novel", value: "2444" }], type: a.FilterTypes.CheckboxGroup }, reading_list_operator: { label: "Reading List (Include/Exclude) (Not for Popular)", value: "include", options: [{ label: "Include", value: "include" }, { label: "Exclude", value: "exclude" }], type: a.FilterTypes.Picker }, reading_lists: { label: "Reading Lists (Not for Popular)", value: [], options: [{ label: "All Reading Lists", value: "-1" }], type: a.FilterTypes.CheckboxGroup } };
     }
     __name(o2, "o");
     return o2.prototype.parseNovels = function(e2) {
@@ -25491,7 +25494,7 @@ var LNReaderPlugin = (() => {
       });
     }, o2.prototype.parseNovel = function(a2) {
       return e(this, void 0, void 0, function() {
-        var e2, o3, l, s, c, i, u, p, h, d, f, v, b, m = this;
+        var e2, o3, l, s, c, i, u, p, h, d, v, f, b, m, g, y, w, x = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25499,20 +25502,24 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, t2.sent().text()];
             case 2:
-              return o3 = t2.sent(), l = (0, r.load)(o3), (s = { path: a2, name: l(".seriestitlenu").text() || "Untitled", cover: l(".wpb_wrapper img").attr("src"), chapters: [] }).author = l("#authtag").map(function(e3, t3) {
+              if (o3 = t2.sent(), l = (0, r.load)(o3), (s = { path: a2, name: l(".seriestitlenu").text() || "Untitled", cover: l(".wpb_wrapper img").attr("src"), chapters: [] }).author = l("#authtag").map(function(e3, t3) {
                 return l(t3).text().trim();
               }).toArray().join(", "), s.genres = l("#seriesgenre").children("a").map(function(e3, t3) {
                 return l(t3).text();
-              }).toArray().join(","), s.status = l("#editstatus").text().includes("Ongoing") ? "Ongoing" : "Completed", c = l("#showtype").text().trim(), i = l("#editdescription").text().trim(), s.summary = i + "\n\nType: ".concat(c), (u = null === (b = l(".seriesother .uvotes").text().match(/(\d+\.\d+) \/ \d+\.\d+/)) || void 0 === b ? void 0 : b[1]) && (s.rating = parseFloat(u)), p = l("input#mypostid").attr("value"), (h = new FormData()).append("action", "nd_getchapters"), h.append("mygrr", "0"), h.append("mypostid", p), [4, (0, n.fetchApi)("".concat(this.site, "wp-admin/admin-ajax.php"), { method: "POST", body: h }).then(function(e3) {
+              }).toArray().join(","), s.status = l("#editstatus").text().includes("Ongoing") ? "Ongoing" : "Completed", c = l("#showtype").text().trim(), i = l("#editdescription").text().trim(), s.summary = i + "\n\nType: ".concat(c), (u = null === (b = l(".seriesother .uvotes").text().match(/(\d+\.\d+) \/ \d+\.\d+/)) || void 0 === b ? void 0 : b[1]) && (s.rating = parseFloat(u)), !(p = l("input#mypostid").attr("value") || (null === (g = null === (m = l("body").attr("class")) || void 0 === m ? void 0 : m.match(/\bpostid-(\d+)\b/)) || void 0 === g ? void 0 : g[1]) || (null === (w = null === (y = l('a[href*="sid="]').attr("href")) || void 0 === y ? void 0 : y.match(/[?&]sid=(\d+)/)) || void 0 === w ? void 0 : w[1]))) throw new Error("Novel id not found on series page.");
+              return (h = new FormData()).append("action", "nd_getchapters"), h.append("mygrr", "0"), h.append("mypostid", p), [4, (0, n.fetchApi)("".concat(this.site, "wp-admin/admin-ajax.php"), { method: "POST", body: h }).then(function(e3) {
                 return e3.text();
               })];
             case 3:
-              return d = t2.sent(), f = (0, r.load)(d), v = [], f("li.sp_li_chp").each(function(e3, t3) {
-                var r2 = f(t3).text().replace("v", "volume ").replace("c", " chapter ").replace("part", "part ").replace("ss", "SS").replace(/\b\w/g, function(e4) {
+              return d = t2.sent(), v = (0, r.load)(d), f = [], v("li.sp_li_chp").each(function(e3, t3) {
+                var r2 = v(t3).text().replace("v", "volume ").replace("c", " chapter ").replace("part", "part ").replace("ss", "SS").replace(/\b\w/g, function(e4) {
                   return e4.toUpperCase();
-                }).trim(), n2 = "https:" + f(t3).find("a").first().next().attr("href");
-                n2 && v.push({ name: r2, path: n2.replace(m.site, "") });
-              }), s.chapters = v.reverse(), [2, s];
+                }).trim(), n2 = v(t3).find("a").first().next().attr("href");
+                if (n2) {
+                  var a3 = (n2.startsWith("http") ? n2 : "https:" + n2).replace(x.site, "");
+                  f.push({ name: r2, path: a3 });
+                }
+              }), s.chapters = f.reverse(), [2, s];
           }
         });
       });
@@ -25521,7 +25528,7 @@ var LNReaderPlugin = (() => {
       return t2 && "".concat(t2[1], "//").concat(t2[3]);
     }, o2.prototype.getChapterBody = function(a2, o3, l) {
       return e(this, void 0, void 0, function() {
-        var e2, s, c, i, u, p, h, d, f, v, b, m, g, y, w, x, _, A, k, C, E, T, j, S, N, F, L, P, z, O, I, R, M, G, H, B, U, J, q, W, $2, D, K, X, Y, V, Q, Z, ee, te, re, ne, ae, oe, le, se, ce, ie, ue, pe, he, de, fe, ve, be, me, ge, ye, we, xe, _e, Ae, ke, Ce, Ee, Te, je, Se, Ne, Fe, Le, Pe, ze;
+        var e2, s, c, i, u, p, h, d, v, f, b, m, g, y, w, x, _, A, k, C, E, T, j, S, N, F, L, P, z, O, I, R, M, G, H, B, U, J, W, q, $2, D, K, X, Y, V, Q, Z, ee, te, re, ne, ae, oe, le, se, ce, ie, ue, pe, he, de, ve, fe, be, me, ge, ye, we, xe, _e, Ae, ke, Ce, Ee, Te, je, Se, Ne, Fe, Le, Pe, ze;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25645,19 +25652,19 @@ var LNReaderPlugin = (() => {
               try {
                 c = h(a2);
               } catch (e3) {
-                d = a2("#app").html() || a2("body").html() || "", (f = (0, r.load)(d))("script, style").remove(), d = f.html(), c = d;
+                d = a2("#app").html() || a2("body").html() || "", (v = (0, r.load)(d))("script, style").remove(), d = v.html(), c = d;
               }
               return [3, 89];
             case 7:
-              if (t2.trys.push([7, 10, , 11]), (ve = l.split("/")).length < 7) throw new Error("Invalid chapter URL structure");
-              return Z = ve[4], ee = ve[6], ke = "".concat(ve[0], "//").concat(ve[2], "/api/public/chapter-by-slug/").concat(Z, "/").concat(ee), [4, (0, n.fetchApi)(ke)];
+              if (t2.trys.push([7, 10, , 11]), (fe = l.split("/")).length < 7) throw new Error("Invalid chapter URL structure");
+              return Z = fe[4], ee = fe[6], ke = "".concat(fe[0], "//").concat(fe[2], "/api/public/chapter-by-slug/").concat(Z, "/").concat(ee), [4, (0, n.fetchApi)(ke)];
             case 8:
               return [4, (ye = t2.sent()).json()];
             case 9:
               if (Ce = t2.sent(), !(null === (Ee = null == Ce ? void 0 : Ce.data) || void 0 === Ee ? void 0 : Ee.currentChapter)) throw new Error("Invalid API response structure.");
               return m = Ce.data.currentChapter, re = m.chapterNumber, Y = m.title, A = m.content, ge = "Chapter ".concat(re), e2 = Y ? "".concat(ge, " - ").concat(Y) : ge, s = A.replace(/\n/g, "<br>"), [3, 89];
             case 10:
-              throw v = t2.sent(), new Error("Failed to parse Canon Story chapter: ".concat(v));
+              throw f = t2.sent(), new Error("Failed to parse Canon Story chapter: ".concat(f));
             case 11:
               return e2 = a2(".chapter__title").first().text(), a2("span.patreon-lock-icon").remove(), a2("img[data-src]").each(function(e3, t3) {
                 var r2 = a2(t3), n2 = r2.attr("data-src");
@@ -25753,7 +25760,7 @@ var LNReaderPlugin = (() => {
               return [4, t2.sent().text()];
             case 42:
               if (H = t2.sent(), !(B = null === (Se = H.match(/[a-f0-9]{42}/)) || void 0 === Se ? void 0 : Se[0])) throw new Error("Failed to extract ACTION_HASH");
-              return U = l.split("/"), J = [U[4], parseInt(U[6], 10)], q = J[0], W = J[1], [4, (0, n.fetchApi)(l, { method: "POST", headers: { Accept: "text/x-component", "Content-Type": "text/plain;charset=UTF-8", "next-action": B }, body: JSON.stringify([q, W]) })];
+              return U = l.split("/"), J = [U[4], parseInt(U[6], 10)], W = J[0], q = J[1], [4, (0, n.fetchApi)(l, { method: "POST", headers: { Accept: "text/x-component", "Content-Type": "text/plain;charset=UTF-8", "next-action": B }, body: JSON.stringify([W, q]) })];
             case 43:
               if (!(ye = t2.sent()).ok) throw new Error("Failed to fetch chapter: ".concat(ye.status));
               return [4, ye.text()];
@@ -25771,10 +25778,10 @@ var LNReaderPlugin = (() => {
               if (X = Q.find(function(e3) {
                 return e3.startsWith("1:");
               })) try {
-                ce = JSON.parse(X.slice(2)), Y = null === (Fe = null === (Ne = null == ce ? void 0 : ce.data) || void 0 === Ne ? void 0 : Ne.chapter) || void 0 === Fe ? void 0 : Fe.title, V = null !== (ze = null === (Pe = null === (Le = null == ce ? void 0 : ce.data) || void 0 === Le ? void 0 : Le.chapter) || void 0 === Pe ? void 0 : Pe.chapterNumber) && void 0 !== ze ? ze : W, Y && (e2 = "Chapter ".concat(V, ": ").concat(Y));
+                ce = JSON.parse(X.slice(2)), Y = null === (Fe = null === (Ne = null == ce ? void 0 : ce.data) || void 0 === Ne ? void 0 : Ne.chapter) || void 0 === Fe ? void 0 : Fe.title, V = null !== (ze = null === (Pe = null === (Le = null == ce ? void 0 : ce.data) || void 0 === Le ? void 0 : Le.chapter) || void 0 === Pe ? void 0 : Pe.chapterNumber) && void 0 !== ze ? ze : q, Y && (e2 = "Chapter ".concat(V, ": ").concat(Y));
               } catch (e3) {
               }
-              return e2 || (e2 = "Chapter ".concat(W)), s = (s = K.map(function(e3) {
+              return e2 || (e2 = "Chapter ".concat(q)), s = (s = K.map(function(e3) {
                 return "<p>".concat(e3, "</p>");
               }).join("\n")).replace(/\[dialogue\s+speaker="([^"]*)"\](.*?)\[\/dialogue\]/gi, "$1: $2").replace(/\[sfx\].*?\[\/sfx\]/gi, "").replace(/\[\/?(dialogue|sfx)[^\]]*\]/gi, ""), [3, 89];
             case 45:
@@ -25813,11 +25820,11 @@ var LNReaderPlugin = (() => {
             case 53:
               return a2('#track-click,[class*="hidden "]').remove(), e2 = a2('h1[data-tag="post-title"]').text(), s = a2('[data-tag="post-card"] [class*="PaddingTop"]').html(), [3, 89];
             case 54:
-              return ve = l.split("/"), [4, (0, n.fetchApi)("".concat(ve[0], "//").concat(ve[2], "/resolve?p=/").concat(ve.slice(3).join("/")))];
+              return fe = l.split("/"), [4, (0, n.fetchApi)("".concat(fe[0], "//").concat(fe[2], "/resolve?p=/").concat(fe.slice(3).join("/")))];
             case 55:
               return [4, t2.sent().json()];
             case 56:
-              return le = t2.sent().location, ve = le.split("/"), se = "".concat(ve[0], "//").concat(ve[2]), [4, (0, n.fetchApi)("".concat(se, "/api/chapter-meta?seriesSlug=").concat(ve[4], "&chapterSlug=").concat(ve[5])).then(function(e3) {
+              return le = t2.sent().location, fe = le.split("/"), se = "".concat(fe[0], "//").concat(fe[2]), [4, (0, n.fetchApi)("".concat(se, "/api/chapter-meta?seriesSlug=").concat(fe[4], "&chapterSlug=").concat(fe[5])).then(function(e3) {
                 return e3.json();
               })];
             case 57:
@@ -25831,13 +25838,13 @@ var LNReaderPlugin = (() => {
                 return e3.json();
               })] : [3, 62];
             case 60:
-              de = t2.sent(), fe = "<p>" + de.markdown.replace(/\n\n/g, "</p><p>") + "</p>", c += fe, pe = de.total, t2.label = 61;
+              de = t2.sent(), ve = "<p>" + de.markdown.replace(/\n\n/g, "</p><p>") + "</p>", c += ve, pe = de.total, t2.label = 61;
             case 61:
               return he++, [3, 59];
             case 62:
               return [3, 89];
             case 63:
-              return ve = l.split("/"), ke = "".concat(ve[0], "//api.").concat(ve[2], "/api/chapters/single?id=").concat(ve[3], "&num=").concat(ve[4]), [4, (0, n.fetchApi)(ke).then(function(e3) {
+              return fe = l.split("/"), ke = "".concat(fe[0], "//api.").concat(fe[2], "/api/chapters/single?id=").concat(fe[3], "&num=").concat(fe[4]), [4, (0, n.fetchApi)(ke).then(function(e3) {
                 return e3.json();
               })];
             case 64:
@@ -25924,7 +25931,7 @@ var LNReaderPlugin = (() => {
       });
     }, o2.prototype.parseChapter = function(a2) {
       return e(this, void 0, void 0, function() {
-        var e2, o3, l, s, c, i, u, p, h, d, f, v, b, m, g, y, w, x;
+        var e2, o3, l, s, c, i, u, p, h, d, v, f, b, m, g, y, w, x;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25940,9 +25947,9 @@ var LNReaderPlugin = (() => {
                   var o4 = t3 ? i(a3).attr(t3) : i(a3).html() || i(a3).text();
                   if (o4 && r2.test(o4.toLowerCase())) return n2 = true, false;
                 }), n2;
-              }, "h"))('meta[name="generator"]', "content", /wordpress|site kit/i), h("link, script, img", "src", /\/wp-content\/|\/wp-includes\//i), h("link", "href", /\/wp-content\/|\/wp-includes\//i), h('link[rel="https://api.w.org/"]', "href", /.*/), h('link[rel="EditURI"]', "href", /xmlrpc\.php/i), h("body", "class", /wp-admin|wp-custom-logo|logged-in/i), h("script", null, /wp-embed|wp-emoji|wp-block/i)].some(Boolean), f = [h('meta[name="generator"]', "content", /blogger/i), h('meta[name="google-adsense-platform-domain"]', "content", /blogspot/i), h('link[rel="alternate"]', "href", /blogger\.com\/feeds|blogspot\.com\/feeds/i), h("link", "href", /www\.blogger\.com\/static|www\.blogger\.com\/dyn-css/i), h("script", null, /_WidgetManager\._Init|_WidgetManager\._RegisterWidget/i)].some(Boolean), v = ["asuratls", "fictionread", "hiraethtranslation", "infinitenoveltranslations", "leafstudio", "machineslicedbread", "mirilu", "novelworldtranslations", "sacredtexttranslations", "stabbingwithasyringe", "tinytranslation", "vampiramtl"], c.some(function(e3) {
-                return v.includes(e3);
-              }) && (d = false, f = false), b = { wordpress: { bloat: [".ad", ".author-avatar", ".chapter-warning", ".entry-meta", ".ezoic-ad", ".mb-center", ".modern-footnotes-footnote__note", ".patreon-widget", ".post-cats", ".pre-bar", ".sharedaddy", ".sidebar", ".swg-button-v2-light", ".wp-block-buttons", ".wp-dark-mode-switcher", ".wp-next-post-navi", "#hpk", "#jp-post-flair", "#textbox"], title: [".entry-title", ".chapter__title", ".title-content", ".wp-block-post-title", ".title_story", "#chapter-heading", ".chapter-title", "head title", "h1:first-of-type", "h2:first-of-type", ".active"], content: [".chapter__content", ".entry-content", ".text_story", ".post-content", ".contenta", ".single_post", ".main-content", ".reader-content", "#content", "#the-content", "article.post", ".chp_raw"] }, blogspot: { bloat: [".button-container", ".ChapterNav", ".ch-bottom", ".separator"], title: [".entry-title", ".post-title", "head title"], content: [".content-post", ".entry-content", ".post-body"] } }, d || f ? [3, 4] : [4, this.getChapterBody(i, c, s)];
+              }, "h"))('meta[name="generator"]', "content", /wordpress|site kit/i), h("link, script, img", "src", /\/wp-content\/|\/wp-includes\//i), h("link", "href", /\/wp-content\/|\/wp-includes\//i), h('link[rel="https://api.w.org/"]', "href", /.*/), h('link[rel="EditURI"]', "href", /xmlrpc\.php/i), h("body", "class", /wp-admin|wp-custom-logo|logged-in/i), h("script", null, /wp-embed|wp-emoji|wp-block/i)].some(Boolean), v = [h('meta[name="generator"]', "content", /blogger/i), h('meta[name="google-adsense-platform-domain"]', "content", /blogspot/i), h('link[rel="alternate"]', "href", /blogger\.com\/feeds|blogspot\.com\/feeds/i), h("link", "href", /www\.blogger\.com\/static|www\.blogger\.com\/dyn-css/i), h("script", null, /_WidgetManager\._Init|_WidgetManager\._RegisterWidget/i)].some(Boolean), f = ["asuratls", "fictionread", "hiraethtranslation", "infinitenoveltranslations", "leafstudio", "machineslicedbread", "mirilu", "novelworldtranslations", "sacredtexttranslations", "stabbingwithasyringe", "tinytranslation", "vampiramtl"], c.some(function(e3) {
+                return f.includes(e3);
+              }) && (d = false, v = false), b = { wordpress: { bloat: [".ad", ".author-avatar", ".chapter-warning", ".entry-meta", ".ezoic-ad", ".mb-center", ".modern-footnotes-footnote__note", ".patreon-widget", ".post-cats", ".pre-bar", ".sharedaddy", ".sidebar", ".swg-button-v2-light", ".wp-block-buttons", ".wp-dark-mode-switcher", ".wp-next-post-navi", "#hpk", "#jp-post-flair", "#textbox"], title: [".entry-title", ".chapter__title", ".title-content", ".wp-block-post-title", ".title_story", "#chapter-heading", ".chapter-title", "head title", "h1:first-of-type", "h2:first-of-type", ".active"], content: [".chapter__content", ".entry-content", ".text_story", ".post-content", ".contenta", ".single_post", ".main-content", ".reader-content", "#content", "#the-content", "article.post", ".chp_raw"] }, blogspot: { bloat: [".button-container", ".ChapterNav", ".ch-bottom", ".separator"], title: [".entry-title", ".post-title", "head title"], content: [".content-post", ".entry-content", ".post-body"] } }, d || v ? [3, 4] : [4, this.getChapterBody(i, c, s)];
             case 3:
               return e2 = t2.sent(), [3, 5];
             case 4:

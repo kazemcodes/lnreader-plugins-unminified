@@ -9321,7 +9321,10 @@ var LNReaderPlugin = (() => {
           "Accept": "*/*",
           "Accept-Language": "*",
           "Sec-Fetch-Mode": "cors",
-          "Accept-Encoding": "gzip, deflate"
+          "Accept-Encoding": "gzip, deflate",
+          ...typeof window === "undefined" ? {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36"
+          } : {}
         };
         if (init?.headers) {
           if (init.headers instanceof Headers) {

@@ -826,7 +826,7 @@ var LNReaderPlugin = (() => {
     _dewExec$1 = true;
     /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
     exports$1.read = function(buffer, offset, isLE2, mLen, nBytes) {
-      var e2, m;
+      var e2, m2;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
@@ -840,23 +840,23 @@ var LNReaderPlugin = (() => {
       nBits += eLen;
       for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
-      m = e2 & (1 << -nBits) - 1;
+      m2 = e2 & (1 << -nBits) - 1;
       e2 >>= -nBits;
       nBits += mLen;
-      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
+      for (; nBits > 0; m2 = m2 * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s2 ? -1 : 1) * Infinity;
+        return m2 ? NaN : (s2 ? -1 : 1) * Infinity;
       } else {
-        m = m + Math.pow(2, mLen);
+        m2 = m2 + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s2 ? -1 : 1) * m2 * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE2, mLen, nBytes) {
-      var e2, m, c2;
+      var e2, m2, c2;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
       var eBias = eMax >> 1;
@@ -866,7 +866,7 @@ var LNReaderPlugin = (() => {
       var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
-        m = isNaN(value) ? 1 : 0;
+        m2 = isNaN(value) ? 1 : 0;
         e2 = eMax;
       } else {
         e2 = Math.floor(Math.log(value) / Math.LN2);
@@ -884,19 +884,19 @@ var LNReaderPlugin = (() => {
           c2 /= 2;
         }
         if (e2 + eBias >= eMax) {
-          m = 0;
+          m2 = 0;
           e2 = eMax;
         } else if (e2 + eBias >= 1) {
-          m = (value * c2 - 1) * Math.pow(2, mLen);
+          m2 = (value * c2 - 1) * Math.pow(2, mLen);
           e2 = e2 + eBias;
         } else {
-          m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+          m2 = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
           e2 = 0;
         }
       }
-      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d2, m /= 256, mLen -= 8) {
+      for (; mLen >= 8; buffer[offset + i2] = m2 & 255, i2 += d2, m2 /= 256, mLen -= 8) {
       }
-      e2 = e2 << mLen | m;
+      e2 = e2 << mLen | m2;
       eLen += mLen;
       for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d2, e2 /= 256, eLen -= 8) {
       }
@@ -992,8 +992,8 @@ var LNReaderPlugin = (() => {
       if (valueOf != null && valueOf !== value) {
         return Buffer3.from(valueOf, encodingOrOffset, length);
       }
-      const b = fromObject(value);
-      if (b) return b;
+      const b2 = fromObject(value);
+      if (b2) return b2;
       if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function") {
         return Buffer3.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
       }
@@ -1125,27 +1125,27 @@ var LNReaderPlugin = (() => {
       return Buffer3.alloc(+length);
     }
     __name(SlowBuffer, "SlowBuffer");
-    Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
-      return b != null && b._isBuffer === true && b !== Buffer3.prototype;
+    Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b2) {
+      return b2 != null && b2._isBuffer === true && b2 !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b2) {
       if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
-      if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
+      if (isInstance(b2, Uint8Array)) b2 = Buffer3.from(b2, b2.offset, b2.byteLength);
+      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b2)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b) return 0;
+      if (a2 === b2) return 0;
       let x = a2.length;
-      let y = b.length;
-      for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b[i2]) {
+      let y2 = b2.length;
+      for (let i2 = 0, len = Math.min(x, y2); i2 < len; ++i2) {
+        if (a2[i2] !== b2[i2]) {
           x = a2[i2];
-          y = b[i2];
+          y2 = b2[i2];
           break;
         }
       }
-      if (x < y) return -1;
-      if (y < x) return 1;
+      if (x < y2) return -1;
+      if (y2 < x) return 1;
       return 0;
     }, "compare");
     Buffer3.isEncoding = /* @__PURE__ */ __name(function isEncoding(encoding) {
@@ -1291,10 +1291,10 @@ var LNReaderPlugin = (() => {
     }
     __name(slowToString, "slowToString");
     Buffer3.prototype._isBuffer = true;
-    function swap(b, n2, m) {
-      const i2 = b[n2];
-      b[n2] = b[m];
-      b[m] = i2;
+    function swap(b2, n2, m2) {
+      const i2 = b2[n2];
+      b2[n2] = b2[m2];
+      b2[m2] = i2;
     }
     __name(swap, "swap");
     Buffer3.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
@@ -1338,10 +1338,10 @@ var LNReaderPlugin = (() => {
       return slowToString.apply(this, arguments);
     }, "toString");
     Buffer3.prototype.toLocaleString = Buffer3.prototype.toString;
-    Buffer3.prototype.equals = /* @__PURE__ */ __name(function equals2(b) {
-      if (!Buffer3.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
-      if (this === b) return true;
-      return Buffer3.compare(this, b) === 0;
+    Buffer3.prototype.equals = /* @__PURE__ */ __name(function equals2(b2) {
+      if (!Buffer3.isBuffer(b2)) throw new TypeError("Argument must be a Buffer");
+      if (this === b2) return true;
+      return Buffer3.compare(this, b2) === 0;
     }, "equals");
     Buffer3.prototype.inspect = /* @__PURE__ */ __name(function inspect() {
       let str = "";
@@ -1390,19 +1390,19 @@ var LNReaderPlugin = (() => {
       thisEnd >>>= 0;
       if (this === target) return 0;
       let x = thisEnd - thisStart;
-      let y = end2 - start;
-      const len = Math.min(x, y);
+      let y2 = end2 - start;
+      const len = Math.min(x, y2);
       const thisCopy = this.slice(thisStart, thisEnd);
       const targetCopy = target.slice(start, end2);
       for (let i2 = 0; i2 < len; ++i2) {
         if (thisCopy[i2] !== targetCopy[i2]) {
           x = thisCopy[i2];
-          y = targetCopy[i2];
+          y2 = targetCopy[i2];
           break;
         }
       }
-      if (x < y) return -1;
-      if (y < x) return 1;
+      if (x < y2) return -1;
+      if (y2 < x) return 1;
       return 0;
     }, "compare");
     function bidirectionalIndexOf(buffer, val2, byteOffset, encoding, dir) {
@@ -2599,21 +2599,21 @@ var LNReaderPlugin = (() => {
         var parts = null, chunk = [];
         var i3 = 0, j = 0, t2;
         while (start < end2) {
-          var b = buffer[start++];
+          var b2 = buffer[start++];
           switch (j) {
             case 0:
-              chunk[i3++] = b64[b >> 2];
-              t2 = (b & 3) << 4;
+              chunk[i3++] = b64[b2 >> 2];
+              t2 = (b2 & 3) << 4;
               j = 1;
               break;
             case 1:
-              chunk[i3++] = b64[t2 | b >> 4];
-              t2 = (b & 15) << 2;
+              chunk[i3++] = b64[t2 | b2 >> 4];
+              t2 = (b2 & 15) << 2;
               j = 2;
               break;
             case 2:
-              chunk[i3++] = b64[t2 | b >> 6];
-              chunk[i3++] = b64[b & 63];
+              chunk[i3++] = b64[t2 | b2 >> 6];
+              chunk[i3++] = b64[b2 & 63];
               j = 0;
               break;
           }
@@ -4009,45 +4009,45 @@ var LNReaderPlugin = (() => {
       LongPrototype.shru = LongPrototype.shiftRightUnsigned;
       LongPrototype.shr_u = LongPrototype.shiftRightUnsigned;
       LongPrototype.rotateLeft = /* @__PURE__ */ __name(function rotateLeft(numBits) {
-        var b;
+        var b2;
         if (isLong(numBits)) numBits = numBits.toInt();
         if ((numBits &= 63) === 0) return this;
         if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
         if (numBits < 32) {
-          b = 32 - numBits;
+          b2 = 32 - numBits;
           return fromBits(
-            this.low << numBits | this.high >>> b,
-            this.high << numBits | this.low >>> b,
+            this.low << numBits | this.high >>> b2,
+            this.high << numBits | this.low >>> b2,
             this.unsigned
           );
         }
         numBits -= 32;
-        b = 32 - numBits;
+        b2 = 32 - numBits;
         return fromBits(
-          this.high << numBits | this.low >>> b,
-          this.low << numBits | this.high >>> b,
+          this.high << numBits | this.low >>> b2,
+          this.low << numBits | this.high >>> b2,
           this.unsigned
         );
       }, "rotateLeft");
       LongPrototype.rotl = LongPrototype.rotateLeft;
       LongPrototype.rotateRight = /* @__PURE__ */ __name(function rotateRight(numBits) {
-        var b;
+        var b2;
         if (isLong(numBits)) numBits = numBits.toInt();
         if ((numBits &= 63) === 0) return this;
         if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
         if (numBits < 32) {
-          b = 32 - numBits;
+          b2 = 32 - numBits;
           return fromBits(
-            this.high << b | this.low >>> numBits,
-            this.low << b | this.high >>> numBits,
+            this.high << b2 | this.low >>> numBits,
+            this.low << b2 | this.high >>> numBits,
             this.unsigned
           );
         }
         numBits -= 32;
-        b = 32 - numBits;
+        b2 = 32 - numBits;
         return fromBits(
-          this.low << b | this.high >>> numBits,
-          this.high << b | this.low >>> numBits,
+          this.low << b2 | this.high >>> numBits,
+          this.high << b2 | this.low >>> numBits,
           this.unsigned
         );
       }, "rotateRight");
@@ -6909,8 +6909,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
-        return a2.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b2) {
+        return a2.id - b2.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -9289,7 +9289,10 @@ var LNReaderPlugin = (() => {
           "Accept": "*/*",
           "Accept-Language": "*",
           "Sec-Fetch-Mode": "cors",
-          "Accept-Encoding": "gzip, deflate"
+          "Accept-Encoding": "gzip, deflate",
+          ...typeof window === "undefined" ? {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36"
+          } : {}
         };
         if (init?.headers) {
           if (init.headers instanceof Headers) {
@@ -9437,23 +9440,23 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __extends = exports4 && exports4.__extends || /* @__PURE__ */ function() {
-        var extendStatics = /* @__PURE__ */ __name(function(d2, b) {
-          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, b2) {
-            d3.__proto__ = b2;
-          } || function(d3, b2) {
-            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d3[p2] = b2[p2];
+        var extendStatics = /* @__PURE__ */ __name(function(d2, b2) {
+          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, b3) {
+            d3.__proto__ = b3;
+          } || function(d3, b3) {
+            for (var p2 in b3) if (Object.prototype.hasOwnProperty.call(b3, p2)) d3[p2] = b3[p2];
           };
-          return extendStatics(d2, b);
+          return extendStatics(d2, b2);
         }, "extendStatics");
-        return function(d2, b) {
-          if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-          extendStatics(d2, b);
+        return function(d2, b2) {
+          if (typeof b2 !== "function" && b2 !== null)
+            throw new TypeError("Class extends value " + String(b2) + " is not a constructor or null");
+          extendStatics(d2, b2);
           function __() {
             this.constructor = d2;
           }
           __name(__, "__");
-          d2.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+          d2.prototype = b2 === null ? Object.create(b2) : (__.prototype = b2.prototype, new __());
         };
       }();
       var __assign = exports4 && exports4.__assign || function() {
@@ -9892,21 +9895,21 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
-      var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
+      var __exportStar = exports4 && exports4.__exportStar || function(m2, exports5) {
+        for (var p2 in m2) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m2, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.DomHandler = void 0;
@@ -10158,18 +10161,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -10952,18 +10955,18 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -11566,9 +11569,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a2, b) {
+      function combineFuncs(a2, b2) {
         return function(elem) {
-          return a2(elem) || b(elem);
+          return a2(elem) || b2(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -11712,8 +11715,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i2, arr) {
           return !arr.includes(node, i2 + 1);
         });
-        nodes.sort(function(a2, b) {
-          var relative = compareDocumentPosition(a2, b);
+        nodes.sort(function(a2, b2) {
+          var relative = compareDocumentPosition(a2, b2);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -11887,21 +11890,21 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
-      var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
-        for (var p2 in m) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m, p2);
+      var __exportStar = exports4 && exports4.__exportStar || function(m2, exports5) {
+        for (var p2 in m2) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m2, p2);
       };
       Object.defineProperty(exports4, "__esModule", { value: true });
       exports4.hasChildren = exports4.isDocument = exports4.isComment = exports4.isText = exports4.isCDATA = exports4.isTag = void 0;
@@ -13482,45 +13485,45 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
         var a2 = parsed[0];
-        var b = parsed[1] - 1;
-        if (b < 0 && a2 <= 0)
+        var b2 = parsed[1] - 1;
+        if (b2 < 0 && a2 <= 0)
           return boolbase_1.default.falseFunc;
         if (a2 === -1)
           return function(index2) {
-            return index2 <= b;
+            return index2 <= b2;
           };
         if (a2 === 0)
           return function(index2) {
-            return index2 === b;
+            return index2 === b2;
           };
         if (a2 === 1)
-          return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
-            return index2 >= b;
+          return b2 < 0 ? boolbase_1.default.trueFunc : function(index2) {
+            return index2 >= b2;
           };
         var absA = Math.abs(a2);
-        var bMod = (b % absA + absA) % absA;
+        var bMod = (b2 % absA + absA) % absA;
         return a2 > 1 ? function(index2) {
-          return index2 >= b && index2 % absA === bMod;
+          return index2 >= b2 && index2 % absA === bMod;
         } : function(index2) {
-          return index2 <= b && index2 % absA === bMod;
+          return index2 <= b2 && index2 % absA === bMod;
         };
       }
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
         var a2 = parsed[0];
-        var b = parsed[1] - 1;
+        var b2 = parsed[1] - 1;
         var n2 = 0;
         if (a2 < 0) {
           var aPos_1 = -a2;
-          var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
+          var minValue_1 = (b2 % aPos_1 + aPos_1) % aPos_1;
           return function() {
             var val2 = minValue_1 + aPos_1 * n2++;
-            return val2 > b ? null : val2;
+            return val2 > b2 ? null : val2;
           };
         }
         if (a2 === 0)
-          return b < 0 ? (
+          return b2 < 0 ? (
             // There are no result — always return `null`
             function() {
               return null;
@@ -13528,14 +13531,14 @@ var LNReaderPlugin = (() => {
           ) : (
             // Return `b` exactly once
             function() {
-              return n2++ === 0 ? b : null;
+              return n2++ === 0 ? b2 : null;
             }
           );
-        if (b < 0) {
-          b += a2 * Math.ceil(-b / a2);
+        if (b2 < 0) {
+          b2 += a2 * Math.ceil(-b2 / a2);
         }
         return function() {
-          return a2 * n2++ + b;
+          return a2 * n2++ + b2;
         };
       }
       __name(generate, "generate");
@@ -14200,18 +14203,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14320,15 +14323,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a2, b) {
-        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
+      function reduceRules(a2, b2) {
+        if (b2 === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
           return a2;
         }
-        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
-          return b;
+        if (a2 === boolbase_1.default.falseFunc || b2 === boolbase_1.default.trueFunc) {
+          return b2;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a2(elem) || b(elem);
+          return a2(elem) || b2(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -14342,18 +14345,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14378,8 +14381,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
-        return a2 === b;
+      var defaultEquals = /* @__PURE__ */ __name(function(a2, b2) {
+        return a2 === b2;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -14573,18 +14576,18 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14772,8 +14775,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
-          return __spreadArray(__spreadArray([], a2, true), b, true);
+        return DomUtils.uniqueSort(results.reduce(function(a2, b2) {
+          return __spreadArray(__spreadArray([], a2, true), b2, true);
         }));
       }
       __name(select3, "select");
@@ -24770,18 +24773,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -25209,18 +25212,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        var desc = Object.getOwnPropertyDescriptor(m2, k);
+        if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m[k];
+            return m2[k];
           }, "get") };
         }
         Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+      } : function(o2, m2, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o2[k2] = m2[k];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -25511,9 +25514,9 @@ var LNReaderPlugin = (() => {
   function isBytes(a2) {
     return a2 instanceof Uint8Array || ArrayBuffer.isView(a2) && a2.constructor.name === "Uint8Array";
   }
-  function abool(b) {
-    if (typeof b !== "boolean")
-      throw new Error(`boolean expected, not ${b}`);
+  function abool(b2) {
+    if (typeof b2 !== "boolean")
+      throw new Error(`boolean expected, not ${b2}`);
   }
   function anumber(n2) {
     if (!Number.isSafeInteger(n2) || n2 < 0)
@@ -25617,10 +25620,10 @@ var LNReaderPlugin = (() => {
   function bytesToUtf8(bytes) {
     return new TextDecoder().decode(bytes);
   }
-  function overlapBytes(a2, b) {
-    return a2.buffer === b.buffer && // best we can do, may fail with an obscure Proxy
-    a2.byteOffset < b.byteOffset + b.byteLength && // a starts before b end
-    b.byteOffset < a2.byteOffset + a2.byteLength;
+  function overlapBytes(a2, b2) {
+    return a2.buffer === b2.buffer && // best we can do, may fail with an obscure Proxy
+    a2.byteOffset < b2.byteOffset + b2.byteLength && // a starts before b end
+    b2.byteOffset < a2.byteOffset + a2.byteLength;
   }
   function complexOverlapBytes(input, output) {
     if (overlapBytes(input, output) && input.byteOffset < output.byteOffset)
@@ -25647,12 +25650,12 @@ var LNReaderPlugin = (() => {
     const merged = Object.assign(defaults, opts);
     return merged;
   }
-  function equalBytes(a2, b) {
-    if (a2.length !== b.length)
+  function equalBytes(a2, b2) {
+    if (a2.length !== b2.length)
       return false;
     let diff = 0;
     for (let i2 = 0; i2 < a2.length; i2++)
-      diff |= a2[i2] ^ b[i2];
+      diff |= a2[i2] ^ b2[i2];
     return diff === 0;
   }
   function getOutput(expectedLength, out, onlyAligned = true) {
@@ -26017,10 +26020,10 @@ var LNReaderPlugin = (() => {
   function mul22(n2) {
     return n2 << 1 ^ POLY2 & -(n2 >> 7);
   }
-  function mul(a2, b) {
+  function mul(a2, b2) {
     let res = 0;
-    for (; b > 0; b >>= 1) {
-      res ^= a2 & -(b & 1);
+    for (; b2 > 0; b2 >>= 1) {
+      res ^= a2 & -(b2 & 1);
       a2 = mul22(a2);
     }
     return res;
@@ -26204,7 +26207,7 @@ var LNReaderPlugin = (() => {
       throw new Error("aec/(cbc-ecb): unpadded plaintext with disabled padding");
     if (!isAligned32(plaintext))
       plaintext = copyBytes(plaintext);
-    const b = u32(plaintext);
+    const b2 = u32(plaintext);
     if (pcks5) {
       let left = BLOCK_SIZE2 - remaining;
       if (!left)
@@ -26214,7 +26217,7 @@ var LNReaderPlugin = (() => {
     dst = getOutput(outLen, dst);
     complexOverlapBytes(plaintext, dst);
     const o2 = u32(dst);
-    return { b, o: o2, out: dst };
+    return { b: b2, o: o2, out: dst };
   }
   function validatePCKS(data2, pcks5) {
     if (!pcks5)
@@ -26285,21 +26288,21 @@ var LNReaderPlugin = (() => {
     }
     return block;
   }
-  function xorBlock(a2, b) {
-    if (a2.length !== b.length)
+  function xorBlock(a2, b2) {
+    if (a2.length !== b2.length)
       throw new Error("xorBlock: blocks must have same length");
     for (let i2 = 0; i2 < a2.length; i2++) {
-      a2[i2] = a2[i2] ^ b[i2];
+      a2[i2] = a2[i2] ^ b2[i2];
     }
     return a2;
   }
-  function xorend(a2, b) {
-    if (b.length > a2.length) {
+  function xorend(a2, b2) {
+    if (b2.length > a2.length) {
       throw new Error("xorend: len(B) must be less than or equal to len(A)");
     }
-    const offset = a2.length - b.length;
-    for (let i2 = 0; i2 < b.length; i2++) {
-      a2[offset + i2] = a2[offset + i2] ^ b[i2];
+    const offset = a2.length - b2.length;
+    for (let i2 = 0; i2 < b2.length; i2++) {
+      a2[offset + i2] = a2[offset + i2] ^ b2[i2];
     }
     return a2;
   }
@@ -26443,11 +26446,11 @@ var LNReaderPlugin = (() => {
         const pcks5 = !opts.disablePadding;
         return {
           encrypt(plaintext, dst) {
-            const { b, o: o2, out: _out } = validateBlockEncrypt(plaintext, pcks5, dst);
+            const { b: b2, o: o2, out: _out } = validateBlockEncrypt(plaintext, pcks5, dst);
             const xk = expandKeyLE(key);
             let i2 = 0;
-            for (; i2 + 4 <= b.length; ) {
-              const { s0, s1, s2, s3 } = encrypt(xk, b[i2 + 0], b[i2 + 1], b[i2 + 2], b[i2 + 3]);
+            for (; i2 + 4 <= b2.length; ) {
+              const { s0, s1, s2, s3 } = encrypt(xk, b2[i2 + 0], b2[i2 + 1], b2[i2 + 2], b2[i2 + 3]);
               o2[i2++] = s0, o2[i2++] = s1, o2[i2++] = s2, o2[i2++] = s3;
             }
             if (pcks5) {
@@ -26466,10 +26469,10 @@ var LNReaderPlugin = (() => {
             if (!isAligned32(ciphertext))
               toClean.push(ciphertext = copyBytes(ciphertext));
             complexOverlapBytes(ciphertext, dst);
-            const b = u32(ciphertext);
+            const b2 = u32(ciphertext);
             const o2 = u32(dst);
-            for (let i2 = 0; i2 + 4 <= b.length; ) {
-              const { s0, s1, s2, s3 } = decrypt(xk, b[i2 + 0], b[i2 + 1], b[i2 + 2], b[i2 + 3]);
+            for (let i2 = 0; i2 + 4 <= b2.length; ) {
+              const { s0, s1, s2, s3 } = decrypt(xk, b2[i2 + 0], b2[i2 + 1], b2[i2 + 2], b2[i2 + 3]);
               o2[i2++] = s0, o2[i2++] = s1, o2[i2++] = s2, o2[i2++] = s3;
             }
             clean(...toClean);
@@ -26482,7 +26485,7 @@ var LNReaderPlugin = (() => {
         return {
           encrypt(plaintext, dst) {
             const xk = expandKeyLE(key);
-            const { b, o: o2, out: _out } = validateBlockEncrypt(plaintext, pcks5, dst);
+            const { b: b2, o: o2, out: _out } = validateBlockEncrypt(plaintext, pcks5, dst);
             let _iv = iv;
             const toClean = [xk];
             if (!isAligned32(_iv))
@@ -26490,8 +26493,8 @@ var LNReaderPlugin = (() => {
             const n32 = u32(_iv);
             let s0 = n32[0], s1 = n32[1], s2 = n32[2], s3 = n32[3];
             let i2 = 0;
-            for (; i2 + 4 <= b.length; ) {
-              s0 ^= b[i2 + 0], s1 ^= b[i2 + 1], s2 ^= b[i2 + 2], s3 ^= b[i2 + 3];
+            for (; i2 + 4 <= b2.length; ) {
+              s0 ^= b2[i2 + 0], s1 ^= b2[i2 + 1], s2 ^= b2[i2 + 2], s3 ^= b2[i2 + 3];
               ({ s0, s1, s2, s3 } = encrypt(xk, s0, s1, s2, s3));
               o2[i2++] = s0, o2[i2++] = s1, o2[i2++] = s2, o2[i2++] = s3;
             }
@@ -26516,12 +26519,12 @@ var LNReaderPlugin = (() => {
             if (!isAligned32(ciphertext))
               toClean.push(ciphertext = copyBytes(ciphertext));
             complexOverlapBytes(ciphertext, dst);
-            const b = u32(ciphertext);
+            const b2 = u32(ciphertext);
             const o2 = u32(dst);
             let s0 = n32[0], s1 = n32[1], s2 = n32[2], s3 = n32[3];
-            for (let i2 = 0; i2 + 4 <= b.length; ) {
+            for (let i2 = 0; i2 + 4 <= b2.length; ) {
               const ps0 = s0, ps1 = s1, ps2 = s2, ps3 = s3;
-              s0 = b[i2 + 0], s1 = b[i2 + 1], s2 = b[i2 + 2], s3 = b[i2 + 3];
+              s0 = b2[i2 + 0], s1 = b2[i2 + 1], s2 = b2[i2 + 2], s3 = b2[i2 + 3];
               const { s0: o0, s1: o1, s2: o22, s3: o3 } = decrypt(xk, s0, s1, s2, s3);
               o2[i2++] = o0 ^ ps0, o2[i2++] = o1 ^ ps1, o2[i2++] = o22 ^ ps2, o2[i2++] = o3 ^ ps3;
             }
@@ -27183,21 +27186,21 @@ var LNReaderPlugin = (() => {
     a2.set(t2), a2[t2.length] = 128;
     var i2 = new DataView(a2.buffer);
     i2.setUint32(r2 - 4, n2 >>> 0, false), i2.setUint32(r2 - 8, Math.floor(n2 / 4294967296) >>> 0, false);
-    for (var o2 = 1779033703, l2 = 3144134277, s2 = 1013904242, d2 = 2773480762, p2 = 1359893119, h2 = 2600822924, v2 = 528734635, f2 = 1541459225, b = new Uint32Array(64), m = 0; m < r2; m += 64) {
-      for (var y = 0; y < 16; y++) b[y] = i2.getUint32(m + 4 * y, false);
-      for (y = 16; y < 64; y++) {
-        var g = u(b[y - 15], 7) ^ u(b[y - 15], 18) ^ b[y - 15] >>> 3, k = u(b[y - 2], 17) ^ u(b[y - 2], 19) ^ b[y - 2] >>> 10;
-        b[y] = b[y - 16] + g + b[y - 7] + k >>> 0;
+    for (var o2 = 1779033703, l2 = 3144134277, s2 = 1013904242, d2 = 2773480762, p2 = 1359893119, h2 = 2600822924, v2 = 528734635, f2 = 1541459225, b2 = new Uint32Array(64), m2 = 0; m2 < r2; m2 += 64) {
+      for (var y2 = 0; y2 < 16; y2++) b2[y2] = i2.getUint32(m2 + 4 * y2, false);
+      for (y2 = 16; y2 < 64; y2++) {
+        var g = u(b2[y2 - 15], 7) ^ u(b2[y2 - 15], 18) ^ b2[y2 - 15] >>> 3, k = u(b2[y2 - 2], 17) ^ u(b2[y2 - 2], 19) ^ b2[y2 - 2] >>> 10;
+        b2[y2] = b2[y2 - 16] + g + b2[y2 - 7] + k >>> 0;
       }
-      var w = o2, T = l2, R = s2, A = d2, x = p2, C = h2, _ = v2, j = f2;
-      for (y = 0; y < 64; y++) {
-        var U = j + (u(x, 6) ^ u(x, 11) ^ u(x, 25)) + (x & C ^ ~x & _) + c[y] + b[y] >>> 0, S = w & T ^ w & R ^ T & R;
-        j = _, _ = C, C = x, x = A + U >>> 0, A = R, R = T, T = w, w = U + ((u(w, 2) ^ u(w, 13) ^ u(w, 22)) + S >>> 0) >>> 0;
+      var w = o2, T = l2, R = s2, A = d2, C = p2, x = h2, _ = v2, j = f2;
+      for (y2 = 0; y2 < 64; y2++) {
+        var U = j + (u(C, 6) ^ u(C, 11) ^ u(C, 25)) + (C & x ^ ~C & _) + c[y2] + b2[y2] >>> 0, E = w & T ^ w & R ^ T & R;
+        j = _, _ = x, x = C, C = A + U >>> 0, A = R, R = T, T = w, w = U + ((u(w, 2) ^ u(w, 13) ^ u(w, 22)) + E >>> 0) >>> 0;
       }
-      o2 = o2 + w >>> 0, l2 = l2 + T >>> 0, s2 = s2 + R >>> 0, d2 = d2 + A >>> 0, p2 = p2 + x >>> 0, h2 = h2 + C >>> 0, v2 = v2 + _ >>> 0, f2 = f2 + j >>> 0;
+      o2 = o2 + w >>> 0, l2 = l2 + T >>> 0, s2 = s2 + R >>> 0, d2 = d2 + A >>> 0, p2 = p2 + C >>> 0, h2 = h2 + x >>> 0, v2 = v2 + _ >>> 0, f2 = f2 + j >>> 0;
     }
-    var F = new Uint8Array(32), E = new DataView(F.buffer);
-    return E.setUint32(0, o2, false), E.setUint32(4, l2, false), E.setUint32(8, s2, false), E.setUint32(12, d2, false), E.setUint32(16, p2, false), E.setUint32(20, h2, false), E.setUint32(24, v2, false), E.setUint32(28, f2, false), F;
+    var S = new Uint8Array(32), F = new DataView(S.buffer);
+    return F.setUint32(0, o2, false), F.setUint32(4, l2, false), F.setUint32(8, s2, false), F.setUint32(12, d2, false), F.setUint32(16, p2, false), F.setUint32(20, h2, false), F.setUint32(24, v2, false), F.setUint32(28, f2, false), S;
   }
   __name(d, "d");
   function p(e2) {
@@ -27214,7 +27217,16 @@ var LNReaderPlugin = (() => {
     return n2;
   }
   __name(h, "h");
-  function v(e2) {
+  var v = /[\u200B-\u200D\uFEFF\u200E\u200F\u202A-\u202E\u{E0000}-\u{E007F}\u{E0100}-\u{E01EF}]/gu;
+  function f(e2) {
+    return e2.replace(v, "");
+  }
+  __name(f, "f");
+  function b(e2) {
+    return e2.replace(/^([^/]+)\/([^/]+)\/\2\//, "$1/$2/");
+  }
+  __name(b, "b");
+  function m(e2) {
     var t2;
     try {
       var n2 = null !== (t2 = e2.split(".")[0]) && void 0 !== t2 ? t2 : "";
@@ -27225,15 +27237,15 @@ var LNReaderPlugin = (() => {
       return { vid: "", cid: null, exp: null };
     }
   }
-  __name(v, "v");
-  var f = function() {
+  __name(m, "m");
+  var y = function() {
     function c2() {
-      this.id = "fenrir", this.name = "Fenrir Realm", this.icon = "src/en/fenrirrealm/icon.png", this.site = "https://fenrirealm.com", this.version = "1.1.5", this.imageRequestInit = void 0, this.cachedReadToken = null, this.lastMintRefusal = null, this.hideLocked = o.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { status: { type: i.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "on-going" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "On Hold", value: "on-hold" }, { label: "Dropped", value: "dropped" }] }, sort: { type: i.FilterTypes.Picker, label: "Sort", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }] }, genres: { type: i.FilterTypes.CheckboxGroup, label: "Genres", value: [], options: [{ label: "Action", value: "1" }, { label: "Adult", value: "2" }, { label: "Adventure", value: "3" }, { label: "Comedy", value: "4" }, { label: "Drama", value: "5" }, { label: "Ecchi", value: "6" }, { label: "Fantasy", value: "7" }, { label: "Gender Bender", value: "8" }, { label: "Harem", value: "9" }, { label: "Historical", value: "10" }, { label: "Horror", value: "11" }, { label: "Josei", value: "12" }, { label: "Martial Arts", value: "13" }, { label: "Mature", value: "14" }, { label: "Mecha", value: "15" }, { label: "Mystery", value: "16" }, { label: "Psychological", value: "17" }, { label: "Romance", value: "18" }, { label: "School Life", value: "19" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Shounen", value: "24" }, { label: "Shounen Ai", value: "25" }, { label: "Slice of Life", value: "26" }, { label: "Smut", value: "27" }, { label: "Sports", value: "28" }, { label: "Supernatural", value: "29" }, { label: "Tragedy", value: "30" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "32" }, { label: "Xuanhuan", value: "33" }, { label: "Yaoi", value: "34" }, { label: "Yuri", value: "35" }] } };
+      this.id = "fenrir", this.name = "Fenrir Realm", this.icon = "src/en/fenrirrealm/icon.png", this.site = "https://fenrirealm.com", this.version = "1.1.6", this.imageRequestInit = void 0, this.cachedReadToken = null, this.lastMintRefusal = null, this.hideLocked = o.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { status: { type: i.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "on-going" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "On Hold", value: "on-hold" }, { label: "Dropped", value: "dropped" }] }, sort: { type: i.FilterTypes.Picker, label: "Sort", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }] }, genres: { type: i.FilterTypes.CheckboxGroup, label: "Genres", value: [], options: [{ label: "Action", value: "1" }, { label: "Adult", value: "2" }, { label: "Adventure", value: "3" }, { label: "Comedy", value: "4" }, { label: "Drama", value: "5" }, { label: "Ecchi", value: "6" }, { label: "Fantasy", value: "7" }, { label: "Gender Bender", value: "8" }, { label: "Harem", value: "9" }, { label: "Historical", value: "10" }, { label: "Horror", value: "11" }, { label: "Josei", value: "12" }, { label: "Martial Arts", value: "13" }, { label: "Mature", value: "14" }, { label: "Mecha", value: "15" }, { label: "Mystery", value: "16" }, { label: "Psychological", value: "17" }, { label: "Romance", value: "18" }, { label: "School Life", value: "19" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Shounen", value: "24" }, { label: "Shounen Ai", value: "25" }, { label: "Slice of Life", value: "26" }, { label: "Smut", value: "27" }, { label: "Sports", value: "28" }, { label: "Supernatural", value: "29" }, { label: "Tragedy", value: "30" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "32" }, { label: "Xuanhuan", value: "33" }, { label: "Yaoi", value: "34" }, { label: "Yuri", value: "35" }] } };
     }
     __name(c2, "c");
     return c2.prototype.setCachedReadToken = function(e2, t2, n2) {
       if (e2) {
-        var r2 = v(e2), a2 = "number" == typeof t2 && t2 > 0 ? t2 : null !== r2.exp ? r2.exp : Math.floor(Date.now() / 1e3) + 300, i2 = null !== r2.cid ? r2.cid : "number" == typeof n2 && n2 > 0 ? n2 : null;
+        var r2 = m(e2), a2 = "number" == typeof t2 && t2 > 0 ? t2 : null !== r2.exp ? r2.exp : Math.floor(Date.now() / 1e3) + 300, i2 = null !== r2.cid ? r2.cid : "number" == typeof n2 && n2 > 0 ? n2 : null;
         this.cachedReadToken = { value: e2, expiresAt: a2, cid: i2 };
       }
     }, c2.prototype.getActiveTokenValue = function() {
@@ -27290,7 +27302,7 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.verifyInWebViewError = function(e2) {
       var t2 = new Error("Chapter is protected by Cloudflare Turnstile. Please open this chapter in WebView to verify and try again.");
-      return e2 && !e2.ok && (t2.status = e2.status, t2.response = e2), t2;
+      return e2 && !e2.ok ? (t2.status = e2.status, t2.response = e2) : t2.status = 403, t2;
     }, c2.prototype.getReadToken = function(e2) {
       return t(this, void 0, void 0, function() {
         var t2, a2, i2, o2, l2;
@@ -27312,11 +27324,13 @@ var LNReaderPlugin = (() => {
           }
         });
       });
+    }, c2.prototype.getChapterCid = function(e2) {
+      return "number" == typeof e2.content_cid && e2.content_cid > 0 ? e2.content_cid : "number" == typeof e2.id && e2.id > 0 ? e2.id : null;
     }, c2.prototype.decryptWithToken = function(e2, t2) {
       try {
         var n2 = "fragmented-v2" === e2.content_scheme, r2 = n2 ? function(e3) {
-          return v(e3).vid;
-        }(t2) : "", a2 = Array.isArray(e2.content) ? function(e3, t3) {
+          return m(e3).vid;
+        }(t2) : "", a2 = this.getChapterCid(e2), i2 = null != a2 ? a2 : e2.uuid || e2.id || "", o2 = Array.isArray(e2.content) ? function(e3, t3) {
           var n3 = e3.length;
           if (n3 < 2) return 1 === n3 ? e3[0] : "";
           for (var r3 = d(t3), a3 = new DataView(r3.buffer, r3.byteOffset, r3.byteLength), i3 = new Uint32Array([a3.getUint32(0, true), a3.getUint32(4, true), a3.getUint32(8, true), a3.getUint32(12, true)]), o3 = new Array(n3), l3 = 0; l3 < n3; l3++) o3[l3] = l3;
@@ -27327,19 +27341,19 @@ var LNReaderPlugin = (() => {
           var u3 = new Array(n3);
           for (l3 = 0; l3 < n3; l3++) u3[o3[l3]] = e3[l3];
           return u3.join("");
-        }(e2.content, n2 ? "".concat(t2, ":").concat(r2, ":").concat(e2.id, ":").concat("fr-frag-v2") : "".concat(t2, ":").concat(e2.id, ":").concat("fr-frag-v1")) : "string" == typeof e2.content ? e2.content : "";
-        if (!a2) return null;
-        var i2 = h(a2);
-        if (i2.length <= 28) return null;
-        var o2 = d(n2 && "" !== r2 ? "".concat(t2, ":").concat(r2, ":").concat(e2.id, ":").concat("fr-content-v2") : "".concat(t2, ":").concat(e2.id, ":").concat("fr-content-v1")), l2 = i2.slice(0, 12), c3 = i2.slice(12), u2 = (0, s.gcm)(o2, l2).decrypt(c3);
-        return new TextDecoder().decode(u2);
+        }(e2.content, n2 ? "".concat(t2, ":").concat(r2, ":").concat(i2, ":").concat("fr-frag-v2") : "".concat(t2, ":").concat(i2, ":").concat("fr-frag-v1")) : "string" == typeof e2.content ? e2.content : "";
+        if (!o2) return null;
+        var l2 = h(o2);
+        if (l2.length <= 28) return null;
+        var c3 = d(n2 && "" !== r2 ? "".concat(t2, ":").concat(r2, ":").concat(i2, ":").concat("fr-content-v2") : "".concat(t2, ":").concat(i2, ":").concat("fr-content-v1")), u2 = l2.slice(0, 12), v2 = l2.slice(12), f2 = (0, s.gcm)(c3, u2).decrypt(v2);
+        return new TextDecoder().decode(f2);
       } catch (e3) {
         return null;
       }
     }, c2.prototype.formatChapterContent = function(e2) {
       try {
         var t2 = JSON.parse(e2);
-        if ("doc" === t2.type || "systemWindow" === t2.type) return t2.content.map(function(e3) {
+        if ("doc" === t2.type || "systemWindow" === t2.type) return f(t2.content.map(function(e3) {
           var t3, n3, r2;
           if ("paragraph" === e3.type) {
             var a2 = (null === (t3 = e3.content) || void 0 === t3 ? void 0 : t3.map(function(e4) {
@@ -27364,14 +27378,14 @@ var LNReaderPlugin = (() => {
             return "<h".concat(i2, ">").concat(a2, "</h").concat(i2, ">");
           }
           return "";
-        }).join("\n").replace(/[\u200B-\u200D\uFEFF]/g, "");
+        }).join("\n"));
       } catch (e3) {
       }
       var n2 = (0, a.load)(e2);
       return n2('[aria-hidden="true"]').remove(), n2(".reader-attribution").remove(), n2("[data-fr-attr]").remove(), n2("style, script").remove(), n2("p, div, span, small").each(function(e3, t3) {
         var r2 = n2(t3).text().trim();
         (r2.startsWith("Copy reference:") || r2.startsWith("Bookmark:")) && n2(t3).remove();
-      }), (n2.html() || e2).replace(/[\u200B-\u200D\uFEFF]/g, "");
+      }), f(n2.html() || e2);
     }, c2.prototype.popularNovels = function(e2, a2) {
       return t(this, arguments, void 0, function(e3, a3) {
         var i2, o2 = this, l2 = a3.showLatestNovels, s2 = a3.filters;
@@ -27400,7 +27414,7 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, s2, c3, u2, d2, p2, h2, v2, f2, b, m;
+        var t2, i2, o2, s2, c3, u2, d2, p2, h2, v2, f2, m2, y2;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
@@ -27427,7 +27441,7 @@ var LNReaderPlugin = (() => {
             case 7:
               return p2 = n2.sent(), h2 = (0, a.load)(p2.description || ""), v2 = { path: t2, name: p2.title || "", summary: h2("p").length > 0 ? h2("p").map(function(e3, t3) {
                 return (0, a.load)(t3).text();
-              }).get().join("\n\n") : h2.text() || "", author: (null === (b = p2.user) || void 0 === b ? void 0 : b.name) || (null === (m = p2.user) || void 0 === m ? void 0 : m.username) || "", cover: p2.cover ? this.site + "/" + p2.cover : l.defaultCover, genres: (p2.genres || []).map(function(e3) {
+              }).get().join("\n\n") : h2.text() || "", author: (null === (m2 = p2.user) || void 0 === m2 ? void 0 : m2.name) || (null === (y2 = p2.user) || void 0 === y2 ? void 0 : y2.username) || "", cover: p2.cover ? this.site + "/" + p2.cover : l.defaultCover, genres: (p2.genres || []).map(function(e3) {
                 return e3.name;
               }).join(","), status: p2.status || "Unknown" }, [4, i2.json()];
             case 8:
@@ -27435,8 +27449,8 @@ var LNReaderPlugin = (() => {
                 var t3;
                 return !(null === (t3 = e3.locked) || void 0 === t3 ? void 0 : t3.price);
               })), v2.chapters = f2.map(function(e3) {
-                var n3, r2, a2, i3, o3, l2;
-                return { name: ((null === (n3 = e3.locked) || void 0 === n3 ? void 0 : n3.price) ? "\u{1F512} " : "") + (null == (null === (r2 = e3.group) || void 0 === r2 ? void 0 : r2.index) ? "" : "Vol " + (null === (a2 = e3.group) || void 0 === a2 ? void 0 : a2.index) + " ") + "Chapter " + e3.number + (e3.title && e3.title.trim() != "Chapter " + e3.number ? " - " + e3.title.replace(/^chapter [0-9]+ . /i, "") : ""), path: t2 + (null == (null === (i3 = e3.group) || void 0 === i3 ? void 0 : i3.index) ? "" : "/" + (null === (o3 = e3.group) || void 0 === o3 ? void 0 : o3.slug)) + "/" + (e3.slug || "chapter-" + e3.number) + "~~" + e3.id, releaseTime: e3.created_at, chapterNumber: e3.number + 1e4 * ((null === (l2 = e3.group) || void 0 === l2 ? void 0 : l2.index) || 0) };
+                var n3, r2, a2, i3, o3, l2, s3 = b(t2 + (null == (null === (n3 = e3.group) || void 0 === n3 ? void 0 : n3.index) ? "" : "/" + (null === (r2 = e3.group) || void 0 === r2 ? void 0 : r2.slug)) + "/" + (e3.slug || "chapter-" + e3.number)), c4 = e3.uuid || e3.id;
+                return { name: ((null === (a2 = e3.locked) || void 0 === a2 ? void 0 : a2.price) ? "\u{1F512} " : "") + (null == (null === (i3 = e3.group) || void 0 === i3 ? void 0 : i3.index) ? "" : "Vol " + (null === (o3 = e3.group) || void 0 === o3 ? void 0 : o3.index) + " ") + "Chapter " + e3.number + (e3.title && e3.title.trim() != "Chapter " + e3.number ? " - " + e3.title.replace(/^chapter [0-9]+ . /i, "") : ""), path: s3 + (c4 ? "~~".concat(c4) : ""), releaseTime: e3.created_at, chapterNumber: e3.number + 1e4 * ((null === (l2 = e3.group) || void 0 === l2 ? void 0 : l2.index) || 0) };
               }).sort(function(e3, t3) {
                 return e3.chapterNumber - t3.chapterNumber;
               }), [2, v2];
@@ -27445,86 +27459,104 @@ var LNReaderPlugin = (() => {
       });
     }, c2.prototype.parseChapter = function(i2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, l2, s2, c3, u2, d2, p2, h2, v2, f2, b, m, y, g, k, w, T, R, A, x, C, _, j, U, S, F;
+        var t2, o2, l2, s2, c3, u2, d2, p2, h2, v2, m2, y2, g, k, w, T, R, A, C, x, _, j, U, E, S, F, M, H, N, P, V, I, W, O, L, D, q;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
-              return t2 = i2.split("~~"), o2 = t2[0], l2 = t2[1], this.lastMintRefusal = null, s2 = l2 ? "".concat(this.site, "/api/new/v2/chapters/").concat(l2) : "".concat(this.site, "/api/new/v2/series/").concat(o2), c3 = l2 ? parseInt(l2, 10) : NaN, u2 = Number.isFinite(c3) ? c3 : null, null !== this.getCachedReadToken(u2) ? [3, 2] : [4, this.mintReadToken(l2 || null, u2)];
+              return t2 = i2.split("~~"), o2 = t2[0], l2 = t2[1], s2 = b(o2), c3 = l2 && "undefined" !== l2 ? l2 : void 0, this.lastMintRefusal = null, u2 = c3 ? "".concat(this.site, "/api/new/v2/chapters/").concat(c3) : "".concat(this.site, "/api/new/v2/series/").concat(s2), d2 = c3 && /^\d+$/.test(c3) ? parseInt(c3, 10) : null, null !== this.getCachedReadToken(d2) ? [3, 2] : [4, this.mintReadToken(c3 || null, d2)];
             case 1:
               n2.sent(), n2.label = 2;
             case 2:
-              return [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })];
+              return [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })];
             case 3:
-              if (429 === (d2 = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              return this.captureReadTokenHeader(d2, u2), 403 !== d2.status ? [3, 7] : [4, this.mintReadToken(l2 || null, u2)];
+              if ((p2 = n2.sent()).ok || 404 !== p2.status) return [3, 10];
+              h2 = s2.split("/")[0], n2.label = 4;
             case 4:
-              return n2.sent() ? [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })] : [3, 6];
+              return n2.trys.push([4, 9, , 10]), [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(h2, "/chapters"))];
             case 5:
-              if (429 === (d2 = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              this.captureReadTokenHeader(d2, u2), n2.label = 6;
+              return (v2 = n2.sent()).ok ? [4, v2.json()] : [3, 8];
             case 6:
-              if (!d2.ok && 403 === d2.status) throw this.verifyInWebViewError(403 === (null === (j = this.lastMintRefusal) || void 0 === j ? void 0 : j.status) ? this.lastMintRefusal : d2);
-              n2.label = 7;
+              return m2 = n2.sent(), y2 = s2.split("/").slice(1).join("/"), g = m2.find(function(e2) {
+                var t3, n3 = e2.slug || "chapter-".concat(e2.number);
+                return e2.uuid && e2.uuid === c3 || e2.id && String(e2.id) === c3 || n3 === y2 || ((null === (t3 = e2.group) || void 0 === t3 ? void 0 : t3.slug) ? "".concat(e2.group.slug, "/").concat(n3) : n3) === y2 || n3 === s2;
+              }), (k = (null == g ? void 0 : g.uuid) || (null == g ? void 0 : g.id)) ? (u2 = "".concat(this.site, "/api/new/v2/chapters/").concat(k), [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })]) : [3, 8];
             case 7:
-              if (401 === d2.status || 503 === d2.status) throw this.verifyInWebViewError(d2);
-              return d2.ok ? [4, d2.json()] : [3, 21];
+              p2 = n2.sent(), n2.label = 8;
             case 8:
-              if (A = n2.sent(), this.captureReadTokenHeader(d2, A.id), "locked" !== A.content_format) return [3, 12];
-              if ((null === (U = A.locked) || void 0 === U ? void 0 : U.price) && A.locked.price > 0 && !(null === (S = A.bought) || void 0 === S ? void 0 : S.bought_at) && !A.bypass) throw new Error("This chapter is locked (paid). Please unlock it on Fenrir Realm first.");
-              return f2 = this.resolveRemintTarget(A, l2), p2 = A.remint_chapter_id || A.id || u2, [4, this.mintReadToken(f2, p2)];
+              return [3, 10];
             case 9:
-              return n2.sent() ? [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })] : [3, 12];
+              return n2.sent(), [3, 10];
             case 10:
-              if (429 === (b = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              return b.ok ? [4, b.json()] : [3, 12];
+              if (429 === p2.status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              return this.captureReadTokenHeader(p2, d2), 403 !== p2.status ? [3, 14] : [4, this.mintReadToken(c3 || null, d2)];
             case 11:
-              A = n2.sent(), this.captureReadTokenHeader(b, A.id), n2.label = 12;
+              return n2.sent() ? [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })] : [3, 13];
             case 12:
-              return "encrypted" !== A.content_format ? [3, 20] : [4, this.getReadToken(A.id)];
+              if (429 === (p2 = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              this.captureReadTokenHeader(p2, d2), n2.label = 13;
             case 13:
-              return h2 = n2.sent(), (v2 = h2 ? this.decryptWithToken(A, h2) : null) ? [3, 19] : (f2 = this.resolveRemintTarget(A, l2), [4, this.mintReadToken(f2, A.id)]);
+              if (!p2.ok && 403 === p2.status) throw this.verifyInWebViewError(403 === (null === (O = this.lastMintRefusal) || void 0 === O ? void 0 : O.status) ? this.lastMintRefusal : p2);
+              n2.label = 14;
             case 14:
-              return n2.sent() ? [4, (0, r.fetchApi)(s2, { headers: this.buildChapterHeaders() })] : [3, 19];
+              if (401 === p2.status || 503 === p2.status) throw this.verifyInWebViewError(p2);
+              return p2.ok ? [4, p2.json()] : [3, 28];
             case 15:
-              if (429 === (b = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              return b.ok ? [4, b.json()] : [3, 19];
+              if (P = n2.sent(), w = this.getChapterCid(P), this.captureReadTokenHeader(p2, w), "locked" !== P.content_format) return [3, 19];
+              if ((null === (L = P.locked) || void 0 === L ? void 0 : L.price) && P.locked.price > 0 && !(null === (D = P.bought) || void 0 === D ? void 0 : D.bought_at) && !P.bypass) throw new Error("This chapter is locked (paid). Please unlock it on Fenrir Realm first.");
+              return x = this.resolveRemintTarget(P, c3), T = this.getChapterCid(P) || P.remint_chapter_id || d2, [4, this.mintReadToken(x, T)];
             case 16:
-              return m = n2.sent(), this.captureReadTokenHeader(b, m.id), "encrypted" !== m.content_format ? [3, 18] : [4, this.getReadToken(m.id)];
+              return n2.sent() ? [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })] : [3, 19];
             case 17:
-              return y = n2.sent(), v2 = y ? this.decryptWithToken(m, y) : null, [3, 19];
+              if (429 === (_ = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              return _.ok ? [4, _.json()] : [3, 19];
             case 18:
-              "locked" !== m.content_format && "string" == typeof m.content && m.content && (v2 = m.content), n2.label = 19;
+              P = n2.sent(), U = this.getChapterCid(P), this.captureReadTokenHeader(_, U), n2.label = 19;
             case 19:
-              if (v2) return [2, this.formatChapterContent(v2)];
-              A = e(e({}, A), { content: "", content_format: "locked" }), n2.label = 20;
+              return "encrypted" !== P.content_format ? [3, 27] : (R = this.getChapterCid(P), [4, this.getReadToken(R)]);
             case 20:
-              if ("locked" === A.content_format) throw this.cachedReadToken = null, this.verifyInWebViewError(this.lastMintRefusal);
-              if ("string" == typeof A.content && A.content) return [2, this.formatChapterContent(A.content)];
-              n2.label = 21;
+              return A = n2.sent(), (C = A ? this.decryptWithToken(P, A) : null) ? [3, 26] : (x = this.resolveRemintTarget(P, c3), [4, this.mintReadToken(x, R)]);
             case 21:
-              return g = this.resolveUrl(i2), [4, (0, r.fetchApi)(g)];
+              return n2.sent() ? [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })] : [3, 26];
             case 22:
-              return [4, n2.sent().text()];
+              if (429 === (_ = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              return _.ok ? [4, _.json()] : [3, 26];
             case 23:
-              if (k = n2.sent(), (w = (0, a.load)(k))('[aria-hidden="true"]').remove(), w(".reader-attribution").remove(), w("[data-fr-attr]").remove(), T = w('.reader-area p, div.content-area p, [id^="reader-area"] p').map(function(e2, t3) {
-                var n3, r2 = null === (n3 = w(t3).html()) || void 0 === n3 ? void 0 : n3.trim();
-                return r2 ? "<p>".concat(r2, "</p>") : "";
-              }).get().filter(Boolean).join("\n").replace(/[\u200B-\u200D\uFEFF]/g, ""), T) return [2, T];
-              n2.label = 24;
+              return j = n2.sent(), U = this.getChapterCid(j), this.captureReadTokenHeader(_, U), "encrypted" !== j.content_format ? [3, 25] : [4, this.getReadToken(U)];
             case 24:
-              return n2.trys.push([24, 27, , 28]), R = "".concat(this.resolveUrl(i2), "/__data.json?x-sveltekit-invalidated=001"), [4, (0, r.fetchApi)(R)];
+              return E = n2.sent(), C = E ? this.decryptWithToken(j, E) : null, [3, 26];
             case 25:
-              return [4, n2.sent().json()];
+              "locked" !== j.content_format && "string" == typeof j.content && j.content && (C = j.content), n2.label = 26;
             case 26:
-              return A = n2.sent(), x = A.nodes, (C = null === (F = null == x ? void 0 : x.find(function(e2) {
-                return "data" === e2.type;
-              })) || void 0 === F ? void 0 : F.data) && (_ = C.find(function(e2) {
-                return "string" == typeof e2 && e2.includes('{"type":"doc"');
-              })) ? [2, this.formatChapterContent(_)] : [3, 28];
+              if (C) return [2, this.formatChapterContent(C)];
+              P = e(e({}, P), { content: "", content_format: "locked" }), n2.label = 27;
             case 27:
-              return n2.sent(), [3, 28];
+              if ("locked" === P.content_format) throw this.cachedReadToken = null, this.verifyInWebViewError(this.lastMintRefusal);
+              if ("string" == typeof P.content && P.content) return [2, this.formatChapterContent(P.content)];
+              n2.label = 28;
             case 28:
-              return [2, T];
+              return S = this.resolveUrl(i2), [4, (0, r.fetchApi)(S)];
+            case 29:
+              return [4, n2.sent().text()];
+            case 30:
+              if (F = n2.sent(), (M = (0, a.load)(F))('[aria-hidden="true"]').remove(), M(".reader-attribution").remove(), M("[data-fr-attr]").remove(), H = M('.reader-area p, div.content-area p, [id^="reader-area"] p').map(function(e2, t3) {
+                var n3, r2 = null === (n3 = M(t3).html()) || void 0 === n3 ? void 0 : n3.trim();
+                return r2 ? "<p>".concat(r2, "</p>") : "";
+              }).get().filter(Boolean).join("\n"), H) return [2, f(H)];
+              n2.label = 31;
+            case 31:
+              return n2.trys.push([31, 34, , 35]), N = "".concat(this.resolveUrl(i2), "/__data.json?x-sveltekit-invalidated=001"), [4, (0, r.fetchApi)(N)];
+            case 32:
+              return [4, n2.sent().json()];
+            case 33:
+              return P = n2.sent(), V = P.nodes, (I = null === (q = null == V ? void 0 : V.find(function(e2) {
+                return "data" === e2.type;
+              })) || void 0 === q ? void 0 : q.data) && (W = I.find(function(e2) {
+                return "string" == typeof e2 && e2.includes('{"type":"doc"');
+              })) ? [2, this.formatChapterContent(W)] : [3, 35];
+            case 34:
+              return n2.sent(), [3, 35];
+            case 35:
+              throw this.verifyInWebViewError(this.lastMintRefusal);
           }
         });
       });
@@ -27557,11 +27589,11 @@ var LNReaderPlugin = (() => {
         return e3.name;
       }).join(",") };
     }, c2.prototype.resolveUrl = function(e2) {
-      var t2 = e2.split("~~")[0].replace(/^([^/]+)\/([^/]+)\/\2\//, "$1/$2/");
+      var t2 = b(e2.split("~~")[0]);
       return "".concat(this.site, "/series/").concat(t2);
     }, c2;
   }();
-  exports.default = new f();
+  exports.default = new y();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

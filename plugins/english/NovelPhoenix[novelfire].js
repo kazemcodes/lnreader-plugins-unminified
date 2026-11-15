@@ -830,18 +830,18 @@ var LNReaderPlugin = (() => {
       var eBias = eMax >> 1;
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
-      var d = isLE ? -1 : 1;
+      var d2 = isLE ? -1 : 1;
       var s2 = buffer[offset + i2];
-      i2 += d;
+      i2 += d2;
       e2 = s2 & (1 << -nBits) - 1;
       s2 >>= -nBits;
       nBits += eLen;
-      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
       m = e2 & (1 << -nBits) - 1;
       e2 >>= -nBits;
       nBits += mLen;
-      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
+      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
       }
       if (e2 === 0) {
         e2 = 1 - eBias;
@@ -860,7 +860,7 @@ var LNReaderPlugin = (() => {
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
-      var d = isLE ? 1 : -1;
+      var d2 = isLE ? 1 : -1;
       var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
@@ -892,13 +892,13 @@ var LNReaderPlugin = (() => {
           e2 = 0;
         }
       }
-      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d, m /= 256, mLen -= 8) {
+      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d2, m /= 256, mLen -= 8) {
       }
       e2 = e2 << mLen | m;
       eLen += mLen;
-      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
+      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d2, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s2 * 128;
+      buffer[offset + i2 - d2] |= s2 * 128;
     };
     return exports$1;
   }
@@ -990,8 +990,8 @@ var LNReaderPlugin = (() => {
       if (valueOf != null && valueOf !== value) {
         return Buffer3.from(valueOf, encodingOrOffset, length);
       }
-      const b = fromObject(value);
-      if (b) return b;
+      const b2 = fromObject(value);
+      if (b2) return b2;
       if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function") {
         return Buffer3.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
       }
@@ -1123,22 +1123,22 @@ var LNReaderPlugin = (() => {
       return Buffer3.alloc(+length);
     }
     __name(SlowBuffer, "SlowBuffer");
-    Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
-      return b != null && b._isBuffer === true && b !== Buffer3.prototype;
+    Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b2) {
+      return b2 != null && b2._isBuffer === true && b2 !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b2) {
       if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
-      if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
+      if (isInstance(b2, Uint8Array)) b2 = Buffer3.from(b2, b2.offset, b2.byteLength);
+      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b2)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b) return 0;
+      if (a2 === b2) return 0;
       let x = a2.length;
-      let y = b.length;
+      let y = b2.length;
       for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b[i2]) {
+        if (a2[i2] !== b2[i2]) {
           x = a2[i2];
-          y = b[i2];
+          y = b2[i2];
           break;
         }
       }
@@ -1289,10 +1289,10 @@ var LNReaderPlugin = (() => {
     }
     __name(slowToString, "slowToString");
     Buffer3.prototype._isBuffer = true;
-    function swap(b, n2, m) {
-      const i2 = b[n2];
-      b[n2] = b[m];
-      b[m] = i2;
+    function swap(b2, n2, m) {
+      const i2 = b2[n2];
+      b2[n2] = b2[m];
+      b2[m] = i2;
     }
     __name(swap, "swap");
     Buffer3.prototype.swap16 = /* @__PURE__ */ __name(function swap16() {
@@ -1336,10 +1336,10 @@ var LNReaderPlugin = (() => {
       return slowToString.apply(this, arguments);
     }, "toString");
     Buffer3.prototype.toLocaleString = Buffer3.prototype.toString;
-    Buffer3.prototype.equals = /* @__PURE__ */ __name(function equals2(b) {
-      if (!Buffer3.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
-      if (this === b) return true;
-      return Buffer3.compare(this, b) === 0;
+    Buffer3.prototype.equals = /* @__PURE__ */ __name(function equals2(b2) {
+      if (!Buffer3.isBuffer(b2)) throw new TypeError("Argument must be a Buffer");
+      if (this === b2) return true;
+      return Buffer3.compare(this, b2) === 0;
     }, "equals");
     Buffer3.prototype.inspect = /* @__PURE__ */ __name(function inspect() {
       let str = "";
@@ -2578,23 +2578,23 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __extends = exports4 && exports4.__extends || /* @__PURE__ */ function() {
-        var extendStatics = /* @__PURE__ */ __name(function(d, b) {
-          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-            d2.__proto__ = b2;
-          } || function(d2, b2) {
-            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d2[p2] = b2[p2];
+        var extendStatics = /* @__PURE__ */ __name(function(d2, b2) {
+          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, b3) {
+            d3.__proto__ = b3;
+          } || function(d3, b3) {
+            for (var p2 in b3) if (Object.prototype.hasOwnProperty.call(b3, p2)) d3[p2] = b3[p2];
           };
-          return extendStatics(d, b);
+          return extendStatics(d2, b2);
         }, "extendStatics");
-        return function(d, b) {
-          if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-          extendStatics(d, b);
+        return function(d2, b2) {
+          if (typeof b2 !== "function" && b2 !== null)
+            throw new TypeError("Class extends value " + String(b2) + " is not a constructor or null");
+          extendStatics(d2, b2);
           function __() {
-            this.constructor = d;
+            this.constructor = d2;
           }
           __name(__, "__");
-          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+          d2.prototype = b2 === null ? Object.create(b2) : (__.prototype = b2.prototype, new __());
         };
       }();
       var __assign = exports4 && exports4.__assign || function() {
@@ -4707,9 +4707,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a2, b) {
+      function combineFuncs(a2, b2) {
         return function(elem) {
-          return a2(elem) || b(elem);
+          return a2(elem) || b2(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -4853,8 +4853,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i2, arr) {
           return !arr.includes(node, i2 + 1);
         });
-        nodes.sort(function(a2, b) {
-          var relative = compareDocumentPosition(a2, b);
+        nodes.sort(function(a2, b2) {
+          var relative = compareDocumentPosition(a2, b2);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -6317,8 +6317,8 @@ var LNReaderPlugin = (() => {
           } else if (token.name === "has" || token.name === "contains") {
             proc = 0;
           } else if (Array.isArray(token.data)) {
-            proc = Math.min.apply(Math, token.data.map(function(d) {
-              return Math.min.apply(Math, d.map(getProcedure));
+            proc = Math.min.apply(Math, token.data.map(function(d2) {
+              return Math.min.apply(Math, d2.map(getProcedure));
             }));
             if (proc < 0) {
               proc = 0;
@@ -6623,45 +6623,45 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
         var a2 = parsed[0];
-        var b = parsed[1] - 1;
-        if (b < 0 && a2 <= 0)
+        var b2 = parsed[1] - 1;
+        if (b2 < 0 && a2 <= 0)
           return boolbase_1.default.falseFunc;
         if (a2 === -1)
           return function(index2) {
-            return index2 <= b;
+            return index2 <= b2;
           };
         if (a2 === 0)
           return function(index2) {
-            return index2 === b;
+            return index2 === b2;
           };
         if (a2 === 1)
-          return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
-            return index2 >= b;
+          return b2 < 0 ? boolbase_1.default.trueFunc : function(index2) {
+            return index2 >= b2;
           };
         var absA = Math.abs(a2);
-        var bMod = (b % absA + absA) % absA;
+        var bMod = (b2 % absA + absA) % absA;
         return a2 > 1 ? function(index2) {
-          return index2 >= b && index2 % absA === bMod;
+          return index2 >= b2 && index2 % absA === bMod;
         } : function(index2) {
-          return index2 <= b && index2 % absA === bMod;
+          return index2 <= b2 && index2 % absA === bMod;
         };
       }
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
         var a2 = parsed[0];
-        var b = parsed[1] - 1;
+        var b2 = parsed[1] - 1;
         var n2 = 0;
         if (a2 < 0) {
           var aPos_1 = -a2;
-          var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
+          var minValue_1 = (b2 % aPos_1 + aPos_1) % aPos_1;
           return function() {
             var val2 = minValue_1 + aPos_1 * n2++;
-            return val2 > b ? null : val2;
+            return val2 > b2 ? null : val2;
           };
         }
         if (a2 === 0)
-          return b < 0 ? (
+          return b2 < 0 ? (
             // There are no result — always return `null`
             function() {
               return null;
@@ -6669,14 +6669,14 @@ var LNReaderPlugin = (() => {
           ) : (
             // Return `b` exactly once
             function() {
-              return n2++ === 0 ? b : null;
+              return n2++ === 0 ? b2 : null;
             }
           );
-        if (b < 0) {
-          b += a2 * Math.ceil(-b / a2);
+        if (b2 < 0) {
+          b2 += a2 * Math.ceil(-b2 / a2);
         }
         return function() {
-          return a2 * n2++ + b;
+          return a2 * n2++ + b2;
         };
       }
       __name(generate, "generate");
@@ -7461,15 +7461,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a2, b) {
-        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
+      function reduceRules(a2, b2) {
+        if (b2 === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
           return a2;
         }
-        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
-          return b;
+        if (a2 === boolbase_1.default.falseFunc || b2 === boolbase_1.default.trueFunc) {
+          return b2;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a2(elem) || b(elem);
+          return a2(elem) || b2(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -7519,8 +7519,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
-        return a2 === b;
+      var defaultEquals = /* @__PURE__ */ __name(function(a2, b2) {
+        return a2 === b2;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -7913,8 +7913,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
-          return __spreadArray(__spreadArray([], a2, true), b, true);
+        return DomUtils.uniqueSort(results.reduce(function(a2, b2) {
+          return __spreadArray(__spreadArray([], a2, true), b2, true);
         }));
       }
       __name(select3, "select");
@@ -18546,21 +18546,21 @@ var LNReaderPlugin = (() => {
         var parts = null, chunk = [];
         var i3 = 0, j = 0, t2;
         while (start < end2) {
-          var b = buffer[start++];
+          var b2 = buffer[start++];
           switch (j) {
             case 0:
-              chunk[i3++] = b64[b >> 2];
-              t2 = (b & 3) << 4;
+              chunk[i3++] = b64[b2 >> 2];
+              t2 = (b2 & 3) << 4;
               j = 1;
               break;
             case 1:
-              chunk[i3++] = b64[t2 | b >> 4];
-              t2 = (b & 15) << 2;
+              chunk[i3++] = b64[t2 | b2 >> 4];
+              t2 = (b2 & 15) << 2;
               j = 2;
               break;
             case 2:
-              chunk[i3++] = b64[t2 | b >> 6];
-              chunk[i3++] = b64[b & 63];
+              chunk[i3++] = b64[t2 | b2 >> 6];
+              chunk[i3++] = b64[b2 & 63];
               j = 0;
               break;
           }
@@ -19956,45 +19956,45 @@ var LNReaderPlugin = (() => {
       LongPrototype.shru = LongPrototype.shiftRightUnsigned;
       LongPrototype.shr_u = LongPrototype.shiftRightUnsigned;
       LongPrototype.rotateLeft = /* @__PURE__ */ __name(function rotateLeft(numBits) {
-        var b;
+        var b2;
         if (isLong(numBits)) numBits = numBits.toInt();
         if ((numBits &= 63) === 0) return this;
         if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
         if (numBits < 32) {
-          b = 32 - numBits;
+          b2 = 32 - numBits;
           return fromBits(
-            this.low << numBits | this.high >>> b,
-            this.high << numBits | this.low >>> b,
+            this.low << numBits | this.high >>> b2,
+            this.high << numBits | this.low >>> b2,
             this.unsigned
           );
         }
         numBits -= 32;
-        b = 32 - numBits;
+        b2 = 32 - numBits;
         return fromBits(
-          this.high << numBits | this.low >>> b,
-          this.low << numBits | this.high >>> b,
+          this.high << numBits | this.low >>> b2,
+          this.low << numBits | this.high >>> b2,
           this.unsigned
         );
       }, "rotateLeft");
       LongPrototype.rotl = LongPrototype.rotateLeft;
       LongPrototype.rotateRight = /* @__PURE__ */ __name(function rotateRight(numBits) {
-        var b;
+        var b2;
         if (isLong(numBits)) numBits = numBits.toInt();
         if ((numBits &= 63) === 0) return this;
         if (numBits === 32) return fromBits(this.high, this.low, this.unsigned);
         if (numBits < 32) {
-          b = 32 - numBits;
+          b2 = 32 - numBits;
           return fromBits(
-            this.high << b | this.low >>> numBits,
-            this.low << b | this.high >>> numBits,
+            this.high << b2 | this.low >>> numBits,
+            this.low << b2 | this.high >>> numBits,
             this.unsigned
           );
         }
         numBits -= 32;
-        b = 32 - numBits;
+        b2 = 32 - numBits;
         return fromBits(
-          this.low << b | this.high >>> numBits,
-          this.high << b | this.low >>> numBits,
+          this.low << b2 | this.high >>> numBits,
+          this.high << b2 | this.low >>> numBits,
           this.unsigned
         );
       }, "rotateRight");
@@ -22856,8 +22856,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
-        return a2.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b2) {
+        return a2.id - b2.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -25236,7 +25236,10 @@ var LNReaderPlugin = (() => {
           "Accept": "*/*",
           "Accept-Language": "*",
           "Sec-Fetch-Mode": "cors",
-          "Accept-Encoding": "gzip, deflate"
+          "Accept-Encoding": "gzip, deflate",
+          ...typeof window === "undefined" ? {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36"
+          } : {}
         };
         if (init?.headers) {
           if (init.headers instanceof Headers) {
@@ -25581,7 +25584,15 @@ var LNReaderPlugin = (() => {
     __name(i2, "i");
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.NovelFirePlugin = void 0;
-  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_constants(), __toCommonJS(constants_exports)), s = (init_storage2(), __toCommonJS(storage_exports)), u = function() {
+  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_constants(), __toCommonJS(constants_exports)), s = (init_storage2(), __toCommonJS(storage_exports)), u = /^(chapter|ch\.?)\s*\d+/i, c = /^[–—\-\s:]+/, v = /[\u200B-\u200D\uFEFF]/g;
+  function h(e2, t2) {
+    var a2 = e2.replace(c, "").trim(), l2 = String(t2).trim(), n2 = l2.match(/\d+/), r2 = n2 ? n2[0] : "";
+    if (u.test(a2) || r2.length > 0 && a2.startsWith(r2) && (a2.length === r2.length || !/\d/.test(a2[r2.length]))) return a2;
+    var o2 = "number" == typeof t2 ? "Chapter ".concat(t2) : l2.startsWith("Ch") || l2.startsWith("Chapter") ? l2 : "Chapter ".concat(l2);
+    return a2 ? "".concat(o2, " ").concat(a2) : o2;
+  }
+  __name(h, "h");
+  var p = function() {
     function e2(e3) {
       var t2, a2, l2;
       this.webStorageUtilized = true, this.novelList = /* @__PURE__ */ new Set(), this.draw = 0, this.pluginSettings = { pageLength: { value: "", label: "Page Mode (Change if Broken)", type: "Switch" }, singlePage: { value: "", label: "Force load all chapters on a single page (Slower & use more data)", type: "Switch" } }, this.singlePage = s.storage.get("singlePage"), this.pageLength = s.storage.get("pageLength"), this.id = e3.id, this.name = e3.sourceName, this.icon = "multisrc/novelfire/".concat(e3.id.toLowerCase(), "/icon.png"), this.site = e3.sourceSite;
@@ -25609,51 +25620,53 @@ var LNReaderPlugin = (() => {
       var l2, n2, r2;
       void 0 === t2 && (t2 = ".novel-item"), void 0 === a2 && (a2 = false);
       for (var o2 = [], s2 = 0, u2 = e3(t2).toArray(); s2 < u2.length; s2++) {
-        var c2 = e3(u2[s2]), v2 = null !== (l2 = c2.find("a").attr("title")) && void 0 !== l2 ? l2 : c2.find("h4").text().trim(), p2 = null !== (n2 = c2.children("a").attr("href")) && void 0 !== n2 ? n2 : c2.find("h4 a").attr("href");
-        if (p2) {
-          var h = new URL(p2, this.site).pathname.substring(1);
-          if (a2) this.novelList.add(h);
+        var c2 = e3(u2[s2]), v2 = null !== (l2 = c2.find("a").attr("title")) && void 0 !== l2 ? l2 : c2.find("h4").text().trim(), h2 = null !== (n2 = c2.children("a").attr("href")) && void 0 !== n2 ? n2 : c2.find("h4 a").attr("href");
+        if (h2) {
+          var p2 = new URL(h2, this.site).pathname.substring(1);
+          if (a2) this.novelList.add(p2);
           else {
-            if (this.novelList.has(h)) continue;
-            this.novelList.add(h);
+            if (this.novelList.has(p2)) continue;
+            this.novelList.add(p2);
           }
-          var d = c2.find(".novel-cover > img"), b = null !== (r2 = d.attr("data-src")) && void 0 !== r2 ? r2 : d.attr("src"), g = b ? new URL(b, this.site).href : i.defaultCover;
-          o2.push({ name: v2, cover: g, path: h });
+          var d2 = c2.find(".novel-cover > img"), b2 = null !== (r2 = d2.attr("data-src")) && void 0 !== r2 ? r2 : d2.attr("src"), g2 = b2 ? new URL(b2, this.site).href : i.defaultCover;
+          o2.push({ name: v2, cover: g2, path: p2 });
         }
       }
       return o2;
     }, e2.prototype.popularNovels = function(e3, t2) {
       return a(this, arguments, void 0, function(e4, t3) {
-        var a2, n2, r2, o2, i2, s2, u2, c2, v2, p2, h, d, b, g, f, m, w, y, S, x, N, _, C, k, A, P, L = t3.showLatestNovels, M = t3.filters;
+        var a2, n2, r2, o2, i2, s2, u2, c2, v2, h2, p2, d2, b2, g2, f, m, w, y, x, S, N, C, _, k, A, P, L = t3.showLatestNovels, M = t3.filters;
         return l(this, function(t4) {
           switch (t4.label) {
             case 0:
               for (1 === e4 && (this.novelList.clear(), this.draw = 0), a2 = this.site + "search-adv", n2 = new URLSearchParams(), r2 = 0, o2 = (null === (f = null == M ? void 0 : M.language) || void 0 === f ? void 0 : f.value) || []; r2 < o2.length; r2++) i2 = o2[r2], n2.append("country_id[]", i2);
               for (n2.append("ctgcon", (null === (m = null == M ? void 0 : M.genre_operator) || void 0 === m ? void 0 : m.value) || "and"), s2 = 0, u2 = (null === (w = null == M ? void 0 : M.genres) || void 0 === w ? void 0 : w.value) || []; s2 < u2.length; s2++) c2 = u2[s2], n2.append("categories[]", c2);
-              for (n2.append("totalchapter", (null === (y = null == M ? void 0 : M.chapters) || void 0 === y ? void 0 : y.value) || "0"), n2.append("ratcon", (null === (S = null == M ? void 0 : M.rating_operator) || void 0 === S ? void 0 : S.value) || "min"), n2.append("rating", (null === (x = null == M ? void 0 : M.rating) || void 0 === x ? void 0 : x.value) || "0"), n2.append("status", (null === (N = null == M ? void 0 : M.status) || void 0 === N ? void 0 : N.value) || "-1"), n2.append("sort", L ? "date" : (null === (_ = null == M ? void 0 : M.sort) || void 0 === _ ? void 0 : _.value) || "rank-top"), n2.append("tagcon", (null === (C = null == M ? void 0 : M.tagcon) || void 0 === C ? void 0 : C.value) || "and"), v2 = 0, p2 = (null === (k = null == M ? void 0 : M.tags) || void 0 === k ? void 0 : k.value) || []; v2 < p2.length; v2++) b = p2[v2], n2.append("tags[]", b);
-              for (h = 0, d = (null === (A = null == M ? void 0 : M.tags_excluded) || void 0 === A ? void 0 : A.value) || []; h < d.length; h++) b = d[h], n2.append("tags_excluded[]", b);
+              for (n2.append("totalchapter", (null === (y = null == M ? void 0 : M.chapters) || void 0 === y ? void 0 : y.value) || "0"), n2.append("ratcon", (null === (x = null == M ? void 0 : M.rating_operator) || void 0 === x ? void 0 : x.value) || "min"), n2.append("rating", (null === (S = null == M ? void 0 : M.rating) || void 0 === S ? void 0 : S.value) || "0"), n2.append("status", (null === (N = null == M ? void 0 : M.status) || void 0 === N ? void 0 : N.value) || "-1"), n2.append("sort", L ? "date" : (null === (C = null == M ? void 0 : M.sort) || void 0 === C ? void 0 : C.value) || "rank-top"), n2.append("tagcon", (null === (_ = null == M ? void 0 : M.tagcon) || void 0 === _ ? void 0 : _.value) || "and"), v2 = 0, h2 = (null === (k = null == M ? void 0 : M.tags) || void 0 === k ? void 0 : k.value) || []; v2 < h2.length; v2++) b2 = h2[v2], n2.append("tags[]", b2);
+              for (p2 = 0, d2 = (null === (A = null == M ? void 0 : M.tags_excluded) || void 0 === A ? void 0 : A.value) || []; p2 < d2.length; p2++) b2 = d2[p2], n2.append("tags_excluded[]", b2);
               return (null === (P = null == M ? void 0 : M.author) || void 0 === P ? void 0 : P.value) && n2.append("author", M.author.value), n2.append("page", e4.toString()), [4, this.getCheerio("".concat(a2, "?").concat(n2.toString()), false)];
             case 1:
-              return g = t4.sent(), [2, this.parseNovels(g, ".novel-item", 1 === e4)];
+              return g2 = t4.sent(), [2, this.parseNovels(g2, ".novel-item", 1 === e4)];
           }
         });
       });
     }, e2.prototype.getAllChapters = function(e3, t2, o2) {
       return a(this, void 0, void 0, function() {
-        var a2, i2, s2, u2, p2, h;
+        var a2, i2, s2, u2, c2, p2;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
               return a2 = this.pageLength ? 100 : -1, i2 = "".concat(this.site, "ajax/listChapterDataAjax"), s2 = -1 === a2 ? 0 : (parseInt(o2) - 1) * a2, this.draw++, u2 = new URLSearchParams({ draw: this.draw.toString(), "columns[0][data]": "n_sort", "columns[0][name]": "cmm_posts_detail.n_sort", "columns[0][searchable]": "true", "columns[0][orderable]": "true", "columns[0][search][value]": "", "columns[0][search][regex]": "false", "columns[1][data]": "bookmark_created_at", "columns[1][name]": "bookmark_chapters.created_at", "columns[1][searchable]": "false", "columns[1][orderable]": "true", "columns[1][search][value]": "", "columns[1][search][regex]": "false", "order[0][column]": "0", "order[0][dir]": "asc", "order[0][name]": "cmm_posts_detail.n_sort", start: s2.toString(), length: a2.toString(), "search[value]": "", "search[regex]": "false", post_id: t2, only_bookmark: "false", _: Date.now().toString() }), [4, (0, r.fetchApi)("".concat(i2, "?").concat(u2.toString()))];
             case 1:
-              if (429 === (p2 = l2.sent()).status) throw new c();
-              return [4, p2.text()];
+              if (429 === (c2 = l2.sent()).status) throw new d();
+              return [4, c2.text()];
             case 2:
-              if ((h = l2.sent()).includes("You are being rate limited")) throw new c();
-              if (h.includes("Page Not Found 404")) throw new v();
-              return [2, (JSON.parse(h).data || []).flatMap(function(t3) {
-                var a3 = (0, n.load)(t3.title || t3.slug).text().replace(/[\u200B-\u200D\uFEFF]/g, "").trim(), l3 = Number(t3.n_sort);
-                return a3 && !isNaN(l3) ? [{ name: a3, path: "".concat(e3, "/chapter-").concat(l3), chapterNumber: l3 }] : [];
+              if ((p2 = l2.sent()).includes("You are being rate limited")) throw new d();
+              if (p2.includes("Page Not Found 404")) throw new b();
+              return [2, (JSON.parse(p2).data || []).flatMap(function(t3) {
+                var a3 = Number(t3.n_sort);
+                if (isNaN(a3)) return [];
+                var l3 = t3.title || t3.slug || "";
+                return [{ name: h((l3.includes("<") || l3.includes("&") ? (0, n.load)(l3).text() : l3).replace(v, "").trim(), a3), path: "".concat(e3, "/chapter-").concat(a3), chapterNumber: a3 }];
               }).sort(function(e4, t3) {
                 return (e4.chapterNumber || 0) - (t3.chapterNumber || 0);
               })];
@@ -25662,7 +25675,7 @@ var LNReaderPlugin = (() => {
       });
     }, e2.prototype.getAllChaptersForce = function(e3, t2) {
       return a(this, void 0, void 0, function() {
-        var a2, n2, r2, o2, i2, s2, u2, v2, p2, h, d, b, g, f, m, w, y, S, x, N = this;
+        var a2, n2, r2, o2, i2, s2, u2, c2, v2, h2, p2, b2, g2, f, m, w, y, x, S, N = this;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
@@ -25671,26 +25684,26 @@ var LNReaderPlugin = (() => {
               }), n2 = [], r2 = 5, o2 = 10, i2 = 3.5, s2 = [], u2 = 0, l2.label = 1;
             case 1:
               if (!(u2 < a2.length)) return [3, 11];
-              v2 = a2.slice(u2, u2 + r2), p2 = v2[0], h = v2[v2.length - 1], d = 0, l2.label = 2;
+              c2 = a2.slice(u2, u2 + r2), v2 = c2[0], h2 = c2[c2.length - 1], p2 = 0, l2.label = 2;
             case 2:
-              if (!(d < o2)) return [3, 10];
+              if (!(p2 < o2)) return [3, 10];
               l2.label = 3;
             case 3:
-              return l2.trys.push([3, 5, , 9]), [4, Promise.all(v2.map(function(t3) {
+              return l2.trys.push([3, 5, , 9]), [4, Promise.all(c2.map(function(t3) {
                 return N.parsePage(e3, t3.toString());
               }))];
             case 4:
-              return b = l2.sent(), s2.push.apply(s2, b), [3, 10];
+              return b2 = l2.sent(), s2.push.apply(s2, b2), [3, 10];
             case 5:
-              if (!((g = l2.sent()) instanceof c)) return [3, 7];
-              if (d += 1, console.warn("[pages=".concat(p2, "-").concat(h, "] Novel Fire is rate limiting requests. Retry attempt ").concat(d + 1, " in ").concat(i2, " seconds...")), d === o2) throw g;
+              if (!((g2 = l2.sent()) instanceof d)) return [3, 7];
+              if (p2 += 1, console.warn("[pages=".concat(v2, "-").concat(h2, "] Novel Fire is rate limiting requests. Retry attempt ").concat(p2 + 1, " in ").concat(i2, " seconds...")), p2 === o2) throw g2;
               return [4, new Promise(function(e4) {
                 return setTimeout(e4, 1e3 * i2);
               })];
             case 6:
               return l2.sent(), [3, 8];
             case 7:
-              throw g;
+              throw g2;
             case 8:
               return [3, 9];
             case 9:
@@ -25698,14 +25711,14 @@ var LNReaderPlugin = (() => {
             case 10:
               return u2 += r2, [3, 1];
             case 11:
-              for (f = 0, m = s2; f < m.length; f++) if ((w = m[f]).chapters) for (y = 0, S = w.chapters; y < S.length; y++) x = S[y], n2.push(x);
+              for (f = 0, m = s2; f < m.length; f++) if ((w = m[f]).chapters) for (y = 0, x = w.chapters; y < x.length; y++) S = x[y], n2.push(S);
               return [2, n2];
           }
         });
       });
     }, e2.prototype.parseNovel = function(e3) {
       return a(this, void 0, void 0, function() {
-        var t2, a2, n2, r2, u2, c2, v2, p2, h, d, b, g, f, m, w, y, S;
+        var t2, a2, n2, r2, u2, c2, v2, h2, p2, d2, b2, g2, f, m, w, y, x;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
@@ -25715,13 +25728,13 @@ var LNReaderPlugin = (() => {
                 return t2(a3).text();
               }).toArray().join(","), (c2 = t2(".summary .content")).find(".expand").remove(), c2.find("br").replaceWith("\n"), c2.find("p").before("\n").after("\n\n"), r2.summary = (null === (y = c2.text().split("\n").map(function(e4) {
                 return e4.trim();
-              }).join("\n")) || void 0 === y ? void 0 : y.replace(/\n{3,}/g, "\n\n").trim()) || "Summary Not Found", r2.author = t2(".author .property-item > span").text(), v2 = t2(".header-stats .ongoing").text() || t2(".header-stats .completed").text() || "Unknown", p2 = { ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled, cancelled: o.NovelStatus.Cancelled, completed: o.NovelStatus.Completed, unknown: o.NovelStatus.Unknown }, r2.status = null !== (S = p2[v2.toLowerCase()]) && void 0 !== S ? S : o.NovelStatus.Unknown, r2.rating = parseFloat(t2(".nub").text().trim()), h = t2(".header-stats i.icon-book-open").parent().text().trim(), d = this.pageLength ? 100 : -1, r2.totalPages = -1 === d ? 1 : Math.ceil(parseInt(h) / d) || 1, 1 === r2.totalPages && n2 ? (b = r2, [4, this.getAllChapters(e3, n2, "1")]) : [3, 3];
+              }).join("\n")) || void 0 === y ? void 0 : y.replace(/\n{3,}/g, "\n\n").trim()) || "Summary Not Found", r2.author = t2(".author .property-item > span").text(), v2 = t2(".header-stats .ongoing").text() || t2(".header-stats .completed").text() || "Unknown", h2 = { ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled, cancelled: o.NovelStatus.Cancelled, completed: o.NovelStatus.Completed, unknown: o.NovelStatus.Unknown }, r2.status = null !== (x = h2[v2.toLowerCase()]) && void 0 !== x ? x : o.NovelStatus.Unknown, r2.rating = parseFloat(t2(".nub").text().trim()), p2 = t2(".header-stats i.icon-book-open").parent().text().trim(), d2 = this.pageLength ? 100 : -1, r2.totalPages = -1 === d2 ? 1 : Math.ceil(parseInt(p2) / d2) || 1, 1 === r2.totalPages && n2 ? (b2 = r2, [4, this.getAllChapters(e3, n2, "1")]) : [3, 3];
             case 2:
-              b.chapters = l2.sent(), l2.label = 3;
+              b2.chapters = l2.sent(), l2.label = 3;
             case 3:
-              return 100 === d && this.singlePage ? (g = r2, [4, this.getAllChaptersForce(r2.path, r2.totalPages)]) : [3, 5];
+              return 100 === d2 && this.singlePage ? (g2 = r2, [4, this.getAllChaptersForce(r2.path, r2.totalPages)]) : [3, 5];
             case 4:
-              g.chapters = l2.sent(), r2.totalPages = 1, l2.label = 5;
+              g2.chapters = l2.sent(), r2.totalPages = 1, l2.label = 5;
             case 5:
               return [2, r2];
           }
@@ -25729,7 +25742,7 @@ var LNReaderPlugin = (() => {
       });
     }, e2.prototype.parsePage = function(e3, t2) {
       return a(this, void 0, void 0, function() {
-        var a2, o2, i2, u2, c2 = this;
+        var a2, o2, i2, u2, c2, v2 = this;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
@@ -25738,7 +25751,7 @@ var LNReaderPlugin = (() => {
             case 1:
               return l2.trys.push([1, 3, , 4]), [4, this.getAllChapters(e3, String(a2), t2)];
             case 2:
-              return [2, { chapters: l2.sent() }];
+              return [2, { chapters: c2 = l2.sent() }];
             case 3:
               return l2.sent(), [3, 4];
             case 4:
@@ -25746,12 +25759,14 @@ var LNReaderPlugin = (() => {
             case 5:
               return [4, l2.sent().text()];
             case 6:
-              return i2 = l2.sent(), u2 = (0, n.load)(i2), [2, { chapters: u2(".chapter-list li").map(function(e4, t3) {
-                var a3 = u2(t3).find("a").attr("title") || "No Title Found", l3 = u2(t3).find("a").attr("href");
-                return l3 ? { name: a3, path: new URL(l3, c2.site).pathname.substring(1) } : null;
+              return i2 = l2.sent(), u2 = (0, n.load)(i2), c2 = u2(".chapter-list li").map(function(e4, t3) {
+                var a3, l3 = u2(t3), n2 = l3.find("a"), r2 = n2.attr("href");
+                if (!r2) return null;
+                var o3 = l3.find(".chapter-no").text().trim(), i3 = l3.find(".chapter-title").text().trim(), s2 = (null === (a3 = n2.attr("title")) || void 0 === a3 ? void 0 : a3.trim()) || "";
+                return { name: o3 && i3 ? h(i3, o3) : o3 && s2 ? h(s2, o3) : s2 || (o3 || (i3 || (n2.text().replace(/\s+/g, " ").trim() || "No Title Found"))), path: new URL(r2, v2.site).pathname.substring(1) };
               }).get().filter(function(e4) {
                 return null !== e4;
-              }) }];
+              }), [2, { chapters: c2 }];
             case 7:
               return [2, { chapters: [] }];
           }
@@ -25759,7 +25774,7 @@ var LNReaderPlugin = (() => {
       });
     }, e2.prototype.parseChapter = function(e3) {
       return a(this, void 0, void 0, function() {
-        var t2, a2, n2, r2, o2, i2, s2, u2, c2, v2, p2, h;
+        var t2, a2, n2, r2, o2, i2, s2, u2, c2, v2, h2, p2;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
@@ -25770,9 +25785,9 @@ var LNReaderPlugin = (() => {
               a2 = l2.sent(), l2.label = 3;
             case 3:
               if (0 === (o2 = a2("#content")).length) throw new Error("Chapter content container (#content) not found for ".concat(e3, " \u2014 possible transient fetch issue. Retry"));
-              for (i2 = o2.find(":not(p, h1, span, i, b, u, img, a, div, strong)"), s2 = 0, u2 = i2.toArray(); s2 < u2.length; s2++) c2 = u2[s2], (v2 = c2.name.toString()).length > 5 && "nf" == v2.substring(0, 1) && a2(c2).remove();
-              if (!(p2 = null === (h = o2.html()) || void 0 === h ? void 0 : h.replace(/&nbsp;/g, " ")) || 0 === p2.trim().length) throw new Error("Chapter content was empty after parsing for ".concat(e3, "."));
-              return [2, p2];
+              for (i2 = o2.find(":not(p, h1, span, i, b, u, img, a, div, strong)"), s2 = 0, u2 = i2.toArray(); s2 < u2.length; s2++) c2 = u2[s2], (v2 = c2.name.toString()).length > 5 && v2.startsWith("nf") && a2(c2).remove();
+              if (!(h2 = null === (p2 = o2.html()) || void 0 === p2 ? void 0 : p2.replace(/&nbsp;/g, " ")) || 0 === h2.trim().length) throw new Error("Chapter content was empty after parsing for ".concat(e3, "."));
+              return [2, h2];
           }
         });
       });
@@ -25792,8 +25807,8 @@ var LNReaderPlugin = (() => {
       });
     }, e2;
   }();
-  exports.NovelFirePlugin = u;
-  var c = function(e2) {
+  exports.NovelFirePlugin = p;
+  var d = function(e2) {
     function a2(t2) {
       void 0 === t2 && (t2 = "Novel Fire is rate limiting requests");
       var a3 = e2.call(this, t2) || this;
@@ -25801,7 +25816,7 @@ var LNReaderPlugin = (() => {
     }
     __name(a2, "a");
     return t(a2, e2), a2;
-  }(Error), v = function(e2) {
+  }(Error), b = function(e2) {
     function a2(t2) {
       void 0 === t2 && (t2 = "Novel Fire says its Ajax interface is not found");
       var a3 = e2.call(this, t2) || this;
@@ -25809,8 +25824,8 @@ var LNReaderPlugin = (() => {
     }
     __name(a2, "a");
     return t(a2, e2), a2;
-  }(Error), p = new u({ id: "novelphoenix", sourceSite: "https://novelphoenix.com/", sourceName: "Novel Phoenix", options: { lang: "English", versionIncrement: 2 }, filters: { sort: { label: "Sort Results By", value: "rank-top", options: [{ label: "Last Updated (Newest)", value: "date" }, { label: "Rank (Top)", value: "rank-top" }, { label: "Rating Score (Top)", value: "rating-score-top" }, { label: "Review Count (Most)", value: "review" }, { label: "Comment Count (Most)", value: "comment" }, { label: "Bookmark Count (Most)", value: "bookmark" }, { label: "Today Views (Most)", value: "today-view" }, { label: "Monthly Views (Most)", value: "monthly-view" }, { label: "Total Views (Most)", value: "total-view" }, { label: "Chapter Count (Most)", value: "chapter-count-most" }, { label: "Title (A>Z)", value: "abc" }, { label: "Title (Z>A)", value: "cba" }], type: "Picker" }, status: { label: "Translation Status", value: "-1", options: [{ label: "All", value: "-1" }, { label: "Completed", value: "1" }, { label: "Ongoing", value: "0" }], type: "Picker" }, language: { label: "Language", value: [], options: [{ label: "Chinese Novel", value: "1" }, { label: "Japanese Novel", value: "3" }, { label: "English Novel", value: "4" }], type: "Checkbox" }, genre_operator: { label: "Genres (And/Or/Exclude)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }, { label: "EXCLUDE", value: "exclude" }], type: "Picker" }, genres: { label: "Genres", value: [], options: [{ label: "Action", value: "3" }, { label: "Adult", value: "28" }, { label: "Adventure", value: "4" }, { label: "Anime", value: "46" }, { label: "Arts", value: "47" }, { label: "Comedy", value: "5" }, { label: "Drama", value: "24" }, { label: "Eastern", value: "44" }, { label: "Ecchi", value: "26" }, { label: "Fan-fiction", value: "48" }, { label: "Fantasy", value: "6" }, { label: "Game", value: "19" }, { label: "Gender Bender", value: "25" }, { label: "Harem", value: "7" }, { label: "Historical", value: "12" }, { label: "Horror", value: "37" }, { label: "Isekai", value: "49" }, { label: "Josei", value: "2" }, { label: "Lgbt+", value: "45" }, { label: "Magic", value: "50" }, { label: "Magical realism", value: "51" }, { label: "Manhua", value: "52" }, { label: "Martial Arts", value: "15" }, { label: "Mature", value: "8" }, { label: "Mecha", value: "34" }, { label: "Military", value: "53" }, { label: "Modern life", value: "54" }, { label: "Movies", value: "55" }, { label: "Mystery", value: "16" }, { label: "Other", value: "64" }, { label: "Psychological", value: "9" }, { label: "Realistic fiction", value: "56" }, { label: "Reincarnation", value: "43" }, { label: "Romance", value: "1" }, { label: "School Life", value: "21" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "10" }, { label: "Shoujo", value: "38" }, { label: "Shoujo ai", value: "57" }, { label: "Shounen", value: "17" }, { label: "Shounen Ai", value: "39" }, { label: "Slice of Life", value: "13" }, { label: "Smut", value: "29" }, { label: "Sports", value: "42" }, { label: "Supernatural", value: "18" }, { label: "System", value: "58" }, { label: "Tragedy", value: "32" }, { label: "Urban", value: "63" }, { label: "Urban life", value: "59" }, { label: "Video games", value: "60" }, { label: "War", value: "61" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "23" }, { label: "Xuanhuan", value: "22" }, { label: "Yaoi", value: "14" }, { label: "Yuri", value: "62" }], type: "Checkbox" }, chapters: { label: "Chapters", value: "0", options: [{ label: "All", value: "0" }, { label: "<50", value: "1,49" }, { label: "50-100", value: "50,100" }, { label: "100-200", value: "100,200" }, { label: "200-500", value: "200,500" }, { label: "500-1000", value: "500,1000" }, { label: ">1000", value: "1001,1000000" }], type: "Picker" }, rating_operator: { label: "Rating (Min/Max)", value: "min", options: [{ label: "min", value: "min" }, { label: "max", value: "max" }], type: "Picker" }, rating: { label: "Rating", value: "0", options: [{ label: "none", value: "0" }, { label: "1", value: "1" }, { label: "2", value: "2" }, { label: "3", value: "3" }, { label: "4", value: "4" }, { label: "5", value: "5" }], type: "Picker" }, tagcon: { label: "Tags (And/Or)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }], type: "Picker" }, author: { label: "Author", value: "", type: "Text" } } });
-  exports.default = p;
+  }(Error), g = new p({ id: "novelphoenix", sourceSite: "https://novelphoenix.com/", sourceName: "Novel Phoenix", options: { lang: "English", versionIncrement: 3 }, filters: { sort: { label: "Sort Results By", value: "rank-top", options: [{ label: "Last Updated (Newest)", value: "date" }, { label: "Rank (Top)", value: "rank-top" }, { label: "Rating Score (Top)", value: "rating-score-top" }, { label: "Review Count (Most)", value: "review" }, { label: "Comment Count (Most)", value: "comment" }, { label: "Bookmark Count (Most)", value: "bookmark" }, { label: "Today Views (Most)", value: "today-view" }, { label: "Monthly Views (Most)", value: "monthly-view" }, { label: "Total Views (Most)", value: "total-view" }, { label: "Chapter Count (Most)", value: "chapter-count-most" }, { label: "Title (A>Z)", value: "abc" }, { label: "Title (Z>A)", value: "cba" }], type: "Picker" }, status: { label: "Translation Status", value: "-1", options: [{ label: "All", value: "-1" }, { label: "Completed", value: "1" }, { label: "Ongoing", value: "0" }], type: "Picker" }, language: { label: "Language", value: [], options: [{ label: "Chinese Novel", value: "1" }, { label: "Japanese Novel", value: "3" }, { label: "English Novel", value: "4" }], type: "Checkbox" }, genre_operator: { label: "Genres (And/Or/Exclude)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }, { label: "EXCLUDE", value: "exclude" }], type: "Picker" }, genres: { label: "Genres", value: [], options: [{ label: "Action", value: "3" }, { label: "Adult", value: "28" }, { label: "Adventure", value: "4" }, { label: "Anime", value: "46" }, { label: "Arts", value: "47" }, { label: "Comedy", value: "5" }, { label: "Drama", value: "24" }, { label: "Eastern", value: "44" }, { label: "Ecchi", value: "26" }, { label: "Fan-fiction", value: "48" }, { label: "Fantasy", value: "6" }, { label: "Game", value: "19" }, { label: "Gender Bender", value: "25" }, { label: "Harem", value: "7" }, { label: "Historical", value: "12" }, { label: "Horror", value: "37" }, { label: "Isekai", value: "49" }, { label: "Josei", value: "2" }, { label: "Lgbt+", value: "45" }, { label: "Magic", value: "50" }, { label: "Magical realism", value: "51" }, { label: "Manhua", value: "52" }, { label: "Martial Arts", value: "15" }, { label: "Mature", value: "8" }, { label: "Mecha", value: "34" }, { label: "Military", value: "53" }, { label: "Modern life", value: "54" }, { label: "Movies", value: "55" }, { label: "Mystery", value: "16" }, { label: "Other", value: "64" }, { label: "Psychological", value: "9" }, { label: "Realistic fiction", value: "56" }, { label: "Reincarnation", value: "43" }, { label: "Romance", value: "1" }, { label: "School Life", value: "21" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "10" }, { label: "Shoujo", value: "38" }, { label: "Shoujo ai", value: "57" }, { label: "Shounen", value: "17" }, { label: "Shounen Ai", value: "39" }, { label: "Slice of Life", value: "13" }, { label: "Smut", value: "29" }, { label: "Sports", value: "42" }, { label: "Supernatural", value: "18" }, { label: "System", value: "58" }, { label: "Tragedy", value: "32" }, { label: "Urban", value: "63" }, { label: "Urban life", value: "59" }, { label: "Video games", value: "60" }, { label: "War", value: "61" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "23" }, { label: "Xuanhuan", value: "22" }, { label: "Yaoi", value: "14" }, { label: "Yuri", value: "62" }], type: "Checkbox" }, chapters: { label: "Chapters", value: "0", options: [{ label: "All", value: "0" }, { label: "<50", value: "1,49" }, { label: "50-100", value: "50,100" }, { label: "100-200", value: "100,200" }, { label: "200-500", value: "200,500" }, { label: "500-1000", value: "500,1000" }, { label: ">1000", value: "1001,1000000" }], type: "Picker" }, rating_operator: { label: "Rating (Min/Max)", value: "min", options: [{ label: "min", value: "min" }, { label: "max", value: "max" }], type: "Picker" }, rating: { label: "Rating", value: "0", options: [{ label: "none", value: "0" }, { label: "1", value: "1" }, { label: "2", value: "2" }, { label: "3", value: "3" }, { label: "4", value: "4" }, { label: "5", value: "5" }], type: "Picker" }, tagcon: { label: "Tags (And/Or)", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }], type: "Picker" }, author: { label: "Author", value: "", type: "Text" } } });
+  exports.default = g;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

@@ -25236,7 +25236,10 @@ var LNReaderPlugin = (() => {
           "Accept": "*/*",
           "Accept-Language": "*",
           "Sec-Fetch-Mode": "cors",
-          "Accept-Encoding": "gzip, deflate"
+          "Accept-Encoding": "gzip, deflate",
+          ...typeof window === "undefined" ? {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36"
+          } : {}
         };
         if (init?.headers) {
           if (init.headers instanceof Headers) {
@@ -25473,23 +25476,24 @@ var LNReaderPlugin = (() => {
     __name(s, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.FictioneerPlugin = void 0;
-  var cheerio_1 = (init_browser(), __toCommonJS(browser_exports)), fetch_1 = (init_fetch2(), __toCommonJS(fetch_exports)), novelStatus_1 = (init_novelStatus(), __toCommonJS(novelStatus_exports)), defaultSelectors = { browseCard: "#featured-list > li > div > div, #list-of-stories > li > div > div", searchCard: "#search-result-list > li > div > div", cardTitle: "h3 > a", cardCover: "a.cell-img:has(img)", novelTitle: "h1.story__identity-title", novelAuthor: "div.story__identity-meta", novelCover: "figure.story__thumbnail > a", novelSummary: "section.story__summary" }, FictioneerPlugin2 = function() {
+  var cheerio_1 = (init_browser(), __toCommonJS(browser_exports)), fetch_1 = (init_fetch2(), __toCommonJS(fetch_exports)), novelStatus_1 = (init_novelStatus(), __toCommonJS(novelStatus_exports)), defaultSelectors = { browseCard: "#featured-list > li > div > div, #list-of-stories > li > div > div", searchCard: "#search-result-list > li > div > div", cardTitle: "h3 > a", cardCover: "a.cell-img:has(img)", novelTitle: "h1.story__identity-title, h1.story__title", novelAuthor: "div.story__identity-meta, .story__author, .chapter__author", novelCover: "figure.story__thumbnail > a", novelSummary: "section.story__summary" }, FictioneerPlugin2 = function() {
     function FictioneerPlugin(e) {
       var t, r, i = this;
       this.filters = void 0, this.resolveUrl = function(e2) {
-        return i.site.replace(/\/+$/, "") + "/" + e2.replace(/^\/+|\/+$/g, "") + "/";
+        var t2 = e2.split("?"), r2 = t2[0], o2 = t2[1], n = r2 ? r2.replace(/^\/+|\/+$/g, "") + "/" : "";
+        return i.site.replace(/\/+$/, "") + "/" + n + (o2 ? "?" + o2 : "");
       }, this.id = e.id, this.name = e.sourceName, this.icon = "multisrc/fictioneer/".concat(e.id.toLowerCase(), "/icon.png"), this.site = e.sourceSite;
       var o = (null === (t = e.options) || void 0 === t ? void 0 : t.versionIncrements) || 0;
-      this.version = "1.2.".concat(0 + o), this.options = e.options, this.selectors = __assign(__assign({}, defaultSelectors), null === (r = e.options) || void 0 === r ? void 0 : r.selectors);
+      this.version = "1.3.".concat(0 + o), this.options = e.options, this.selectors = __assign(__assign({}, defaultSelectors), null === (r = e.options) || void 0 === r ? void 0 : r.selectors);
     }
     __name(FictioneerPlugin, "FictioneerPlugin");
     return FictioneerPlugin.prototype.toPath = function(e) {
-      var t = new URL(e, this.site).pathname.substring(1);
-      return this.options.trimTrailingSlash ? t.replace(/\/$/, "") : t;
+      var t = (e.startsWith(this.site) ? e.slice(this.site.length) : new URL(e, this.site).pathname).replace(/^\/+|\/+$/g, "");
+      return this.options.trimTrailingSlash ? t : t + "/";
     }, FictioneerPlugin.prototype.parseNovels = function(e, t) {
       var r = this;
       return e(t).map(function(t2, i) {
-        var o = e(i), n = o.find(r.selectors.cardTitle), a = n.text(), s = o.find(r.selectors.cardCover), c = s.attr("data-src") || s.attr("src") || s.attr("href"), l = n.attr("href");
+        var o = e(i), n = o.find(r.selectors.cardTitle), a = n.text().trim(), s = o.find(r.selectors.cardCover), c = s.attr("data-src") || s.attr("src") || s.attr("href"), l = n.attr("href");
         if (l) return { name: a, cover: c, path: r.toPath(l) };
       }).toArray();
     }, FictioneerPlugin.prototype.popularNovels = function(e, t) {
@@ -25498,13 +25502,13 @@ var LNReaderPlugin = (() => {
         return __generator(this, function(t3) {
           switch (t3.label) {
             case 0:
-              return a ? [4, (0, fetch_1.fetchApi)(this.site + "/".concat(1 === e2 ? "" : "page/" + e2 + "/", "?s=&post_type=fcn_story&orderby=modified&order=desc"))] : [3, 3];
+              return a ? [4, (0, fetch_1.fetchApi)(this.resolveUrl("".concat(1 === e2 ? "" : "page/" + e2 + "/", "?s=&post_type=fcn_story&orderby=modified&order=desc")))] : [3, 3];
             case 1:
               return [4, t3.sent().text()];
             case 2:
               return r = t3.sent(), i = (0, cheerio_1.load)(r), [2, this.parseNovels(i, this.selectors.searchCard)];
             case 3:
-              return [4, (0, fetch_1.fetchApi)(this.site + "/" + this.options.browsePage + "/" + (1 === e2 ? "" : "page/" + e2 + "/"))];
+              return [4, (0, fetch_1.fetchApi)(this.resolveUrl("".concat(this.options.browsePage, "/").concat(1 === e2 ? "" : "page/" + e2 + "/")))];
             case 4:
               return [4, t3.sent().text()];
             case 5:
@@ -25518,33 +25522,45 @@ var LNReaderPlugin = (() => {
         return __generator(this, function(h) {
           switch (h.label) {
             case 0:
-              return [4, (0, fetch_1.fetchApi)(this.site + "/" + e + "/")];
+              return [4, (0, fetch_1.fetchApi)(this.resolveUrl(e))];
             case 1:
               return [4, h.sent().text()];
             case 2:
-              return t = h.sent(), r = (0, cheerio_1.load)(t), i = { path: e, name: r(this.selectors.novelTitle).text() }, o = r(this.selectors.novelAuthor).text(), i.author = (null === (l = this.options.selectors) || void 0 === l ? void 0 : l.novelAuthor) ? o.trim() : o.split("|")[0].replace("Author: ", "").replace("by ", "").trim(), n = r(this.selectors.novelCover), i.cover = n.attr("data-src") || n.attr("src") || n.attr("href"), i.genres = r("div.tag-group > a, section.tag-group > a").map(function(e2, t2) {
-                return r(t2).text();
+              return t = h.sent(), r = (0, cheerio_1.load)(t), i = { path: e, name: r(this.selectors.novelTitle).first().text().trim() }, o = r(this.selectors.novelAuthor).first().text().trim(), (null === (l = this.options.selectors) || void 0 === l ? void 0 : l.novelAuthor) ? i.author = o : o && (i.author = o.split("|")[0].replace(/author:\s*/i, "").replace(/by\s+/i, "").trim()), n = r(this.selectors.novelCover), i.cover = n.attr("data-src") || n.attr("src") || n.attr("href"), i.genres = r("div.tag-group > a, section.tag-group > a").map(function(e2, t2) {
+                return r(t2).text().trim();
               }).toArray().join(","), (a = r(this.selectors.novelSummary)).find(".related-stories-block, section.small-card-block").remove(), a.find("p").after("\n\n"), a.find("br").after("\n"), i.summary = a.text().trim().replace(/\n{3,}/g, "\n\n"), i.chapters = r("li.chapter-group__list-item._publish").filter(function(e2, t2) {
                 return !t2.attribs.class.includes("_password");
               }).filter(function(e2, t2) {
                 return !(r(t2).find("i").first().attr("class") || "").includes("fa-lock");
               }).map(function(e2, t2) {
-                var i2 = r(t2).find("a").text(), o2 = r(t2).find("a").attr("href");
-                if (o2) {
-                  var n2 = { name: i2, path: u.toPath(o2) }, a2 = i2.match(/^(?:cap[íi]tulo|chapter|ch\.?)\s*(\d+(?:\.\d+)?)/i);
-                  return a2 && (n2.chapterNumber = Number(a2[1])), n2;
+                var i2 = r(t2).find("a").first(), o2 = i2.text().trim(), n2 = i2.attr("href");
+                if (n2) {
+                  var a2 = { name: o2, path: u.toPath(n2) }, s2 = o2.match(/(?:^|\b)(?:cap[íi]tulo|chapter|ch\.?|ep\.?|episode)\s*(\d+(?:\.\d+)?)/i);
+                  s2 && (a2.chapterNumber = Number(s2[1]));
+                  var c2 = r(t2).find("time.chapter-group__list-item-date, time").first().attr("datetime");
+                  if (c2) {
+                    var l2 = Number(c2);
+                    if (!isNaN(l2) && l2 > 0) {
+                      var h2 = l2 < 1e11 ? 1e3 * l2 : l2;
+                      a2.releaseTime = new Date(h2).toISOString();
+                    } else {
+                      var p = new Date(c2);
+                      isNaN(p.getTime()) || (a2.releaseTime = p.toISOString());
+                    }
+                  }
+                  return a2;
                 }
-              }).toArray(), s = r("span.story__status"), c = s.text().trim(), (s.hasClass("_ongoing") || "Ongoing" === c) && (i.status = novelStatus_1.NovelStatus.Ongoing), (s.hasClass("_completed") || s.hasClass("_oneshot") || "Completed" === c) && (i.status = novelStatus_1.NovelStatus.Completed), (s.hasClass("_canceled") || "Canceled" === c || "Cancelled" === c) && (i.status = novelStatus_1.NovelStatus.Cancelled), (s.hasClass("_hiatus") || "Hiatus" === c) && (i.status = novelStatus_1.NovelStatus.OnHiatus), [2, i];
+              }).toArray(), s = r("span.story__status"), c = s.text().trim().toLowerCase(), s.hasClass("_ongoing") || "ongoing" === c ? i.status = novelStatus_1.NovelStatus.Ongoing : s.hasClass("_completed") || s.hasClass("_oneshot") || "completed" === c || "complete" === c ? i.status = novelStatus_1.NovelStatus.Completed : s.hasClass("_canceled") || "canceled" === c || "cancelled" === c ? i.status = novelStatus_1.NovelStatus.Cancelled : (s.hasClass("_hiatus") || "hiatus" === c) && (i.status = novelStatus_1.NovelStatus.OnHiatus), [2, i];
           }
         });
       });
     }, FictioneerPlugin.prototype.parseChapter = function(chapterPath) {
       return __awaiter(this, void 0, void 0, function() {
-        var req, body, loadedCheerio, scriptContent, gibMatch, gibArray, _a;
+        var req, body, loadedCheerio, scriptContent, gibMatch, gibArray, chapterSection, _a;
         return __generator(this, function(_b) {
           switch (_b.label) {
             case 0:
-              return [4, (0, fetch_1.fetchApi)(this.site + "/" + chapterPath + "/")];
+              return [4, (0, fetch_1.fetchApi)(this.resolveUrl(chapterPath))];
             case 1:
               return req = _b.sent(), [4, req.text()];
             case 2:
@@ -25569,7 +25585,7 @@ var LNReaderPlugin = (() => {
         return __generator(this, function(o) {
           switch (o.label) {
             case 0:
-              return [4, (0, fetch_1.fetchApi)(this.site + "/".concat(1 === t ? "" : "page/" + t + "/", "?s=").concat(encodeURIComponent(e), "&post_type=fcn_story"))];
+              return [4, (0, fetch_1.fetchApi)(this.resolveUrl("".concat(1 === t ? "" : "page/" + t + "/", "?s=").concat(encodeURIComponent(e), "&post_type=fcn_story")))];
             case 1:
               return [4, o.sent().text()];
             case 2:
