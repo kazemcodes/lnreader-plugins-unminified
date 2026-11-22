@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9393,7 +9417,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9411,7 +9435,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
@@ -25379,21 +25402,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // .js/plugins/english/towardsthesky.js
   init_dirname();
   init_buffer2();
@@ -25489,12 +25497,12 @@ var LNReaderPlugin = (() => {
     return t2.concat(n2 || Array.prototype.slice.call(e2));
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = "adcaelumtranslations.wordpress.com", c = /^\/(?:(\d{4})\/(\d{2})\/(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))\/[^/]+$/, l = /^(Raws?\b|Available here|Fan Discord|Official English|Link to|Shortcuts|Source:|Previous fan-translated)/i, u = function() {
-    function u2() {
-      this.id = "towardsthesky", this.name = "Towards the Sky", this.icon = "src/en/towardsthesky/icon.png", this.site = "https://".concat(s), this.version = "1.0.0", this.filters = void 0;
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = (init_browser(), __toCommonJS(browser_exports)), o = "adcaelumtranslations.wordpress.com", s = /^\/(?:(\d{4})\/(\d{2})\/(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))\/[^/]+$/, c = /^(Raws?\b|Available here|Fan Discord|Official English|Link to|Shortcuts|Source:|Previous fan-translated)/i, l = function() {
+    function l2() {
+      this.id = "towardsthesky", this.name = "Towards the Sky", this.icon = "src/en/towardsthesky/icon.png", this.site = "https://".concat(o), this.version = "1.0.1", this.filters = void 0;
     }
-    __name(u2, "u");
-    return u2.prototype.loadPage = function(r2) {
+    __name(l2, "l");
+    return l2.prototype.loadPage = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, i2;
         return e(this, function(e2) {
@@ -25509,11 +25517,11 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.pathOf = function(t2) {
+    }, l2.prototype.pathOf = function(t2) {
       try {
         var e2 = new URL(t2, this.site);
-        if (e2.hostname !== s) return;
-        var r2 = c.exec(e2.pathname.replace(/\/+$/, ""));
+        if (e2.hostname !== o) return;
+        var r2 = s.exec(e2.pathname.replace(/\/+$/, ""));
         if (null == r2 ? void 0 : r2[4]) {
           var n2 = e2.pathname.replace(/\/+$/, "").split("/").pop();
           return "/".concat(r2[6], "/").concat(r2[4], "/").concat(r2[5], "/").concat(n2);
@@ -25522,7 +25530,7 @@ var LNReaderPlugin = (() => {
       } catch (t3) {
         return;
       }
-    }, u2.prototype.novelList = function(r2) {
+    }, l2.prototype.novelList = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, n2, i2, a2 = this;
         return e(this, function(e2) {
@@ -25531,17 +25539,17 @@ var LNReaderPlugin = (() => {
               return [4, this.loadPage(r2)];
             case 1:
               return t2 = e2.sent(), n2 = [], i2 = /* @__PURE__ */ new Set(), t2(".entry-content .wp-block-media-text").each(function(e3, r3) {
-                var s2 = t2(r3), c2 = s2.find("h2 a").first(), l2 = a2.pathOf(c2.attr("href") || ""), u3 = c2.text().replace(/\s+/g, " ").trim();
-                if (l2 && u3 && !i2.has(l2)) {
-                  i2.add(l2);
-                  var h = s2.find("img").first().attr("src") || "";
-                  n2.push({ name: u3, path: l2, cover: h.startsWith("http") ? h : o.defaultCover });
+                var o2 = t2(r3), s2 = o2.find("h2 a").first(), c2 = a2.pathOf(s2.attr("href") || ""), l3 = s2.text().replace(/\s+/g, " ").trim();
+                if (c2 && l3 && !i2.has(c2)) {
+                  i2.add(c2);
+                  var u = o2.find("img").first().attr("src") || "";
+                  n2.push({ name: l3, path: c2, cover: u.startsWith("http") ? u : void 0 });
                 }
               }), [2, n2];
           }
         });
       });
-    }, u2.prototype.popularNovels = function(n2) {
+    }, l2.prototype.popularNovels = function(n2) {
       return t(this, void 0, void 0, function() {
         var t2, i2, a2;
         return e(this, function(e2) {
@@ -25553,7 +25561,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.searchNovels = function(r2, n2) {
+    }, l2.prototype.searchNovels = function(r2, n2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25569,45 +25577,45 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.parseNovel = function(r2) {
+    }, l2.prototype.parseNovel = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, a2, s2, u3, h, f, p, d, v, m, y, w, g, b, x, S, k, P, N, T, $2, C, L, O, _ = this;
+        var t2, n2, a2, o2, l3, u, h, f, p, d, v, m, y, w, g, b, x, S, k, P, N, T, $2, L, O, _ = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return [4, Promise.all([this.loadPage(r2), this.novelList("/translations"), this.novelList("/dropped")])];
             case 1:
-              for (t2 = e2.sent(), n2 = t2[0], a2 = t2[1], s2 = t2[2], u3 = n2(".entry-content").first(), h = s2.find(function(t3) {
+              for (t2 = e2.sent(), n2 = t2[0], a2 = t2[1], o2 = t2[2], l3 = n2(".entry-content").first(), u = o2.find(function(t3) {
                 return t3.path === r2;
-              }), f = h || a2.find(function(t3) {
+              }), h = u || a2.find(function(t3) {
                 return t3.path === r2;
-              }), p = { path: r2, name: (null == f ? void 0 : f.name) || n2("title").first().text().replace(/\s*[–-]\s*Towards the Sky\s*$/, "").replace(/\s+/g, " ").trim(), cover: (null == f ? void 0 : f.cover) || u3.find("img").first().attr("src") || o.defaultCover, status: h ? i.NovelStatus.Cancelled : i.NovelStatus.Ongoing, chapters: [] }, d = [], v = 0, m = u3.children().toArray(); v < m.length && "hr" !== (y = m[v]).tagName; v++) "p" === y.tagName && ((w = n2(y).clone()).find("br").replaceWith("\n"), d.push.apply(d, w.text().split("\n")));
-              for (g = [], b = false, x = 0, S = d; x < S.length; x++) k = S[x], (P = k.replace(/\s+/g, " ").trim()) && (N = /^Author:\s*(.+)$/i.exec(P), T = /^Genre:\s*(.+)$/i.exec(P), $2 = /^Synopsis:\s*(.*)$/i.exec(P), N ? p.author = N[1].replace(/;.*$/, "").trim() : T ? p.genres = T[1].trim() : $2 ? (b = true, $2[1] && g.push($2[1])) : l.test(P) ? b = false : b && g.push(P));
-              return p.summary = g.join("\n") || void 0, C = /* @__PURE__ */ new Set(), L = "", O = "", u3.find("p").each(function(t3, e3) {
+              }), f = { path: r2, name: (null == h ? void 0 : h.name) || n2("title").first().text().replace(/\s*[–-]\s*Towards the Sky\s*$/, "").replace(/\s+/g, " ").trim(), cover: (null == h ? void 0 : h.cover) || l3.find("img").first().attr("src"), status: u ? i.NovelStatus.Cancelled : i.NovelStatus.Ongoing, chapters: [] }, p = [], d = 0, v = l3.children().toArray(); d < v.length && "hr" !== (m = v[d]).tagName; d++) "p" === m.tagName && ((y = n2(m).clone()).find("br").replaceWith("\n"), p.push.apply(p, y.text().split("\n")));
+              for (w = [], g = false, b = 0, x = p; b < x.length; b++) S = x[b], (k = S.replace(/\s+/g, " ").trim()) && (P = /^Author:\s*(.+)$/i.exec(k), N = /^Genre:\s*(.+)$/i.exec(k), T = /^Synopsis:\s*(.*)$/i.exec(k), P ? f.author = P[1].replace(/;.*$/, "").trim() : N ? f.genres = N[1].trim() : T ? (g = true, T[1] && w.push(T[1])) : c.test(k) ? g = false : g && w.push(k));
+              return f.summary = w.join("\n") || void 0, $2 = /* @__PURE__ */ new Set(), L = "", O = "", l3.find("p").each(function(t3, e3) {
                 n2(e3).contents().each(function(t4, e4) {
                   var r3 = n2(e4);
                   if ("tag" !== e4.type || "strong" !== e4.tagName) {
                     if ("tag" === e4.type && "a" === e4.tagName) {
                       var i2 = _.pathOf(r3.attr("href") || "");
-                      if (i2 && c.test(i2) && !C.has(i2)) {
+                      if (i2 && s.test(i2) && !$2.has(i2)) {
                         var a3 = r3.text().replace(/\s+/g, " ").trim();
                         if (a3) {
-                          /^Part\s*\d+$/i.test(a3) && O ? a3 = "".concat(O.replace(/\s*Part\s*\d+$/i, ""), " ").concat(a3) : O = a3, C.add(i2);
-                          var o2 = c.exec(i2);
-                          p.chapters.push({ name: "".concat(L).concat(a3), path: i2, releaseTime: o2 ? new Date(Date.UTC(+o2[1], +o2[2] - 1, +o2[3])).toISOString() : void 0 });
+                          /^Part\s*\d+$/i.test(a3) && O ? a3 = "".concat(O.replace(/\s*Part\s*\d+$/i, ""), " ").concat(a3) : O = a3, $2.add(i2);
+                          var o3 = s.exec(i2);
+                          f.chapters.push({ name: "".concat(L).concat(a3), path: i2, releaseTime: o3 ? new Date(Date.UTC(+o3[1], +o3[2] - 1, +o3[3])).toISOString() : void 0 });
                         }
                       }
                     }
                   } else {
-                    var s3 = /^Volume\s+(\d+)/i.exec(r3.text().trim());
-                    s3 && (L = "Vol. ".concat(s3[1], " - "));
+                    var c2 = /^Volume\s+(\d+)/i.exec(r3.text().trim());
+                    c2 && (L = "Vol. ".concat(c2[1], " - "));
                   }
                 });
-              }), [2, p];
+              }), [2, f];
           }
         });
       });
-    }, u2.prototype.parseChapter = function(r2) {
+    }, l2.prototype.parseChapter = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, n2, i2, a2;
         return e(this, function(e2) {
@@ -25626,13 +25634,13 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.resolveUrl = function(t2) {
+    }, l2.prototype.resolveUrl = function(t2) {
       var e2 = new URL(t2, this.site);
-      if (e2.hostname !== s) throw new Error("Towards the Sky: invalid page address.");
+      if (e2.hostname !== o) throw new Error("Towards the Sky: invalid page address.");
       return "".concat(this.site).concat(e2.pathname).concat(e2.search);
-    }, u2;
+    }, l2;
   }();
-  exports.default = new u();
+  exports.default = new l();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

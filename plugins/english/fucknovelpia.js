@@ -3312,10 +3312,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -4106,10 +4106,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7354,10 +7354,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7496,10 +7496,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7727,10 +7727,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -17924,10 +17924,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18363,10 +18363,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18482,7 +18482,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -18500,22 +18500,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25270,6 +25254,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25283,6 +25289,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25351,7 +25358,7 @@ var LNReaderPlugin = (() => {
         ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
-          Array(5).fill(0).map((v2, idx) => {
+          Array(5).fill(0).map((v, idx) => {
             if (idx === 0) return 0;
             return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
           })
@@ -25382,7 +25389,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25441,7 +25449,7 @@ var LNReaderPlugin = (() => {
     return new (a2 || (a2 = Promise))(function(r2, i2) {
       function n2(e3) {
         try {
-          u2(t2.next(e3));
+          s2(t2.next(e3));
         } catch (e4) {
           i2(e4);
         }
@@ -25449,20 +25457,20 @@ var LNReaderPlugin = (() => {
       __name(n2, "n");
       function o2(e3) {
         try {
-          u2(t2.throw(e3));
+          s2(t2.throw(e3));
         } catch (e4) {
           i2(e4);
         }
       }
       __name(o2, "o");
-      function u2(e3) {
+      function s2(e3) {
         var l3;
         e3.done ? r2(e3.value) : (l3 = e3.value, l3 instanceof a2 ? l3 : new a2(function(e4) {
           e4(l3);
         })).then(n2, o2);
       }
-      __name(u2, "u");
-      u2((t2 = t2.apply(e2, l2 || [])).next());
+      __name(s2, "s");
+      s2((t2 = t2.apply(e2, l2 || [])).next());
     });
   }, a = function(e2, l2) {
     var a2, t2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
@@ -25473,7 +25481,7 @@ var LNReaderPlugin = (() => {
       return this;
     }), n2;
     function o2(o3) {
-      return function(u2) {
+      return function(s2) {
         return function(o4) {
           if (a2) throw new TypeError("Generator is already executing.");
           for (; n2 && (n2 = 0, o4[0] && (i2 = 0)), i2; ) try {
@@ -25519,78 +25527,78 @@ var LNReaderPlugin = (() => {
           }
           if (5 & o4[0]) throw o4[1];
           return { value: o4[0] ? o4[1] : void 0, done: true };
-        }([o3, u2]);
+        }([o3, s2]);
       };
     }
     __name(o2, "o");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var t, r = (init_browser(), __toCommonJS(browser_exports)), i = require_lib9(), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), u = (init_fetch2(), __toCommonJS(fetch_exports)), s = (init_filterInputs(), __toCommonJS(filterInputs_exports)), v = function() {
-    function v2() {
-      this.id = "FuckNovelpia", this.name = "FuckNovelpia", this.icon = "src/en/fucknovelpia/icon.png", this.site = "https://fucknovelpia.com/", this.version = "1.1.4", this.filters = { sort: { label: "Sort", value: "newest", options: [{ label: "Newest", value: "newest" }, { label: "Popular", value: "popular" }, { label: "Oldest", value: "oldest" }, { label: "Title A-Z", value: "title" }, { label: "Year (Descending)", value: "year_desc" }, { label: "Year (Ascending)", value: "year_asc" }], type: s.FilterTypes.Picker }, status: { label: "Status", value: "", options: [{ label: "Any", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "Dropped", value: "dropped" }], type: s.FilterTypes.Picker }, lang: { label: "Language", value: "", options: [{ label: "Any", value: "" }, { label: "EN", value: "en" }, { label: "ES", value: "es" }, { label: "KO", value: "ko" }, { label: "JA", value: "ja" }, { label: "ZH", value: "zh" }], type: s.FilterTypes.Picker }, has_images: { label: "Image Chapters", value: false, type: s.FilterTypes.Switch }, read_only: { label: "Read Mode", value: "and", options: [{ label: "Any", value: "any" }, { label: "Read Only", value: "yes" }, { label: "Downloadable", value: "no" }], type: s.FilterTypes.Picker }, genres_include_operator: { label: "Include Genres", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }], type: s.FilterTypes.Picker }, genres: { label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Academy", value: "1" }, { label: "Action", value: "2" }, { label: "Adventure", value: "3" }, { label: "Fantasy", value: "4" }, { label: "Horror", value: "5" }, { label: "Mystery", value: "6" }, { label: "Romance", value: "7" }, { label: "School", value: "8" }, { label: "Martial", value: "9" }, { label: "Smut", value: "10" }, { label: "Adult", value: "11" }, { label: "Harem", value: "12" }, { label: "Historical", value: "13" }, { label: "Sci-Fi", value: "14" }, { label: "Slice of Life", value: "15" }, { label: "Sports", value: "16" }, { label: "Uncategorized", value: "17" }], type: s.FilterTypes.ExcludableCheckboxGroup }, tags_include_operator: { label: "Include Tags", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }], type: s.FilterTypes.Picker }, tags: { label: "Tags", value: { include: [], exclude: [] }, options: [{ label: "583", value: "583" }, { label: "600", value: "600" }, { label: "606", value: "606" }, { label: "621", value: "621" }, { label: "644", value: "644" }, { label: "Academy Setting", value: "academy setting" }, { label: "Adventurer Guild", value: "adventurer guild" }, { label: "Age Gap", value: "age gap" }, { label: "AI", value: "ai" }, { label: "Alchemy", value: "alchemy" }, { label: "Aliens", value: "aliens" }, { label: "Alternate History", value: "alternate history" }, { label: "Androids", value: "androids" }, { label: "Angels", value: "angels" }, { label: "Anti-Hero", value: "anti-hero" }, { label: "Apocalypse System", value: "apocalypse system" }, { label: "Army Building", value: "army building" }, { label: "Arranged Marriage", value: "arranged marriage" }, { label: "Artifact User", value: "artifact user" }, { label: "Assassin", value: "assassin" }, { label: "Awakening", value: "awakening" }, { label: "Bad Girl", value: "bad girl" }, { label: "Battle Heavy", value: "battle heavy" }, { label: "Beast Taming", value: "beast taming" }, { label: "Beastfolk", value: "beastfolk" }, { label: "Berserker", value: "berserker" }, { label: "Betrayal", value: "betrayal" }, { label: "Bisexual Protagonist", value: "bisexual protagonist" }, { label: "Blackmail", value: "blackmail" }, { label: "Blood Magic", value: "blood magic" }, { label: "Body Horror", value: "body horror" }, { label: "Brainwashing", value: "brainwashing" }, { label: "Breakup", value: "breakup" }, { label: "Broken Protagonist", value: "broken protagonist" }, { label: "Bureaucracy", value: "bureaucracy" }, { label: "Cat Girl", value: "cat girl" }, { label: "Cheat Ability", value: "cheat ability" }, { label: "Childhood Friends", value: "childhood friends" }, { label: "Chosen One", value: "chosen one" }, { label: "Church", value: "church" }, { label: "City Building", value: "city building" }, { label: "Class System", value: "class system" }, { label: "Cold Protagonist", value: "cold protagonist" }, { label: "Comedy", value: "comedy" }, { label: "Conspiracy", value: "conspiracy" }, { label: "Contract Marriage", value: "contract marriage" }, { label: "Cooking", value: "cooking" }, { label: "Corporate War", value: "corporate war" }, { label: "Corruption", value: "corruption" }, { label: "Courtroom", value: "courtroom" }, { label: "Crafting", value: "crafting" }, { label: "Crime", value: "crime" }, { label: "Criminal Organization", value: "criminal organization" }, { label: "Cult", value: "cult" }, { label: "Cultivation", value: "cultivation" }, { label: "Cursed Power", value: "cursed power" }, { label: "Cyberpunk", value: "cyberpunk" }, { label: "Daily Life", value: "daily life" }, { label: "Dark Fantasy", value: "dark fantasy" }, { label: "Dark Magic", value: "dark magic" }, { label: "Demon Lord", value: "demon lord" }, { label: "Demon Powers", value: "demon powers" }, { label: "Demon Protagonist", value: "demon protagonist" }, { label: "Demons", value: "demons" }, { label: "Depression", value: "depression" }, { label: "Detective", value: "detective" }, { label: "Detective Setting", value: "detective setting" }, { label: "Diplomacy", value: "diplomacy" }, { label: "Divine Powers", value: "divine powers" }, { label: "Domestic Life", value: "domestic life" }, { label: "Dragon Protagonist", value: "dragon protagonist" }, { label: "Dragonkin", value: "dragonkin" }, { label: "Dungeon", value: "dungeon" }, { label: "Dungeon World", value: "dungeon world" }, { label: "Dwarves", value: "dwarves" }, { label: "Dystopia", value: "dystopia" }, { label: "Economy", value: "economy" }, { label: "Elemental Magic", value: "elemental magic" }, { label: "Elves", value: "elves" }, { label: "Empire Building", value: "empire building" }, { label: "Enemies To Lovers", value: "enemies to lovers" }, { label: "Erotic", value: "erotic" }, { label: "Experiments", value: "experiments" }, { label: "Explicit Sex", value: "explicit sex" }, { label: "Fake Dating", value: "fake dating" }, { label: "Family Drama", value: "family drama" }, { label: "Farming", value: "farming" }, { label: "Female Protagonist", value: "female protagonist" }, { label: "Forbidden Love", value: "forbidden love" }, { label: "Forbidden Magic", value: "forbidden magic" }, { label: "Forensics", value: "forensics" }, { label: "Found Family", value: "found family" }, { label: "Fox Girl", value: "fox girl" }, { label: "Friends To Lovers", value: "friends to lovers" }, { label: "Game World", value: "game world" }, { label: "Game-Like World", value: "game-like world" }, { label: "Gangs", value: "gangs" }, { label: "Gaslighting", value: "gaslighting" }, { label: "Gender Bender", value: "gender bender" }, { label: "Genetic Engineering", value: "genetic engineering" }, { label: "Genius Protagonist", value: "genius protagonist" }, { label: "Girl", value: "girl" }, { label: "Goblins", value: "goblins" }, { label: "Gods", value: "gods" }, { label: "Gore", value: "gore" }, { label: "Grief", value: "grief" }, { label: "Hacking", value: "hacking" }, { label: "Harem", value: "harem" }, { label: "Healer", value: "healer" }, { label: "Healing Story", value: "healing story" }, { label: "Heist", value: "heist" }, { label: "Hero", value: "hero" }, { label: "Historical Setting", value: "historical setting" }, { label: "Holy Magic", value: "holy magic" }, { label: "Horror Elements", value: "horror elements" }, { label: "Hypnosis", value: "hypnosis" }, { label: "Imperial Court", value: "imperial court" }, { label: "Investigation", value: "investigation" }, { label: "Isekai", value: "isekai" }, { label: "Kemonomimi", value: "kemonomimi" }, { label: "Kidnapping", value: "kidnapping" }, { label: "Kind Protagonist", value: "kind protagonist" }, { label: "Kingdom Building", value: "kingdom building" }, { label: "Kingdom Setting", value: "kingdom setting" }, { label: "Leadership", value: "leadership" }, { label: "Leveling", value: "leveling" }, { label: "LitRPG", value: "litrpg" }, { label: "Love Triangle", value: "love triangle" }, { label: "Madness", value: "madness" }, { label: "Mafia", value: "mafia" }, { label: "Mage Protagonist", value: "mage protagonist" }, { label: "Magic", value: "magic" }, { label: "Male Protagonist", value: "male protagonist" }, { label: "Management", value: "management" }, { label: "Manipulation", value: "manipulation" }, { label: "Marriage", value: "marriage" }, { label: "Martial Arts", value: "martial arts" }, { label: "Mastermind Protagonist", value: "mastermind protagonist" }, { label: "Mecha", value: "mecha" }, { label: "Medieval Fantasy", value: "medieval fantasy" }, { label: "Mental Breakdown", value: "mental breakdown" }, { label: "Mercenaries", value: "mercenaries" }, { label: "Merchant Life", value: "merchant life" }, { label: "Military", value: "military" }, { label: "Military Setting", value: "military setting" }, { label: "Mind Break", value: "mind break" }, { label: "Modern World", value: "modern world" }, { label: "Monster Girls", value: "monster girls" }, { label: "Monster Protagonist", value: "monster protagonist" }, { label: "Moral Dilemmas", value: "moral dilemmas" }, { label: "Morally Gray Protagonist", value: "morally gray protagonist" }, { label: "Multiple Protagonists", value: "multiple protagonists" }, { label: "Mystery", value: "mystery" }, { label: "Naive Protagonist", value: "naive protagonist" }, { label: "Necromancy", value: "necromancy" }, { label: "Negotiation", value: "negotiation" }, { label: "Nobles", value: "nobles" }, { label: "Non-Consensual", value: "non-consensual" }, { label: "Non-Human Protagonist", value: "non-human protagonist" }, { label: "NTR", value: "ntr" }, { label: "Obsession", value: "obsession" }, { label: "Obsessive Love", value: "obsessive love" }, { label: "Orcs", value: "orcs" }, { label: "Orphan Protagonist", value: "orphan protagonist" }, { label: "Overpowered Protagonist", value: "overpowered protagonist" }, { label: "Parallel World", value: "parallel world" }, { label: "Parody", value: "parody" }, { label: "Police", value: "police" }, { label: "Political Intrigue", value: "political intrigue" }, { label: "Political Marriage", value: "political marriage" }, { label: "Politics", value: "politics" }, { label: "Polyamory", value: "polyamory" }, { label: "Possessive Love", value: "possessive love" }, { label: "Post-Apocalyptic", value: "post-apocalyptic" }, { label: "Prince Protagonist", value: "prince protagonist" }, { label: "Princess Protagonist", value: "princess protagonist" }, { label: "Progression Fantasy", value: "progression fantasy" }, { label: "Prostitution", value: "prostitution" }, { label: "Prostitution Arc", value: "prostitution arc" }, { label: "Psychological", value: "psychological" }, { label: "Rape", value: "rape" }, { label: "Rebels", value: "rebels" }, { label: "Reconciliation", value: "reconciliation" }, { label: "Redemption", value: "redemption" }, { label: "Regression", value: "regression" }, { label: "Reincarnated Villainess", value: "reincarnated villainess" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Revenge", value: "revenge" }, { label: "Revenge Driven", value: "revenge driven" }, { label: "Reverse Harem", value: "reverse harem" }, { label: "Romance", value: "romance" }, { label: "Royalty", value: "royalty" }, { label: "Ruthless Protagonist", value: "ruthless protagonist" }, { label: "Saintess Protagonist", value: "saintess protagonist" }, { label: "Satire", value: "satire" }, { label: "Scheming", value: "scheming" }, { label: "School Setting", value: "school setting" }, { label: "Sci-Fi", value: "sci-fi" }, { label: "Sci-Fi Setting", value: "sci-fi setting" }, { label: "Second Chance", value: "second chance" }, { label: "Secret Organization", value: "secret organization" }, { label: "Serial Killer", value: "serial killer" }, { label: "Sex Slavery", value: "sex slavery" }, { label: "Sex Work", value: "sex work" }, { label: "Shop Owner", value: "shop owner" }, { label: "Simulation", value: "simulation" }, { label: "Skill System", value: "skill system" }, { label: "Slave Heroine", value: "slave heroine" }, { label: "Slice of Life", value: "slice of life" }, { label: "Slime", value: "slime" }, { label: "Slow Burn", value: "slow burn" }, { label: "Smut", value: "smut" }, { label: "Soulmate", value: "soulmate" }, { label: "Space Opera", value: "space opera" }, { label: "Space Travel", value: "space travel" }, { label: "Spider", value: "spider" }, { label: "Spies", value: "spies" }, { label: "Spirits", value: "spirits" }, { label: "Stats Window", value: "stats window" }, { label: "Steampunk", value: "steampunk" }, { label: "Strategy", value: "strategy" }, { label: "Summoner", value: "summoner" }, { label: "Summoning", value: "summoning" }, { label: "Super Soldiers", value: "super soldiers" }, { label: "Superhero Setting", value: "superhero setting" }, { label: "Survival Combat", value: "survival combat" }, { label: "Suspense", value: "suspense" }, { label: "Swordsmanship", value: "swordsmanship" }, { label: "System", value: "system" }, { label: "Tactics", value: "tactics" }, { label: "Talent Growth", value: "talent growth" }, { label: "Thriller", value: "thriller" }, { label: "Time Loop", value: "time loop" }, { label: "Time Travel", value: "time travel" }, { label: "Torture", value: "torture" }, { label: "Tower", value: "tower" }, { label: "Toxic Relationship", value: "toxic relationship" }, { label: "Trade", value: "trade" }, { label: "Tragedy", value: "tragedy" }, { label: "Tragic Protagonist", value: "tragic protagonist" }, { label: "Training Arc", value: "training arc" }, { label: "Transmigration", value: "transmigration" }, { label: "Trauma", value: "trauma" }, { label: "TS", value: "ts" }, { label: "Undead", value: "undead" }, { label: "Undead Protagonist", value: "undead protagonist" }, { label: "Underworld", value: "underworld" }, { label: "Underworld Setting", value: "underworld setting" }, { label: "Urban Fantasy", value: "urban fantasy" }, { label: "Vampire", value: "vampire" }, { label: "Villain Protagonist", value: "villain protagonist" }, { label: "Violence", value: "violence" }, { label: "Virtual Reality", value: "virtual reality" }, { label: "Virtual World", value: "virtual world" }, { label: "War Arc", value: "war arc" }, { label: "War Strategy", value: "war strategy" }, { label: "Warrior Protagonist", value: "warrior protagonist" }, { label: "Weak To Strong", value: "weak to strong" }, { label: "Werewolf", value: "werewolf" }, { label: "Wholesome", value: "wholesome" }, { label: "Wolf Girl", value: "wolf girl" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }], type: s.FilterTypes.ExcludableCheckboxGroup }, author: { label: "Author", value: "", type: s.FilterTypes.TextInput }, uploader: { label: "Uploader", value: "", type: s.FilterTypes.TextInput }, translator_group: { label: "Translator Group", value: "", type: s.FilterTypes.TextInput }, country: { label: "Country", value: "", type: s.FilterTypes.TextInput }, year_from: { label: "Year From", value: "", type: s.FilterTypes.TextInput }, year_to: { label: "Year To", value: "", type: s.FilterTypes.TextInput } };
+  var t, r = (init_browser(), __toCommonJS(browser_exports)), i = require_lib9(), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_fetch2(), __toCommonJS(fetch_exports)), s = (init_filterInputs(), __toCommonJS(filterInputs_exports)), u = function() {
+    function u2() {
+      this.id = "FuckNovelpia", this.name = "FuckNovelpia", this.icon = "src/en/fucknovelpia/icon.png", this.site = "https://fucknovelpia.com/", this.version = "1.1.5", this.filters = { sort: { label: "Sort", value: "newest", options: [{ label: "Newest", value: "newest" }, { label: "Popular", value: "popular" }, { label: "Oldest", value: "oldest" }, { label: "Title A-Z", value: "title" }, { label: "Year (Descending)", value: "year_desc" }, { label: "Year (Ascending)", value: "year_asc" }], type: s.FilterTypes.Picker }, status: { label: "Status", value: "", options: [{ label: "Any", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "Dropped", value: "dropped" }], type: s.FilterTypes.Picker }, lang: { label: "Language", value: "", options: [{ label: "Any", value: "" }, { label: "EN", value: "en" }, { label: "ES", value: "es" }, { label: "KO", value: "ko" }, { label: "JA", value: "ja" }, { label: "ZH", value: "zh" }], type: s.FilterTypes.Picker }, has_images: { label: "Image Chapters", value: false, type: s.FilterTypes.Switch }, read_only: { label: "Read Mode", value: "and", options: [{ label: "Any", value: "any" }, { label: "Read Only", value: "yes" }, { label: "Downloadable", value: "no" }], type: s.FilterTypes.Picker }, genres_include_operator: { label: "Include Genres", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }], type: s.FilterTypes.Picker }, genres: { label: "Genres", value: { include: [], exclude: [] }, options: [{ label: "Academy", value: "1" }, { label: "Action", value: "2" }, { label: "Adventure", value: "3" }, { label: "Fantasy", value: "4" }, { label: "Horror", value: "5" }, { label: "Mystery", value: "6" }, { label: "Romance", value: "7" }, { label: "School", value: "8" }, { label: "Martial", value: "9" }, { label: "Smut", value: "10" }, { label: "Adult", value: "11" }, { label: "Harem", value: "12" }, { label: "Historical", value: "13" }, { label: "Sci-Fi", value: "14" }, { label: "Slice of Life", value: "15" }, { label: "Sports", value: "16" }, { label: "Uncategorized", value: "17" }], type: s.FilterTypes.ExcludableCheckboxGroup }, tags_include_operator: { label: "Include Tags", value: "and", options: [{ label: "AND", value: "and" }, { label: "OR", value: "or" }], type: s.FilterTypes.Picker }, tags: { label: "Tags", value: { include: [], exclude: [] }, options: [{ label: "583", value: "583" }, { label: "600", value: "600" }, { label: "606", value: "606" }, { label: "621", value: "621" }, { label: "644", value: "644" }, { label: "Academy Setting", value: "academy setting" }, { label: "Adventurer Guild", value: "adventurer guild" }, { label: "Age Gap", value: "age gap" }, { label: "AI", value: "ai" }, { label: "Alchemy", value: "alchemy" }, { label: "Aliens", value: "aliens" }, { label: "Alternate History", value: "alternate history" }, { label: "Androids", value: "androids" }, { label: "Angels", value: "angels" }, { label: "Anti-Hero", value: "anti-hero" }, { label: "Apocalypse System", value: "apocalypse system" }, { label: "Army Building", value: "army building" }, { label: "Arranged Marriage", value: "arranged marriage" }, { label: "Artifact User", value: "artifact user" }, { label: "Assassin", value: "assassin" }, { label: "Awakening", value: "awakening" }, { label: "Bad Girl", value: "bad girl" }, { label: "Battle Heavy", value: "battle heavy" }, { label: "Beast Taming", value: "beast taming" }, { label: "Beastfolk", value: "beastfolk" }, { label: "Berserker", value: "berserker" }, { label: "Betrayal", value: "betrayal" }, { label: "Bisexual Protagonist", value: "bisexual protagonist" }, { label: "Blackmail", value: "blackmail" }, { label: "Blood Magic", value: "blood magic" }, { label: "Body Horror", value: "body horror" }, { label: "Brainwashing", value: "brainwashing" }, { label: "Breakup", value: "breakup" }, { label: "Broken Protagonist", value: "broken protagonist" }, { label: "Bureaucracy", value: "bureaucracy" }, { label: "Cat Girl", value: "cat girl" }, { label: "Cheat Ability", value: "cheat ability" }, { label: "Childhood Friends", value: "childhood friends" }, { label: "Chosen One", value: "chosen one" }, { label: "Church", value: "church" }, { label: "City Building", value: "city building" }, { label: "Class System", value: "class system" }, { label: "Cold Protagonist", value: "cold protagonist" }, { label: "Comedy", value: "comedy" }, { label: "Conspiracy", value: "conspiracy" }, { label: "Contract Marriage", value: "contract marriage" }, { label: "Cooking", value: "cooking" }, { label: "Corporate War", value: "corporate war" }, { label: "Corruption", value: "corruption" }, { label: "Courtroom", value: "courtroom" }, { label: "Crafting", value: "crafting" }, { label: "Crime", value: "crime" }, { label: "Criminal Organization", value: "criminal organization" }, { label: "Cult", value: "cult" }, { label: "Cultivation", value: "cultivation" }, { label: "Cursed Power", value: "cursed power" }, { label: "Cyberpunk", value: "cyberpunk" }, { label: "Daily Life", value: "daily life" }, { label: "Dark Fantasy", value: "dark fantasy" }, { label: "Dark Magic", value: "dark magic" }, { label: "Demon Lord", value: "demon lord" }, { label: "Demon Powers", value: "demon powers" }, { label: "Demon Protagonist", value: "demon protagonist" }, { label: "Demons", value: "demons" }, { label: "Depression", value: "depression" }, { label: "Detective", value: "detective" }, { label: "Detective Setting", value: "detective setting" }, { label: "Diplomacy", value: "diplomacy" }, { label: "Divine Powers", value: "divine powers" }, { label: "Domestic Life", value: "domestic life" }, { label: "Dragon Protagonist", value: "dragon protagonist" }, { label: "Dragonkin", value: "dragonkin" }, { label: "Dungeon", value: "dungeon" }, { label: "Dungeon World", value: "dungeon world" }, { label: "Dwarves", value: "dwarves" }, { label: "Dystopia", value: "dystopia" }, { label: "Economy", value: "economy" }, { label: "Elemental Magic", value: "elemental magic" }, { label: "Elves", value: "elves" }, { label: "Empire Building", value: "empire building" }, { label: "Enemies To Lovers", value: "enemies to lovers" }, { label: "Erotic", value: "erotic" }, { label: "Experiments", value: "experiments" }, { label: "Explicit Sex", value: "explicit sex" }, { label: "Fake Dating", value: "fake dating" }, { label: "Family Drama", value: "family drama" }, { label: "Farming", value: "farming" }, { label: "Female Protagonist", value: "female protagonist" }, { label: "Forbidden Love", value: "forbidden love" }, { label: "Forbidden Magic", value: "forbidden magic" }, { label: "Forensics", value: "forensics" }, { label: "Found Family", value: "found family" }, { label: "Fox Girl", value: "fox girl" }, { label: "Friends To Lovers", value: "friends to lovers" }, { label: "Game World", value: "game world" }, { label: "Game-Like World", value: "game-like world" }, { label: "Gangs", value: "gangs" }, { label: "Gaslighting", value: "gaslighting" }, { label: "Gender Bender", value: "gender bender" }, { label: "Genetic Engineering", value: "genetic engineering" }, { label: "Genius Protagonist", value: "genius protagonist" }, { label: "Girl", value: "girl" }, { label: "Goblins", value: "goblins" }, { label: "Gods", value: "gods" }, { label: "Gore", value: "gore" }, { label: "Grief", value: "grief" }, { label: "Hacking", value: "hacking" }, { label: "Harem", value: "harem" }, { label: "Healer", value: "healer" }, { label: "Healing Story", value: "healing story" }, { label: "Heist", value: "heist" }, { label: "Hero", value: "hero" }, { label: "Historical Setting", value: "historical setting" }, { label: "Holy Magic", value: "holy magic" }, { label: "Horror Elements", value: "horror elements" }, { label: "Hypnosis", value: "hypnosis" }, { label: "Imperial Court", value: "imperial court" }, { label: "Investigation", value: "investigation" }, { label: "Isekai", value: "isekai" }, { label: "Kemonomimi", value: "kemonomimi" }, { label: "Kidnapping", value: "kidnapping" }, { label: "Kind Protagonist", value: "kind protagonist" }, { label: "Kingdom Building", value: "kingdom building" }, { label: "Kingdom Setting", value: "kingdom setting" }, { label: "Leadership", value: "leadership" }, { label: "Leveling", value: "leveling" }, { label: "LitRPG", value: "litrpg" }, { label: "Love Triangle", value: "love triangle" }, { label: "Madness", value: "madness" }, { label: "Mafia", value: "mafia" }, { label: "Mage Protagonist", value: "mage protagonist" }, { label: "Magic", value: "magic" }, { label: "Male Protagonist", value: "male protagonist" }, { label: "Management", value: "management" }, { label: "Manipulation", value: "manipulation" }, { label: "Marriage", value: "marriage" }, { label: "Martial Arts", value: "martial arts" }, { label: "Mastermind Protagonist", value: "mastermind protagonist" }, { label: "Mecha", value: "mecha" }, { label: "Medieval Fantasy", value: "medieval fantasy" }, { label: "Mental Breakdown", value: "mental breakdown" }, { label: "Mercenaries", value: "mercenaries" }, { label: "Merchant Life", value: "merchant life" }, { label: "Military", value: "military" }, { label: "Military Setting", value: "military setting" }, { label: "Mind Break", value: "mind break" }, { label: "Modern World", value: "modern world" }, { label: "Monster Girls", value: "monster girls" }, { label: "Monster Protagonist", value: "monster protagonist" }, { label: "Moral Dilemmas", value: "moral dilemmas" }, { label: "Morally Gray Protagonist", value: "morally gray protagonist" }, { label: "Multiple Protagonists", value: "multiple protagonists" }, { label: "Mystery", value: "mystery" }, { label: "Naive Protagonist", value: "naive protagonist" }, { label: "Necromancy", value: "necromancy" }, { label: "Negotiation", value: "negotiation" }, { label: "Nobles", value: "nobles" }, { label: "Non-Consensual", value: "non-consensual" }, { label: "Non-Human Protagonist", value: "non-human protagonist" }, { label: "NTR", value: "ntr" }, { label: "Obsession", value: "obsession" }, { label: "Obsessive Love", value: "obsessive love" }, { label: "Orcs", value: "orcs" }, { label: "Orphan Protagonist", value: "orphan protagonist" }, { label: "Overpowered Protagonist", value: "overpowered protagonist" }, { label: "Parallel World", value: "parallel world" }, { label: "Parody", value: "parody" }, { label: "Police", value: "police" }, { label: "Political Intrigue", value: "political intrigue" }, { label: "Political Marriage", value: "political marriage" }, { label: "Politics", value: "politics" }, { label: "Polyamory", value: "polyamory" }, { label: "Possessive Love", value: "possessive love" }, { label: "Post-Apocalyptic", value: "post-apocalyptic" }, { label: "Prince Protagonist", value: "prince protagonist" }, { label: "Princess Protagonist", value: "princess protagonist" }, { label: "Progression Fantasy", value: "progression fantasy" }, { label: "Prostitution", value: "prostitution" }, { label: "Prostitution Arc", value: "prostitution arc" }, { label: "Psychological", value: "psychological" }, { label: "Rape", value: "rape" }, { label: "Rebels", value: "rebels" }, { label: "Reconciliation", value: "reconciliation" }, { label: "Redemption", value: "redemption" }, { label: "Regression", value: "regression" }, { label: "Reincarnated Villainess", value: "reincarnated villainess" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Revenge", value: "revenge" }, { label: "Revenge Driven", value: "revenge driven" }, { label: "Reverse Harem", value: "reverse harem" }, { label: "Romance", value: "romance" }, { label: "Royalty", value: "royalty" }, { label: "Ruthless Protagonist", value: "ruthless protagonist" }, { label: "Saintess Protagonist", value: "saintess protagonist" }, { label: "Satire", value: "satire" }, { label: "Scheming", value: "scheming" }, { label: "School Setting", value: "school setting" }, { label: "Sci-Fi", value: "sci-fi" }, { label: "Sci-Fi Setting", value: "sci-fi setting" }, { label: "Second Chance", value: "second chance" }, { label: "Secret Organization", value: "secret organization" }, { label: "Serial Killer", value: "serial killer" }, { label: "Sex Slavery", value: "sex slavery" }, { label: "Sex Work", value: "sex work" }, { label: "Shop Owner", value: "shop owner" }, { label: "Simulation", value: "simulation" }, { label: "Skill System", value: "skill system" }, { label: "Slave Heroine", value: "slave heroine" }, { label: "Slice of Life", value: "slice of life" }, { label: "Slime", value: "slime" }, { label: "Slow Burn", value: "slow burn" }, { label: "Smut", value: "smut" }, { label: "Soulmate", value: "soulmate" }, { label: "Space Opera", value: "space opera" }, { label: "Space Travel", value: "space travel" }, { label: "Spider", value: "spider" }, { label: "Spies", value: "spies" }, { label: "Spirits", value: "spirits" }, { label: "Stats Window", value: "stats window" }, { label: "Steampunk", value: "steampunk" }, { label: "Strategy", value: "strategy" }, { label: "Summoner", value: "summoner" }, { label: "Summoning", value: "summoning" }, { label: "Super Soldiers", value: "super soldiers" }, { label: "Superhero Setting", value: "superhero setting" }, { label: "Survival Combat", value: "survival combat" }, { label: "Suspense", value: "suspense" }, { label: "Swordsmanship", value: "swordsmanship" }, { label: "System", value: "system" }, { label: "Tactics", value: "tactics" }, { label: "Talent Growth", value: "talent growth" }, { label: "Thriller", value: "thriller" }, { label: "Time Loop", value: "time loop" }, { label: "Time Travel", value: "time travel" }, { label: "Torture", value: "torture" }, { label: "Tower", value: "tower" }, { label: "Toxic Relationship", value: "toxic relationship" }, { label: "Trade", value: "trade" }, { label: "Tragedy", value: "tragedy" }, { label: "Tragic Protagonist", value: "tragic protagonist" }, { label: "Training Arc", value: "training arc" }, { label: "Transmigration", value: "transmigration" }, { label: "Trauma", value: "trauma" }, { label: "TS", value: "ts" }, { label: "Undead", value: "undead" }, { label: "Undead Protagonist", value: "undead protagonist" }, { label: "Underworld", value: "underworld" }, { label: "Underworld Setting", value: "underworld setting" }, { label: "Urban Fantasy", value: "urban fantasy" }, { label: "Vampire", value: "vampire" }, { label: "Villain Protagonist", value: "villain protagonist" }, { label: "Violence", value: "violence" }, { label: "Virtual Reality", value: "virtual reality" }, { label: "Virtual World", value: "virtual world" }, { label: "War Arc", value: "war arc" }, { label: "War Strategy", value: "war strategy" }, { label: "Warrior Protagonist", value: "warrior protagonist" }, { label: "Weak To Strong", value: "weak to strong" }, { label: "Werewolf", value: "werewolf" }, { label: "Wholesome", value: "wholesome" }, { label: "Wolf Girl", value: "wolf girl" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }], type: s.FilterTypes.ExcludableCheckboxGroup }, author: { label: "Author", value: "", type: s.FilterTypes.TextInput }, uploader: { label: "Uploader", value: "", type: s.FilterTypes.TextInput }, translator_group: { label: "Translator Group", value: "", type: s.FilterTypes.TextInput }, country: { label: "Country", value: "", type: s.FilterTypes.TextInput }, year_from: { label: "Year From", value: "", type: s.FilterTypes.TextInput }, year_to: { label: "Year To", value: "", type: s.FilterTypes.TextInput } };
     }
-    __name(v2, "v");
-    return v2.prototype.sleep = function(e2) {
+    __name(u2, "u");
+    return u2.prototype.sleep = function(e2) {
       return new Promise(function(l2) {
         return setTimeout(l2, e2);
       });
-    }, v2.prototype.fetchHtml = function(e2) {
+    }, u2.prototype.fetchHtml = function(e2) {
       return l(this, arguments, void 0, function(e3, l2) {
-        var t2, r2, i2, n2, o2, s2;
+        var t2, r2, i2, n2, s2, u3;
         return void 0 === l2 && (l2 = false), a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return [4, (0, u.fetchApi)(e3)];
+              return [4, (0, o.fetchApi)(e3)];
             case 1:
               return 429 !== (t2 = a2.sent()).status ? [3, 4] : (r2 = parseInt(t2.headers.get("Retry-After") || "", 10), i2 = 1e3 * (isNaN(r2) ? 2 : Math.min(r2, 10)), [4, this.sleep(i2)]);
             case 2:
-              return a2.sent(), [4, (0, u.fetchApi)(e3)];
+              return a2.sent(), [4, (0, o.fetchApi)(e3)];
             case 3:
               t2 = a2.sent(), a2.label = 4;
             case 4:
-              if (!t2.ok) throw n2 = t2.status, o2 = 403 === n2 || 503 === n2 ? l2 ? "Cloudflare check on this chapter (HTTP ".concat(n2, "). Tap WebView on this screen, wait for the chapter to load, then go back and retry.") : "Cloudflare protection detected (HTTP ".concat(n2, "). Open the plugin in WebView, complete the check, then try again.") : "FuckNovelpia returned HTTP ".concat(n2), (s2 = new Error(o2)).status = n2, s2;
+              if (!t2.ok) throw n2 = t2.status, s2 = 403 === n2 || 503 === n2 ? l2 ? "Cloudflare check on this chapter (HTTP ".concat(n2, "). Tap WebView on this screen, wait for the chapter to load, then go back and retry.") : "Cloudflare protection detected (HTTP ".concat(n2, "). Open the plugin in WebView, complete the check, then try again.") : "FuckNovelpia returned HTTP ".concat(n2), (u3 = new Error(s2)).status = n2, u3;
               return [4, t2.text()];
             case 5:
               return [2, a2.sent()];
           }
         });
       });
-    }, v2.prototype.hasRequestedPage = function(e2, l2) {
+    }, u2.prototype.hasRequestedPage = function(e2, l2) {
       if (l2 <= 1) return true;
       var a2 = e2("div.pagination a.active").first().text().trim(), t2 = parseInt(a2, 10);
       return !isNaN(t2) && t2 === l2;
-    }, v2.prototype.parseNovelsList = function(e2) {
+    }, u2.prototype.parseNovelsList = function(e2) {
       var l2 = [], a2 = /* @__PURE__ */ new Set();
       return e2(".card-book a").each(function(t2, r2) {
-        var i2 = e2(r2), o2 = i2.attr("href");
-        if (o2) {
-          var u2 = o2.startsWith("/") ? o2.slice(1) : o2;
-          if (!a2.has(u2)) {
-            var s2 = i2.find("img").attr("src"), v3 = i2.find("img").attr("alt") || i2.find(".title").text().trim();
-            a2.add(u2), l2.push({ path: u2, name: v3, cover: s2 || n.defaultCover });
+        var i2 = e2(r2), n2 = i2.attr("href");
+        if (n2) {
+          var o2 = n2.startsWith("/") ? n2.slice(1) : n2;
+          if (!a2.has(o2)) {
+            var s2 = i2.find("img").attr("src"), u3 = i2.find("img").attr("alt") || i2.find(".title").text().trim();
+            a2.add(o2), l2.push({ path: o2, name: u3, cover: s2 });
           }
         }
       }), l2;
-    }, v2.prototype.parseLatestUpdates = function() {
+    }, u2.prototype.parseLatestUpdates = function() {
       return l(this, void 0, void 0, function() {
-        var l2, r2, n2, o2, u2, s2, v3, b, c, p;
+        var l2, r2, n2, o2, s2, u3, v, b, c, p;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return l2 = this.site + "updates.php", [4, this.fetchHtml(l2)];
             case 1:
-              return r2 = a2.sent(), n2 = [], o2 = {}, u2 = /* @__PURE__ */ new Set(), s2 = [t.Idle], v3 = /* @__PURE__ */ __name(function() {
-                return s2[s2.length - 1];
+              return r2 = a2.sent(), n2 = [], o2 = {}, s2 = /* @__PURE__ */ new Set(), u3 = [t.Idle], v = /* @__PURE__ */ __name(function() {
+                return u3[u3.length - 1];
               }, "v"), b = /* @__PURE__ */ __name(function(e2) {
-                return s2.push(e2);
+                return u3.push(e2);
               }, "b"), c = /* @__PURE__ */ __name(function() {
-                return s2.length > 1 ? s2.pop() : v3();
+                return u3.length > 1 ? u3.pop() : v();
               }, "c"), (p = new i.Parser({ onopentag: /* @__PURE__ */ __name(function(l3, a3) {
-                var r3 = v3();
+                var r3 = v();
                 if ("updates-list" === a3.class && b(t.NovelList), r3 !== t.Idle) switch (l3) {
                   case "a":
-                    if (u2.has(a3.href)) return;
-                    u2.add(a3.href), b(t.Novel), o2.path = a3.href.substring(1);
+                    if (s2.has(a3.href)) return;
+                    s2.add(a3.href), b(t.Novel), o2.path = a3.href.substring(1);
                     break;
                   case "img":
                     o2.cover = a3.src, o2.name = a3.alt;
@@ -25608,49 +25616,49 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, v2.prototype.popularNovels = function(e2, t2) {
+    }, u2.prototype.popularNovels = function(e2, t2) {
       return l(this, arguments, void 0, function(e3, l2) {
-        var t3, i2, n2, o2, u2, s2, v3, b, c, p, d, g, m, h, y, f, w, S, k, P, T, x, _, A, C, N, F, M, H, D = l2.showLatestNovels, L = l2.filters;
+        var t3, i2, n2, o2, s2, u3, v, b, c, p, d, g, m, h, y, f, w, S, k, P, T, x, _, A, N, F, M, C, H, D = l2.showLatestNovels, L = l2.filters;
         return a(this, function(l3) {
           switch (l3.label) {
             case 0:
               if (D) return [2, this.parseLatestUpdates()];
               for ((t3 = new URLSearchParams()).set("q", ""), t3.set("sort", L.sort.value), i2 = 0, n2 = ["author", "uploader", "translator_group", "country", "year_from", "year_to"]; i2 < n2.length; i2++) o2 = n2[i2], t3.set(o2, L[o2].value);
-              for (t3.set("status", L.status.value), t3.set("language", L.lang.value), t3.set("read_only", L.read_only.value), (null === (w = L.has_images) || void 0 === w ? void 0 : w.value) && t3.set("has_images", "1"), t3.set("genre_mode", L.genres_include_operator.value), u2 = 0, s2 = null !== (P = null === (k = null === (S = L.genres) || void 0 === S ? void 0 : S.value) || void 0 === k ? void 0 : k.include) && void 0 !== P ? P : []; u2 < s2.length; u2++) m = s2[u2], t3.append("genres_include[]", m);
-              for (v3 = 0, b = null !== (_ = null === (x = null === (T = L.genres) || void 0 === T ? void 0 : T.value) || void 0 === x ? void 0 : x.exclude) && void 0 !== _ ? _ : []; v3 < b.length; v3++) m = b[v3], t3.append("genres_exclude[]", m);
-              for (t3.set("tag_mode", L.tags_include_operator.value), c = 0, p = null !== (N = null === (C = null === (A = L.tags) || void 0 === A ? void 0 : A.value) || void 0 === C ? void 0 : C.include) && void 0 !== N ? N : []; c < p.length; c++) m = p[c], t3.append("tags_include[]", m);
-              for (d = 0, g = null !== (H = null === (M = null === (F = L.tags) || void 0 === F ? void 0 : F.value) || void 0 === M ? void 0 : M.exclude) && void 0 !== H ? H : []; d < g.length; d++) m = g[d], t3.append("tags_exclude[]", m);
+              for (t3.set("status", L.status.value), t3.set("language", L.lang.value), t3.set("read_only", L.read_only.value), (null === (w = L.has_images) || void 0 === w ? void 0 : w.value) && t3.set("has_images", "1"), t3.set("genre_mode", L.genres_include_operator.value), s2 = 0, u3 = null !== (P = null === (k = null === (S = L.genres) || void 0 === S ? void 0 : S.value) || void 0 === k ? void 0 : k.include) && void 0 !== P ? P : []; s2 < u3.length; s2++) m = u3[s2], t3.append("genres_include[]", m);
+              for (v = 0, b = null !== (_ = null === (x = null === (T = L.genres) || void 0 === T ? void 0 : T.value) || void 0 === x ? void 0 : x.exclude) && void 0 !== _ ? _ : []; v < b.length; v++) m = b[v], t3.append("genres_exclude[]", m);
+              for (t3.set("tag_mode", L.tags_include_operator.value), c = 0, p = null !== (F = null === (N = null === (A = L.tags) || void 0 === A ? void 0 : A.value) || void 0 === N ? void 0 : N.include) && void 0 !== F ? F : []; c < p.length; c++) m = p[c], t3.append("tags_include[]", m);
+              for (d = 0, g = null !== (H = null === (C = null === (M = L.tags) || void 0 === M ? void 0 : M.value) || void 0 === C ? void 0 : C.exclude) && void 0 !== H ? H : []; d < g.length; d++) m = g[d], t3.append("tags_exclude[]", m);
               return e3 > 1 && t3.set("page", String(e3)), h = this.site + "search.php?" + t3.toString(), [4, this.fetchHtml(h)];
             case 1:
               return y = l3.sent(), f = (0, r.load)(y), this.hasRequestedPage(f, e3) ? [2, this.parseNovelsList(f)] : [2, []];
           }
         });
       });
-    }, v2.prototype.parseNovel = function(e2) {
+    }, u2.prototype.parseNovel = function(e2) {
       return l(this, void 0, void 0, function() {
-        var l2, t2, i2, u2, s2, v3, b, c, p, d, g, m, h;
+        var l2, t2, i2, o2, s2, u3, v, b, c, p, d, g, m;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return [4, this.fetchHtml(this.site + e2)];
             case 1:
-              l2 = a2.sent(), t2 = (0, r.load)(l2), i2 = t2('script[type="application/ld+json"]').text(), u2 = {};
+              l2 = a2.sent(), t2 = (0, r.load)(l2), i2 = t2('script[type="application/ld+json"]').text(), o2 = {};
               try {
-                u2 = JSON.parse(i2);
+                o2 = JSON.parse(i2);
               } catch (e3) {
               }
-              return s2 = u2.name || t2("h1").text().trim(), v3 = u2.image || n.defaultCover, b = u2.description || t2(".hero-summary").text().trim(), (c = [u2.author].flat().map(function(e3) {
+              return s2 = o2.name || t2("h1").text().trim(), u3 = o2.image, v = o2.description || t2(".hero-summary").text().trim(), (b = [o2.author].flat().map(function(e3) {
                 return null == e3 ? void 0 : e3.name;
-              }).filter(Boolean).join(", ")) || (c = t2(".info-list li").first().text().replace(/^Author:\s*/i, "").trim()), (p = [u2.genre].flat().filter(Boolean).join(",")) || (p = t2(".genre-pill").map(function(e3, l3) {
+              }).filter(Boolean).join(", ")) || (b = t2(".info-list li").first().text().replace(/^Author:\s*/i, "").trim()), (c = [o2.genre].flat().filter(Boolean).join(",")) || (c = t2(".genre-pill").map(function(e3, l3) {
                 return t2(l3).text().trim();
-              }).get().filter(Boolean).join(",")), d = { path: e2, name: s2 || "Untitled", cover: v3, summary: b, author: c, genres: p, chapters: [] }, g = t2(".status-badge").text().trim(), m = { ongoing: o.NovelStatus.Ongoing, completed: o.NovelStatus.Completed, hiatus: o.NovelStatus.OnHiatus, dropped: o.NovelStatus.Cancelled }, d.status = m[g.toLowerCase()] || o.NovelStatus.Unknown, h = [], t2("#chapter-list li").each(function(e3, l3) {
+              }).get().filter(Boolean).join(",")), p = { path: e2, name: s2 || "Untitled", cover: u3, summary: v, author: b, genres: c, chapters: [] }, d = t2(".status-badge").text().trim(), g = { ongoing: n.NovelStatus.Ongoing, completed: n.NovelStatus.Completed, hiatus: n.NovelStatus.OnHiatus, dropped: n.NovelStatus.Cancelled }, p.status = g[d.toLowerCase()] || n.NovelStatus.Unknown, m = [], t2("#chapter-list li").each(function(e3, l3) {
                 var a3 = t2(l3), r2 = (a3.find("a").attr("href") || "").trim(), i3 = r2.startsWith("/") ? r2.slice(1) : r2, n2 = a3.find(".chapter-item-main").text().trim();
-                i3 && n2 && h.push({ name: n2 + (a3.find(".chapter-item-flag").length ? " [IMG]" : ""), path: i3, chapterNumber: Number(a3.attr("data-ch")) });
-              }), d.chapters = h, [2, d];
+                i3 && n2 && m.push({ name: n2 + (a3.find(".chapter-item-flag").length ? " [IMG]" : ""), path: i3, chapterNumber: Number(a3.attr("data-ch")) });
+              }), p.chapters = m, [2, p];
           }
         });
       });
-    }, v2.prototype.parseChapter = function(e2) {
+    }, u2.prototype.parseChapter = function(e2) {
       return l(this, void 0, void 0, function() {
         var l2, t2, i2, n2, o2;
         return a(this, function(a2) {
@@ -25663,7 +25671,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, v2.prototype.searchNovels = function(e2, t2) {
+    }, u2.prototype.searchNovels = function(e2, t2) {
       return l(this, void 0, void 0, function() {
         var l2, i2, n2, o2;
         return a(this, function(a2) {
@@ -25675,9 +25683,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, v2;
+    }, u2;
   }();
-  exports.default = new v(), function(e2) {
+  exports.default = new u(), function(e2) {
     e2[e2.Idle = 0] = "Idle", e2[e2.Novel = 1] = "Novel", e2[e2.NovelList = 2] = "NovelList";
   }(t || (t = {}));
 })();

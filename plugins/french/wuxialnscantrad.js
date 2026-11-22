@@ -7017,7 +7017,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -7742,7 +7742,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i2 = 0, l2 = from.length, ar; i2 < l2; i2++) {
+        if (pack || arguments.length === 2) for (var i2 = 0, l = from.length, ar; i2 < l; i2++) {
           if (ar || !(i2 in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i2);
             ar[i2] = from[i2];
@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25404,7 +25412,7 @@ var LNReaderPlugin = (() => {
         "object" == typeof exports4 && "undefined" != typeof module ? module.exports = e2() : "function" == typeof define && define.amd ? define(e2) : (t2 = "undefined" != typeof globalThis ? globalThis : t2 || self).dayjs = e2();
       }(exports4, function() {
         "use strict";
-        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h = "year", d = "date", l2 = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
+        var t2 = 1e3, e2 = 6e4, n2 = 36e5, r2 = "millisecond", i2 = "second", s2 = "minute", u2 = "hour", a2 = "day", o2 = "week", c2 = "month", f = "quarter", h = "year", d = "date", l = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: /* @__PURE__ */ __name(function(t3) {
           var e3 = ["th", "st", "nd", "rd"], n3 = t3 % 100;
           return "[" + t3 + (e3[(n3 - 20) % 10] || e3[n3] || e3[0]) + "]";
         }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
@@ -25475,7 +25483,7 @@ var LNReaderPlugin = (() => {
           }, m2.$utils = function() {
             return b;
           }, m2.isValid = function() {
-            return !(this.$d.toString() === l2);
+            return !(this.$d.toString() === l);
           }, m2.isSame = function(t3, e3) {
             var n3 = O(t3);
             return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
@@ -25490,7 +25498,7 @@ var LNReaderPlugin = (() => {
           }, m2.valueOf = function() {
             return this.$d.getTime();
           }, m2.startOf = function(t3, e3) {
-            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l3 = /* @__PURE__ */ __name(function(t4, e4) {
+            var n3 = this, r3 = !!b.u(e3) || e3, f2 = b.p(t3), l2 = /* @__PURE__ */ __name(function(t4, e4) {
               var i3 = b.w(n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4), n3);
               return r3 ? i3 : i3.endOf(a2);
             }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
@@ -25498,12 +25506,12 @@ var LNReaderPlugin = (() => {
             }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
             switch (f2) {
               case h:
-                return r3 ? l3(1, 0) : l3(31, 11);
+                return r3 ? l2(1, 0) : l2(31, 11);
               case c2:
-                return r3 ? l3(1, M3) : l3(0, M3 + 1);
+                return r3 ? l2(1, M3) : l2(0, M3 + 1);
               case o2:
                 var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
-                return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
+                return l2(r3 ? m3 - D2 : m3 + (6 - D2), M3);
               case a2:
               case d:
                 return $3(v2 + "Hours", 0);
@@ -25519,22 +25527,22 @@ var LNReaderPlugin = (() => {
           }, m2.endOf = function(t3) {
             return this.startOf(t3, false);
           }, m2.$set = function(t3, e3) {
-            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l3 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c2] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
+            var n3, o3 = b.p(t3), f2 = "set" + (this.$u ? "UTC" : ""), l2 = (n3 = {}, n3[a2] = f2 + "Date", n3[d] = f2 + "Date", n3[c2] = f2 + "Month", n3[h] = f2 + "FullYear", n3[u2] = f2 + "Hours", n3[s2] = f2 + "Minutes", n3[i2] = f2 + "Seconds", n3[r2] = f2 + "Milliseconds", n3)[o3], $3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
             if (o3 === c2 || o3 === h) {
               var y2 = this.clone().set(d, 1);
-              y2.$d[l3]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
-            } else l3 && this.$d[l3]($3);
+              y2.$d[l2]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
+            } else l2 && this.$d[l2]($3);
             return this.init(), this;
           }, m2.set = function(t3, e3) {
             return this.clone().$set(t3, e3);
           }, m2.get = function(t3) {
             return this[b.p(t3)]();
           }, m2.add = function(r3, f2) {
-            var d2, l3 = this;
+            var d2, l2 = this;
             r3 = Number(r3);
             var $3 = b.p(f2), y2 = /* @__PURE__ */ __name(function(t3) {
-              var e3 = O(l3);
-              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l3);
+              var e3 = O(l2);
+              return b.w(e3.date(e3.date() + Math.round(t3 * r3)), l2);
             }, "y");
             if ($3 === c2) return this.set(c2, this.$M + r3);
             if ($3 === h) return this.set(h, this.$y + r3);
@@ -25546,7 +25554,7 @@ var LNReaderPlugin = (() => {
             return this.add(-1 * t3, e3);
           }, m2.format = function(t3) {
             var e3 = this, n3 = this.$locale();
-            if (!this.isValid()) return n3.invalidDate || l2;
+            if (!this.isValid()) return n3.invalidDate || l;
             var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ", i3 = b.z(this), s3 = this.$H, u3 = this.$m, a3 = this.$M, o3 = n3.weekdays, c3 = n3.months, f2 = n3.meridiem, h2 = /* @__PURE__ */ __name(function(t4, n4, i4, s4) {
               return t4 && (t4[n4] || t4(e3, r3)) || i4[n4].slice(0, s4);
             }, "h"), d2 = /* @__PURE__ */ __name(function(t4) {
@@ -25612,7 +25620,7 @@ var LNReaderPlugin = (() => {
             });
           }, m2.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-          }, m2.diff = function(r3, d2, l3) {
+          }, m2.diff = function(r3, d2, l2) {
             var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
               return b.m(y2, m3);
             }, "D");
@@ -25644,7 +25652,7 @@ var LNReaderPlugin = (() => {
               default:
                 $3 = g2;
             }
-            return l3 ? $3 : b.a($3);
+            return l2 ? $3 : b.a($3);
           }, m2.daysInMonth = function() {
             return this.endOf(c2).$D;
           }, m2.$locale = function() {
@@ -25772,10 +25780,10 @@ var LNReaderPlugin = (() => {
     return t2 && t2.__esModule ? t2 : { default: t2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = r(require_dayjs_min()), u = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
-  function c(r2, n2) {
+  var n = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = r(require_dayjs_min()), a = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
+  function u(r2, n2) {
     return t(this, void 0, void 0, function() {
-      var t2, o2, s2, a2, c2;
+      var t2, o2, s2, u2, c2;
       return e(this, function(e2) {
         switch (e2.label) {
           case 0:
@@ -25784,21 +25792,21 @@ var LNReaderPlugin = (() => {
             if (!(t2 = e2.sent()).ok) throw new Error("HTTP ".concat(t2.status, " while loading ").concat(r2));
             return [4, t2.text()];
           case 2:
-            if (o2 = e2.sent(), (s2 = null === (c2 = null === (a2 = o2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === a2 ? void 0 : a2[1]) || void 0 === c2 ? void 0 : c2.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && u.has(s2)) throw new Error("Bot challenge while loading ".concat(r2));
+            if (o2 = e2.sent(), (s2 = null === (c2 = null === (u2 = o2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === u2 ? void 0 : u2[1]) || void 0 === c2 ? void 0 : c2.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && a.has(s2)) throw new Error("Bot challenge while loading ".concat(r2));
             return [2, o2];
         }
       });
     });
   }
-  __name(c, "c");
-  var l = function() {
+  __name(u, "u");
+  var c = function() {
     function r2() {
-      this.id = "wuxialnscantrad", this.name = "WuxiaLnScantrad", this.icon = "src/fr/wuxialnscantrad/icon.png", this.site = "https://wuxialnscantrad.wordpress.com", this.version = "1.0.4";
+      this.id = "wuxialnscantrad", this.name = "WuxiaLnScantrad", this.icon = "src/fr/wuxialnscantrad/icon.png", this.site = "https://wuxialnscantrad.wordpress.com", this.version = "1.0.5";
     }
     __name(r2, "r");
     return r2.prototype.findMovedChapter = function(r3) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, o2, s2, a2, u2, c2, l2, h;
+        var t2, n2, o2, s2, a2, u2, c2, l, h;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25808,7 +25816,7 @@ var LNReaderPlugin = (() => {
             case 2:
               return u2 = e2.sent(), (c2 = null === (h = u2.find(function(t3) {
                 return new RegExp("chapitre\\D*".concat(n2[2], "(?:\\D|$)"), "i").test(t3.title || "");
-              })) || void 0 === h ? void 0 : h.url) ? [2, (l2 = new URL(c2, this.site)).origin === new URL(this.site).origin ? l2.toString() : null] : [2, null];
+              })) || void 0 === h ? void 0 : h.url) ? [2, (l = new URL(c2, this.site)).origin === new URL(this.site).origin ? l.toString() : null] : [2, null];
           }
         });
       });
@@ -25818,7 +25826,7 @@ var LNReaderPlugin = (() => {
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = n.load, [4, c(r3, { headers: { "Accept-Encoding": "deflate" } })];
+              return t2 = n.load, [4, u(r3, { headers: { "Accept-Encoding": "deflate" } })];
             case 1:
               return [2, t2.apply(void 0, [e2.sent()])];
           }
@@ -25826,52 +25834,52 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.popularNovels = function(r3) {
       return t(this, void 0, void 0, function() {
-        var n2, i2, s2, a2, u2 = this;
-        return e(this, function(c2) {
-          switch (c2.label) {
+        var n2, i2, o2, s2, a2 = this;
+        return e(this, function(u2) {
+          switch (u2.label) {
             case 0:
-              return r3 > 1 ? [2, []] : (n2 = [], s2 = this.site, [4, this.getCheerio(s2)]);
+              return r3 > 1 ? [2, []] : (n2 = [], o2 = this.site, [4, this.getCheerio(o2)]);
             case 1:
-              return (a2 = c2.sent())("#menu-item-2210 ul li").each(function(t2, e2) {
-                var r4 = a2(e2).first().text().trim(), s3 = a2(e2).find("a").attr("href");
-                s3 && r4 && (i2 = { name: r4, cover: o.defaultCover, path: s3.replace(u2.site, "") }, n2.push(i2));
+              return (s2 = u2.sent())("#menu-item-2210 ul li").each(function(t2, e2) {
+                var r4 = s2(e2).first().text().trim(), o3 = s2(e2).find("a").attr("href");
+                o3 && r4 && (i2 = { name: r4, path: o3.replace(a2.site, "") }, n2.push(i2));
               }), [4, Promise.all(n2.map(function(r4) {
-                return t(u2, void 0, void 0, function() {
+                return t(a2, void 0, void 0, function() {
                   var t2;
                   return e(this, function(e2) {
                     switch (e2.label) {
                       case 0:
                         return [4, this.getCheerio(this.site + r4.path)];
                       case 1:
-                        return t2 = e2.sent(), r4.cover = t2(".entry-content p strong img").first().attr("src") || t2(".entry-content p img").first().attr("src") || o.defaultCover, [2];
+                        return t2 = e2.sent(), r4.cover = t2(".entry-content p strong img").first().attr("src") || t2(".entry-content p img").first().attr("src"), [2];
                     }
                   });
                 });
               }))];
             case 2:
-              return c2.sent(), [2, n2];
+              return u2.sent(), [2, n2];
           }
         });
       });
     }, r2.prototype.parseNovel = function(r3) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, i2, o2, s2, u2, c2 = this;
+        var t2, n2, i2, o2, a2, u2, c2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return t2 = { path: r3, name: "Sans titre" }, [4, this.getCheerio(this.site + r3)];
             case 1:
-              return n2 = e2.sent(), t2.name = n2(".entry-title").text().trim(), t2.cover = n2(".entry-content p strong img").first().attr("src") || n2(".entry-content p img").first().attr("src"), i2 = n2(".entry-content").text(), t2.author = this.getAuthor(i2), t2.genres = this.getGenres(i2), t2.artist = this.getArtist(i2), t2.summary = this.getSummary(i2), t2.status = this.getStatus(i2), o2 = n2(".entry-content ul").first().children("li"), s2 = [], u2 = /* @__PURE__ */ new Set(), o2.each(function(t3, e3) {
+              return n2 = e2.sent(), t2.name = n2(".entry-title").text().trim(), t2.cover = n2(".entry-content p strong img").first().attr("src") || n2(".entry-content p img").first().attr("src"), i2 = n2(".entry-content").text(), t2.author = this.getAuthor(i2), t2.genres = this.getGenres(i2), t2.artist = this.getArtist(i2), t2.summary = this.getSummary(i2), t2.status = this.getStatus(i2), o2 = n2(".entry-content ul").first().children("li"), a2 = [], u2 = /* @__PURE__ */ new Set(), o2.each(function(t3, e3) {
                 var r4 = n2(e3).text().trim(), i3 = n2(e3).find("a").attr("href");
                 if (i3 && i3.includes(c2.site) && r4) {
                   var o3 = i3.replace(c2.site, "");
                   if (!u2.has(o3)) {
                     u2.add(o3);
-                    var l2 = (0, a.default)(null == i3 ? void 0 : i3.substring(c2.site.length + 1, c2.site.length + 11)).format("YYYY-MM-DD");
-                    s2.push({ name: r4, path: o3, releaseTime: l2 });
+                    var l = (0, s.default)(null == i3 ? void 0 : i3.substring(c2.site.length + 1, c2.site.length + 11)).format("YYYY-MM-DD");
+                    a2.push({ name: r4, path: o3, releaseTime: l });
                   }
                 }
-              }), t2.chapters = s2, [2, t2];
+              }), t2.chapters = a2, [2, t2];
           }
         });
       });
@@ -25894,39 +25902,39 @@ var LNReaderPlugin = (() => {
       var e2 = /Statut:\s*(.*)/.exec(t2), r3 = "";
       switch (null !== e2 && (r3 = e2[1].trim()), r3) {
         case "En cours":
-          return s.NovelStatus.Ongoing;
+          return o.NovelStatus.Ongoing;
         case "Arr\xEAt\xE9":
-          return s.NovelStatus.Cancelled;
+          return o.NovelStatus.Cancelled;
         case "Termin\xE9":
-          return s.NovelStatus.Completed;
+          return o.NovelStatus.Completed;
         default:
-          return s.NovelStatus.Unknown;
+          return o.NovelStatus.Unknown;
       }
     }, r2.prototype.parseChapter = function(r3) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, s2, a2, u2, l2;
+        var t2, i2, o2, s2, a2, c2, l;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               t2 = { headers: { "Accept-Encoding": "deflate" } }, e2.label = 1;
             case 1:
-              return e2.trys.push([1, 3, , 6]), [4, c(this.site + r3, t2)];
+              return e2.trys.push([1, 3, , 6]), [4, u(this.site + r3, t2)];
             case 2:
               return i2 = e2.sent(), [3, 6];
             case 3:
               return o2 = e2.sent(), [4, this.findMovedChapter(r3)];
             case 4:
               if (!(s2 = e2.sent())) throw o2;
-              return [4, c(s2, t2)];
+              return [4, u(s2, t2)];
             case 5:
               return i2 = e2.sent(), [3, 6];
             case 6:
-              if (a2 = (0, n.load)(i2), u2 = "", a2(".entry-content").contents().each(function() {
+              if (a2 = (0, n.load)(i2), c2 = "", a2(".entry-content").contents().each(function() {
                 var t3, e3, r4, n2;
                 if (null === (t3 = a2(this).html()) || void 0 === t3 ? void 0 : t3.includes("<script")) return false;
-                (null === (e3 = a2(this).html()) || void 0 === e3 ? void 0 : e3.includes('data-attachment-id="480')) || (null === (r4 = a2.html(this)) || void 0 === r4 ? void 0 : r4.includes("<hr>")) || (null === (n2 = a2.html(this)) || void 0 === n2 ? void 0 : n2.includes("<p>&nbsp;</p>")) || (u2 += a2.html(this));
-              }), (l2 = (0, n.load)(u2)).text().replace(/\s+/g, " ").trim().length < 200 && !l2("img").length) throw new Error("No readable chapter content found");
-              return [2, u2];
+                (null === (e3 = a2(this).html()) || void 0 === e3 ? void 0 : e3.includes('data-attachment-id="480')) || (null === (r4 = a2.html(this)) || void 0 === r4 ? void 0 : r4.includes("<hr>")) || (null === (n2 = a2.html(this)) || void 0 === n2 ? void 0 : n2.includes("<p>&nbsp;</p>")) || (c2 += a2.html(this));
+              }), (l = (0, n.load)(c2)).text().replace(/\s+/g, " ").trim().length < 200 && !l("img").length) throw new Error("No readable chapter content found");
+              return [2, c2];
           }
         });
       });
@@ -25945,7 +25953,7 @@ var LNReaderPlugin = (() => {
       });
     }, r2;
   }();
-  exports.default = new l();
+  exports.default = new c();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

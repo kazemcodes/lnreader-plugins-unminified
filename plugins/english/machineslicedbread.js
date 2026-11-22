@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25376,7 +25400,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25394,22 +25418,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25520,15 +25528,15 @@ var LNReaderPlugin = (() => {
     __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = /^(?:www\.)?machineslicedbread\.xyz$/i, c = /glossary|whats-with-the-passwords/i, l = /^\(?\s*direct link\s*\)?$/i, u = /patreon|discord|ko-fi|syosetu|amazon|twitter|x\.com/i, h = /notavailable/i, p = /^(?:raw|translat(?:ion|or|ed)|edit(?:or|ed)|proofread|author|autor|chapters?|table of contents|toc|note)\b/i, f = "[\\s|\u2039\u203A\xAB\xBB<>\\[\\]()\\-\u2013\u2014\xB7]", d = new RegExp("^".concat(f, "*(?:").concat("(?:(?:previous|prev|next|back)(?:\\s+chapter)?|toc|table of contents|index|top)").concat(f, "*)+$"), "i"), v = { "caught-up": o.NovelStatus.Ongoing, completed: o.NovelStatus.Completed, ongoing: o.NovelStatus.Ongoing, hiatus: o.NovelStatus.OnHiatus, originals: o.NovelStatus.Unknown }, g = function() {
-    function o2() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = /^(?:www\.)?machineslicedbread\.xyz$/i, s = /glossary|whats-with-the-passwords/i, c = /^\(?\s*direct link\s*\)?$/i, l = /patreon|discord|ko-fi|syosetu|amazon|twitter|x\.com/i, u = /notavailable/i, h = /^(?:raw|translat(?:ion|or|ed)|edit(?:or|ed)|proofread|author|autor|chapters?|table of contents|toc|note)\b/i, p = "[\\s|\u2039\u203A\xAB\xBB<>\\[\\]()\\-\u2013\u2014\xB7]", f = new RegExp("^".concat(p, "*(?:").concat("(?:(?:previous|prev|next|back)(?:\\s+chapter)?|toc|table of contents|index|top)").concat(p, "*)+$"), "i"), d = { "caught-up": i.NovelStatus.Ongoing, completed: i.NovelStatus.Completed, ongoing: i.NovelStatus.Ongoing, hiatus: i.NovelStatus.OnHiatus, originals: i.NovelStatus.Unknown }, v = function() {
+    function i2() {
       var t2 = this;
-      this.id = "machineslicedbread", this.name = "Machine Sliced Bread", this.site = "https://machineslicedbread.xyz", this.icon = "src/en/machineslicedbread/icon.png", this.version = "1.0.0", this.filters = { section: { label: "Section", value: "all", options: [{ label: "All", value: "all" }, { label: "Caught up with the author", value: "caught-up" }, { label: "Ongoing translations", value: "ongoing" }, { label: "Completed translations", value: "completed" }, { label: "Hiatus / dropped", value: "hiatus" }, { label: "Originals", value: "originals" }], type: r.FilterTypes.Picker } }, this.resolveUrl = function(e2) {
+      this.id = "machineslicedbread", this.name = "Machine Sliced Bread", this.site = "https://machineslicedbread.xyz", this.icon = "src/en/machineslicedbread/icon.png", this.version = "1.0.1", this.filters = { section: { label: "Section", value: "all", options: [{ label: "All", value: "all" }, { label: "Caught up with the author", value: "caught-up" }, { label: "Ongoing translations", value: "ongoing" }, { label: "Completed translations", value: "completed" }, { label: "Hiatus / dropped", value: "hiatus" }, { label: "Originals", value: "originals" }], type: r.FilterTypes.Picker } }, this.resolveUrl = function(e2) {
         return new URL(e2, t2.site).href;
       };
     }
-    __name(o2, "o");
-    return o2.prototype.request = function(r2) {
+    __name(i2, "i");
+    return i2.prototype.request = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25541,7 +25549,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.sitePath = function(t2) {
+    }, i2.prototype.sitePath = function(t2) {
       if (t2) {
         var e2;
         try {
@@ -25549,19 +25557,19 @@ var LNReaderPlugin = (() => {
         } catch (t3) {
           return;
         }
-        if (s.test(e2.hostname)) {
+        if (o.test(e2.hostname)) {
           var n2 = e2.pathname.replace(/\/{2,}/g, "/"), r2 = e2.searchParams.get("page_id");
           if ("/" === n2 && r2) return "/?page_id=".concat(r2);
           if ("/" !== n2 && !e2.search) return n2;
         }
       }
-    }, o2.prototype.canonical = function(t2) {
+    }, i2.prototype.canonical = function(t2) {
       return t2.replace(/\/+$/, "").toLowerCase();
-    }, o2.prototype.cleanText = function(t2) {
+    }, i2.prototype.cleanText = function(t2) {
       return t2.replace(/\s+/g, " ").trim();
-    }, o2.prototype.catalogue = function() {
+    }, i2.prototype.catalogue = function() {
       return t(this, void 0, void 0, function() {
-        var t2, n2, r2, o3, s2, c2 = this;
+        var t2, n2, r2, i3, o2, s2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25569,24 +25577,24 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, e2.sent().text()];
             case 2:
-              return t2 = n2.apply(void 0, [e2.sent()]), r2 = [], o3 = /* @__PURE__ */ new Set(), t2(".entry-content").first().find("h2, h3, ul").each(function(e3, n3) {
-                if (t2(n3).is("h2, h3")) return a2 = t2(n3).text(), l2 = a2.toLowerCase(), void (s2 = (/hiatus|dropped/.test(l2) ? "hiatus" : /completed/.test(l2) ? "completed" : /ongoing/.test(l2) ? "ongoing" : /caught up/.test(l2) ? "caught-up" : /original/.test(l2) ? "originals" : void 0) || s2);
-                var a2, l2;
+              return t2 = n2.apply(void 0, [e2.sent()]), r2 = [], i3 = /* @__PURE__ */ new Set(), t2(".entry-content").first().find("h2, h3, ul").each(function(e3, n3) {
+                if (t2(n3).is("h2, h3")) return a2 = t2(n3).text(), c2 = a2.toLowerCase(), void (o2 = (/hiatus|dropped/.test(c2) ? "hiatus" : /completed/.test(c2) ? "completed" : /ongoing/.test(c2) ? "ongoing" : /caught up/.test(c2) ? "caught-up" : /original/.test(c2) ? "originals" : void 0) || o2);
+                var a2, c2;
                 t2(n3).children("li").each(function(e4, n4) {
-                  var a3 = t2(n4).children("a[href]").first(), l3 = c2.sitePath(a3.attr("href")), u2 = c2.cleanText(a3.text());
-                  l3 && u2 && !o3.has(c2.canonical(l3)) && (o3.add(c2.canonical(l3)), r2.push({ name: u2, path: l3, cover: i.defaultCover, section: s2, status: s2 ? v[s2] : void 0 }));
+                  var a3 = t2(n4).children("a[href]").first(), c3 = s2.sitePath(a3.attr("href")), l2 = s2.cleanText(a3.text());
+                  c3 && l2 && !i3.has(s2.canonical(c3)) && (i3.add(s2.canonical(c3)), r2.push({ name: l2, path: c3, section: o2, status: o2 ? d[o2] : void 0 }));
                 });
               }), [2, r2];
           }
         });
       });
-    }, o2.prototype.popularNovels = function(n2, r2) {
+    }, i2.prototype.popularNovels = function(n2, r2) {
       return t(this, arguments, void 0, function(t2, n3) {
-        var r3, a2, i2 = n3.filters;
+        var r3, a2, i3 = n3.filters;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 > 1 ? [2, []] : (r3 = null === (a2 = null == i2 ? void 0 : i2.section) || void 0 === a2 ? void 0 : a2.value, [4, this.catalogue()]);
+              return t2 > 1 ? [2, []] : (r3 = null === (a2 = null == i3 ? void 0 : i3.section) || void 0 === a2 ? void 0 : a2.value, [4, this.catalogue()]);
             case 1:
               return [2, e2.sent().filter(function(t3) {
                 return !r3 || "all" === r3 || t3.section === r3;
@@ -25596,22 +25604,22 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.newerChapters = function(r2) {
+    }, i2.prototype.newerChapters = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o3, s2, c2, l2, u2, h2, p2, f2, d2, v2, g2, w, b;
+        var t2, i3, o2, s2, c2, l2, u2, h2, p2, f2, d2, v2, g, w, b;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               if (!(t2 = /^(.*-)(\d+)\/?$/.exec(r2.path.split("/").filter(Boolean).pop() || ""))) return [2, []];
-              i2 = t2[1], o3 = t2[2], s2 = /* @__PURE__ */ new Map(), e2.label = 1;
+              i3 = t2[1], o2 = t2[2], s2 = /* @__PURE__ */ new Map(), e2.label = 1;
             case 1:
               e2.trys.push([1, 7, , 8]), c2 = 1, e2.label = 2;
             case 2:
-              return c2 <= 15 ? [4, (0, n.fetchApi)("".concat(this.site, "/wp-json/wp/v2/pages?search=").concat(encodeURIComponent(i2.replace(/-/g, " ")), "&per_page=100&page=").concat(c2, "&orderby=date&order=desc&_fields=link,date,title"))] : [3, 6];
+              return c2 <= 15 ? [4, (0, n.fetchApi)("".concat(this.site, "/wp-json/wp/v2/pages?search=").concat(encodeURIComponent(i3.replace(/-/g, " ")), "&per_page=100&page=").concat(c2, "&orderby=date&order=desc&_fields=link,date,title"))] : [3, 6];
             case 3:
               return (l2 = e2.sent()).ok ? [4, l2.json()] : [3, 6];
             case 4:
-              for (u2 = e2.sent(), h2 = false, p2 = 0, f2 = u2; p2 < f2.length; p2++) d2 = f2[p2], v2 = this.sitePath(d2.link), g2 = (null == v2 ? void 0 : v2.split("/").filter(Boolean).pop()) || "", v2 && g2.startsWith(i2) && (w = /^\d+$/.test(g2.slice(i2.length)) ? Number(g2.slice(i2.length)) : NaN, isNaN(w) || (w <= Number(o3) ? h2 = true : s2.set(w, { name: this.cleanText((0, a.load)((null === (b = d2.title) || void 0 === b ? void 0 : b.rendered) || "").text()).replace(/^.*?(?=chapter\s+\d)/i, "").replace(/^chapter/, "Chapter") || "Chapter ".concat(w), path: v2, chapterNumber: w, releaseTime: d2.date ? (/* @__PURE__ */ new Date(d2.date + "Z")).toISOString() : void 0 })));
+              for (u2 = e2.sent(), h2 = false, p2 = 0, f2 = u2; p2 < f2.length; p2++) d2 = f2[p2], v2 = this.sitePath(d2.link), g = (null == v2 ? void 0 : v2.split("/").filter(Boolean).pop()) || "", v2 && g.startsWith(i3) && (w = /^\d+$/.test(g.slice(i3.length)) ? Number(g.slice(i3.length)) : NaN, isNaN(w) || (w <= Number(o2) ? h2 = true : s2.set(w, { name: this.cleanText((0, a.load)((null === (b = d2.title) || void 0 === b ? void 0 : b.rendered) || "").text()).replace(/^.*?(?=chapter\s+\d)/i, "").replace(/^chapter/, "Chapter") || "Chapter ".concat(w), path: v2, chapterNumber: w, releaseTime: d2.date ? (/* @__PURE__ */ new Date(d2.date + "Z")).toISOString() : void 0 })));
               if (h2 || u2.length < 100) return [3, 6];
               e2.label = 5;
             case 5:
@@ -25629,9 +25637,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.parseNovel = function(n2) {
+    }, i2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, o3, s2, f2, d2, v2, g2, w, b, m, y, x, S, C, N, T, k, P, A, O, _, q, B, U, j = this;
+        var t2, r2, i3, o2, p2, f2, d2, v2, g, w, b, m, y, x, S, N, C, T, k, P, A, O, _, B, U, j = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25639,78 +25647,78 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, e2.sent().text()];
             case 2:
-              return t2 = r2.apply(void 0, [e2.sent()]), (o3 = t2(".entry-content").first()).find("script, style, .sharedaddy, #jp-post-flair").remove(), o3.find("br").replaceWith("\n"), s2 = this.cleanText(t2("h1.entry-title").first().text()) || "Untitled", f2 = this.canonical(this.sitePath(n2) || n2), d2 = [], v2 = /* @__PURE__ */ new Set([f2]), o3.find("a[href]").each(function(e3, n3) {
+              return t2 = r2.apply(void 0, [e2.sent()]), (i3 = t2(".entry-content").first()).find("script, style, .sharedaddy, #jp-post-flair").remove(), i3.find("br").replaceWith("\n"), o2 = this.cleanText(t2("h1.entry-title").first().text()) || "Untitled", p2 = this.canonical(this.sitePath(n2) || n2), f2 = [], d2 = /* @__PURE__ */ new Set([p2]), i3.find("a[href]").each(function(e3, n3) {
                 var r3, a2 = j.sitePath(t2(n3).attr("href"));
-                if (a2 && !c.test(a2)) {
-                  var i2 = j.canonical(a2);
-                  if (!v2.has(i2)) {
-                    var o4 = j.cleanText(t2(n3).text());
-                    if (o4 && !l.test(o4) || (o4 = j.cleanText(t2(n3).prevAll("a").first().text())), o4 && !c.test(o4)) {
-                      v2.add(i2);
-                      var s3 = null === (r3 = /^(?:chapter\s+)?(\d+(?:\.\d+)?)\b/i.exec(o4)) || void 0 === r3 ? void 0 : r3[1];
-                      d2.push({ name: o4, path: a2, chapterNumber: s3 ? Number(s3) : void 0 });
+                if (a2 && !s.test(a2)) {
+                  var i4 = j.canonical(a2);
+                  if (!d2.has(i4)) {
+                    var o3 = j.cleanText(t2(n3).text());
+                    if (o3 && !c.test(o3) || (o3 = j.cleanText(t2(n3).prevAll("a").first().text())), o3 && !s.test(o3)) {
+                      d2.add(i4);
+                      var l2 = null === (r3 = /^(?:chapter\s+)?(\d+(?:\.\d+)?)\b/i.exec(o3)) || void 0 === r3 ? void 0 : r3[1];
+                      f2.push({ name: o3, path: a2, chapterNumber: l2 ? Number(l2) : void 0 });
                     }
                   }
                 }
-              }), d2.length ? (g2 = new Set(d2.map(function(t3) {
+              }), f2.length ? (v2 = new Set(f2.map(function(t3) {
                 return j.canonical(t3.path);
-              })), w = 0, [4, this.newerChapters(d2[d2.length - 1])]) : [3, 6];
+              })), g = 0, [4, this.newerChapters(f2[f2.length - 1])]) : [3, 6];
             case 3:
-              b = e2.sent(), e2.label = 4;
+              w = e2.sent(), e2.label = 4;
             case 4:
-              if (!(w < b.length)) return [3, 6];
-              m = b[w], g2.has(this.canonical(m.path)) || d2.push(m), e2.label = 5;
+              if (!(g < w.length)) return [3, 6];
+              b = w[g], v2.has(this.canonical(b.path)) || f2.push(b), e2.label = 5;
             case 5:
-              return w++, [3, 4];
+              return g++, [3, 4];
             case 6:
-              if ((y = !d2.length && this.cleanText(o3.text()).length > 8e3 && o3.find("a[href]").filter(function(e3, n3) {
-                return !u.test(t2(n3).attr("href") || "");
-              }).length <= 2) && d2.push({ name: s2, path: n2 }), !d2.length) throw new Error("Machine Sliced Bread: no chapters were found.");
-              for (x = new Set(d2.map(function(t3) {
+              if ((m = !f2.length && this.cleanText(i3.text()).length > 8e3 && i3.find("a[href]").filter(function(e3, n3) {
+                return !l.test(t2(n3).attr("href") || "");
+              }).length <= 2) && f2.push({ name: o2, path: n2 }), !f2.length) throw new Error("Machine Sliced Bread: no chapters were found.");
+              for (y = new Set(f2.map(function(t3) {
                 return t3.path;
-              })), S = [], C = 0, N = o3.children("p, div").toArray(); C < N.length && (T = N[C], !t2(T).find("a[href]").toArray().some(function(e3) {
-                return x.has(j.sitePath(t2(e3).attr("href")));
-              })); C++) t2(T).find("a[href]").length || (O = this.cleanText(t2(T).text())) && !p.test(O) && S.push(O);
-              for (k = "", P = 0, A = y ? [] : S; P < A.length && (O = A[P], !(k && k.length + O.length > 2500)); P++) k += (k ? "\n\n" : "") + O;
-              return _ = o3.text().split("\n").map(function(t3) {
+              })), x = [], S = 0, N = i3.children("p, div").toArray(); S < N.length && (C = N[S], !t2(C).find("a[href]").toArray().some(function(e3) {
+                return y.has(j.sitePath(t2(e3).attr("href")));
+              })); S++) t2(C).find("a[href]").length || (A = this.cleanText(t2(C).text())) && !h.test(A) && x.push(A);
+              for (T = "", k = 0, P = m ? [] : x; k < P.length && (A = P[k], !(T && T.length + A.length > 2500)); k++) T += (T ? "\n\n" : "") + A;
+              return O = i3.text().split("\n").map(function(t3) {
                 var e3;
                 return null === (e3 = /^\s*Aut(?:h)?or\s*:\s*(.+?)\s*$/i.exec(t3)) || void 0 === e3 ? void 0 : e3[1];
-              }).find(Boolean), q = o3.find("img[src]").toArray().map(function(e3) {
+              }).find(Boolean), _ = i3.find("img[src]").toArray().map(function(e3) {
                 return t2(e3).attr("src");
               }).find(function(t3) {
-                return !h.test(t3) && !t3.startsWith("data:");
-              }), B = q ? new URL(q, this.site).href : i.defaultCover, [4, this.catalogue().then(function(t3) {
+                return !u.test(t3) && !t3.startsWith("data:");
+              }), B = _ ? new URL(_, this.site).href : void 0, [4, this.catalogue().then(function(t3) {
                 return t3.find(function(t4) {
-                  return j.canonical(t4.path) === f2;
+                  return j.canonical(t4.path) === p2;
                 });
               }).catch(function() {
               })];
             case 7:
-              return U = e2.sent(), [2, { path: n2, name: s2, cover: B, author: _, status: null == U ? void 0 : U.status, summary: k || void 0, chapters: d2 }];
+              return U = e2.sent(), [2, { path: n2, name: o2, cover: B, author: O, status: null == U ? void 0 : U.status, summary: T || void 0, chapters: f2 }];
           }
         });
       });
-    }, o2.prototype.parseChapter = function(n2) {
+    }, i2.prototype.parseChapter = function(n2) {
       return t(this, void 0, void 0, function() {
         return e(this, function(t2) {
           return [2, this.readChapter(n2, true)];
         });
       });
-    }, o2.prototype.readChapter = function(n2, r2) {
+    }, i2.prototype.readChapter = function(n2, r2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o3, s2, c2, l2, u2, h2 = this;
+        var t2, i3, o2, s2, c2, l2, u2, h2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return i2 = a.load, [4, this.request(this.resolveUrl(n2))];
+              return i3 = a.load, [4, this.request(this.resolveUrl(n2))];
             case 1:
               return [4, e2.sent().text()];
             case 2:
-              if ((t2 = i2.apply(void 0, [e2.sent()]))("form.post-password-form").length) throw new Error(`Machine Sliced Bread: this chapter is password protected. See "What's with the Passwords?" on the site.`);
-              if ((o3 = t2(".entry-content").first()).find("script, style, noscript, iframe, form, nav, .tap-nav, .sharedaddy, #jp-post-flair, .wpcnt, .adsbygoogle, .post-navigation, .nav-links").remove(), o3.find("p, div").each(function(e3, n3) {
+              if ((t2 = i3.apply(void 0, [e2.sent()]))("form.post-password-form").length) throw new Error(`Machine Sliced Bread: this chapter is password protected. See "What's with the Passwords?" on the site.`);
+              if ((o2 = t2(".entry-content").first()).find("script, style, noscript, iframe, form, nav, .tap-nav, .sharedaddy, #jp-post-flair, .wpcnt, .adsbygoogle, .post-navigation, .nav-links").remove(), o2.find("p, div").each(function(e3, n3) {
                 var r3 = h2.cleanText(t2(n3).text());
-                r3 && r3.length < 60 && d.test(r3) && t2(n3).remove();
-              }), s2 = (null === (u2 = o3.html()) || void 0 === u2 ? void 0 : u2.trim()) || "", r2 && this.cleanText((0, a.load)(s2).text()).length < 100 && (c2 = this.canonical(this.sitePath(n2) || n2), l2 = o3.find("a[href]").toArray().map(function(e3) {
+                r3 && r3.length < 60 && f.test(r3) && t2(n3).remove();
+              }), s2 = (null === (u2 = o2.html()) || void 0 === u2 ? void 0 : u2.trim()) || "", r2 && this.cleanText((0, a.load)(s2).text()).length < 100 && (c2 = this.canonical(this.sitePath(n2) || n2), l2 = o2.find("a[href]").toArray().map(function(e3) {
                 return h2.sitePath(t2(e3).attr("href"));
               }).find(function(t3) {
                 return t3 && h2.canonical(t3) !== c2;
@@ -25720,7 +25728,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.searchNovels = function(n2, r2) {
+    }, i2.prototype.searchNovels = function(n2, r2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25739,9 +25747,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2;
+    }, i2;
   }();
-  exports.default = new g();
+  exports.default = new v();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25402,7 +25410,7 @@ var LNReaderPlugin = (() => {
     return new (n2 || (n2 = Promise))(function(i2, o2) {
       function s2(t3) {
         try {
-          u2(r2.next(t3));
+          u(r2.next(t3));
         } catch (t4) {
           o2(t4);
         }
@@ -25410,20 +25418,20 @@ var LNReaderPlugin = (() => {
       __name(s2, "s");
       function a2(t3) {
         try {
-          u2(r2.throw(t3));
+          u(r2.throw(t3));
         } catch (t4) {
           o2(t4);
         }
       }
       __name(a2, "a");
-      function u2(t3) {
+      function u(t3) {
         var e3;
         t3.done ? i2(t3.value) : (e3 = t3.value, e3 instanceof n2 ? e3 : new n2(function(t4) {
           t4(e3);
         })).then(s2, a2);
       }
-      __name(u2, "u");
-      u2((r2 = r2.apply(t2, e2 || [])).next());
+      __name(u, "u");
+      u((r2 = r2.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
     var n2, r2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
@@ -25434,7 +25442,7 @@ var LNReaderPlugin = (() => {
       return this;
     }), s2;
     function a2(a3) {
-      return function(u2) {
+      return function(u) {
         return function(a4) {
           if (n2) throw new TypeError("Generator is already executing.");
           for (; s2 && (s2 = 0, a4[0] && (o2 = 0)), o2; ) try {
@@ -25480,16 +25488,16 @@ var LNReaderPlugin = (() => {
           }
           if (5 & a4[0]) throw a4[1];
           return { value: a4[0] ? a4[1] : void 0, done: true };
-        }([a3, u2]);
+        }([a3, u]);
       };
     }
     __name(a2, "a");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
-  function a(n2, i2) {
+  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = /* @__PURE__ */ new Set(["bot verification", "you are being redirected...", "un instant...", "just a moment...", "redirecting..."]);
+  function s(n2, i2) {
     return t(this, void 0, void 0, function() {
-      var t2, o2, a2, u2, c;
+      var t2, s2, a2, u, c;
       return e(this, function(e2) {
         switch (e2.label) {
           case 0:
@@ -25498,61 +25506,61 @@ var LNReaderPlugin = (() => {
             if (!(t2 = e2.sent()).ok) throw new Error("HTTP ".concat(t2.status, " while loading ").concat(n2));
             return [4, t2.text()];
           case 2:
-            if (o2 = e2.sent(), (a2 = null === (c = null === (u2 = o2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === u2 ? void 0 : u2[1]) || void 0 === c ? void 0 : c.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && s.has(a2)) throw new Error("Bot challenge while loading ".concat(n2));
-            return [2, o2];
+            if (s2 = e2.sent(), (a2 = null === (c = null === (u = s2.match(/<title[^>]*>(.*?)<\/title>/is)) || void 0 === u ? void 0 : u[1]) || void 0 === c ? void 0 : c.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase()) && o.has(a2)) throw new Error("Bot challenge while loading ".concat(n2));
+            return [2, s2];
         }
       });
     });
   }
-  __name(a, "a");
-  var u = function() {
-    function s2() {
-      this.id = "kisswood", this.name = "KissWood", this.icon = "src/fr/kisswood/icon.png", this.site = "https://kisswood.eu", this.version = "1.0.3", this.regexAuthors = [/Auteur :([^\n]*)/, /Auteur\u00A0:([^\n]*)/];
+  __name(s, "s");
+  var a = function() {
+    function o2() {
+      this.id = "kisswood", this.name = "KissWood", this.icon = "src/fr/kisswood/icon.png", this.site = "https://kisswood.eu", this.version = "1.0.4", this.regexAuthors = [/Auteur :([^\n]*)/, /Auteur\u00A0:([^\n]*)/];
     }
-    __name(s2, "s");
-    return s2.prototype.findMovedChapter = function(n2) {
+    __name(o2, "o");
+    return o2.prototype.findMovedChapter = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, s3, a2, u2, c, l;
+        var t2, i2, o3, s2, a2, u, c, l;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = n2.split("/").filter(Boolean).pop() || "", (i2 = t2.match(/^(.*?)-chapitre-(\d+)/i)) ? (o2 = "".concat(i2[1].replace(/-/g, " "), " chapitre ").concat(i2[2]), [4, (0, r.fetchApi)("".concat(this.site, "/wp-json/wp/v2/search?search=").concat(encodeURIComponent(o2), "&type=post&subtype=post&per_page=20"))]) : [2, null];
+              return t2 = n2.split("/").filter(Boolean).pop() || "", (i2 = t2.match(/^(.*?)-chapitre-(\d+)/i)) ? (o3 = "".concat(i2[1].replace(/-/g, " "), " chapitre ").concat(i2[2]), [4, (0, r.fetchApi)("".concat(this.site, "/wp-json/wp/v2/search?search=").concat(encodeURIComponent(o3), "&type=post&subtype=post&per_page=20"))]) : [2, null];
             case 1:
-              return (s3 = e2.sent()).ok ? [4, s3.json()] : [2, null];
+              return (s2 = e2.sent()).ok ? [4, s2.json()] : [2, null];
             case 2:
-              return a2 = e2.sent(), (u2 = null === (l = a2.find(function(t3) {
+              return a2 = e2.sent(), (u = null === (l = a2.find(function(t3) {
                 return new RegExp("chapitre\\D*".concat(i2[2], "(?:\\D|$)"), "i").test(t3.title || "");
-              })) || void 0 === l ? void 0 : l.url) ? [2, (c = new URL(u2, this.site)).origin === new URL(this.site).origin ? c.toString() : null] : [2, null];
+              })) || void 0 === l ? void 0 : l.url) ? [2, (c = new URL(u, this.site)).origin === new URL(this.site).origin ? c.toString() : null] : [2, null];
           }
         });
       });
-    }, s2.prototype.getCheerio = function(r2) {
+    }, o2.prototype.getCheerio = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = n.load, [4, a(r2)];
+              return t2 = n.load, [4, s(r2)];
             case 1:
               return [2, t2.apply(void 0, [e2.sent()])];
           }
         });
       });
-    }, s2.prototype.getNovelsCovers = function(n2, r2) {
+    }, o2.prototype.getNovelsCovers = function(n2, r2) {
       return t(this, void 0, void 0, function() {
         var i2 = this;
-        return e(this, function(o2) {
-          switch (o2.label) {
+        return e(this, function(o3) {
+          switch (o3.label) {
             case 0:
-              return [4, Promise.all(n2.map(function(n3, o3) {
+              return [4, Promise.all(n2.map(function(n3, o4) {
                 return t(i2, void 0, void 0, function() {
-                  var t2, i3, s3;
+                  var t2, i3, s2;
                   return e(this, function(e2) {
                     switch (e2.label) {
                       case 0:
-                        return (t2 = r2[o3]) ? (i3 = n3, s3 = this.findCoverImage, [4, this.getCheerio(t2)]) : [3, 2];
+                        return (t2 = r2[o4]) ? (i3 = n3, s2 = this.findCoverImage, [4, this.getCheerio(t2)]) : [3, 2];
                       case 1:
-                        i3.cover = s3.apply(this, [e2.sent()]), e2.label = 2;
+                        i3.cover = s2.apply(this, [e2.sent()]), e2.label = 2;
                       case 2:
                         return [2];
                     }
@@ -25560,13 +25568,13 @@ var LNReaderPlugin = (() => {
                 });
               }))];
             case 1:
-              return o2.sent(), [2, n2];
+              return o3.sent(), [2, n2];
           }
         });
       });
-    }, s2.prototype.getNovelInfo = function(n2, r2) {
+    }, o2.prototype.getNovelInfo = function(n2, r2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2;
+        var t2, i2, o3;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25574,89 +25582,89 @@ var LNReaderPlugin = (() => {
             case 1:
               return t2 = e2.sent(), i2 = t2(".entry-content p").map(function(e3, n3) {
                 return t2(n3).text().trim();
-              }).get().join("\n").split("\n"), o2 = i2.findIndex(function(t3) {
+              }).get().join("\n").split("\n"), o3 = i2.findIndex(function(t3) {
                 return ["Traducteur Anglais- Fran\xE7ais", "Titre en fran\xE7ais", "\u2014\u2014\u2014", "Titre :", "Lien vers le premier chapitre", "____________", "Auteur : "].some(function(e3) {
                   return t3.includes(e3);
                 });
-              }), n2.summary = (-1 !== o2 ? i2.slice(0, o2) : i2).join("\n").replace("Synopsis :", ""), n2.author = this.extractInfo(i2.join("\n"), this.regexAuthors), n2.cover = this.findCoverImage(t2), [2, n2];
+              }), n2.summary = (-1 !== o3 ? i2.slice(0, o3) : i2).join("\n").replace("Synopsis :", ""), n2.author = this.extractInfo(i2.join("\n"), this.regexAuthors), n2.cover = this.findCoverImage(t2), [2, n2];
           }
         });
       });
-    }, s2.prototype.findCoverImage = function(t2) {
-      return t2("div p img").first().attr("src") || t2("figure a img").first().attr("src") || t2("figure img").first().attr("src") || i.defaultCover;
-    }, s2.prototype.extractInfo = function(t2, e2) {
+    }, o2.prototype.findCoverImage = function(t2) {
+      return t2("div p img").first().attr("src") || t2("figure a img").first().attr("src") || t2("figure img").first().attr("src");
+    }, o2.prototype.extractInfo = function(t2, e2) {
       for (var n2 = 0, r2 = e2; n2 < r2.length; n2++) {
         var i2 = r2[n2].exec(t2);
         if (null !== i2) return i2[1].trim();
       }
       return "";
-    }, s2.prototype.popularNovels = function(n2) {
+    }, o2.prototype.popularNovels = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, o2, s3 = this;
+        var t2, r2, i2, o3 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return n2 > 1 ? [2, []] : (t2 = [], [4, this.getCheerio(this.site)]);
             case 1:
-              return r2 = e2.sent(), o2 = [], r2("nav div div ul li ul li").each(function(e3, n3) {
+              return r2 = e2.sent(), i2 = [], r2("nav div div ul li ul li").each(function(e3, n3) {
                 if ("Sommaire" === r2(n3).text().trim()) {
-                  var a2 = r2(n3).closest("ul").siblings("a").first().text().trim(), u2 = r2(n3).find("a").attr("href");
-                  if (u2 && a2) {
-                    var c = r2(n3).parent().find("a").attr("href");
-                    c ? o2.push(c) : o2.push("");
-                    var l = { name: a2, path: u2.replace(s3.site, ""), cover: i.defaultCover };
-                    t2.push(l);
+                  var s2 = r2(n3).closest("ul").siblings("a").first().text().trim(), a2 = r2(n3).find("a").attr("href");
+                  if (a2 && s2) {
+                    var u = r2(n3).parent().find("a").attr("href");
+                    u ? i2.push(u) : i2.push("");
+                    var c = { name: s2, path: a2.replace(o3.site, "") };
+                    t2.push(c);
                   }
                 }
-              }), [4, this.getNovelsCovers(t2, o2)];
+              }), [4, this.getNovelsCovers(t2, i2)];
             case 2:
               return [2, e2.sent()];
           }
         });
       });
-    }, s2.prototype.parseNovel = function(n2) {
+    }, o2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, i2, s3, a2, u2, c = this;
+        var t2, r2, o3, s2, a2, u, c = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = { path: n2, name: "Sans titre", status: o.NovelStatus.Unknown }, [4, this.getCheerio(this.site + n2)];
+              return t2 = { path: n2, name: "Sans titre", status: i.NovelStatus.Unknown }, [4, this.getCheerio(this.site + n2)];
             case 1:
-              return r2 = e2.sent(), i2 = null, r2("nav div div ul li ul li").each(function(e3, o2) {
-                if (r2(o2).find("a").attr("href") === c.site + n2) return i2 = r2(o2).parent().find("a").first().attr("href"), void (t2.name = r2(o2).closest("ul").siblings("a").first().text().trim());
-              }), i2 ? [4, this.getNovelInfo(t2, i2)] : [3, 3];
+              return r2 = e2.sent(), o3 = null, r2("nav div div ul li ul li").each(function(e3, i2) {
+                if (r2(i2).find("a").attr("href") === c.site + n2) return o3 = r2(i2).parent().find("a").first().attr("href"), void (t2.name = r2(i2).closest("ul").siblings("a").first().text().trim());
+              }), o3 ? [4, this.getNovelInfo(t2, o3)] : [3, 3];
             case 2:
               t2 = e2.sent(), e2.label = 3;
             case 3:
-              return s3 = [".entry-content ul li a", ".entry-content ul li ul li a", ".entry-content p a", ".entry-content li a", ".entry-content blockquote a"].join(", "), a2 = [], u2 = /* @__PURE__ */ new Set(), r2(s3).each(function(t3, e3) {
-                var n3, i3 = r2(e3).text().trim(), o2 = null === (n3 = r2(e3).attr("href")) || void 0 === n3 ? void 0 : n3.replace("http://", "https://");
-                if (o2 && i3 && o2.includes(c.site) && !o2.includes("share=facebook") && !o2.includes("share=x") && !o2.includes("/category/traductions/") && !o2.includes("/category/tour-des-mondes/")) {
-                  var s4 = o2.replace(c.site, "");
-                  if (u2.has(s4)) return;
-                  u2.add(s4), a2.push({ name: i3, path: s4 });
+              return s2 = [".entry-content ul li a", ".entry-content ul li ul li a", ".entry-content p a", ".entry-content li a", ".entry-content blockquote a"].join(", "), a2 = [], u = /* @__PURE__ */ new Set(), r2(s2).each(function(t3, e3) {
+                var n3, i2 = r2(e3).text().trim(), o4 = null === (n3 = r2(e3).attr("href")) || void 0 === n3 ? void 0 : n3.replace("http://", "https://");
+                if (o4 && i2 && o4.includes(c.site) && !o4.includes("share=facebook") && !o4.includes("share=x") && !o4.includes("/category/traductions/") && !o4.includes("/category/tour-des-mondes/")) {
+                  var s3 = o4.replace(c.site, "");
+                  if (u.has(s3)) return;
+                  u.add(s3), a2.push({ name: i2, path: s3 });
                 }
               }), t2.chapters = a2, [2, t2];
           }
         });
       });
-    }, s2.prototype.parseChapter = function(r2) {
+    }, o2.prototype.parseChapter = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, s3, u2, c, l, h, f, p, d, v;
+        var t2, i2, o3, a2, u, c, l, h, f, p, d, v;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return e2.trys.push([0, 2, , 5]), [4, a(this.site + r2)];
+              return e2.trys.push([0, 2, , 5]), [4, s(this.site + r2)];
             case 1:
             case 4:
               return t2 = e2.sent(), [3, 5];
             case 2:
               return i2 = e2.sent(), [4, this.findMovedChapter(r2)];
             case 3:
-              if (!(o2 = e2.sent())) throw i2;
-              return [4, a(o2)];
+              if (!(o3 = e2.sent())) throw i2;
+              return [4, s(o3)];
             case 5:
-              if (s3 = (0, n.load)(t2), (u2 = s3(".entry-content").first().clone()).find('script, style, ins, iframe, .ads, .sharedaddy, [class*="sharing"], [id*="sharing"]').remove(), c = u2.contents().map(function(t3, e3) {
-                return s3.html(e3);
+              if (a2 = (0, n.load)(t2), (u = a2(".entry-content").first().clone()).find('script, style, ins, iframe, .ads, .sharedaddy, [class*="sharing"], [id*="sharing"]').remove(), c = u.contents().map(function(t3, e3) {
+                return a2.html(e3);
               }).get(), l = c.map(function(t3, e3) {
                 return /<hr\b/i.test(t3) ? e3 : -1;
               }).filter(function(t3) {
@@ -25670,7 +25678,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.searchNovels = function(n2, r2) {
+    }, o2.prototype.searchNovels = function(n2, r2) {
       return t(this, void 0, void 0, function() {
         return e(this, function(t2) {
           switch (t2.label) {
@@ -25683,9 +25691,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2;
+    }, o2;
   }();
-  exports.default = new u();
+  exports.default = new a();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

@@ -3312,10 +3312,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -4106,10 +4106,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7354,10 +7354,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7496,10 +7496,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7727,10 +7727,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -17924,10 +17924,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18363,10 +18363,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25298,7 +25321,7 @@ var LNReaderPlugin = (() => {
         ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
-          Array(5).fill(0).map((v2, idx) => {
+          Array(5).fill(0).map((v, idx) => {
             if (idx === 0) return 0;
             return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
           })
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,7 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
@@ -25371,21 +25394,6 @@ var LNReaderPlugin = (() => {
   });
   var init_novelStatus = __esm({
     "src/libs/novelStatus.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
       "use strict";
       init_dirname();
       init_buffer2();
@@ -25581,56 +25589,56 @@ var LNReaderPlugin = (() => {
     __name(n2, "n");
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.LightNovelWPPlugin = void 0;
-  var l = (init_browser(), __toCommonJS(browser_exports)), o = require_lib9(), t = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), r = (init_defaultCover(), __toCommonJS(defaultCover_exports)), n = (init_storage2(), __toCommonJS(storage_exports)), u = function() {
-    function u2(e2) {
+  var l = (init_browser(), __toCommonJS(browser_exports)), o = require_lib9(), t = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), r = (init_storage2(), __toCommonJS(storage_exports)), n = function() {
+    function n2(e2) {
       var a2, l2, o2;
-      this.hideLocked = n.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
+      this.hideLocked = r.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var t2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
-      this.version = "1.1.".concat(12 + t2), this.options = null !== (l2 = e2.options) && void 0 !== l2 ? l2 : {}, this.filters = e2.filters, (null === (o2 = this.options) || void 0 === o2 ? void 0 : o2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "1.1.".concat(13 + t2), this.options = null !== (l2 = e2.options) && void 0 !== l2 ? l2 : {}, this.filters = e2.filters, (null === (o2 = this.options) || void 0 === o2 ? void 0 : o2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
-    __name(u2, "u");
-    return u2.prototype.getHostname = function(e2) {
+    __name(n2, "n");
+    return n2.prototype.getHostname = function(e2) {
       var a2 = (e2 = e2.split("/")[2]).split(".");
       return a2.pop(), a2.join(".");
-    }, u2.prototype.safeFecth = function(l2, o2) {
+    }, n2.prototype.safeFecth = function(l2, o2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, r2, n2, u3, s2, v2, c;
+        var e2, i2, r2, n3, u2, s2, v, c;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return e2 = l2.split("://"), i2 = e2.shift(), r2 = e2[0].replace(/\/\//g, "/"), [4, (0, t.fetchApi)(i2 + "://" + r2)];
             case 1:
-              if (!(n2 = a2.sent()).ok && 1 != o2) throw new Error("Could not reach site (" + n2.status + ") try to open in webview.");
-              return [4, n2.text()];
+              if (!(n3 = a2.sent()).ok && 1 != o2) throw new Error("Could not reach site (" + n3.status + ") try to open in webview.");
+              return [4, n3.text()];
             case 2:
-              if (u3 = a2.sent(), s2 = null === (c = null === (v2 = u3.match(/<title>(.*?)<\/title>/)) || void 0 === v2 ? void 0 : v2[1]) || void 0 === c ? void 0 : c.trim(), this.getHostname(l2) != this.getHostname(n2.url) || s2 && ("Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
-              return [2, u3];
+              if (u2 = a2.sent(), s2 = null === (c = null === (v = u2.match(/<title>(.*?)<\/title>/)) || void 0 === v ? void 0 : v[1]) || void 0 === c ? void 0 : c.trim(), this.getHostname(l2) != this.getHostname(n3.url) || s2 && ("Bot Verification" == s2 || "You are being redirected..." == s2 || "Un instant..." == s2 || "Just a moment..." == s2 || "Redirecting..." == s2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
+              return [2, u2];
           }
         });
       });
-    }, u2.prototype.parseNovels = function(e2) {
+    }, n2.prototype.parseNovels = function(e2) {
       var a2 = this;
       e2 = (0, l.load)(e2).html();
       var o2 = [];
       return (e2.match(/<article([^]*?)<\/article>/g) || []).forEach(function(e3) {
         var l2 = e3.match(/<a href="([^"]*)".*? title="([^"]*)"/) || [], t2 = l2[1], i2 = l2[2];
         if (i2 && t2) {
-          var n2 = e3.match(/<img [^>]*?src="([^"]*)"[^>]*?(?: data-src="([^"]*)")?[^>]*>/) || [], u3 = void 0;
-          if (t2.includes(a2.site)) u3 = t2.replace(a2.site, "");
+          var r2 = e3.match(/<img [^>]*?src="([^"]*)"[^>]*?(?: data-src="([^"]*)")?[^>]*>/) || [], n3 = void 0;
+          if (t2.includes(a2.site)) n3 = t2.replace(a2.site, "");
           else {
-            var s2 = t2.split("/");
-            s2.shift(), s2.shift(), s2.shift(), u3 = s2.join("/");
+            var u2 = t2.split("/");
+            u2.shift(), u2.shift(), u2.shift(), n3 = u2.join("/");
           }
-          o2.push({ name: i2, cover: n2[2] || n2[1] || r.defaultCover, path: u3 });
+          o2.push({ name: i2, cover: r2[2] || r2[1], path: n3 });
         }
       }), o2;
-    }, u2.prototype.popularNovels = function(l2, o2) {
+    }, n2.prototype.popularNovels = function(l2, o2) {
       return e(this, arguments, void 0, function(e2, l3) {
-        var o3, t2, i2, r2, n2, u3, s2, v2, c, b = l3.filters, d = l3.showLatestNovels;
+        var o3, t2, i2, r2, n3, u2, s2, v, c, b = l3.filters, d = l3.showLatestNovels;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              for (i2 in o3 = null !== (c = null === (v2 = this.options) || void 0 === v2 ? void 0 : v2.seriesPath) && void 0 !== c ? c : "/series/", t2 = this.site + o3 + "?page=" + e2, b || (b = this.filters || {}), d && (t2 += "&order=latest"), b) if ("object" == typeof b[i2].value) for (r2 = 0, n2 = b[i2].value; r2 < n2.length; r2++) u3 = n2[r2], t2 += "&".concat(i2, "=").concat(u3);
+              for (i2 in o3 = null !== (c = null === (v = this.options) || void 0 === v ? void 0 : v.seriesPath) && void 0 !== c ? c : "/series/", t2 = this.site + o3 + "?page=" + e2, b || (b = this.filters || {}), d && (t2 += "&order=latest"), b) if ("object" == typeof b[i2].value) for (r2 = 0, n3 = b[i2].value; r2 < n3.length; r2++) u2 = n3[r2], t2 += "&".concat(i2, "=").concat(u2);
               else b[i2].value && (t2 += "&".concat(i2, "=").concat(b[i2].value));
               return [4, this.safeFecth(t2, false)];
             case 1:
@@ -25638,34 +25646,34 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.parseNovel = function(l2) {
+    }, n2.prototype.parseNovel = function(l2) {
       return e(this, void 0, void 0, function() {
-        var e2, t2, n2, u3, v2, c, b, d, m, p, h, f, g, y, w, A, k, C, x, E, R;
+        var e2, t2, r2, n3, s2, v, c, b, d, m, p, h, f, g, y, w, A, k, C, x, E;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return e2 = this.site, [4, this.safeFecth(e2 + l2, false)];
             case 1:
-              return t2 = a2.sent(), n2 = { path: l2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, u3 = false, v2 = false, c = 0, b = false, d = false, m = false, p = false, h = false, f = false, g = false, y = 0, w = false, A = false, k = [], C = {}, x = this.hideLocked, E = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, l3) {
+              return t2 = a2.sent(), r2 = { path: l2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, n3 = false, s2 = false, v = 0, c = false, b = false, d = false, m = false, p = false, h = false, f = false, g = 0, y = false, w = false, A = [], k = {}, C = this.hideLocked, x = new o.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, l3) {
                 var o2;
-                !n2.cover && (null === (o2 = l3.class) || void 0 === o2 ? void 0 : o2.includes("ts-post-image")) ? (n2.name = l3.title, n2.cover = l3["data-src"] || l3.src || r.defaultCover) : "genxed" === l3.class || "sertogenre" === l3.class ? u3 = true : u3 && "a" === a3 ? v2 = true : "div" !== a3 || "entry-content" !== l3.class && "description" !== l3.itemprop ? "spe" === l3.class || "serl" === l3.class ? b = true : b && "span" === a3 ? d = true : "div" === a3 && "sertostat" === l3.class ? (b = true, d = true, h = true) : l3.class && l3.class.includes("eplister") ? f = true : f && "li" === a3 ? g = true : g ? "a" === a3 && void 0 === C.path ? C.path = l3.href.replace(e2, "").trim() : "epl-num" === l3.class ? y = 1 : "epl-title" === l3.class ? y = 2 : "epl-date" === l3.class ? y = 3 : "epl-price" === l3.class && (y = 4) : !c || "div" !== a3 && "script" !== a3 || c++ : c++;
+                !r2.cover && (null === (o2 = l3.class) || void 0 === o2 ? void 0 : o2.includes("ts-post-image")) ? (r2.name = l3.title, r2.cover = l3["data-src"] || l3.src) : "genxed" === l3.class || "sertogenre" === l3.class ? n3 = true : n3 && "a" === a3 ? s2 = true : "div" !== a3 || "entry-content" !== l3.class && "description" !== l3.itemprop ? "spe" === l3.class || "serl" === l3.class ? c = true : c && "span" === a3 ? b = true : "div" === a3 && "sertostat" === l3.class ? (c = true, b = true, p = true) : l3.class && l3.class.includes("eplister") ? h = true : h && "li" === a3 ? f = true : f ? "a" === a3 && void 0 === k.path ? k.path = l3.href.replace(e2, "").trim() : "epl-num" === l3.class ? g = 1 : "epl-title" === l3.class ? g = 2 : "epl-date" === l3.class ? g = 3 : "epl-price" === l3.class && (g = 4) : !v || "div" !== a3 && "script" !== a3 || v++ : v++;
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
                 var a3, l3;
-                if (u3) v2 && (n2.genres += e3 + ", ");
-                else if (1 === c && e3.trim()) n2.summary += e3;
-                else if (b) {
-                  if (d) {
+                if (n3) s2 && (r2.genres += e3 + ", ");
+                else if (1 === v && e3.trim()) r2.summary += e3;
+                else if (c) {
+                  if (b) {
                     var o2 = e3.toLowerCase().replace(":", "").trim();
-                    if (m) n2.author += e3 || "Unknown";
-                    else if (p) n2.artist += e3 || "Unknown";
-                    else if (h) switch (o2) {
+                    if (d) r2.author += e3 || "Unknown";
+                    else if (m) r2.artist += e3 || "Unknown";
+                    else if (p) switch (o2) {
                       case "\u0645\u0643\u062A\u0645\u0644\u0629":
                       case "completed":
                       case "compl\xE9t\xE9":
                       case "completo":
                       case "completado":
                       case "tamamland\u0131":
-                        n2.status = i.NovelStatus.Completed;
+                        r2.status = i.NovelStatus.Completed;
                         break;
                       case "\u0645\u0633\u062A\u0645\u0631\u0629":
                       case "ongoing":
@@ -25673,7 +25681,7 @@ var LNReaderPlugin = (() => {
                       case "em andamento":
                       case "en progreso":
                       case "devam ediyor":
-                        n2.status = i.NovelStatus.Ongoing;
+                        r2.status = i.NovelStatus.Ongoing;
                         break;
                       case "\u0645\u062A\u0648\u0642\u0641\u0629":
                       case "hiatus":
@@ -25682,10 +25690,10 @@ var LNReaderPlugin = (() => {
                       case "pausa":
                       case "pausado":
                       case "duraklat\u0131ld\u0131":
-                        n2.status = i.NovelStatus.OnHiatus;
+                        r2.status = i.NovelStatus.OnHiatus;
                         break;
                       default:
-                        n2.status = i.NovelStatus.Unknown;
+                        r2.status = i.NovelStatus.Unknown;
                     }
                     switch (o2) {
                       case "\u0627\u0644\u0643\u0627\u062A\u0628":
@@ -25693,51 +25701,51 @@ var LNReaderPlugin = (() => {
                       case "auteur":
                       case "autor":
                       case "yazar":
-                        m = true;
+                        d = true;
                         break;
                       case "\u0627\u0644\u062D\u0627\u0644\u0629":
                       case "status":
                       case "statut":
                       case "estado":
                       case "durum":
-                        h = true;
+                        p = true;
                         break;
                       case "\u0627\u0644\u0641\u0646\u0627\u0646":
                       case "artist":
                       case "artiste":
                       case "artista":
                       case "\xE7izer":
-                        p = true;
+                        m = true;
                     }
                   }
-                } else if (f && g) {
-                  if (1 === y) e3.includes("\u{1F512}") ? (w = true, A = true) : A && (w = false), s(e3, C);
-                  else if (2 === y) C.name = (null === (l3 = null === (a3 = e3.match(RegExp("^".concat(n2.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "\\s*(.+)")))) || void 0 === a3 ? void 0 : a3[1]) || void 0 === l3 ? void 0 : l3.trim()) || e3.trim(), C.chapterNumber || s(e3, C);
-                  else if (3 === y) C.releaseTime = e3;
-                  else if (4 === y) {
+                } else if (h && f) {
+                  if (1 === g) e3.includes("\u{1F512}") ? (y = true, w = true) : w && (y = false), u(e3, k);
+                  else if (2 === g) k.name = (null === (l3 = null === (a3 = e3.match(RegExp("^".concat(r2.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "\\s*(.+)")))) || void 0 === a3 ? void 0 : a3[1]) || void 0 === l3 ? void 0 : l3.trim()) || e3.trim(), k.chapterNumber || u(e3, k);
+                  else if (3 === g) k.releaseTime = e3;
+                  else if (4 === g) {
                     switch (o2 = e3.toLowerCase().trim()) {
                       case "free":
                       case "gratuit":
                       case "\u0645\u062C\u0627\u0646\u064A":
                       case "livre":
                       case "":
-                        w = false;
+                        y = false;
                         break;
                       default:
-                        w = true;
+                        y = true;
                     }
                   }
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 var a3, l3, o2;
-                u3 ? v2 ? v2 = false : (u3 = false, n2.genres = null === (a3 = n2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : c ? "p" === e3 ? n2.summary += "\n\n" : "br" === e3 ? n2.summary += "\n" : "div" !== e3 && "script" !== e3 || c-- : b ? d ? "span" === e3 && (d = false, m && n2.author ? m = false : p && n2.artist ? p = false : h && "" !== n2.status && (h = false)) : "div" === e3 && (b = false, n2.author = null === (l3 = n2.author) || void 0 === l3 ? void 0 : l3.trim(), n2.artist = null === (o2 = n2.artist) || void 0 === o2 ? void 0 : o2.trim()) : f && (g ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (g = false, C.chapterNumber || (C.chapterNumber = 0), w && (C.name = "\u{1F512} " + C.name), x && w || k.push(C), C = {}) : "ul" === e3 && (f = false));
-              }, "onclosetag") }), E.write(t2), E.end(), k.length && ((null === (R = this.options) || void 0 === R ? void 0 : R.reverseChapters) && k.reverse(), n2.chapters = k), n2.summary = n2.summary.trim(), [2, n2];
+                n3 ? s2 ? s2 = false : (n3 = false, r2.genres = null === (a3 = r2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : v ? "p" === e3 ? r2.summary += "\n\n" : "br" === e3 ? r2.summary += "\n" : "div" !== e3 && "script" !== e3 || v-- : c ? b ? "span" === e3 && (b = false, d && r2.author ? d = false : m && r2.artist ? m = false : p && "" !== r2.status && (p = false)) : "div" === e3 && (c = false, r2.author = null === (l3 = r2.author) || void 0 === l3 ? void 0 : l3.trim(), r2.artist = null === (o2 = r2.artist) || void 0 === o2 ? void 0 : o2.trim()) : h && (f ? 1 === g || 2 === g || 3 === g || 4 === g ? g = 0 : "li" === e3 && (f = false, k.chapterNumber || (k.chapterNumber = 0), y && (k.name = "\u{1F512} " + k.name), C && y || A.push(k), k = {}) : "ul" === e3 && (h = false));
+              }, "onclosetag") }), x.write(t2), x.end(), A.length && ((null === (E = this.options) || void 0 === E ? void 0 : E.reverseChapters) && A.reverse(), r2.chapters = A), r2.summary = r2.summary.trim(), [2, r2];
           }
         });
       });
-    }, u2.prototype.parseChapter = function(o2) {
+    }, n2.prototype.parseChapter = function(o2) {
       return e(this, void 0, void 0, function() {
-        var e2, t2, i2, r2, n2, u3, s2;
+        var e2, t2, i2, r2, n3, u2, s2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
@@ -25748,11 +25756,11 @@ var LNReaderPlugin = (() => {
               } catch (e3) {
                 throw console.error("Error executing customJs:", e3), e3;
               }
-              return i2 = (0, l.load)(e2), (r2 = i2(".epcontent").first()).length ? (r2.find("script, style, noscript").remove(), n2 = this.site + o2, r2.find("img").each(function(e3, a3) {
+              return i2 = (0, l.load)(e2), (r2 = i2(".epcontent").first()).length ? (r2.find("script, style, noscript").remove(), n3 = this.site + o2, r2.find("img").each(function(e3, a3) {
                 var l2 = i2(a3), o3 = l2.attr("src");
                 if (o3 && !o3.startsWith("data:") || (o3 = l2.attr("data-lazy-src") || l2.attr("data-src") || o3), o3) {
                   if (!/^[a-z][a-z\d+.-]*:/i.test(o3)) try {
-                    o3 = new URL(o3, n2).href;
+                    o3 = new URL(o3, n3).href;
                   } catch (e4) {
                     return;
                   }
@@ -25763,20 +25771,20 @@ var LNReaderPlugin = (() => {
                   var r3 = t3[o3];
                   if (/^on/i.test(r3)) l2.removeAttr(r3);
                   else if ("href" === r3 || "src" === r3) {
-                    var n3 = a3.attribs[r3].split("").filter(function(e4) {
+                    var n4 = a3.attribs[r3].split("").filter(function(e4) {
                       return e4.charCodeAt(0) > 32;
                     }).join("").toLowerCase();
-                    (/^(javascript|vbscript):/.test(n3) || n3.startsWith("data:") && !n3.startsWith("data:image/")) && l2.removeAttr(r3);
+                    (/^(javascript|vbscript):/.test(n4) || n4.startsWith("data:") && !n4.startsWith("data:image/")) && l2.removeAttr(r3);
                   }
                 }
-              }), u3 = [], r2.find("p, img").each(function(e3, a3) {
+              }), u2 = [], r2.find("p, img").each(function(e3, a3) {
                 var l2 = i2(a3);
-                l2.is("img") ? l2.parents("p").length || u3.push(i2.html(l2)) : (l2.text().trim() || l2.find("img").length) && u3.push(i2.html(l2));
-              }), [2, u3.join("\n")]) : [2, ""];
+                l2.is("img") ? l2.parents("p").length || u2.push(i2.html(l2)) : (l2.text().trim() || l2.find("img").length) && u2.push(i2.html(l2));
+              }), [2, u2.join("\n")]) : [2, ""];
           }
         });
       });
-    }, u2.prototype.searchNovels = function(l2, o2) {
+    }, n2.prototype.searchNovels = function(l2, o2) {
       return e(this, void 0, void 0, function() {
         var e2, t2;
         return a(this, function(a2) {
@@ -25788,16 +25796,16 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2;
+    }, n2;
   }();
-  function s(e2, a2) {
+  function u(e2, a2) {
     var l2 = e2.match(/(\d+)$/);
     l2 && l2[0] && (a2.chapterNumber = parseInt(l2[0]));
   }
-  __name(s, "s");
-  exports.LightNovelWPPlugin = u;
-  var v = new u({ id: "allnovelread", sourceSite: "https://allnovelread.com/", sourceName: "AllNovelRead", options: { lang: "Spanish", reverseChapters: true, down: true, downSince: 1768289212954 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "16+", value: "16" }, { label: "Abogado/Abogada", value: "abogado-abogada" }, { label: "Action", value: "action" }, { label: "Advogdo", value: "advogdo" }, { label: "affair of the heart", value: "affair-of-the-heart" }, { label: "alfa", value: "alfa" }, { label: "Alpha", value: "alpha" }, { label: "Amable", value: "amable" }, { label: "Amar", value: "amar" }, { label: "Amor", value: "amor" }, { label: "Amor caliente", value: "amor-caliente" }, { label: "amor depois do casamento", value: "amor-depois-do-casamento" }, { label: "Amor despu\xE9s del matrimonio", value: "amor-despues-del-matrimonio" }, { label: "Amor destinado", value: "amor-destinado" }, { label: "Amor doloroso", value: "amor-doloroso" }, { label: "Amor dulce", value: "amor-dulce" }, { label: "Amor e \xF3dio", value: "amor-e-odio" }, { label: "Amor e \xF3dio Gravidez", value: "amor-e-odio-gravidez" }, { label: "amor entre ex", value: "amor-entre-ex" }, { label: "Amor forzado", value: "amor-forzado" }, { label: "Amor Inocente", value: "amor-inocente" }, { label: "amor predestinado", value: "amor-predestinado" }, { label: "Amor y odio", value: "amor-y-odio" }, { label: "arrepentirse del divorcio", value: "arrepentirse-del-divorcio" }, { label: "Arrepentirse Despu\xE9s de Herir a Su Mujer", value: "arrepentirse-despues-de-herir-a-su-mujer" }, { label: "Arrogante", value: "arrogante" }, { label: "Asesinato", value: "asesinato" }, { label: "Babby", value: "babby" }, { label: "BABY", value: "baby" }, { label: "Beauty", value: "beauty" }, { label: "Beb\xEA fofo", value: "bebe-fofo" }, { label: "Beb\xE9 inteligente", value: "bebe-inteligente" }, { label: "belleza", value: "belleza" }, { label: "Belleza inusual", value: "belleza-inusual" }, { label: "Bilion\xE1rio", value: "bilionario" }, { label: "Billionair", value: "billionair" }, { label: "billionaire", value: "billionaire" }, { label: "Billonario/Billonaria", value: "billonario-billonaria" }, { label: "brilliant", value: "brilliant" }, { label: "bxg", value: "bxg" }, { label: "Bxg-novela", value: "bxg-novela" }, { label: "Campus", value: "campus" }, { label: "Casamiento", value: "casamiento" }, { label: "CEO", value: "ceo" }, { label: "city", value: "city" }, { label: "Colegiala", value: "colegiala" }, { label: "Comedia", value: "comedia" }, { label: "Comedia-novela", value: "comedia-novela" }, { label: "Comedy", value: "comedy" }, { label: "contempor\xE1neo", value: "contemporaneo" }, { label: "Contract marriage", value: "contract-marriage" }, { label: "c\xF3nyuge", value: "conyuge" }, { label: "Coraz\xF3n roto", value: "corazon-roto" }, { label: "courtship", value: "courtship" }, { label: "Crecimiento del personaje", value: "crecimiento-del-personaje" }, { label: "Crimen organizado", value: "crimen-organizado" }, { label: "Critical", value: "critical" }, { label: "cruel", value: "cruel" }, { label: "De pobre a rico", value: "de-pobre-a-rico" }, { label: "Divertido", value: "divertido" }, { label: "Divorce", value: "divorce" }, { label: "Divorcio", value: "divorcio" }, { label: "Doce", value: "doce" }, { label: "Doctor", value: "doctor" }, { label: "Dominador", value: "dominador" }, { label: "Dominante", value: "dominante" }, { label: "Dominante-novela", value: "dominante-novela" }, { label: "drama", value: "drama" }, { label: "dulce", value: "dulce" }, { label: "Dulce\xA0Embarazada", value: "dulce-embarazada" }, { label: "elegante", value: "elegante" }, { label: "Embarazada", value: "embarazada" }, { label: "En la actualidad", value: "en-la-actualidad" }, { label: "Enemigos a los amantes", value: "enemigos-a-los-amantes" }, { label: "existente", value: "existente" }, { label: "Family", value: "family" }, { label: "Fantasy", value: "fantasy" }, { label: "Fated", value: "fated" }, { label: "Fraco para forte/Pob", value: "fraco-para-forte-pob" }, { label: "fuerte", value: "fuerte" }, { label: "Goodgirl", value: "goodgirl" }, { label: "Gravidez", value: "gravidez" }, { label: "HE", value: "he" }, { label: "heir/heiress", value: "heir-heiress" }, { label: "hermoso", value: "hermoso" }, { label: "H\xE9roe pateador", value: "heroe-pateador" }, { label: "Heroina", value: "heroina" }, { label: "hero\xEDna Kickass", value: "heroina-kickass" }, { label: "heterose*ual", value: "heteroseual" }, { label: "historia de amor", value: "historia-de-amor" }, { label: "Hot Romance", value: "hot-romance" }, { label: "Humor", value: "humor" }, { label: "Identidad secreta", value: "identidad-secreta" }, { label: "Independente", value: "independente" }, { label: "Independiente", value: "independiente" }, { label: "Inocente", value: "inocente" }, { label: "jefe", value: "jefe" }, { label: "Jefe / CEO", value: "jefe-ceo" }, { label: "kicking", value: "kicking" }, { label: "king", value: "king" }, { label: "legend", value: "legend" }, { label: "Literature", value: "literature" }, { label: "loser", value: "loser" }, { label: "Love", value: "love" }, { label: "Love & Culture", value: "love-culture" }, { label: "love after marriage", value: "love-after-marriage" }, { label: "love story", value: "love-story" }, { label: "LOVEAFTERMARRIAGE", value: "loveaftermarriage" }, { label: "lucky dog", value: "lucky-dog" }, { label: "Lugar para voc\xEA Allnovelread", value: "lugar-para-voce-allnovelread" }, { label: "luna", value: "luna" }, { label: "Madre soltera", value: "madre-soltera" }, { label: "Mafia", value: "mafia" }, { label: "magical world", value: "magical-world" }, { label: "Malentendido", value: "malentendido" }, { label: "Maquinaci\xF3n", value: "maquinacion" }, { label: "Marriage", value: "marriage" }, { label: "Matrimonio", value: "matrimonio" }, { label: "Matrimonio por Contrato", value: "matrimonio-por-contrato" }, { label: "Matrimonio rel\xE1mpago", value: "matrimonio-relampago" }, { label: "Medico", value: "medico" }, { label: "M\xE9dico/M\xE9dica", value: "medico-medica" }, { label: "millonaria", value: "millonaria" }, { label: "modificaci\xF3n", value: "modificacion" }, { label: "most millions", value: "most-millions" }, { label: "Mucama", value: "mucama" }, { label: "Mujer s\xFAper poderosa", value: "mujer-super-poderosa" }, { label: "Multi-Millionairo", value: "multi-millionairo" }, { label: "Multimillionairo", value: "multimillionairo" }, { label: "Multimillonaria", value: "multimillonaria" }, { label: "multimillonario", value: "multimillonario" }, { label: "Multimillonario-novela", value: "multimillonario-novela" }, { label: "MULTIPLEIDENTITIES", value: "multipleidentities" }, { label: "M\xFAltiples identidades", value: "multiples-identidades" }, { label: "musculoso", value: "musculoso" }, { label: "Nacimiento m\xFAltiple", value: "nacimiento-multiple" }, { label: "Novia embarazada a la fuga", value: "novia-embarazada-a-la-fuga" }, { label: "Obsesi\xF3n", value: "obsesion" }, { label: "Ocultar", value: "ocultar" }, { label: "Optimista", value: "optimista" }, { label: "others", value: "others" }, { label: "Pasi\xF3n de una noche", value: "pasion-de-una-noche" }, { label: "Perao/Segunda chance", value: "perao-segunda-chance" }, { label: "Perdedor", value: "perdedor" }, { label: "Playboy", value: "playboy" }, { label: "poderoso", value: "poderoso" }, { label: "polygamy", value: "polygamy" }, { label: "Posesivo", value: "posesivo" }, { label: "possessive", value: "possessive" }, { label: "Possessivo", value: "possessivo" }, { label: "Powerful", value: "powerful" }, { label: "presente", value: "presente" }, { label: "Presidente", value: "presidente" }, { label: "princess", value: "princess" }, { label: "Protective", value: "protective" }, { label: "Protectormadre soltera", value: "protectormadre-soltera" }, { label: "Reconquistar a mi pareja", value: "reconquistar-a-mi-pareja" }, { label: "rejected", value: "rejected" }, { label: "relaci\xF3n", value: "relacion" }, { label: "relationship", value: "relationship" }, { label: "Renacido", value: "renacido" }, { label: "Rey/Reina", value: "rey-reina" }, { label: "Rich", value: "rich" }, { label: "Rico", value: "rico" }, { label: "Ricos", value: "ricos" }, { label: "Romance", value: "romance" }, { label: "romance caliente", value: "romance-caliente" }, { label: "Romance/Rom\xE2ntico", value: "romance-romantico" }, { label: "Rom\xE1ntic", value: "romantic" }, { label: "Romantica", value: "romantica" }, { label: "Romanticas", value: "romanticas" }, { label: "Romantico", value: "romantico" }, { label: "Secretos", value: "secretos" }, { label: "secrets", value: "secrets" }, { label: "seductive", value: "seductive" }, { label: "Segunda Chance", value: "segunda-chance" }, { label: "Segunda oportunidad", value: "segunda-oportunidad" }, { label: "STRONGFEMALELEAD", value: "strongfemalelead" }, { label: "Subrogaci\xF3n", value: "subrogacion" }, { label: "Suspense", value: "suspense" }, { label: "Sweet", value: "sweet" }, { label: "SWEETLOVE", value: "sweetlove" }, { label: "Teenager", value: "teenager" }, { label: "Tierno", value: "tierno" }, { label: "Tragedia", value: "tragedia" }, { label: "Traici\xF3n", value: "traicion" }, { label: "Traici\xF3nReconquistar a mi pareja", value: "traicionreconquistar-a-mi-pareja" }, { label: "Tri\xE1ngulo amoroso", value: "triangulo-amoroso" }, { label: "Trillizos", value: "trillizos" }, { label: "Trio", value: "trio" }, { label: "Una noche de pasion", value: "una-noche-de-pasion" }, { label: "Universidad", value: "universidad" }, { label: "Valente", value: "valente" }, { label: "Valiente", value: "valiente" }, { label: "Venanza", value: "venanza" }, { label: "Werewolf", value: "werewolf" }, { label: "Ya", value: "ya" }, { label: "Youth", value: "youth" }] }, "type[]": { type: "Checkbox", label: "Type", value: [], options: [{ label: "16+", value: "16" }, { label: "alfa", value: "alfa" }, { label: "Allnovelread Sin vuelta atr\xE1s", value: "allnovelread-sin-vuelta-atras" }, { label: "Alpha", value: "alpha" }, { label: "Amor dulce", value: "amor-dulce" }, { label: "Amor y odio", value: "amor-y-odio" }, { label: "Arrogante-novela", value: "arrogante-novela" }, { label: "Billionaire", value: "billionaire" }, { label: "Billonario", value: "billonario" }, { label: "bxg", value: "bxg" }, { label: "CEO", value: "ceo" }, { label: "Contempor\xE2neo", value: "contemporaneo" }, { label: "Contract marriage", value: "contract-marriage" }, { label: "crecimiento-del-personaje-novela", value: "crecimiento-del-personaje-novela" }, { label: "Divorce", value: "divorce" }, { label: "drama", value: "drama" }, { label: "dulce", value: "dulce" }, { label: "El incesante acoso de mi ex marido", value: "el-incesante-acoso-de-mi-ex-marido" }, { label: "Enganar al mejor amigo de mi novio", value: "enganar-al-mejor-amigo-de-mi-novio" }, { label: "Fantasy", value: "fantasy" }, { label: "HE", value: "he" }, { label: "heterosexual", value: "heterosexual" }, { label: "Historia-triste-novela", value: "historia-triste-novela" }, { label: "Hombre lobo", value: "hombre-lobo" }, { label: "Hot Romance", value: "hot-romance" }, { label: "Independiente", value: "independiente" }, { label: "Inocente", value: "inocente" }, { label: "king", value: "king" }, { label: "Love", value: "love" }, { label: "love after marriage", value: "love-after-marriage" }, { label: "Luna", value: "luna" }, { label: "Magical world", value: "magical-world" }, { label: "millonaria", value: "millonaria" }, { label: "Multi-Millionaire", value: "multi-millionaire" }, { label: "Multimillionairo", value: "multimillionairo" }, { label: "Multimillonario", value: "multimillonario" }, { label: "Nunca Longe Allnovelread", value: "nunca-longe-allnovelread" }, { label: "Posesivo", value: "posesivo" }, { label: "Querida ex esposa", value: "querida-ex-esposa" }, { label: "Romance", value: "romance" }, { label: "Romane", value: "romane" }, { label: "Rom\xE1ntica", value: "romantica" }, { label: "Romanticas", value: "romanticas" }, { label: "Romantico", value: "romantico" }, { label: "Sweet", value: "sweet" }, { label: "SWEETLOVE", value: "sweetlove" }, { label: "Te Quero de Volta Allnovelread", value: "te-quero-de-volta-allnovelread" }, { label: "Traicion en altar", value: "traicion-en-altar" }, { label: "Uma Ferida Que Nunca Se Cura Allnovelread", value: "uma-ferida-que-nunca-se-cura-allnovelread" }, { label: "Urban", value: "urban" }, { label: "Urban/Realistic", value: "urban-realistic" }, { label: "vuelva a m\xED", value: "vuelva-a-mi" }, { label: "Werewolf", value: "werewolf" }] }, status: { type: "Picker", label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }, { label: "Completed", value: "completed" }] }, order: { type: "Picker", label: "Order by", value: "", options: [{ label: "Default", value: "" }, { label: "A-Z", value: "title" }, { label: "Z-A", value: "titlereverse" }, { label: "Latest Update", value: "update" }, { label: "Latest Added", value: "latest" }, { label: "Popular", value: "popular" }] } } });
-  exports.default = v;
+  __name(u, "u");
+  exports.LightNovelWPPlugin = n;
+  var s = new n({ id: "allnovelread", sourceSite: "https://allnovelread.com/", sourceName: "AllNovelRead", options: { lang: "Spanish", reverseChapters: true, down: true, downSince: 1768289212954 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "16+", value: "16" }, { label: "Abogado/Abogada", value: "abogado-abogada" }, { label: "Action", value: "action" }, { label: "Advogdo", value: "advogdo" }, { label: "affair of the heart", value: "affair-of-the-heart" }, { label: "alfa", value: "alfa" }, { label: "Alpha", value: "alpha" }, { label: "Amable", value: "amable" }, { label: "Amar", value: "amar" }, { label: "Amor", value: "amor" }, { label: "Amor caliente", value: "amor-caliente" }, { label: "amor depois do casamento", value: "amor-depois-do-casamento" }, { label: "Amor despu\xE9s del matrimonio", value: "amor-despues-del-matrimonio" }, { label: "Amor destinado", value: "amor-destinado" }, { label: "Amor doloroso", value: "amor-doloroso" }, { label: "Amor dulce", value: "amor-dulce" }, { label: "Amor e \xF3dio", value: "amor-e-odio" }, { label: "Amor e \xF3dio Gravidez", value: "amor-e-odio-gravidez" }, { label: "amor entre ex", value: "amor-entre-ex" }, { label: "Amor forzado", value: "amor-forzado" }, { label: "Amor Inocente", value: "amor-inocente" }, { label: "amor predestinado", value: "amor-predestinado" }, { label: "Amor y odio", value: "amor-y-odio" }, { label: "arrepentirse del divorcio", value: "arrepentirse-del-divorcio" }, { label: "Arrepentirse Despu\xE9s de Herir a Su Mujer", value: "arrepentirse-despues-de-herir-a-su-mujer" }, { label: "Arrogante", value: "arrogante" }, { label: "Asesinato", value: "asesinato" }, { label: "Babby", value: "babby" }, { label: "BABY", value: "baby" }, { label: "Beauty", value: "beauty" }, { label: "Beb\xEA fofo", value: "bebe-fofo" }, { label: "Beb\xE9 inteligente", value: "bebe-inteligente" }, { label: "belleza", value: "belleza" }, { label: "Belleza inusual", value: "belleza-inusual" }, { label: "Bilion\xE1rio", value: "bilionario" }, { label: "Billionair", value: "billionair" }, { label: "billionaire", value: "billionaire" }, { label: "Billonario/Billonaria", value: "billonario-billonaria" }, { label: "brilliant", value: "brilliant" }, { label: "bxg", value: "bxg" }, { label: "Bxg-novela", value: "bxg-novela" }, { label: "Campus", value: "campus" }, { label: "Casamiento", value: "casamiento" }, { label: "CEO", value: "ceo" }, { label: "city", value: "city" }, { label: "Colegiala", value: "colegiala" }, { label: "Comedia", value: "comedia" }, { label: "Comedia-novela", value: "comedia-novela" }, { label: "Comedy", value: "comedy" }, { label: "contempor\xE1neo", value: "contemporaneo" }, { label: "Contract marriage", value: "contract-marriage" }, { label: "c\xF3nyuge", value: "conyuge" }, { label: "Coraz\xF3n roto", value: "corazon-roto" }, { label: "courtship", value: "courtship" }, { label: "Crecimiento del personaje", value: "crecimiento-del-personaje" }, { label: "Crimen organizado", value: "crimen-organizado" }, { label: "Critical", value: "critical" }, { label: "cruel", value: "cruel" }, { label: "De pobre a rico", value: "de-pobre-a-rico" }, { label: "Divertido", value: "divertido" }, { label: "Divorce", value: "divorce" }, { label: "Divorcio", value: "divorcio" }, { label: "Doce", value: "doce" }, { label: "Doctor", value: "doctor" }, { label: "Dominador", value: "dominador" }, { label: "Dominante", value: "dominante" }, { label: "Dominante-novela", value: "dominante-novela" }, { label: "drama", value: "drama" }, { label: "dulce", value: "dulce" }, { label: "Dulce\xA0Embarazada", value: "dulce-embarazada" }, { label: "elegante", value: "elegante" }, { label: "Embarazada", value: "embarazada" }, { label: "En la actualidad", value: "en-la-actualidad" }, { label: "Enemigos a los amantes", value: "enemigos-a-los-amantes" }, { label: "existente", value: "existente" }, { label: "Family", value: "family" }, { label: "Fantasy", value: "fantasy" }, { label: "Fated", value: "fated" }, { label: "Fraco para forte/Pob", value: "fraco-para-forte-pob" }, { label: "fuerte", value: "fuerte" }, { label: "Goodgirl", value: "goodgirl" }, { label: "Gravidez", value: "gravidez" }, { label: "HE", value: "he" }, { label: "heir/heiress", value: "heir-heiress" }, { label: "hermoso", value: "hermoso" }, { label: "H\xE9roe pateador", value: "heroe-pateador" }, { label: "Heroina", value: "heroina" }, { label: "hero\xEDna Kickass", value: "heroina-kickass" }, { label: "heterose*ual", value: "heteroseual" }, { label: "historia de amor", value: "historia-de-amor" }, { label: "Hot Romance", value: "hot-romance" }, { label: "Humor", value: "humor" }, { label: "Identidad secreta", value: "identidad-secreta" }, { label: "Independente", value: "independente" }, { label: "Independiente", value: "independiente" }, { label: "Inocente", value: "inocente" }, { label: "jefe", value: "jefe" }, { label: "Jefe / CEO", value: "jefe-ceo" }, { label: "kicking", value: "kicking" }, { label: "king", value: "king" }, { label: "legend", value: "legend" }, { label: "Literature", value: "literature" }, { label: "loser", value: "loser" }, { label: "Love", value: "love" }, { label: "Love & Culture", value: "love-culture" }, { label: "love after marriage", value: "love-after-marriage" }, { label: "love story", value: "love-story" }, { label: "LOVEAFTERMARRIAGE", value: "loveaftermarriage" }, { label: "lucky dog", value: "lucky-dog" }, { label: "Lugar para voc\xEA Allnovelread", value: "lugar-para-voce-allnovelread" }, { label: "luna", value: "luna" }, { label: "Madre soltera", value: "madre-soltera" }, { label: "Mafia", value: "mafia" }, { label: "magical world", value: "magical-world" }, { label: "Malentendido", value: "malentendido" }, { label: "Maquinaci\xF3n", value: "maquinacion" }, { label: "Marriage", value: "marriage" }, { label: "Matrimonio", value: "matrimonio" }, { label: "Matrimonio por Contrato", value: "matrimonio-por-contrato" }, { label: "Matrimonio rel\xE1mpago", value: "matrimonio-relampago" }, { label: "Medico", value: "medico" }, { label: "M\xE9dico/M\xE9dica", value: "medico-medica" }, { label: "millonaria", value: "millonaria" }, { label: "modificaci\xF3n", value: "modificacion" }, { label: "most millions", value: "most-millions" }, { label: "Mucama", value: "mucama" }, { label: "Mujer s\xFAper poderosa", value: "mujer-super-poderosa" }, { label: "Multi-Millionairo", value: "multi-millionairo" }, { label: "Multimillionairo", value: "multimillionairo" }, { label: "Multimillonaria", value: "multimillonaria" }, { label: "multimillonario", value: "multimillonario" }, { label: "Multimillonario-novela", value: "multimillonario-novela" }, { label: "MULTIPLEIDENTITIES", value: "multipleidentities" }, { label: "M\xFAltiples identidades", value: "multiples-identidades" }, { label: "musculoso", value: "musculoso" }, { label: "Nacimiento m\xFAltiple", value: "nacimiento-multiple" }, { label: "Novia embarazada a la fuga", value: "novia-embarazada-a-la-fuga" }, { label: "Obsesi\xF3n", value: "obsesion" }, { label: "Ocultar", value: "ocultar" }, { label: "Optimista", value: "optimista" }, { label: "others", value: "others" }, { label: "Pasi\xF3n de una noche", value: "pasion-de-una-noche" }, { label: "Perao/Segunda chance", value: "perao-segunda-chance" }, { label: "Perdedor", value: "perdedor" }, { label: "Playboy", value: "playboy" }, { label: "poderoso", value: "poderoso" }, { label: "polygamy", value: "polygamy" }, { label: "Posesivo", value: "posesivo" }, { label: "possessive", value: "possessive" }, { label: "Possessivo", value: "possessivo" }, { label: "Powerful", value: "powerful" }, { label: "presente", value: "presente" }, { label: "Presidente", value: "presidente" }, { label: "princess", value: "princess" }, { label: "Protective", value: "protective" }, { label: "Protectormadre soltera", value: "protectormadre-soltera" }, { label: "Reconquistar a mi pareja", value: "reconquistar-a-mi-pareja" }, { label: "rejected", value: "rejected" }, { label: "relaci\xF3n", value: "relacion" }, { label: "relationship", value: "relationship" }, { label: "Renacido", value: "renacido" }, { label: "Rey/Reina", value: "rey-reina" }, { label: "Rich", value: "rich" }, { label: "Rico", value: "rico" }, { label: "Ricos", value: "ricos" }, { label: "Romance", value: "romance" }, { label: "romance caliente", value: "romance-caliente" }, { label: "Romance/Rom\xE2ntico", value: "romance-romantico" }, { label: "Rom\xE1ntic", value: "romantic" }, { label: "Romantica", value: "romantica" }, { label: "Romanticas", value: "romanticas" }, { label: "Romantico", value: "romantico" }, { label: "Secretos", value: "secretos" }, { label: "secrets", value: "secrets" }, { label: "seductive", value: "seductive" }, { label: "Segunda Chance", value: "segunda-chance" }, { label: "Segunda oportunidad", value: "segunda-oportunidad" }, { label: "STRONGFEMALELEAD", value: "strongfemalelead" }, { label: "Subrogaci\xF3n", value: "subrogacion" }, { label: "Suspense", value: "suspense" }, { label: "Sweet", value: "sweet" }, { label: "SWEETLOVE", value: "sweetlove" }, { label: "Teenager", value: "teenager" }, { label: "Tierno", value: "tierno" }, { label: "Tragedia", value: "tragedia" }, { label: "Traici\xF3n", value: "traicion" }, { label: "Traici\xF3nReconquistar a mi pareja", value: "traicionreconquistar-a-mi-pareja" }, { label: "Tri\xE1ngulo amoroso", value: "triangulo-amoroso" }, { label: "Trillizos", value: "trillizos" }, { label: "Trio", value: "trio" }, { label: "Una noche de pasion", value: "una-noche-de-pasion" }, { label: "Universidad", value: "universidad" }, { label: "Valente", value: "valente" }, { label: "Valiente", value: "valiente" }, { label: "Venanza", value: "venanza" }, { label: "Werewolf", value: "werewolf" }, { label: "Ya", value: "ya" }, { label: "Youth", value: "youth" }] }, "type[]": { type: "Checkbox", label: "Type", value: [], options: [{ label: "16+", value: "16" }, { label: "alfa", value: "alfa" }, { label: "Allnovelread Sin vuelta atr\xE1s", value: "allnovelread-sin-vuelta-atras" }, { label: "Alpha", value: "alpha" }, { label: "Amor dulce", value: "amor-dulce" }, { label: "Amor y odio", value: "amor-y-odio" }, { label: "Arrogante-novela", value: "arrogante-novela" }, { label: "Billionaire", value: "billionaire" }, { label: "Billonario", value: "billonario" }, { label: "bxg", value: "bxg" }, { label: "CEO", value: "ceo" }, { label: "Contempor\xE2neo", value: "contemporaneo" }, { label: "Contract marriage", value: "contract-marriage" }, { label: "crecimiento-del-personaje-novela", value: "crecimiento-del-personaje-novela" }, { label: "Divorce", value: "divorce" }, { label: "drama", value: "drama" }, { label: "dulce", value: "dulce" }, { label: "El incesante acoso de mi ex marido", value: "el-incesante-acoso-de-mi-ex-marido" }, { label: "Enganar al mejor amigo de mi novio", value: "enganar-al-mejor-amigo-de-mi-novio" }, { label: "Fantasy", value: "fantasy" }, { label: "HE", value: "he" }, { label: "heterosexual", value: "heterosexual" }, { label: "Historia-triste-novela", value: "historia-triste-novela" }, { label: "Hombre lobo", value: "hombre-lobo" }, { label: "Hot Romance", value: "hot-romance" }, { label: "Independiente", value: "independiente" }, { label: "Inocente", value: "inocente" }, { label: "king", value: "king" }, { label: "Love", value: "love" }, { label: "love after marriage", value: "love-after-marriage" }, { label: "Luna", value: "luna" }, { label: "Magical world", value: "magical-world" }, { label: "millonaria", value: "millonaria" }, { label: "Multi-Millionaire", value: "multi-millionaire" }, { label: "Multimillionairo", value: "multimillionairo" }, { label: "Multimillonario", value: "multimillonario" }, { label: "Nunca Longe Allnovelread", value: "nunca-longe-allnovelread" }, { label: "Posesivo", value: "posesivo" }, { label: "Querida ex esposa", value: "querida-ex-esposa" }, { label: "Romance", value: "romance" }, { label: "Romane", value: "romane" }, { label: "Rom\xE1ntica", value: "romantica" }, { label: "Romanticas", value: "romanticas" }, { label: "Romantico", value: "romantico" }, { label: "Sweet", value: "sweet" }, { label: "SWEETLOVE", value: "sweetlove" }, { label: "Te Quero de Volta Allnovelread", value: "te-quero-de-volta-allnovelread" }, { label: "Traicion en altar", value: "traicion-en-altar" }, { label: "Uma Ferida Que Nunca Se Cura Allnovelread", value: "uma-ferida-que-nunca-se-cura-allnovelread" }, { label: "Urban", value: "urban" }, { label: "Urban/Realistic", value: "urban-realistic" }, { label: "vuelva a m\xED", value: "vuelva-a-mi" }, { label: "Werewolf", value: "werewolf" }] }, status: { type: "Picker", label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }, { label: "Completed", value: "completed" }] }, order: { type: "Picker", label: "Order by", value: "", options: [{ label: "Default", value: "" }, { label: "A-Z", value: "title" }, { label: "Z-A", value: "titlereverse" }, { label: "Latest Update", value: "update" }, { label: "Latest Added", value: "latest" }, { label: "Popular", value: "popular" }] } } });
+  exports.default = s;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

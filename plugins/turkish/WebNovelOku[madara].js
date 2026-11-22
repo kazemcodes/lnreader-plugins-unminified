@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25423,13 +25431,13 @@ var LNReaderPlugin = (() => {
           return { M: c2, y: h2, w: o2, d: a2, D: d2, h: u2, m: s2, s: i2, ms: r2, Q: f2 }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
         }, "p"), u: /* @__PURE__ */ __name(function(t3) {
           return void 0 === t3;
-        }, "u") }, g2 = "en", D = {};
-        D[g2] = M;
+        }, "u") }, g = "en", D = {};
+        D[g] = M;
         var p2 = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
           return t3 instanceof _ || !(!t3 || !t3[p2]);
         }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
           var i3;
-          if (!e3) return g2;
+          if (!e3) return g;
           if ("string" == typeof e3) {
             var s3 = e3.toLowerCase();
             D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
@@ -25439,7 +25447,7 @@ var LNReaderPlugin = (() => {
             var a3 = e3.name;
             D[a3] = e3, i3 = a3;
           }
-          return !r3 && i3 && (g2 = i3), i3 || !r3 && g2;
+          return !r3 && i3 && (g = i3), i3 || !r3 && g;
         }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
           if (S(t3)) return t3.clone();
           var n3 = "object" == typeof e3 ? e3 : {};
@@ -25502,7 +25510,7 @@ var LNReaderPlugin = (() => {
               case c2:
                 return r3 ? l3(1, M3) : l3(0, M3 + 1);
               case o2:
-                var g3 = this.$locale().weekStart || 0, D2 = (y2 < g3 ? y2 + 7 : y2) - g3;
+                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
                 return l3(r3 ? m4 - D2 : m4 + (6 - D2), M3);
               case a2:
               case d2:
@@ -25613,7 +25621,7 @@ var LNReaderPlugin = (() => {
           }, m3.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
           }, m3.diff = function(r3, d3, l3) {
-            var $3, y2 = this, M3 = b2.p(d3), m4 = O(r3), v3 = (m4.utcOffset() - this.utcOffset()) * e2, g3 = this - m4, D2 = /* @__PURE__ */ __name(function() {
+            var $3, y2 = this, M3 = b2.p(d3), m4 = O(r3), v3 = (m4.utcOffset() - this.utcOffset()) * e2, g2 = this - m4, D2 = /* @__PURE__ */ __name(function() {
               return b2.m(y2, m4);
             }, "D");
             switch (M3) {
@@ -25627,22 +25635,22 @@ var LNReaderPlugin = (() => {
                 $3 = D2() / 3;
                 break;
               case o2:
-                $3 = (g3 - v3) / 6048e5;
+                $3 = (g2 - v3) / 6048e5;
                 break;
               case a2:
-                $3 = (g3 - v3) / 864e5;
+                $3 = (g2 - v3) / 864e5;
                 break;
               case u2:
-                $3 = g3 / n2;
+                $3 = g2 / n2;
                 break;
               case s2:
-                $3 = g3 / e2;
+                $3 = g2 / e2;
                 break;
               case i2:
-                $3 = g3 / t2;
+                $3 = g2 / t2;
                 break;
               default:
-                $3 = g3;
+                $3 = g2;
             }
             return l3 ? $3 : b2.a($3);
           }, m3.daysInMonth = function() {
@@ -25673,7 +25681,7 @@ var LNReaderPlugin = (() => {
           return t3.$i || (t3(e3, _, O), t3.$i = true), O;
         }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
           return O(1e3 * t3);
-        }, O.en = D[g2], O.Ls = D, O.p = {}, O;
+        }, O.en = D[g], O.Ls = D, O.p = {}, O;
       });
     }
   });
@@ -25872,30 +25880,30 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), s = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), l = r(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, h = /menit|dakika|min|minute|minuto|นาที|دقائق/i, p = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, d = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, v = /week|semana/i, m = /month|mes/i, f = /year|año/i, b = function() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = r(require_dayjs_min()), l = (init_storage2(), __toCommonJS(storage_exports)), u = /detik|segundo|second|วินาที/i, c = /menit|dakika|min|minute|minuto|นาที|دقائق/i, h = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, p = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, d = /week|semana/i, v = /month|mes/i, m = /year|año/i, f = function() {
     function r2(e2) {
       var t2, a2, r3 = this;
-      this.hideLocked = u.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
+      this.hideLocked = l.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
         var t3, a3 = r3.dateCache.get(e3);
         if (void 0 !== a3) return a3;
         r3.dateCache.size > 2e3 && r3.dateCache.clear();
-        var n3, i2 = (0, l.default)(), s2 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", o2 = parseInt(s2, 10);
+        var n3, i2 = (0, o.default)(), s2 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", l2 = parseInt(s2, 10);
         if (!s2) return r3.dateCache.set(e3, e3), e3;
-        if (c.test(e3)) n3 = i2.subtract(o2, "second").format("LL");
-        else if (h.test(e3)) n3 = i2.subtract(o2, "minute").format("LL");
-        else if (p.test(e3)) n3 = i2.subtract(o2, "hours").format("LL");
-        else if (d.test(e3)) n3 = i2.subtract(o2, "days").format("LL");
-        else if (v.test(e3)) n3 = i2.subtract(o2, "week").format("LL");
-        else if (m.test(e3)) n3 = i2.subtract(o2, "month").format("LL");
-        else if (f.test(e3)) n3 = i2.subtract(o2, "year").format("LL");
+        if (u.test(e3)) n3 = i2.subtract(l2, "second").format("LL");
+        else if (c.test(e3)) n3 = i2.subtract(l2, "minute").format("LL");
+        else if (h.test(e3)) n3 = i2.subtract(l2, "hours").format("LL");
+        else if (p.test(e3)) n3 = i2.subtract(l2, "days").format("LL");
+        else if (d.test(e3)) n3 = i2.subtract(l2, "week").format("LL");
+        else if (v.test(e3)) n3 = i2.subtract(l2, "month").format("LL");
+        else if (m.test(e3)) n3 = i2.subtract(l2, "year").format("LL");
         else {
-          var u2 = (0, l.default)(e3).format("LL");
-          n3 = "Invalid Date" !== u2 ? u2 : e3;
+          var f2 = (0, o.default)(e3).format("LL");
+          n3 = "Invalid Date" !== f2 ? f2 : e3;
         }
         return r3.dateCache.set(e3, n3), n3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var n2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.4.".concat(n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "2.4.".concat(1 + n2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(r2, "r");
     return Object.defineProperty(r2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -25935,10 +25943,9 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.extractCover = function(e2) {
       for (var t2, a2, r3, n2 = 0, i2 = [e2.attr("data-lazy-src"), e2.attr("data-src"), e2.attr("data-cfsrc"), null === (t2 = e2.attr("data-srcset")) || void 0 === t2 ? void 0 : t2.split(" ")[0], null === (a2 = e2.attr("data-lazy-srcset")) || void 0 === a2 ? void 0 : a2.split(" ")[0], null === (r3 = e2.attr("srcset")) || void 0 === r3 ? void 0 : r3.split(" ")[0], e2.attr("src")]; n2 < i2.length; n2++) {
-        var o2 = i2[n2];
-        if (o2 && !o2.includes("dflazy")) return o2;
+        var s2 = i2[n2];
+        if (s2 && !s2.includes("dflazy")) return s2;
       }
-      return s.defaultCover;
     }, r2.prototype.parseNovels = function(e2) {
       var t2 = this, a2 = [];
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(r3, n2) {
@@ -26028,19 +26035,19 @@ var LNReaderPlugin = (() => {
       });
     }, r2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, s2, u2, c2, h2, p2, d2, v2, m2, f2, b2, g2, y, x, w, k, C, L, S, _, N, A, O, T, j, D, P, q, H, z, E, F, G, M = this;
+        var t2, r3, l2, u2, c2, h2, p2, d2, v2, m2, f2, b2, g, y, x, w, k, C, L, S, _, N, A, O, T, j, D, P, q, H, z, E, F, G, M = this;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), s2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(s2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (F = this.options) || void 0 === F ? void 0 : F.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: s2 }).then(function(e3) {
+              return t2 = this.site.replace(/\/+$/, ""), r3 = e2.replace(/^\/+/, ""), l2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(r3), c2 = null, h2 = "".concat(l2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (F = this.options) || void 0 === F ? void 0 : F.useNewChapterEndpoint) ? (c2 = (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
-              }), [4, Promise.all([this.getCheerio(s2, false), c2])]) : [3, 2];
+              }), [4, Promise.all([this.getCheerio(l2, false), c2])]) : [3, 2];
             case 1:
               return u2 = a2.sent()[0], [3, 4];
             case 2:
-              return [4, this.getCheerio(s2, false)];
+              return [4, this.getCheerio(l2, false)];
             case 3:
               u2 = a2.sent(), a2.label = 4;
             case 4:
@@ -26077,12 +26084,12 @@ var LNReaderPlugin = (() => {
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    p2.status = t3.text().trim().includes("OnGoing") || t3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
+                    p2.status = t3.text().trim().includes("OnGoing") || t3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? s.NovelStatus.Ongoing : s.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
                     p2.artist = t3.text().trim();
                 }
-              }), p2.genres || (p2.genres = u2(".genres-content").text().trim()), p2.status || (p2.status = u2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), p2.author || (p2.author = u2(".manga-author a").text().trim()), p2.rating || (p2.rating = parseFloat(u2(".post-rating span").text().trim())), p2.author || (p2.author = u2(".manga-authors").text().trim()), u2("div.summary__content .code-block,script,noscript").remove(), p2.summary = this.translateDragontea(u2("div.summary__content")).text().trim() || u2("#tab-manga-about").text().trim() || u2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, t3) {
+              }), p2.genres || (p2.genres = u2(".genres-content").text().trim()), p2.status || (p2.status = u2(".manga-status").text().trim().includes("OnGoing") ? s.NovelStatus.Ongoing : s.NovelStatus.Completed), p2.author || (p2.author = u2(".manga-author a").text().trim()), p2.rating || (p2.rating = parseFloat(u2(".post-rating span").text().trim())), p2.author || (p2.author = u2(".manga-authors").text().trim()), u2("div.summary__content .code-block,script,noscript").remove(), p2.summary = this.translateDragontea(u2("div.summary__content")).text().trim() || u2("#tab-manga-about").text().trim() || u2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, t3) {
                 return u2(t3).text();
               }).get().join("\n\n").trim() || u2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, t3) {
                 return u2(t3).text();
@@ -26096,7 +26103,7 @@ var LNReaderPlugin = (() => {
             case 6:
               m2 = "", a2.label = 7;
             case 7:
-              return (v2 = m2 || "") ? [3, 9] : [4, (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: s2 }).then(function(e3) {
+              return (v2 = m2 || "") ? [3, 9] : [4, (0, n.fetchApi)(h2, { method: "POST", headers: this.requestHeaders, referrer: l2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
@@ -26105,14 +26112,14 @@ var LNReaderPlugin = (() => {
               v2 = a2.sent(), a2.label = 9;
             case 9:
               if (f2 = (0, i.load)(v2), !((b2 = f2(".pagination a[data-page]")).length > 0)) return [3, 13];
-              if (g2 = Math.max.apply(Math, b2.map(function(e3, t3) {
+              if (g = Math.max.apply(Math, b2.map(function(e3, t3) {
                 return parseInt(f2(t3).attr("data-page") || "1", 10);
               }).get()), y = b2.last().attr("href") || "", -1 === (x = y.indexOf("?"))) return [3, 13];
-              for (w = y.slice(x).replace(/\d+$/, ""), k = [], C = 2; C <= g2; C++) k.push("".concat(h2).concat(w).concat(C));
+              for (w = y.slice(x).replace(/\d+$/, ""), k = [], C = 2; C <= g; C++) k.push("".concat(h2).concat(w).concat(C));
               L = 6, S = 0, a2.label = 10;
             case 10:
               return S < k.length ? (_ = k.slice(S, S + L), [4, Promise.all(_.map(function(e3) {
-                return (0, n.fetchApi)(e3, { method: "POST", headers: M.requestHeaders, referrer: s2 }).then(function(e4) {
+                return (0, n.fetchApi)(e3, { method: "POST", headers: M.requestHeaders, referrer: l2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
@@ -26132,15 +26139,15 @@ var LNReaderPlugin = (() => {
             case 15:
               v2 = a2.sent(), a2.label = 16;
             case 16:
-              return "0" !== v2 && v2 && (u2 = (0, i.load)(v2)), P = (0, l.default)().format("LL"), q = /* @__PURE__ */ __name(function(e3) {
+              return "0" !== v2 && v2 && (u2 = (0, i.load)(v2)), P = (0, o.default)().format("LL"), q = /* @__PURE__ */ __name(function(e3) {
                 var t3, a3 = u2(e3), r4 = a3.find("a"), n2 = r4.attr("href") || "";
                 if (!n2 || "#" === n2) return null;
                 var i2 = ((null === (t3 = e3.attribs) || void 0 === t3 ? void 0 : t3.class) || "").includes("premium-block");
                 if (i2 && M.hideLocked) return null;
-                var s3 = r4.text().trim();
-                i2 && (s3 = "\u{1F512} " + s3);
-                var o2 = a3.find("span.chapter-release-date").text().trim(), l2 = o2 ? M.parseData(o2) : P;
-                return { name: s3, path: n2.replace(/https?:\/\/.*?\//, ""), releaseTime: l2 || null };
+                var s2 = r4.text().trim();
+                i2 && (s2 = "\u{1F512} " + s2);
+                var o2 = a3.find("span.chapter-release-date").text().trim(), l3 = o2 ? M.parseData(o2) : P;
+                return { name: s2, path: n2.replace(/https?:\/\/.*?\//, ""), releaseTime: l3 || null };
               }, "q"), (H = u2("li.parent.has-child")).length > 0 ? (H.each(function(e3, t3) {
                 var a3 = [];
                 u2(t3).find(".wp-manga-chapter").each(function(e4, t4) {
@@ -26189,9 +26196,9 @@ var LNReaderPlugin = (() => {
       });
     }, r2;
   }();
-  exports.MadaraPlugin = b;
-  var g = new b({ id: "webnoveloku", sourceSite: "https://www.webnoveloku.com/", sourceName: "WebNovelOku", options: { lang: "Turkish" }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "+ 18", value: "18" }, { label: "Aksiyon", value: "aksiyon" }, { label: "Bilim Kurgu", value: "bilim-kurgu" }, { label: "D\xF6v\xFC\u015F Sanatlar\u0131", value: "dovus-sanatlari" }, { label: "Dram", value: "dram" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantastik", value: "fantastik" }, { label: "Fantezi", value: "fantezi" }, { label: "Gizem", value: "gizem" }, { label: "Harem", value: "harem" }, { label: "Kad\u0131n Ba\u015Frol", value: "kadin-basrol" }, { label: "Kentsel", value: "kentsel" }, { label: "Komedi", value: "komedi" }, { label: "Macera", value: "macera" }, { label: "Manga Listesi", value: "manga" }, { label: "Okul Ya\u015Fam\u0131", value: "okul-yasami" }, { label: "Olgun", value: "olgun" }, { label: "Oyun", value: "oyun" }, { label: "Pop\xFCler", value: "populer" }, { label: "Reenkarnasyon", value: "reenkarnasyon" }, { label: "Romantik", value: "romantik" }, { label: "Seinen", value: "seinen" }, { label: "Shounen", value: "shounen" }, { label: "Simya", value: "simya" }, { label: "Sistem", value: "sistem" }, { label: "S\xFCperg\xFC\xE7", value: "superguc" }, { label: "Tamamlanm\u0131\u015F", value: "tamamlanmis" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yeni", value: "yeni" }, { label: "Yeti\u015Fim", value: "yetisim" }, { label: "Y\xFCksek Kalitede \xC7evrilmi\u015F", value: "yuksek-kalitede-cevrilmis" }] }, op: { type: "Switch", label: "Having ALL selected genres", value: false }, author: { type: "Text", label: "Yazar", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "\xC7\u0131k\u0131\u015F Y\u0131l\u0131", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Durum", value: [], options: [{ label: "Tamamland\u0131", value: "complete" }, { label: "Devam Ediyor", value: "on-going" }, { label: "\u0130ptal Edildi", value: "canceled" }, { label: "Beklemede", value: "on-hold" }] }, m_orderby: { type: "Picker", label: "S\u0131rala", value: "", options: [{ label: "En Son", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Reyting", value: "rating" }, { label: "Pop\xFClarite", value: "trending" }, { label: "G\xF6r\xFCnt\xFClenme", value: "views" }, { label: "Yeni", value: "new-manga" }] } } });
-  exports.default = g;
+  exports.MadaraPlugin = f;
+  var b = new f({ id: "webnoveloku", sourceSite: "https://www.webnoveloku.com/", sourceName: "WebNovelOku", options: { lang: "Turkish" }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "+ 18", value: "18" }, { label: "Aksiyon", value: "aksiyon" }, { label: "Bilim Kurgu", value: "bilim-kurgu" }, { label: "D\xF6v\xFC\u015F Sanatlar\u0131", value: "dovus-sanatlari" }, { label: "Dram", value: "dram" }, { label: "Ecchi", value: "ecchi" }, { label: "Fantastik", value: "fantastik" }, { label: "Fantezi", value: "fantezi" }, { label: "Gizem", value: "gizem" }, { label: "Harem", value: "harem" }, { label: "Kad\u0131n Ba\u015Frol", value: "kadin-basrol" }, { label: "Kentsel", value: "kentsel" }, { label: "Komedi", value: "komedi" }, { label: "Macera", value: "macera" }, { label: "Manga Listesi", value: "manga" }, { label: "Okul Ya\u015Fam\u0131", value: "okul-yasami" }, { label: "Olgun", value: "olgun" }, { label: "Oyun", value: "oyun" }, { label: "Pop\xFCler", value: "populer" }, { label: "Reenkarnasyon", value: "reenkarnasyon" }, { label: "Romantik", value: "romantik" }, { label: "Seinen", value: "seinen" }, { label: "Shounen", value: "shounen" }, { label: "Simya", value: "simya" }, { label: "Sistem", value: "sistem" }, { label: "S\xFCperg\xFC\xE7", value: "superguc" }, { label: "Tamamlanm\u0131\u015F", value: "tamamlanmis" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yeni", value: "yeni" }, { label: "Yeti\u015Fim", value: "yetisim" }, { label: "Y\xFCksek Kalitede \xC7evrilmi\u015F", value: "yuksek-kalitede-cevrilmis" }] }, op: { type: "Switch", label: "Having ALL selected genres", value: false }, author: { type: "Text", label: "Yazar", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "\xC7\u0131k\u0131\u015F Y\u0131l\u0131", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Durum", value: [], options: [{ label: "Tamamland\u0131", value: "complete" }, { label: "Devam Ediyor", value: "on-going" }, { label: "\u0130ptal Edildi", value: "canceled" }, { label: "Beklemede", value: "on-hold" }] }, m_orderby: { type: "Picker", label: "S\u0131rala", value: "", options: [{ label: "En Son", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Reyting", value: "rating" }, { label: "Pop\xFClarite", value: "trending" }, { label: "G\xF6r\xFCnt\xFClenme", value: "views" }, { label: "Yeni", value: "new-manga" }] } } });
+  exports.default = b;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

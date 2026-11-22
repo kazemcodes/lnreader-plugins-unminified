@@ -7017,7 +7017,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i = 0, l2 = from.length, ar; i < l2; i++) {
+        if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
           if (ar || !(i in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i);
             ar[i] = from[i];
@@ -7742,7 +7742,7 @@ var LNReaderPlugin = (() => {
         return result;
       };
       var __spreadArray = exports4 && exports4.__spreadArray || function(to, from, pack) {
-        if (pack || arguments.length === 2) for (var i = 0, l2 = from.length, ar; i < l2; i++) {
+        if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
           if (ar || !(i in from)) {
             if (!ar) ar = Array.prototype.slice.call(from, 0, i);
             ar[i] = from[i];
@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25375,88 +25399,50 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // .js/plugins/arabic/rewayatclub.js
   init_dirname();
   init_buffer2();
   init_process2();
   var e = function(e2, t2, n2, r2) {
     return new (n2 || (n2 = Promise))(function(a2, o2) {
-      function l2(e3) {
+      function l(e3) {
         try {
-          u(r2.next(e3));
+          c(r2.next(e3));
         } catch (e4) {
           o2(e4);
         }
       }
-      __name(l2, "l");
+      __name(l, "l");
       function i(e3) {
         try {
-          u(r2.throw(e3));
+          c(r2.throw(e3));
         } catch (e4) {
           o2(e4);
         }
       }
       __name(i, "i");
-      function u(e3) {
+      function c(e3) {
         var t3;
         e3.done ? a2(e3.value) : (t3 = e3.value, t3 instanceof n2 ? t3 : new n2(function(e4) {
           e4(t3);
-        })).then(l2, i);
+        })).then(l, i);
       }
-      __name(u, "u");
-      u((r2 = r2.apply(e2, t2 || [])).next());
+      __name(c, "c");
+      c((r2 = r2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
     var n2, r2, a2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & a2[0]) throw a2[1];
       return a2[1];
-    }, "sent"), trys: [], ops: [] }, l2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return l2.next = i(0), l2.throw = i(1), l2.return = i(2), "function" == typeof Symbol && (l2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, l = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return l.next = i(0), l.throw = i(1), l.return = i(2), "function" == typeof Symbol && (l[Symbol.iterator] = function() {
       return this;
-    }), l2;
+    }), l;
     function i(i2) {
-      return function(u) {
+      return function(c) {
         return function(i3) {
           if (n2) throw new TypeError("Generator is already executing.");
-          for (; l2 && (l2 = 0, i3[0] && (o2 = 0)), o2; ) try {
+          for (; l && (l = 0, i3[0] && (o2 = 0)), o2; ) try {
             if (n2 = 1, r2 && (a2 = 2 & i3[0] ? r2.return : i3[0] ? r2.throw || ((a2 = r2.return) && a2.call(r2), 0) : r2.next) && !(a2 = a2.call(r2, i3[1])).done) return a2;
             switch (r2 = 0, a2 && (i3 = [2 & i3[0], a2.value]), i3[0]) {
               case 0:
@@ -25499,34 +25485,34 @@ var LNReaderPlugin = (() => {
           }
           if (5 & i3[0]) throw i3[1];
           return { value: i3[0] ? i3[1] : void 0, done: true };
-        }([i2, u]);
+        }([i2, c]);
       };
     }
     __name(i, "i");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), l = function() {
-    function l2() {
-      this.id = "rewayatclub", this.name = "Rewayat Club", this.version = "1.0.3", this.icon = "src/ar/rewayatclub/icon.png", this.site = "https://rewayat.club/", this.filters = { genre: { value: [], label: "Genres", options: [{ label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "1" }, { label: "\u0623\u0643\u0634\u0646", value: "2" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "3" }, { label: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627", value: "4" }, { label: "\u0645\u0647\u0627\u0631\u0627\u062A \u0627\u0644\u0642\u062A\u0627\u0644", value: "5" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "6" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A", value: "7" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "8" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0629", value: "9" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "10" }, { label: "\u0633\u062D\u0631", value: "11" }, { label: "\u0631\u064A\u0627\u0636\u0629", value: "12" }, { label: "\u0631\u0639\u0628", value: "13" }, { label: "\u062D\u0631\u064A\u0645", value: "14" }], type: a.FilterTypes.CheckboxGroup }, categories: { value: "0", label: "\u0627\u0644\u0641\u0626\u0627\u062A", options: [{ label: "\u062C\u0645\u064A\u0639 \u0627\u0644\u0631\u0648\u0627\u064A\u0627\u062A", value: "0" }, { label: "\u0645\u062A\u0631\u062C\u0645\u0629", value: "1" }, { label: "\u0645\u0624\u0644\u0641\u0629", value: "2" }, { label: "\u0645\u0643\u062A\u0645\u0644\u0629", value: "3" }], type: a.FilterTypes.Picker }, sortOptions: { value: "-num_chapters", label: "\u0627\u0644\u062A\u0631\u062A\u064A\u0628", options: [{ label: "\u0639\u062F\u062F \u0627\u0644\u0641\u0635\u0648\u0644 - \u0645\u0646 \u0623\u0642\u0644 \uFEF7\u0639\u0644\u0649", value: "num_chapters" }, { label: "\u0639\u062F\u062F \u0627\u0644\u0641\u0635\u0648\u0644 - \u0645\u0646 \u0623\u0639\u0644\u0649 \uFEF7\u0642\u0644", value: "-num_chapters" }, { label: "\u0627\u0644\u0627\u0633\u0645 - \u0645\u0646 \u0623\u0642\u0644 \uFEF7\u0639\u0644\u0649", value: "english" }, { label: "\u0627\u0644\u0627\u0633\u0645 - \u0645\u0646 \u0623\u0639\u0644\u0649 \uFEF7\u0642\u0644", value: "-english" }], type: a.FilterTypes.Picker } };
+  var n = (init_browser(), __toCommonJS(browser_exports)), r = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = function() {
+    function o2() {
+      this.id = "rewayatclub", this.name = "Rewayat Club", this.version = "1.0.4", this.icon = "src/ar/rewayatclub/icon.png", this.site = "https://rewayat.club/", this.filters = { genre: { value: [], label: "Genres", options: [{ label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "1" }, { label: "\u0623\u0643\u0634\u0646", value: "2" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "3" }, { label: "\u0641\u0627\u0646\u062A\u0627\u0632\u064A\u0627", value: "4" }, { label: "\u0645\u0647\u0627\u0631\u0627\u062A \u0627\u0644\u0642\u062A\u0627\u0644", value: "5" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "6" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A", value: "7" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "8" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0629", value: "9" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "10" }, { label: "\u0633\u062D\u0631", value: "11" }, { label: "\u0631\u064A\u0627\u0636\u0629", value: "12" }, { label: "\u0631\u0639\u0628", value: "13" }, { label: "\u062D\u0631\u064A\u0645", value: "14" }], type: a.FilterTypes.CheckboxGroup }, categories: { value: "0", label: "\u0627\u0644\u0641\u0626\u0627\u062A", options: [{ label: "\u062C\u0645\u064A\u0639 \u0627\u0644\u0631\u0648\u0627\u064A\u0627\u062A", value: "0" }, { label: "\u0645\u062A\u0631\u062C\u0645\u0629", value: "1" }, { label: "\u0645\u0624\u0644\u0641\u0629", value: "2" }, { label: "\u0645\u0643\u062A\u0645\u0644\u0629", value: "3" }], type: a.FilterTypes.Picker }, sortOptions: { value: "-num_chapters", label: "\u0627\u0644\u062A\u0631\u062A\u064A\u0628", options: [{ label: "\u0639\u062F\u062F \u0627\u0644\u0641\u0635\u0648\u0644 - \u0645\u0646 \u0623\u0642\u0644 \uFEF7\u0639\u0644\u0649", value: "num_chapters" }, { label: "\u0639\u062F\u062F \u0627\u0644\u0641\u0635\u0648\u0644 - \u0645\u0646 \u0623\u0639\u0644\u0649 \uFEF7\u0642\u0644", value: "-num_chapters" }, { label: "\u0627\u0644\u0627\u0633\u0645 - \u0645\u0646 \u0623\u0642\u0644 \uFEF7\u0639\u0644\u0649", value: "english" }, { label: "\u0627\u0644\u0627\u0633\u0645 - \u0645\u0646 \u0623\u0639\u0644\u0649 \uFEF7\u0642\u0644", value: "-english" }], type: a.FilterTypes.Picker } };
     }
-    __name(l2, "l");
-    return l2.prototype.parseNovels = function(e2) {
+    __name(o2, "o");
+    return o2.prototype.parseNovels = function(e2) {
       var t2 = [];
       return void 0 === e2.results || e2.results.map(function(e3) {
         var n2;
-        t2.push({ name: e3.arabic || (null === (n2 = e3.novel) || void 0 === n2 ? void 0 : n2.arabic) || "novel", path: e3.slug ? "novel/".concat(e3.slug) : e3.novel ? "novel/".concat(e3.novel.slug) : "novel", cover: e3.poster_url ? "https://api.rewayat.club/".concat(e3.poster_url.slice(1)) : e3.novel ? "https://api.rewayat.club/".concat(e3.novel.poster_url.slice(1)) : o.defaultCover });
+        t2.push({ name: e3.arabic || (null === (n2 = e3.novel) || void 0 === n2 ? void 0 : n2.arabic) || "novel", path: e3.slug ? "novel/".concat(e3.slug) : e3.novel ? "novel/".concat(e3.novel.slug) : "novel", cover: e3.poster_url ? "https://api.rewayat.club/".concat(e3.poster_url.slice(1)) : e3.novel ? "https://api.rewayat.club/".concat(e3.novel.poster_url.slice(1)) : void 0 });
       }), t2;
-    }, l2.prototype.popularNovels = function(n2, a2) {
+    }, o2.prototype.popularNovels = function(n2, a2) {
       return e(this, arguments, void 0, function(e2, n3) {
-        var a3, o2, l3 = n3.showLatestNovels, i = n3.filters;
+        var a3, o3, l = n3.showLatestNovels, i = n3.filters;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return a3 = "https://api.rewayat.club/api/novels/", o2 = { count: 0, next: "", previous: "", results: [] }, l3 ? (a3 = "".concat(this.site, "api/chapters/weekly/list/?page=").concat(e2), [4, (0, r.fetchApi)(a3).then(function(e3) {
+              return a3 = "https://api.rewayat.club/api/novels/", o3 = { count: 0, next: "", previous: "", results: [] }, l ? (a3 = "".concat(this.site, "api/chapters/weekly/list/?page=").concat(e2), [4, (0, r.fetchApi)(a3).then(function(e3) {
                 return e3.json();
               })]) : [3, 2];
             case 1:
-              return o2 = t2.sent(), [3, 4];
+              return o3 = t2.sent(), [3, 4];
             case 2:
               return i ? ("" !== i.categories.value && (a3 += "?type=".concat(i.categories.value)), "" !== i.sortOptions.value && (a3 += "&ordering=".concat(i.sortOptions.value)), i.genre.value.length > 0 && i.genre.value.forEach(function(e3) {
                 a3 += "&genre=".concat(e3);
@@ -25534,15 +25520,15 @@ var LNReaderPlugin = (() => {
                 return e3.json();
               })]) : [3, 4];
             case 3:
-              o2 = t2.sent(), t2.label = 4;
+              o3 = t2.sent(), t2.label = 4;
             case 4:
-              return [2, this.parseNovels(o2)];
+              return [2, this.parseNovels(o3)];
           }
         });
       });
-    }, l2.prototype.parseNovel = function(a2) {
+    }, o2.prototype.parseNovel = function(a2) {
       return e(this, void 0, void 0, function() {
-        var e2, l3, i, u, c, s, p, h, v, f, b, y, d, g, m;
+        var e2, o3, l, i, c, s, u, p, h, v, f, b, y, d;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25550,40 +25536,40 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, t2.sent().text()];
             case 2:
-              return e2 = t2.sent(), l3 = (0, n.load)(e2), i = { path: a2, name: l3("h1.primary--text span").text().trim() || "Untitled", author: l3(".novel-author").text().trim(), summary: l3("div.text-pre-line span").text().trim(), totalPages: 1, chapters: [] }, u = /* @__PURE__ */ new Set(["\u0645\u0643\u062A\u0645\u0644\u0629", "\u0645\u062A\u0648\u0642\u0641\u0629", "\u0645\u0633\u062A\u0645\u0631\u0629"]), c = Array.from(l3(".v-slide-group__content a")).map(function(e3) {
-                return l3(e3).text().trim();
-              }).join(","), s = Array.from(l3("div.v-slide-group__content span.v-chip__content")).map(function(e3) {
-                return l3(e3).text().trim();
+              return e2 = t2.sent(), o3 = (0, n.load)(e2), l = { path: a2, name: o3("h1.primary--text span").text().trim() || "Untitled", author: o3(".novel-author").text().trim(), summary: o3("div.text-pre-line span").text().trim(), totalPages: 1, chapters: [] }, i = /* @__PURE__ */ new Set(["\u0645\u0643\u062A\u0645\u0644\u0629", "\u0645\u062A\u0648\u0642\u0641\u0629", "\u0645\u0633\u062A\u0645\u0631\u0629"]), c = Array.from(o3(".v-slide-group__content a")).map(function(e3) {
+                return o3(e3).text().trim();
+              }).join(","), s = Array.from(o3("div.v-slide-group__content span.v-chip__content")).map(function(e3) {
+                return o3(e3).text().trim();
               }).filter(function(e3) {
-                return u.has(e3);
-              }), i.genres = "".concat(s, ",").concat(c), p = Array.from(l3("div.v-slide-group__content span.v-chip__content")).map(function(e3) {
-                return l3(e3).text().trim();
+                return i.has(e3);
+              }), l.genres = "".concat(s, ",").concat(c), u = Array.from(o3("div.v-slide-group__content span.v-chip__content")).map(function(e3) {
+                return o3(e3).text().trim();
               }).filter(function(e3) {
-                return u.has(e3);
-              }).join(), i.status = { "\u0645\u062A\u0648\u0642\u0641\u0629": "On Hiatus", "\u0645\u0643\u062A\u0645\u0644\u0629": "Completed", "\u0645\u0633\u062A\u0645\u0631\u0629": "Ongoing" }[p] || "Unknown", h = l3('body script:contains("__NUXT__")').first().text(), v = /poster_url:"(\\u002F[^"]+)"/, f = null == h ? void 0 : h.match(v), b = f ? f[1].replace(/\\u002F/g, "/").replace(/^\/*/, "") : o.defaultCover, y = "https://api.rewayat.club/".concat(b), i.cover = y, d = l3("div.v-tab--active span.mr-1").text().replace(/[^\d]/g, ""), g = parseInt(d, 10), m = Math.ceil(g / 24), i.totalPages = m, [2, i];
+                return i.has(e3);
+              }).join(), l.status = { "\u0645\u062A\u0648\u0642\u0641\u0629": "On Hiatus", "\u0645\u0643\u062A\u0645\u0644\u0629": "Completed", "\u0645\u0633\u062A\u0645\u0631\u0629": "Ongoing" }[u] || "Unknown", p = o3('body script:contains("__NUXT__")').first().text(), h = /poster_url:"(\\u002F[^"]+)"/, v = null == p ? void 0 : p.match(h), f = v ? v[1].replace(/\\u002F/g, "/").replace(/^\/*/, "") : void 0, l.cover = f ? "https://api.rewayat.club/".concat(f) : void 0, b = o3("div.v-tab--active span.mr-1").text().replace(/[^\d]/g, ""), y = parseInt(b, 10), d = Math.ceil(y / 24), l.totalPages = d, [2, l];
           }
         });
       });
-    }, l2.prototype.parseChapters = function(e2, t2) {
+    }, o2.prototype.parseChapters = function(e2, t2) {
       var n2 = [];
       return e2.results.map(function(e3) {
         n2.push({ name: e3.title, releaseTime: new Date(e3.date).toISOString(), path: "".concat(t2, "/").concat(e3.number), chapterNumber: e3.number });
       }), n2;
-    }, l2.prototype.parsePage = function(n2, a2) {
+    }, o2.prototype.parsePage = function(n2, a2) {
       return e(this, void 0, void 0, function() {
-        var e2, o2, l3;
+        var e2, o3, l;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = n2.slice(6), o2 = "https://api.rewayat.club/api/chapters/".concat(e2, "/?ordering=number&page=").concat(a2), [4, (0, r.fetchApi)(o2).then(function(e3) {
+              return e2 = n2.slice(6), o3 = "https://api.rewayat.club/api/chapters/".concat(e2, "/?ordering=number&page=").concat(a2), [4, (0, r.fetchApi)(o3).then(function(e3) {
                 return e3.json();
               })];
             case 1:
-              return l3 = t2.sent(), [2, { chapters: this.parseChapters(l3, n2) }];
+              return l = t2.sent(), [2, { chapters: this.parseChapters(l, n2) }];
           }
         });
       });
-    }, l2.prototype.parseChapter = function(n2) {
+    }, o2.prototype.parseChapter = function(n2) {
       return e(this, void 0, void 0, function() {
         var e2, a2;
         return t(this, function(t2) {
@@ -25597,9 +25583,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, l2.prototype.searchNovels = function(n2, a2) {
+    }, o2.prototype.searchNovels = function(n2, a2) {
       return e(this, void 0, void 0, function() {
-        var e2, o2;
+        var e2, o3;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25607,13 +25593,13 @@ var LNReaderPlugin = (() => {
                 return e3.json();
               })];
             case 1:
-              return o2 = t2.sent(), [2, this.parseNovels(o2)];
+              return o3 = t2.sent(), [2, this.parseNovels(o3)];
           }
         });
       });
-    }, l2;
+    }, o2;
   }();
-  exports.default = new l();
+  exports.default = new o();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

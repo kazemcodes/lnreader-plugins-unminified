@@ -1126,18 +1126,18 @@ var LNReaderPlugin = (() => {
     Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
       return b != null && b._isBuffer === true && b !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
-      if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a, b) {
+      if (isInstance(a, Uint8Array)) a = Buffer3.from(a, a.offset, a.byteLength);
       if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
+      if (!Buffer3.isBuffer(a) || !Buffer3.isBuffer(b)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b) return 0;
-      let x = a2.length;
+      if (a === b) return 0;
+      let x = a.length;
       let y = b.length;
       for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b[i2]) {
-          x = a2[i2];
+        if (a[i2] !== b[i2]) {
+          x = a[i2];
           y = b[i2];
           break;
         }
@@ -4219,8 +4219,8 @@ var LNReaderPlugin = (() => {
       function merge2(dst) {
         var ifNotSet = typeof arguments[arguments.length - 1] === "boolean", limit = ifNotSet ? arguments.length - 1 : arguments.length;
         ifNotSet = ifNotSet && arguments[arguments.length - 1];
-        for (var a2 = 1; a2 < limit; ++a2) {
-          var src = arguments[a2];
+        for (var a = 1; a < limit; ++a) {
+          var src = arguments[a];
           if (!src)
             continue;
           for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
@@ -6907,8 +6907,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
-        return a2.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a, b) {
+        return a.id - b.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -11567,9 +11591,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a2, b) {
+      function combineFuncs(a, b) {
         return function(elem) {
-          return a2(elem) || b(elem);
+          return a(elem) || b(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -11713,8 +11737,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i2, arr) {
           return !arr.includes(node, i2 + 1);
         });
-        nodes.sort(function(a2, b) {
-          var relative = compareDocumentPosition(a2, b);
+        nodes.sort(function(a, b) {
+          var relative = compareDocumentPosition(a, b);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -13416,12 +13440,12 @@ var LNReaderPlugin = (() => {
           return [2, 1];
         }
         var idx = 0;
-        var a2 = 0;
+        var a = 0;
         var sign = readSign();
         var number = readNumber();
         if (idx < formula.length && formula.charAt(idx) === "n") {
           idx++;
-          a2 = sign * (number !== null && number !== void 0 ? number : 1);
+          a = sign * (number !== null && number !== void 0 ? number : 1);
           skipWhitespace();
           if (idx < formula.length) {
             sign = readSign();
@@ -13434,7 +13458,7 @@ var LNReaderPlugin = (() => {
         if (number === null || idx < formula.length) {
           throw new Error("n-th rule couldn't be parsed ('".concat(formula, "')"));
         }
-        return [a2, sign * number];
+        return [a, sign * number];
         function readSign() {
           if (formula.charAt(idx) === "-") {
             idx++;
@@ -13482,25 +13506,25 @@ var LNReaderPlugin = (() => {
       exports4.generate = exports4.compile = void 0;
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
-        var a2 = parsed[0];
+        var a = parsed[0];
         var b = parsed[1] - 1;
-        if (b < 0 && a2 <= 0)
+        if (b < 0 && a <= 0)
           return boolbase_1.default.falseFunc;
-        if (a2 === -1)
+        if (a === -1)
           return function(index2) {
             return index2 <= b;
           };
-        if (a2 === 0)
+        if (a === 0)
           return function(index2) {
             return index2 === b;
           };
-        if (a2 === 1)
+        if (a === 1)
           return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
             return index2 >= b;
           };
-        var absA = Math.abs(a2);
+        var absA = Math.abs(a);
         var bMod = (b % absA + absA) % absA;
-        return a2 > 1 ? function(index2) {
+        return a > 1 ? function(index2) {
           return index2 >= b && index2 % absA === bMod;
         } : function(index2) {
           return index2 <= b && index2 % absA === bMod;
@@ -13509,18 +13533,18 @@ var LNReaderPlugin = (() => {
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
-        var a2 = parsed[0];
+        var a = parsed[0];
         var b = parsed[1] - 1;
         var n2 = 0;
-        if (a2 < 0) {
-          var aPos_1 = -a2;
+        if (a < 0) {
+          var aPos_1 = -a;
           var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
           return function() {
             var val2 = minValue_1 + aPos_1 * n2++;
             return val2 > b ? null : val2;
           };
         }
-        if (a2 === 0)
+        if (a === 0)
           return b < 0 ? (
             // There are no result — always return `null`
             function() {
@@ -13533,10 +13557,10 @@ var LNReaderPlugin = (() => {
             }
           );
         if (b < 0) {
-          b += a2 * Math.ceil(-b / a2);
+          b += a * Math.ceil(-b / a);
         }
         return function() {
-          return a2 * n2++ + b;
+          return a * n2++ + b;
         };
       }
       __name(generate, "generate");
@@ -14321,15 +14345,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a2, b) {
-        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
-          return a2;
+      function reduceRules(a, b) {
+        if (b === boolbase_1.default.falseFunc || a === boolbase_1.default.trueFunc) {
+          return a;
         }
-        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
+        if (a === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
           return b;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a2(elem) || b(elem);
+          return a(elem) || b(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -14379,8 +14403,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
-        return a2 === b;
+      var defaultEquals = /* @__PURE__ */ __name(function(a, b) {
+        return a === b;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -14773,8 +14797,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
-          return __spreadArray(__spreadArray([], a2, true), b, true);
+        return DomUtils.uniqueSort(results.reduce(function(a, b) {
+          return __spreadArray(__spreadArray([], a, true), b, true);
         }));
       }
       __name(select3, "select");
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25400,44 +25408,44 @@ var LNReaderPlugin = (() => {
   init_process2();
   var t = function(t2, e2, r2, n2) {
     return new (r2 || (r2 = Promise))(function(i2, s2) {
-      function a2(t3) {
+      function a(t3) {
         try {
-          u(n2.next(t3));
+          c(n2.next(t3));
         } catch (t4) {
           s2(t4);
         }
       }
-      __name(a2, "a");
+      __name(a, "a");
       function o(t3) {
         try {
-          u(n2.throw(t3));
+          c(n2.throw(t3));
         } catch (t4) {
           s2(t4);
         }
       }
       __name(o, "o");
-      function u(t3) {
+      function c(t3) {
         var e3;
         t3.done ? i2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
           t4(e3);
-        })).then(a2, o);
+        })).then(a, o);
       }
-      __name(u, "u");
-      u((n2 = n2.apply(t2, e2 || [])).next());
+      __name(c, "c");
+      c((n2 = n2.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
     var r2, n2, i2, s2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & i2[0]) throw i2[1];
       return i2[1];
-    }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return a2.next = o(0), a2.throw = o(1), a2.return = o(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, a = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return a.next = o(0), a.throw = o(1), a.return = o(2), "function" == typeof Symbol && (a[Symbol.iterator] = function() {
       return this;
-    }), a2;
+    }), a;
     function o(o2) {
-      return function(u) {
+      return function(c) {
         return function(o3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; a2 && (a2 = 0, o3[0] && (s2 = 0)), s2; ) try {
+          for (; a && (a = 0, o3[0] && (s2 = 0)), s2; ) try {
             if (r2 = 1, n2 && (i2 = 2 & o3[0] ? n2.return : o3[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, o3[1])).done) return i2;
             switch (n2 = 0, i2 && (o3 = [2 & o3[0], i2.value]), o3[0]) {
               case 0:
@@ -25480,21 +25488,21 @@ var LNReaderPlugin = (() => {
           }
           if (5 & o3[0]) throw o3[1];
           return { value: o3[0] ? o3[1] : void 0, done: true };
-        }([o2, u]);
+        }([o2, c]);
       };
     }
     __name(o, "o");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = function() {
-    function a2() {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = function() {
+    function s2() {
       var t2 = this;
-      this.id = "dragonholic", this.name = "Dragonholic", this.icon = "src/en/dragonholic/icon.png", this.site = "https://dragonholictranslations.com", this.version = "3.0.0", this.resolveUrl = function(e2) {
+      this.id = "dragonholic", this.name = "Dragonholic", this.icon = "src/en/dragonholic/icon.png", this.site = "https://dragonholictranslations.com", this.version = "3.0.1", this.resolveUrl = function(e2) {
         return t2.site + "/series/" + t2.normalizePath(e2) + "/";
       };
     }
-    __name(a2, "a");
-    return a2.prototype.decodeEntities = function(t2) {
+    __name(s2, "s");
+    return s2.prototype.decodeEntities = function(t2) {
       return t2.replace(/&#(\d+);/g, function(t3, e2) {
         try {
           return String.fromCharCode(parseInt(e2, 10));
@@ -25526,7 +25534,7 @@ var LNReaderPlugin = (() => {
             return t3;
         }
       });
-    }, a2.prototype.fetchSite = function(n2, i2) {
+    }, s2.prototype.fetchSite = function(n2, i2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25539,11 +25547,11 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, a2.prototype.normalizePath = function(t2) {
+    }, s2.prototype.normalizePath = function(t2) {
       return t2.replace(/\/{2,}/g, "/").replace(/^\/+|\/+$/g, "").replace(/^novel\//, "");
-    }, a2.prototype.popularNovels = function(r2) {
+    }, s2.prototype.popularNovels = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, s2, a3, o, u;
+        var t2, i2, s3, a, o;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25551,23 +25559,23 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, e2.sent().text()];
             case 2:
-              return s2 = e2.sent(), a3 = (0, n.load)(s2), o = [], u = /* @__PURE__ */ new Set(), a3('[data-latest-updates-content] a[href*="/series/"]').each(function(t3, e3) {
-                var r3 = (a3(e3).attr("href") || "").match(/\/series\/([^/]+)\/?/);
+              return i2 = e2.sent(), s3 = (0, n.load)(i2), a = [], o = /* @__PURE__ */ new Set(), s3('[data-latest-updates-content] a[href*="/series/"]').each(function(t3, e3) {
+                var r3 = (s3(e3).attr("href") || "").match(/\/series\/([^/]+)\/?/);
                 if (r3) {
                   var n2 = r3[1];
-                  if (!u.has(n2)) {
-                    u.add(n2);
-                    var s3 = a3(e3).closest('div[class*="rounded"]'), c = s3.find("h3 a").first().text().trim() || a3(e3).first().text().trim(), l = s3.find("img").first().attr("src") || a3(e3).find("img").first().attr("src") || i.defaultCover;
-                    c && o.push({ name: c, path: n2, cover: l });
+                  if (!o.has(n2)) {
+                    o.add(n2);
+                    var i3 = s3(e3).closest('div[class*="rounded"]'), c = i3.find("h3 a").first().text().trim() || s3(e3).first().text().trim(), u = i3.find("img").first().attr("src") || s3(e3).find("img").first().attr("src");
+                    c && a.push({ name: c, path: n2, cover: u });
                   }
                 }
-              }), [2, o];
+              }), [2, a];
           }
         });
       });
-    }, a2.prototype.parseNovel = function(r2) {
+    }, s2.prototype.parseNovel = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, a3, o, u, c, l, h, f, p, d, v, m, g, b = this;
+        var t2, s3, a, o, c, u, l, h, f, p, d, v, m, g = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25575,37 +25583,37 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, e2.sent().text()];
             case 2:
-              return a3 = e2.sent(), o = (0, n.load)(a3), (u = { path: t2, name: "" }).name = o("h1").first().text().trim(), c = o('[x-data="coverModal()"] img').first().attr("src") || o("h1").parent().parent().find("img").first().attr("src"), u.cover = c || i.defaultCover, u.author = o('a[href*="/author/"]').first().text().trim() || void 0, l = [], o('a[href*="/genre/"]').each(function(t3, e3) {
-                var r3 = o(e3).text().trim();
-                r3 && l.push(r3);
-              }), l.length && (u.genres = l.join(",")), (h = o('div[class*="rounded-full"]').toArray().map(function(t3) {
-                return o(t3).text().trim().toLowerCase();
+              return s3 = e2.sent(), a = (0, n.load)(s3), (o = { path: t2, name: "" }).name = a("h1").first().text().trim(), c = a('[x-data="coverModal()"] img').first().attr("src") || a("h1").parent().parent().find("img").first().attr("src"), o.cover = c, o.author = a('a[href*="/author/"]').first().text().trim() || void 0, u = [], a('a[href*="/genre/"]').each(function(t3, e3) {
+                var r3 = a(e3).text().trim();
+                r3 && u.push(r3);
+              }), u.length && (o.genres = u.join(",")), (l = a('div[class*="rounded-full"]').toArray().map(function(t3) {
+                return a(t3).text().trim().toLowerCase();
               }).find(function(t3) {
                 return /ongoing|completed|hiatus|cancelled|dropped/.test(t3);
-              })) && (h.includes("ongoing") ? u.status = s.NovelStatus.Ongoing : h.includes("completed") ? u.status = s.NovelStatus.Completed : h.includes("hiatus") ? u.status = s.NovelStatus.OnHiatus : u.status = s.NovelStatus.Unknown), (f = o('[x-ref="synopsis"] p').toArray().map(function(t3) {
-                return o(t3).text().trim();
+              })) && (l.includes("ongoing") ? o.status = i.NovelStatus.Ongoing : l.includes("completed") ? o.status = i.NovelStatus.Completed : l.includes("hiatus") ? o.status = i.NovelStatus.OnHiatus : o.status = i.NovelStatus.Unknown), (h = a('[x-ref="synopsis"] p').toArray().map(function(t3) {
+                return a(t3).text().trim();
               }).filter(function(t3) {
                 return t3 && !/^synopsis:?$/i.test(t3);
-              }).join("\n")) && (u.summary = f), p = null === (m = a3.match(/seriesId:\s*(\d+)/)) || void 0 === m ? void 0 : m[1], d = [], p ? [4, this.fetchSite(this.site + "/api/chapters?series_id=" + p + "&load_all=1&sort_order=asc", { headers: { Accept: "application/json", "X-Requested-With": "XMLHttpRequest" } })] : [3, 5];
+              }).join("\n")) && (o.summary = h), f = null === (v = s3.match(/seriesId:\s*(\d+)/)) || void 0 === v ? void 0 : v[1], p = [], f ? [4, this.fetchSite(this.site + "/api/chapters?series_id=" + f + "&load_all=1&sort_order=asc", { headers: { Accept: "application/json", "X-Requested-With": "XMLHttpRequest" } })] : [3, 5];
             case 3:
               return [4, e2.sent().json()];
             case 4:
-              v = e2.sent(), ((null === (g = null == v ? void 0 : v.data) || void 0 === g ? void 0 : g.chapters) || (null == v ? void 0 : v.chapters) || []).forEach(function(e3) {
+              d = e2.sent(), ((null === (m = null == d ? void 0 : d.data) || void 0 === m ? void 0 : m.chapters) || (null == d ? void 0 : d.chapters) || []).forEach(function(e3) {
                 if (e3.slug) {
-                  var r3 = Number(e3.chapter_order), n2 = b.decodeEntities([e3.heading || e3.name, e3.subtitle].filter(function(t3) {
+                  var r3 = Number(e3.chapter_order), n2 = g.decodeEntities([e3.heading || e3.name, e3.subtitle].filter(function(t3) {
                     return t3 && t3.trim();
                   }).join(" - ") || e3.slug);
-                  d.push({ name: e3.is_premium ? "\u{1F512} " + n2 : n2, path: t2 + "/" + e3.slug, releaseTime: e3.created_at || void 0, chapterNumber: r3 > 0 ? r3 : d.length + 1 });
+                  p.push({ name: e3.is_premium ? "\u{1F512} " + n2 : n2, path: t2 + "/" + e3.slug, releaseTime: e3.created_at || void 0, chapterNumber: r3 > 0 ? r3 : p.length + 1 });
                 }
               }), e2.label = 5;
             case 5:
-              return u.chapters = d, [2, u];
+              return o.chapters = p, [2, o];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(r2) {
+    }, s2.prototype.parseChapter = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, s2, a3;
+        var t2, i2, s3, a;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25613,16 +25621,16 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, e2.sent().text()];
             case 2:
-              return t2 = e2.sent(), i2 = (0, n.load)(t2), (s2 = i2(".chapter-content")).find("script, style, ins, .ad-container, [data-lumina-ad-code]").remove(), a3 = "", s2.find("p").each(function(t3, e3) {
+              return t2 = e2.sent(), i2 = (0, n.load)(t2), (s3 = i2(".chapter-content")).find("script, style, ins, .ad-container, [data-lumina-ad-code]").remove(), a = "", s3.find("p").each(function(t3, e3) {
                 var r3 = i2(e3);
-                (r3.text().trim() || r3.find("img").length) && (a3 += "<p>" + (r3.html() || "").trim() + "</p>");
-              }), [2, a3];
+                (r3.text().trim() || r3.find("img").length) && (a += "<p>" + (r3.html() || "").trim() + "</p>");
+              }), [2, a];
           }
         });
       });
-    }, a2.prototype.searchNovels = function(r2) {
+    }, s2.prototype.searchNovels = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, s2 = this;
+        var t2, n2, i2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25632,14 +25640,14 @@ var LNReaderPlugin = (() => {
             case 2:
               return t2 = e2.sent(), n2 = [], ((null == t2 ? void 0 : t2.results) || []).forEach(function(t3) {
                 var e3 = (t3.url || "").match(/\/series\/([^/]+)\/?/);
-                t3.title && e3 && n2.push({ name: s2.decodeEntities(t3.title), path: e3[1], cover: t3.thumbnail || i.defaultCover });
+                t3.title && e3 && n2.push({ name: i2.decodeEntities(t3.title), path: e3[1], cover: t3.thumbnail });
               }), [2, n2];
           }
         });
       });
-    }, a2;
+    }, s2;
   }();
-  exports.default = new a();
+  exports.default = new s();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

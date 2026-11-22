@@ -7016,10 +7016,10 @@ var LNReaderPlugin = (() => {
         // 14
       ];
       function bake(values, offset) {
-        var i = 0, o2 = /* @__PURE__ */ Object.create(null);
+        var i = 0, o = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i < values.length) o2[s2[i + offset]] = values[i++];
-        return o2;
+        while (i < values.length) o[s2[i + offset]] = values[i++];
+        return o;
       }
       __name(bake, "bake");
       types.basic = bake([
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data = await res.json();
+      return {
+        ok: Boolean(data.ok && data.html),
+        html: data.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9427,7 +9451,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9445,22 +9469,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -9485,14 +9493,14 @@ var LNReaderPlugin = (() => {
   init_process2();
   var e = function(e2, t2, r2, n2) {
     return new (r2 || (r2 = Promise))(function(a2, s2) {
-      function o2(e3) {
+      function o(e3) {
         try {
           i(n2.next(e3));
         } catch (e4) {
           s2(e4);
         }
       }
-      __name(o2, "o");
+      __name(o, "o");
       function l(e3) {
         try {
           i(n2.throw(e3));
@@ -9505,7 +9513,7 @@ var LNReaderPlugin = (() => {
         var t3;
         e3.done ? a2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2(function(e4) {
           e4(t3);
-        })).then(o2, l);
+        })).then(o, l);
       }
       __name(i, "i");
       i((n2 = n2.apply(e2, t2 || [])).next());
@@ -9514,15 +9522,15 @@ var LNReaderPlugin = (() => {
     var r2, n2, a2, s2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & a2[0]) throw a2[1];
       return a2[1];
-    }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return o2.next = l(0), o2.throw = l(1), o2.return = l(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, o = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return o.next = l(0), o.throw = l(1), o.return = l(2), "function" == typeof Symbol && (o[Symbol.iterator] = function() {
       return this;
-    }), o2;
+    }), o;
     function l(l2) {
       return function(i) {
         return function(l3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; o2 && (o2 = 0, l3[0] && (s2 = 0)), s2; ) try {
+          for (; o && (o = 0, l3[0] && (s2 = 0)), s2; ) try {
             if (r2 = 1, n2 && (a2 = 2 & l3[0] ? n2.return : l3[0] ? n2.throw || ((a2 = n2.return) && a2.call(n2), 0) : n2.next) && !(a2 = a2.call(n2, l3[1])).done) return a2;
             switch (n2 = 0, a2 && (l3 = [2 & l3[0], a2.value]), l3[0]) {
               case 0:
@@ -9571,85 +9579,85 @@ var LNReaderPlugin = (() => {
     __name(l, "l");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = function() {
-    function o2() {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = function() {
+    function s2() {
       var e2 = this;
-      this.id = "novelrest", this.name = "NovelRest", this.icon = "src/en/novelrest/icon.png", this.site = "https://novelrest.vercel.app", this.apiBase = "https://novelrest.vercel.app/api/lnreader", this.version = "1.0.0", this.filters = { status: { type: n.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "ONGOING" }, { label: "Completed", value: "COMPLETED" }, { label: "Hiatus", value: "HIATUS" }] }, sort: { type: n.FilterTypes.Picker, label: "Sort By", value: "latest", options: [{ label: "Latest", value: "latest" }, { label: "Popular", value: "popular" }, { label: "Rating", value: "rating" }, { label: "Updated", value: "updated" }] } }, this.resolveUrl = function(t2, r2) {
+      this.id = "novelrest", this.name = "NovelRest", this.icon = "src/en/novelrest/icon.png", this.site = "https://novelrest.vercel.app", this.apiBase = "https://novelrest.vercel.app/api/lnreader", this.version = "1.0.1", this.filters = { status: { type: n.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "ONGOING" }, { label: "Completed", value: "COMPLETED" }, { label: "Hiatus", value: "HIATUS" }] }, sort: { type: n.FilterTypes.Picker, label: "Sort By", value: "latest", options: [{ label: "Latest", value: "latest" }, { label: "Popular", value: "popular" }, { label: "Rating", value: "rating" }, { label: "Updated", value: "updated" }] } }, this.resolveUrl = function(t2, r2) {
         return "".concat(e2.site, "/novels/").concat(t2);
       };
     }
-    __name(o2, "o");
-    return o2.prototype.popularNovels = function(n2, s2) {
+    __name(s2, "s");
+    return s2.prototype.popularNovels = function(n2, a2) {
       return e(this, arguments, void 0, function(e2, n3) {
-        var s3, o3, l, i, c, u, p, v, h, f, b, d = n3.showLatestNovels, y = n3.filters;
+        var a3, s3, o, l, i, c, u, p, v, h, f, b = n3.showLatestNovels, d = n3.filters;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              s3 = [], (o3 = new URLSearchParams()).set("page", e2.toString()), o3.set("limit", "20"), (null === (f = null == y ? void 0 : y.status) || void 0 === f ? void 0 : f.value) && o3.set("status", y.status.value), l = d ? "latest" : (null === (b = null == y ? void 0 : y.sort) || void 0 === b ? void 0 : b.value) || "popular", o3.set("sort", l), t2.label = 1;
+              a3 = [], (s3 = new URLSearchParams()).set("page", e2.toString()), s3.set("limit", "20"), (null === (h = null == d ? void 0 : d.status) || void 0 === h ? void 0 : h.value) && s3.set("status", d.status.value), o = b ? "latest" : (null === (f = null == d ? void 0 : d.sort) || void 0 === f ? void 0 : f.value) || "popular", s3.set("sort", o), t2.label = 1;
             case 1:
-              return t2.trys.push([1, 4, , 5]), i = "".concat(this.apiBase, "/novels?").concat(o3.toString()), [4, (0, r.fetchApi)(i)];
+              return t2.trys.push([1, 4, , 5]), l = "".concat(this.apiBase, "/novels?").concat(s3.toString()), [4, (0, r.fetchApi)(l)];
             case 2:
               return [4, t2.sent().json()];
             case 3:
-              if ((c = t2.sent()).novels && Array.isArray(c.novels)) for (u = 0, p = c.novels; u < p.length; u++) v = p[u], s3.push({ name: v.title, path: v.slug, cover: v.coverImage || a.defaultCover });
+              if ((i = t2.sent()).novels && Array.isArray(i.novels)) for (c = 0, u = i.novels; c < u.length; c++) p = u[c], a3.push({ name: p.title, path: p.slug, cover: p.coverImage });
               return [3, 5];
             case 4:
-              return h = t2.sent(), console.error("NovelRest: Error fetching popular novels:", h), [3, 5];
+              return v = t2.sent(), console.error("NovelRest: Error fetching popular novels:", v), [3, 5];
             case 5:
-              return [2, s3];
+              return [2, a3];
           }
         });
       });
-    }, o2.prototype.parseNovel = function(n2) {
+    }, s2.prototype.parseNovel = function(n2) {
       return e(this, void 0, void 0, function() {
-        var e2, o3, l, i, c, u, p, v;
+        var e2, s3, o, l, i, c, u, p;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               e2 = { path: n2, name: "Untitled" }, t2.label = 1;
             case 1:
-              return t2.trys.push([1, 4, , 5]), o3 = n2.replace(/^\/novels\//, ""), [4, (0, r.fetchApi)("".concat(this.apiBase, "/novels/").concat(o3))];
+              return t2.trys.push([1, 4, , 5]), s3 = n2.replace(/^\/novels\//, ""), [4, (0, r.fetchApi)("".concat(this.apiBase, "/novels/").concat(s3))];
             case 2:
               return [4, t2.sent().json()];
             case 3:
-              if (l = t2.sent()) {
-                switch (e2.name = l.title || "Untitled", e2.author = l.author || "", e2.cover = l.coverImage || a.defaultCover, e2.genres = Array.isArray(l.genres) ? l.genres.map(function(e3) {
+              if (o = t2.sent()) {
+                switch (e2.name = o.title || "Untitled", e2.author = o.author || "", e2.cover = o.coverImage, e2.genres = Array.isArray(o.genres) ? o.genres.map(function(e3) {
                   return "string" == typeof e3 ? e3 : e3.name;
-                }).join(", ") : "", e2.summary = l.description || "", l.status) {
+                }).join(", ") : "", e2.summary = o.description || "", o.status) {
                   case "COMPLETED":
-                    e2.status = s.NovelStatus.Completed;
+                    e2.status = a.NovelStatus.Completed;
                     break;
                   case "ONGOING":
-                    e2.status = s.NovelStatus.Ongoing;
+                    e2.status = a.NovelStatus.Ongoing;
                     break;
                   case "HIATUS":
-                    e2.status = s.NovelStatus.OnHiatus;
+                    e2.status = a.NovelStatus.OnHiatus;
                     break;
                   default:
-                    e2.status = s.NovelStatus.Unknown;
+                    e2.status = a.NovelStatus.Unknown;
                 }
-                if (i = [], l.chapters && Array.isArray(l.chapters)) for (c = 0, u = l.chapters; c < u.length; c++) p = u[c], i.push({ name: p.title || "Chapter ".concat(p.number), path: "".concat(o3, "/").concat(p.number), releaseTime: p.createdAt || void 0, chapterNumber: p.number });
-                e2.chapters = i;
+                if (l = [], o.chapters && Array.isArray(o.chapters)) for (i = 0, c = o.chapters; i < c.length; i++) u = c[i], l.push({ name: u.title || "Chapter ".concat(u.number), path: "".concat(s3, "/").concat(u.number), releaseTime: u.createdAt || void 0, chapterNumber: u.number });
+                e2.chapters = l;
               }
               return [3, 5];
             case 4:
-              return v = t2.sent(), console.error("NovelRest: Error parsing novel:", v), [3, 5];
+              return p = t2.sent(), console.error("NovelRest: Error parsing novel:", p), [3, 5];
             case 5:
               return [2, e2];
           }
         });
       });
-    }, o2.prototype.parseChapter = function(n2) {
+    }, s2.prototype.parseChapter = function(n2) {
       return e(this, void 0, void 0, function() {
-        var e2, a2, s2, o3, l;
+        var e2, a2, s3, o, l;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return t2.trys.push([0, 3, , 4]), e2 = n2.split("/"), a2 = e2.pop(), s2 = e2.join("/"), [4, (0, r.fetchApi)("".concat(this.apiBase, "/novels/").concat(s2, "/chapters/").concat(a2))];
+              return t2.trys.push([0, 3, , 4]), e2 = n2.split("/"), a2 = e2.pop(), s3 = e2.join("/"), [4, (0, r.fetchApi)("".concat(this.apiBase, "/novels/").concat(s3, "/chapters/").concat(a2))];
             case 1:
               return [4, t2.sent().json()];
             case 2:
-              return (o3 = t2.sent()) && o3.contentHtml ? [2, o3.contentHtml] : [2, "<p>Chapter content could not be loaded.</p>"];
+              return (o = t2.sent()) && o.contentHtml ? [2, o.contentHtml] : [2, "<p>Chapter content could not be loaded.</p>"];
             case 3:
               return l = t2.sent(), console.error("NovelRest: Error parsing chapter:", l), [2, "<p>Error loading chapter content.</p>"];
             case 4:
@@ -9657,30 +9665,30 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.searchNovels = function(n2, s2) {
+    }, s2.prototype.searchNovels = function(n2, a2) {
       return e(this, void 0, void 0, function() {
-        var e2, o3, l, i, c, u, p;
+        var e2, s3, o, l, i, c, u;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               e2 = [], t2.label = 1;
             case 1:
-              return t2.trys.push([1, 4, , 5]), (o3 = new URLSearchParams()).set("q", n2), o3.set("page", s2.toString()), o3.set("limit", "20"), [4, (0, r.fetchApi)("".concat(this.apiBase, "/novels?").concat(o3.toString()))];
+              return t2.trys.push([1, 4, , 5]), (s3 = new URLSearchParams()).set("q", n2), s3.set("page", a2.toString()), s3.set("limit", "20"), [4, (0, r.fetchApi)("".concat(this.apiBase, "/novels?").concat(s3.toString()))];
             case 2:
               return [4, t2.sent().json()];
             case 3:
-              if ((l = t2.sent()).novels && Array.isArray(l.novels)) for (i = 0, c = l.novels; i < c.length; i++) u = c[i], e2.push({ name: u.title, path: u.slug, cover: u.coverImage || a.defaultCover });
+              if ((o = t2.sent()).novels && Array.isArray(o.novels)) for (l = 0, i = o.novels; l < i.length; l++) c = i[l], e2.push({ name: c.title, path: c.slug, cover: c.coverImage });
               return [3, 5];
             case 4:
-              return p = t2.sent(), console.error("NovelRest: Error searching novels:", p), [3, 5];
+              return u = t2.sent(), console.error("NovelRest: Error searching novels:", u), [3, 5];
             case 5:
               return [2, e2];
           }
         });
       });
-    }, o2;
+    }, s2;
   }();
-  exports.default = new o();
+  exports.default = new s();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

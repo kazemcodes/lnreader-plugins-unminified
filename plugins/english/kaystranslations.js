@@ -831,10 +831,10 @@ var LNReaderPlugin = (() => {
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
       var d = isLE ? -1 : 1;
-      var s2 = buffer[offset + i2];
+      var s = buffer[offset + i2];
       i2 += d;
-      e2 = s2 & (1 << -nBits) - 1;
-      s2 >>= -nBits;
+      e2 = s & (1 << -nBits) - 1;
+      s >>= -nBits;
       nBits += eLen;
       for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
@@ -846,12 +846,12 @@ var LNReaderPlugin = (() => {
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s2 ? -1 : 1) * Infinity;
+        return m ? NaN : (s ? -1 : 1) * Infinity;
       } else {
         m = m + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
       var e2, m, c;
@@ -861,7 +861,7 @@ var LNReaderPlugin = (() => {
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
       var d = isLE ? 1 : -1;
-      var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+      var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
         m = isNaN(value) ? 1 : 0;
@@ -898,7 +898,7 @@ var LNReaderPlugin = (() => {
       eLen += mLen;
       for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s2 * 128;
+      buffer[offset + i2 - d] |= s * 128;
     };
     return exports$1;
   }
@@ -6983,7 +6983,7 @@ var LNReaderPlugin = (() => {
       init_process2();
       var types = exports4;
       var util = require_util();
-      var s2 = [
+      var s = [
         "double",
         // 0
         "float",
@@ -7018,7 +7018,7 @@ var LNReaderPlugin = (() => {
       function bake(values, offset) {
         var i2 = 0, o2 = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
+        while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
         return o2;
       }
       __name(bake, "bake");
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9427,7 +9451,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9445,7 +9469,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
@@ -9531,10 +9554,10 @@ var LNReaderPlugin = (() => {
       }();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -11016,10 +11039,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -14021,8 +14044,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = options.adapter;
           var opts = copyOptions(options);
           opts.relativeSelector = true;
-          var context = subselect.some(function(s2) {
-            return s2.some(sort_js_1.isTraversal);
+          var context = subselect.some(function(s) {
+            return s.some(sort_js_1.isTraversal);
           }) ? (
             // Used as a placeholder. Will be replaced with the actual element.
             [exports4.PLACEHOLDER_ELEMENT]
@@ -14553,14 +14576,14 @@ var LNReaderPlugin = (() => {
         "even",
         "odd"
       ]);
-      function isFilter(s2) {
-        if (s2.type !== "pseudo")
+      function isFilter(s) {
+        if (s.type !== "pseudo")
           return false;
-        if (exports4.filterNames.has(s2.name))
+        if (exports4.filterNames.has(s.name))
           return true;
-        if (s2.name === "not" && Array.isArray(s2.data)) {
-          return s2.data.some(function(s3) {
-            return s3.some(isFilter);
+        if (s.name === "not" && Array.isArray(s.data)) {
+          return s.data.some(function(s2) {
+            return s2.some(isFilter);
           });
         }
         return false;
@@ -14637,10 +14660,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -25413,154 +25436,139 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // .js/plugins/english/kaystranslations.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var t = function(t2, e2, r2, a2) {
-    return new (r2 || (r2 = Promise))(function(n2, o2) {
+  var t = function(t2, e2, r2, n2) {
+    return new (r2 || (r2 = Promise))(function(a2, o2) {
       function i2(t3) {
         try {
-          l(a2.next(t3));
+          l(n2.next(t3));
         } catch (t4) {
           o2(t4);
         }
       }
       __name(i2, "i");
-      function s2(t3) {
+      function s(t3) {
         try {
-          l(a2.throw(t3));
+          l(n2.throw(t3));
         } catch (t4) {
           o2(t4);
         }
       }
-      __name(s2, "s");
+      __name(s, "s");
       function l(t3) {
         var e3;
-        t3.done ? n2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
+        t3.done ? a2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
           t4(e3);
-        })).then(i2, s2);
+        })).then(i2, s);
       }
       __name(l, "l");
-      l((a2 = a2.apply(t2, e2 || [])).next());
+      l((n2 = n2.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
-    var r2, a2, n2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & n2[0]) throw n2[1];
-      return n2[1];
+    var r2, n2, a2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & a2[0]) throw a2[1];
+      return a2[1];
     }, "sent"), trys: [], ops: [] }, i2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return i2.next = s2(0), i2.throw = s2(1), i2.return = s2(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
+    return i2.next = s(0), i2.throw = s(1), i2.return = s(2), "function" == typeof Symbol && (i2[Symbol.iterator] = function() {
       return this;
     }), i2;
-    function s2(s3) {
+    function s(s2) {
       return function(l) {
-        return function(s4) {
+        return function(s3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; i2 && (i2 = 0, s4[0] && (o2 = 0)), o2; ) try {
-            if (r2 = 1, a2 && (n2 = 2 & s4[0] ? a2.return : s4[0] ? a2.throw || ((n2 = a2.return) && n2.call(a2), 0) : a2.next) && !(n2 = n2.call(a2, s4[1])).done) return n2;
-            switch (a2 = 0, n2 && (s4 = [2 & s4[0], n2.value]), s4[0]) {
+          for (; i2 && (i2 = 0, s3[0] && (o2 = 0)), o2; ) try {
+            if (r2 = 1, n2 && (a2 = 2 & s3[0] ? n2.return : s3[0] ? n2.throw || ((a2 = n2.return) && a2.call(n2), 0) : n2.next) && !(a2 = a2.call(n2, s3[1])).done) return a2;
+            switch (n2 = 0, a2 && (s3 = [2 & s3[0], a2.value]), s3[0]) {
               case 0:
               case 1:
-                n2 = s4;
+                a2 = s3;
                 break;
               case 4:
-                return o2.label++, { value: s4[1], done: false };
+                return o2.label++, { value: s3[1], done: false };
               case 5:
-                o2.label++, a2 = s4[1], s4 = [0];
+                o2.label++, n2 = s3[1], s3 = [0];
                 continue;
               case 7:
-                s4 = o2.ops.pop(), o2.trys.pop();
+                s3 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(n2 = o2.trys, (n2 = n2.length > 0 && n2[n2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                if (!(a2 = o2.trys, (a2 = a2.length > 0 && a2[a2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
                   o2 = 0;
                   continue;
                 }
-                if (3 === s4[0] && (!n2 || s4[1] > n2[0] && s4[1] < n2[3])) {
-                  o2.label = s4[1];
+                if (3 === s3[0] && (!a2 || s3[1] > a2[0] && s3[1] < a2[3])) {
+                  o2.label = s3[1];
                   break;
                 }
-                if (6 === s4[0] && o2.label < n2[1]) {
-                  o2.label = n2[1], n2 = s4;
+                if (6 === s3[0] && o2.label < a2[1]) {
+                  o2.label = a2[1], a2 = s3;
                   break;
                 }
-                if (n2 && o2.label < n2[2]) {
-                  o2.label = n2[2], o2.ops.push(s4);
+                if (a2 && o2.label < a2[2]) {
+                  o2.label = a2[2], o2.ops.push(s3);
                   break;
                 }
-                n2[2] && o2.ops.pop(), o2.trys.pop();
+                a2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            s4 = e2.call(t2, o2);
+            s3 = e2.call(t2, o2);
           } catch (t3) {
-            s4 = [6, t3], a2 = 0;
+            s3 = [6, t3], n2 = 0;
           } finally {
-            r2 = n2 = 0;
+            r2 = a2 = 0;
           }
-          if (5 & s4[0]) throw s4[1];
-          return { value: s4[0] ? s4[1] : void 0, done: true };
-        }([s3, l]);
+          if (5 & s3[0]) throw s3[1];
+          return { value: s3[0] ? s3[1] : void 0, done: true };
+        }([s2, l]);
       };
     }
-    __name(s2, "s");
+    __name(s, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = function() {
-    function s2() {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_browser(), __toCommonJS(browser_exports)), i = function() {
+    function i2() {
       var t2 = this;
-      this.id = "kaystranslations", this.name = "Kay's Translations", this.icon = "src/en/kaystranslations/icon.png", this.site = "https://kaystls.site/", this.version = "1.0.0", this.ajaxUrl = "https://kaystls.site/wp-admin/admin-ajax.php", this.resolveUrl = function(e2) {
+      this.id = "kaystranslations", this.name = "Kay's Translations", this.icon = "src/en/kaystranslations/icon.png", this.site = "https://kaystls.site/", this.version = "1.0.1", this.ajaxUrl = "https://kaystls.site/wp-admin/admin-ajax.php", this.resolveUrl = function(e2) {
         return t2.site + e2;
-      }, this.filters = { status: { label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Ongoing", value: "ongoing" }, { label: "On Hiatus", value: "hiatus" }, { label: "Dropped", value: "dropped" }, { label: "Completed", value: "completed" }], type: a.FilterTypes.Picker }, sort: { label: "Sort by", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Updated (Free)", value: "updated_free" }, { label: "Updated (Premium)", value: "updated_premium" }, { label: "Newest", value: "newest" }, { label: "Oldest", value: "oldest" }], type: a.FilterTypes.Picker } };
+      }, this.filters = { status: { label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Ongoing", value: "ongoing" }, { label: "On Hiatus", value: "hiatus" }, { label: "Dropped", value: "dropped" }, { label: "Completed", value: "completed" }], type: n.FilterTypes.Picker }, sort: { label: "Sort by", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Updated (Free)", value: "updated_free" }, { label: "Updated (Premium)", value: "updated_premium" }, { label: "Newest", value: "newest" }, { label: "Oldest", value: "oldest" }], type: n.FilterTypes.Picker } };
     }
-    __name(s2, "s");
-    return s2.prototype.popularNovels = function(r2, a2) {
+    __name(i2, "i");
+    return i2.prototype.popularNovels = function(r2, n2) {
       return t(this, arguments, void 0, function(t2, r3) {
-        var a3, n2, i2, s3, l, u, c, h = this, p = r3.showLatestNovels, f = r3.filters;
+        var n3, a2, i3, s, l, u, c, h = this, p = r3.showLatestNovels, f = r3.filters;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return a3 = (null === (u = null == f ? void 0 : f.status) || void 0 === u ? void 0 : u.value) || "all", n2 = p ? "updated_free" : (null === (c = null == f ? void 0 : f.sort) || void 0 === c ? void 0 : c.value) || "popular", [4, this.browse(t2, a3, n2, false)];
+              return n3 = (null === (u = null == f ? void 0 : f.status) || void 0 === u ? void 0 : u.value) || "all", a2 = p ? "updated_free" : (null === (c = null == f ? void 0 : f.sort) || void 0 === c ? void 0 : c.value) || "popular", [4, this.browse(t2, n3, a2, false)];
             case 1:
-              return void 0 !== (i2 = e2.sent()) ? [3, 3] : [4, this.browse(t2, a3, n2, true)];
+              return void 0 !== (i3 = e2.sent()) ? [3, 3] : [4, this.browse(t2, n3, a2, true)];
             case 2:
-              i2 = e2.sent(), e2.label = 3;
+              i3 = e2.sent(), e2.label = 3;
             case 3:
-              if (void 0 === i2) throw new Error("Kay's Translations: the browse request was rejected.");
-              return s3 = (0, o.load)(i2), l = [], s3("article.kay-card").each(function(t3, e3) {
-                var r4 = s3(e3), a4 = r4.find("h3.kay-card-title a").first(), n3 = h.toPath(a4.attr("href") || ""), o2 = a4.text().trim();
-                n3 && o2 && l.push({ name: o2, path: n3, cover: h.imageOrDefault(r4.find("img").first().attr("src")) });
+              if (void 0 === i3) throw new Error("Kay's Translations: the browse request was rejected.");
+              return s = (0, o.load)(i3), l = [], s("article.kay-card").each(function(t3, e3) {
+                var r4 = s(e3), n4 = r4.find("h3.kay-card-title a").first(), a3 = h.toPath(n4.attr("href") || ""), o2 = n4.text().trim();
+                a3 && o2 && l.push({ name: o2, path: a3, cover: h.imageOrDefault(r4.find("img").first().attr("src")) });
               }), [2, l];
           }
         });
       });
-    }, s2.prototype.parseNovel = function(a2) {
+    }, i2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, i2, s3, l, u, c, h, p, f = this;
+        var t2, a2, i3, s, l, u, c, h, p, f = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(this.resolveUrl(a2))];
+              return [4, (0, r.fetchApi)(this.resolveUrl(n2))];
             case 1:
               if (!(t2 = e2.sent()).ok) throw new Error("Kay's Translations: HTTP ".concat(t2.status, "."));
               return [4, t2.text()];
             case 2:
-              if (n2 = e2.sent(), i2 = (0, o.load)(n2), s3 = i2(".wp-block-column h1.wp-block-heading").first().text(), l = { path: a2, name: this.normalizeText(s3) || this.titleFromDocument(i2), cover: this.imageOrDefault(i2(".wp-block-cover__image-background").first().attr("src")), chapters: [] }, (u = this.readSynopsis(i2)) && (l.summary = u), !(c = this.readToc(n2)) || !Array.isArray(c.chapters)) throw new Error("Kay's Translations: no chapter list found at ".concat(a2, "."));
-              return l.status = this.toStatus(c.statusKey), h = new Set((i2("input.lockedChapters").attr("value") || "").split(",").map(function(t3) {
+              if (a2 = e2.sent(), i3 = (0, o.load)(a2), s = i3(".wp-block-column h1.wp-block-heading").first().text(), l = { path: n2, name: this.normalizeText(s) || this.titleFromDocument(i3), cover: this.imageOrDefault(i3(".wp-block-cover__image-background").first().attr("src")), chapters: [] }, (u = this.readSynopsis(i3)) && (l.summary = u), !(c = this.readToc(a2)) || !Array.isArray(c.chapters)) throw new Error("Kay's Translations: no chapter list found at ".concat(n2, "."));
+              return l.status = this.toStatus(c.statusKey), h = new Set((i3("input.lockedChapters").attr("value") || "").split(",").map(function(t3) {
                 return f.toPath(t3);
               }).filter(function(t3) {
                 return t3;
@@ -25574,135 +25582,135 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.parseChapter = function(a2) {
+    }, i2.prototype.parseChapter = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, i2, s3, l;
+        var t2, a2, i3, s, l;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, (0, r.fetchApi)(this.resolveUrl(a2))];
+              return [4, (0, r.fetchApi)(this.resolveUrl(n2))];
             case 1:
               if (!(t2 = e2.sent()).ok) throw new Error("Kay's Translations: HTTP ".concat(t2.status, "."));
-              return i2 = o.load, [4, t2.text()];
+              return i3 = o.load, [4, t2.text()];
             case 2:
-              if (n2 = i2.apply(void 0, [e2.sent()]), s3 = n2(".wp-block-column > h3.wp-block-heading + p.wp-block-paragraph").first().parent(), l = [], s3.children().slice(1).each(function(t3, e3) {
+              if (a2 = i3.apply(void 0, [e2.sent()]), s = a2(".wp-block-column > h3.wp-block-heading + p.wp-block-paragraph").first().parent(), l = [], s.children().slice(1).each(function(t3, e3) {
                 if ("h3" === e3.tagName) return false;
-                var r2 = n2(e3);
-                "p" === e3.tagName && r2.hasClass("wp-block-paragraph") && (r2.text().trim() || r2.find("img").length) && l.push(n2.html(r2));
-              }), 0 === l.length) throw new Error("Kay's Translations: no readable chapter text at ".concat(a2, ". ") + "The chapter may be early access and need a sign-in on the site.");
+                var r2 = a2(e3);
+                "p" === e3.tagName && r2.hasClass("wp-block-paragraph") && (r2.text().trim() || r2.find("img").length) && l.push(a2.html(r2));
+              }), 0 === l.length) throw new Error("Kay's Translations: no readable chapter text at ".concat(n2, ". ") + "The chapter may be early access and need a sign-in on the site.");
               return [2, l.join("\n")];
           }
         });
       });
-    }, s2.prototype.searchNovels = function(a2, n2) {
+    }, i2.prototype.searchNovels = function(n2, a2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, i2, s3, l = this;
+        var t2, o2, i3, s, l = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return n2 > 1 || (t2 = a2.trim()).length < 2 ? [2, []] : [4, (0, r.fetchApi)(this.ajaxUrl, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" }, body: new URLSearchParams({ action: "kay_series_search", q: t2 }).toString() })];
+              return a2 > 1 || (t2 = n2.trim()).length < 2 ? [2, []] : [4, (0, r.fetchApi)(this.ajaxUrl, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" }, body: new URLSearchParams({ action: "kay_series_search", q: t2 }).toString() })];
             case 1:
               if (!(o2 = e2.sent()).ok) throw new Error("Kay's Translations: HTTP ".concat(o2.status, "."));
               return [4, o2.json()];
             case 2:
-              return i2 = e2.sent(), Array.isArray(i2) ? (s3 = [], i2.forEach(function(t3) {
+              return i3 = e2.sent(), Array.isArray(i3) ? (s = [], i3.forEach(function(t3) {
                 var e3 = l.toPath(t3.url);
-                e3 && t3.title && s3.push({ name: l.normalizeText(t3.title), path: e3, cover: l.imageOrDefault(t3.image) });
-              }), [2, s3]) : [2, []];
+                e3 && t3.title && s.push({ name: l.normalizeText(t3.title), path: e3, cover: l.imageOrDefault(t3.image) });
+              }), [2, s]) : [2, []];
           }
         });
       });
-    }, s2.prototype.browse = function(a2, n2, o2, i2) {
+    }, i2.prototype.browse = function(n2, a2, o2, i3) {
       return t(this, void 0, void 0, function() {
-        var t2, s3, l;
+        var t2, s, l;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return !i2 && this.nonce ? [3, 2] : (t2 = this, [4, this.fetchNonce()]);
+              return !i3 && this.nonce ? [3, 2] : (t2 = this, [4, this.fetchNonce()]);
             case 1:
               t2.nonce = e2.sent(), e2.label = 2;
             case 2:
-              return [4, (0, r.fetchApi)(this.ajaxUrl, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" }, body: new URLSearchParams({ action: "kay_browse_query", status: n2, sort: o2, page: String(a2), _wpnonce: this.nonce }).toString() })];
+              return [4, (0, r.fetchApi)(this.ajaxUrl, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest" }, body: new URLSearchParams({ action: "kay_browse_query", status: a2, sort: o2, page: String(n2), _wpnonce: this.nonce }).toString() })];
             case 3:
-              return (s3 = e2.sent()).ok ? [4, s3.json()] : [2, void 0];
+              return (s = e2.sent()).ok ? [4, s.json()] : [2, void 0];
             case 4:
               return [2, "string" == typeof (l = e2.sent()).html ? l.html : void 0];
           }
         });
       });
-    }, s2.prototype.fetchNonce = function() {
+    }, i2.prototype.fetchNonce = function() {
       return t(this, void 0, void 0, function() {
-        var t2, a2, n2, i2;
+        var t2, n2, a2, i3;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return [4, (0, r.fetchApi)(this.site + "browse/")];
             case 1:
               if (!(t2 = e2.sent()).ok) throw new Error("Kay's Translations: HTTP ".concat(t2.status, "."));
-              return n2 = o.load, [4, t2.text()];
+              return a2 = o.load, [4, t2.text()];
             case 2:
-              if (a2 = n2.apply(void 0, [e2.sent()]), !(i2 = a2("#kay-browse-grid").attr("data-nonce"))) throw new Error("Kay's Translations: the browse page has no nonce.");
-              return [2, i2];
+              if (n2 = a2.apply(void 0, [e2.sent()]), !(i3 = n2("#kay-browse-grid").attr("data-nonce"))) throw new Error("Kay's Translations: the browse page has no nonce.");
+              return [2, i3];
           }
         });
       });
-    }, s2.prototype.readSynopsis = function(t2) {
-      for (var e2, r2 = [], a2 = t2(".wp-block-column h4.wp-block-heading").filter(function(e3, r3) {
+    }, i2.prototype.readSynopsis = function(t2) {
+      for (var e2, r2 = [], n2 = t2(".wp-block-column h4.wp-block-heading").filter(function(e3, r3) {
         return /synopsis/i.test(t2(r3).text());
-      }).first().next(); a2.length && !/^h\d$/.test((null === (e2 = a2.get(0)) || void 0 === e2 ? void 0 : e2.tagName) || ""); ) {
-        if (a2.is("p.wp-block-paragraph")) {
-          a2.find("br").replaceWith("\n");
-          var n2 = this.normalizeText(a2.text());
-          n2 && !/novel\s*updates/i.test(n2) && r2.push(n2);
+      }).first().next(); n2.length && !/^h\d$/.test((null === (e2 = n2.get(0)) || void 0 === e2 ? void 0 : e2.tagName) || ""); ) {
+        if (n2.is("p.wp-block-paragraph")) {
+          n2.find("br").replaceWith("\n");
+          var a2 = this.normalizeText(n2.text());
+          a2 && !/novel\s*updates/i.test(a2) && r2.push(a2);
         }
-        a2 = a2.next();
+        n2 = n2.next();
       }
       return r2.join("\n\n");
-    }, s2.prototype.readToc = function(t2) {
+    }, i2.prototype.readToc = function(t2) {
       var e2 = t2.indexOf("KaySeriesTOCData");
       if (-1 !== e2) {
         var r2 = t2.indexOf("{", t2.indexOf("=", e2));
-        if (-1 !== r2) for (var a2 = 0, n2 = false, o2 = r2; o2 < t2.length; o2++) {
-          var i2 = t2[o2];
-          if (n2) "\\" === i2 ? o2++ : '"' === i2 && (n2 = false);
-          else if ('"' === i2) n2 = true;
-          else if ("{" === i2) a2++;
-          else if ("}" === i2 && 0 == --a2) try {
+        if (-1 !== r2) for (var n2 = 0, a2 = false, o2 = r2; o2 < t2.length; o2++) {
+          var i3 = t2[o2];
+          if (a2) "\\" === i3 ? o2++ : '"' === i3 && (a2 = false);
+          else if ('"' === i3) a2 = true;
+          else if ("{" === i3) n2++;
+          else if ("}" === i3 && 0 == --n2) try {
             return JSON.parse(t2.slice(r2, o2 + 1));
           } catch (t3) {
             return;
           }
         }
       }
-    }, s2.prototype.toStatus = function(t2) {
+    }, i2.prototype.toStatus = function(t2) {
       switch (t2) {
         case "ongoing":
-          return n.NovelStatus.Ongoing;
+          return a.NovelStatus.Ongoing;
         case "completed":
-          return n.NovelStatus.Completed;
+          return a.NovelStatus.Completed;
         case "hiatus":
-          return n.NovelStatus.OnHiatus;
+          return a.NovelStatus.OnHiatus;
         case "dropped":
-          return n.NovelStatus.Cancelled;
+          return a.NovelStatus.Cancelled;
         default:
-          return n.NovelStatus.Unknown;
+          return a.NovelStatus.Unknown;
       }
-    }, s2.prototype.titleFromDocument = function(t2) {
+    }, i2.prototype.titleFromDocument = function(t2) {
       return this.normalizeText(t2("title").text().split(/[–|-]\s*Kay/)[0]);
-    }, s2.prototype.imageOrDefault = function(t2) {
-      return !t2 || /no-image/i.test(t2) ? i.defaultCover : t2;
-    }, s2.prototype.toPath = function(t2) {
+    }, i2.prototype.imageOrDefault = function(t2) {
+      if (t2 && !/no-image/i.test(t2)) return t2;
+    }, i2.prototype.toPath = function(t2) {
       try {
         var e2 = new URL(t2, this.site);
         return "kaystls.site" !== e2.hostname.replace(/^www\./, "") ? "" : e2.pathname.replace(/^\/+/, "");
       } catch (t3) {
         return "";
       }
-    }, s2.prototype.normalizeText = function(t2) {
+    }, i2.prototype.normalizeText = function(t2) {
       return t2.replace(new RegExp("\\u3000", "g"), " ").replace(/[ \t]+/g, " ").replace(/ *\n */g, "\n").trim();
-    }, s2;
+    }, i2;
   }();
-  exports.default = new s();
+  exports.default = new i();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

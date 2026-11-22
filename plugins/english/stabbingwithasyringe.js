@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25341,44 +25365,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // .js/plugins/english/stabbingwithasyringe.js
   init_dirname();
   init_buffer2();
@@ -25471,54 +25457,54 @@ var LNReaderPlugin = (() => {
     __name(a2, "a");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = "stabbingwithasyringe-translated-works", o = /\(\s*Full Text\s*\)/i, a = /(?:LN\s+|WN\s+)?Volume\s+\d+|Extra\s+Volume|Extra\s+Edition|Prologue|Epilogue|Introduction|After\s?stories|Extra\s+Stories|Webnovel\s+Extra|Idle\s+Talk|LN\s+Extra|WN\s+Extra/i, c = /^[\s|‹›«»<>[\]()≪≫≣–—·-]*(?:(?:previous|prev|next|last|first)(?:\s+chapter)?|table of contents|toc|extra chapters|index)(?:[\s|‹›«»<>[\]()≪≫≣–—·-]+(?:(?:previous|prev|next|last|first)(?:\s+chapter)?|table of contents|toc|extra chapters|index))*[\s|‹›«»<>[\]()≪≫≣–—·-]*$/i, l = /* @__PURE__ */ __name(function(t2) {
-    var e2, n2, r2, i2, s2 = t2, o2 = t2.match(/\bExtra\s+Volume\s+(\d+)/i), a2 = t2.match(/\bVolume\s+(\d+)/i), c2 = t2.match(/\bExtra\s+Edition\s+(\d+)/i), l2 = t2.match(/After\s?stories|Extra\s+Stories|Webnovel\s+Extra\s+Story/i), u2 = t2.match(/\b(?:Prologue|Introduction)\b/i);
-    return o2 ? (e2 = 1e3 + Number(o2[1]), s2 = t2.slice((o2.index || 0) + o2[0].length)) : a2 ? (e2 = Number(a2[1]), s2 = t2.slice((a2.index || 0) + a2[0].length)) : c2 ? (e2 = 1e3 + Number(c2[1]), s2 = t2.slice((c2.index || 0) + c2[0].length)) : l2 ? (e2 = 2e3, s2 = t2.slice(l2.index || 0)) : u2 ? (e2 = 0, s2 = t2.slice(u2.index || 0)) : e2 = 1500, { volume: e2, rank: /\b(?:Extra|Side\s+Story|Idle\s+Talk|Exclusive)\b/i.test(s2) ? 3 : /\bChapter\s+\d+/i.test(s2) ? 1 : /\b(?:Prologue|Introduction)\b/i.test(s2) ? 0 : /\bInterlude\b/i.test(s2) ? 2 : /\bEpilogue\b/i.test(s2) ? 4 : /\bAfterword\b/i.test(s2) ? 5 : 6, numbers: (n2 = s2, r2 = n2.split(/\s[–—-]\s|\(/)[0], i2 = (r2.match(/\d+/g) || []).map(Number), /\bfinal\b/i.test(r2) && 0 === i2.length && i2.push(9999), i2) };
-  }, "l"), u = function() {
-    function u2() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_browser(), __toCommonJS(browser_exports)), i = "stabbingwithasyringe-translated-works", s = /\(\s*Full Text\s*\)/i, o = /(?:LN\s+|WN\s+)?Volume\s+\d+|Extra\s+Volume|Extra\s+Edition|Prologue|Epilogue|Introduction|After\s?stories|Extra\s+Stories|Webnovel\s+Extra|Idle\s+Talk|LN\s+Extra|WN\s+Extra/i, a = /^[\s|‹›«»<>[\]()≪≫≣–—·-]*(?:(?:previous|prev|next|last|first)(?:\s+chapter)?|table of contents|toc|extra chapters|index)(?:[\s|‹›«»<>[\]()≪≫≣–—·-]+(?:(?:previous|prev|next|last|first)(?:\s+chapter)?|table of contents|toc|extra chapters|index))*[\s|‹›«»<>[\]()≪≫≣–—·-]*$/i, c = /* @__PURE__ */ __name(function(t2) {
+    var e2, n2, r2, i2, s2 = t2, o2 = t2.match(/\bExtra\s+Volume\s+(\d+)/i), a2 = t2.match(/\bVolume\s+(\d+)/i), c2 = t2.match(/\bExtra\s+Edition\s+(\d+)/i), l2 = t2.match(/After\s?stories|Extra\s+Stories|Webnovel\s+Extra\s+Story/i), u = t2.match(/\b(?:Prologue|Introduction)\b/i);
+    return o2 ? (e2 = 1e3 + Number(o2[1]), s2 = t2.slice((o2.index || 0) + o2[0].length)) : a2 ? (e2 = Number(a2[1]), s2 = t2.slice((a2.index || 0) + a2[0].length)) : c2 ? (e2 = 1e3 + Number(c2[1]), s2 = t2.slice((c2.index || 0) + c2[0].length)) : l2 ? (e2 = 2e3, s2 = t2.slice(l2.index || 0)) : u ? (e2 = 0, s2 = t2.slice(u.index || 0)) : e2 = 1500, { volume: e2, rank: /\b(?:Extra|Side\s+Story|Idle\s+Talk|Exclusive)\b/i.test(s2) ? 3 : /\bChapter\s+\d+/i.test(s2) ? 1 : /\b(?:Prologue|Introduction)\b/i.test(s2) ? 0 : /\bInterlude\b/i.test(s2) ? 2 : /\bEpilogue\b/i.test(s2) ? 4 : /\bAfterword\b/i.test(s2) ? 5 : 6, numbers: (n2 = s2, r2 = n2.split(/\s[–—-]\s|\(/)[0], i2 = (r2.match(/\d+/g) || []).map(Number), /\bfinal\b/i.test(r2) && 0 === i2.length && i2.push(9999), i2) };
+  }, "c"), l = function() {
+    function l2() {
       var t2 = this;
-      this.id = "stabbingwithasyringe", this.name = "Stabbing with a Syringe", this.icon = "src/en/stabbingwithasyringe/icon.png", this.site = "https://stabbingwithasyringe.home.blog", this.version = "1.0.0", this.filters = void 0, this.api = "https://public-api.wordpress.com/wp/v2/sites/stabbingwithasyringe.home.blog", this.resolveUrl = function(e2) {
+      this.id = "stabbingwithasyringe", this.name = "Stabbing with a Syringe", this.icon = "src/en/stabbingwithasyringe/icon.png", this.site = "https://stabbingwithasyringe.home.blog", this.version = "1.0.1", this.filters = void 0, this.api = "https://public-api.wordpress.com/wp/v2/sites/stabbingwithasyringe.home.blog", this.resolveUrl = function(e2) {
         return t2.site + t2.toPath(e2);
       };
     }
-    __name(u2, "u");
-    return u2.prototype.popularNovels = function(n2, r2) {
+    __name(l2, "l");
+    return l2.prototype.popularNovels = function(n2, r2) {
       return t(this, arguments, void 0, function(t2, n3) {
         var r3 = n3.showLatestNovels;
         return e(this, function(e2) {
           return [2, this.listNovels(t2, "", !!r3)];
         });
       });
-    }, u2.prototype.searchNovels = function(n2, r2) {
+    }, l2.prototype.searchNovels = function(n2, r2) {
       return t(this, void 0, void 0, function() {
         return e(this, function(t2) {
           return [2, this.listNovels(r2, n2, false)];
         });
       });
-    }, u2.prototype.parseNovel = function(n2) {
+    }, l2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, s2, o2, a2, c2, l2, u3, h, d, p, f, v, g, b, m, y, w, x, k;
+        var t2, i2, s2, o2, a2, c2, l3, u, h, d, p, f, v, g, b, m, y, w, x;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = this.lastSegment(n2), o2 = this.fetchList, c2 = (a2 = "/pages?slug=".concat(t2, "&parent=")).concat, [4, this.novelsPageId()];
+              return t2 = this.lastSegment(n2), s2 = this.fetchList, a2 = (o2 = "/pages?slug=".concat(t2, "&parent=")).concat, [4, this.novelsPageId()];
             case 1:
-              return [4, o2.apply(this, [c2.apply(a2, [e2.sent()]) + "&_fields=id,slug,link,title,content"])];
+              return [4, s2.apply(this, [a2.apply(o2, [e2.sent()]) + "&_fields=id,slug,link,title,content"])];
             case 2:
-              if (s2 = e2.sent(), !(l2 = s2[0])) throw new Error("Stabbing with a Syringe: novel not found at ".concat(n2));
-              return x = { path: this.toPath(l2.link), name: this.decode(l2.title.rendered), cover: i.defaultCover }, [4, this.fetchChapters(l2.id)];
+              if (i2 = e2.sent(), !(c2 = i2[0])) throw new Error("Stabbing with a Syringe: novel not found at ".concat(n2));
+              return w = { path: this.toPath(c2.link), name: this.decode(c2.title.rendered) }, [4, this.fetchChapters(c2.id)];
             case 3:
-              for (x.chapters = e2.sent(), u3 = x, h = (0, r.load)('<div id="novel">'.concat((null === (k = l2.content) || void 0 === k ? void 0 : k.rendered) || "", "</div>")), (d = h("img").first().attr("src")) && (u3.cover = d), p = [], f = h("#novel").children().toArray(), v = 0, g = f; v < g.length && (b = g[v], m = h(b), y = this.normalizeText(m.text()), !/table of contents/i.test(y) || !/^h\d$/i.test(b.tagName)); v++) if ("p" === b.tagName.toLowerCase() && y) {
-                if (m.find('a[href*="stabbingwithasyringe"]').length > 0) break;
-                (w = y.match(/^Author\s*[:：]\s*(.+)$/i)) ? u3.author = w[1].trim() : /^original\s+web\s?novel\s+link/i.test(y) || /^[\s\-–—_~]+$/.test(y) || p.push(y);
+              for (w.chapters = e2.sent(), l3 = w, u = (0, r.load)('<div id="novel">'.concat((null === (x = c2.content) || void 0 === x ? void 0 : x.rendered) || "", "</div>")), (h = u("img").first().attr("src")) && (l3.cover = h), d = [], p = u("#novel").children().toArray(), f = 0, v = p; f < v.length && (g = v[f], b = u(g), m = this.normalizeText(b.text()), !/table of contents/i.test(m) || !/^h\d$/i.test(g.tagName)); f++) if ("p" === g.tagName.toLowerCase() && m) {
+                if (b.find('a[href*="stabbingwithasyringe"]').length > 0) break;
+                (y = m.match(/^Author\s*[:：]\s*(.+)$/i)) ? l3.author = y[1].trim() : /^original\s+web\s?novel\s+link/i.test(m) || /^[\s\-–—_~]+$/.test(m) || d.push(m);
               }
-              return p.length > 0 && (u3.summary = p.join("\n\n")), [2, u3];
+              return d.length > 0 && (l3.summary = d.join("\n\n")), [2, l3];
           }
         });
       });
-    }, u2.prototype.parseChapter = function(n2) {
+    }, l2.prototype.parseChapter = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, s2, o2, a2, l2, u3, h = this;
+        var t2, i2, s2, o2, c2, l3, u, h = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25526,50 +25512,50 @@ var LNReaderPlugin = (() => {
             case 1:
               if (i2 = e2.sent(), s2 = i2.filter(function(e3) {
                 return h.toPath(e3.link) === t2;
-              })[0] || i2[0], o2 = (null === (u3 = null == s2 ? void 0 : s2.content) || void 0 === u3 ? void 0 : u3.rendered) || "", !s2 || !o2.trim()) throw new Error("Stabbing with a Syringe: no chapter text at ".concat(n2));
-              return a2 = (0, r.load)('<div id="chapter">'.concat(o2, "</div>")), (l2 = a2("#chapter")).find("script, style, .sharedaddy, .jp-relatedposts, .wp-block-buttons, .wp-block-spacer").remove(), l2.find("p").each(function(t3, e3) {
-                var n3 = a2(e3), r2 = h.normalizeText(n3.text());
-                (!r2 && 0 === n3.find("img").length || c.test(r2)) && n3.remove();
-              }), [2, l2.html() || ""];
+              })[0] || i2[0], o2 = (null === (u = null == s2 ? void 0 : s2.content) || void 0 === u ? void 0 : u.rendered) || "", !s2 || !o2.trim()) throw new Error("Stabbing with a Syringe: no chapter text at ".concat(n2));
+              return c2 = (0, r.load)('<div id="chapter">'.concat(o2, "</div>")), (l3 = c2("#chapter")).find("script, style, .sharedaddy, .jp-relatedposts, .wp-block-buttons, .wp-block-spacer").remove(), l3.find("p").each(function(t3, e3) {
+                var n3 = c2(e3), r2 = h.normalizeText(n3.text());
+                (!r2 && 0 === n3.find("img").length || a.test(r2)) && n3.remove();
+              }), [2, l3.html() || ""];
           }
         });
       });
-    }, u2.prototype.listNovels = function(n2, r2, s2) {
+    }, l2.prototype.listNovels = function(n2, r2, i2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, a2, c2, l2, u3, h, d, p, f = this;
+        var t2, s2, o2, a2, c2, l3, u, h, d, p = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return n2 > 1 ? [2, []] : (t2 = s2 ? "orderby=modified&order=desc" : "orderby=menu_order&order=asc", u3 = (l2 = Promise).all, h = this.fetchList, d = "/pages?parent=".concat, [4, this.novelsPageId()]);
+              return n2 > 1 ? [2, []] : (t2 = i2 ? "orderby=modified&order=desc" : "orderby=menu_order&order=asc", l3 = (c2 = Promise).all, u = this.fetchList, h = "/pages?parent=".concat, [4, this.novelsPageId()]);
             case 1:
-              return [4, u3.apply(l2, [[h.apply(this, [d.apply("/pages?parent=", [e2.sent(), "&per_page="]).concat(100) + "&".concat(t2, "&_fields=id,slug,link,title")]), this.indexCovers()]])];
+              return [4, l3.apply(c2, [[u.apply(this, [h.apply("/pages?parent=", [e2.sent(), "&per_page="]).concat(100) + "&".concat(t2, "&_fields=id,slug,link,title")]), this.indexCovers()]])];
             case 2:
-              return o2 = e2.sent(), a2 = o2[0], c2 = o2[1], p = this.searchKey(r2), [2, a2.map(function(t3) {
-                return { name: f.decode(t3.title.rendered), path: f.toPath(t3.link), cover: c2[t3.slug] || i.defaultCover };
+              return s2 = e2.sent(), o2 = s2[0], a2 = s2[1], d = this.searchKey(r2), [2, o2.map(function(t3) {
+                return { name: p.decode(t3.title.rendered), path: p.toPath(t3.link), cover: a2[t3.slug] };
               }).filter(function(t3) {
-                return -1 !== f.searchKey(t3.name).indexOf(p);
+                return -1 !== p.searchKey(t3.name).indexOf(d);
               })];
           }
         });
       });
-    }, u2.prototype.indexCovers = function() {
+    }, l2.prototype.indexCovers = function() {
       return t(this, void 0, void 0, function() {
-        var t2, n2, i2, o2, a2, c2 = this;
+        var t2, n2, s2, o2, a2, c2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = {}, [4, this.fetchList("/pages?slug=".concat(s, "&_fields=id,content"))];
+              return t2 = {}, [4, this.fetchList("/pages?slug=".concat(i, "&_fields=id,content"))];
             case 1:
-              return n2 = e2.sent(), (i2 = (0, r.load)('<div id="index">'.concat((null === (a2 = null === (o2 = n2[0]) || void 0 === o2 ? void 0 : o2.content) || void 0 === a2 ? void 0 : a2.rendered) || "", "</div>")))("figure").each(function(e3, n3) {
-                var r2 = i2(n3), s2 = r2.find("a").first().attr("href"), o3 = r2.find("img").first().attr("src");
-                s2 && o3 && (t2[c2.lastSegment(s2)] = o3);
+              return n2 = e2.sent(), (s2 = (0, r.load)('<div id="index">'.concat((null === (a2 = null === (o2 = n2[0]) || void 0 === o2 ? void 0 : o2.content) || void 0 === a2 ? void 0 : a2.rendered) || "", "</div>")))("figure").each(function(e3, n3) {
+                var r2 = s2(n3), i2 = r2.find("a").first().attr("href"), o3 = r2.find("img").first().attr("src");
+                i2 && o3 && (t2[c2.lastSegment(i2)] = o3);
               }), [2, t2];
           }
         });
       });
-    }, u2.prototype.fetchChapters = function(n2) {
+    }, l2.prototype.fetchChapters = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, i2, s2, c2, u3, h, d, p = this;
+        var t2, r2, i2, a2, l3, u, h, d, p = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25582,17 +25568,17 @@ var LNReaderPlugin = (() => {
             case 3:
               return r2++, [3, 1];
             case 4:
-              for (s2 = t2.map(function(t3) {
-                var e3 = p.decode(t3.title.rendered), n3 = e3.search(a);
-                return { page: t3, title: e3, name: n3 > 0 ? e3.slice(n3) : e3, key: l(e3), fullText: o.test(e3) };
-              }), c2 = {}, u3 = 0, h = s2; u3 < h.length; u3++) (d = h[u3]).fullText || (c2[d.key.volume] = true);
-              return [2, s2.filter(function(t3) {
-                return !t3.fullText || !c2[t3.key.volume];
+              for (a2 = t2.map(function(t3) {
+                var e3 = p.decode(t3.title.rendered), n3 = e3.search(o);
+                return { page: t3, title: e3, name: n3 > 0 ? e3.slice(n3) : e3, key: c(e3), fullText: s.test(e3) };
+              }), l3 = {}, u = 0, h = a2; u < h.length; u++) (d = h[u]).fullText || (l3[d.key.volume] = true);
+              return [2, a2.filter(function(t3) {
+                return !t3.fullText || !l3[t3.key.volume];
               }).sort(function(t3, e3) {
                 return t3.key.volume - e3.key.volume || t3.key.rank - e3.key.rank || function(t4, e4) {
                   for (var n3 = Math.max(t4.length, e4.length), r3 = 0; r3 < n3; r3++) {
-                    var i3 = r3 < t4.length ? t4[r3] : -1, s3 = r3 < e4.length ? e4[r3] : -1;
-                    if (i3 !== s3) return i3 - s3;
+                    var i3 = r3 < t4.length ? t4[r3] : -1, s2 = r3 < e4.length ? e4[r3] : -1;
+                    if (i3 !== s2) return i3 - s2;
                   }
                   return 0;
                 }(t3.key.numbers, e3.key.numbers) || t3.page.id - e3.page.id;
@@ -25602,13 +25588,13 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.novelsPageId = function() {
+    }, l2.prototype.novelsPageId = function() {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return void 0 !== this.novelsPageIdCache ? [3, 2] : [4, this.fetchList("/pages?slug=".concat(s, "&_fields=id,slug"))];
+              return void 0 !== this.novelsPageIdCache ? [3, 2] : [4, this.fetchList("/pages?slug=".concat(i, "&_fields=id,slug"))];
             case 1:
               if (!(t2 = e2.sent())[0]) throw new Error("Stabbing with a Syringe: novel index page not found");
               this.novelsPageIdCache = t2[0].id, e2.label = 2;
@@ -25617,7 +25603,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.fetchList = function(r2) {
+    }, l2.prototype.fetchList = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, i2;
         return e(this, function(e2) {
@@ -25631,21 +25617,21 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, u2.prototype.searchKey = function(t2) {
+    }, l2.prototype.searchKey = function(t2) {
       return this.normalizeText(t2).toLowerCase().replace(/[‘’‘]/g, "'").replace(/[“”]/g, '"');
-    }, u2.prototype.toPath = function(t2) {
+    }, l2.prototype.toPath = function(t2) {
       var e2 = t2.trim(), n2 = e2.match(/^https?:\/\/stabbingwithasyringe(?:\.home\.blog|home\.wordpress\.com)(\/.*)?$/i), r2 = (n2 ? n2[1] || "/" : e2).split(/[?#]/)[0], i2 = "/" === r2.charAt(0) ? r2 : "/" + r2;
       return "/" === i2.charAt(i2.length - 1) ? i2 : i2 + "/";
-    }, u2.prototype.lastSegment = function(t2) {
+    }, l2.prototype.lastSegment = function(t2) {
       var e2 = this.toPath(t2).split("/").filter(Boolean);
       return e2[e2.length - 1] || "";
-    }, u2.prototype.decode = function(t2) {
+    }, l2.prototype.decode = function(t2) {
       return this.normalizeText((0, r.load)("<p>".concat(t2, "</p>"))("p").text());
-    }, u2.prototype.normalizeText = function(t2) {
+    }, l2.prototype.normalizeText = function(t2) {
       return t2.replace(/\s+/g, " ").trim();
-    }, u2;
+    }, l2;
   }();
-  exports.default = new u();
+  exports.default = new l();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

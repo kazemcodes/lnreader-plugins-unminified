@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25341,44 +25365,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // .js/plugins/english/seireitranslations.js
   init_dirname();
   init_buffer2();
@@ -25476,17 +25462,17 @@ var LNReaderPlugin = (() => {
     __name(a2, "a");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = /^\/\d{4}\/\d{2}\/[^/]+\.html$/, a = /^\/search\/label\/(.+)$/, u = /^(previous|next|table of contents?|[|\s])+$/i, l = /\[bahasa indonesia\]/i, c = /* @__PURE__ */ new Set(["Back Then I Adored You", "ChroNoiR", "Lagu", "Rainy Night", "The Great Wish"]), h = /* @__PURE__ */ __name(function(t2) {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = /^\/\d{4}\/\d{2}\/[^/]+\.html$/, s = /^\/search\/label\/(.+)$/, a = /^(previous|next|table of contents?|[|\s])+$/i, u = /\[bahasa indonesia\]/i, l = /* @__PURE__ */ new Set(["Back Then I Adored You", "ChroNoiR", "Lagu", "Rainy Night", "The Great Wish"]), c = /* @__PURE__ */ __name(function(t2) {
     var e2, n2;
     return null === (n2 = null === (e2 = t2.link) || void 0 === e2 ? void 0 : e2.find(function(t3) {
       return "alternate" === t3.rel;
     })) || void 0 === n2 ? void 0 : n2.href;
-  }, "h"), f = function() {
-    function f2() {
-      this.id = "seireitranslations", this.name = "Seirei Translations", this.icon = "src/en/seireitranslations/icon.png", this.site = "https://seireitranslations.blogspot.com", this.version = "1.0.0", this.filters = void 0;
+  }, "c"), h = function() {
+    function h2() {
+      this.id = "seireitranslations", this.name = "Seirei Translations", this.icon = "src/en/seireitranslations/icon.png", this.site = "https://seireitranslations.blogspot.com", this.version = "1.0.1", this.filters = void 0;
     }
-    __name(f2, "f");
-    return f2.prototype.request = function(t2) {
+    __name(h2, "h");
+    return h2.prototype.request = function(t2) {
       return e(this, void 0, void 0, function() {
         var e2;
         return n(this, function(n2) {
@@ -25499,7 +25485,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, f2.prototype.getFeed = function(r2, i2) {
+    }, h2.prototype.getFeed = function(r2, i2) {
       return e(this, void 0, void 0, function() {
         var e2, o2;
         return n(this, function(n2) {
@@ -25513,7 +25499,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, f2.prototype.novelLabels = function() {
+    }, h2.prototype.novelLabels = function() {
       return e(this, void 0, void 0, function() {
         var t2;
         return n(this, function(e2) {
@@ -25524,21 +25510,21 @@ var LNReaderPlugin = (() => {
               return [2, ((null == (t2 = e2.sent()) ? void 0 : t2.category) || []).map(function(t3) {
                 return t3.term;
               }).filter(function(t3) {
-                return !l.test(t3) && !c.has(t3);
+                return !u.test(t3) && !l.has(t3);
               })];
           }
         });
       });
-    }, f2.prototype.novelPath = function(t2) {
+    }, h2.prototype.novelPath = function(t2) {
       return "/search/label/".concat(encodeURIComponent(t2));
-    }, f2.prototype.labelFromPath = function(t2) {
-      var e2 = a.exec(new URL(t2, this.site).pathname);
+    }, h2.prototype.labelFromPath = function(t2) {
+      var e2 = s.exec(new URL(t2, this.site).pathname);
       if (!e2) throw new Error("Seirei Translations: invalid novel address.");
       return decodeURIComponent(e2[1]);
-    }, f2.prototype.coverFrom = function(t2) {
+    }, h2.prototype.coverFrom = function(t2) {
       var e2, n2 = null === (e2 = null == t2 ? void 0 : t2.media$thumbnail) || void 0 === e2 ? void 0 : e2.url;
-      return !n2 || n2.includes("No_image_available") ? o.defaultCover : n2.replace(/\/s\d+(-c)?\//, "/".concat("s320", "/"));
-    }, f2.prototype.toNovelItems = function(t2) {
+      if (n2 && !n2.includes("No_image_available")) return n2.replace(/\/s\d+(-c)?\//, "/".concat("s320", "/"));
+    }, h2.prototype.toNovelItems = function(t2) {
       return e(this, void 0, void 0, function() {
         var r2 = this;
         return n(this, function(i2) {
@@ -25558,7 +25544,7 @@ var LNReaderPlugin = (() => {
           }))];
         });
       });
-    }, f2.prototype.popularNovels = function(t2) {
+    }, h2.prototype.popularNovels = function(t2) {
       return e(this, void 0, void 0, function() {
         var e2;
         return n(this, function(n2) {
@@ -25570,9 +25556,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, f2.prototype.labelPosts = function(t2) {
+    }, h2.prototype.labelPosts = function(t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, i2, o2, s2, a2, u2, l2, c2, f3, v;
+        var e2, r2, i2, o2, s2, a2, u2, l2, h3, f, v;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
@@ -25581,30 +25567,30 @@ var LNReaderPlugin = (() => {
               return i2 <= o2 ? [4, this.getFeed({ "max-results": String(150), "start-index": String(i2) }, t2)] : [3, 3];
             case 2:
               if (s2 = n2.sent(), !(a2 = (null == s2 ? void 0 : s2.entry) || []).length) return [3, 3];
-              for (u2 = 0, l2 = a2; u2 < l2.length; u2++) c2 = l2[u2], (f3 = h(c2)) && !r2.has(f3) && (r2.add(f3), e2.push(c2));
+              for (u2 = 0, l2 = a2; u2 < l2.length; u2++) h3 = l2[u2], (f = c(h3)) && !r2.has(f) && (r2.add(f), e2.push(h3));
               return i2 += a2.length, o2 = Number((null === (v = null == s2 ? void 0 : s2.openSearch$totalResults) || void 0 === v ? void 0 : v.$t) || 0), [3, 1];
             case 3:
               return [2, e2];
           }
         });
       });
-    }, f2.prototype.parseNovel = function(t2) {
+    }, h2.prototype.parseNovel = function(t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, i2, o2, a2, u2, l2, c2, f3, v, d, p;
+        var e2, r2, i2, s2, a2, u2, l2, h3, f, v, d, p;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
               return e2 = this.labelFromPath(t2), [4, this.labelPosts(e2)];
             case 1:
-              for (r2 = n2.sent(), i2 = [], o2 = 0, a2 = r2; o2 < a2.length; o2++) u2 = a2[o2], l2 = h(u2), c2 = null === (d = null === (v = u2.title) || void 0 === v ? void 0 : v.$t) || void 0 === d ? void 0 : d.trim(), l2 && c2 && (f3 = new URL(l2).pathname, s.test(f3) && i2.push({ name: c2, path: f3, releaseTime: null === (p = u2.published) || void 0 === p ? void 0 : p.$t }));
+              for (r2 = n2.sent(), i2 = [], s2 = 0, a2 = r2; s2 < a2.length; s2++) u2 = a2[s2], l2 = c(u2), h3 = null === (d = null === (v = u2.title) || void 0 === v ? void 0 : v.$t) || void 0 === d ? void 0 : d.trim(), l2 && h3 && (f = new URL(l2).pathname, o.test(f) && i2.push({ name: h3, path: f, releaseTime: null === (p = u2.published) || void 0 === p ? void 0 : p.$t }));
               if (!i2.length) throw new Error("Seirei Translations: no chapters were found.");
               return i2.reverse(), [2, { name: e2, path: this.novelPath(e2), cover: this.coverFrom(r2[0]), chapters: i2 }];
           }
         });
       });
-    }, f2.prototype.parseChapter = function(t2) {
+    }, h2.prototype.parseChapter = function(t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, o2, s2, a2;
+        var e2, r2, o2, s2, u2;
         return n(this, function(n2) {
           switch (n2.label) {
             case 0:
@@ -25614,13 +25600,13 @@ var LNReaderPlugin = (() => {
             case 2:
               if (r2 = o2.apply(void 0, [n2.sent()]), (s2 = r2("div.post-body").first()).find("script,style,iframe,noscript,form,.sharethis-inline-reaction-buttons").remove(), s2.find("div,p").each(function(t3, e3) {
                 var n3 = r2(e3), i2 = n3.text().replace(/\s+/g, " ").trim();
-                n3.find("a").length && u.test(i2) && n3.remove();
-              }), a2 = s2.html() || "", !(s2.find("img").length > 0) && s2.text().trim().length < 200) throw new Error("Seirei Translations: no readable chapter text was found.");
-              return [2, a2];
+                n3.find("a").length && a.test(i2) && n3.remove();
+              }), u2 = s2.html() || "", !(s2.find("img").length > 0) && s2.text().trim().length < 200) throw new Error("Seirei Translations: no readable chapter text was found.");
+              return [2, u2];
           }
         });
       });
-    }, f2.prototype.searchNovels = function(t2, r2) {
+    }, h2.prototype.searchNovels = function(t2, r2) {
       return e(this, void 0, void 0, function() {
         var e2, i2;
         return n(this, function(n2) {
@@ -25636,13 +25622,13 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, f2.prototype.resolveUrl = function(t2) {
+    }, h2.prototype.resolveUrl = function(t2) {
       var e2 = new URL(t2, this.site);
       if (e2.origin !== this.site) throw new Error("Seirei Translations: invalid page address.");
       return e2.href;
-    }, f2;
+    }, h2;
   }();
-  exports.default = new f();
+  exports.default = new h();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

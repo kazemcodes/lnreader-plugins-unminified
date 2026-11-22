@@ -831,10 +831,10 @@ var LNReaderPlugin = (() => {
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
       var d = isLE ? -1 : 1;
-      var s2 = buffer[offset + i2];
+      var s = buffer[offset + i2];
       i2 += d;
-      e2 = s2 & (1 << -nBits) - 1;
-      s2 >>= -nBits;
+      e2 = s & (1 << -nBits) - 1;
+      s >>= -nBits;
       nBits += eLen;
       for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
@@ -846,12 +846,12 @@ var LNReaderPlugin = (() => {
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s2 ? -1 : 1) * Infinity;
+        return m ? NaN : (s ? -1 : 1) * Infinity;
       } else {
         m = m + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
       var e2, m, c;
@@ -861,7 +861,7 @@ var LNReaderPlugin = (() => {
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
       var d = isLE ? 1 : -1;
-      var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+      var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
         m = isNaN(value) ? 1 : 0;
@@ -898,7 +898,7 @@ var LNReaderPlugin = (() => {
       eLen += mLen;
       for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s2 * 128;
+      buffer[offset + i2 - d] |= s * 128;
     };
     return exports$1;
   }
@@ -6983,7 +6983,7 @@ var LNReaderPlugin = (() => {
       init_process2();
       var types = exports4;
       var util = require_util();
-      var s2 = [
+      var s = [
         "double",
         // 0
         "float",
@@ -7018,7 +7018,7 @@ var LNReaderPlugin = (() => {
       function bake(values, offset) {
         var i2 = 0, o2 = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
+        while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
         return o2;
       }
       __name(bake, "bake");
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9459,10 +9483,10 @@ var LNReaderPlugin = (() => {
       }();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -10944,10 +10968,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -13949,8 +13973,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = options.adapter;
           var opts = copyOptions(options);
           opts.relativeSelector = true;
-          var context = subselect.some(function(s2) {
-            return s2.some(sort_js_1.isTraversal);
+          var context = subselect.some(function(s) {
+            return s.some(sort_js_1.isTraversal);
           }) ? (
             // Used as a placeholder. Will be replaced with the actual element.
             [exports4.PLACEHOLDER_ELEMENT]
@@ -14481,14 +14505,14 @@ var LNReaderPlugin = (() => {
         "even",
         "odd"
       ]);
-      function isFilter(s2) {
-        if (s2.type !== "pseudo")
+      function isFilter(s) {
+        if (s.type !== "pseudo")
           return false;
-        if (exports4.filterNames.has(s2.name))
+        if (exports4.filterNames.has(s.name))
           return true;
-        if (s2.name === "not" && Array.isArray(s2.data)) {
-          return s2.data.some(function(s3) {
-            return s3.some(isFilter);
+        if (s.name === "not" && Array.isArray(s.data)) {
+          return s.data.some(function(s2) {
+            return s2.some(isFilter);
           });
         }
         return false;
@@ -14565,10 +14589,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25400,44 +25408,44 @@ var LNReaderPlugin = (() => {
   init_process2();
   var t = function(t2, e2, r2, n2) {
     return new (r2 || (r2 = Promise))(function(o2, i2) {
-      function s2(t3) {
+      function s(t3) {
         try {
-          u(n2.next(t3));
+          c(n2.next(t3));
         } catch (t4) {
           i2(t4);
         }
       }
-      __name(s2, "s");
+      __name(s, "s");
       function a(t3) {
         try {
-          u(n2.throw(t3));
+          c(n2.throw(t3));
         } catch (t4) {
           i2(t4);
         }
       }
       __name(a, "a");
-      function u(t3) {
+      function c(t3) {
         var e3;
         t3.done ? o2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
           t4(e3);
-        })).then(s2, a);
+        })).then(s, a);
       }
-      __name(u, "u");
-      u((n2 = n2.apply(t2, e2 || [])).next());
+      __name(c, "c");
+      c((n2 = n2.apply(t2, e2 || [])).next());
     });
   }, e = function(t2, e2) {
     var r2, n2, o2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & o2[0]) throw o2[1];
       return o2[1];
-    }, "sent"), trys: [], ops: [] }, s2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return s2.next = a(0), s2.throw = a(1), s2.return = a(2), "function" == typeof Symbol && (s2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, s = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return s.next = a(0), s.throw = a(1), s.return = a(2), "function" == typeof Symbol && (s[Symbol.iterator] = function() {
       return this;
-    }), s2;
+    }), s;
     function a(a2) {
-      return function(u) {
+      return function(c) {
         return function(a3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; s2 && (s2 = 0, a3[0] && (i2 = 0)), i2; ) try {
+          for (; s && (s = 0, a3[0] && (i2 = 0)), i2; ) try {
             if (r2 = 1, n2 && (o2 = 2 & a3[0] ? n2.return : a3[0] ? n2.throw || ((o2 = n2.return) && o2.call(n2), 0) : n2.next) && !(o2 = o2.call(n2, a3[1])).done) return o2;
             switch (n2 = 0, o2 && (a3 = [2 & a3[0], o2.value]), a3[0]) {
               case 0:
@@ -25480,18 +25488,18 @@ var LNReaderPlugin = (() => {
           }
           if (5 & a3[0]) throw a3[1];
           return { value: a3[0] ? a3[1] : void 0, done: true };
-        }([a2, u]);
+        }([a2, c]);
       };
     }
     __name(a, "a");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = function() {
-    function s2() {
-      this.id = "bronstl", this.name = "BronsTL", this.icon = "src/en/bronstl/icon.png", this.site = "https://bronstl.com", this.version = "1.0.0", this.headers = { Accept: "application/json", Referer: "https://bronstl.com/", "X-Requested-With": "XMLHttpRequest" };
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = function() {
+    function i2() {
+      this.id = "bronstl", this.name = "BronsTL", this.icon = "src/en/bronstl/icon.png", this.site = "https://bronstl.com", this.version = "1.0.1", this.headers = { Accept: "application/json", Referer: "https://bronstl.com/", "X-Requested-With": "XMLHttpRequest" };
     }
-    __name(s2, "s");
-    return s2.prototype.api = function(n2) {
+    __name(i2, "i");
+    return i2.prototype.api = function(n2) {
       return t(this, void 0, void 0, function() {
         var t2, o2;
         return e(this, function(e2) {
@@ -25506,9 +25514,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.fetchAll = function(r2) {
+    }, i2.prototype.fetchAll = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, o2, i2;
+        var t2, n2, o2, i3;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25516,15 +25524,15 @@ var LNReaderPlugin = (() => {
             case 1:
               return n2 && o2++ < 100 ? [4, this.api(n2)] : [3, 3];
             case 2:
-              return i2 = e2.sent(), t2.push.apply(t2, i2.data), n2 = i2.next_page_url, [3, 1];
+              return i3 = e2.sent(), t2.push.apply(t2, i3.data), n2 = i3.next_page_url, [3, 1];
             case 3:
               return [2, t2];
           }
         });
       });
-    }, s2.prototype.toItem = function(t2) {
-      return { name: t2.title, path: "books/" + t2.slug, cover: t2.cover_image || o.defaultCover };
-    }, s2.prototype.popularNovels = function(r2) {
+    }, i2.prototype.toItem = function(t2) {
+      return { name: t2.title, path: "books/" + t2.slug, cover: t2.cover_image };
+    }, i2.prototype.popularNovels = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2 = this;
         return e(this, function(e2) {
@@ -25538,7 +25546,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.searchNovels = function(r2, n2) {
+    }, i2.prototype.searchNovels = function(r2, n2) {
       return t(this, void 0, void 0, function() {
         var t2, o2 = this;
         return e(this, function(e2) {
@@ -25554,39 +25562,39 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.parseNovel = function(r2) {
+    }, i2.prototype.parseNovel = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, s3, a, u;
+        var t2, n2, i3, s, a;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return t2 = r2.replace(/^\/?books\//, ""), [4, this.api("books/" + t2)];
             case 1:
-              switch (n2 = e2.sent(), s3 = i.NovelStatus.Unknown, null === (u = n2.status) || void 0 === u ? void 0 : u.name) {
+              switch (n2 = e2.sent(), i3 = o.NovelStatus.Unknown, null === (a = n2.status) || void 0 === a ? void 0 : a.name) {
                 case "ongoing":
-                  s3 = i.NovelStatus.Ongoing;
+                  i3 = o.NovelStatus.Ongoing;
                   break;
                 case "finished":
-                  s3 = i.NovelStatus.Completed;
+                  i3 = o.NovelStatus.Completed;
                   break;
                 case "dropped":
-                  s3 = i.NovelStatus.Cancelled;
+                  i3 = o.NovelStatus.Cancelled;
               }
               return [4, this.fetchAll("books/" + t2 + "/chapters")];
             case 2:
-              return a = e2.sent().sort(function(t3, e3) {
+              return s = e2.sent().sort(function(t3, e3) {
                 return t3.chapter_weight - e3.chapter_weight;
               }).map(function(e3, r3) {
                 return { name: e3.chapter_title, path: "books/" + t2 + "/chapters/" + e3.chapter_slug, releaseTime: e3.created_at, chapterNumber: r3 + 1 };
-              }), [2, { path: r2, name: n2.title, cover: n2.cover_image || o.defaultCover, author: n2.author || void 0, artist: n2.illustrator || void 0, summary: n2.description || void 0, genres: (n2.tags || []).map(function(t3) {
+              }), [2, { path: r2, name: n2.title, cover: n2.cover_image, author: n2.author || void 0, artist: n2.illustrator || void 0, summary: n2.description || void 0, genres: (n2.tags || []).map(function(t3) {
                 return t3.name;
-              }).filter(Boolean).join(", "), status: s3, chapters: a }];
+              }).filter(Boolean).join(", "), status: i3, chapters: s }];
           }
         });
       });
-    }, s2.prototype.parseChapter = function(r2) {
+    }, i2.prototype.parseChapter = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, i2 = this;
+        var t2, o2, i3 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25594,16 +25602,16 @@ var LNReaderPlugin = (() => {
             case 1:
               return t2 = e2.sent(), (o2 = (0, n.load)(t2.body || ""))("img").each(function(t3, e3) {
                 var r3 = o2(e3).attr("src");
-                r3 && r3.startsWith("/") && o2(e3).attr("src", i2.site + r3);
+                r3 && r3.startsWith("/") && o2(e3).attr("src", i3.site + r3);
               }), [2, o2("body").html() || ""];
           }
         });
       });
-    }, s2.prototype.resolveUrl = function(t2) {
+    }, i2.prototype.resolveUrl = function(t2) {
       return this.site + "/" + t2.replace(/^\//, "");
-    }, s2;
+    }, i2;
   }();
-  exports.default = new s();
+  exports.default = new i();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25423,13 +25431,13 @@ var LNReaderPlugin = (() => {
           return { M: c2, y: h2, w: o2, d: a2, D: d2, h: u2, m: s2, s: i2, ms: r2, Q: f2 }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
         }, "p"), u: /* @__PURE__ */ __name(function(t3) {
           return void 0 === t3;
-        }, "u") }, g2 = "en", D = {};
-        D[g2] = M;
+        }, "u") }, g = "en", D = {};
+        D[g] = M;
         var p2 = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
           return t3 instanceof _ || !(!t3 || !t3[p2]);
         }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
           var i3;
-          if (!e3) return g2;
+          if (!e3) return g;
           if ("string" == typeof e3) {
             var s3 = e3.toLowerCase();
             D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
@@ -25439,7 +25447,7 @@ var LNReaderPlugin = (() => {
             var a3 = e3.name;
             D[a3] = e3, i3 = a3;
           }
-          return !r3 && i3 && (g2 = i3), i3 || !r3 && g2;
+          return !r3 && i3 && (g = i3), i3 || !r3 && g;
         }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
           if (S(t3)) return t3.clone();
           var n3 = "object" == typeof e3 ? e3 : {};
@@ -25502,7 +25510,7 @@ var LNReaderPlugin = (() => {
               case c2:
                 return r3 ? l3(1, M3) : l3(0, M3 + 1);
               case o2:
-                var g3 = this.$locale().weekStart || 0, D2 = (y2 < g3 ? y2 + 7 : y2) - g3;
+                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
                 return l3(r3 ? m4 - D2 : m4 + (6 - D2), M3);
               case a2:
               case d2:
@@ -25613,7 +25621,7 @@ var LNReaderPlugin = (() => {
           }, m3.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
           }, m3.diff = function(r3, d3, l3) {
-            var $3, y2 = this, M3 = b2.p(d3), m4 = O(r3), v3 = (m4.utcOffset() - this.utcOffset()) * e2, g3 = this - m4, D2 = /* @__PURE__ */ __name(function() {
+            var $3, y2 = this, M3 = b2.p(d3), m4 = O(r3), v3 = (m4.utcOffset() - this.utcOffset()) * e2, g2 = this - m4, D2 = /* @__PURE__ */ __name(function() {
               return b2.m(y2, m4);
             }, "D");
             switch (M3) {
@@ -25627,22 +25635,22 @@ var LNReaderPlugin = (() => {
                 $3 = D2() / 3;
                 break;
               case o2:
-                $3 = (g3 - v3) / 6048e5;
+                $3 = (g2 - v3) / 6048e5;
                 break;
               case a2:
-                $3 = (g3 - v3) / 864e5;
+                $3 = (g2 - v3) / 864e5;
                 break;
               case u2:
-                $3 = g3 / n2;
+                $3 = g2 / n2;
                 break;
               case s2:
-                $3 = g3 / e2;
+                $3 = g2 / e2;
                 break;
               case i2:
-                $3 = g3 / t2;
+                $3 = g2 / t2;
                 break;
               default:
-                $3 = g3;
+                $3 = g2;
             }
             return l3 ? $3 : b2.a($3);
           }, m3.daysInMonth = function() {
@@ -25673,7 +25681,7 @@ var LNReaderPlugin = (() => {
           return t3.$i || (t3(e3, _, O), t3.$i = true), O;
         }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
           return O(1e3 * t3);
-        }, O.en = D[g2], O.Ls = D, O.p = {}, O;
+        }, O.en = D[g], O.Ls = D, O.p = {}, O;
       });
     }
   });
@@ -25779,11 +25787,11 @@ var LNReaderPlugin = (() => {
   init_process2();
   var e = function() {
     return e = Object.assign || function(e2) {
-      for (var t2, a2 = 1, l2 = arguments.length; a2 < l2; a2++) for (var r2 in t2 = arguments[a2]) Object.prototype.hasOwnProperty.call(t2, r2) && (e2[r2] = t2[r2]);
+      for (var a2, t2 = 1, l2 = arguments.length; t2 < l2; t2++) for (var r2 in a2 = arguments[t2]) Object.prototype.hasOwnProperty.call(a2, r2) && (e2[r2] = a2[r2]);
       return e2;
     }, e.apply(this, arguments);
-  }, t = function(e2, t2, a2, l2) {
-    return new (a2 || (a2 = Promise))(function(r2, n2) {
+  }, a = function(e2, a2, t2, l2) {
+    return new (t2 || (t2 = Promise))(function(r2, n2) {
       function u2(e3) {
         try {
           o2(l2.next(e3));
@@ -25801,16 +25809,16 @@ var LNReaderPlugin = (() => {
       }
       __name(i2, "i");
       function o2(e3) {
-        var t3;
-        e3.done ? r2(e3.value) : (t3 = e3.value, t3 instanceof a2 ? t3 : new a2(function(e4) {
-          e4(t3);
+        var a3;
+        e3.done ? r2(e3.value) : (a3 = e3.value, a3 instanceof t2 ? a3 : new t2(function(e4) {
+          e4(a3);
         })).then(u2, i2);
       }
       __name(o2, "o");
-      o2((l2 = l2.apply(e2, t2 || [])).next());
+      o2((l2 = l2.apply(e2, a2 || [])).next());
     });
-  }, a = function(e2, t2) {
-    var a2, l2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+  }, t = function(e2, a2) {
+    var t2, l2, r2, n2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & r2[0]) throw r2[1];
       return r2[1];
     }, "sent"), trys: [], ops: [] }, u2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
@@ -25820,9 +25828,9 @@ var LNReaderPlugin = (() => {
     function i2(i3) {
       return function(o2) {
         return function(i4) {
-          if (a2) throw new TypeError("Generator is already executing.");
+          if (t2) throw new TypeError("Generator is already executing.");
           for (; u2 && (u2 = 0, i4[0] && (n2 = 0)), n2; ) try {
-            if (a2 = 1, l2 && (r2 = 2 & i4[0] ? l2.return : i4[0] ? l2.throw || ((r2 = l2.return) && r2.call(l2), 0) : l2.next) && !(r2 = r2.call(l2, i4[1])).done) return r2;
+            if (t2 = 1, l2 && (r2 = 2 & i4[0] ? l2.return : i4[0] ? l2.throw || ((r2 = l2.return) && r2.call(l2), 0) : l2.next) && !(r2 = r2.call(l2, i4[1])).done) return r2;
             switch (l2 = 0, r2 && (i4 = [2 & i4[0], r2.value]), i4[0]) {
               case 0:
               case 1:
@@ -25856,11 +25864,11 @@ var LNReaderPlugin = (() => {
                 r2[2] && n2.ops.pop(), n2.trys.pop();
                 continue;
             }
-            i4 = t2.call(e2, n2);
+            i4 = a2.call(e2, n2);
           } catch (e3) {
             i4 = [6, e3], l2 = 0;
           } finally {
-            a2 = r2 = 0;
+            t2 = r2 = 0;
           }
           if (5 & i4[0]) throw i4[1];
           return { value: i4[0] ? i4[1] : void 0, done: true };
@@ -25872,133 +25880,132 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), u = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = l(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, v = /menit|dakika|min|minute|minuto|นาที|دقائق/i, b = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, h = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, p = /week|semana/i, d = /month|mes/i, f = /year|año/i, m = function() {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), u = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = l(require_dayjs_min()), o = (init_storage2(), __toCommonJS(storage_exports)), s = /detik|segundo|second|วินาที/i, c = /menit|dakika|min|minute|minuto|นาที|دقائق/i, v = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, b = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, h = /week|semana/i, p = /month|mes/i, d = /year|año/i, f = function() {
     function l2(e2) {
-      var t2, a2, l3 = this;
-      this.hideLocked = s.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
-        var t3, a3 = l3.dateCache.get(e3);
-        if (void 0 !== a3) return a3;
+      var a2, t2, l3 = this;
+      this.hideLocked = o.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
+        var a3, t3 = l3.dateCache.get(e3);
+        if (void 0 !== t3) return t3;
         l3.dateCache.size > 2e3 && l3.dateCache.clear();
-        var r3, n2 = (0, o.default)(), u2 = (null === (t3 = e3.match(/\d+/)) || void 0 === t3 ? void 0 : t3[0]) || "", i2 = parseInt(u2, 10);
+        var r3, n2 = (0, i.default)(), u2 = (null === (a3 = e3.match(/\d+/)) || void 0 === a3 ? void 0 : a3[0]) || "", o2 = parseInt(u2, 10);
         if (!u2) return l3.dateCache.set(e3, e3), e3;
-        if (c.test(e3)) r3 = n2.subtract(i2, "second").format("LL");
-        else if (v.test(e3)) r3 = n2.subtract(i2, "minute").format("LL");
-        else if (b.test(e3)) r3 = n2.subtract(i2, "hours").format("LL");
-        else if (h.test(e3)) r3 = n2.subtract(i2, "days").format("LL");
-        else if (p.test(e3)) r3 = n2.subtract(i2, "week").format("LL");
-        else if (d.test(e3)) r3 = n2.subtract(i2, "month").format("LL");
-        else if (f.test(e3)) r3 = n2.subtract(i2, "year").format("LL");
+        if (s.test(e3)) r3 = n2.subtract(o2, "second").format("LL");
+        else if (c.test(e3)) r3 = n2.subtract(o2, "minute").format("LL");
+        else if (v.test(e3)) r3 = n2.subtract(o2, "hours").format("LL");
+        else if (b.test(e3)) r3 = n2.subtract(o2, "days").format("LL");
+        else if (h.test(e3)) r3 = n2.subtract(o2, "week").format("LL");
+        else if (p.test(e3)) r3 = n2.subtract(o2, "month").format("LL");
+        else if (d.test(e3)) r3 = n2.subtract(o2, "year").format("LL");
         else {
-          var s2 = (0, o.default)(e3).format("LL");
-          r3 = "Invalid Date" !== s2 ? s2 : e3;
+          var f2 = (0, i.default)(e3).format("LL");
+          r3 = "Invalid Date" !== f2 ? f2 : e3;
         }
         return l3.dateCache.set(e3, r3), r3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
-      var r2 = (null === (t2 = e2.options) || void 0 === t2 ? void 0 : t2.versionIncrements) || 0;
-      this.version = "2.4.".concat(r2), this.options = e2.options, this.filters = e2.filters, (null === (a2 = this.options) || void 0 === a2 ? void 0 : a2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      var r2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
+      this.version = "2.4.".concat(1 + r2), this.options = e2.options, this.filters = e2.filters, (null === (t2 = this.options) || void 0 === t2 ? void 0 : t2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(l2, "l");
     return Object.defineProperty(l2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
       var e2;
       if (null === (e2 = this.options) || void 0 === e2 ? void 0 : e2.browserHeaders) return { Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9" };
     }, "get"), enumerable: false, configurable: true }), l2.prototype.translateDragontea = function(e2) {
-      var t2;
+      var a2;
       if ("dragontea" !== this.id) return e2;
-      var a2 = (0, n.load)((null === (t2 = e2.html()) || void 0 === t2 ? void 0 : t2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
-      return e2.html(a2.html()), e2.find("*").addBack().contents().filter(function(e3, t3) {
-        return 3 === t3.nodeType;
-      }).each(function(e3, t3) {
-        var l3 = a2(t3), r2 = l3.text().normalize("NFD").split("").map(function(e4) {
-          var t4 = e4.normalize("NFC"), a3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(t4);
-          return a3 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[a3] + e4.slice(t4.length) : e4;
+      var t2 = (0, n.load)((null === (a2 = e2.html()) || void 0 === a2 ? void 0 : a2.replace("\n", "").replace(/<br\s*\/?>/g, "\n")) || "");
+      return e2.html(t2.html()), e2.find("*").addBack().contents().filter(function(e3, a3) {
+        return 3 === a3.nodeType;
+      }).each(function(e3, a3) {
+        var l3 = t2(a3), r2 = l3.text().normalize("NFD").split("").map(function(e4) {
+          var a4 = e4.normalize("NFC"), t3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(a4);
+          return t3 >= 0 ? "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"[t3] + e4.slice(a4.length) : e4;
         }).join("");
         l3.replaceWith(r2.replace("\n", "<br>"));
       }), e2;
     }, l2.prototype.getHostname = function(e2) {
-      var t2 = (e2 = e2.split("/")[2]).split(".");
-      return t2.pop(), t2.join(".");
+      var a2 = (e2 = e2.split("/")[2]).split(".");
+      return a2.pop(), a2.join(".");
     }, l2.prototype.getCheerio = function(e2, l3) {
-      return t(this, void 0, void 0, function() {
-        var t2, u2, i2, o2;
-        return a(this, function(a2) {
-          switch (a2.label) {
+      return a(this, void 0, void 0, function() {
+        var a2, u2, i2, o2;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
               return [4, (0, r.fetchApi)(e2, { headers: this.requestHeaders })];
             case 1:
-              if (!(t2 = a2.sent()).ok && 1 != l3) throw new Error("Could not reach site (" + t2.status + ") try to open in webview.");
-              return [4, t2.text()];
+              if (!(a2 = t2.sent()).ok && 1 != l3) throw new Error("Could not reach site (" + a2.status + ") try to open in webview.");
+              return [4, a2.text()];
             case 2:
-              if (u2 = a2.sent(), i2 = u2.match(/<title[^>]*>([^<]+)<\/title>/i), o2 = i2 ? i2[1].trim() : "", this.getHostname(e2) != this.getHostname(t2.url) || "Bot Verification" == o2 || "You are being redirected..." == o2 || "Un instant..." == o2 || "Just a moment..." == o2 || "Redirecting..." == o2) throw new Error("Captcha error, please open in webview");
+              if (u2 = t2.sent(), i2 = u2.match(/<title[^>]*>([^<]+)<\/title>/i), o2 = i2 ? i2[1].trim() : "", this.getHostname(e2) != this.getHostname(a2.url) || "Bot Verification" == o2 || "You are being redirected..." == o2 || "Un instant..." == o2 || "Just a moment..." == o2 || "Redirecting..." == o2) throw new Error("Captcha error, please open in webview");
               return [2, (0, n.load)(u2)];
           }
         });
       });
     }, l2.prototype.extractCover = function(e2) {
-      for (var t2, a2, l3, r2 = 0, n2 = [e2.attr("data-lazy-src"), e2.attr("data-src"), e2.attr("data-cfsrc"), null === (t2 = e2.attr("data-srcset")) || void 0 === t2 ? void 0 : t2.split(" ")[0], null === (a2 = e2.attr("data-lazy-srcset")) || void 0 === a2 ? void 0 : a2.split(" ")[0], null === (l3 = e2.attr("srcset")) || void 0 === l3 ? void 0 : l3.split(" ")[0], e2.attr("src")]; r2 < n2.length; r2++) {
-        var i2 = n2[r2];
-        if (i2 && !i2.includes("dflazy")) return i2;
+      for (var a2, t2, l3, r2 = 0, n2 = [e2.attr("data-lazy-src"), e2.attr("data-src"), e2.attr("data-cfsrc"), null === (a2 = e2.attr("data-srcset")) || void 0 === a2 ? void 0 : a2.split(" ")[0], null === (t2 = e2.attr("data-lazy-srcset")) || void 0 === t2 ? void 0 : t2.split(" ")[0], null === (l3 = e2.attr("srcset")) || void 0 === l3 ? void 0 : l3.split(" ")[0], e2.attr("src")]; r2 < n2.length; r2++) {
+        var u2 = n2[r2];
+        if (u2 && !u2.includes("dflazy")) return u2;
       }
-      return u.defaultCover;
     }, l2.prototype.parseNovels = function(e2) {
-      var t2 = this, a2 = [];
+      var a2 = this, t2 = [];
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(l3, r2) {
         var n2 = e2(r2), u2 = n2.find(".post-title"), i2 = u2.text().trim(), o2 = u2.find("a").attr("href") || "";
         if (i2 && o2) {
-          var s2 = { name: i2, cover: t2.extractCover(n2.find("img")), path: o2.replace(/https?:\/\/.*?\//, "") };
-          a2.push(s2);
+          var s2 = { name: i2, cover: a2.extractCover(n2.find("img")), path: o2.replace(/https?:\/\/.*?\//, "") };
+          t2.push(s2);
         }
-      }), a2;
+      }), t2;
     }, l2.prototype.resolveCoverAsDataUri = function(l3) {
-      return t(this, void 0, void 0, function() {
-        var t2, n2, u2, i2;
-        return a(this, function(a2) {
-          switch (a2.label) {
+      return a(this, void 0, void 0, function() {
+        var a2, n2, u2, i2;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
               if (!l3 || !l3.startsWith("http") || l3.startsWith("data:")) return [2, l3];
-              t2 = null, a2.label = 1;
+              a2 = null, t2.label = 1;
             case 1:
-              return a2.trys.push([1, 5, 6, 7]), n2 = "undefined" != typeof AbortController ? new AbortController() : null, t2 = n2 ? setTimeout(function() {
+              return t2.trys.push([1, 5, 6, 7]), n2 = "undefined" != typeof AbortController ? new AbortController() : null, a2 = n2 ? setTimeout(function() {
                 return n2.abort();
               }, 4e3) : null, [4, (0, r.fetchApi)(l3, e({ headers: this.requestHeaders }, n2 ? { signal: n2.signal } : {}))];
             case 2:
-              return (u2 = a2.sent()).ok ? [4, u2.blob()] : [2, l3];
+              return (u2 = t2.sent()).ok ? [4, u2.blob()] : [2, l3];
             case 3:
-              return i2 = a2.sent(), [4, new Promise(function(e2) {
-                var t3 = "undefined" != typeof FileReader ? FileReader : globalThis.FileReader;
-                if (!t3) return e2(l3);
-                var a3 = new t3();
-                a3.onloadend = function() {
-                  "string" == typeof a3.result ? e2(a3.result) : e2(l3);
-                }, a3.onerror = function() {
+              return i2 = t2.sent(), [4, new Promise(function(e2) {
+                var a3 = "undefined" != typeof FileReader ? FileReader : globalThis.FileReader;
+                if (!a3) return e2(l3);
+                var t3 = new a3();
+                t3.onloadend = function() {
+                  "string" == typeof t3.result ? e2(t3.result) : e2(l3);
+                }, t3.onerror = function() {
                   return e2(l3);
-                }, a3.readAsDataURL(i2);
+                }, t3.readAsDataURL(i2);
               })];
             case 4:
-              return [2, a2.sent()];
+              return [2, t2.sent()];
             case 5:
-              return a2.sent(), [2, l3];
+              return t2.sent(), [2, l3];
             case 6:
-              return t2 && clearTimeout(t2), [7];
+              return a2 && clearTimeout(a2), [7];
             case 7:
               return [2];
           }
         });
       });
     }, l2.prototype.resolveNovelsCovers = function(e2) {
-      return t(this, void 0, void 0, function() {
+      return a(this, void 0, void 0, function() {
         var l3, r2 = this;
-        return a(this, function(n2) {
+        return t(this, function(n2) {
           switch (n2.label) {
             case 0:
               return (null === (l3 = this.options) || void 0 === l3 ? void 0 : l3.resolveCoverDataUri) ? [4, Promise.all(e2.map(function(e3) {
-                return t(r2, void 0, void 0, function() {
-                  var t2;
-                  return a(this, function(a2) {
-                    switch (a2.label) {
+                return a(r2, void 0, void 0, function() {
+                  var a2;
+                  return t(this, function(t2) {
+                    switch (t2.label) {
                       case 0:
-                        return e3.cover && e3.cover.startsWith("http") ? (t2 = e3, [4, this.resolveCoverAsDataUri(e3.cover)]) : [3, 2];
+                        return e3.cover && e3.cover.startsWith("http") ? (a2 = e3, [4, this.resolveCoverAsDataUri(e3.cover)]) : [3, 2];
                       case 1:
-                        t2.cover = a2.sent(), a2.label = 2;
+                        a2.cover = t2.sent(), t2.label = 2;
                       case 2:
                         return [2];
                     }
@@ -26011,41 +26018,41 @@ var LNReaderPlugin = (() => {
         });
       });
     }, l2.prototype.popularNovels = function(e2, l3) {
-      return t(this, arguments, void 0, function(e3, t2) {
-        var l4, r2, n2, u2, i2, o2, s2, c2, v2 = t2.filters, b2 = t2.showLatestNovels;
-        return a(this, function(t3) {
-          switch (t3.label) {
+      return a(this, arguments, void 0, function(e3, a2) {
+        var l4, r2, n2, u2, i2, o2, s2, c2, v2 = a2.filters, b2 = a2.showLatestNovels;
+        return t(this, function(a3) {
+          switch (a3.label) {
             case 0:
               for (n2 in l4 = this.site.replace(/\/+$/, ""), r2 = "".concat(l4, "/page/").concat(e3, "/?s=&post_type=wp-manga"), v2 || (v2 = this.filters || {}), b2 && (r2 += "&m_orderby=latest"), v2) if ("object" == typeof v2[n2].value) for (u2 = 0, i2 = v2[n2].value; u2 < i2.length; u2++) o2 = i2[u2], r2 += "&".concat(n2, "=").concat(o2);
               else v2[n2].value && (r2 += "&".concat(n2, "=").concat(v2[n2].value));
               return [4, this.getCheerio(r2, 1 != e3)];
             case 1:
-              return s2 = t3.sent(), c2 = this.parseNovels(s2), [4, this.resolveNovelsCovers(c2)];
+              return s2 = a3.sent(), c2 = this.parseNovels(s2), [4, this.resolveNovelsCovers(c2)];
             case 2:
-              return [2, t3.sent()];
+              return [2, a3.sent()];
           }
         });
       });
     }, l2.prototype.parseNovel = function(e2) {
-      return t(this, void 0, void 0, function() {
-        var t2, l3, u2, s2, c2, v2, b2, h2, p2, d2, f2, m2, g2, y, x, w, C, k, L, _, N, A, S, j, O, T, q, P, D, H, G, R, E, M, F = this;
-        return a(this, function(a2) {
-          switch (a2.label) {
+      return a(this, void 0, void 0, function() {
+        var a2, l3, o2, s2, c2, v2, b2, h2, p2, d2, f2, m2, g, y, x, w, C, k, L, _, N, A, S, j, O, T, P, q, D, H, G, R, E, M, F = this;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), u2 = e2.startsWith("http") ? e2 : "".concat(t2, "/").concat(l3), c2 = null, v2 = "".concat(u2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (E = this.options) || void 0 === E ? void 0 : E.useNewChapterEndpoint) ? (c2 = (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: u2 }).then(function(e3) {
+              return a2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), o2 = e2.startsWith("http") ? e2 : "".concat(a2, "/").concat(l3), c2 = null, v2 = "".concat(o2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (E = this.options) || void 0 === E ? void 0 : E.useNewChapterEndpoint) ? (c2 = (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
-              }), [4, Promise.all([this.getCheerio(u2, false), c2])]) : [3, 2];
+              }), [4, Promise.all([this.getCheerio(o2, false), c2])]) : [3, 2];
             case 1:
-              return s2 = a2.sent()[0], [3, 4];
+              return s2 = t2.sent()[0], [3, 4];
             case 2:
-              return [4, this.getCheerio(u2, false)];
+              return [4, this.getCheerio(o2, false)];
             case 3:
-              s2 = a2.sent(), a2.label = 4;
+              s2 = t2.sent(), t2.label = 4;
             case 4:
               return s2(".manga-title-badges, #manga-title span").remove(), (b2 = { path: e2, name: s2(".post-title h1").text().trim() || s2("#manga-title h1").text().trim() || s2(".manga-title").text().trim() || "" }).cover = this.extractCover(s2(".summary_image > a > img")), s2(".post-content_item, .post-content").each(function() {
-                var e3 = s2(this).find("h5").text().trim(), t3 = s2(this).find(".summary-content") || s2(this).find(".summary_content");
+                var e3 = s2(this).find("h5").text().trim(), a3 = s2(this).find(".summary-content") || s2(this).find(".summary_content");
                 switch (e3) {
                   case "Genre(s)":
                   case "Genre":
@@ -26055,10 +26062,10 @@ var LNReaderPlugin = (() => {
                   case "G\xE9nero(s)":
                   case "Kategori":
                   case "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A":
-                    b2.genres ? b2.genres += ", " + t3.find("a").map(function(e4, t4) {
-                      return s2(t4).text();
-                    }).get().join(", ") : b2.genres = t3.find("a").map(function(e4, t4) {
-                      return s2(t4).text();
+                    b2.genres ? b2.genres += ", " + a3.find("a").map(function(e4, a4) {
+                      return s2(a4).text();
+                    }).get().join(", ") : b2.genres = a3.find("a").map(function(e4, a4) {
+                      return s2(a4).text();
                     }).get().join(", ");
                     break;
                   case "Author(s)":
@@ -26066,132 +26073,132 @@ var LNReaderPlugin = (() => {
                   case "Autor(es)":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641":
                   case "\u0627\u0644\u0645\u0624\u0644\u0641 (\u064A\u0646)":
-                    b2.author = t3.text().trim();
+                    b2.author = a3.text().trim();
                     break;
                   case "Translator(s)":
                   case "Translator":
                   case "Translators":
-                    b2.author || (b2.author = t3.text().trim());
+                    b2.author || (b2.author = a3.text().trim());
                     break;
                   case "Status":
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    b2.status = t3.text().trim().includes("OnGoing") || t3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed;
+                    b2.status = a3.text().trim().includes("OnGoing") || a3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? u.NovelStatus.Ongoing : u.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
-                    b2.artist = t3.text().trim();
+                    b2.artist = a3.text().trim();
                 }
-              }), b2.genres || (b2.genres = s2(".genres-content").text().trim()), b2.status || (b2.status = s2(".manga-status").text().trim().includes("OnGoing") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed), b2.author || (b2.author = s2(".manga-author a").text().trim()), b2.rating || (b2.rating = parseFloat(s2(".post-rating span").text().trim())), b2.author || (b2.author = s2(".manga-authors").text().trim()), s2("div.summary__content .code-block,script,noscript").remove(), b2.summary = this.translateDragontea(s2("div.summary__content")).text().trim() || s2("#tab-manga-about").text().trim() || s2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, t3) {
-                return s2(t3).text();
-              }).get().join("\n\n").trim() || s2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, t3) {
-                return s2(t3).text();
-              }).get().join("\n\n").trim() || s2(".manga-summary p").map(function(e3, t3) {
-                return s2(t3).text();
-              }).get().join("\n\n").trim() || s2(".manga-excerpt p").map(function(e3, t3) {
-                return s2(t3).text();
+              }), b2.genres || (b2.genres = s2(".genres-content").text().trim()), b2.status || (b2.status = s2(".manga-status").text().trim().includes("OnGoing") ? u.NovelStatus.Ongoing : u.NovelStatus.Completed), b2.author || (b2.author = s2(".manga-author a").text().trim()), b2.rating || (b2.rating = parseFloat(s2(".post-rating span").text().trim())), b2.author || (b2.author = s2(".manga-authors").text().trim()), s2("div.summary__content .code-block,script,noscript").remove(), b2.summary = this.translateDragontea(s2("div.summary__content")).text().trim() || s2("#tab-manga-about").text().trim() || s2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, a3) {
+                return s2(a3).text();
+              }).get().join("\n\n").trim() || s2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, a3) {
+                return s2(a3).text();
+              }).get().join("\n\n").trim() || s2(".manga-summary p").map(function(e3, a3) {
+                return s2(a3).text();
+              }).get().join("\n\n").trim() || s2(".manga-excerpt p").map(function(e3, a3) {
+                return s2(a3).text();
               }).get().join("\n\n").trim(), h2 = [], p2 = "", (null === (M = this.options) || void 0 === M ? void 0 : M.useNewChapterEndpoint) ? c2 ? [4, c2] : [3, 6] : [3, 14];
             case 5:
-              return d2 = a2.sent(), [3, 7];
+              return d2 = t2.sent(), [3, 7];
             case 6:
-              d2 = "", a2.label = 7;
+              d2 = "", t2.label = 7;
             case 7:
-              return (p2 = d2 || "") ? [3, 9] : [4, (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: u2 }).then(function(e3) {
+              return (p2 = d2 || "") ? [3, 9] : [4, (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: o2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
               })];
             case 8:
-              p2 = a2.sent(), a2.label = 9;
+              p2 = t2.sent(), t2.label = 9;
             case 9:
               if (f2 = (0, n.load)(p2), !((m2 = f2(".pagination a[data-page]")).length > 0)) return [3, 13];
-              if (g2 = Math.max.apply(Math, m2.map(function(e3, t3) {
-                return parseInt(f2(t3).attr("data-page") || "1", 10);
+              if (g = Math.max.apply(Math, m2.map(function(e3, a3) {
+                return parseInt(f2(a3).attr("data-page") || "1", 10);
               }).get()), y = m2.last().attr("href") || "", -1 === (x = y.indexOf("?"))) return [3, 13];
-              for (w = y.slice(x).replace(/\d+$/, ""), C = [], k = 2; k <= g2; k++) C.push("".concat(v2).concat(w).concat(k));
-              L = 6, _ = 0, a2.label = 10;
+              for (w = y.slice(x).replace(/\d+$/, ""), C = [], k = 2; k <= g; k++) C.push("".concat(v2).concat(w).concat(k));
+              L = 6, _ = 0, t2.label = 10;
             case 10:
               return _ < C.length ? (N = C.slice(_, _ + L), [4, Promise.all(N.map(function(e3) {
-                return (0, r.fetchApi)(e3, { method: "POST", headers: F.requestHeaders, referrer: u2 }).then(function(e4) {
+                return (0, r.fetchApi)(e3, { method: "POST", headers: F.requestHeaders, referrer: o2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
                 });
               }))]) : [3, 13];
             case 11:
-              for (A = a2.sent(), S = 0, j = A; S < j.length; S++) (O = j[S]) && "0" !== O && (p2 += O);
-              a2.label = 12;
+              for (A = t2.sent(), S = 0, j = A; S < j.length; S++) (O = j[S]) && "0" !== O && (p2 += O);
+              t2.label = 12;
             case 12:
               return _ += L, [3, 10];
             case 13:
               return [3, 16];
             case 14:
-              return T = s2(".rating-post-id").attr("value") || s2("#manga-chapters-holder").attr("data-id") || "", (q = new FormData()).append("action", "manga_get_chapters"), q.append("manga", T), [4, (0, r.fetchApi)("".concat(t2, "/wp-admin/admin-ajax.php"), { method: "POST", headers: this.requestHeaders, body: q }).then(function(e3) {
+              return T = s2(".rating-post-id").attr("value") || s2("#manga-chapters-holder").attr("data-id") || "", (P = new FormData()).append("action", "manga_get_chapters"), P.append("manga", T), [4, (0, r.fetchApi)("".concat(a2, "/wp-admin/admin-ajax.php"), { method: "POST", headers: this.requestHeaders, body: P }).then(function(e3) {
                 return e3.text();
               })];
             case 15:
-              p2 = a2.sent(), a2.label = 16;
+              p2 = t2.sent(), t2.label = 16;
             case 16:
-              return "0" !== p2 && p2 && (s2 = (0, n.load)(p2)), P = (0, o.default)().format("LL"), D = /* @__PURE__ */ __name(function(e3) {
-                var t3, a3 = s2(e3), l4 = a3.find("a"), r2 = l4.attr("href") || "";
+              return "0" !== p2 && p2 && (s2 = (0, n.load)(p2)), q = (0, i.default)().format("LL"), D = /* @__PURE__ */ __name(function(e3) {
+                var a3, t3 = s2(e3), l4 = t3.find("a"), r2 = l4.attr("href") || "";
                 if (!r2 || "#" === r2) return null;
-                var n2 = ((null === (t3 = e3.attribs) || void 0 === t3 ? void 0 : t3.class) || "").includes("premium-block");
+                var n2 = ((null === (a3 = e3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
                 if (n2 && F.hideLocked) return null;
-                var u3 = l4.text().trim();
-                n2 && (u3 = "\u{1F512} " + u3);
-                var i2 = a3.find("span.chapter-release-date").text().trim(), o2 = i2 ? F.parseData(i2) : P;
-                return { name: u3, path: r2.replace(/https?:\/\/.*?\//, ""), releaseTime: o2 || null };
-              }, "D"), (H = s2("li.parent.has-child")).length > 0 ? (H.each(function(e3, t3) {
-                var a3 = [];
-                s2(t3).find(".wp-manga-chapter").each(function(e4, t4) {
-                  var l4 = D(t4);
-                  l4 && a3.push(l4);
-                }), h2.push.apply(h2, a3.reverse());
-              }), G = [], s2(".wp-manga-chapter").each(function(e3, t3) {
-                if (!s2(t3).parents("li.parent.has-child").length) {
-                  var a3 = D(t3);
-                  a3 && G.push(a3);
+                var u2 = l4.text().trim();
+                n2 && (u2 = "\u{1F512} " + u2);
+                var i2 = t3.find("span.chapter-release-date").text().trim(), o3 = i2 ? F.parseData(i2) : q;
+                return { name: u2, path: r2.replace(/https?:\/\/.*?\//, ""), releaseTime: o3 || null };
+              }, "D"), (H = s2("li.parent.has-child")).length > 0 ? (H.each(function(e3, a3) {
+                var t3 = [];
+                s2(a3).find(".wp-manga-chapter").each(function(e4, a4) {
+                  var l4 = D(a4);
+                  l4 && t3.push(l4);
+                }), h2.push.apply(h2, t3.reverse());
+              }), G = [], s2(".wp-manga-chapter").each(function(e3, a3) {
+                if (!s2(a3).parents("li.parent.has-child").length) {
+                  var t3 = D(a3);
+                  t3 && G.push(t3);
                 }
-              }), G.length > 0 && h2.push.apply(h2, G.reverse())) : (R = [], s2(".wp-manga-chapter").each(function(e3, t3) {
-                var a3 = D(t3);
-                a3 && R.push(a3);
-              }), h2.push.apply(h2, R.reverse())), h2.forEach(function(e3, t3) {
-                e3.chapterNumber = t3 + 1;
+              }), G.length > 0 && h2.push.apply(h2, G.reverse())) : (R = [], s2(".wp-manga-chapter").each(function(e3, a3) {
+                var t3 = D(a3);
+                t3 && R.push(t3);
+              }), h2.push.apply(h2, R.reverse())), h2.forEach(function(e3, a3) {
+                e3.chapterNumber = a3 + 1;
               }), b2.chapters = h2, [2, b2];
           }
         });
       });
     }, l2.prototype.parseChapter = function(e2) {
-      return t(this, void 0, void 0, function() {
-        var t2, l3, r2, n2, u2;
-        return a(this, function(a2) {
-          switch (a2.label) {
+      return a(this, void 0, void 0, function() {
+        var a2, l3, r2, n2, u2;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), [4, this.getCheerio("".concat(t2, "/").concat(l3), false)];
+              return a2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), [4, this.getCheerio("".concat(a2, "/").concat(l3), false)];
             case 1:
-              return r2 = a2.sent(), (n2 = r2(".text-left")).length || (n2 = r2(".text-right")), n2.length || (n2 = r2(".entry-content")), n2.length || (n2 = r2(".c-blog-post > div > div:nth-child(2)")), null === (u2 = this.options) || void 0 === u2 || u2.customJs, [2, this.translateDragontea(n2).html() || ""];
+              return r2 = t2.sent(), (n2 = r2(".text-left")).length || (n2 = r2(".text-right")), n2.length || (n2 = r2(".entry-content")), n2.length || (n2 = r2(".c-blog-post > div > div:nth-child(2)")), null === (u2 = this.options) || void 0 === u2 || u2.customJs, [2, this.translateDragontea(n2).html() || ""];
           }
         });
       });
     }, l2.prototype.searchNovels = function(e2, l3) {
-      return t(this, void 0, void 0, function() {
-        var t2, r2, n2, u2;
-        return a(this, function(a2) {
-          switch (a2.label) {
+      return a(this, void 0, void 0, function() {
+        var a2, r2, n2, u2;
+        return t(this, function(t2) {
+          switch (t2.label) {
             case 0:
-              return t2 = this.site.replace(/\/+$/, ""), r2 = "".concat(t2, "/page/").concat(null != l3 ? l3 : 1, "/?s=").concat(encodeURIComponent(e2), "&post_type=wp-manga"), [4, this.getCheerio(r2, true)];
+              return a2 = this.site.replace(/\/+$/, ""), r2 = "".concat(a2, "/page/").concat(null != l3 ? l3 : 1, "/?s=").concat(encodeURIComponent(e2), "&post_type=wp-manga"), [4, this.getCheerio(r2, true)];
             case 1:
-              return n2 = a2.sent(), u2 = this.parseNovels(n2), [4, this.resolveNovelsCovers(u2)];
+              return n2 = t2.sent(), u2 = this.parseNovels(n2), [4, this.resolveNovelsCovers(u2)];
             case 2:
-              return [2, a2.sent()];
+              return [2, t2.sent()];
           }
         });
       });
     }, l2;
   }();
-  exports.MadaraPlugin = m;
-  var g = new m({ id: "olaoe", sourceSite: "https://olaoe.cyou/", sourceName: "Olaoe.cyou", options: { useNewChapterEndpoint: true, lang: "Arabic", down: true, downSince: 1768289212938 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "+13", value: "13" }, { label: "+16", value: "16" }, { label: "+17", value: "17" }, { label: "Custom Genre 1", value: "custom-genre-1" }, { label: "Custom Genre 2", value: "custom-genre-2" }, { label: "Custom Genre 3", value: "custom-genre-3" }, { label: "\u0623\u0643\u0634\u0646", value: "\u0623\u0643\u0634\u0646" }, { label: "\u0625\u062B\u0627\u0631\u0629", value: "\u0625\u062B\u0627\u0631\u0629" }, { label: "\u0625\u0639\u0627\u062F\u0629 \u0625\u062D\u064A\u0627\u0621", value: "\u0625\u0639\u0627\u062F\u0629-\u0625\u062D\u064A\u0627\u0621" }, { label: "\u0625\u0646\u062A\u0642\u0627\u0645", value: "\u0625\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0625\u064A\u062A\u0634\u064A", value: "\u0625\u064A\u062A\u0634\u064A" }, { label: "\u0627\u062B\u0627\u0631\u0629", value: "\u0627\u062B\u0627\u0631\u0629" }, { label: "\u0627\u062B\u0627\u0631\u0647", value: "\u0627\u062B\u0627\u0631\u0647" }, { label: "\u0627\u0633\u0627\u0637\u064A\u0631", value: "\u0627\u0633\u0627\u0637\u064A\u0631" }, { label: "\u0627\u0634\u0628\u0627\u062D", value: "\u0627\u0634\u0628\u0627\u062D" }, { label: "\u0627\u0636\u0637\u0647\u0627\u062F", value: "\u0627\u0636\u0637\u0647\u0627\u062F" }, { label: "\u0627\u0639\u0627\u062F\u0629 \u0627\u062D\u064A\u0627\u0621", value: "\u0627\u0639\u0627\u062F\u0629-\u0627\u062D\u064A\u0627\u0621" }, { label: "\u0627\u0639\u0627\u062F\u0647 \u0628\u062D\u062B", value: "\u0627\u0639\u0627\u062F\u0647-\u0628\u062D\u062B" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u062C\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u062C\u0627" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u0647\u0648\u0627" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u0647\u0648\u0627-\u0627\u0646\u0645\u064A" }, { label: "\u0627\u0643\u0634\u0646", value: "\u0627\u0643\u0634\u0646" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0647", value: "\u0627\u0644\u062D\u064A\u0627\u0629-\u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0647" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u064A\u0648\u0645\u064A\u0629", value: "\u0627\u0644\u062D\u064A\u0627\u0629-\u0627\u0644\u064A\u0648\u0645\u064A\u0629" }, { label: "\u0627\u0644\u0633\u0641\u0631 \u0639\u0628\u0631 \u0627\u0644\u0632\u0645\u0646", value: "\u0627\u0644\u0633\u0641\u0631-\u0639\u0628\u0631-\u0627\u0644\u0632\u0645\u0646" }, { label: "\u0627\u0644\u0639\u0627\u0628", value: "\u0627\u0644\u0639\u0627\u0628" }, { label: "\u0627\u0644\u0639\u0627\u0628 \u0627\u0644\u0643\u062A\u0631\u0648\u0646\u064A\u0629", value: "\u0627\u0644\u0639\u0627\u0628-\u0627\u0644\u0643\u062A\u0631\u0648\u0646\u064A\u0629" }, { label: "\u0627\u0644\u0639\u0627\u0628 \u0641\u064A\u062F\u064A\u0648", value: "\u0627\u0644\u0639\u0627\u0628-\u0641\u064A\u062F\u064A\u0648" }, { label: "\u0627\u0644\u0646\u062C\u0627\u0629", value: "\u0627\u0644\u0646\u062C\u0627\u0629" }, { label: "\u0627\u0644\u0647\u0629", value: "\u0627\u0644\u0647\u0629" }, { label: "\u0627\u0644\u0647\u0647", value: "\u0627\u0644\u0647\u0647" }, { label: "\u0627\u0644\u0648\u0627\u0642\u0639 \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A", value: "\u0627\u0644\u0648\u0627\u0642\u0639-\u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A" }, { label: "\u0627\u0645\u0631\u0623\u0629 \u0634\u0631\u064A\u0631\u0629", value: "\u0627\u0645\u0631\u0623\u0629-\u0634\u0631\u064A\u0631\u0629" }, { label: "\u0627\u0646\u062A\u0642\u0627\u0645", value: "\u0627\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0627\u0646\u0645\u064A", value: "\u0627\u0646\u0645\u064A" }, { label: "\u0627\u0646\u0645\u064A \u064A\u0627\u0628\u0627\u0646\u064A", value: "\u0627\u0646\u0645\u064A-\u064A\u0627\u0628\u0627\u0646\u064A" }, { label: "\u0627\u064A\u062A\u0634\u0649", value: "\u0627\u064A\u062A\u0634\u0649" }, { label: "\u0627\u064A\u062A\u0634\u064A", value: "\u0627\u064A\u062A\u0634\u064A" }, { label: "\u0627\u064A\u0633\u0643\u0627\u0649", value: "\u0627\u064A\u0633\u0643\u0627\u0649" }, { label: "\u0628\u0627\u0644\u063A", value: "\u0628\u0627\u0644\u063A" }, { label: "\u0628\u0637\u0644 \u062E\u0627\u0631\u0642", value: "\u0628\u0637\u0644-\u062E\u0627\u0631\u0642" }, { label: "\u0628\u0637\u0644 \u063A\u064A\u0631 \u0627\u0639\u062A\u064A\u0627\u062F\u064A", value: "\u0628\u0637\u0644-\u063A\u064A\u0631-\u0627\u0639\u062A\u064A\u0627\u062F\u064A" }, { label: "\u0628\u0648\u0644\u064A\u0633\u064A", value: "\u0628\u0648\u0644\u064A\u0633\u064A" }, { label: "\u062A\u0627\u0631\u064A\u062E\u0649", value: "\u062A\u0627\u0631\u064A\u062E\u0649" }, { label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "\u062A\u0627\u0631\u064A\u062E\u064A" }, { label: "\u062A\u062C\u0633\u064A\u062F", value: "\u062A\u062C\u0633\u064A\u062F" }, { label: "\u062A\u062D\u0642\u064A\u0642", value: "\u062A\u062D\u0642\u064A\u0642" }, { label: "\u062A\u0631\u0627\u062C\u064A\u062F\u064A", value: "\u062A\u0631\u0627\u062C\u064A\u062F\u064A" }, { label: "\u062A\u0631\u062C\u0645\u0629 \u062C\u0648\u062C\u0644", value: "\u062A\u0631\u062C\u0645\u0629-\u062C\u0648\u062C\u0644" }, { label: "\u062A\u0634\u0648\u064A\u0642", value: "\u062A\u0634\u0648\u064A\u0642" }, { label: "\u062A\u0646\u0627\u0633\u062E", value: "\u062A\u0646\u0627\u0633\u062E" }, { label: "\u062A\u0646\u0627\u0633\u062E \u0627\u0644\u0627\u0631\u0648\u0627\u062D", value: "\u062A\u0646\u0627\u0633\u062E-\u0627\u0644\u0627\u0631\u0648\u0627\u062D" }, { label: "\u062C\u0631\u064A\u0645\u0629", value: "\u062C\u0631\u064A\u0645\u0629" }, { label: "\u062C\u0631\u064A\u0645\u0647", value: "\u062C\u0631\u064A\u0645\u0647" }, { label: "\u062C\u0646\u062F\u0631 \u0627\u0633\u0648\u0627\u0628", value: "\u062C\u0646\u062F\u0631-\u0627\u0633\u0648\u0627\u0628" }, { label: "\u062C\u0648\u0633\u0649", value: "\u062C\u0648\u0633\u0649" }, { label: "\u062C\u0648\u0633\u064A", value: "\u062C\u0648\u0633\u064A" }, { label: "\u062C\u0648\u0633\u064A\u0647", value: "\u062C\u0648\u0633\u064A\u0647" }, { label: "\u062D\u0627\u0626\u0632 \u0639\u0644\u0649 \u062C\u0627\u0626\u0632\u0629", value: "\u062D\u0627\u0626\u0632-\u0639\u0644\u0649-\u062C\u0627\u0626\u0632\u0629" }, { label: "\u062D\u0627\u0626\u0632 \u0639\u0644\u064A \u062C\u0627\u0626\u0632\u0629", value: "\u062D\u0627\u0626\u0632-\u0639\u0644\u064A-\u062C\u0627\u0626\u0632\u0629" }, { label: "\u062D\u062F\u064A\u062B", value: "\u062D\u062F\u064A\u062B" }, { label: "\u062D\u0631\u0628\u0649", value: "\u062D\u0631\u0628\u0649" }, { label: "\u062D\u0631\u0628\u064A", value: "\u062D\u0631\u0628\u064A" }, { label: "\u062D\u0631\u064A\u0645", value: "\u062D\u0631\u064A\u0645" }, { label: "\u062D\u064A\u0627\u0629", value: "\u062D\u064A\u0627\u0629" }, { label: "\u062D\u064A\u0627\u0629 \u0645\u062F\u0631\u0633\u064A\u0629", value: "\u062D\u064A\u0627\u0629-\u0645\u062F\u0631\u0633\u064A\u0629" }, { label: "\u062D\u064A\u0627\u0629 \u064A\u0648\u0645\u064A\u0629", value: "\u062D\u064A\u0627\u0629-\u064A\u0648\u0645\u064A\u0629" }, { label: "\u062E\u0627\u0631\u0642", value: "\u062E\u0627\u0631\u0642" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0637\u0628\u064A\u0639\u064A\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0637\u0628\u064A\u0639\u064A\u0629" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0629" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0647", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0647" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0639\u0627\u062F\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0639\u0627\u062F\u0629" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u0649", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u0649" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u064A" }, { label: "\u062E\u064A\u0627\u0644\u064A", value: "\u062E\u064A\u0627\u0644\u064A" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "\u062F\u0631\u0627\u0645\u0627" }, { label: "\u062F\u0645\u0627\u0621", value: "\u062F\u0645\u0627\u0621" }, { label: "\u062F\u0645\u0648\u0649", value: "\u062F\u0645\u0648\u0649" }, { label: "\u0631\u0627\u0634\u062F", value: "\u0631\u0627\u0634\u062F" }, { label: "\u0631\u0639\u0628", value: "\u0631\u0639\u0628" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u062E\u0641\u064A\u0641\u0629", value: "\u0631\u0648\u0627\u064A\u0629-\u062E\u0641\u064A\u0641\u0629" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u0649", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u0649" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A" }, { label: "\u0631\u064A\u0627\u0636\u0629", value: "\u0631\u064A\u0627\u0636\u0629" }, { label: "\u0631\u064A\u0627\u0636\u0647", value: "\u0631\u064A\u0627\u0636\u0647" }, { label: "\u0631\u064A\u0627\u0636\u0649", value: "\u0631\u064A\u0627\u0636\u0649" }, { label: "\u0631\u064A\u0627\u0636\u064A", value: "\u0631\u064A\u0627\u0636\u064A" }, { label: "\u0632\u0631\u0627\u0639\u0629", value: "\u0632\u0631\u0627\u0639\u0629" }, { label: "\u0632\u0645\u0643\u0627\u0646\u0649", value: "\u0632\u0645\u0643\u0627\u0646\u0649" }, { label: "\u0632\u0645\u0643\u0627\u0646\u064A", value: "\u0632\u0645\u0643\u0627\u0646\u064A" }, { label: "\u0632\u0645\u0646\u0643\u0627\u0646\u064A", value: "\u0632\u0645\u0646\u0643\u0627\u0646\u064A" }, { label: "\u0632\u0648\u0645\u0628\u064A", value: "\u0632\u0648\u0645\u0628\u064A" }, { label: "\u0633\u0627\u062E\u0631", value: "\u0633\u0627\u062E\u0631" }, { label: "\u0633\u0627\u0645\u0648\u0631\u0627\u064A", value: "\u0633\u0627\u0645\u0648\u0631\u0627\u064A" }, { label: "\u0633\u0628\u0627\u0642", value: "\u0633\u0628\u0627\u0642" }, { label: "\u0633\u062D\u0631", value: "\u0633\u062D\u0631" }, { label: "\u0633\u064A\u0646\u064A\u0646", value: "\u0633\u064A\u0646\u064A\u0646" }, { label: "\u0634\u0631\u0637\u0629", value: "\u0634\u0631\u0637\u0629" }, { label: "\u0634\u0631\u064A\u062D\u0629 \u0645\u0646 \u0627\u0644\u062D\u064A\u0627\u0629", value: "\u0634\u0631\u064A\u062D\u0629-\u0645\u0646-\u0627\u0644\u062D\u064A\u0627\u0629" }, { label: "\u0634\u0631\u064A\u0631", value: "\u0634\u0631\u064A\u0631" }, { label: "\u0634\u0648\u062C\u0648", value: "\u0634\u0648\u062C\u0648" }, { label: "\u0634\u0648\u0646\u064A\u0646", value: "\u0634\u0648\u0646\u064A\u0646" }, { label: "\u0634\u064A\u0627\u0637\u064A\u0646", value: "\u0634\u064A\u0627\u0637\u064A\u0646" }, { label: "\u0635\u0642\u0644", value: "\u0635\u0642\u0644" }, { label: "\u0637\u0628\u062E", value: "\u0637\u0628\u062E" }, { label: "\u0651\u0639\u0627\u0645\u0644 \u0645\u0643\u062A\u0628\u064A", value: "\u0651\u0639\u0627\u0645\u0644-\u0645\u0643\u062A\u0628\u064A" }, { label: "\u0639\u0633\u0643\u0631\u064A", value: "\u0639\u0633\u0643\u0631\u064A" }, { label: "\u0639\u0633\u0643\u0631\u064A\u0647", value: "\u0639\u0633\u0643\u0631\u064A\u0647" }, { label: "\u0639\u0644\u0645 \u0646\u0641\u0633", value: "\u0639\u0644\u0645-\u0646\u0641\u0633" }, { label: "\u0639\u0646\u0641", value: "\u0639\u0646\u0641" }, { label: "\u063A\u0645\u0648\u0636", value: "\u063A\u0645\u0648\u0636" }, { label: "\u0641\u0636\u0627\u0621", value: "\u0641\u0636\u0627\u0621" }, { label: "\u0641\u0644\u0633\u0641\u0647", value: "\u0641\u0644\u0633\u0641\u0647" }, { label: "\u0641\u0644\u0645 \u0627\u0646\u0645\u064A", value: "\u0641\u0644\u0645-\u0627\u0646\u0645\u064A" }, { label: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644\u064A\u0629", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644\u064A\u0629" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644\u064A\u0647", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644\u064A\u0647" }, { label: "\u0642\u062A\u0627\u0644", value: "\u0642\u062A\u0627\u0644" }, { label: "\u0642\u0648\u0629 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0629-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0649-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0643\u0648\u0645\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u062F\u064A\u0627" }, { label: "\u0643\u0648\u0645\u064A\u062F\u0649", value: "\u0643\u0648\u0645\u064A\u062F\u0649" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A", value: "\u0643\u0648\u0645\u064A\u062F\u064A" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627" }, { label: "\u0644\u0639\u0628\u0629", value: "\u0644\u0639\u0628\u0629" }, { label: "\u0644\u0639\u0628\u0647", value: "\u0644\u0639\u0628\u0647" }, { label: "\u0645\u0623\u0633\u0627\u0629", value: "\u0645\u0623\u0633\u0627\u0629" }, { label: "\u0645\u0627\u0633\u0627\u0629", value: "\u0645\u0627\u0633\u0627\u0629" }, { label: "\u0645\u0627\u0641\u064A\u0627", value: "\u0645\u0627\u0641\u064A\u0627" }, { label: "\u0645\u0627\u0646\u062C\u0627", value: "\u0645\u0627\u0646\u062C\u0627" }, { label: "\u0645\u0627\u0646\u062C\u0627 \u0639\u0644\u0649 \u0627\u0644\u0627\u0646\u062A\u0631\u0646\u062A", value: "\u0645\u0627\u0646\u062C\u0627-\u0639\u0644\u0649-\u0627\u0644\u0627\u0646\u062A\u0631\u0646\u062A" }, { label: "\u0645\u0627\u0646\u0647\u0627", value: "\u0645\u0627\u0646\u0647\u0627" }, { label: "\u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0645\u0627\u0646\u0647\u0648\u0627" }, { label: "\u0645\u062C\u0645\u0648\u0639\u0629 \u0642\u0635\u0635", value: "\u0645\u062C\u0645\u0648\u0639\u0629-\u0642\u0635\u0635" }, { label: "\u0645\u062D\u0627\u0643\u0627\u0629 \u0633\u0627\u062E\u0631\u0629", value: "\u0645\u062D\u0627\u0643\u0627\u0629-\u0633\u0627\u062E\u0631\u0629" }, { label: "\u0645\u062F\u0631\u0633\u0647", value: "\u0645\u062F\u0631\u0633\u0647" }, { label: "\u0645\u062F\u0631\u0633\u064A", value: "\u0645\u062F\u0631\u0633\u064A" }, { label: "\u0645\u0635\u0627\u0635\u0649 \u0627\u0644\u062F\u0645\u0627\u0621", value: "\u0645\u0635\u0627\u0635\u0649-\u0627\u0644\u062F\u0645\u0627\u0621" }, { label: "\u0645\u0635\u0627\u0635\u064A \u062F\u0645\u0627\u0621", value: "\u0645\u0635\u0627\u0635\u064A-\u062F\u0645\u0627\u0621" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A", value: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "\u0645\u063A\u0627\u0645\u0631\u0629" }, { label: "\u0645\u0642\u062A\u0628\u0633\u0629", value: "\u0645\u0642\u062A\u0628\u0633\u0629" }, { label: "\u0645\u0648\u0631\u064A\u0645", value: "\u0645\u0648\u0631\u064A\u0645" }, { label: "\u0645\u0648\u0633\u064A\u0642\u0649", value: "\u0645\u0648\u0633\u064A\u0642\u0649" }, { label: "\u0645\u0648\u0633\u064A\u0642\u064A", value: "\u0645\u0648\u0633\u064A\u0642\u064A" }, { label: "\u0645\u064A\u0643\u0627", value: "\u0645\u064A\u0643\u0627" }, { label: "\u0646\u0627\u0636\u062C", value: "\u0646\u0627\u0636\u062C" }, { label: "\u0646\u0638\u0627\u0645", value: "\u0646\u0638\u0627\u0645" }, { label: "\u0646\u0641\u0633\u0649", value: "\u0646\u0641\u0633\u0649" }, { label: "\u0646\u0641\u0633\u064A", value: "\u0646\u0641\u0633\u064A" }, { label: "\u0646\u064A\u0646\u062C\u0627", value: "\u0646\u064A\u0646\u062C\u0627" }, { label: "\u0648\u062D\u0648\u0634", value: "\u0648\u062D\u0648\u0634" }, { label: "\u0648\u064A\u0628 \u062A\u0648\u0646", value: "\u0648\u064A\u0628-\u062A\u0648\u0646" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "\u0645\u0633\u062A\u0645\u0631", value: "on-going" }, { label: "\u0645\u0643\u062A\u0645\u0644", value: "end" }, { label: "\u0645\u0644\u063A\u0649", value: "canceled" }, { label: "\u0641\u064A \u0627\u0644\u0627\u0646\u062A\u0638\u0627\u0631", value: "on-hold" }, { label: "\u0642\u0627\u062F\u0645 \u0642\u0631\u064A\u0628\u0627", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
-  exports.default = g;
+  exports.MadaraPlugin = f;
+  var m = new f({ id: "olaoe", sourceSite: "https://olaoe.cyou/", sourceName: "Olaoe.cyou", options: { useNewChapterEndpoint: true, lang: "Arabic", down: true, downSince: 1768289212938 }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "+13", value: "13" }, { label: "+16", value: "16" }, { label: "+17", value: "17" }, { label: "Custom Genre 1", value: "custom-genre-1" }, { label: "Custom Genre 2", value: "custom-genre-2" }, { label: "Custom Genre 3", value: "custom-genre-3" }, { label: "\u0623\u0643\u0634\u0646", value: "\u0623\u0643\u0634\u0646" }, { label: "\u0625\u062B\u0627\u0631\u0629", value: "\u0625\u062B\u0627\u0631\u0629" }, { label: "\u0625\u0639\u0627\u062F\u0629 \u0625\u062D\u064A\u0627\u0621", value: "\u0625\u0639\u0627\u062F\u0629-\u0625\u062D\u064A\u0627\u0621" }, { label: "\u0625\u0646\u062A\u0642\u0627\u0645", value: "\u0625\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0625\u064A\u062A\u0634\u064A", value: "\u0625\u064A\u062A\u0634\u064A" }, { label: "\u0627\u062B\u0627\u0631\u0629", value: "\u0627\u062B\u0627\u0631\u0629" }, { label: "\u0627\u062B\u0627\u0631\u0647", value: "\u0627\u062B\u0627\u0631\u0647" }, { label: "\u0627\u0633\u0627\u0637\u064A\u0631", value: "\u0627\u0633\u0627\u0637\u064A\u0631" }, { label: "\u0627\u0634\u0628\u0627\u062D", value: "\u0627\u0634\u0628\u0627\u062D" }, { label: "\u0627\u0636\u0637\u0647\u0627\u062F", value: "\u0627\u0636\u0637\u0647\u0627\u062F" }, { label: "\u0627\u0639\u0627\u062F\u0629 \u0627\u062D\u064A\u0627\u0621", value: "\u0627\u0639\u0627\u062F\u0629-\u0627\u062D\u064A\u0627\u0621" }, { label: "\u0627\u0639\u0627\u062F\u0647 \u0628\u062D\u062B", value: "\u0627\u0639\u0627\u062F\u0647-\u0628\u062D\u062B" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u062C\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u062C\u0627" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u0647\u0648\u0627" }, { label: "\u0627\u0642\u062A\u0628\u0627\u0633 \u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0627\u0642\u062A\u0628\u0627\u0633-\u0645\u0627\u0646\u0647\u0648\u0627-\u0627\u0646\u0645\u064A" }, { label: "\u0627\u0643\u0634\u0646", value: "\u0627\u0643\u0634\u0646" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0647", value: "\u0627\u0644\u062D\u064A\u0627\u0629-\u0627\u0644\u0645\u062F\u0631\u0633\u064A\u0647" }, { label: "\u0627\u0644\u062D\u064A\u0627\u0629 \u0627\u0644\u064A\u0648\u0645\u064A\u0629", value: "\u0627\u0644\u062D\u064A\u0627\u0629-\u0627\u0644\u064A\u0648\u0645\u064A\u0629" }, { label: "\u0627\u0644\u0633\u0641\u0631 \u0639\u0628\u0631 \u0627\u0644\u0632\u0645\u0646", value: "\u0627\u0644\u0633\u0641\u0631-\u0639\u0628\u0631-\u0627\u0644\u0632\u0645\u0646" }, { label: "\u0627\u0644\u0639\u0627\u0628", value: "\u0627\u0644\u0639\u0627\u0628" }, { label: "\u0627\u0644\u0639\u0627\u0628 \u0627\u0644\u0643\u062A\u0631\u0648\u0646\u064A\u0629", value: "\u0627\u0644\u0639\u0627\u0628-\u0627\u0644\u0643\u062A\u0631\u0648\u0646\u064A\u0629" }, { label: "\u0627\u0644\u0639\u0627\u0628 \u0641\u064A\u062F\u064A\u0648", value: "\u0627\u0644\u0639\u0627\u0628-\u0641\u064A\u062F\u064A\u0648" }, { label: "\u0627\u0644\u0646\u062C\u0627\u0629", value: "\u0627\u0644\u0646\u062C\u0627\u0629" }, { label: "\u0627\u0644\u0647\u0629", value: "\u0627\u0644\u0647\u0629" }, { label: "\u0627\u0644\u0647\u0647", value: "\u0627\u0644\u0647\u0647" }, { label: "\u0627\u0644\u0648\u0627\u0642\u0639 \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A", value: "\u0627\u0644\u0648\u0627\u0642\u0639-\u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A" }, { label: "\u0627\u0645\u0631\u0623\u0629 \u0634\u0631\u064A\u0631\u0629", value: "\u0627\u0645\u0631\u0623\u0629-\u0634\u0631\u064A\u0631\u0629" }, { label: "\u0627\u0646\u062A\u0642\u0627\u0645", value: "\u0627\u0646\u062A\u0642\u0627\u0645" }, { label: "\u0627\u0646\u0645\u064A", value: "\u0627\u0646\u0645\u064A" }, { label: "\u0627\u0646\u0645\u064A \u064A\u0627\u0628\u0627\u0646\u064A", value: "\u0627\u0646\u0645\u064A-\u064A\u0627\u0628\u0627\u0646\u064A" }, { label: "\u0627\u064A\u062A\u0634\u0649", value: "\u0627\u064A\u062A\u0634\u0649" }, { label: "\u0627\u064A\u062A\u0634\u064A", value: "\u0627\u064A\u062A\u0634\u064A" }, { label: "\u0627\u064A\u0633\u0643\u0627\u0649", value: "\u0627\u064A\u0633\u0643\u0627\u0649" }, { label: "\u0628\u0627\u0644\u063A", value: "\u0628\u0627\u0644\u063A" }, { label: "\u0628\u0637\u0644 \u062E\u0627\u0631\u0642", value: "\u0628\u0637\u0644-\u062E\u0627\u0631\u0642" }, { label: "\u0628\u0637\u0644 \u063A\u064A\u0631 \u0627\u0639\u062A\u064A\u0627\u062F\u064A", value: "\u0628\u0637\u0644-\u063A\u064A\u0631-\u0627\u0639\u062A\u064A\u0627\u062F\u064A" }, { label: "\u0628\u0648\u0644\u064A\u0633\u064A", value: "\u0628\u0648\u0644\u064A\u0633\u064A" }, { label: "\u062A\u0627\u0631\u064A\u062E\u0649", value: "\u062A\u0627\u0631\u064A\u062E\u0649" }, { label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "\u062A\u0627\u0631\u064A\u062E\u064A" }, { label: "\u062A\u062C\u0633\u064A\u062F", value: "\u062A\u062C\u0633\u064A\u062F" }, { label: "\u062A\u062D\u0642\u064A\u0642", value: "\u062A\u062D\u0642\u064A\u0642" }, { label: "\u062A\u0631\u0627\u062C\u064A\u062F\u064A", value: "\u062A\u0631\u0627\u062C\u064A\u062F\u064A" }, { label: "\u062A\u0631\u062C\u0645\u0629 \u062C\u0648\u062C\u0644", value: "\u062A\u0631\u062C\u0645\u0629-\u062C\u0648\u062C\u0644" }, { label: "\u062A\u0634\u0648\u064A\u0642", value: "\u062A\u0634\u0648\u064A\u0642" }, { label: "\u062A\u0646\u0627\u0633\u062E", value: "\u062A\u0646\u0627\u0633\u062E" }, { label: "\u062A\u0646\u0627\u0633\u062E \u0627\u0644\u0627\u0631\u0648\u0627\u062D", value: "\u062A\u0646\u0627\u0633\u062E-\u0627\u0644\u0627\u0631\u0648\u0627\u062D" }, { label: "\u062C\u0631\u064A\u0645\u0629", value: "\u062C\u0631\u064A\u0645\u0629" }, { label: "\u062C\u0631\u064A\u0645\u0647", value: "\u062C\u0631\u064A\u0645\u0647" }, { label: "\u062C\u0646\u062F\u0631 \u0627\u0633\u0648\u0627\u0628", value: "\u062C\u0646\u062F\u0631-\u0627\u0633\u0648\u0627\u0628" }, { label: "\u062C\u0648\u0633\u0649", value: "\u062C\u0648\u0633\u0649" }, { label: "\u062C\u0648\u0633\u064A", value: "\u062C\u0648\u0633\u064A" }, { label: "\u062C\u0648\u0633\u064A\u0647", value: "\u062C\u0648\u0633\u064A\u0647" }, { label: "\u062D\u0627\u0626\u0632 \u0639\u0644\u0649 \u062C\u0627\u0626\u0632\u0629", value: "\u062D\u0627\u0626\u0632-\u0639\u0644\u0649-\u062C\u0627\u0626\u0632\u0629" }, { label: "\u062D\u0627\u0626\u0632 \u0639\u0644\u064A \u062C\u0627\u0626\u0632\u0629", value: "\u062D\u0627\u0626\u0632-\u0639\u0644\u064A-\u062C\u0627\u0626\u0632\u0629" }, { label: "\u062D\u062F\u064A\u062B", value: "\u062D\u062F\u064A\u062B" }, { label: "\u062D\u0631\u0628\u0649", value: "\u062D\u0631\u0628\u0649" }, { label: "\u062D\u0631\u0628\u064A", value: "\u062D\u0631\u0628\u064A" }, { label: "\u062D\u0631\u064A\u0645", value: "\u062D\u0631\u064A\u0645" }, { label: "\u062D\u064A\u0627\u0629", value: "\u062D\u064A\u0627\u0629" }, { label: "\u062D\u064A\u0627\u0629 \u0645\u062F\u0631\u0633\u064A\u0629", value: "\u062D\u064A\u0627\u0629-\u0645\u062F\u0631\u0633\u064A\u0629" }, { label: "\u062D\u064A\u0627\u0629 \u064A\u0648\u0645\u064A\u0629", value: "\u062D\u064A\u0627\u0629-\u064A\u0648\u0645\u064A\u0629" }, { label: "\u062E\u0627\u0631\u0642", value: "\u062E\u0627\u0631\u0642" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0637\u0628\u064A\u0639\u064A\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0637\u0628\u064A\u0639\u064A\u0629" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0629" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0637\u0628\u064A\u0639\u0647", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0637\u0628\u064A\u0639\u0647" }, { label: "\u062E\u0627\u0631\u0642 \u0644\u0644\u0639\u0627\u062F\u0629", value: "\u062E\u0627\u0631\u0642-\u0644\u0644\u0639\u0627\u062F\u0629" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u0649", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u0649" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644-\u0639\u0644\u0645\u064A" }, { label: "\u062E\u064A\u0627\u0644\u064A", value: "\u062E\u064A\u0627\u0644\u064A" }, { label: "\u062F\u0631\u0627\u0645\u0627", value: "\u062F\u0631\u0627\u0645\u0627" }, { label: "\u062F\u0645\u0627\u0621", value: "\u062F\u0645\u0627\u0621" }, { label: "\u062F\u0645\u0648\u0649", value: "\u062F\u0645\u0648\u0649" }, { label: "\u0631\u0627\u0634\u062F", value: "\u0631\u0627\u0634\u062F" }, { label: "\u0631\u0639\u0628", value: "\u0631\u0639\u0628" }, { label: "\u0631\u0648\u0627\u064A\u0629 \u062E\u0641\u064A\u0641\u0629", value: "\u0631\u0648\u0627\u064A\u0629-\u062E\u0641\u064A\u0641\u0629" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u0649", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u0649" }, { label: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A", value: "\u0631\u0648\u0645\u0627\u0646\u0633\u064A" }, { label: "\u0631\u064A\u0627\u0636\u0629", value: "\u0631\u064A\u0627\u0636\u0629" }, { label: "\u0631\u064A\u0627\u0636\u0647", value: "\u0631\u064A\u0627\u0636\u0647" }, { label: "\u0631\u064A\u0627\u0636\u0649", value: "\u0631\u064A\u0627\u0636\u0649" }, { label: "\u0631\u064A\u0627\u0636\u064A", value: "\u0631\u064A\u0627\u0636\u064A" }, { label: "\u0632\u0631\u0627\u0639\u0629", value: "\u0632\u0631\u0627\u0639\u0629" }, { label: "\u0632\u0645\u0643\u0627\u0646\u0649", value: "\u0632\u0645\u0643\u0627\u0646\u0649" }, { label: "\u0632\u0645\u0643\u0627\u0646\u064A", value: "\u0632\u0645\u0643\u0627\u0646\u064A" }, { label: "\u0632\u0645\u0646\u0643\u0627\u0646\u064A", value: "\u0632\u0645\u0646\u0643\u0627\u0646\u064A" }, { label: "\u0632\u0648\u0645\u0628\u064A", value: "\u0632\u0648\u0645\u0628\u064A" }, { label: "\u0633\u0627\u062E\u0631", value: "\u0633\u0627\u062E\u0631" }, { label: "\u0633\u0627\u0645\u0648\u0631\u0627\u064A", value: "\u0633\u0627\u0645\u0648\u0631\u0627\u064A" }, { label: "\u0633\u0628\u0627\u0642", value: "\u0633\u0628\u0627\u0642" }, { label: "\u0633\u062D\u0631", value: "\u0633\u062D\u0631" }, { label: "\u0633\u064A\u0646\u064A\u0646", value: "\u0633\u064A\u0646\u064A\u0646" }, { label: "\u0634\u0631\u0637\u0629", value: "\u0634\u0631\u0637\u0629" }, { label: "\u0634\u0631\u064A\u062D\u0629 \u0645\u0646 \u0627\u0644\u062D\u064A\u0627\u0629", value: "\u0634\u0631\u064A\u062D\u0629-\u0645\u0646-\u0627\u0644\u062D\u064A\u0627\u0629" }, { label: "\u0634\u0631\u064A\u0631", value: "\u0634\u0631\u064A\u0631" }, { label: "\u0634\u0648\u062C\u0648", value: "\u0634\u0648\u062C\u0648" }, { label: "\u0634\u0648\u0646\u064A\u0646", value: "\u0634\u0648\u0646\u064A\u0646" }, { label: "\u0634\u064A\u0627\u0637\u064A\u0646", value: "\u0634\u064A\u0627\u0637\u064A\u0646" }, { label: "\u0635\u0642\u0644", value: "\u0635\u0642\u0644" }, { label: "\u0637\u0628\u062E", value: "\u0637\u0628\u062E" }, { label: "\u0651\u0639\u0627\u0645\u0644 \u0645\u0643\u062A\u0628\u064A", value: "\u0651\u0639\u0627\u0645\u0644-\u0645\u0643\u062A\u0628\u064A" }, { label: "\u0639\u0633\u0643\u0631\u064A", value: "\u0639\u0633\u0643\u0631\u064A" }, { label: "\u0639\u0633\u0643\u0631\u064A\u0647", value: "\u0639\u0633\u0643\u0631\u064A\u0647" }, { label: "\u0639\u0644\u0645 \u0646\u0641\u0633", value: "\u0639\u0644\u0645-\u0646\u0641\u0633" }, { label: "\u0639\u0646\u0641", value: "\u0639\u0646\u0641" }, { label: "\u063A\u0645\u0648\u0636", value: "\u063A\u0645\u0648\u0636" }, { label: "\u0641\u0636\u0627\u0621", value: "\u0641\u0636\u0627\u0621" }, { label: "\u0641\u0644\u0633\u0641\u0647", value: "\u0641\u0644\u0633\u0641\u0647" }, { label: "\u0641\u0644\u0645 \u0627\u0646\u0645\u064A", value: "\u0641\u0644\u0645-\u0627\u0646\u0645\u064A" }, { label: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627", value: "\u0641\u0646\u062A\u0627\u0632\u064A\u0627" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644\u064A\u0629", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644\u064A\u0629" }, { label: "\u0641\u0646\u0648\u0646 \u0642\u062A\u0627\u0644\u064A\u0647", value: "\u0641\u0646\u0648\u0646-\u0642\u062A\u0627\u0644\u064A\u0647" }, { label: "\u0642\u062A\u0627\u0644", value: "\u0642\u062A\u0627\u0644" }, { label: "\u0642\u0648\u0629 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0629-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0642\u0648\u0649 \u062E\u0627\u0631\u0642\u0629", value: "\u0642\u0648\u0649-\u062E\u0627\u0631\u0642\u0629" }, { label: "\u0643\u0648\u0645\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u062F\u064A\u0627" }, { label: "\u0643\u0648\u0645\u064A\u062F\u0649", value: "\u0643\u0648\u0645\u064A\u062F\u0649" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A", value: "\u0643\u0648\u0645\u064A\u062F\u064A" }, { label: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627", value: "\u0643\u0648\u0645\u064A\u062F\u064A\u0627" }, { label: "\u0644\u0639\u0628\u0629", value: "\u0644\u0639\u0628\u0629" }, { label: "\u0644\u0639\u0628\u0647", value: "\u0644\u0639\u0628\u0647" }, { label: "\u0645\u0623\u0633\u0627\u0629", value: "\u0645\u0623\u0633\u0627\u0629" }, { label: "\u0645\u0627\u0633\u0627\u0629", value: "\u0645\u0627\u0633\u0627\u0629" }, { label: "\u0645\u0627\u0641\u064A\u0627", value: "\u0645\u0627\u0641\u064A\u0627" }, { label: "\u0645\u0627\u0646\u062C\u0627", value: "\u0645\u0627\u0646\u062C\u0627" }, { label: "\u0645\u0627\u0646\u062C\u0627 \u0639\u0644\u0649 \u0627\u0644\u0627\u0646\u062A\u0631\u0646\u062A", value: "\u0645\u0627\u0646\u062C\u0627-\u0639\u0644\u0649-\u0627\u0644\u0627\u0646\u062A\u0631\u0646\u062A" }, { label: "\u0645\u0627\u0646\u0647\u0627", value: "\u0645\u0627\u0646\u0647\u0627" }, { label: "\u0645\u0627\u0646\u0647\u0648\u0627", value: "\u0645\u0627\u0646\u0647\u0648\u0627" }, { label: "\u0645\u062C\u0645\u0648\u0639\u0629 \u0642\u0635\u0635", value: "\u0645\u062C\u0645\u0648\u0639\u0629-\u0642\u0635\u0635" }, { label: "\u0645\u062D\u0627\u0643\u0627\u0629 \u0633\u0627\u062E\u0631\u0629", value: "\u0645\u062D\u0627\u0643\u0627\u0629-\u0633\u0627\u062E\u0631\u0629" }, { label: "\u0645\u062F\u0631\u0633\u0647", value: "\u0645\u062F\u0631\u0633\u0647" }, { label: "\u0645\u062F\u0631\u0633\u064A", value: "\u0645\u062F\u0631\u0633\u064A" }, { label: "\u0645\u0635\u0627\u0635\u0649 \u0627\u0644\u062F\u0645\u0627\u0621", value: "\u0645\u0635\u0627\u0635\u0649-\u0627\u0644\u062F\u0645\u0627\u0621" }, { label: "\u0645\u0635\u0627\u0635\u064A \u062F\u0645\u0627\u0621", value: "\u0645\u0635\u0627\u0635\u064A-\u062F\u0645\u0627\u0621" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A", value: "\u0645\u063A\u0627\u0645\u0631\u0627\u062A" }, { label: "\u0645\u063A\u0627\u0645\u0631\u0629", value: "\u0645\u063A\u0627\u0645\u0631\u0629" }, { label: "\u0645\u0642\u062A\u0628\u0633\u0629", value: "\u0645\u0642\u062A\u0628\u0633\u0629" }, { label: "\u0645\u0648\u0631\u064A\u0645", value: "\u0645\u0648\u0631\u064A\u0645" }, { label: "\u0645\u0648\u0633\u064A\u0642\u0649", value: "\u0645\u0648\u0633\u064A\u0642\u0649" }, { label: "\u0645\u0648\u0633\u064A\u0642\u064A", value: "\u0645\u0648\u0633\u064A\u0642\u064A" }, { label: "\u0645\u064A\u0643\u0627", value: "\u0645\u064A\u0643\u0627" }, { label: "\u0646\u0627\u0636\u062C", value: "\u0646\u0627\u0636\u062C" }, { label: "\u0646\u0638\u0627\u0645", value: "\u0646\u0638\u0627\u0645" }, { label: "\u0646\u0641\u0633\u0649", value: "\u0646\u0641\u0633\u0649" }, { label: "\u0646\u0641\u0633\u064A", value: "\u0646\u0641\u0633\u064A" }, { label: "\u0646\u064A\u0646\u062C\u0627", value: "\u0646\u064A\u0646\u062C\u0627" }, { label: "\u0648\u062D\u0648\u0634", value: "\u0648\u062D\u0648\u0634" }, { label: "\u0648\u064A\u0628 \u062A\u0648\u0646", value: "\u0648\u064A\u0628-\u062A\u0648\u0646" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "\u0645\u0633\u062A\u0645\u0631", value: "on-going" }, { label: "\u0645\u0643\u062A\u0645\u0644", value: "end" }, { label: "\u0645\u0644\u063A\u0649", value: "canceled" }, { label: "\u0641\u064A \u0627\u0644\u0627\u0646\u062A\u0638\u0627\u0631", value: "on-hold" }, { label: "\u0642\u0627\u062F\u0645 \u0642\u0631\u064A\u0628\u0627", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
+  exports.default = m;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25469,10 +25493,15 @@ var LNReaderPlugin = (() => {
   Object.defineProperty(exports, "__esModule", { value: true });
   var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = function() {
     function o2() {
-      this.id = "novelupdates", this.name = "Novel Updates", this.version = "0.9.10", this.icon = "src/en/novelupdates/icon.png", this.customCSS = "src/en/novelupdates/customCSS.css", this.site = "https://www.novelupdates.com/", this.filters = { sort: { label: "Sort Results By", value: "popmonth", options: [{ label: "Popular (Month)", value: "popmonth" }, { label: "Popular (All)", value: "popular" }, { label: "Last Updated", value: "sdate" }, { label: "Rating", value: "srate" }, { label: "Rank", value: "srank" }, { label: "Reviews", value: "sreview" }, { label: "Chapters", value: "srel" }, { label: "Title", value: "abc" }, { label: "Readers", value: "sread" }, { label: "Frequency", value: "sfrel" }], type: a.FilterTypes.Picker }, order: { label: "Order (Not for Popular)", value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: a.FilterTypes.Picker }, storyStatus: { label: "Story Status (Translation)", value: "", options: [{ label: "All", value: "" }, { label: "Completed", value: "2" }, { label: "Ongoing", value: "3" }, { label: "Hiatus", value: "4" }], type: a.FilterTypes.Picker }, genre_operator: { label: "Genre (And/Or) (Not for Popular)", value: "and", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: a.FilterTypes.Picker }, genres: { label: "Genres", type: a.FilterTypes.ExcludableCheckboxGroup, value: { include: [], exclude: [] }, options: [{ label: "Action", value: "8" }, { label: "Adult", value: "280" }, { label: "Adventure", value: "13" }, { label: "Comedy", value: "17" }, { label: "Drama", value: "9" }, { label: "Ecchi", value: "292" }, { label: "Fantasy", value: "5" }, { label: "Gender Bender", value: "168" }, { label: "Harem", value: "3" }, { label: "Historical", value: "330" }, { label: "Horror", value: "343" }, { label: "Josei", value: "324" }, { label: "Martial Arts", value: "14" }, { label: "Mature", value: "4" }, { label: "Mecha", value: "10" }, { label: "Mystery", value: "245" }, { label: "Psychoical", value: "486" }, { label: "Romance", value: "15" }, { label: "School Life", value: "6" }, { label: "Sci-fi", value: "11" }, { label: "Seinen", value: "18" }, { label: "Shoujo", value: "157" }, { label: "Shoujo Ai", value: "851" }, { label: "Shounen", value: "12" }, { label: "Shounen Ai", value: "1692" }, { label: "Slice of Life", value: "7" }, { label: "Smut", value: "281" }, { label: "Sports", value: "1357" }, { label: "Supernatural", value: "16" }, { label: "Tragedy", value: "132" }, { label: "Wuxia", value: "479" }, { label: "Xianxia", value: "480" }, { label: "Xuanhuan", value: "3954" }, { label: "Yaoi", value: "560" }, { label: "Yuri", value: "922" }] }, language: { label: "Language", value: [], options: [{ label: "Chinese", value: "495" }, { label: "Filipino", value: "9181" }, { label: "Indonesian", value: "9179" }, { label: "Japanese", value: "496" }, { label: "Khmer", value: "18657" }, { label: "Korean", value: "497" }, { label: "Malaysian", value: "9183" }, { label: "Thai", value: "9954" }, { label: "Vietnamese", value: "9177" }], type: a.FilterTypes.CheckboxGroup }, novelType: { label: "Novel Type (Not for Popular)", value: [], options: [{ label: "Light Novel", value: "2443" }, { label: "Published Novel", value: "26874" }, { label: "Web Novel", value: "2444" }], type: a.FilterTypes.CheckboxGroup }, reading_list_operator: { label: "Reading List (Include/Exclude) (Not for Popular)", value: "include", options: [{ label: "Include", value: "include" }, { label: "Exclude", value: "exclude" }], type: a.FilterTypes.Picker }, reading_lists: { label: "Reading Lists (Not for Popular)", value: [], options: [{ label: "All Reading Lists", value: "-1" }], type: a.FilterTypes.CheckboxGroup } };
+      this.id = "novelupdates", this.name = "Novel Updates", this.version = "0.9.11", this.icon = "src/en/novelupdates/icon.png", this.customCSS = "src/en/novelupdates/customCSS.css", this.site = "https://www.novelupdates.com/", this.filters = { sort: { label: "Sort Results By", value: "popmonth", options: [{ label: "Popular (Month)", value: "popmonth" }, { label: "Popular (All)", value: "popular" }, { label: "Last Updated", value: "sdate" }, { label: "Rating", value: "srate" }, { label: "Rank", value: "srank" }, { label: "Reviews", value: "sreview" }, { label: "Chapters", value: "srel" }, { label: "Title", value: "abc" }, { label: "Readers", value: "sread" }, { label: "Frequency", value: "sfrel" }], type: a.FilterTypes.Picker }, order: { label: "Order (Not for Popular)", value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }], type: a.FilterTypes.Picker }, storyStatus: { label: "Story Status (Translation)", value: "", options: [{ label: "All", value: "" }, { label: "Completed", value: "2" }, { label: "Ongoing", value: "3" }, { label: "Hiatus", value: "4" }], type: a.FilterTypes.Picker }, genre_operator: { label: "Genre (And/Or) (Not for Popular)", value: "and", options: [{ label: "And", value: "and" }, { label: "Or", value: "or" }], type: a.FilterTypes.Picker }, genres: { label: "Genres", type: a.FilterTypes.ExcludableCheckboxGroup, value: { include: [], exclude: [] }, options: [{ label: "Action", value: "8" }, { label: "Adult", value: "280" }, { label: "Adventure", value: "13" }, { label: "Comedy", value: "17" }, { label: "Drama", value: "9" }, { label: "Ecchi", value: "292" }, { label: "Fantasy", value: "5" }, { label: "Gender Bender", value: "168" }, { label: "Harem", value: "3" }, { label: "Historical", value: "330" }, { label: "Horror", value: "343" }, { label: "Josei", value: "324" }, { label: "Martial Arts", value: "14" }, { label: "Mature", value: "4" }, { label: "Mecha", value: "10" }, { label: "Mystery", value: "245" }, { label: "Psychoical", value: "486" }, { label: "Romance", value: "15" }, { label: "School Life", value: "6" }, { label: "Sci-fi", value: "11" }, { label: "Seinen", value: "18" }, { label: "Shoujo", value: "157" }, { label: "Shoujo Ai", value: "851" }, { label: "Shounen", value: "12" }, { label: "Shounen Ai", value: "1692" }, { label: "Slice of Life", value: "7" }, { label: "Smut", value: "281" }, { label: "Sports", value: "1357" }, { label: "Supernatural", value: "16" }, { label: "Tragedy", value: "132" }, { label: "Wuxia", value: "479" }, { label: "Xianxia", value: "480" }, { label: "Xuanhuan", value: "3954" }, { label: "Yaoi", value: "560" }, { label: "Yuri", value: "922" }] }, language: { label: "Language", value: [], options: [{ label: "Chinese", value: "495" }, { label: "Filipino", value: "9181" }, { label: "Indonesian", value: "9179" }, { label: "Japanese", value: "496" }, { label: "Khmer", value: "18657" }, { label: "Korean", value: "497" }, { label: "Malaysian", value: "9183" }, { label: "Thai", value: "9954" }, { label: "Vietnamese", value: "9177" }], type: a.FilterTypes.CheckboxGroup }, novelType: { label: "Novel Type (Not for Popular)", value: [], options: [{ label: "Light Novel", value: "2443" }, { label: "Published Novel", value: "26874" }, { label: "Web Novel", value: "2444" }], type: a.FilterTypes.CheckboxGroup }, reading_list_operator: { label: "Reading List (Include/Exclude) (Not for Popular)", value: "include", options: [{ label: "Include", value: "include" }, { label: "Exclude", value: "exclude" }], type: a.FilterTypes.Picker }, reading_lists: { label: "Reading Lists (Not for Popular)", value: [], options: [{ label: "All Reading Lists", value: "-1" }], type: a.FilterTypes.CheckboxGroup } };
     }
     __name(o2, "o");
-    return o2.prototype.parseNovels = function(e2) {
+    return o2.prototype.cloudflareError = function(e2, t2) {
+      return Object.assign(new Error("Cloudflare protection detected " + e2 + " (HTTP " + t2 + "). Please try opening the plugin in WebView first to solve the challenge, or sign in to your Novel Updates account there, then retry."), { status: t2 });
+    }, o2.prototype.assertNotBlocked = function(e2, t2, r2) {
+      var n2;
+      if (403 === e2.status || 503 === e2.status || /_cf_chl_opt/.test(t2)) throw this.cloudflareError(r2, null !== (n2 = e2.status) && void 0 !== n2 ? n2 : 403);
+    }, o2.prototype.parseNovels = function(e2) {
       var t2 = this, r2 = [];
       return e2("div.search_main_box_nu").each(function(n2, a2) {
         var o3 = e2(a2).find(".search_title > a").attr("href");
@@ -25480,46 +25509,47 @@ var LNReaderPlugin = (() => {
       }), r2;
     }, o2.prototype.popularNovels = function(a2, o3) {
       return e(this, arguments, void 0, function(e2, a3) {
-        var o4, l, s, c, i, u, p, h = a3.showLatestNovels, d = a3.filters;
+        var o4, l, s, c, i, u, p, h, d = a3.showLatestNovels, v = a3.filters;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return o4 = this.site, h ? o4 += "series-finder/?sf=1&sort=sdate&order=desc" : "popmonth" === (null == d ? void 0 : d.sort.value) || "popular" === (null == d ? void 0 : d.sort.value) ? o4 += "series-ranking/?rank=" + d.sort.value : (o4 += "series-finder/?sf=1", ((null === (c = null == d ? void 0 : d.genres.value.include) || void 0 === c ? void 0 : c.length) || (null === (i = null == d ? void 0 : d.genres.value.exclude) || void 0 === i ? void 0 : i.length)) && (o4 += "&mgi=" + d.genre_operator.value), (null == d ? void 0 : d.novelType.value.length) && (o4 += "&nt=" + d.novelType.value.join(",")), (null == d ? void 0 : d.reading_lists.value.length) && (o4 += "&hd=" + (null == d ? void 0 : d.reading_lists.value.join(",")), o4 += "&mRLi=" + (null == d ? void 0 : d.reading_list_operator.value)), o4 += "&sort=" + (null == d ? void 0 : d.sort.value), o4 += "&order=" + (null == d ? void 0 : d.order.value)), (null == d ? void 0 : d.language.value.length) && (o4 += "&org=" + d.language.value.join(",")), (null === (u = null == d ? void 0 : d.genres.value.include) || void 0 === u ? void 0 : u.length) && (o4 += "&gi=" + d.genres.value.include.join(",")), (null === (p = null == d ? void 0 : d.genres.value.exclude) || void 0 === p ? void 0 : p.length) && (o4 += "&ge=" + d.genres.value.exclude.join(",")), (null == d ? void 0 : d.storyStatus.value) && (o4 += "&ss=" + d.storyStatus.value), o4 += "&pg=" + e2, [4, (0, n.fetchApi)(o4)];
+              return o4 = this.site, d ? o4 += "series-finder/?sf=1&sort=sdate&order=desc" : "popmonth" === (null == v ? void 0 : v.sort.value) || "popular" === (null == v ? void 0 : v.sort.value) ? o4 += "series-ranking/?rank=" + v.sort.value : (o4 += "series-finder/?sf=1", ((null === (i = null == v ? void 0 : v.genres.value.include) || void 0 === i ? void 0 : i.length) || (null === (u = null == v ? void 0 : v.genres.value.exclude) || void 0 === u ? void 0 : u.length)) && (o4 += "&mgi=" + v.genre_operator.value), (null == v ? void 0 : v.novelType.value.length) && (o4 += "&nt=" + v.novelType.value.join(",")), (null == v ? void 0 : v.reading_lists.value.length) && (o4 += "&hd=" + (null == v ? void 0 : v.reading_lists.value.join(",")), o4 += "&mRLi=" + (null == v ? void 0 : v.reading_list_operator.value)), o4 += "&sort=" + (null == v ? void 0 : v.sort.value), o4 += "&order=" + (null == v ? void 0 : v.order.value)), (null == v ? void 0 : v.language.value.length) && (o4 += "&org=" + v.language.value.join(",")), (null === (p = null == v ? void 0 : v.genres.value.include) || void 0 === p ? void 0 : p.length) && (o4 += "&gi=" + v.genres.value.include.join(",")), (null === (h = null == v ? void 0 : v.genres.value.exclude) || void 0 === h ? void 0 : h.length) && (o4 += "&ge=" + v.genres.value.exclude.join(",")), (null == v ? void 0 : v.storyStatus.value) && (o4 += "&ss=" + v.storyStatus.value), o4 += "&pg=" + e2, [4, (0, n.fetchApi)(o4)];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, (l = t2.sent()).text()];
             case 2:
-              return l = t2.sent(), s = (0, r.load)(l), [2, this.parseNovels(s)];
+              return s = t2.sent(), this.assertNotBlocked(l, s, "on the novel list"), c = (0, r.load)(s), [2, this.parseNovels(c)];
           }
         });
       });
     }, o2.prototype.parseNovel = function(a2) {
       return e(this, void 0, void 0, function() {
-        var e2, o3, l, s, c, i, u, p, h, d, v, f, b, m, g, y, w, x = this;
+        var e2, o3, l, s, c, i, u, p, h, d, v, f, b, m, g, y, w, x, _, k = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return e2 = this.site + a2, [4, (0, n.fetchApi)(e2)];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, (o3 = t2.sent()).text()];
             case 2:
-              if (o3 = t2.sent(), l = (0, r.load)(o3), (s = { path: a2, name: l(".seriestitlenu").text() || "Untitled", cover: l(".wpb_wrapper img").attr("src"), chapters: [] }).author = l("#authtag").map(function(e3, t3) {
-                return l(t3).text().trim();
-              }).toArray().join(", "), s.genres = l("#seriesgenre").children("a").map(function(e3, t3) {
-                return l(t3).text();
-              }).toArray().join(","), s.status = l("#editstatus").text().includes("Ongoing") ? "Ongoing" : "Completed", c = l("#showtype").text().trim(), i = l("#editdescription").text().trim(), s.summary = i + "\n\nType: ".concat(c), (u = null === (b = l(".seriesother .uvotes").text().match(/(\d+\.\d+) \/ \d+\.\d+/)) || void 0 === b ? void 0 : b[1]) && (s.rating = parseFloat(u)), !(p = l("input#mypostid").attr("value") || (null === (g = null === (m = l("body").attr("class")) || void 0 === m ? void 0 : m.match(/\bpostid-(\d+)\b/)) || void 0 === g ? void 0 : g[1]) || (null === (w = null === (y = l('a[href*="sid="]').attr("href")) || void 0 === y ? void 0 : y.match(/[?&]sid=(\d+)/)) || void 0 === w ? void 0 : w[1]))) throw new Error("Novel id not found on series page.");
-              return (h = new FormData()).append("action", "nd_getchapters"), h.append("mygrr", "0"), h.append("mypostid", p), [4, (0, n.fetchApi)("".concat(this.site, "wp-admin/admin-ajax.php"), { method: "POST", body: h }).then(function(e3) {
-                return e3.text();
-              })];
+              if (l = t2.sent(), this.assertNotBlocked(o3, l, "on this novel"), s = (0, r.load)(l), (c = { path: a2, name: s(".seriestitlenu").text() || "Untitled", cover: s(".wpb_wrapper img").attr("src"), chapters: [] }).author = s("#authtag").map(function(e3, t3) {
+                return s(t3).text().trim();
+              }).toArray().join(", "), c.genres = s("#seriesgenre").children("a").map(function(e3, t3) {
+                return s(t3).text();
+              }).toArray().join(","), c.status = s("#editstatus").text().includes("Ongoing") ? "Ongoing" : "Completed", i = s("#showtype").text().trim(), u = s("#editdescription").text().trim(), c.summary = u + "\n\nType: ".concat(i), (p = null === (g = s(".seriesother .uvotes").text().match(/(\d+\.\d+) \/ \d+\.\d+/)) || void 0 === g ? void 0 : g[1]) && (c.rating = parseFloat(p)), !(h = s("input#mypostid").attr("value") || (null === (w = null === (y = s("body").attr("class")) || void 0 === y ? void 0 : y.match(/\bpostid-(\d+)\b/)) || void 0 === w ? void 0 : w[1]) || (null === (_ = null === (x = s('a[href*="sid="]').attr("href")) || void 0 === x ? void 0 : x.match(/[?&]sid=(\d+)/)) || void 0 === _ ? void 0 : _[1]))) throw new Error("Novel id not found on series page.");
+              return (d = new FormData()).append("action", "nd_getchapters"), d.append("mygrr", "0"), d.append("mypostid", h), [4, (0, n.fetchApi)("".concat(this.site, "wp-admin/admin-ajax.php"), { method: "POST", body: d })];
             case 3:
-              return d = t2.sent(), v = (0, r.load)(d), f = [], v("li.sp_li_chp").each(function(e3, t3) {
-                var r2 = v(t3).text().replace("v", "volume ").replace("c", " chapter ").replace("part", "part ").replace("ss", "SS").replace(/\b\w/g, function(e4) {
+              return [4, (v = t2.sent()).text()];
+            case 4:
+              if (f = t2.sent(), this.assertNotBlocked(v, f, "on the chapter list"), "0" === f.trim()) throw Object.assign(new Error("Novel Updates refused the chapter list request. Please try opening the plugin in WebView first to solve the Cloudflare challenge, or sign in to your Novel Updates account there, then retry."), { status: v.status });
+              return b = (0, r.load)(f), m = [], b("li.sp_li_chp").each(function(e3, t3) {
+                var r2 = b(t3).text().replace("v", "volume ").replace("c", " chapter ").replace("part", "part ").replace("ss", "SS").replace(/\b\w/g, function(e4) {
                   return e4.toUpperCase();
-                }).trim(), n2 = v(t3).find("a").first().next().attr("href");
+                }).trim(), n2 = b(t3).find("a").first().next().attr("href");
                 if (n2) {
-                  var a3 = (n2.startsWith("http") ? n2 : "https:" + n2).replace(x.site, "");
-                  f.push({ name: r2, path: a3 });
+                  var a3 = (n2.startsWith("http") ? n2 : "https:" + n2).replace(k.site, "");
+                  m.push({ name: r2, path: a3 });
                 }
-              }), s.chapters = f.reverse(), [2, s];
+              }), c.chapters = m.reverse(), [2, c];
           }
         });
       });
@@ -25528,7 +25558,7 @@ var LNReaderPlugin = (() => {
       return t2 && "".concat(t2[1], "//").concat(t2[3]);
     }, o2.prototype.getChapterBody = function(a2, o3, l) {
       return e(this, void 0, void 0, function() {
-        var e2, s, c, i, u, p, h, d, v, f, b, m, g, y, w, x, _, A, k, C, E, T, j, S, N, F, L, P, z, O, I, R, M, G, H, B, U, J, W, q, $2, D, K, X, Y, V, Q, Z, ee, te, re, ne, ae, oe, le, se, ce, ie, ue, pe, he, de, ve, fe, be, me, ge, ye, we, xe, _e, Ae, ke, Ce, Ee, Te, je, Se, Ne, Fe, Le, Pe, ze;
+        var e2, s, c, i, u, p, h, d, v, f, b, m, g, y, w, x, _, k, A, C, E, T, j, N, S, F, L, P, z, O, I, R, B, M, H, U, G, W, q, J, $2, D, K, V, X, Y, Q, Z, ee, te, re, ne, ae, oe, le, se, ce, ie, ue, pe, he, de, ve, fe, be, me, ge, ye, we, xe, _e, ke, Ae, Ce, Ee, Te, je, Ne, Se, Fe, Le, Pe, ze;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25657,12 +25687,12 @@ var LNReaderPlugin = (() => {
               return [3, 89];
             case 7:
               if (t2.trys.push([7, 10, , 11]), (fe = l.split("/")).length < 7) throw new Error("Invalid chapter URL structure");
-              return Z = fe[4], ee = fe[6], ke = "".concat(fe[0], "//").concat(fe[2], "/api/public/chapter-by-slug/").concat(Z, "/").concat(ee), [4, (0, n.fetchApi)(ke)];
+              return Z = fe[4], ee = fe[6], Ae = "".concat(fe[0], "//").concat(fe[2], "/api/public/chapter-by-slug/").concat(Z, "/").concat(ee), [4, (0, n.fetchApi)(Ae)];
             case 8:
               return [4, (ye = t2.sent()).json()];
             case 9:
               if (Ce = t2.sent(), !(null === (Ee = null == Ce ? void 0 : Ce.data) || void 0 === Ee ? void 0 : Ee.currentChapter)) throw new Error("Invalid API response structure.");
-              return m = Ce.data.currentChapter, re = m.chapterNumber, Y = m.title, A = m.content, ge = "Chapter ".concat(re), e2 = Y ? "".concat(ge, " - ").concat(Y) : ge, s = A.replace(/\n/g, "<br>"), [3, 89];
+              return m = Ce.data.currentChapter, re = m.chapterNumber, X = m.title, k = m.content, ge = "Chapter ".concat(re), e2 = X ? "".concat(ge, " - ").concat(X) : ge, s = k.replace(/\n/g, "<br>"), [3, 89];
             case 10:
               throw f = t2.sent(), new Error("Failed to parse Canon Story chapter: ".concat(f));
             case 11:
@@ -25671,7 +25701,7 @@ var LNReaderPlugin = (() => {
                 n2 && (r2.attr("src", n2), r2.removeAttr("data-src"));
               }), s = a2(".chapter__content").html(), [3, 89];
             case 12:
-              return e2 = a2("h1 > span").first().text(), (A = a2(".chapter-content > div").first()).children("em").wrap("<p></p>"), s = A.html(), [3, 89];
+              return e2 = a2("h1 > span").first().text(), (k = a2(".chapter-content > div").first()).children("em").wrap("<p></p>"), s = k.html(), [3, 89];
             case 13:
               return [".content > style", ".highlight-ad-container", ".meaning", ".word"].forEach(function(e3) {
                 return a2(e3).remove();
@@ -25680,9 +25710,9 @@ var LNReaderPlugin = (() => {
                 if (null === (r2 = a2(t3).attr("id")) || void 0 === r2 ? void 0 : r2.includes("Chaptertitle-info")) return a2(t3).remove(), false;
               }), s = a2(".content").html(), [3, 89];
             case 14:
-              ke = "".concat(l, "/__data.json?x-sveltekit-invalidated=001"), t2.label = 15;
+              Ae = "".concat(l, "/__data.json?x-sveltekit-invalidated=001"), t2.label = 15;
             case 15:
-              return t2.trys.push([15, 17, , 18]), [4, (0, n.fetchApi)(ke).then(function(e3) {
+              return t2.trys.push([15, 17, , 18]), [4, (0, n.fetchApi)(Ae).then(function(e3) {
                 return e3.json();
               })];
             case 16:
@@ -25691,7 +25721,7 @@ var LNReaderPlugin = (() => {
               }).map(function(e3) {
                 return e3.data;
               })[0], g = "content", y = "notes", w = "footnotes", m) if ((_ = m[x]) && "object" == typeof _ && g in _ && y in _ && w in _) {
-                A = m[String(_[g])], k = m[String(_[y])], C = m[String(_[w])], c = A + (k ? "<h2>Notes</h2><br>".concat(k) : "") + (null != C ? C : "");
+                k = m[String(_[g])], A = m[String(_[y])], C = m[String(_[w])], c = k + (A ? "<h2>Notes</h2><br>".concat(A) : "") + (null != C ? C : "");
                 break;
               }
               return [3, 18];
@@ -25708,7 +25738,7 @@ var LNReaderPlugin = (() => {
             case 22:
               return Ce = t2.sent(), T = Ce.data.name, re = Ce.data.chapterNumber, j = (0, r.load)(Ce.data.content), e2 = "Chapter ".concat(re, " - ").concat(T), s = j.html(), [3, 24];
             case 23:
-              throw S = t2.sent(), new Error("Failed to parse GreenzTL chapter: ".concat(S));
+              throw N = t2.sent(), new Error("Failed to parse GreenzTL chapter: ".concat(N));
             case 24:
               return [3, 89];
             case 25:
@@ -25716,7 +25746,7 @@ var LNReaderPlugin = (() => {
             case 26:
               return e2 = a2("#chapter-title").first().text(), s = a2("#chapter-content").html(), [3, 89];
             case 27:
-              return (ke = a2("article > p > a").first().attr("href")) ? [4, (0, n.fetchApi)(ke)] : [3, 30];
+              return (Ae = a2("article > p > a").first().attr("href")) ? [4, (0, n.fetchApi)(Ae)] : [3, 30];
             case 28:
               return [4, (ye = t2.sent()).text()];
             case 29:
@@ -25732,7 +25762,7 @@ var LNReaderPlugin = (() => {
                 return a2(e3).remove();
               }), e2 = a2("head title").first().text(), s = a2("main article").html(), [3, 89];
             case 33:
-              return (N = null === (Te = a2('script:contains("shadowDom.innerHTML")').html()) || void 0 === Te ? void 0 : Te.match(/shadowDom\.innerHTML \+= '(<div.*?)';/)) && N[1] && (c = N[1]), [3, 89];
+              return (S = null === (Te = a2('script:contains("shadowDom.innerHTML")').html()) || void 0 === Te ? void 0 : Te.match(/shadowDom\.innerHTML \+= '(<div.*?)';/)) && S[1] && (c = S[1]), [3, 89];
             case 34:
               return e2 = a2(".title").first().text(), s = a2(".chapter_content").map(function(e3, t3) {
                 return a2(t3).prop("outerHTML");
@@ -25754,13 +25784,13 @@ var LNReaderPlugin = (() => {
               }), ge = a2(".entry-content p strong").first(), e2 = ge.text(), ge.remove(), s = a2(".entry-content").html(), [3, 89];
             case 40:
               if (!(I = a2('script:contains("script-2")').html())) throw new Error("Failed to find script-2");
-              if (R = Array.from(I.matchAll(/"script-2.*?[^_]+([^\\]+)/g)), !(M = null === (je = R[1]) || void 0 === je ? void 0 : je[1])) throw new Error("Failed to extract script-2 URL");
-              return G = new URL("/".concat(M), l).href, [4, (0, n.fetchApi)(G)];
+              if (R = Array.from(I.matchAll(/"script-2.*?[^_]+([^\\]+)/g)), !(B = null === (je = R[1]) || void 0 === je ? void 0 : je[1])) throw new Error("Failed to extract script-2 URL");
+              return M = new URL("/".concat(B), l).href, [4, (0, n.fetchApi)(M)];
             case 41:
               return [4, t2.sent().text()];
             case 42:
-              if (H = t2.sent(), !(B = null === (Se = H.match(/[a-f0-9]{42}/)) || void 0 === Se ? void 0 : Se[0])) throw new Error("Failed to extract ACTION_HASH");
-              return U = l.split("/"), J = [U[4], parseInt(U[6], 10)], W = J[0], q = J[1], [4, (0, n.fetchApi)(l, { method: "POST", headers: { Accept: "text/x-component", "Content-Type": "text/plain;charset=UTF-8", "next-action": B }, body: JSON.stringify([W, q]) })];
+              if (H = t2.sent(), !(U = null === (Ne = H.match(/[a-f0-9]{42}/)) || void 0 === Ne ? void 0 : Ne[0])) throw new Error("Failed to extract ACTION_HASH");
+              return G = l.split("/"), W = [G[4], parseInt(G[6], 10)], q = W[0], J = W[1], [4, (0, n.fetchApi)(l, { method: "POST", headers: { Accept: "text/x-component", "Content-Type": "text/plain;charset=UTF-8", "next-action": U }, body: JSON.stringify([q, J]) })];
             case 43:
               if (!(ye = t2.sent()).ok) throw new Error("Failed to fetch chapter: ".concat(ye.status));
               return [4, ye.text()];
@@ -25775,13 +25805,13 @@ var LNReaderPlugin = (() => {
               }).filter(function(e3) {
                 return e3.length > 0;
               })).length) throw new Error("Parsed content is empty.");
-              if (X = Q.find(function(e3) {
+              if (V = Q.find(function(e3) {
                 return e3.startsWith("1:");
               })) try {
-                ce = JSON.parse(X.slice(2)), Y = null === (Fe = null === (Ne = null == ce ? void 0 : ce.data) || void 0 === Ne ? void 0 : Ne.chapter) || void 0 === Fe ? void 0 : Fe.title, V = null !== (ze = null === (Pe = null === (Le = null == ce ? void 0 : ce.data) || void 0 === Le ? void 0 : Le.chapter) || void 0 === Pe ? void 0 : Pe.chapterNumber) && void 0 !== ze ? ze : q, Y && (e2 = "Chapter ".concat(V, ": ").concat(Y));
+                ce = JSON.parse(V.slice(2)), X = null === (Fe = null === (Se = null == ce ? void 0 : ce.data) || void 0 === Se ? void 0 : Se.chapter) || void 0 === Fe ? void 0 : Fe.title, Y = null !== (ze = null === (Pe = null === (Le = null == ce ? void 0 : ce.data) || void 0 === Le ? void 0 : Le.chapter) || void 0 === Pe ? void 0 : Pe.chapterNumber) && void 0 !== ze ? ze : J, X && (e2 = "Chapter ".concat(Y, ": ").concat(X));
               } catch (e3) {
               }
-              return e2 || (e2 = "Chapter ".concat(q)), s = (s = K.map(function(e3) {
+              return e2 || (e2 = "Chapter ".concat(J)), s = (s = K.map(function(e3) {
                 return "<p>".concat(e3, "</p>");
               }).join("\n")).replace(/\[dialogue\s+speaker="([^"]*)"\](.*?)\[\/dialogue\]/gi, "$1: $2").replace(/\[sfx\].*?\[\/sfx\]/gi, "").replace(/\[\/?(dialogue|sfx)[^\]]*\]/gi, ""), [3, 89];
             case 45:
@@ -25844,7 +25874,7 @@ var LNReaderPlugin = (() => {
             case 62:
               return [3, 89];
             case 63:
-              return fe = l.split("/"), ke = "".concat(fe[0], "//api.").concat(fe[2], "/api/chapters/single?id=").concat(fe[3], "&num=").concat(fe[4]), [4, (0, n.fetchApi)(ke).then(function(e3) {
+              return fe = l.split("/"), Ae = "".concat(fe[0], "//api.").concat(fe[2], "/api/chapters/single?id=").concat(fe[3], "&num=").concat(fe[4]), [4, (0, n.fetchApi)(Ae).then(function(e3) {
                 return e3.json();
               })];
             case 64:
@@ -25860,7 +25890,7 @@ var LNReaderPlugin = (() => {
                 return a2(e3).remove();
               }), c = a2(".chapter-body").html(), [3, 89];
             case 67:
-              return Ae = l.split("/").pop(), e2 = "Chapter ".concat(Ae), ke = "".concat(l.split("chapter")[0], "txt/").concat(Ae, ".txt"), [4, (0, n.fetchApi)(ke).then(function(e3) {
+              return ke = l.split("/").pop(), e2 = "Chapter ".concat(ke), Ae = "".concat(l.split("chapter")[0], "txt/").concat(ke, ".txt"), [4, (0, n.fetchApi)(Ae).then(function(e3) {
                 return e3.text();
               }).then(function(e3) {
                 return e3.split("\n").map(function(e4) {
@@ -25881,7 +25911,7 @@ var LNReaderPlugin = (() => {
               if (a2("main").text().toLowerCase().includes("age verification required")) throw new Error("Age verification required, please open in webview.");
               return e2 = "".concat(a2("header .font-medium.text-sm").first().text().trim()), s = a2("#chapter-body").html(), [3, 89];
             case 72:
-              return (ke = a2(".entry-content a").attr("href")) ? [4, (0, n.fetchApi)(ke)] : [3, 75];
+              return (Ae = a2(".entry-content a").attr("href")) ? [4, (0, n.fetchApi)(Ae)] : [3, 75];
             case 73:
               return [4, (ye = t2.sent()).text()];
             case 74:
@@ -25897,7 +25927,7 @@ var LNReaderPlugin = (() => {
             case 77:
               return c = a2(".post").html(), [3, 89];
             case 78:
-              return (ke = a2(".entry-content a").attr("href")) ? [4, (0, n.fetchApi)(l + ke)] : [3, 81];
+              return (Ae = a2(".entry-content a").attr("href")) ? [4, (0, n.fetchApi)(l + Ae)] : [3, 81];
             case 79:
               return [4, (ye = t2.sent()).text()];
             case 80:
@@ -25915,7 +25945,7 @@ var LNReaderPlugin = (() => {
                 return a2(e3).remove();
               }), e2 = a2("h4 span").first().text(), s = a2(".chapter-content").html(), [3, 89];
             case 86:
-              return Ae = l.split("/").pop(), ke = "https://pxp-main-531j.onrender.com/api/v1/book_chapters/".concat(Ae, "/content"), [4, (0, n.fetchApi)(ke).then(function(e3) {
+              return ke = l.split("/").pop(), Ae = "https://pxp-main-531j.onrender.com/api/v1/book_chapters/".concat(ke, "/content"), [4, (0, n.fetchApi)(Ae).then(function(e3) {
                 return e3.json();
               })];
             case 87:
@@ -25977,7 +26007,7 @@ var LNReaderPlugin = (() => {
       });
     }, o2.prototype.searchNovels = function(a2, o3) {
       return e(this, void 0, void 0, function() {
-        var e2, l, s, c, i;
+        var e2, l, s, c, i, u;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25985,9 +26015,9 @@ var LNReaderPlugin = (() => {
                 return e3.length > t3.length ? e3 : t3;
               }, ""), a2 = l.replace(/[‘’]/g, "'").replace(/\s+/g, "+"), s = "".concat(this.site, "series-finder/?sf=1&sh=").concat(a2, "&sort=srank&order=asc&pg=").concat(o3), [4, (0, n.fetchApi)(s)];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, (c = t2.sent()).text()];
             case 2:
-              return c = t2.sent(), i = (0, r.load)(c), [2, this.parseNovels(i)];
+              return i = t2.sent(), this.assertNotBlocked(c, i, "on the novel list"), u = (0, r.load)(i), [2, this.parseNovels(u)];
           }
         });
       });

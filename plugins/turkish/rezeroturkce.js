@@ -830,18 +830,18 @@ var LNReaderPlugin = (() => {
       var eBias = eMax >> 1;
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
-      var d2 = isLE ? -1 : 1;
+      var d = isLE ? -1 : 1;
       var s2 = buffer[offset + i2];
-      i2 += d2;
+      i2 += d;
       e2 = s2 & (1 << -nBits) - 1;
       s2 >>= -nBits;
       nBits += eLen;
-      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
+      for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
       m = e2 & (1 << -nBits) - 1;
       e2 >>= -nBits;
       nBits += mLen;
-      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d2, nBits -= 8) {
+      for (; nBits > 0; m = m * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
       if (e2 === 0) {
         e2 = 1 - eBias;
@@ -860,7 +860,7 @@ var LNReaderPlugin = (() => {
       var eBias = eMax >> 1;
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
-      var d2 = isLE ? 1 : -1;
+      var d = isLE ? 1 : -1;
       var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
@@ -892,13 +892,13 @@ var LNReaderPlugin = (() => {
           e2 = 0;
         }
       }
-      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d2, m /= 256, mLen -= 8) {
+      for (; mLen >= 8; buffer[offset + i2] = m & 255, i2 += d, m /= 256, mLen -= 8) {
       }
       e2 = e2 << mLen | m;
       eLen += mLen;
-      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d2, e2 /= 256, eLen -= 8) {
+      for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d2] |= s2 * 128;
+      buffer[offset + i2 - d] |= s2 * 128;
     };
     return exports$1;
   }
@@ -2578,23 +2578,23 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       var __extends = exports4 && exports4.__extends || /* @__PURE__ */ function() {
-        var extendStatics = /* @__PURE__ */ __name(function(d2, b) {
-          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, b2) {
-            d3.__proto__ = b2;
-          } || function(d3, b2) {
-            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d3[p2] = b2[p2];
+        var extendStatics = /* @__PURE__ */ __name(function(d, b) {
+          extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
+            d2.__proto__ = b2;
+          } || function(d2, b2) {
+            for (var p2 in b2) if (Object.prototype.hasOwnProperty.call(b2, p2)) d2[p2] = b2[p2];
           };
-          return extendStatics(d2, b);
+          return extendStatics(d, b);
         }, "extendStatics");
-        return function(d2, b) {
+        return function(d, b) {
           if (typeof b !== "function" && b !== null)
             throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-          extendStatics(d2, b);
+          extendStatics(d, b);
           function __() {
-            this.constructor = d2;
+            this.constructor = d;
           }
           __name(__, "__");
-          d2.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
       }();
       var __assign = exports4 && exports4.__assign || function() {
@@ -6317,8 +6317,8 @@ var LNReaderPlugin = (() => {
           } else if (token.name === "has" || token.name === "contains") {
             proc = 0;
           } else if (Array.isArray(token.data)) {
-            proc = Math.min.apply(Math, token.data.map(function(d2) {
-              return Math.min.apply(Math, d2.map(getProcedure));
+            proc = Math.min.apply(Math, token.data.map(function(d) {
+              return Math.min.apply(Math, d.map(getProcedure));
             }));
             if (proc < 0) {
               proc = 0;
@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25489,16 +25497,16 @@ var LNReaderPlugin = (() => {
     return t2.concat(n2 || Array.prototype.slice.call(e2));
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = /^https?:\/\/(?:www\.)?rezeroturkce\.com\//i, c = ["ana-hikaye", "if-hikayeleri", "yan-hikayeler", "ex-romanlari"], u = ["bot verification", "you are being redirected...", "just a moment...", "bir dakika l\xFCtfen...", "redirecting..."], l = ["ocak", "\u015Fubat", "mart", "nisan", "may\u0131s", "haziran", "temmuz", "a\u011Fustos", "eyl\xFCl", "ekim", "kas\u0131m", "aral\u0131k"], h = /cevirisi tamamlan(?:mistir|di)(?![a-z])/, f = /* @__PURE__ */ __name(function(t2) {
+  var n = (init_browser(), __toCommonJS(browser_exports)), i = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = /^https?:\/\/(?:www\.)?rezeroturkce\.com\//i, s = ["ana-hikaye", "if-hikayeleri", "yan-hikayeler", "ex-romanlari"], c = ["bot verification", "you are being redirected...", "just a moment...", "bir dakika l\xFCtfen...", "redirecting..."], u = ["ocak", "\u015Fubat", "mart", "nisan", "may\u0131s", "haziran", "temmuz", "a\u011Fustos", "eyl\xFCl", "ekim", "kas\u0131m", "aral\u0131k"], l = /cevirisi tamamlan(?:mistir|di)(?![a-z])/, h = /* @__PURE__ */ __name(function(t2) {
     return t2.toLowerCase().replace(/ı/g, "i").normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
-  }, "f"), p = /* @__PURE__ */ __name(function(t2) {
+  }, "h"), f = /* @__PURE__ */ __name(function(t2) {
     return t2.replace(/\s+/g, " ").trim();
-  }, "p"), d = function() {
-    function d2() {
-      this.id = "rezeroturkce", this.name = "Re:Zero T\xFCrk\xE7e", this.icon = "src/tr/rezeroturkce/icon.png", this.site = "https://www.rezeroturkce.com/", this.version = "1.0.0";
+  }, "f"), p = function() {
+    function p2() {
+      this.id = "rezeroturkce", this.name = "Re:Zero T\xFCrk\xE7e", this.icon = "src/tr/rezeroturkce/icon.png", this.site = "https://www.rezeroturkce.com/", this.version = "1.0.1";
     }
-    __name(d2, "d");
-    return d2.prototype.getCheerio = function(r2) {
+    __name(p2, "p");
+    return p2.prototype.getCheerio = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, a2, o2, s2;
         return e(this, function(e2) {
@@ -25508,25 +25516,25 @@ var LNReaderPlugin = (() => {
             case 1:
               return [4, (t2 = e2.sent()).text()];
             case 2:
-              if (a2 = e2.sent(), (o2 = null === (s2 = a2.match(/<title[^>]*>([^<]*)<\/title>/i)) || void 0 === s2 ? void 0 : s2[1]) && u.includes(p(o2).toLowerCase())) throw new Error("Captcha error, please open in webview");
+              if (a2 = e2.sent(), (o2 = null === (s2 = a2.match(/<title[^>]*>([^<]*)<\/title>/i)) || void 0 === s2 ? void 0 : s2[1]) && c.includes(f(o2).toLowerCase())) throw new Error("Captcha error, please open in webview");
               if (!t2.ok) throw new Error("Could not reach site (" + t2.status + "), try to open in webview");
               return [2, (0, n.load)(a2)];
           }
         });
       });
-    }, d2.prototype.toPath = function(t2) {
-      if (t2 && s.test(t2)) {
-        var e2 = t2.replace(s, "").split(/[?#]/)[0];
+    }, p2.prototype.toPath = function(t2) {
+      if (t2 && o.test(t2)) {
+        var e2 = t2.replace(o, "").split(/[?#]/)[0];
         if (e2) return e2.endsWith("/") ? e2 : e2 + "/";
       }
-    }, d2.prototype.isStoryPath = function(t2) {
+    }, p2.prototype.isStoryPath = function(t2) {
       if (!t2) return false;
       var e2 = t2.split("/").filter(Boolean);
-      return 2 === e2.length && c.includes(e2[0]);
-    }, d2.prototype.parseStoryIndex = function(t2, e2) {
+      return 2 === e2.length && s.includes(e2[0]);
+    }, p2.prototype.parseStoryIndex = function(t2, e2) {
       var r2 = this, n2 = [];
       return t2("article .wp-block-columns").each(function(i2, a2) {
-        var o2, c2 = t2(a2), u2 = null === (o2 = c2.find("img").first().attr("src")) || void 0 === o2 ? void 0 : o2.replace(s, r2.site), l2 = p(c2.find("h2").first().text());
+        var s2, c2 = t2(a2), u2 = null === (s2 = c2.find("img").first().attr("src")) || void 0 === s2 ? void 0 : s2.replace(o, r2.site), l2 = f(c2.find("h2").first().text());
         if (u2 && l2) {
           var h2 = c2.find("a").toArray().map(function(e3) {
             return r2.toPath(t2(e3).attr("href"));
@@ -25536,49 +25544,49 @@ var LNReaderPlugin = (() => {
           h2 && !e2.has(h2) && (e2.add(h2), n2.push({ name: l2, path: h2, cover: u2 }));
         }
       }), n2;
-    }, d2.prototype.popularNovels = function(n2) {
+    }, p2.prototype.popularNovels = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, s2, c2, u2, l2, h2 = this;
+        var t2, i2, a2, o2, s2, c2, u2, l2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return n2 > 1 ? [2, []] : [4, Promise.all(["ana-hikaye/", "if-hikayeleri/", "ex-romanlari/", "yan-hikayeler/"].map(function(t3) {
-                return h2.getCheerio(t3);
+                return l2.getCheerio(t3);
               }))];
             case 1:
-              return t2 = e2.sent(), i2 = t2[0], o2 = t2[1], s2 = t2[2], c2 = t2[3], u2 = /* @__PURE__ */ new Set(), (l2 = r(r(r([], this.parseStoryIndex(i2, u2), true), this.parseStoryIndex(o2, u2), true), this.parseStoryIndex(s2, u2), true)).push({ name: p(c2("main h1").first().text()) || "Yan Hik\xE2yeler", path: "yan-hikayeler/", cover: c2('meta[property="og:image"]').attr("content") || a.defaultCover }), [2, l2];
+              return t2 = e2.sent(), i2 = t2[0], a2 = t2[1], o2 = t2[2], s2 = t2[3], c2 = /* @__PURE__ */ new Set(), (u2 = r(r(r([], this.parseStoryIndex(i2, c2), true), this.parseStoryIndex(a2, c2), true), this.parseStoryIndex(o2, c2), true)).push({ name: f(s2("main h1").first().text()) || "Yan Hik\xE2yeler", path: "yan-hikayeler/", cover: s2('meta[property="og:image"]').attr("content") }), [2, u2];
           }
         });
       });
-    }, d2.prototype.parseDate = function(t2) {
+    }, p2.prototype.parseDate = function(t2) {
       var e2 = t2.trim().match(/^(\d{1,2})\s+(\S+)\s+(\d{4})$/);
       if (e2) {
-        var r2 = l.indexOf(e2[2].toLowerCase());
+        var r2 = u.indexOf(e2[2].toLowerCase());
         if (!(r2 < 0)) return e2[3] + "-" + String(r2 + 1).padStart(2, "0") + "-" + e2[1].padStart(2, "0");
       }
-    }, d2.prototype.parseNovel = function(r2) {
+    }, p2.prototype.parseNovel = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, i2, s2, c2, u2, l2, d3, v, y, m, w, b, g, k = this;
+        var t2, n2, i2, o2, s2, c2, u2, p3, d, v, y, m, w, b, g = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return [4, this.getCheerio(r2)];
             case 1:
-              for (t2 = e2.sent(), n2 = t2("main article").first(), i2 = { path: r2, name: p(t2("main h1").first().text()) || "Untitled", cover: t2('meta[property="og:image"]').attr("content") || a.defaultCover, status: o.NovelStatus.Unknown }, s2 = [], n2.find("br").replaceWith(" "), c2 = 0, u2 = n2.find("h2, p, ul, ol, table").toArray(); c2 < u2.length && (l2 = u2[c2], !(d3 = t2(l2)).is("ul, ol, table")) && (v = p(d3.text()), !/^bolumler/.test(f(v))); c2++) v && s2.push(v);
-              return s2.length && (i2.summary = s2.join("\n\n")), h.test(f(n2.find("h2").text())) && (i2.status = o.NovelStatus.Completed), y = /* @__PURE__ */ new Map(), n2.find("tr").each(function(e3, r3) {
-                var n3 = k.toPath(t2(r3).find("a").attr("href")), i3 = k.parseDate(t2(r3).find("td").last().text());
-                n3 && i3 && y.set(n3, i3);
-              }), m = r2.replace(/\/$/, "-"), w = [], b = /* @__PURE__ */ new Set(), g = /* @__PURE__ */ __name(function(t3, e3) {
-                var n3 = k.toPath(t3);
-                n3 && n3 !== r2 && (n3.startsWith(r2) || n3.startsWith(m)) && !b.has(n3) && e3 && (b.add(n3), w.push({ name: e3, path: n3, releaseTime: y.get(n3) }));
-              }, "g"), n2.find("a").each(function(e3, r3) {
+              for (t2 = e2.sent(), n2 = t2("main article").first(), i2 = { path: r2, name: f(t2("main h1").first().text()) || "Untitled", cover: t2('meta[property="og:image"]').attr("content"), status: a.NovelStatus.Unknown }, o2 = [], n2.find("br").replaceWith(" "), s2 = 0, c2 = n2.find("h2, p, ul, ol, table").toArray(); s2 < c2.length && (u2 = c2[s2], !(p3 = t2(u2)).is("ul, ol, table")) && (d = f(p3.text()), !/^bolumler/.test(h(d))); s2++) d && o2.push(d);
+              return o2.length && (i2.summary = o2.join("\n\n")), l.test(h(n2.find("h2").text())) && (i2.status = a.NovelStatus.Completed), v = /* @__PURE__ */ new Map(), n2.find("tr").each(function(e3, r3) {
+                var n3 = g.toPath(t2(r3).find("a").attr("href")), i3 = g.parseDate(t2(r3).find("td").last().text());
+                n3 && i3 && v.set(n3, i3);
+              }), y = r2.replace(/\/$/, "-"), m = [], w = /* @__PURE__ */ new Set(), b = /* @__PURE__ */ __name(function(t3, e3) {
+                var n3 = g.toPath(t3);
+                n3 && n3 !== r2 && (n3.startsWith(r2) || n3.startsWith(y)) && !w.has(n3) && e3 && (w.add(n3), m.push({ name: e3, path: n3, releaseTime: v.get(n3) }));
+              }, "b"), n2.find("a").each(function(e3, r3) {
                 var n3 = t2(r3), i3 = n3.closest("li");
-                i3.length && i3.find("a").length > 1 ? n3.is(i3.find("a").last()) && g(n3.attr("href"), p(i3.text())) : g(n3.attr("href"), p(n3.text()).replace(/:$/, ""));
-              }), i2.chapters = w, [2, i2];
+                i3.length && i3.find("a").length > 1 ? n3.is(i3.find("a").last()) && b(n3.attr("href"), f(i3.text())) : b(n3.attr("href"), f(n3.text()).replace(/:$/, ""));
+              }), i2.chapters = m, [2, i2];
           }
         });
       });
-    }, d2.prototype.parseChapter = function(r2) {
+    }, p2.prototype.parseChapter = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, n2;
         return e(this, function(e2) {
@@ -25588,9 +25596,9 @@ var LNReaderPlugin = (() => {
             case 1:
               return t2 = e2.sent(), (n2 = t2("article.entry-content").first()).find("script, style, noscript, iframe, ins, .wp-block-post-navigation-link").remove(), n2.find(".wp-block-columns").each(function(e3, r3) {
                 var n3 = t2(r3);
-                p(n3.text()) || n3.find("img").length || n3.remove();
+                f(n3.text()) || n3.find("img").length || n3.remove();
               }), n2.find("p").filter(function(e3, r3) {
-                return /^\[adinserter[^\]]*\]$/.test(p(t2(r3).text()));
+                return /^\[adinserter[^\]]*\]$/.test(f(t2(r3).text()));
               }).remove(), n2.find("*").each(function(e3, r3) {
                 for (var n3 = 0, i2 = Object.entries(r3.attribs); n3 < i2.length; n3++) {
                   var a2 = i2[n3], o2 = a2[0], s2 = a2[1];
@@ -25600,23 +25608,23 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, d2.prototype.searchNovels = function(r2, n2) {
+    }, p2.prototype.searchNovels = function(r2, n2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return n2 > 1 ? [2, []] : (t2 = f(r2), [4, this.popularNovels(1)]);
+              return n2 > 1 ? [2, []] : (t2 = h(r2), [4, this.popularNovels(1)]);
             case 1:
               return [2, e2.sent().filter(function(e3) {
-                return f(e3.name).includes(t2);
+                return h(e3.name).includes(t2);
               })];
           }
         });
       });
-    }, d2;
+    }, p2;
   }();
-  exports.default = new d();
+  exports.default = new p();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

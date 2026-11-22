@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9349,7 +9372,7 @@ var LNReaderPlugin = (() => {
         ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
-          Array(5).fill(0).map((v2, idx) => {
+          Array(5).fill(0).map((v, idx) => {
             if (idx === 0) return 0;
             return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
           })
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -10206,10 +10230,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -11000,10 +11024,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -14248,10 +14272,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -14390,10 +14414,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -14621,10 +14645,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -24818,10 +24842,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -25257,10 +25281,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -25376,7 +25400,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25394,22 +25418,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25444,7 +25452,7 @@ var LNReaderPlugin = (() => {
         }, "ordinal") }, m = /* @__PURE__ */ __name(function(t3, e3, n3) {
           var r3 = String(t3);
           return !r3 || r3.length >= e3 ? t3 : "" + Array(e3 + 1 - r3.length).join(n3) + t3;
-        }, "m"), v2 = { s: m, z: /* @__PURE__ */ __name(function(t3) {
+        }, "m"), v = { s: m, z: /* @__PURE__ */ __name(function(t3) {
           var e3 = -t3.utcOffset(), n3 = Math.abs(e3), r3 = Math.floor(n3 / 60), i3 = n3 % 60;
           return (e3 <= 0 ? "+" : "-") + m(r3, 2, "0") + ":" + m(i3, 2, "0");
         }, "z"), m: /* @__PURE__ */ __name(function t3(e3, n3) {
@@ -25478,7 +25486,7 @@ var LNReaderPlugin = (() => {
           if (S(t3)) return t3.clone();
           var n3 = "object" == typeof e3 ? e3 : {};
           return n3.date = t3, n3.args = arguments, new _(n3);
-        }, "O"), b = v2;
+        }, "O"), b = v;
         b.l = w, b.i = S, b.w = function(t3, e3) {
           return O(t3, { locale: e3.$L, utc: e3.$u, x: e3.$x, $offset: e3.$offset });
         };
@@ -25529,7 +25537,7 @@ var LNReaderPlugin = (() => {
               return r3 ? i3 : i3.endOf(a2);
             }, "l"), $3 = /* @__PURE__ */ __name(function(t4, e4) {
               return b.w(n3.toDate()[t4].apply(n3.toDate("s"), (r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)), n3);
-            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v3 = "set" + (this.$u ? "UTC" : "");
+            }, "$"), y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
             switch (f2) {
               case h:
                 return r3 ? l3(1, 0) : l3(31, 11);
@@ -25540,13 +25548,13 @@ var LNReaderPlugin = (() => {
                 return l3(r3 ? m3 - D2 : m3 + (6 - D2), M3);
               case a2:
               case d:
-                return $3(v3 + "Hours", 0);
+                return $3(v2 + "Hours", 0);
               case u2:
-                return $3(v3 + "Minutes", 1);
+                return $3(v2 + "Minutes", 1);
               case s2:
-                return $3(v3 + "Seconds", 2);
+                return $3(v2 + "Seconds", 2);
               case i2:
-                return $3(v3 + "Milliseconds", 3);
+                return $3(v2 + "Milliseconds", 3);
               default:
                 return this.clone();
             }
@@ -25647,7 +25655,7 @@ var LNReaderPlugin = (() => {
           }, m2.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
           }, m2.diff = function(r3, d2, l3) {
-            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v3 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
+            var $3, y2 = this, M3 = b.p(d2), m3 = O(r3), v2 = (m3.utcOffset() - this.utcOffset()) * e2, g2 = this - m3, D2 = /* @__PURE__ */ __name(function() {
               return b.m(y2, m3);
             }, "D");
             switch (M3) {
@@ -25661,10 +25669,10 @@ var LNReaderPlugin = (() => {
                 $3 = D2() / 3;
                 break;
               case o2:
-                $3 = (g2 - v3) / 6048e5;
+                $3 = (g2 - v2) / 6048e5;
                 break;
               case a2:
-                $3 = (g2 - v3) / 864e5;
+                $3 = (g2 - v2) / 864e5;
                 break;
               case u2:
                 $3 = g2 / n2;
@@ -25806,10 +25814,10 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var l = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = (init_browser(), __toCommonJS(browser_exports)), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = a(require_dayjs_min()), u = "https://blnovels.com", c = ["Just a moment...", "Attention Required! | Cloudflare", "Checking your browser...", "One moment please...", "Bot Verification", "You are being redirected...", "Redirecting..."], v = function() {
+  var l = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), i = (init_browser(), __toCommonJS(browser_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = a(require_dayjs_min()), s = "https://blnovels.com", u = ["Just a moment...", "Attention Required! | Cloudflare", "Checking your browser...", "One moment please...", "Bot Verification", "You are being redirected...", "Redirecting..."], c = function() {
     function a2() {
-      this.id = "blnovels", this.name = "BL Novels", this.version = "1.0.0", this.icon = "src/pt-br/blnovels/icon.png", this.site = u, this.headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36", Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8", "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8", Referer: "".concat(u, "/") }, this.resolveUrl = function(e2) {
-        return u + e2;
+      this.id = "blnovels", this.name = "BL Novels", this.version = "1.0.1", this.icon = "src/pt-br/blnovels/icon.png", this.site = s, this.headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36", Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8", "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8", Referer: "".concat(s, "/") }, this.resolveUrl = function(e2) {
+        return s + e2;
       }, this.filters = { "genre[]": { type: r.FilterTypes.CheckboxGroup, label: "G\xEAneros", value: [], options: [{ label: "Abuso", value: "abuso" }, { label: "A\xE7\xE3o", value: "acao" }, { label: "Anti-her\xF3i", value: "anti-heroi" }, { label: "Aventura", value: "aventura" }, { label: "BG", value: "bg" }, { label: "BL", value: "bl" }, { label: "Boyslove", value: "boyslove" }, { label: "Com\xE9dia", value: "comedia" }, { label: "Crime", value: "crime" }, { label: "Cultivo", value: "cultivo" }, { label: "Danmei", value: "danmei" }, { label: "Delulu", value: "delulu" }, { label: "Detetive", value: "detetive" }, { label: "Drama", value: "drama" }, { label: "Escolar", value: "escolar" }, { label: "Espa\xF1ol", value: "espanol" }, { label: "Fantasia", value: "fantasia" }, { label: "Fic\xE7\xE3o Cient\xEDfica", value: "ficcao-cientifica" }, { label: "Girls Love", value: "girls-love" }, { label: "GL", value: "gl" }, { label: "Guideverse", value: "guideverse" }, { label: "Hardcore", value: "hardcore" }, { label: "Hist\xF3rico", value: "historico" }, { label: "Horror", value: "horror" }, { label: "Incesto", value: "incesto" }, { label: "Interestelar", value: "interestelar" }, { label: "M\xE1fia", value: "mafia" }, { label: "Mature", value: "mature" }, { label: "Mist\xE9rio", value: "misterio" }, { label: "Moderno", value: "moderno" }, { label: "Mpreg", value: "mpreg" }, { label: "Obsessivo", value: "obsessivo" }, { label: "Omegaverse", value: "omegaverse" }, { label: "Policial", value: "policial" }, { label: "Portugu\xEAs", value: "portugues" }, { label: "Prostitui\xE7\xE3o", value: "prostituicao" }, { label: "Psicol\xF3gico", value: "psicologico" }, { label: "Renascimento", value: "renascimento" }, { label: "Romance", value: "romance" }, { label: "School Life", value: "school-life" }, { label: "Shounen", value: "shounen" }, { label: "Shounen-ai", value: "shounen-ai" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Sobrenatural", value: "sobrenatural" }, { label: "Submiss\xE3o", value: "submissao" }, { label: "Supernatural", value: "supernatural" }, { label: "Suspense", value: "suspense" }, { label: "Terror", value: "terror" }, { label: "Thriller", value: "thriller" }, { label: "Trag\xE9dia", value: "tragedia" }, { label: "Tragedy", value: "tragedy" }, { label: "Transmigra\xE7\xE3o", value: "transmigracao" }, { label: "Vingan\xE7a", value: "vinganca" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yakuza", value: "yakuza" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: r.FilterTypes.Switch, label: "E (tendo todos os g\xEAneros selecionados)", value: false }, author: { type: r.FilterTypes.TextInput, label: "Autor", value: "" }, artist: { type: r.FilterTypes.TextInput, label: "Artista", value: "" }, release: { type: r.FilterTypes.TextInput, label: "Ano de Lan\xE7ado", value: "" }, adult: { type: r.FilterTypes.Picker, label: "Conte\xFAdo adulto", value: "", options: [{ label: "Tudo", value: "" }, { label: "Nenhum conte\xFAdo adulto", value: "0" }, { label: "APENAS CONTE\xDADO ADULTO", value: "1" }] }, "status[]": { type: r.FilterTypes.CheckboxGroup, label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: r.FilterTypes.Picker, label: "Ordem", value: "", options: [{ label: "Relev\xE2ncia", value: "" }, { label: "Mais recentes", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Votos", value: "rating" }, { label: "Tend\xEAncias", value: "trending" }, { label: "Mais Vistas", value: "views" }, { label: "Novo", value: "new-manga" }] } };
     }
     __name(a2, "a");
@@ -25827,25 +25835,28 @@ var LNReaderPlugin = (() => {
               }
               return [4, r2.text()];
             case 2:
-              if (i2 = t2.sent(), n2 = (null === (s2 = null === (o2 = i2.match(/<title[^>]*>([^<]*)<\/title>/)) || void 0 === o2 ? void 0 : o2[1]) || void 0 === s2 ? void 0 : s2.trim()) || "", c.includes(n2)) throw new Error('Bot challenge page returned by site ("'.concat(n2, '")'));
+              if (i2 = t2.sent(), n2 = (null === (s2 = null === (o2 = i2.match(/<title[^>]*>([^<]*)<\/title>/)) || void 0 === o2 ? void 0 : o2[1]) || void 0 === s2 ? void 0 : s2.trim()) || "", u.includes(n2)) throw new Error('Bot challenge page returned by site ("'.concat(n2, '")'));
               return [2, i2];
           }
         });
       });
     }, a2.prototype.coverUrl = function(e2) {
-      return e2 ? /^https?:\/\//.test(e2) ? e2 === u ? n.defaultCover : e2.replace(/-\d+x\d+(\.\w+)$/, "$1") || n.defaultCover : e2 : n.defaultCover;
+      if (e2) {
+        if (!/^https?:\/\//.test(e2)) return e2;
+        if (e2 !== s) return e2.replace(/-\d+x\d+(\.\w+)$/, "$1");
+      }
     }, a2.prototype.toPath = function(e2) {
-      return e2.startsWith(u) ? e2.slice(20) : e2;
+      return e2.startsWith(s) ? e2.slice(20) : e2;
     }, a2.prototype.parseNovels = function(e2) {
       var t2 = this, a3 = [], l2 = /* @__PURE__ */ new Set();
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(r2, i2) {
-        var o2, s2 = e2(i2).find(".post-title a").first(), u2 = s2.text().trim() || e2(i2).find(".post-title").text().trim(), c2 = s2.attr("href") || "";
-        if (u2 && c2) {
-          var v2 = t2.toPath(c2);
-          if (!l2.has(v2)) {
-            l2.add(v2);
-            var h = e2(i2).find("img").first(), p = t2.coverUrl(h.attr("data-src") || (null === (o2 = h.attr("data-srcset")) || void 0 === o2 ? void 0 : o2.split(" ")[0]) || h.attr("src")) || n.defaultCover;
-            a3.push({ name: u2, cover: p, path: v2 });
+        var n2, o2 = e2(i2).find(".post-title a").first(), s2 = o2.text().trim() || e2(i2).find(".post-title").text().trim(), u2 = o2.attr("href") || "";
+        if (s2 && u2) {
+          var c2 = t2.toPath(u2);
+          if (!l2.has(c2)) {
+            l2.add(c2);
+            var v = e2(i2).find("img").first(), h = t2.coverUrl(v.attr("data-src") || (null === (n2 = v.attr("data-srcset")) || void 0 === n2 ? void 0 : n2.split(" ")[0]) || v.attr("src"));
+            a3.push({ name: s2, cover: h, path: c2 });
           }
         }
       }), a3;
@@ -25854,14 +25865,14 @@ var LNReaderPlugin = (() => {
       t2 && (i2 += encodeURIComponent(t2)), i2 += "&post_type=wp-manga", r2 && (i2 += "&m_orderby=latest");
       var n2 = l2 || this.filters;
       for (var o2 in n2) {
-        var s2 = n2[o2].value;
-        if (Array.isArray(s2)) for (var c2 = 0, v2 = s2; c2 < v2.length; c2++) {
-          var h = v2[c2];
+        var u2 = n2[o2].value;
+        if (Array.isArray(u2)) for (var c2 = 0, v = u2; c2 < v.length; c2++) {
+          var h = v[c2];
           h && (i2 += "&".concat(o2, "=").concat(encodeURIComponent(h)));
         }
-        else "boolean" == typeof s2 ? s2 && (i2 += "&".concat(o2, "=1")) : s2 && (i2 += "&".concat(o2, "=").concat(encodeURIComponent(String(s2))));
+        else "boolean" == typeof u2 ? u2 && (i2 += "&".concat(o2, "=1")) : u2 && (i2 += "&".concat(o2, "=").concat(encodeURIComponent(String(u2))));
       }
-      return u + i2;
+      return s + i2;
     }, a2.prototype.popularNovels = function(a3, l2) {
       return e(this, void 0, void 0, function() {
         var e2, r2;
@@ -25887,7 +25898,7 @@ var LNReaderPlugin = (() => {
         });
       });
     }, a2.prototype.parseStatus = function(e2) {
-      if (e2) return /on\s*-?\s*going/i.test(e2) ? o.NovelStatus.Ongoing : /complet/i.test(e2) ? o.NovelStatus.Completed : /cancel/i.test(e2) ? o.NovelStatus.Cancelled : /hold|hiatus|hiato/i.test(e2) ? o.NovelStatus.OnHiatus : /upcoming|em breve/i.test(e2) ? o.NovelStatus.Unknown : void 0;
+      if (e2) return /on\s*-?\s*going/i.test(e2) ? n.NovelStatus.Ongoing : /complet/i.test(e2) ? n.NovelStatus.Completed : /cancel/i.test(e2) ? n.NovelStatus.Cancelled : /hold|hiatus|hiato/i.test(e2) ? n.NovelStatus.OnHiatus : /upcoming|em breve/i.test(e2) ? n.NovelStatus.Unknown : void 0;
     }, a2.prototype.parseReleaseDate = function(e2) {
       if (!e2) return null;
       var t2 = e2.match(/(\d+)\s*([a-záéêíóúãõç]+)/i);
@@ -25903,7 +25914,7 @@ var LNReaderPlugin = (() => {
         if (!r2.startsWith("an") && !r2.startsWith("year")) return null;
         a3 = "year";
       }
-      return (0, s.default)().subtract(l2, a3).format("YYYY-MM-DD");
+      return (0, o.default)().subtract(l2, a3).format("YYYY-MM-DD");
     }, a2.prototype.parseChapters = function(e2) {
       var t2 = this, a3 = [], l2 = e2("li.wp-manga-chapter"), r2 = l2.length;
       return l2.each(function(l3, i2) {
@@ -25915,11 +25926,11 @@ var LNReaderPlugin = (() => {
       }), a3.reverse();
     }, a2.prototype.parseNovel = function(a3) {
       return e(this, void 0, void 0, function() {
-        var e2, l2, r2, n2, o2, s2, c2, v2, h, p, f = this;
+        var e2, l2, r2, n2, o2, u2, c2, v, h, p, f = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return e2 = u + a3, [4, this.fetchHtml(e2)];
+              return e2 = s + a3, [4, this.fetchHtml(e2)];
             case 1:
               return l2 = t2.sent(), (r2 = (0, i.load)(l2))(".manga-title-badges").remove(), n2 = { path: a3, name: r2(".post-title h1").first().text().trim(), cover: this.coverUrl(r2(".summary_image img").first().attr("data-src") || r2(".summary_image img").first().attr("src")) }, r2(".post-content_item").each(function(e3, t3) {
                 var a4 = r2(t3).find("h5").first().text().trim();
@@ -25936,9 +25947,9 @@ var LNReaderPlugin = (() => {
                 } else /^status/i.test(a4) ? n2.status = f.parseStatus(r2(t3).find(".summary-content").first().text()) : /^artist/i.test(a4) && (n2.artist = r2(t3).find(".summary-content").first().text().trim());
               }), n2.genres || (o2 = r2(".genres-content a").map(function(e3, t3) {
                 return r2(t3).text().trim();
-              }).get().filter(Boolean)).length && (n2.genres = o2.join(",")), s2 = parseFloat(r2(".post-rating .post-total-rating span.score").first().text().trim()), Number.isNaN(s2) || (n2.rating = s2), c2 = r2("div.description-summary div.summary__content").first(), v2 = c2.find("p").map(function(e3, t3) {
+              }).get().filter(Boolean)).length && (n2.genres = o2.join(",")), u2 = parseFloat(r2(".post-rating .post-total-rating span.score").first().text().trim()), Number.isNaN(u2) || (n2.rating = u2), c2 = r2("div.description-summary div.summary__content").first(), v = c2.find("p").map(function(e3, t3) {
                 return r2(t3).text().trim();
-              }).get().filter(Boolean), n2.summary = v2.length ? v2.join("\n\n") : c2.text().trim() || void 0, 0 !== (h = this.parseChapters(r2)).length ? [3, 3] : [4, this.fetchHtml("".concat(e2, "ajax/chapters/"), { method: "POST", referrer: e2 })];
+              }).get().filter(Boolean), n2.summary = v.length ? v.join("\n\n") : c2.text().trim() || void 0, 0 !== (h = this.parseChapters(r2)).length ? [3, 3] : [4, this.fetchHtml("".concat(e2, "ajax/chapters/"), { method: "POST", referrer: e2 })];
             case 2:
               (p = t2.sent()) && (h = this.parseChapters((0, i.load)(p))), t2.label = 3;
             case 3:
@@ -25952,7 +25963,7 @@ var LNReaderPlugin = (() => {
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return [4, this.fetchHtml(u + a3)];
+              return [4, this.fetchHtml(s + a3)];
             case 1:
               if (e2 = t2.sent(), l2 = (0, i.load)(e2), r2 = l2(".text-left").first(), (n2 = (null === (o2 = r2.html()) || void 0 === o2 ? void 0 : o2.trim()) || "").length < 200) throw new Error("Chapter content not found or too short at ".concat(a3));
               return [2, n2];
@@ -25961,7 +25972,7 @@ var LNReaderPlugin = (() => {
       });
     }, a2;
   }();
-  exports.default = new v();
+  exports.default = new c();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

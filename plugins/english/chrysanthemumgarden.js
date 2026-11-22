@@ -1126,18 +1126,18 @@ var LNReaderPlugin = (() => {
     Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
       return b != null && b._isBuffer === true && b !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
-      if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a, b) {
+      if (isInstance(a, Uint8Array)) a = Buffer3.from(a, a.offset, a.byteLength);
       if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
+      if (!Buffer3.isBuffer(a) || !Buffer3.isBuffer(b)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b) return 0;
-      let x = a2.length;
+      if (a === b) return 0;
+      let x = a.length;
       let y = b.length;
       for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b[i2]) {
-          x = a2[i2];
+        if (a[i2] !== b[i2]) {
+          x = a[i2];
           y = b[i2];
           break;
         }
@@ -4219,8 +4219,8 @@ var LNReaderPlugin = (() => {
       function merge2(dst) {
         var ifNotSet = typeof arguments[arguments.length - 1] === "boolean", limit = ifNotSet ? arguments.length - 1 : arguments.length;
         ifNotSet = ifNotSet && arguments[arguments.length - 1];
-        for (var a2 = 1; a2 < limit; ++a2) {
-          var src = arguments[a2];
+        for (var a = 1; a < limit; ++a) {
+          var src = arguments[a];
           if (!src)
             continue;
           for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
@@ -6907,8 +6907,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
-        return a2.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a, b) {
+        return a.id - b.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -11567,9 +11591,9 @@ var LNReaderPlugin = (() => {
         };
       }
       __name(getAttribCheck, "getAttribCheck");
-      function combineFuncs(a2, b) {
+      function combineFuncs(a, b) {
         return function(elem) {
-          return a2(elem) || b(elem);
+          return a(elem) || b(elem);
         };
       }
       __name(combineFuncs, "combineFuncs");
@@ -11713,8 +11737,8 @@ var LNReaderPlugin = (() => {
         nodes = nodes.filter(function(node, i2, arr) {
           return !arr.includes(node, i2 + 1);
         });
-        nodes.sort(function(a2, b) {
-          var relative = compareDocumentPosition(a2, b);
+        nodes.sort(function(a, b) {
+          var relative = compareDocumentPosition(a, b);
           if (relative & DocumentPosition.PRECEDING) {
             return -1;
           } else if (relative & DocumentPosition.FOLLOWING) {
@@ -13416,12 +13440,12 @@ var LNReaderPlugin = (() => {
           return [2, 1];
         }
         var idx = 0;
-        var a2 = 0;
+        var a = 0;
         var sign = readSign();
         var number = readNumber();
         if (idx < formula.length && formula.charAt(idx) === "n") {
           idx++;
-          a2 = sign * (number !== null && number !== void 0 ? number : 1);
+          a = sign * (number !== null && number !== void 0 ? number : 1);
           skipWhitespace();
           if (idx < formula.length) {
             sign = readSign();
@@ -13434,7 +13458,7 @@ var LNReaderPlugin = (() => {
         if (number === null || idx < formula.length) {
           throw new Error("n-th rule couldn't be parsed ('".concat(formula, "')"));
         }
-        return [a2, sign * number];
+        return [a, sign * number];
         function readSign() {
           if (formula.charAt(idx) === "-") {
             idx++;
@@ -13482,25 +13506,25 @@ var LNReaderPlugin = (() => {
       exports4.generate = exports4.compile = void 0;
       var boolbase_1 = __importDefault(require_boolbase());
       function compile(parsed) {
-        var a2 = parsed[0];
+        var a = parsed[0];
         var b = parsed[1] - 1;
-        if (b < 0 && a2 <= 0)
+        if (b < 0 && a <= 0)
           return boolbase_1.default.falseFunc;
-        if (a2 === -1)
+        if (a === -1)
           return function(index2) {
             return index2 <= b;
           };
-        if (a2 === 0)
+        if (a === 0)
           return function(index2) {
             return index2 === b;
           };
-        if (a2 === 1)
+        if (a === 1)
           return b < 0 ? boolbase_1.default.trueFunc : function(index2) {
             return index2 >= b;
           };
-        var absA = Math.abs(a2);
+        var absA = Math.abs(a);
         var bMod = (b % absA + absA) % absA;
-        return a2 > 1 ? function(index2) {
+        return a > 1 ? function(index2) {
           return index2 >= b && index2 % absA === bMod;
         } : function(index2) {
           return index2 <= b && index2 % absA === bMod;
@@ -13509,18 +13533,18 @@ var LNReaderPlugin = (() => {
       __name(compile, "compile");
       exports4.compile = compile;
       function generate(parsed) {
-        var a2 = parsed[0];
+        var a = parsed[0];
         var b = parsed[1] - 1;
         var n2 = 0;
-        if (a2 < 0) {
-          var aPos_1 = -a2;
+        if (a < 0) {
+          var aPos_1 = -a;
           var minValue_1 = (b % aPos_1 + aPos_1) % aPos_1;
           return function() {
             var val2 = minValue_1 + aPos_1 * n2++;
             return val2 > b ? null : val2;
           };
         }
-        if (a2 === 0)
+        if (a === 0)
           return b < 0 ? (
             // There are no result — always return `null`
             function() {
@@ -13533,10 +13557,10 @@ var LNReaderPlugin = (() => {
             }
           );
         if (b < 0) {
-          b += a2 * Math.ceil(-b / a2);
+          b += a * Math.ceil(-b / a);
         }
         return function() {
-          return a2 * n2++ + b;
+          return a * n2++ + b;
         };
       }
       __name(generate, "generate");
@@ -14321,15 +14345,15 @@ var LNReaderPlugin = (() => {
         }, (_a = options.rootFunc) !== null && _a !== void 0 ? _a : boolbase_1.default.trueFunc);
       }
       __name(compileRules, "compileRules");
-      function reduceRules(a2, b) {
-        if (b === boolbase_1.default.falseFunc || a2 === boolbase_1.default.trueFunc) {
-          return a2;
+      function reduceRules(a, b) {
+        if (b === boolbase_1.default.falseFunc || a === boolbase_1.default.trueFunc) {
+          return a;
         }
-        if (a2 === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
+        if (a === boolbase_1.default.falseFunc || b === boolbase_1.default.trueFunc) {
           return b;
         }
         return /* @__PURE__ */ __name(function combine(elem) {
-          return a2(elem) || b(elem);
+          return a(elem) || b(elem);
         }, "combine");
       }
       __name(reduceRules, "reduceRules");
@@ -14379,8 +14403,8 @@ var LNReaderPlugin = (() => {
       var boolbase_1 = __importDefault(require_boolbase());
       var compile_js_1 = require_compile2();
       var subselects_js_1 = require_subselects();
-      var defaultEquals = /* @__PURE__ */ __name(function(a2, b) {
-        return a2 === b;
+      var defaultEquals = /* @__PURE__ */ __name(function(a, b) {
+        return a === b;
       }, "defaultEquals");
       var defaultOptions = {
         adapter: DomUtils,
@@ -14773,8 +14797,8 @@ var LNReaderPlugin = (() => {
         if (results.length === 1) {
           return results[0];
         }
-        return DomUtils.uniqueSort(results.reduce(function(a2, b) {
-          return __spreadArray(__spreadArray([], a2, true), b, true);
+        return DomUtils.uniqueSort(results.reduce(function(a, b) {
+          return __spreadArray(__spreadArray([], a, true), b, true);
         }));
       }
       __name(select3, "select");
@@ -25341,88 +25365,50 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // .js/plugins/english/chrysanthemumgarden.js
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function(e2, t2, r2, n2) {
+  var t = function(t2, e2, r2, n2) {
     return new (r2 || (r2 = Promise))(function(i2, o2) {
-      function a2(e3) {
+      function a(t3) {
         try {
-          c(n2.next(e3));
-        } catch (e4) {
-          o2(e4);
+          c(n2.next(t3));
+        } catch (t4) {
+          o2(t4);
         }
       }
-      __name(a2, "a");
-      function s(e3) {
+      __name(a, "a");
+      function s(t3) {
         try {
-          c(n2.throw(e3));
-        } catch (e4) {
-          o2(e4);
+          c(n2.throw(t3));
+        } catch (t4) {
+          o2(t4);
         }
       }
       __name(s, "s");
-      function c(e3) {
-        var t3;
-        e3.done ? i2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2(function(e4) {
-          e4(t3);
-        })).then(a2, s);
+      function c(t3) {
+        var e3;
+        t3.done ? i2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
+          t4(e3);
+        })).then(a, s);
       }
       __name(c, "c");
-      c((n2 = n2.apply(e2, t2 || [])).next());
+      c((n2 = n2.apply(t2, e2 || [])).next());
     });
-  }, t = function(e2, t2) {
+  }, e = function(t2, e2) {
     var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & i2[0]) throw i2[1];
       return i2[1];
-    }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return a2.next = s(0), a2.throw = s(1), a2.return = s(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, a = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return a.next = s(0), a.throw = s(1), a.return = s(2), "function" == typeof Symbol && (a[Symbol.iterator] = function() {
       return this;
-    }), a2;
+    }), a;
     function s(s2) {
       return function(c) {
         return function(s3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; a2 && (a2 = 0, s3[0] && (o2 = 0)), o2; ) try {
+          for (; a && (a = 0, s3[0] && (o2 = 0)), o2; ) try {
             if (r2 = 1, n2 && (i2 = 2 & s3[0] ? n2.return : s3[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, s3[1])).done) return i2;
             switch (n2 = 0, i2 && (s3 = [2 & s3[0], i2.value]), s3[0]) {
               case 0:
@@ -25457,9 +25443,9 @@ var LNReaderPlugin = (() => {
                 i2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            s3 = t2.call(e2, o2);
-          } catch (e3) {
-            s3 = [6, e3], n2 = 0;
+            s3 = e2.call(t2, o2);
+          } catch (t3) {
+            s3 = [6, t3], n2 = 0;
           } finally {
             r2 = i2 = 0;
           }
@@ -25469,102 +25455,102 @@ var LNReaderPlugin = (() => {
       };
     }
     __name(s, "s");
-  }, r = function(e2, t2, r2) {
-    if (r2 || 2 === arguments.length) for (var n2, i2 = 0, o2 = t2.length; i2 < o2; i2++) !n2 && i2 in t2 || (n2 || (n2 = Array.prototype.slice.call(t2, 0, i2)), n2[i2] = t2[i2]);
-    return e2.concat(n2 || Array.prototype.slice.call(t2));
+  }, r = function(t2, e2, r2) {
+    if (r2 || 2 === arguments.length) for (var n2, i2 = 0, o2 = e2.length; i2 < o2; i2++) !n2 && i2 in e2 || (n2 || (n2 = Array.prototype.slice.call(e2, 0, i2)), n2[i2] = e2[i2]);
+    return t2.concat(n2 || Array.prototype.slice.call(e2));
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), a = function() {
-    function a2() {
-      var e2 = this;
-      this.id = "chrysanthemumgarden", this.name = "Chrysanthemum Garden", this.icon = "src/en/chrysanthemumgarden/icon.png", this.site = "https://chrysanthemumgarden.com", this.version = "1.0.3", this.filters = void 0, this.imageRequestInit = void 0, this.resolveUrl = function(t2, r2) {
-        return e2.site + (r2 ? "/book/" : "/chapter/") + t2;
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = function() {
+    function o2() {
+      var t2 = this;
+      this.id = "chrysanthemumgarden", this.name = "Chrysanthemum Garden", this.icon = "src/en/chrysanthemumgarden/icon.png", this.site = "https://chrysanthemumgarden.com", this.version = "1.0.4", this.filters = void 0, this.imageRequestInit = void 0, this.resolveUrl = function(e2, r2) {
+        return t2.site + (r2 ? "/book/" : "/chapter/") + e2;
       };
     }
-    __name(a2, "a");
-    return a2.prototype.popularNovels = function(r2) {
-      return e(this, void 0, void 0, function() {
-        var e2, a3, s = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    __name(o2, "o");
+    return o2.prototype.popularNovels = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2, o3, a = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
               return [4, (0, n.fetchApi)(this.site + (1 === r2 ? "/books" : "/books/page/" + r2) + "/")];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, e2.sent().text()];
             case 2:
-              return e2 = t2.sent(), [2, (a3 = (0, i.load)(e2))("article").map(function(e3, t3) {
-                if (!a3(t3).find("div.series-genres > a").text().includes("Manhua")) {
-                  var r3 = a3(t3).find("h2.novel-title > a").attr("href");
-                  if (r3) return { name: a3(t3).find("h2.novel-title > a").text(), path: r3.replace(s.site, "").replace(/^\//, "").replace(/\/$/, ""), cover: a3(t3).find("div.novel-cover > img").attr("data-breeze") || o.defaultCover };
+              return t2 = e2.sent(), [2, (o3 = (0, i.load)(t2))("article").map(function(t3, e3) {
+                if (!o3(e3).find("div.series-genres > a").text().includes("Manhua")) {
+                  var r3 = o3(e3).find("h2.novel-title > a").attr("href");
+                  if (r3) return { name: o3(e3).find("h2.novel-title > a").text(), path: r3.replace(a.site, "").replace(/^\//, "").replace(/\/$/, ""), cover: o3(e3).find("div.novel-cover > img").attr("data-breeze") };
                 }
               }).toArray().filter(Boolean)];
           }
         });
       });
-    }, a2.prototype.parseNovel = function(o2) {
-      return e(this, void 0, void 0, function() {
-        var e2, a3, s, c, u, l, h = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, o2.prototype.parseNovel = function(o3) {
+      return t(this, void 0, void 0, function() {
+        var t2, a, s, c, u, l, h = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
-              return [4, (0, n.fetchApi)(this.site + "/" + o2 + "/")];
+              return [4, (0, n.fetchApi)(this.site + "/" + o3 + "/")];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, e2.sent().text()];
             case 2:
-              return e2 = t2.sent(), (a3 = (0, i.load)(e2))("h1.novel-title > span.novel-raw-title").remove(), s = { path: o2, name: a3("h1.novel-title").text(), cover: a3("div.novel-cover > img").attr("data-breeze"), summary: a3("div.entry-content > p").map(function(e3, t3) {
-                return a3(t3).text();
-              }).toArray().join("\n\n") }, c = a3("div.novel-info").html(), s.author = c ? null === (l = null === (u = c.match(/Author:\s*([^<]*)<br>/)) || void 0 === u ? void 0 : u[1]) || void 0 === l ? void 0 : l.trim() : void 0, s.genres = r(r([], a3("div.series-genres > a").map(function(e3, t3) {
-                return a3(t3).text();
-              }).toArray(), true), a3("a.series-tag").map(function(e3, t3) {
-                return a3(t3).text().split("(")[0].trim();
-              }).toArray(), true).join(", "), s.chapters = a3("div.chapter-item > a").map(function(e3, t3) {
-                var r2 = a3(t3).attr("href");
-                if (r2) return { name: a3(t3).text().trim(), path: r2.replace(h.site, "").replace(/^\//, "").replace(/\/$/, "") };
+              return t2 = e2.sent(), (a = (0, i.load)(t2))("h1.novel-title > span.novel-raw-title").remove(), s = { path: o3, name: a("h1.novel-title").text(), cover: a("div.novel-cover > img").attr("data-breeze"), summary: a("div.entry-content > p").map(function(t3, e3) {
+                return a(e3).text();
+              }).toArray().join("\n\n") }, c = a("div.novel-info").html(), s.author = c ? null === (l = null === (u = c.match(/Author:\s*([^<]*)<br>/)) || void 0 === u ? void 0 : u[1]) || void 0 === l ? void 0 : l.trim() : void 0, s.genres = r(r([], a("div.series-genres > a").map(function(t3, e3) {
+                return a(e3).text();
+              }).toArray(), true), a("a.series-tag").map(function(t3, e3) {
+                return a(e3).text().split("(")[0].trim();
+              }).toArray(), true).join(", "), s.chapters = a("div.chapter-item > a").map(function(t3, e3) {
+                var r2 = a(e3).attr("href");
+                if (r2) return { name: a(e3).text().trim(), path: r2.replace(h.site, "").replace(/^\//, "").replace(/\/$/, "") };
               }).toArray(), [2, s];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(r2) {
-      return e(this, void 0, void 0, function() {
-        var e2;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, o2.prototype.parseChapter = function(r2) {
+      return t(this, void 0, void 0, function() {
+        var t2;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
               return [4, (0, n.fetchApi)(this.site + "/" + r2 + "/")];
             case 1:
-              return [4, t2.sent().text()];
+              return [4, e2.sent().text()];
             case 2:
-              return e2 = t2.sent(), [2, (0, i.load)(e2)("div#novel-content").html() || ""];
+              return t2 = e2.sent(), [2, (0, i.load)(t2)("div#novel-content").html() || ""];
           }
         });
       });
-    }, a2.prototype.searchNovels = function(r2, i2) {
-      return e(this, void 0, void 0, function() {
-        var e2, a3, s = this;
-        return t(this, function(t2) {
-          switch (t2.label) {
+    }, o2.prototype.searchNovels = function(r2, i2) {
+      return t(this, void 0, void 0, function() {
+        var t2, o3, a = this;
+        return e(this, function(e2) {
+          switch (e2.label) {
             case 0:
               return 1 !== i2 ? [2, []] : [4, (0, n.fetchApi)(this.site + "/wp-json/cg/novels")];
             case 1:
-              return [4, t2.sent().json()];
+              return [4, e2.sent().json()];
             case 2:
-              return e2 = t2.sent(), (a3 = e2.map(function(e3) {
-                return { name: e3.name, path: e3.link.replace(s.site, "").replace(/\/$/, "").replace(/^\//, ""), cover: o.defaultCover };
-              })) ? [2, a3.filter(function(e3) {
-                return e3.name.toLowerCase().includes(r2.toLowerCase());
+              return t2 = e2.sent(), (o3 = t2.map(function(t3) {
+                return { name: t3.name, path: t3.link.replace(a.site, "").replace(/\/$/, "").replace(/^\//, "") };
+              })) ? [2, o3.filter(function(t3) {
+                return t3.name.toLowerCase().includes(r2.toLowerCase());
               })] : [2, []];
           }
         });
       });
-    }, a2.prototype.getAllNovels = function() {
-      return e(this, void 0, void 0, function() {
-        return t(this, function(e2) {
+    }, o2.prototype.getAllNovels = function() {
+      return t(this, void 0, void 0, function() {
+        return e(this, function(t2) {
           return [2];
         });
       });
-    }, a2;
+    }, o2;
   }();
-  exports.default = new a();
+  exports.default = new o();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

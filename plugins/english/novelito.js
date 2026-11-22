@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data = await res.json();
+      return {
+        ok: Boolean(data.ok && data.html),
+        html: data.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9393,7 +9417,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9411,7 +9435,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
@@ -9461,21 +9484,6 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       init_filters();
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -9571,28 +9579,28 @@ var LNReaderPlugin = (() => {
     __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = "https://noveli.to", s = i + "/api", l = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36", Accept: "application/json, text/plain, */*", Referer: i + "/" };
-  function u(n2, a2) {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = "https://noveli.to", i = o + "/api", s = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36", Accept: "application/json, text/plain, */*", Referer: o + "/" };
+  function l(n2, a2) {
     return e(this, void 0, void 0, function() {
-      var e2, o2, i2, s2, u2, c2;
+      var e2, o2, i2, l2, u2, c2;
       return t(this, function(t2) {
         switch (t2.label) {
           case 0:
-            return [4, (0, r.fetchApi)(n2, { headers: l })];
+            return [4, (0, r.fetchApi)(n2, { headers: s })];
           case 1:
             e2 = t2.sent(), o2 = 0, t2.label = 2;
           case 2:
-            return 429 === e2.status && o2 < 2 ? (i2 = parseInt(e2.headers.get("Retry-After") || "", 10), s2 = Math.min(isNaN(i2) ? 1e3 : 1e3 * i2, 1e4), [4, (f2 = s2, new Promise(function(e3) {
+            return 429 === e2.status && o2 < 2 ? (i2 = parseInt(e2.headers.get("Retry-After") || "", 10), l2 = Math.min(isNaN(i2) ? 1e3 : 1e3 * i2, 1e4), [4, (f2 = l2, new Promise(function(e3) {
               return setTimeout(e3, f2);
             }))]) : [3, 6];
           case 3:
-            return t2.sent(), [4, (0, r.fetchApi)(n2, { headers: l })];
+            return t2.sent(), [4, (0, r.fetchApi)(n2, { headers: s })];
           case 4:
             e2 = t2.sent(), t2.label = 5;
           case 5:
             return o2++, [3, 2];
           case 6:
-            if (!e2.ok) throw p2 = "".concat(a2, ": HTTP ").concat(e2.status), v2 = e2.status, (h2 = new Error(p2)).status = v2, h2;
+            if (!e2.ok) throw p2 = "".concat(a2, ": HTTP ").concat(e2.status), h2 = e2.status, (v2 = new Error(p2)).status = h2, v2;
             return [4, e2.text()];
           case 7:
             if ((u2 = t2.sent()).length > 8e6) throw new Error("".concat(a2, ": response too large (").concat(u2.length, " chars)"));
@@ -9604,77 +9612,77 @@ var LNReaderPlugin = (() => {
             if (!c2 || "object" != typeof c2) throw new Error("".concat(a2, ": response had an unexpected shape"));
             return [2, c2];
         }
-        var p2, v2, h2, f2;
+        var p2, h2, v2, f2;
       });
     });
   }
-  __name(u, "u");
-  function c(e2) {
+  __name(l, "l");
+  function u(e2) {
     return "object" == typeof e2 && null !== e2 && !Array.isArray(e2);
   }
-  __name(c, "c");
-  function p(e2, t2) {
+  __name(u, "u");
+  function c(e2, t2) {
     if ("string" != typeof e2) throw new Error("Novelito response is missing a valid " + t2);
     return e2;
   }
-  __name(p, "p");
-  function v(e2, t2) {
+  __name(c, "c");
+  function p(e2, t2) {
     if ("number" != typeof e2 || isNaN(e2) || !isFinite(e2)) throw new Error("Novelito response is missing a valid " + t2);
     return e2;
   }
-  __name(v, "v");
+  __name(p, "p");
   var h = { nbsp: " ", amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", lsquo: "\u2018", rsquo: "\u2019", sbquo: "\u201A", ldquo: "\u201C", rdquo: "\u201D", bdquo: "\u201E", hellip: "\u2026", ndash: "\u2013", mdash: "\u2014", middot: "\xB7", bull: "\u2022", laquo: "\xAB", raquo: "\xBB", copy: "\xA9", deg: "\xB0", times: "\xD7" };
-  function f(e2) {
+  function v(e2) {
     if (e2 > 1114111 || e2 >= 55296 && e2 <= 57343) return "";
     if (e2 <= 65535) return String.fromCharCode(e2);
     var t2 = e2 - 65536;
     return String.fromCharCode(55296 + (t2 >> 10), 56320 + (1023 & t2));
   }
-  __name(f, "f");
-  function d(e2) {
+  __name(v, "v");
+  function f(e2) {
     return e2.replace(/&(?:#(\d+)|#x([0-9a-f]+)|([a-z]+));/gi, function(e3, t2, r2, n2) {
-      if (t2) return f(parseInt(t2, 10)) || e3;
-      if (r2) return f(parseInt(r2, 16)) || e3;
+      if (t2) return v(parseInt(t2, 10)) || e3;
+      if (r2) return v(parseInt(r2, 16)) || e3;
       var a2 = h[(n2 || "").toLowerCase()];
       return void 0 === a2 ? e3 : a2;
     });
   }
+  __name(f, "f");
+  function d(e2) {
+    return f(e2.replace(/<br\s*\/?>/gi, "\n").replace(/<\/p>/gi, "\n").replace(/<[^>]*>/g, "")).replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").replace(/^\s+|\s+$/g, "");
+  }
   __name(d, "d");
   function g(e2) {
-    return d(e2.replace(/<br\s*\/?>/gi, "\n").replace(/<\/p>/gi, "\n").replace(/<[^>]*>/g, "")).replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").replace(/^\s+|\s+$/g, "");
-  }
-  __name(g, "g");
-  function b(e2) {
     return e2.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
-  __name(b, "b");
+  __name(g, "g");
   function y(e2) {
-    if ("string" == typeof e2 && "" !== e2) return /^https?:\/\//i.test(e2) ? e2 : 0 === e2.indexOf("//") ? "https:" + e2 : i + ("/" === e2.charAt(0) ? e2 : "/" + e2);
+    if ("string" == typeof e2 && "" !== e2) return /^https?:\/\//i.test(e2) ? e2 : 0 === e2.indexOf("//") ? "https:" + e2 : o + ("/" === e2.charAt(0) ? e2 : "/" + e2);
   }
   __name(y, "y");
-  function w(e2, t2) {
+  function b(e2, t2) {
     return "/novel/" + e2 + "/chapter/" + t2;
   }
-  __name(w, "w");
-  function m(e2) {
+  __name(b, "b");
+  function w(e2) {
     var t2 = e2.indexOf("?");
     return -1 === t2 ? e2 : e2.slice(0, t2);
   }
-  __name(m, "m");
-  function N(e2, t2) {
+  __name(w, "w");
+  function m(e2, t2) {
     if (!/^\d+$/.test(e2)) throw new Error("Invalid Novelito " + t2 + " in path");
     var r2 = parseInt(e2, 10);
     if (isNaN(r2) || !isFinite(r2)) throw new Error("Invalid Novelito " + t2 + " in path");
     return r2;
   }
-  __name(N, "N");
-  function A(e2) {
-    if (!c(e2)) throw new Error("Novelito novel entry is not an object");
-    var t2, r2 = v(e2.id, "novel id");
-    return { name: p(e2.title, "novel title"), path: (t2 = r2, "/novel/" + t2), cover: y(e2.cover_image) || o.defaultCover };
+  __name(m, "m");
+  function N(e2) {
+    if (!u(e2)) throw new Error("Novelito novel entry is not an object");
+    var t2, r2 = p(e2.id, "novel id");
+    return { name: c(e2.title, "novel title"), path: (t2 = r2, "/novel/" + t2), cover: y(e2.cover_image) };
   }
-  __name(A, "A");
-  function S(r2) {
+  __name(N, "N");
+  function A(r2) {
     return e(this, void 0, void 0, function() {
       var e2, n2, a2;
       return t(this, function(t2) {
@@ -9682,7 +9690,7 @@ var LNReaderPlugin = (() => {
           case 0:
             return e2 = Object.keys(r2).map(function(e3) {
               return e3 + "=" + encodeURIComponent(r2[e3]);
-            }).join("&"), [4, u("".concat(s, "/novels?").concat(e2), "Failed to load novels")];
+            }).join("&"), [4, l("".concat(i, "/novels?").concat(e2), "Failed to load novels")];
           case 1:
             if (n2 = t2.sent(), true !== (a2 = n2).success || !Array.isArray(a2.data)) throw new Error("Novelito novel list is missing its data array");
             return [2, a2.data];
@@ -9690,65 +9698,65 @@ var LNReaderPlugin = (() => {
       });
     });
   }
-  __name(S, "S");
-  function C(e2, t2) {
+  __name(A, "A");
+  function S(e2, t2) {
     var r2 = e2;
     if (!Array.isArray(r2.chapters)) throw new Error("Novelito chapter list is missing its chapters array");
     for (var n2 = [], a2 = {}, o2 = 0, i2 = r2.chapters; o2 < i2.length; o2++) {
       var s2 = i2[o2];
-      if (!c(s2)) throw new Error("Novelito chapter entry is not an object");
-      var l2 = v(s2.id, "chapter id");
+      if (!u(s2)) throw new Error("Novelito chapter entry is not an object");
+      var l2 = p(s2.id, "chapter id");
       if (!a2[String(l2)]) {
         a2[String(l2)] = true;
-        var u2 = s2.chapter_number, p2 = "number" == typeof u2 && isFinite(u2) ? u2 : void 0, h2 = ("string" == typeof s2.title ? s2.title : "").replace(/^\s+|\s+$/g, ""), f2 = { name: "" !== h2 ? h2 : void 0 !== p2 ? "Chapter " + p2 : "Chapter", path: w(t2, l2) };
-        void 0 !== p2 && (f2.chapterNumber = p2);
+        var c2 = s2.chapter_number, h2 = "number" == typeof c2 && isFinite(c2) ? c2 : void 0, v2 = ("string" == typeof s2.title ? s2.title : "").replace(/^\s+|\s+$/g, ""), f2 = { name: "" !== v2 ? v2 : void 0 !== h2 ? "Chapter " + h2 : "Chapter", path: b(t2, l2) };
+        void 0 !== h2 && (f2.chapterNumber = h2);
         var d2 = s2.created_at;
         "string" == typeof d2 && /^\d{4}-\d{2}-\d{2}/.test(d2) && (f2.releaseTime = d2.slice(0, 10)), n2.push(f2);
       }
     }
-    for (var g2 = {}, b2 = 0; b2 < n2.length; b2++) {
-      var y2 = n2[b2].chapterNumber;
-      g2[n2[b2].path] = void 0 === y2 ? b2 : y2;
+    for (var g2 = {}, y2 = 0; y2 < n2.length; y2++) {
+      var w2 = n2[y2].chapterNumber;
+      g2[n2[y2].path] = void 0 === w2 ? y2 : w2;
     }
     return n2.sort(function(e3, t3) {
       return g2[e3.path] - g2[t3.path];
     }), n2;
   }
-  __name(C, "C");
-  var x = ["Settings", "Font Size", "A", "A", "16px", "Font Family", "Background Color"], E = ["Provided by Noveli.to", "If you want to support more free releases please read on Noveli.to"];
-  function F(e2) {
+  __name(S, "S");
+  var x = ["Settings", "Font Size", "A", "A", "16px", "Font Family", "Background Color"], C = ["Provided by Noveli.to", "If you want to support more free releases please read on Noveli.to"];
+  function E(e2) {
     var t2 = e2;
-    if (!c(t2.chapter)) throw new Error("Novelito chapter response is missing its chapter");
+    if (!u(t2.chapter)) throw new Error("Novelito chapter response is missing its chapter");
     var r2 = t2.chapter.paragraphs;
     if (!Array.isArray(r2)) throw new Error("Novelito chapter is missing its paragraphs array");
     for (var n2 = [], a2 = 0, o2 = r2; a2 < o2.length; a2++) {
       var i2 = o2[a2];
-      if (c(i2)) {
+      if (u(i2)) {
         var s2 = "string" == typeof i2.html ? i2.html : "";
         if (true !== i2.isHoneypot && true !== i2.isMidWatermark && -1 === s2.indexOf("watermark-notice") && -1 === s2.indexOf("noveli-canary")) {
-          var l2 = ("string" == typeof i2.text ? d(i2.text) : g(s2)).replace(/^\s+|\s+$/g, "");
-          "" !== l2 && -1 === E.indexOf(l2) && n2.push(l2);
+          var l2 = ("string" == typeof i2.text ? f(i2.text) : d(s2)).replace(/^\s+|\s+$/g, "");
+          "" !== l2 && -1 === C.indexOf(l2) && n2.push(l2);
         }
       }
     }
-    var u2 = 0;
+    var c2 = 0;
     if (n2.length >= x.length) {
-      for (var p2 = true, v2 = 0; v2 < x.length; v2++) if (n2[v2] !== x[v2]) {
+      for (var p2 = true, h2 = 0; h2 < x.length; h2++) if (n2[h2] !== x[h2]) {
         p2 = false;
         break;
       }
-      p2 && (u2 = x.length);
+      p2 && (c2 = x.length);
     }
-    var h2 = [];
-    for (v2 = u2; v2 < n2.length; v2++) h2.push("<p>" + b(n2[v2]) + "</p>");
-    if (0 === h2.length) throw new Error("Novelito chapter has no readable content");
-    return h2.join("\n");
+    var v2 = [];
+    for (h2 = c2; h2 < n2.length; h2++) v2.push("<p>" + g(n2[h2]) + "</p>");
+    if (0 === v2.length) throw new Error("Novelito chapter has no readable content");
+    return v2.join("\n");
   }
-  __name(F, "F");
-  var I = function() {
+  __name(E, "E");
+  var F = function() {
     function r2() {
-      this.id = "novelito", this.name = "Novelito", this.icon = "src/en/novelito/icon.png", this.site = i, this.version = "1.0.0", this.filters = { sort: { label: "Sort Results By", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Trending", value: "trending" }, { label: "Top Rated", value: "rating" }, { label: "Most Viewed", value: "views" }], type: a.FilterTypes.Picker }, status: { label: "Status", value: "All", options: [{ label: "All", value: "All" }, { label: "Ongoing", value: "Ongoing" }, { label: "Completed", value: "Completed" }], type: a.FilterTypes.Picker }, genres: { label: "Genres", value: [], options: [{ label: "LitRPG", value: "LitRPG" }, { label: "Progression", value: "Progression" }, { label: "Fantasy", value: "Fantasy" }, { label: "Action", value: "Action" }, { label: "Adventure", value: "Adventure" }, { label: "Cultivation", value: "Cultivation" }, { label: "Martial Arts", value: "Martial Arts" }, { label: "Sci-Fi", value: "Sci-Fi" }, { label: "Time Loop", value: "Time Loop" }, { label: "Comedy", value: "Comedy" }, { label: "Romance", value: "Romance" }], type: a.FilterTypes.CheckboxGroup } }, this.resolveUrl = function(e2) {
-        return /^https?:\/\//i.test(e2) ? e2 : 0 === e2.indexOf("//") ? "https:" + e2 : i + e2;
+      this.id = "novelito", this.name = "Novelito", this.icon = "src/en/novelito/icon.png", this.site = o, this.version = "1.0.1", this.filters = { sort: { label: "Sort Results By", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Trending", value: "trending" }, { label: "Top Rated", value: "rating" }, { label: "Most Viewed", value: "views" }], type: a.FilterTypes.Picker }, status: { label: "Status", value: "All", options: [{ label: "All", value: "All" }, { label: "Ongoing", value: "Ongoing" }, { label: "Completed", value: "Completed" }], type: a.FilterTypes.Picker }, genres: { label: "Genres", value: [], options: [{ label: "LitRPG", value: "LitRPG" }, { label: "Progression", value: "Progression" }, { label: "Fantasy", value: "Fantasy" }, { label: "Action", value: "Action" }, { label: "Adventure", value: "Adventure" }, { label: "Cultivation", value: "Cultivation" }, { label: "Martial Arts", value: "Martial Arts" }, { label: "Sci-Fi", value: "Sci-Fi" }, { label: "Time Loop", value: "Time Loop" }, { label: "Comedy", value: "Comedy" }, { label: "Romance", value: "Romance" }], type: a.FilterTypes.CheckboxGroup } }, this.resolveUrl = function(e2) {
+        return /^https?:\/\//i.test(e2) ? e2 : 0 === e2.indexOf("//") ? "https:" + e2 : o + e2;
       };
     }
     __name(r2, "r");
@@ -9760,34 +9768,34 @@ var LNReaderPlugin = (() => {
             case 0:
               return n3 = { page: String(e2), limit: String(36), sort: o2 ? "newest" : i2.sort.value }, "All" !== i2.status.value && (n3.status = i2.status.value), (a2 = i2.genres.value.filter(function(e3) {
                 return "" !== e3;
-              })).length > 0 && (n3.genres = a2.join(",")), [4, S(n3)];
+              })).length > 0 && (n3.genres = a2.join(",")), [4, A(n3)];
             case 1:
-              return [2, t2.sent().map(A)];
+              return [2, t2.sent().map(N)];
           }
         });
       });
     }, r2.prototype.parseNovel = function(r3) {
       return e(this, void 0, void 0, function() {
-        var e2, a2, i2, l2, v2, h2, f2, d2, b2, w2, A2, S2, x2;
+        var e2, a2, o2, s2, p2, h2, v2, f2, g2, b2, N2, A2, x2;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return e2 = function(e3) {
-                var t3 = m(e3).split("/");
+                var t3 = w(e3).split("/");
                 if (3 !== t3.length || "" !== t3[0] || "novel" !== t3[1]) throw new Error("Invalid Novelito novel path: " + e3);
-                return N(t3[2], "novel id");
-              }(r3), [4, u("".concat(s, "/novels/").concat(e2), "Failed to load novel")];
+                return m(t3[2], "novel id");
+              }(r3), [4, l("".concat(i, "/novels/").concat(e2), "Failed to load novel")];
             case 1:
-              if (a2 = t2.sent(), !c((i2 = a2).data)) throw new Error("Novelito novel detail is missing its data object");
-              return l2 = i2.data, [4, u("".concat(s, "/novels/").concat(e2, "/chapters"), "Failed to load chapter list")];
+              if (a2 = t2.sent(), !u((o2 = a2).data)) throw new Error("Novelito novel detail is missing its data object");
+              return s2 = o2.data, [4, l("".concat(i, "/novels/").concat(e2, "/chapters"), "Failed to load chapter list")];
             case 2:
-              if (v2 = t2.sent(), h2 = { path: r3, name: p(l2.title, "novel title"), chapters: C(v2, e2) }, "string" == typeof l2.author && "" !== l2.author && (h2.author = l2.author), f2 = y(l2.cover_image), h2.cover = f2 || o.defaultCover, "string" == typeof l2.description && "" !== (d2 = g(l2.description)) && (h2.summary = d2), Array.isArray(l2.genres)) {
-                for (b2 = [], w2 = 0, A2 = l2.genres; w2 < A2.length; w2++) "string" == typeof (S2 = A2[w2]) && "" !== S2 && b2.push(S2);
-                b2.length > 0 && (h2.genres = b2.join(", "));
+              if (p2 = t2.sent(), h2 = { path: r3, name: c(s2.title, "novel title"), chapters: S(p2, e2) }, "string" == typeof s2.author && "" !== s2.author && (h2.author = s2.author), v2 = y(s2.cover_image), h2.cover = v2, "string" == typeof s2.description && "" !== (f2 = d(s2.description)) && (h2.summary = f2), Array.isArray(s2.genres)) {
+                for (g2 = [], b2 = 0, N2 = s2.genres; b2 < N2.length; b2++) "string" == typeof (A2 = N2[b2]) && "" !== A2 && g2.push(A2);
+                g2.length > 0 && (h2.genres = g2.join(", "));
               }
-              return "string" == typeof l2.status && (h2.status = (E2 = l2.status, "ongoing" === (F2 = E2.toLowerCase()) || "releasing" === F2 ? n.NovelStatus.Ongoing : "completed" === F2 ? n.NovelStatus.Completed : "hiatus" === F2 || "on hiatus" === F2 || "paused" === F2 ? n.NovelStatus.OnHiatus : "dropped" === F2 || "cancelled" === F2 || "canceled" === F2 ? n.NovelStatus.Cancelled : n.NovelStatus.Unknown)), "number" == typeof (x2 = l2.rating) && isFinite(x2) && x2 > 0 && (h2.rating = x2), [2, h2];
+              return "string" == typeof s2.status && (h2.status = (C2 = s2.status, "ongoing" === (E2 = C2.toLowerCase()) || "releasing" === E2 ? n.NovelStatus.Ongoing : "completed" === E2 ? n.NovelStatus.Completed : "hiatus" === E2 || "on hiatus" === E2 || "paused" === E2 ? n.NovelStatus.OnHiatus : "dropped" === E2 || "cancelled" === E2 || "canceled" === E2 ? n.NovelStatus.Cancelled : n.NovelStatus.Unknown)), "number" == typeof (x2 = s2.rating) && isFinite(x2) && x2 > 0 && (h2.rating = x2), [2, h2];
           }
-          var E2, F2;
+          var C2, E2;
         });
       });
     }, r2.prototype.parseChapter = function(r3) {
@@ -9797,12 +9805,12 @@ var LNReaderPlugin = (() => {
           switch (t2.label) {
             case 0:
               return e2 = function(e3) {
-                var t3 = m(e3).split("/");
+                var t3 = w(e3).split("/");
                 if (5 !== t3.length || "" !== t3[0] || "novel" !== t3[1] || "chapter" !== t3[3]) throw new Error("Invalid Novelito chapter path: " + e3);
-                return { novelId: N(t3[2], "novel id"), chapterId: N(t3[4], "chapter id") };
-              }(r3), [4, u("".concat(s, "/novels/").concat(e2.novelId, "/chapters/").concat(e2.chapterId), "Failed to load chapter")];
+                return { novelId: m(t3[2], "novel id"), chapterId: m(t3[4], "chapter id") };
+              }(r3), [4, l("".concat(i, "/novels/").concat(e2.novelId, "/chapters/").concat(e2.chapterId), "Failed to load chapter")];
             case 1:
-              return [2, F(t2.sent())];
+              return [2, E(t2.sent())];
           }
         });
       });
@@ -9812,15 +9820,15 @@ var LNReaderPlugin = (() => {
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return "" === (e2 = r3.replace(/^\s+|\s+$/g, "")) ? [2, []] : [4, S({ search: e2, page: String(n2), limit: String(36) })];
+              return "" === (e2 = r3.replace(/^\s+|\s+$/g, "")) ? [2, []] : [4, A({ search: e2, page: String(n2), limit: String(36) })];
             case 1:
-              return [2, t2.sent().map(A)];
+              return [2, t2.sent().map(N)];
           }
         });
       });
     }, r2;
   }();
-  exports.default = new I();
+  exports.default = new F();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

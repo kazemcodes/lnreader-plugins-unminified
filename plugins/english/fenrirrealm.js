@@ -9270,6 +9270,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9283,6 +9305,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9382,7 +9405,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9895,18 +9919,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m2, exports5) {
         for (var p2 in m2) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m2, p2);
@@ -10161,18 +10185,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -10183,7 +10207,7 @@ var LNReaderPlugin = (() => {
         if (mod && mod.__esModule) return mod;
         var result = {};
         if (mod != null) {
-          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+          for (var k2 in mod) if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2)) __createBinding(result, mod, k2);
         }
         __setModuleDefault(result, mod);
         return result;
@@ -10955,18 +10979,18 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -10977,7 +11001,7 @@ var LNReaderPlugin = (() => {
         if (mod && mod.__esModule) return mod;
         var result = {};
         if (mod != null) {
-          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+          for (var k2 in mod) if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2)) __createBinding(result, mod, k2);
         }
         __setModuleDefault(result, mod);
         return result;
@@ -11890,18 +11914,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m2, exports5) {
         for (var p2 in m2) if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p2)) __createBinding(exports5, m2, p2);
@@ -14203,18 +14227,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14225,7 +14249,7 @@ var LNReaderPlugin = (() => {
         if (mod && mod.__esModule) return mod;
         var result = {};
         if (mod != null) {
-          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+          for (var k2 in mod) if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2)) __createBinding(result, mod, k2);
         }
         __setModuleDefault(result, mod);
         return result;
@@ -14345,18 +14369,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14367,7 +14391,7 @@ var LNReaderPlugin = (() => {
         if (mod && mod.__esModule) return mod;
         var result = {};
         if (mod != null) {
-          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+          for (var k2 in mod) if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2)) __createBinding(result, mod, k2);
         }
         __setModuleDefault(result, mod);
         return result;
@@ -14576,18 +14600,18 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -14598,7 +14622,7 @@ var LNReaderPlugin = (() => {
         if (mod && mod.__esModule) return mod;
         var result = {};
         if (mod != null) {
-          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+          for (var k2 in mod) if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2)) __createBinding(result, mod, k2);
         }
         __setModuleDefault(result, mod);
         return result;
@@ -15650,8 +15674,8 @@ var LNReaderPlugin = (() => {
     } else if (typeof prop2 === "object") {
       const keys = Object.keys(prop2);
       for (let i2 = 0; i2 < keys.length; i2++) {
-        const k = keys[i2];
-        setCss(el, k, prop2[k], i2);
+        const k2 = keys[i2];
+        setCss(el, k2, prop2[k2], i2);
       }
     }
   }
@@ -24773,18 +24797,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -24795,7 +24819,7 @@ var LNReaderPlugin = (() => {
         if (mod && mod.__esModule) return mod;
         var result = {};
         if (mod != null) {
-          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+          for (var k2 in mod) if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2)) __createBinding(result, mod, k2);
         }
         __setModuleDefault(result, mod);
         return result;
@@ -25212,18 +25236,18 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m2, k);
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        var desc = Object.getOwnPropertyDescriptor(m2, k2);
         if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
           desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return m2[k];
+            return m2[k2];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m2, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o2[k2] = m2[k];
+        Object.defineProperty(o2, k22, desc);
+      } : function(o2, m2, k2, k22) {
+        if (k22 === void 0) k22 = k2;
+        o2[k22] = m2[k2];
       });
       var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
         Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
@@ -25234,7 +25258,7 @@ var LNReaderPlugin = (() => {
         if (mod && mod.__esModule) return mod;
         var result = {};
         if (mod != null) {
-          for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+          for (var k2 in mod) if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2)) __createBinding(result, mod, k2);
         }
         __setModuleDefault(result, mod);
         return result;
@@ -25469,44 +25493,6 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       init_storage();
-    }
-  });
-
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25803,17 +25789,17 @@ var LNReaderPlugin = (() => {
   });
 
   // node_modules/@noble/ciphers/_polyval.js
-  function _toGHASHKey(k) {
-    k.reverse();
-    const hiBit = k[15] & 1;
+  function _toGHASHKey(k2) {
+    k2.reverse();
+    const hiBit = k2[15] & 1;
     let carry = 0;
-    for (let i2 = 0; i2 < k.length; i2++) {
-      const t2 = k[i2];
-      k[i2] = t2 >>> 1 | carry;
+    for (let i2 = 0; i2 < k2.length; i2++) {
+      const t2 = k2[i2];
+      k2[i2] = t2 >>> 1 | carry;
       carry = (t2 & 1) << 7;
     }
-    k[0] ^= -hiBit & 225;
-    return k;
+    k2[0] ^= -hiBit & 225;
+    return k2;
   }
   function wrapConstructorWithKey(hashCons) {
     const hashC = /* @__PURE__ */ __name((msg, key) => hashCons(key, msg.length).update(msg).digest(), "hashC");
@@ -25886,14 +25872,14 @@ var LNReaderPlugin = (() => {
           const windows = bits / W;
           const windowSize = this.windowSize = 2 ** W;
           const items = [];
-          for (let w = 0; w < windows; w++) {
+          for (let w2 = 0; w2 < windows; w2++) {
             for (let byte = 0; byte < windowSize; byte++) {
               let s0 = 0, s1 = 0, s2 = 0, s3 = 0;
               for (let j = 0; j < W; j++) {
                 const bit = byte >>> W - j - 1 & 1;
                 if (!bit)
                   continue;
-                const { s0: d0, s1: d1, s2: d2, s3: d3 } = doubles[W * w + j];
+                const { s0: d0, s1: d1, s2: d2, s3: d3 } = doubles[W * w2 + j];
                 s0 ^= d0, s1 ^= d1, s2 ^= d2, s3 ^= d3;
               }
               items.push({ s0, s1, s2, s3 });
@@ -25906,15 +25892,15 @@ var LNReaderPlugin = (() => {
           const { W, t: t2, windowSize } = this;
           let o0 = 0, o1 = 0, o2 = 0, o3 = 0;
           const mask = (1 << W) - 1;
-          let w = 0;
+          let w2 = 0;
           for (const num of [s0, s1, s2, s3]) {
             for (let bytePos = 0; bytePos < 4; bytePos++) {
               const byte = num >>> 8 * bytePos & 255;
               for (let bitPos = 8 / W - 1; bitPos >= 0; bitPos--) {
                 const bit = byte >>> W * bitPos & mask;
-                const { s0: e0, s1: e1, s2: e2, s3: e3 } = t2[w * windowSize + bit];
+                const { s0: e0, s1: e1, s2: e2, s3: e3 } = t2[w2 * windowSize + bit];
                 o0 ^= e0, o1 ^= e1, o2 ^= e2, o3 ^= e3;
-                w += 1;
+                w2 += 1;
               }
             }
           }
@@ -26085,8 +26071,8 @@ var LNReaderPlugin = (() => {
     clean(encKey);
     for (let i2 = 4; i2 < Nk - 4; i2++) {
       const x = xk[i2];
-      const w = applySbox(sbox2, x, x, x, x);
-      xk[i2] = T0[w & 255] ^ T1[w >>> 8 & 255] ^ T2[w >>> 16 & 255] ^ T3[w >>> 24];
+      const w2 = applySbox(sbox2, x, x, x, x);
+      xk[i2] = T0[w2 & 255] ^ T1[w2 >>> 8 & 255] ^ T2[w2 >>> 16 & 255] ^ T3[w2 >>> 24];
     }
     return xk;
   }
@@ -26098,38 +26084,38 @@ var LNReaderPlugin = (() => {
   }
   function encrypt(xk, s0, s1, s2, s3) {
     const { sbox2, T01, T23 } = tableEncoding;
-    let k = 0;
-    s0 ^= xk[k++], s1 ^= xk[k++], s2 ^= xk[k++], s3 ^= xk[k++];
+    let k2 = 0;
+    s0 ^= xk[k2++], s1 ^= xk[k2++], s2 ^= xk[k2++], s3 ^= xk[k2++];
     const rounds = xk.length / 4 - 2;
     for (let i2 = 0; i2 < rounds; i2++) {
-      const t02 = xk[k++] ^ apply0123(T01, T23, s0, s1, s2, s3);
-      const t12 = xk[k++] ^ apply0123(T01, T23, s1, s2, s3, s0);
-      const t22 = xk[k++] ^ apply0123(T01, T23, s2, s3, s0, s1);
-      const t32 = xk[k++] ^ apply0123(T01, T23, s3, s0, s1, s2);
+      const t02 = xk[k2++] ^ apply0123(T01, T23, s0, s1, s2, s3);
+      const t12 = xk[k2++] ^ apply0123(T01, T23, s1, s2, s3, s0);
+      const t22 = xk[k2++] ^ apply0123(T01, T23, s2, s3, s0, s1);
+      const t32 = xk[k2++] ^ apply0123(T01, T23, s3, s0, s1, s2);
       s0 = t02, s1 = t12, s2 = t22, s3 = t32;
     }
-    const t0 = xk[k++] ^ applySbox(sbox2, s0, s1, s2, s3);
-    const t1 = xk[k++] ^ applySbox(sbox2, s1, s2, s3, s0);
-    const t2 = xk[k++] ^ applySbox(sbox2, s2, s3, s0, s1);
-    const t3 = xk[k++] ^ applySbox(sbox2, s3, s0, s1, s2);
+    const t0 = xk[k2++] ^ applySbox(sbox2, s0, s1, s2, s3);
+    const t1 = xk[k2++] ^ applySbox(sbox2, s1, s2, s3, s0);
+    const t2 = xk[k2++] ^ applySbox(sbox2, s2, s3, s0, s1);
+    const t3 = xk[k2++] ^ applySbox(sbox2, s3, s0, s1, s2);
     return { s0: t0, s1: t1, s2: t2, s3: t3 };
   }
   function decrypt(xk, s0, s1, s2, s3) {
     const { sbox2, T01, T23 } = tableDecoding;
-    let k = 0;
-    s0 ^= xk[k++], s1 ^= xk[k++], s2 ^= xk[k++], s3 ^= xk[k++];
+    let k2 = 0;
+    s0 ^= xk[k2++], s1 ^= xk[k2++], s2 ^= xk[k2++], s3 ^= xk[k2++];
     const rounds = xk.length / 4 - 2;
     for (let i2 = 0; i2 < rounds; i2++) {
-      const t02 = xk[k++] ^ apply0123(T01, T23, s0, s3, s2, s1);
-      const t12 = xk[k++] ^ apply0123(T01, T23, s1, s0, s3, s2);
-      const t22 = xk[k++] ^ apply0123(T01, T23, s2, s1, s0, s3);
-      const t32 = xk[k++] ^ apply0123(T01, T23, s3, s2, s1, s0);
+      const t02 = xk[k2++] ^ apply0123(T01, T23, s0, s3, s2, s1);
+      const t12 = xk[k2++] ^ apply0123(T01, T23, s1, s0, s3, s2);
+      const t22 = xk[k2++] ^ apply0123(T01, T23, s2, s1, s0, s3);
+      const t32 = xk[k2++] ^ apply0123(T01, T23, s3, s2, s1, s0);
       s0 = t02, s1 = t12, s2 = t22, s3 = t32;
     }
-    const t0 = xk[k++] ^ applySbox(sbox2, s0, s3, s2, s1);
-    const t1 = xk[k++] ^ applySbox(sbox2, s1, s0, s3, s2);
-    const t2 = xk[k++] ^ applySbox(sbox2, s2, s1, s0, s3);
-    const t3 = xk[k++] ^ applySbox(sbox2, s3, s2, s1, s0);
+    const t0 = xk[k2++] ^ applySbox(sbox2, s0, s3, s2, s1);
+    const t1 = xk[k2++] ^ applySbox(sbox2, s1, s0, s3, s2);
+    const t2 = xk[k2++] ^ applySbox(sbox2, s2, s1, s0, s3);
+    const t3 = xk[k2++] ^ applySbox(sbox2, s3, s2, s1, s0);
     return { s0: t0, s1: t1, s2: t2, s3: t3 };
   }
   function ctrCounter(xk, nonce, src, dst) {
@@ -26600,9 +26586,9 @@ var LNReaderPlugin = (() => {
             const nonceLen = EMPTY_BLOCK.slice();
             const view = createView(nonceLen);
             view.setBigUint64(8, BigInt(nonce.length * 8), false);
-            const g = ghash.create(authKey).update(nonce).update(nonceLen);
-            g.digestInto(counter);
-            g.destroy();
+            const g2 = ghash.create(authKey).update(nonce).update(nonceLen);
+            g2.digestInto(counter);
+            g2.destroy();
           }
           const tagMask = ctr32(xk, false, counter, EMPTY_BLOCK);
           return { xk, authKey, counter, tagMask };
@@ -27083,12 +27069,35 @@ var LNReaderPlugin = (() => {
   init_dirname();
   init_buffer2();
   init_process2();
-  var e = function() {
-    return e = Object.assign || function(e2) {
+  var e, t = function() {
+    return t = Object.assign || function(e2) {
       for (var t2, n2 = 1, r2 = arguments.length; n2 < r2; n2++) for (var a2 in t2 = arguments[n2]) Object.prototype.hasOwnProperty.call(t2, a2) && (e2[a2] = t2[a2]);
       return e2;
-    }, e.apply(this, arguments);
-  }, t = function(e2, t2, n2, r2) {
+    }, t.apply(this, arguments);
+  }, n = Object.create ? function(e2, t2, n2, r2) {
+    void 0 === r2 && (r2 = n2);
+    var a2 = Object.getOwnPropertyDescriptor(t2, n2);
+    a2 && !("get" in a2 ? !t2.__esModule : a2.writable || a2.configurable) || (a2 = { enumerable: true, get: /* @__PURE__ */ __name(function() {
+      return t2[n2];
+    }, "get") }), Object.defineProperty(e2, r2, a2);
+  } : function(e2, t2, n2, r2) {
+    void 0 === r2 && (r2 = n2), e2[r2] = t2[n2];
+  }, r = Object.create ? function(e2, t2) {
+    Object.defineProperty(e2, "default", { enumerable: true, value: t2 });
+  } : function(e2, t2) {
+    e2.default = t2;
+  }, a = (e = /* @__PURE__ */ __name(function(t2) {
+    return e = Object.getOwnPropertyNames || function(e2) {
+      var t3 = [];
+      for (var n2 in e2) Object.prototype.hasOwnProperty.call(e2, n2) && (t3[t3.length] = n2);
+      return t3;
+    }, e(t2);
+  }, "e"), function(t2) {
+    if (t2 && t2.__esModule) return t2;
+    var a2 = {};
+    if (null != t2) for (var i2 = e(t2), o2 = 0; o2 < i2.length; o2++) "default" !== i2[o2] && n(a2, t2, i2[o2]);
+    return r(a2, t2), a2;
+  }), i = function(e2, t2, n2, r2) {
     return new (n2 || (n2 = Promise))(function(a2, i2) {
       function o2(e3) {
         try {
@@ -27115,7 +27124,7 @@ var LNReaderPlugin = (() => {
       __name(s2, "s");
       s2((r2 = r2.apply(e2, t2 || [])).next());
     });
-  }, n = function(e2, t2) {
+  }, o = function(e2, t2) {
     var n2, r2, a2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & a2[0]) throw a2[1];
       return a2[1];
@@ -27176,34 +27185,34 @@ var LNReaderPlugin = (() => {
     __name(l2, "l");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), a = (init_browser(), __toCommonJS(browser_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_aes3(), __toCommonJS(aes_exports)), c = new Uint32Array([1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298]);
-  function u(e2, t2) {
+  var l = a((init_fetch2(), __toCommonJS(fetch_exports))), s = l.fetchApi, u = (init_browser(), __toCommonJS(browser_exports)), c = (init_filterInputs(), __toCommonJS(filterInputs_exports)), d = (init_storage2(), __toCommonJS(storage_exports)), h = (init_aes3(), __toCommonJS(aes_exports)), p = new Uint32Array([1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298]);
+  function v(e2, t2) {
     return e2 >>> t2 | e2 << 32 - t2;
   }
-  __name(u, "u");
-  function d(e2) {
+  __name(v, "v");
+  function f(e2) {
     var t2 = new TextEncoder().encode(e2), n2 = 8 * t2.length, r2 = 1 + (t2.length + 8 >> 6) << 6, a2 = new Uint8Array(r2);
     a2.set(t2), a2[t2.length] = 128;
     var i2 = new DataView(a2.buffer);
     i2.setUint32(r2 - 4, n2 >>> 0, false), i2.setUint32(r2 - 8, Math.floor(n2 / 4294967296) >>> 0, false);
-    for (var o2 = 1779033703, l2 = 3144134277, s2 = 1013904242, d2 = 2773480762, p2 = 1359893119, h2 = 2600822924, v2 = 528734635, f2 = 1541459225, b2 = new Uint32Array(64), m2 = 0; m2 < r2; m2 += 64) {
+    for (var o2 = 1779033703, l2 = 3144134277, s2 = 1013904242, u2 = 2773480762, c2 = 1359893119, d2 = 2600822924, h2 = 528734635, f2 = 1541459225, b2 = new Uint32Array(64), m2 = 0; m2 < r2; m2 += 64) {
       for (var y2 = 0; y2 < 16; y2++) b2[y2] = i2.getUint32(m2 + 4 * y2, false);
       for (y2 = 16; y2 < 64; y2++) {
-        var g = u(b2[y2 - 15], 7) ^ u(b2[y2 - 15], 18) ^ b2[y2 - 15] >>> 3, k = u(b2[y2 - 2], 17) ^ u(b2[y2 - 2], 19) ^ b2[y2 - 2] >>> 10;
-        b2[y2] = b2[y2 - 16] + g + b2[y2 - 7] + k >>> 0;
+        var g2 = v(b2[y2 - 15], 7) ^ v(b2[y2 - 15], 18) ^ b2[y2 - 15] >>> 3, k2 = v(b2[y2 - 2], 17) ^ v(b2[y2 - 2], 19) ^ b2[y2 - 2] >>> 10;
+        b2[y2] = b2[y2 - 16] + g2 + b2[y2 - 7] + k2 >>> 0;
       }
-      var w = o2, T = l2, R = s2, A = d2, C = p2, x = h2, _ = v2, j = f2;
+      var w2 = o2, T2 = l2, R2 = s2, C = u2, _ = c2, x = d2, j = h2, A = f2;
       for (y2 = 0; y2 < 64; y2++) {
-        var U = j + (u(C, 6) ^ u(C, 11) ^ u(C, 25)) + (C & x ^ ~C & _) + c[y2] + b2[y2] >>> 0, E = w & T ^ w & R ^ T & R;
-        j = _, _ = x, x = C, C = A + U >>> 0, A = R, R = T, T = w, w = U + ((u(w, 2) ^ u(w, 13) ^ u(w, 22)) + E >>> 0) >>> 0;
+        var U = A + (v(_, 6) ^ v(_, 11) ^ v(_, 25)) + (_ & x ^ ~_ & j) + p[y2] + b2[y2] >>> 0, S = w2 & T2 ^ w2 & R2 ^ T2 & R2;
+        A = j, j = x, x = _, _ = C + U >>> 0, C = R2, R2 = T2, T2 = w2, w2 = U + ((v(w2, 2) ^ v(w2, 13) ^ v(w2, 22)) + S >>> 0) >>> 0;
       }
-      o2 = o2 + w >>> 0, l2 = l2 + T >>> 0, s2 = s2 + R >>> 0, d2 = d2 + A >>> 0, p2 = p2 + C >>> 0, h2 = h2 + x >>> 0, v2 = v2 + _ >>> 0, f2 = f2 + j >>> 0;
+      o2 = o2 + w2 >>> 0, l2 = l2 + T2 >>> 0, s2 = s2 + R2 >>> 0, u2 = u2 + C >>> 0, c2 = c2 + _ >>> 0, d2 = d2 + x >>> 0, h2 = h2 + j >>> 0, f2 = f2 + A >>> 0;
     }
-    var S = new Uint8Array(32), F = new DataView(S.buffer);
-    return F.setUint32(0, o2, false), F.setUint32(4, l2, false), F.setUint32(8, s2, false), F.setUint32(12, d2, false), F.setUint32(16, p2, false), F.setUint32(20, h2, false), F.setUint32(24, v2, false), F.setUint32(28, f2, false), S;
+    var O = new Uint8Array(32), E = new DataView(O.buffer);
+    return E.setUint32(0, o2, false), E.setUint32(4, l2, false), E.setUint32(8, s2, false), E.setUint32(12, u2, false), E.setUint32(16, c2, false), E.setUint32(20, d2, false), E.setUint32(24, h2, false), E.setUint32(28, f2, false), O;
   }
-  __name(d, "d");
-  function p(e2) {
+  __name(f, "f");
+  function b(e2) {
     var t2 = e2[0], n2 = (t2 ^ t2 << 11) >>> 0;
     n2 = (n2 ^ n2 >>> 8) >>> 0;
     var r2 = e2[3];
@@ -27211,88 +27220,88 @@ var LNReaderPlugin = (() => {
     var a2 = (r2 ^ r2 >>> 19 ^ n2) >>> 0;
     return e2[3] = a2, a2;
   }
-  __name(p, "p");
-  function h(e2) {
+  __name(b, "b");
+  function m(e2) {
     for (var t2 = atob(e2), n2 = new Uint8Array(t2.length), r2 = 0; r2 < t2.length; r2++) n2[r2] = t2.charCodeAt(r2);
     return n2;
   }
-  __name(h, "h");
-  var v = /[\u200B-\u200D\uFEFF\u200E\u200F\u202A-\u202E\u{E0000}-\u{E007F}\u{E0100}-\u{E01EF}]/gu;
-  function f(e2) {
-    return e2.replace(v, "");
+  __name(m, "m");
+  var y = /[\u200B-\u200D\uFEFF\u200E\u200F\u202A-\u202E\u{E0000}-\u{E007F}\u{E0100}-\u{E01EF}]/gu;
+  function g(e2) {
+    return e2.replace(y, "");
   }
-  __name(f, "f");
-  function b(e2) {
+  __name(g, "g");
+  function k(e2) {
     return e2.replace(/^([^/]+)\/([^/]+)\/\2\//, "$1/$2/");
   }
-  __name(b, "b");
-  function m(e2) {
+  __name(k, "k");
+  function w(e2) {
     var t2;
     try {
       var n2 = null !== (t2 = e2.split(".")[0]) && void 0 !== t2 ? t2 : "";
       if (!n2) return { vid: "", cid: null, exp: null };
-      var r2 = n2.replace(/-/g, "+").replace(/_/g, "/"), a2 = r2 + "=".repeat((4 - r2.length % 4) % 4), i2 = new TextDecoder().decode(h(a2)), o2 = JSON.parse(i2);
+      var r2 = n2.replace(/-/g, "+").replace(/_/g, "/"), a2 = r2 + "=".repeat((4 - r2.length % 4) % 4), i2 = new TextDecoder().decode(m(a2)), o2 = JSON.parse(i2);
       return { vid: "string" == typeof (null == o2 ? void 0 : o2.vid) ? o2.vid : "", cid: "number" == typeof (null == o2 ? void 0 : o2.cid) && o2.cid > 0 ? o2.cid : null, exp: "number" == typeof (null == o2 ? void 0 : o2.exp) && o2.exp > 0 ? o2.exp : null };
     } catch (e3) {
       return { vid: "", cid: null, exp: null };
     }
   }
-  __name(m, "m");
-  var y = function() {
-    function c2() {
-      this.id = "fenrir", this.name = "Fenrir Realm", this.icon = "src/en/fenrirrealm/icon.png", this.site = "https://fenrirealm.com", this.version = "1.1.6", this.imageRequestInit = void 0, this.cachedReadToken = null, this.lastMintRefusal = null, this.hideLocked = o.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { status: { type: i.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "on-going" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "On Hold", value: "on-hold" }, { label: "Dropped", value: "dropped" }] }, sort: { type: i.FilterTypes.Picker, label: "Sort", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }] }, genres: { type: i.FilterTypes.CheckboxGroup, label: "Genres", value: [], options: [{ label: "Action", value: "1" }, { label: "Adult", value: "2" }, { label: "Adventure", value: "3" }, { label: "Comedy", value: "4" }, { label: "Drama", value: "5" }, { label: "Ecchi", value: "6" }, { label: "Fantasy", value: "7" }, { label: "Gender Bender", value: "8" }, { label: "Harem", value: "9" }, { label: "Historical", value: "10" }, { label: "Horror", value: "11" }, { label: "Josei", value: "12" }, { label: "Martial Arts", value: "13" }, { label: "Mature", value: "14" }, { label: "Mecha", value: "15" }, { label: "Mystery", value: "16" }, { label: "Psychological", value: "17" }, { label: "Romance", value: "18" }, { label: "School Life", value: "19" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Shounen", value: "24" }, { label: "Shounen Ai", value: "25" }, { label: "Slice of Life", value: "26" }, { label: "Smut", value: "27" }, { label: "Sports", value: "28" }, { label: "Supernatural", value: "29" }, { label: "Tragedy", value: "30" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "32" }, { label: "Xuanhuan", value: "33" }, { label: "Yaoi", value: "34" }, { label: "Yuri", value: "35" }] } };
+  __name(w, "w");
+  var T = '[id^="reader-area-"] p, .reader-area.touch-manipulation p, div.content-area p', R = function() {
+    function e2() {
+      this.id = "fenrir", this.name = "Fenrir Realm", this.icon = "src/en/fenrirrealm/icon.png", this.site = "https://fenrirealm.com", this.version = "1.2.1", this.imageRequestInit = void 0, this.cachedReadToken = null, this.lastMintRefusal = null, this.hideLocked = d.storage.get("hideLocked"), this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } }, this.filters = { status: { type: c.FilterTypes.Picker, label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "on-going" }, { label: "Completed", value: "completed" }, { label: "Hiatus", value: "hiatus" }, { label: "On Hold", value: "on-hold" }, { label: "Dropped", value: "dropped" }] }, sort: { type: c.FilterTypes.Picker, label: "Sort", value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Latest", value: "latest" }, { label: "Updated", value: "updated" }] }, genres: { type: c.FilterTypes.CheckboxGroup, label: "Genres", value: [], options: [{ label: "Action", value: "1" }, { label: "Adult", value: "2" }, { label: "Adventure", value: "3" }, { label: "Comedy", value: "4" }, { label: "Drama", value: "5" }, { label: "Ecchi", value: "6" }, { label: "Fantasy", value: "7" }, { label: "Gender Bender", value: "8" }, { label: "Harem", value: "9" }, { label: "Historical", value: "10" }, { label: "Horror", value: "11" }, { label: "Josei", value: "12" }, { label: "Martial Arts", value: "13" }, { label: "Mature", value: "14" }, { label: "Mecha", value: "15" }, { label: "Mystery", value: "16" }, { label: "Psychological", value: "17" }, { label: "Romance", value: "18" }, { label: "School Life", value: "19" }, { label: "Sci-fi", value: "20" }, { label: "Seinen", value: "21" }, { label: "Shoujo", value: "22" }, { label: "Shoujo Ai", value: "23" }, { label: "Shounen", value: "24" }, { label: "Shounen Ai", value: "25" }, { label: "Slice of Life", value: "26" }, { label: "Smut", value: "27" }, { label: "Sports", value: "28" }, { label: "Supernatural", value: "29" }, { label: "Tragedy", value: "30" }, { label: "Wuxia", value: "31" }, { label: "Xianxia", value: "32" }, { label: "Xuanhuan", value: "33" }, { label: "Yaoi", value: "34" }, { label: "Yuri", value: "35" }] } };
     }
-    __name(c2, "c");
-    return c2.prototype.setCachedReadToken = function(e2, t2, n2) {
-      if (e2) {
-        var r2 = m(e2), a2 = "number" == typeof t2 && t2 > 0 ? t2 : null !== r2.exp ? r2.exp : Math.floor(Date.now() / 1e3) + 300, i2 = null !== r2.cid ? r2.cid : "number" == typeof n2 && n2 > 0 ? n2 : null;
-        this.cachedReadToken = { value: e2, expiresAt: a2, cid: i2 };
+    __name(e2, "e");
+    return e2.prototype.setCachedReadToken = function(e3, t2, n2) {
+      if (e3) {
+        var r2 = w(e3), a2 = "number" == typeof t2 && t2 > 0 ? t2 : null !== r2.exp ? r2.exp : Math.floor(Date.now() / 1e3) + 300, i2 = null !== r2.cid ? r2.cid : "number" == typeof n2 && n2 > 0 ? n2 : null;
+        this.cachedReadToken = { value: e3, expiresAt: a2, cid: i2 };
       }
-    }, c2.prototype.getActiveTokenValue = function() {
+    }, e2.prototype.getActiveTokenValue = function() {
       return this.cachedReadToken ? 1e3 * this.cachedReadToken.expiresAt - Date.now() < 5e3 ? (this.cachedReadToken = null, null) : this.cachedReadToken.value : null;
-    }, c2.prototype.getCachedReadToken = function(e2) {
+    }, e2.prototype.getCachedReadToken = function(e3) {
       var t2 = this.getActiveTokenValue();
-      return t2 && this.cachedReadToken ? null != e2 && null !== this.cachedReadToken.cid && this.cachedReadToken.cid !== e2 ? null : t2 : null;
-    }, c2.prototype.captureReadTokenHeader = function(e2, t2) {
-      var n2, r2, a2, i2, o2 = null === (r2 = null === (n2 = e2.headers) || void 0 === n2 ? void 0 : n2.get) || void 0 === r2 ? void 0 : r2.call(n2, "x-read-token-issued");
+      return t2 && this.cachedReadToken ? null != e3 && null !== this.cachedReadToken.cid && this.cachedReadToken.cid !== e3 ? null : t2 : null;
+    }, e2.prototype.captureReadTokenHeader = function(e3, t2) {
+      var n2, r2, a2, i2, o2 = null === (r2 = null === (n2 = e3.headers) || void 0 === n2 ? void 0 : n2.get) || void 0 === r2 ? void 0 : r2.call(n2, "x-read-token-issued");
       if (o2) {
-        var l2 = null === (i2 = null === (a2 = e2.headers) || void 0 === a2 ? void 0 : a2.get) || void 0 === i2 ? void 0 : i2.call(a2, "x-read-token-expires-at"), s2 = l2 ? parseInt(l2, 10) : NaN;
+        var l2 = null === (i2 = null === (a2 = e3.headers) || void 0 === a2 ? void 0 : a2.get) || void 0 === i2 ? void 0 : i2.call(a2, "x-read-token-expires-at"), s2 = l2 ? parseInt(l2, 10) : NaN;
         this.setCachedReadToken(o2, Number.isFinite(s2) ? s2 : null, t2);
       }
-    }, c2.prototype.resolveRemintTarget = function(e2, t2) {
-      return e2.remint_chapter_uuid || e2.remint_chapter_id || e2.uuid || e2.id || t2 || null;
-    }, c2.prototype.buildChapterHeaders = function() {
-      var e2 = { Accept: "application/json", "X-Accepts-Encrypted-Content": "3" }, t2 = this.getActiveTokenValue();
-      return t2 && (e2.Cookie = "fr_read=".concat(t2)), e2;
-    }, c2.prototype.mintReadToken = function(e2, a2) {
-      return t(this, void 0, void 0, function() {
-        var i2, o2, l2, s2, c3, u2 = this;
-        return n(this, function(d2) {
+    }, e2.prototype.resolveRemintTarget = function(e3, t2) {
+      return e3.remint_chapter_uuid || e3.remint_chapter_id || e3.uuid || e3.id || t2 || null;
+    }, e2.prototype.buildChapterHeaders = function() {
+      var e3 = { Accept: "application/json", "X-Accepts-Encrypted-Content": "3" }, t2 = this.getActiveTokenValue();
+      return t2 && (e3.Cookie = "fr_read=".concat(t2)), e3;
+    }, e2.prototype.mintReadToken = function(e3, t2) {
+      return i(this, void 0, void 0, function() {
+        var n2, r2, a2, l2, u2, c2 = this;
+        return o(this, function(d2) {
           switch (d2.label) {
             case 0:
               this.lastMintRefusal = null, d2.label = 1;
             case 1:
-              return d2.trys.push([1, 5, , 6]), i2 = {}, null != e2 && "" !== e2 && (i2.chapter_id = String(e2)), o2 = /* @__PURE__ */ __name(function(e3) {
-                return t(u2, void 0, void 0, function() {
-                  var t2, a3, o3;
-                  return n(this, function(n2) {
-                    switch (n2.label) {
+              return d2.trys.push([1, 5, , 6]), n2 = {}, null != e3 && "" !== e3 && (n2.chapter_id = String(e3)), r2 = /* @__PURE__ */ __name(function(e4) {
+                return i(c2, void 0, void 0, function() {
+                  var t3, r3, a3;
+                  return o(this, function(i2) {
+                    switch (i2.label) {
                       case 0:
-                        return t2 = { "Content-Type": "application/json", Accept: "application/json" }, e3 && (t2.Cookie = "fr_read=".concat(e3)), [4, (0, r.fetchApi)("".concat(this.site, "/api/read-token"), { method: "POST", headers: t2, body: JSON.stringify(i2) })];
+                        return t3 = { "Content-Type": "application/json", Accept: "application/json" }, e4 && (t3.Cookie = "fr_read=".concat(e4)), [4, s("".concat(this.site, "/api/read-token"), { method: "POST", headers: t3, body: JSON.stringify(n2) })];
                       case 1:
-                        return (a3 = n2.sent()).ok ? [4, a3.json()] : (this.lastMintRefusal = a3, [2, null]);
+                        return (r3 = i2.sent()).ok ? [4, r3.json()] : (this.lastMintRefusal = r3, [2, null]);
                       case 2:
-                        return [2, (null == (o3 = n2.sent()) ? void 0 : o3.active) && "string" == typeof o3.token && "" !== o3.token ? o3 : null];
+                        return [2, (null == (a3 = i2.sent()) ? void 0 : a3.active) && "string" == typeof a3.token && "" !== a3.token ? a3 : null];
                     }
                   });
                 });
-              }, "o"), l2 = this.getActiveTokenValue(), [4, o2(l2)];
+              }, "r"), a2 = this.getActiveTokenValue(), [4, r2(a2)];
             case 2:
-              return (s2 = d2.sent()) || !l2 ? [3, 4] : (this.cachedReadToken = null, [4, o2(null)]);
+              return (l2 = d2.sent()) || !a2 ? [3, 4] : (this.cachedReadToken = null, [4, r2(null)]);
             case 3:
-              s2 = d2.sent(), d2.label = 4;
+              l2 = d2.sent(), d2.label = 4;
             case 4:
-              return s2 ? (this.lastMintRefusal = null, c3 = "number" == typeof a2 && a2 > 0 ? a2 : "number" == typeof e2 ? e2 : null, this.setCachedReadToken(s2.token, s2.expires_at, c3), [2, true]) : (this.cachedReadToken = null, [2, false]);
+              return l2 ? (this.lastMintRefusal = null, u2 = "number" == typeof t2 && t2 > 0 ? t2 : "number" == typeof e3 ? e3 : null, this.setCachedReadToken(l2.token, l2.expires_at, u2), [2, true]) : (this.cachedReadToken = null, [2, false]);
             case 5:
               return d2.sent(), [2, false];
             case 6:
@@ -27300,300 +27309,339 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, c2.prototype.verifyInWebViewError = function(e2) {
+    }, e2.prototype.verifyInWebViewError = function(e3) {
       var t2 = new Error("Chapter is protected by Cloudflare Turnstile. Please open this chapter in WebView to verify and try again.");
-      return e2 && !e2.ok ? (t2.status = e2.status, t2.response = e2) : t2.status = 403, t2;
-    }, c2.prototype.getReadToken = function(e2) {
-      return t(this, void 0, void 0, function() {
-        var t2, a2, i2, o2, l2;
-        return n(this, function(n2) {
-          switch (n2.label) {
+      return e3 && !e3.ok ? (t2.status = e3.status, t2.response = e3) : t2.status = 403, t2;
+    }, e2.prototype.getReadToken = function(e3) {
+      return i(this, void 0, void 0, function() {
+        var t2, n2, r2, a2, i2;
+        return o(this, function(o2) {
+          switch (o2.label) {
             case 0:
-              if (null !== (t2 = this.getCachedReadToken(e2))) return [2, t2];
-              n2.label = 1;
+              if (null !== (t2 = this.getCachedReadToken(e3))) return [2, t2];
+              o2.label = 1;
             case 1:
-              return n2.trys.push([1, 4, , 5]), a2 = { Accept: "application/json" }, (i2 = this.getActiveTokenValue()) && (a2.Cookie = "fr_read=".concat(i2)), [4, (0, r.fetchApi)("".concat(this.site, "/api/read-token"), { method: "GET", headers: a2 })];
+              return o2.trys.push([1, 4, , 5]), n2 = { Accept: "application/json" }, (r2 = this.getActiveTokenValue()) && (n2.Cookie = "fr_read=".concat(r2)), [4, s("".concat(this.site, "/api/read-token"), { method: "GET", headers: n2 })];
             case 2:
-              return (o2 = n2.sent()).ok ? [4, o2.json()] : [2, null];
+              return (a2 = o2.sent()).ok ? [4, a2.json()] : [2, null];
             case 3:
-              return (null == (l2 = n2.sent()) ? void 0 : l2.active) && "string" == typeof l2.token && "" !== l2.token ? (this.setCachedReadToken(l2.token, "number" == typeof l2.expires_at ? l2.expires_at : null, null != e2 ? e2 : null), [2, l2.token]) : [2, null];
+              return (null == (i2 = o2.sent()) ? void 0 : i2.active) && "string" == typeof i2.token && "" !== i2.token ? (this.setCachedReadToken(i2.token, "number" == typeof i2.expires_at ? i2.expires_at : null, null != e3 ? e3 : null), [2, i2.token]) : [2, null];
             case 4:
-              return n2.sent(), [2, null];
+              return o2.sent(), [2, null];
             case 5:
               return [2];
           }
         });
       });
-    }, c2.prototype.getChapterCid = function(e2) {
-      return "number" == typeof e2.content_cid && e2.content_cid > 0 ? e2.content_cid : "number" == typeof e2.id && e2.id > 0 ? e2.id : null;
-    }, c2.prototype.decryptWithToken = function(e2, t2) {
+    }, e2.prototype.getChapterCid = function(e3) {
+      return "number" == typeof e3.content_cid && e3.content_cid > 0 ? e3.content_cid : "number" == typeof e3.id && e3.id > 0 ? e3.id : null;
+    }, e2.prototype.decryptWithToken = function(e3, t2) {
       try {
-        var n2 = "fragmented-v2" === e2.content_scheme, r2 = n2 ? function(e3) {
-          return m(e3).vid;
-        }(t2) : "", a2 = this.getChapterCid(e2), i2 = null != a2 ? a2 : e2.uuid || e2.id || "", o2 = Array.isArray(e2.content) ? function(e3, t3) {
-          var n3 = e3.length;
-          if (n3 < 2) return 1 === n3 ? e3[0] : "";
-          for (var r3 = d(t3), a3 = new DataView(r3.buffer, r3.byteOffset, r3.byteLength), i3 = new Uint32Array([a3.getUint32(0, true), a3.getUint32(4, true), a3.getUint32(8, true), a3.getUint32(12, true)]), o3 = new Array(n3), l3 = 0; l3 < n3; l3++) o3[l3] = l3;
+        var n2 = "fragmented-v2" === e3.content_scheme, r2 = n2 ? function(e4) {
+          return w(e4).vid;
+        }(t2) : "", a2 = this.getChapterCid(e3), i2 = null != a2 ? a2 : e3.uuid || e3.id || "", o2 = Array.isArray(e3.content) ? function(e4, t3) {
+          var n3 = e4.length;
+          if (n3 < 2) return 1 === n3 ? e4[0] : "";
+          for (var r3 = f(t3), a3 = new DataView(r3.buffer, r3.byteOffset, r3.byteLength), i3 = new Uint32Array([a3.getUint32(0, true), a3.getUint32(4, true), a3.getUint32(8, true), a3.getUint32(12, true)]), o3 = new Array(n3), l3 = 0; l3 < n3; l3++) o3[l3] = l3;
           for (l3 = n3 - 1; l3 > 0; l3--) {
-            var s2 = p(i3) % (l3 + 1), c4 = o3[l3];
-            o3[l3] = o3[s2], o3[s2] = c4;
+            var s3 = b(i3) % (l3 + 1), u3 = o3[l3];
+            o3[l3] = o3[s3], o3[s3] = u3;
           }
-          var u3 = new Array(n3);
-          for (l3 = 0; l3 < n3; l3++) u3[o3[l3]] = e3[l3];
-          return u3.join("");
-        }(e2.content, n2 ? "".concat(t2, ":").concat(r2, ":").concat(i2, ":").concat("fr-frag-v2") : "".concat(t2, ":").concat(i2, ":").concat("fr-frag-v1")) : "string" == typeof e2.content ? e2.content : "";
+          var c3 = new Array(n3);
+          for (l3 = 0; l3 < n3; l3++) c3[o3[l3]] = e4[l3];
+          return c3.join("");
+        }(e3.content, n2 ? "".concat(t2, ":").concat(r2, ":").concat(i2, ":").concat("fr-frag-v2") : "".concat(t2, ":").concat(i2, ":").concat("fr-frag-v1")) : "string" == typeof e3.content ? e3.content : "";
         if (!o2) return null;
-        var l2 = h(o2);
+        var l2 = m(o2);
         if (l2.length <= 28) return null;
-        var c3 = d(n2 && "" !== r2 ? "".concat(t2, ":").concat(r2, ":").concat(i2, ":").concat("fr-content-v2") : "".concat(t2, ":").concat(i2, ":").concat("fr-content-v1")), u2 = l2.slice(0, 12), v2 = l2.slice(12), f2 = (0, s.gcm)(c3, u2).decrypt(v2);
-        return new TextDecoder().decode(f2);
-      } catch (e3) {
+        var s2 = f(n2 && "" !== r2 ? "".concat(t2, ":").concat(r2, ":").concat(i2, ":").concat("fr-content-v2") : "".concat(t2, ":").concat(i2, ":").concat("fr-content-v1")), u2 = l2.slice(0, 12), c2 = l2.slice(12), d2 = (0, h.gcm)(s2, u2).decrypt(c2);
+        return new TextDecoder().decode(d2);
+      } catch (e4) {
         return null;
       }
-    }, c2.prototype.formatChapterContent = function(e2) {
+    }, e2.prototype.formatChapterContent = function(e3) {
       try {
-        var t2 = JSON.parse(e2);
-        if ("doc" === t2.type || "systemWindow" === t2.type) return f(t2.content.map(function(e3) {
+        var t2 = JSON.parse(e3);
+        if ("doc" === t2.type || "systemWindow" === t2.type) return g(t2.content.map(function(e4) {
           var t3, n3, r2;
-          if ("paragraph" === e3.type) {
-            var a2 = (null === (t3 = e3.content) || void 0 === t3 ? void 0 : t3.map(function(e4) {
+          if ("paragraph" === e4.type) {
+            var a2 = (null === (t3 = e4.content) || void 0 === t3 ? void 0 : t3.map(function(e5) {
               var t4;
-              if ("text" === e4.type) {
-                var n4 = e4.text;
-                if (e4.marks) for (var r3 = 0, a3 = e4.marks; r3 < a3.length; r3++) {
+              if ("text" === e5.type) {
+                var n4 = e5.text;
+                if (e5.marks) for (var r3 = 0, a3 = e5.marks; r3 < a3.length; r3++) {
                   var i3 = a3[r3];
                   "bold" === i3.type && (n4 = "<b>".concat(n4, "</b>")), "italic" === i3.type && (n4 = "<i>".concat(n4, "</i>")), "underline" === i3.type && (n4 = "<u>".concat(n4, "</u>")), "strike" === i3.type && (n4 = "<strike>".concat(n4, "</strike>")), "link" === i3.type && (n4 = '<a href="'.concat(null === (t4 = i3.attrs) || void 0 === t4 ? void 0 : t4.href, '">').concat(n4, "</a>"));
                 }
                 return n4;
               }
-              return "hardBreak" === e4.type ? "<br>" : "";
+              return "hardBreak" === e5.type ? "<br>" : "";
             }).join("")) || "";
             return "<p>".concat(a2, "</p>");
           }
-          if ("heading" === e3.type) {
-            var i2 = (null === (n3 = e3.attrs) || void 0 === n3 ? void 0 : n3.level) || 1;
-            a2 = (null === (r2 = e3.content) || void 0 === r2 ? void 0 : r2.map(function(e4) {
-              return e4.text;
+          if ("heading" === e4.type) {
+            var i2 = (null === (n3 = e4.attrs) || void 0 === n3 ? void 0 : n3.level) || 1;
+            a2 = (null === (r2 = e4.content) || void 0 === r2 ? void 0 : r2.map(function(e5) {
+              return e5.text;
             }).join("")) || "";
             return "<h".concat(i2, ">").concat(a2, "</h").concat(i2, ">");
           }
           return "";
         }).join("\n"));
-      } catch (e3) {
+      } catch (e4) {
       }
-      var n2 = (0, a.load)(e2);
-      return n2('[aria-hidden="true"]').remove(), n2(".reader-attribution").remove(), n2("[data-fr-attr]").remove(), n2("style, script").remove(), n2("p, div, span, small").each(function(e3, t3) {
+      var n2 = (0, u.load)(e3);
+      return n2('[aria-hidden="true"]').remove(), n2(".reader-attribution").remove(), n2("[data-fr-attr]").remove(), n2("style, script").remove(), n2("p, div, span, small").each(function(e4, t3) {
         var r2 = n2(t3).text().trim();
         (r2.startsWith("Copy reference:") || r2.startsWith("Bookmark:")) && n2(t3).remove();
-      }), f(n2.html() || e2);
-    }, c2.prototype.popularNovels = function(e2, a2) {
-      return t(this, arguments, void 0, function(e3, a3) {
-        var i2, o2 = this, l2 = a3.showLatestNovels, s2 = a3.filters;
-        return n(this, function(a4) {
-          switch (a4.label) {
+      }), g(n2.html() || e3);
+    }, e2.prototype.popularNovels = function(e3, t2) {
+      return i(this, arguments, void 0, function(e4, t3) {
+        var n2, r2 = this, a2 = t3.showLatestNovels, l2 = t3.filters;
+        return o(this, function(t4) {
+          switch (t4.label) {
             case 0:
-              return i2 = new URLSearchParams({ page: e3.toString(), per_page: "20", sort: l2 ? "latest" : s2.sort.value }), s2.status.value && i2.append("statuses[]", s2.status.value), s2.genres.value.forEach(function(e4) {
-                return i2.append("genres[]", e4);
-              }), [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series?").concat(i2.toString())).then(function(e4) {
-                return t(o2, void 0, void 0, function() {
-                  var t2;
-                  return n(this, function(n2) {
-                    if (t2 = new Error("There was an error fetching the data from the server. Please try to open it in WebView"), !e4.ok) throw t2.status = e4.status, t2;
-                    return [2, e4.json().catch(function() {
-                      throw t2;
+              return n2 = new URLSearchParams({ page: e4.toString(), per_page: "20", sort: a2 ? "latest" : l2.sort.value }), l2.status.value && n2.append("statuses[]", l2.status.value), l2.genres.value.forEach(function(e5) {
+                return n2.append("genres[]", e5);
+              }), [4, s("".concat(this.site, "/api/new/v2/series?").concat(n2.toString())).then(function(e5) {
+                return i(r2, void 0, void 0, function() {
+                  var t5;
+                  return o(this, function(n3) {
+                    if (t5 = new Error("There was an error fetching the data from the server. Please try to open it in WebView"), !e5.ok) throw t5.status = e5.status, t5;
+                    return [2, e5.json().catch(function() {
+                      throw t5;
                     })];
                   });
                 });
               })];
             case 1:
-              return [2, (a4.sent().data || []).map(function(e4) {
-                return o2.parseNovelFromApi(e4);
+              return [2, (t4.sent().data || []).map(function(e5) {
+                return r2.parseNovelFromApi(e5);
               })];
           }
         });
       });
-    }, c2.prototype.parseNovel = function(e2) {
-      return t(this, void 0, void 0, function() {
-        var t2, i2, o2, s2, c3, u2, d2, p2, h2, v2, f2, m2, y2;
-        return n(this, function(n2) {
-          switch (n2.label) {
+    }, e2.prototype.parseNovel = function(e3) {
+      return i(this, void 0, void 0, function() {
+        var t2, n2, r2, a2, i2, l2, c2, d2, h2, p2, v2, f2, b2;
+        return o(this, function(o2) {
+          switch (o2.label) {
             case 0:
-              return t2 = e2, [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(e2, "/chapters"), {})];
+              return t2 = e3, [4, s("".concat(this.site, "/api/new/v2/series/").concat(e3, "/chapters"), {})];
             case 1:
-              return (i2 = n2.sent()).ok ? [3, 6] : (o2 = e2.match(/^\d+-(.+)$/), s2 = o2 ? o2[1] : e2, [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(s2, "/chapters"), {})]);
+              return (n2 = o2.sent()).ok ? [3, 6] : (r2 = e3.match(/^\d+-(.+)$/), a2 = r2 ? r2[1] : e3, [4, s("".concat(this.site, "/api/new/v2/series/").concat(a2, "/chapters"), {})]);
             case 2:
-              return i2 = n2.sent(), t2 = s2, i2.ok ? [3, 5] : (c3 = s2.replace(/-/g, " ").split(" "), u2 = c3.find(function(e3) {
-                return e3.length > 3;
-              }) || c3[0], [4, (0, r.fetchApi)("".concat(this.site, "/api/series/filter?page=1&per_page=20&search=").concat(encodeURIComponent(u2))).then(function(e3) {
-                return e3.json();
+              return n2 = o2.sent(), t2 = a2, n2.ok ? [3, 5] : (i2 = a2.replace(/-/g, " ").split(" "), l2 = i2.find(function(e4) {
+                return e4.length > 3;
+              }) || i2[0], [4, s("".concat(this.site, "/api/series/filter?page=1&per_page=20&search=").concat(encodeURIComponent(l2))).then(function(e4) {
+                return e4.json();
               })]);
             case 3:
-              return (d2 = n2.sent()).data && d2.data.length > 0 ? (t2 = d2.data[0].slug, [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(t2, "/chapters"), {})]) : [3, 5];
+              return (c2 = o2.sent()).data && c2.data.length > 0 ? (t2 = c2.data[0].slug, [4, s("".concat(this.site, "/api/new/v2/series/").concat(t2, "/chapters"), {})]) : [3, 5];
             case 4:
-              i2 = n2.sent(), n2.label = 5;
+              n2 = o2.sent(), o2.label = 5;
             case 5:
-              if (!i2.ok) throw new Error("Novel not found. It may have been removed or its URL changed significantly.");
-              n2.label = 6;
+              if (!n2.ok) throw new Error("Novel not found. It may have been removed or its URL changed significantly.");
+              o2.label = 6;
             case 6:
-              return [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(t2)).then(function(e3) {
-                return e3.json();
+              return [4, s("".concat(this.site, "/api/new/v2/series/").concat(t2)).then(function(e4) {
+                return e4.json();
               })];
             case 7:
-              return p2 = n2.sent(), h2 = (0, a.load)(p2.description || ""), v2 = { path: t2, name: p2.title || "", summary: h2("p").length > 0 ? h2("p").map(function(e3, t3) {
-                return (0, a.load)(t3).text();
-              }).get().join("\n\n") : h2.text() || "", author: (null === (m2 = p2.user) || void 0 === m2 ? void 0 : m2.name) || (null === (y2 = p2.user) || void 0 === y2 ? void 0 : y2.username) || "", cover: p2.cover ? this.site + "/" + p2.cover : l.defaultCover, genres: (p2.genres || []).map(function(e3) {
-                return e3.name;
-              }).join(","), status: p2.status || "Unknown" }, [4, i2.json()];
+              return d2 = o2.sent(), h2 = (0, u.load)(d2.description || ""), p2 = { path: t2, name: d2.title || "", summary: h2("p").length > 0 ? h2("p").map(function(e4, t3) {
+                return (0, u.load)(t3).text();
+              }).get().join("\n\n") : h2.text() || "", author: (null === (f2 = d2.user) || void 0 === f2 ? void 0 : f2.name) || (null === (b2 = d2.user) || void 0 === b2 ? void 0 : b2.username) || "", cover: d2.cover ? this.site + "/" + d2.cover : void 0, genres: (d2.genres || []).map(function(e4) {
+                return e4.name;
+              }).join(","), status: d2.status || "Unknown" }, [4, n2.json()];
             case 8:
-              return f2 = n2.sent(), this.hideLocked && (f2 = f2.filter(function(e3) {
+              return v2 = o2.sent(), this.hideLocked && (v2 = v2.filter(function(e4) {
                 var t3;
-                return !(null === (t3 = e3.locked) || void 0 === t3 ? void 0 : t3.price);
-              })), v2.chapters = f2.map(function(e3) {
-                var n3, r2, a2, i3, o3, l2, s3 = b(t2 + (null == (null === (n3 = e3.group) || void 0 === n3 ? void 0 : n3.index) ? "" : "/" + (null === (r2 = e3.group) || void 0 === r2 ? void 0 : r2.slug)) + "/" + (e3.slug || "chapter-" + e3.number)), c4 = e3.uuid || e3.id;
-                return { name: ((null === (a2 = e3.locked) || void 0 === a2 ? void 0 : a2.price) ? "\u{1F512} " : "") + (null == (null === (i3 = e3.group) || void 0 === i3 ? void 0 : i3.index) ? "" : "Vol " + (null === (o3 = e3.group) || void 0 === o3 ? void 0 : o3.index) + " ") + "Chapter " + e3.number + (e3.title && e3.title.trim() != "Chapter " + e3.number ? " - " + e3.title.replace(/^chapter [0-9]+ . /i, "") : ""), path: s3 + (c4 ? "~~".concat(c4) : ""), releaseTime: e3.created_at, chapterNumber: e3.number + 1e4 * ((null === (l2 = e3.group) || void 0 === l2 ? void 0 : l2.index) || 0) };
-              }).sort(function(e3, t3) {
-                return e3.chapterNumber - t3.chapterNumber;
-              }), [2, v2];
+                return !(null === (t3 = e4.locked) || void 0 === t3 ? void 0 : t3.price);
+              })), p2.chapters = v2.map(function(e4) {
+                var n3, r3, a3, i3, o3, l3, s2 = k(t2 + (null == (null === (n3 = e4.group) || void 0 === n3 ? void 0 : n3.index) ? "" : "/" + (null === (r3 = e4.group) || void 0 === r3 ? void 0 : r3.slug)) + "/" + (e4.slug || "chapter-" + e4.number)), u2 = e4.uuid || e4.id;
+                return { name: ((null === (a3 = e4.locked) || void 0 === a3 ? void 0 : a3.price) ? "\u{1F512} " : "") + (null == (null === (i3 = e4.group) || void 0 === i3 ? void 0 : i3.index) ? "" : "Vol " + (null === (o3 = e4.group) || void 0 === o3 ? void 0 : o3.index) + " ") + "Chapter " + e4.number + (e4.title && e4.title.trim() != "Chapter " + e4.number ? " - " + e4.title.replace(/^chapter [0-9]+ . /i, "") : ""), path: s2 + (u2 ? "~~".concat(u2) : ""), releaseTime: e4.created_at, chapterNumber: e4.number + 1e4 * ((null === (l3 = e4.group) || void 0 === l3 ? void 0 : l3.index) || 0) };
+              }).sort(function(e4, t3) {
+                return e4.chapterNumber - t3.chapterNumber;
+              }), [2, p2];
           }
         });
       });
-    }, c2.prototype.parseChapter = function(i2) {
-      return t(this, void 0, void 0, function() {
-        var t2, o2, l2, s2, c3, u2, d2, p2, h2, v2, m2, y2, g, k, w, T, R, A, C, x, _, j, U, E, S, F, M, H, N, P, V, I, W, O, L, D, q;
-        return n(this, function(n2) {
-          switch (n2.label) {
+    }, e2.prototype.extractChapterHtml = function(e3) {
+      if (/confirm you['’]re human to continue reading/i.test(e3)) return "";
+      var t2 = (0, u.load)(e3);
+      t2('[aria-hidden="true"]').remove(), t2(".reader-attribution").remove(), t2("[data-fr-attr]").remove();
+      var n2 = t2(T).map(function(e4, n3) {
+        var r2, a2 = null === (r2 = t2(n3).html()) || void 0 === r2 ? void 0 : r2.trim();
+        return a2 ? "<p>".concat(a2, "</p>") : "";
+      }).get().filter(Boolean).join("\n");
+      return n2 ? g(n2) : "";
+    }, e2.prototype.fetchChapterViaWebview = function(e3) {
+      return i(this, void 0, void 0, function() {
+        var t2, n2;
+        return o(this, function(r2) {
+          switch (r2.label) {
             case 0:
-              return t2 = i2.split("~~"), o2 = t2[0], l2 = t2[1], s2 = b(o2), c3 = l2 && "undefined" !== l2 ? l2 : void 0, this.lastMintRefusal = null, u2 = c3 ? "".concat(this.site, "/api/new/v2/chapters/").concat(c3) : "".concat(this.site, "/api/new/v2/series/").concat(s2), d2 = c3 && /^\d+$/.test(c3) ? parseInt(c3, 10) : null, null !== this.getCachedReadToken(d2) ? [3, 2] : [4, this.mintReadToken(c3 || null, d2)];
+              if ("function" != typeof (t2 = l.fetchViaWebview)) return [2, null];
+              r2.label = 1;
             case 1:
-              n2.sent(), n2.label = 2;
+              return r2.trys.push([1, 3, , 4]), [4, t2(this.resolveUrl(e3), { waitForSelector: T, timeoutMs: 15e3, settleMs: 400 })];
             case 2:
-              return [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })];
+              return (null == (n2 = r2.sent()) ? void 0 : n2.ok) && n2.html ? [2, this.extractChapterHtml(n2.html) || null] : [2, null];
             case 3:
-              if ((p2 = n2.sent()).ok || 404 !== p2.status) return [3, 10];
-              h2 = s2.split("/")[0], n2.label = 4;
+              return r2.sent(), [2, null];
             case 4:
-              return n2.trys.push([4, 9, , 10]), [4, (0, r.fetchApi)("".concat(this.site, "/api/new/v2/series/").concat(h2, "/chapters"))];
+              return [2];
+          }
+        });
+      });
+    }, e2.prototype.fetchViaWebviewOrThrow = function(e3, t2) {
+      return i(this, void 0, void 0, function() {
+        var n2;
+        return o(this, function(r2) {
+          switch (r2.label) {
+            case 0:
+              return [4, this.fetchChapterViaWebview(e3)];
+            case 1:
+              if (n2 = r2.sent()) return [2, n2];
+              throw this.verifyInWebViewError(t2);
+          }
+        });
+      });
+    }, e2.prototype.parseChapter = function(e3) {
+      return i(this, void 0, void 0, function() {
+        var n2, r2, a2, i2, l2, u2, c2, d2, h2, p2, v2, f2, b2, m2, y2, g2, w2, T2, R2, C, _, x, j, A, U, S, O, E, M, V, F, H, P, W, N, I, D;
+        return o(this, function(o2) {
+          switch (o2.label) {
+            case 0:
+              return n2 = e3.split("~~"), r2 = n2[0], a2 = n2[1], i2 = k(r2), l2 = a2 && "undefined" !== a2 ? a2 : void 0, this.lastMintRefusal = null, u2 = l2 ? "".concat(this.site, "/api/new/v2/chapters/").concat(l2) : "".concat(this.site, "/api/new/v2/series/").concat(i2), c2 = l2 && /^\d+$/.test(l2) ? parseInt(l2, 10) : null, null !== this.getCachedReadToken(c2) ? [3, 2] : [4, this.mintReadToken(l2 || null, c2)];
+            case 1:
+              o2.sent(), o2.label = 2;
+            case 2:
+              return [4, s(u2, { headers: this.buildChapterHeaders() })];
+            case 3:
+              if ((d2 = o2.sent()).ok || 404 !== d2.status) return [3, 10];
+              h2 = i2.split("/")[0], o2.label = 4;
+            case 4:
+              return o2.trys.push([4, 9, , 10]), [4, s("".concat(this.site, "/api/new/v2/series/").concat(h2, "/chapters"))];
             case 5:
-              return (v2 = n2.sent()).ok ? [4, v2.json()] : [3, 8];
+              return (p2 = o2.sent()).ok ? [4, p2.json()] : [3, 8];
             case 6:
-              return m2 = n2.sent(), y2 = s2.split("/").slice(1).join("/"), g = m2.find(function(e2) {
-                var t3, n3 = e2.slug || "chapter-".concat(e2.number);
-                return e2.uuid && e2.uuid === c3 || e2.id && String(e2.id) === c3 || n3 === y2 || ((null === (t3 = e2.group) || void 0 === t3 ? void 0 : t3.slug) ? "".concat(e2.group.slug, "/").concat(n3) : n3) === y2 || n3 === s2;
-              }), (k = (null == g ? void 0 : g.uuid) || (null == g ? void 0 : g.id)) ? (u2 = "".concat(this.site, "/api/new/v2/chapters/").concat(k), [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })]) : [3, 8];
+              return v2 = o2.sent(), f2 = i2.split("/").slice(1).join("/"), b2 = v2.find(function(e4) {
+                var t2, n3 = e4.slug || "chapter-".concat(e4.number);
+                return e4.uuid && e4.uuid === l2 || e4.id && String(e4.id) === l2 || n3 === f2 || ((null === (t2 = e4.group) || void 0 === t2 ? void 0 : t2.slug) ? "".concat(e4.group.slug, "/").concat(n3) : n3) === f2 || n3 === i2;
+              }), (m2 = (null == b2 ? void 0 : b2.uuid) || (null == b2 ? void 0 : b2.id)) ? (u2 = "".concat(this.site, "/api/new/v2/chapters/").concat(m2), [4, s(u2, { headers: this.buildChapterHeaders() })]) : [3, 8];
             case 7:
-              p2 = n2.sent(), n2.label = 8;
+              d2 = o2.sent(), o2.label = 8;
             case 8:
               return [3, 10];
             case 9:
-              return n2.sent(), [3, 10];
+              return o2.sent(), [3, 10];
             case 10:
-              if (429 === p2.status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              return this.captureReadTokenHeader(p2, d2), 403 !== p2.status ? [3, 14] : [4, this.mintReadToken(c3 || null, d2)];
+              if (429 === d2.status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              return this.captureReadTokenHeader(d2, c2), 403 !== d2.status ? [3, 14] : [4, this.mintReadToken(l2 || null, c2)];
             case 11:
-              return n2.sent() ? [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })] : [3, 13];
+              return o2.sent() ? [4, s(u2, { headers: this.buildChapterHeaders() })] : [3, 13];
             case 12:
-              if (429 === (p2 = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
-              this.captureReadTokenHeader(p2, d2), n2.label = 13;
+              if (429 === (d2 = o2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              this.captureReadTokenHeader(d2, c2), o2.label = 13;
             case 13:
-              if (!p2.ok && 403 === p2.status) throw this.verifyInWebViewError(403 === (null === (O = this.lastMintRefusal) || void 0 === O ? void 0 : O.status) ? this.lastMintRefusal : p2);
-              n2.label = 14;
+              if (!d2.ok && 403 === d2.status) return [2, this.fetchViaWebviewOrThrow(e3, 403 === (null === (W = this.lastMintRefusal) || void 0 === W ? void 0 : W.status) ? this.lastMintRefusal : d2)];
+              o2.label = 14;
             case 14:
-              if (401 === p2.status || 503 === p2.status) throw this.verifyInWebViewError(p2);
-              return p2.ok ? [4, p2.json()] : [3, 28];
+              return 401 === d2.status || 503 === d2.status ? [2, this.fetchViaWebviewOrThrow(e3, d2)] : d2.ok ? [4, d2.json()] : [3, 28];
             case 15:
-              if (P = n2.sent(), w = this.getChapterCid(P), this.captureReadTokenHeader(p2, w), "locked" !== P.content_format) return [3, 19];
-              if ((null === (L = P.locked) || void 0 === L ? void 0 : L.price) && P.locked.price > 0 && !(null === (D = P.bought) || void 0 === D ? void 0 : D.bought_at) && !P.bypass) throw new Error("This chapter is locked (paid). Please unlock it on Fenrir Realm first.");
-              return x = this.resolveRemintTarget(P, c3), T = this.getChapterCid(P) || P.remint_chapter_id || d2, [4, this.mintReadToken(x, T)];
+              if (V = o2.sent(), y2 = this.getChapterCid(V), this.captureReadTokenHeader(d2, y2), "locked" !== V.content_format) return [3, 19];
+              if ((null === (N = V.locked) || void 0 === N ? void 0 : N.price) && V.locked.price > 0 && !(null === (I = V.bought) || void 0 === I ? void 0 : I.bought_at) && !V.bypass) throw new Error("This chapter is locked (paid). Please unlock it on Fenrir Realm first.");
+              return C = this.resolveRemintTarget(V, l2), g2 = this.getChapterCid(V) || V.remint_chapter_id || c2, [4, this.mintReadToken(C, g2)];
             case 16:
-              return n2.sent() ? [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })] : [3, 19];
+              return o2.sent() ? [4, s(u2, { headers: this.buildChapterHeaders() })] : [3, 19];
             case 17:
-              if (429 === (_ = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              if (429 === (_ = o2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
               return _.ok ? [4, _.json()] : [3, 19];
             case 18:
-              P = n2.sent(), U = this.getChapterCid(P), this.captureReadTokenHeader(_, U), n2.label = 19;
+              V = o2.sent(), j = this.getChapterCid(V), this.captureReadTokenHeader(_, j), o2.label = 19;
             case 19:
-              return "encrypted" !== P.content_format ? [3, 27] : (R = this.getChapterCid(P), [4, this.getReadToken(R)]);
+              return "encrypted" !== V.content_format ? [3, 27] : (w2 = this.getChapterCid(V), [4, this.getReadToken(w2)]);
             case 20:
-              return A = n2.sent(), (C = A ? this.decryptWithToken(P, A) : null) ? [3, 26] : (x = this.resolveRemintTarget(P, c3), [4, this.mintReadToken(x, R)]);
+              return T2 = o2.sent(), (R2 = T2 ? this.decryptWithToken(V, T2) : null) ? [3, 26] : (C = this.resolveRemintTarget(V, l2), [4, this.mintReadToken(C, w2)]);
             case 21:
-              return n2.sent() ? [4, (0, r.fetchApi)(u2, { headers: this.buildChapterHeaders() })] : [3, 26];
+              return o2.sent() ? [4, s(u2, { headers: this.buildChapterHeaders() })] : [3, 26];
             case 22:
-              if (429 === (_ = n2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
+              if (429 === (_ = o2.sent()).status) throw new Error("Rate limited by Fenrir Realm (Too Many Attempts). Please wait a moment before loading more chapters.");
               return _.ok ? [4, _.json()] : [3, 26];
             case 23:
-              return j = n2.sent(), U = this.getChapterCid(j), this.captureReadTokenHeader(_, U), "encrypted" !== j.content_format ? [3, 25] : [4, this.getReadToken(U)];
+              return x = o2.sent(), j = this.getChapterCid(x), this.captureReadTokenHeader(_, j), "encrypted" !== x.content_format ? [3, 25] : [4, this.getReadToken(j)];
             case 24:
-              return E = n2.sent(), C = E ? this.decryptWithToken(j, E) : null, [3, 26];
+              return A = o2.sent(), R2 = A ? this.decryptWithToken(x, A) : null, [3, 26];
             case 25:
-              "locked" !== j.content_format && "string" == typeof j.content && j.content && (C = j.content), n2.label = 26;
+              "locked" !== x.content_format && "string" == typeof x.content && x.content && (R2 = x.content), o2.label = 26;
             case 26:
-              if (C) return [2, this.formatChapterContent(C)];
-              P = e(e({}, P), { content: "", content_format: "locked" }), n2.label = 27;
+              if (R2) return [2, this.formatChapterContent(R2)];
+              V = t(t({}, V), { content: "", content_format: "locked" }), o2.label = 27;
             case 27:
-              if ("locked" === P.content_format) throw this.cachedReadToken = null, this.verifyInWebViewError(this.lastMintRefusal);
-              if ("string" == typeof P.content && P.content) return [2, this.formatChapterContent(P.content)];
-              n2.label = 28;
+              if ("locked" === V.content_format) return this.cachedReadToken = null, [2, this.fetchViaWebviewOrThrow(e3, this.lastMintRefusal)];
+              if ("string" == typeof V.content && V.content) return [2, this.formatChapterContent(V.content)];
+              o2.label = 28;
             case 28:
-              return S = this.resolveUrl(i2), [4, (0, r.fetchApi)(S)];
+              return U = this.resolveUrl(e3), [4, s(U)];
             case 29:
-              return [4, n2.sent().text()];
+              return [4, o2.sent().text()];
             case 30:
-              if (F = n2.sent(), (M = (0, a.load)(F))('[aria-hidden="true"]').remove(), M(".reader-attribution").remove(), M("[data-fr-attr]").remove(), H = M('.reader-area p, div.content-area p, [id^="reader-area"] p').map(function(e2, t3) {
-                var n3, r2 = null === (n3 = M(t3).html()) || void 0 === n3 ? void 0 : n3.trim();
-                return r2 ? "<p>".concat(r2, "</p>") : "";
-              }).get().filter(Boolean).join("\n"), H) return [2, f(H)];
-              n2.label = 31;
+              return S = o2.sent(), (O = this.extractChapterHtml(S)) ? [2, O] : [4, this.fetchChapterViaWebview(e3)];
             case 31:
-              return n2.trys.push([31, 34, , 35]), N = "".concat(this.resolveUrl(i2), "/__data.json?x-sveltekit-invalidated=001"), [4, (0, r.fetchApi)(N)];
+              if (E = o2.sent()) return [2, E];
+              o2.label = 32;
             case 32:
-              return [4, n2.sent().json()];
+              return o2.trys.push([32, 35, , 36]), M = "".concat(this.resolveUrl(e3), "/__data.json?x-sveltekit-invalidated=001"), [4, s(M)];
             case 33:
-              return P = n2.sent(), V = P.nodes, (I = null === (q = null == V ? void 0 : V.find(function(e2) {
-                return "data" === e2.type;
-              })) || void 0 === q ? void 0 : q.data) && (W = I.find(function(e2) {
-                return "string" == typeof e2 && e2.includes('{"type":"doc"');
-              })) ? [2, this.formatChapterContent(W)] : [3, 35];
+              return [4, o2.sent().json()];
             case 34:
-              return n2.sent(), [3, 35];
+              return V = o2.sent(), F = V.nodes, (H = null === (D = null == F ? void 0 : F.find(function(e4) {
+                return "data" === e4.type;
+              })) || void 0 === D ? void 0 : D.data) && (P = H.find(function(e4) {
+                return "string" == typeof e4 && e4.includes('{"type":"doc"');
+              })) ? [2, this.formatChapterContent(P)] : [3, 36];
             case 35:
+              return o2.sent(), [3, 36];
+            case 36:
               throw this.verifyInWebViewError(this.lastMintRefusal);
           }
         });
       });
-    }, c2.prototype.searchNovels = function(e2, a2) {
-      return t(this, void 0, void 0, function() {
-        var t2, i2, o2, l2, s2 = this;
-        return n(this, function(n2) {
-          switch (n2.label) {
+    }, e2.prototype.searchNovels = function(e3, t2) {
+      return i(this, void 0, void 0, function() {
+        var n2, r2, a2, i2, l2 = this;
+        return o(this, function(o2) {
+          switch (o2.label) {
             case 0:
-              return t2 = "".concat(this.site, "/api/series/filter?page=").concat(a2, "&per_page=20&search=").concat(encodeURIComponent(e2)), [4, (0, r.fetchApi)(t2).then(function(e3) {
-                return e3.json();
+              return n2 = "".concat(this.site, "/api/series/filter?page=").concat(t2, "&per_page=20&search=").concat(encodeURIComponent(e3)), [4, s(n2).then(function(e4) {
+                return e4.json();
               })];
             case 1:
-              return i2 = n2.sent(), 1 !== a2 || i2.data && 0 !== i2.data.length ? [3, 3] : (o2 = e2.split(" "), (l2 = o2.find(function(e3) {
-                return e3.length > 3;
-              }) || o2[0]) && l2 !== e2 ? (t2 = "".concat(this.site, "/api/series/filter?page=").concat(a2, "&per_page=20&search=").concat(encodeURIComponent(l2)), [4, (0, r.fetchApi)(t2).then(function(e3) {
-                return e3.json();
+              return r2 = o2.sent(), 1 !== t2 || r2.data && 0 !== r2.data.length ? [3, 3] : (a2 = e3.split(" "), (i2 = a2.find(function(e4) {
+                return e4.length > 3;
+              }) || a2[0]) && i2 !== e3 ? (n2 = "".concat(this.site, "/api/series/filter?page=").concat(t2, "&per_page=20&search=").concat(encodeURIComponent(i2)), [4, s(n2).then(function(e4) {
+                return e4.json();
               })]) : [3, 3]);
             case 2:
-              i2 = n2.sent(), n2.label = 3;
+              r2 = o2.sent(), o2.label = 3;
             case 3:
-              return [2, (i2.data || []).map(function(e3) {
-                return s2.parseNovelFromApi(e3);
+              return [2, (r2.data || []).map(function(e4) {
+                return l2.parseNovelFromApi(e4);
               })];
           }
         });
       });
-    }, c2.prototype.parseNovelFromApi = function(e2) {
-      return { name: e2.title, path: e2.slug, cover: this.site + "/" + e2.cover, summary: e2.description, status: e2.status, genres: e2.genres.map(function(e3) {
-        return e3.name;
+    }, e2.prototype.parseNovelFromApi = function(e3) {
+      return { name: e3.title, path: e3.slug, cover: this.site + "/" + e3.cover, summary: e3.description, status: e3.status, genres: e3.genres.map(function(e4) {
+        return e4.name;
       }).join(",") };
-    }, c2.prototype.resolveUrl = function(e2) {
-      var t2 = b(e2.split("~~")[0]);
+    }, e2.prototype.resolveUrl = function(e3) {
+      var t2 = k(e3.split("~~")[0]);
       return "".concat(this.site, "/series/").concat(t2);
-    }, c2;
+    }, e2;
   }();
-  exports.default = new y();
+  exports.default = new R();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

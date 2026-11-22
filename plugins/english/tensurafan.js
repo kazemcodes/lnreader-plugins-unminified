@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25581,21 +25589,21 @@ var LNReaderPlugin = (() => {
     __name(o2, "o");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = (init_storage2(), __toCommonJS(storage_exports)), o = "That Time I Got Reincarnated as a Slime", c = "bytes=0-23999", u = /* @__PURE__ */ __name(function(t2) {
+  var r = (init_browser(), __toCommonJS(browser_exports)), n = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), a = (init_storage2(), __toCommonJS(storage_exports)), s = "That Time I Got Reincarnated as a Slime", o = "bytes=0-23999", c = /* @__PURE__ */ __name(function(t2) {
     return t2.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
-  }, "u"), l = /* @__PURE__ */ __name(function(t2, e2) {
+  }, "c"), u = /* @__PURE__ */ __name(function(t2, e2) {
     return t2.toLowerCase().split(" ").map(function(t3, r2) {
       return t3 && (e2 || 0 === r2) ? t3[0].toUpperCase() + t3.slice(1) : t3;
     }).join(" ");
-  }, "l"), h = function() {
-    function h2() {
+  }, "u"), l = function() {
+    function l2() {
       var t2 = this;
-      this.id = "tensurafan", this.name = "Tensurafan", this.icon = "src/en/tensurafan/icon.png", this.site = "https://tensurafan.github.io", this.version = "1.0.0", this.pluginSettings = { termSet: { value: "default", label: 'Names and terms (the same choices as "Set All Terms to ..." under Extras > Manage Selectable terms on the site; applies to chapters opened after changing it)', type: "Select", options: [{ label: "Default terms", value: "default" }, { label: "Official terms", value: "official" }, { label: "Text-to-speech friendly terms", value: "tts" }] } }, this.resolveUrl = function(e2, r2) {
+      this.id = "tensurafan", this.name = "Tensurafan", this.icon = "src/en/tensurafan/icon.png", this.site = "https://tensurafan.github.io", this.version = "1.0.1", this.pluginSettings = { termSet: { value: "default", label: 'Names and terms (the same choices as "Set All Terms to ..." under Extras > Manage Selectable terms on the site; applies to chapters opened after changing it)', type: "Select", options: [{ label: "Default terms", value: "default" }, { label: "Official terms", value: "official" }, { label: "Text-to-speech friendly terms", value: "tts" }] } }, this.resolveUrl = function(e2, r2) {
         return t2.site + (r2 ? "/" : e2);
       };
     }
-    __name(h2, "h");
-    return h2.prototype.fetchOk = function(r2, i2) {
+    __name(l2, "l");
+    return l2.prototype.fetchOk = function(r2, i2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25608,11 +25616,11 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.getVolumeList = function() {
+    }, l2.prototype.getVolumeList = function() {
       return this.fetchOk(this.site + "/ln/volumes.json").then(function(t2) {
         return t2.json();
       });
-    }, h2.prototype.getVolumes = function() {
+    }, l2.prototype.getVolumes = function() {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25626,26 +25634,26 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.getTermSet = function() {
-      var t2 = s.storage.get("termSet");
+    }, l2.prototype.getTermSet = function() {
+      var t2 = a.storage.get("termSet");
       return "official" === t2 || "tts" === t2 ? t2 : "default";
-    }, h2.prototype.applyTerms = function(t2, e2, r2) {
+    }, l2.prototype.applyTerms = function(t2, e2, r2) {
       return t2.replace(/<span class="clickable [^"]*" data-term="([^"]*)" onclick="[^"]*">\{:\s*([^]*?)\s*:\}\|\{[^}]*\}\|<\/span>/g, function(t3, n2, i2) {
         var a2 = function(t4) {
           var n3 = e2 && e2[t4];
           if (!n3 || !r2 || "default" === r2) return t4;
           var i3 = "official" === r2 ? n3.officialTermIndex : n3.textToSpeechIndex;
           return n3.options[i3] || t4;
-        }(u(n2)), s2 = a2;
-        return /toLowerCase\(\)/.test(i2) ? s2 = a2.toLowerCase() : /capitalCase\(.*,\s*true\s*\)/.test(i2) ? s2 = l(a2, true) : /capitalCase\(/.test(i2) && (s2 = l(a2, false)), s2.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }(c(n2)), s2 = a2;
+        return /toLowerCase\(\)/.test(i2) ? s2 = a2.toLowerCase() : /capitalCase\(.*,\s*true\s*\)/.test(i2) ? s2 = u(a2, true) : /capitalCase\(/.test(i2) && (s2 = u(a2, false)), s2.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       });
-    }, h2.prototype.parseSections = function(t2) {
+    }, l2.prototype.parseSections = function(t2) {
       var e2 = (0, r.load)(this.applyTerms(t2)), n2 = [];
       return e2("p.toc-chapter, p.toc-chapter-space").each(function(t3, r2) {
         var i2 = e2(r2).find("a.hlink").first(), a2 = (i2.attr("href") || "").replace(/^#/, ""), s2 = i2.text().replace(/\s+/g, " ").trim();
         a2 && s2 && n2.push({ anchor: a2, title: s2 });
       }), n2;
-    }, h2.prototype.getVolumeHtml = function(r2) {
+    }, l2.prototype.getVolumeHtml = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -25659,12 +25667,12 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.sectionStart = function(t2, e2) {
+    }, l2.prototype.sectionStart = function(t2, e2) {
       var r2 = t2.indexOf('id="'.concat(e2, '"'));
       if (r2 < 0) return -1;
       var n2 = t2.lastIndexOf("<", r2);
       return "<div>" === t2.slice(n2 - 5, n2) && (n2 -= 5), n2;
-    }, h2.prototype.popularNovels = function(r2) {
+    }, l2.prototype.popularNovels = function(r2) {
       return t(this, void 0, void 0, function() {
         return e(this, function(t2) {
           switch (t2.label) {
@@ -25675,7 +25683,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.getNovelItem = function() {
+    }, l2.prototype.getNovelItem = function() {
       return t(this, void 0, void 0, function() {
         var t2, r2, n2;
         return e(this, function(e2) {
@@ -25683,33 +25691,33 @@ var LNReaderPlugin = (() => {
             case 0:
               return [4, this.getVolumes()];
             case 1:
-              return t2 = e2.sent()[0], n2 = { name: o, path: "/" }, t2 ? [4, this.getCover(t2)] : [3, 3];
+              return t2 = e2.sent()[0], n2 = { name: s, path: "/" }, t2 ? [4, this.getCover(t2)] : [3, 3];
             case 2:
               return r2 = e2.sent(), [3, 4];
             case 3:
-              r2 = i.defaultCover, e2.label = 4;
+              r2 = void 0, e2.label = 4;
             case 4:
               return [2, (n2.cover = r2, n2)];
           }
         });
       });
-    }, h2.prototype.getCover = function(r2) {
+    }, l2.prototype.getCover = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, n2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, this.fetchOk(this.site + r2.path, { Range: c }).then(function(t3) {
+              return [4, this.fetchOk(this.site + r2.path, { Range: o }).then(function(t3) {
                 return t3.text();
               })];
             case 1:
-              return t2 = e2.sent(), [2, (n2 = /<img[^>]*\ssrc="([^"{]+)"/.exec(t2)) ? this.site + encodeURI(u(n2[1])) : i.defaultCover];
+              return t2 = e2.sent(), [2, (n2 = /<img[^>]*\ssrc="([^"{]+)"/.exec(t2)) ? this.site + encodeURI(c(n2[1])) : void 0];
           }
         });
       });
-    }, h2.prototype.parseNovel = function(n2) {
+    }, l2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, s2, l2, h3, f, p, v, d = this;
+        var t2, a2, u2, l3, h, f, p, v = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25717,29 +25725,29 @@ var LNReaderPlugin = (() => {
             case 1:
               return t2 = e2.sent(), [4, this.getVolumes()];
             case 2:
-              return s2 = e2.sent(), [4, Promise.all(s2.map(function(t3) {
-                return d.fetchOk(d.site + t3.path, { Range: c }).then(function(t4) {
+              return a2 = e2.sent(), [4, Promise.all(a2.map(function(t3) {
+                return v.fetchOk(v.site + t3.path, { Range: o }).then(function(t4) {
                   return t4.text();
                 });
               }))];
             case 3:
-              return l2 = e2.sent(), h3 = { path: n2, name: o, cover: i.defaultCover, status: t2.some(function(t3) {
+              return u2 = e2.sent(), l3 = { path: n2, name: s, status: t2.some(function(t3) {
                 var e3;
                 return (null !== (e3 = t3.progress) && void 0 !== e3 ? e3 : 100) < 100;
-              }) ? a.NovelStatus.Ongoing : a.NovelStatus.Completed }, (f = (0, r.load)(l2[0] || ""))("p.credits-entry-space, p.credits-entry").each(function(t3, e3) {
-                var r2 = f(e3).text(), n3 = /^Author:\s*(.+)$/.exec(r2), i2 = /^Illustration:\s*(.+)$/.exec(r2);
-                n3 && (h3.author = n3[1].trim()), i2 && (h3.artist = i2[1].trim());
-              }), (p = /<img[^>]*\ssrc="([^"{]+)"/.exec(l2[0] || "")) && (h3.cover = this.site + encodeURI(u(p[1]))), v = [], s2.forEach(function(t3, e3) {
-                d.parseSections(l2[e3]).forEach(function(e4) {
-                  v.push({ name: "".concat(t3.name, " - ").concat(e4.title), path: "/read/".concat(t3.id, "#").concat(e4.anchor), chapterNumber: v.length + 1 });
+              }) ? i.NovelStatus.Ongoing : i.NovelStatus.Completed }, (h = (0, r.load)(u2[0] || ""))("p.credits-entry-space, p.credits-entry").each(function(t3, e3) {
+                var r2 = h(e3).text(), n3 = /^Author:\s*(.+)$/.exec(r2), i2 = /^Illustration:\s*(.+)$/.exec(r2);
+                n3 && (l3.author = n3[1].trim()), i2 && (l3.artist = i2[1].trim());
+              }), (f = /<img[^>]*\ssrc="([^"{]+)"/.exec(u2[0] || "")) && (l3.cover = this.site + encodeURI(c(f[1]))), p = [], a2.forEach(function(t3, e3) {
+                v.parseSections(u2[e3]).forEach(function(e4) {
+                  p.push({ name: "".concat(t3.name, " - ").concat(e4.title), path: "/read/".concat(t3.id, "#").concat(e4.anchor), chapterNumber: p.length + 1 });
                 });
-              }), h3.chapters = v, [2, h3];
+              }), l3.chapters = p, [2, l3];
           }
         });
       });
-    }, h2.prototype.parseChapter = function(n2) {
+    }, l2.prototype.parseChapter = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, a2, s2, o2, c2, u2, l2, h3, f, p, v, d, m, g = this;
+        var t2, i2, a2, s2, o2, c2, u2, l3, h, f, p, v, d, m, g = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -25753,8 +25761,8 @@ var LNReaderPlugin = (() => {
             case 2:
               if (o2 = e2.sent(), c2 = this.parseSections(o2.slice(0, 24e3)), u2 = c2.findIndex(function(t3) {
                 return t3.anchor === a2;
-              }), l2 = this.sectionStart(o2, a2), u2 < 0 || l2 < 0) throw new Error("Section ".concat(a2, " not found in ").concat(s2.name));
-              return h3 = c2[u2 + 1], f = h3 ? this.sectionStart(o2, h3.anchor) : -1, p = o2.slice(l2, f > l2 ? f : void 0), "default" === (v = this.getTermSet()) ? [3, 4] : [4, this.fetchOk(this.site + "/ln/terms.json").then(function(t3) {
+              }), l3 = this.sectionStart(o2, a2), u2 < 0 || l3 < 0) throw new Error("Section ".concat(a2, " not found in ").concat(s2.name));
+              return h = c2[u2 + 1], f = h ? this.sectionStart(o2, h.anchor) : -1, p = o2.slice(l3, f > l3 ? f : void 0), "default" === (v = this.getTermSet()) ? [3, 4] : [4, this.fetchOk(this.site + "/ln/terms.json").then(function(t3) {
                 return t3.json();
               }).then(function(t3) {
                 return t3.terms;
@@ -25780,13 +25788,13 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.searchNovels = function(r2) {
+    }, l2.prototype.searchNovels = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, n2, i2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return (t2 = r2.trim().toLowerCase()) ? (n2 = "".concat(o, " Tensura ").concat(this.name).toLowerCase(), t2.split(/\s+/).every(function(t3) {
+              return (t2 = r2.trim().toLowerCase()) ? (n2 = "".concat(s, " Tensura ").concat(this.name).toLowerCase(), t2.split(/\s+/).every(function(t3) {
                 return n2.includes(t3);
               }) ? [4, this.getNovelItem()] : [3, 2]) : [2, []];
             case 1:
@@ -25798,9 +25806,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2;
+    }, l2;
   }();
-  exports.default = new h();
+  exports.default = new l();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

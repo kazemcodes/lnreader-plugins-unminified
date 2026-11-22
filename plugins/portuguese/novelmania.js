@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data = await res.json();
+      return {
+        ok: Boolean(data.ok && data.html),
+        html: data.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9349,7 +9372,7 @@ var LNReaderPlugin = (() => {
         ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
-          Array(5).fill(0).map((v2, idx) => {
+          Array(5).fill(0).map((v, idx) => {
             if (idx === 0) return 0;
             return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
           })
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9427,7 +9451,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9445,22 +9469,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -9576,33 +9584,33 @@ var LNReaderPlugin = (() => {
     __name(o2, "o");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), c = (init_defaultCover(), __toCommonJS(defaultCover_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = "https://novelmania.com.br", i = "".concat(o, "/api"), u = { Accept: "application/json", "Content-Type": "application/json" }, s = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0", Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8", "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7", Cookie: "nm_vid=".concat("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(e2) {
+  var t = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), c = (init_novelStatus(), __toCommonJS(novelStatus_exports)), n = "https://novelmania.com.br", o = "".concat(n, "/api"), i = { Accept: "application/json", "Content-Type": "application/json" }, u = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0", Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8", "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7", Cookie: "nm_vid=".concat("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(e2) {
     var a2 = Math.floor(16 * Math.random());
     return ("x" === e2 ? a2 : a2 % 4 + 8).toString(16);
-  }), "; PARAGLIDE_LOCALE=pt-BR") }, d = { acao: "MQ==--5a499ef3b8d91aa3cb65aa53fb8c3b9e7dc63491", adulto: "Mg==--3edd6783406bb8ea6fea9e69ee1a53221f8c8677", antologia: "Mzk=--fc9d86ba0817da6aeaa6f0b319d42e2ebf06d3fb", "artes-marciais": "Nw==--ebf238927942e0d5b38f24a3c0c010834cc18831", aventura: "Mw==--dc8f9159e95541b096fddfac225e9771f62f38d8", comedia: "NA==--a98f1ec98d64ebbcdcd5476d6ad25077599d33c7", conto: "Mzg=--e76a0af4b1a83a49d1de0d7d3c389c411900e1f8", cotidiano: "MTY=--9fc70df7bd24b284fe9e520288ce69447511897c", cultivo: "NDc=--24a31ae8bda1c325f79008b3790b47ca7db9102d", distopia: "NDE=--938e9afa59a514e61dd3d6cf05d17b26e98f25bb", drama: "MjM=--720b847dc3393c8980802bf669350f9cd1820c88", ecchi: "Mjc=--dd505aa865dde3bfe59b30354521d36af4cd4f45", erotico: "MjI=--6e33800803a227ee79310f4f96ae9aa64a96963b", escolar: "MTM=--96483791476f3c5fa2eb3d1f404e653a7bdb2e81", esporte: "NDg=--f93748b5312e976a729672c2d13684e11fc8c374", exploracao: "NDU=--8456f9b64784d8948d3e5f88ed47fd852a3d9e53", fantasia: "NQ==--dee563c44dc609497fb77efa31e87790f2df9790", futurista: "NDA=--7e196d30b7e0ebc56c2262c87ffc679ce67027aa", harem: "MjE=--ca090876e2b3fda7071d4ecfb0bf20661d41521d", historico: "NDI=--646e80a24ed359541c640ddda9bfe888aa19e952", horror: "NDM=--3ddda0141eb10fff8d52ed336c7c1cf93991905c", isekai: "MzA=--6fc21dc13a5bb7052d027e368b4c0f3c621713fc", magia: "MjY=--af3fa7514514c8310ed4ac7cf5d5968f369f945f", mecha: "OA==--ae005d85f3acff878acb0a42e082ba3f789006fc", medieval: "MzE=--1ff340b6de4b5705107068d3bc7e59a421e7c023", militar: "MjQ=--f762e35f847a412c4d26bc6771c6de837d2e454a", misterio: "OQ==--6a6ecd8163ff655c66e909abda637d1f9156637f", mitologia: "MTA=--ea1dc1d655cd26fdccd855ed18556b15bd46df3a", psicologico: "MTE=--257277ff50641ff1b449c8ddc49827add51b3688", punk: "NDQ=--3c2f2e3cd85d1bf7108efc68baeb5b7aa5dcd771", "realidade-virtual": "MzY=--e63e54c8a22b1c7615caae64bb2a94696bd4ce9e", romance: "MTI=--5c7213eb8fb9755f09d03047d74111ea299660f9", "sci-fi": "MTQ=--92c86eb0f3782f0f72d1df74d3cb6151461bf6fb", "sistema-de-jogo": "MTU=--979dddf096b85ec3a7b308a6c84286403a6b18be", sobrenatural: "MTc=--af1341af226303a427debb258b131a0f0dd54136", "super-heroi": "NDY=--872de17b8d32b7932921bc4a4a80ff4d1e801d0d", suspense: "Mjk=--ffa46a31e5d1a09c2225ebf8fd7ff94611645916", terror: "Ng==--1b3e18488c4b253b9d5e877df512588018f5f756", wuxia: "MTg=--61693f1537dcfaf89b20f4b6b32d2f2492d97c4d", xianxia: "MTk=--9ee4a5e1c6cc7d95bd38b55076610be92ea737cc", xuanhuan: "MjA=--be92102bd756136a9aa5143058b714d1811b2dd7", yaoi: "MzU=--ff0c99b1b88c74382e4215b31981d66fea6de07c", yuri: "Mzc=--13f00e2914197579c5c3f3794c89ed35f27c7d42" };
-  function f(e2) {
+  }), "; PARAGLIDE_LOCALE=pt-BR") }, s = { acao: "MQ==--5a499ef3b8d91aa3cb65aa53fb8c3b9e7dc63491", adulto: "Mg==--3edd6783406bb8ea6fea9e69ee1a53221f8c8677", antologia: "Mzk=--fc9d86ba0817da6aeaa6f0b319d42e2ebf06d3fb", "artes-marciais": "Nw==--ebf238927942e0d5b38f24a3c0c010834cc18831", aventura: "Mw==--dc8f9159e95541b096fddfac225e9771f62f38d8", comedia: "NA==--a98f1ec98d64ebbcdcd5476d6ad25077599d33c7", conto: "Mzg=--e76a0af4b1a83a49d1de0d7d3c389c411900e1f8", cotidiano: "MTY=--9fc70df7bd24b284fe9e520288ce69447511897c", cultivo: "NDc=--24a31ae8bda1c325f79008b3790b47ca7db9102d", distopia: "NDE=--938e9afa59a514e61dd3d6cf05d17b26e98f25bb", drama: "MjM=--720b847dc3393c8980802bf669350f9cd1820c88", ecchi: "Mjc=--dd505aa865dde3bfe59b30354521d36af4cd4f45", erotico: "MjI=--6e33800803a227ee79310f4f96ae9aa64a96963b", escolar: "MTM=--96483791476f3c5fa2eb3d1f404e653a7bdb2e81", esporte: "NDg=--f93748b5312e976a729672c2d13684e11fc8c374", exploracao: "NDU=--8456f9b64784d8948d3e5f88ed47fd852a3d9e53", fantasia: "NQ==--dee563c44dc609497fb77efa31e87790f2df9790", futurista: "NDA=--7e196d30b7e0ebc56c2262c87ffc679ce67027aa", harem: "MjE=--ca090876e2b3fda7071d4ecfb0bf20661d41521d", historico: "NDI=--646e80a24ed359541c640ddda9bfe888aa19e952", horror: "NDM=--3ddda0141eb10fff8d52ed336c7c1cf93991905c", isekai: "MzA=--6fc21dc13a5bb7052d027e368b4c0f3c621713fc", magia: "MjY=--af3fa7514514c8310ed4ac7cf5d5968f369f945f", mecha: "OA==--ae005d85f3acff878acb0a42e082ba3f789006fc", medieval: "MzE=--1ff340b6de4b5705107068d3bc7e59a421e7c023", militar: "MjQ=--f762e35f847a412c4d26bc6771c6de837d2e454a", misterio: "OQ==--6a6ecd8163ff655c66e909abda637d1f9156637f", mitologia: "MTA=--ea1dc1d655cd26fdccd855ed18556b15bd46df3a", psicologico: "MTE=--257277ff50641ff1b449c8ddc49827add51b3688", punk: "NDQ=--3c2f2e3cd85d1bf7108efc68baeb5b7aa5dcd771", "realidade-virtual": "MzY=--e63e54c8a22b1c7615caae64bb2a94696bd4ce9e", romance: "MTI=--5c7213eb8fb9755f09d03047d74111ea299660f9", "sci-fi": "MTQ=--92c86eb0f3782f0f72d1df74d3cb6151461bf6fb", "sistema-de-jogo": "MTU=--979dddf096b85ec3a7b308a6c84286403a6b18be", sobrenatural: "MTc=--af1341af226303a427debb258b131a0f0dd54136", "super-heroi": "NDY=--872de17b8d32b7932921bc4a4a80ff4d1e801d0d", suspense: "Mjk=--ffa46a31e5d1a09c2225ebf8fd7ff94611645916", terror: "Ng==--1b3e18488c4b253b9d5e877df512588018f5f756", wuxia: "MTg=--61693f1537dcfaf89b20f4b6b32d2f2492d97c4d", xianxia: "MTk=--9ee4a5e1c6cc7d95bd38b55076610be92ea737cc", xuanhuan: "MjA=--be92102bd756136a9aa5143058b714d1811b2dd7", yaoi: "MzU=--ff0c99b1b88c74382e4215b31981d66fea6de07c", yuri: "Mzc=--13f00e2914197579c5c3f3794c89ed35f27c7d42" };
+  function d(e2) {
     switch (e2) {
       case "Ativo":
-        return n.NovelStatus.Ongoing;
+        return c.NovelStatus.Ongoing;
       case "Completo":
-        return n.NovelStatus.Completed;
+        return c.NovelStatus.Completed;
       case "Pausado":
       case "Parado":
-        return n.NovelStatus.OnHiatus;
+        return c.NovelStatus.OnHiatus;
       default:
-        return n.NovelStatus.Unknown;
+        return c.NovelStatus.Unknown;
     }
   }
-  __name(f, "f");
-  function p(e2) {
+  __name(d, "d");
+  function f(e2) {
     return e2.replace(/\\x([0-9a-fA-F]{2})/g, function(e3, a2) {
       return String.fromCharCode(parseInt(a2, 16));
     }).replace(/\\u([0-9a-fA-F]{4})/g, function(e3, a2) {
       return String.fromCharCode(parseInt(a2, 16));
     }).replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\r/g, "\r").replace(/\\t/g, "	").replace(/\\\//g, "/").replace(/\\'/g, "'").replace(/\\\\/g, "\\");
   }
-  __name(p, "p");
-  function b(e2) {
+  __name(f, "f");
+  function p(e2) {
     return (a2 = e2, a2.replace(/&#(\d+);/g, function(e3, a3) {
       return String.fromCharCode(Number(a3));
     }).replace(/&#x([0-9a-fA-F]+);/g, function(e3, a3) {
@@ -9610,71 +9618,71 @@ var LNReaderPlugin = (() => {
     }).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, " ").replace(/&aacute;/g, "\xE1").replace(/&eacute;/g, "\xE9").replace(/&iacute;/g, "\xED").replace(/&oacute;/g, "\xF3").replace(/&uacute;/g, "\xFA").replace(/&agrave;/g, "\xE0").replace(/&egrave;/g, "\xE8").replace(/&igrave;/g, "\xEC").replace(/&ograve;/g, "\xF2").replace(/&ugrave;/g, "\xF9").replace(/&acirc;/g, "\xE2").replace(/&ecirc;/g, "\xEA").replace(/&icirc;/g, "\xEE").replace(/&ocirc;/g, "\xF4").replace(/&ucirc;/g, "\xFB").replace(/&auml;/g, "\xE4").replace(/&euml;/g, "\xEB").replace(/&iuml;/g, "\xEF").replace(/&ouml;/g, "\xF6").replace(/&uuml;/g, "\xFC").replace(/&atilde;/g, "\xE3").replace(/&otilde;/g, "\xF5").replace(/&ccedil;/g, "\xE7").replace(/&ntilde;/g, "\xF1").replace(/&Aacute;/g, "\xC1").replace(/&Eacute;/g, "\xC9").replace(/&Iacute;/g, "\xCD").replace(/&Oacute;/g, "\xD3").replace(/&Uacute;/g, "\xDA").replace(/&Atilde;/g, "\xC3").replace(/&Otilde;/g, "\xD5").replace(/&Ccedil;/g, "\xC7").replace(/&Acirc;/g, "\xC2").replace(/&Ecirc;/g, "\xCA").replace(/&Ocirc;/g, "\xD4").replace(/&hellip;/g, "\u2026").replace(/&ndash;/g, "\u2013").replace(/&mdash;/g, "\u2014").replace(/&lsquo;/g, "\u2018").replace(/&rsquo;/g, "\u2019").replace(/&ldquo;/g, "\u201C").replace(/&rdquo;/g, "\u201D").replace(/&bull;/g, "\u2022").replace(/&middot;/g, "\xB7").replace(/&trade;/g, "\u2122").replace(/&copy;/g, "\xA9").replace(/&reg;/g, "\xAE")).replace(/<br\s*\/?>/gi, "\n").replace(/<\/p>/gi, "\n\n").replace(/<p[^>]*>/gi, "").replace(/<[^>]+>/g, "").replace(/\r\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
     var a2;
   }
-  __name(b, "b");
-  var v = function() {
-    function n2() {
-      this.id = "novelmania.com.br", this.name = "Novel Mania", this.icon = "src/pt-br/novelmania/icon.png", this.site = o, this.version = "2.0.2", this.imageRequestInit = void 0, this.resolveUrl = function(e2, a2) {
-        return "".concat(o).concat(e2);
+  __name(p, "p");
+  var b = function() {
+    function c2() {
+      this.id = "novelmania.com.br", this.name = "Novel Mania", this.icon = "src/pt-br/novelmania/icon.png", this.site = n, this.version = "2.0.3", this.imageRequestInit = void 0, this.resolveUrl = function(e2, a2) {
+        return "".concat(n).concat(e2);
       }, this.filters = { genres: { value: "", label: "G\xEAneros", options: [{ label: "Todos", value: "" }, { label: "A\xE7\xE3o", value: "acao" }, { label: "Adulto", value: "adulto" }, { label: "Antologia", value: "antologia" }, { label: "Artes Marciais", value: "artes-marciais" }, { label: "Aventura", value: "aventura" }, { label: "Com\xE9dia", value: "comedia" }, { label: "Conto", value: "conto" }, { label: "Cotidiano", value: "cotidiano" }, { label: "Cultivo", value: "cultivo" }, { label: "Distopia", value: "distopia" }, { label: "Drama", value: "drama" }, { label: "Ecchi", value: "ecchi" }, { label: "Er\xF3tico", value: "erotico" }, { label: "Escolar", value: "escolar" }, { label: "Esporte", value: "esporte" }, { label: "Explora\xE7\xE3o", value: "exploracao" }, { label: "Fantasia", value: "fantasia" }, { label: "Futurista", value: "futurista" }, { label: "Har\xE9m", value: "harem" }, { label: "Hist\xF3rico", value: "historico" }, { label: "Horror", value: "horror" }, { label: "Isekai", value: "isekai" }, { label: "Magia", value: "magia" }, { label: "Mecha", value: "mecha" }, { label: "Medieval", value: "medieval" }, { label: "Militar", value: "militar" }, { label: "Mist\xE9rio", value: "misterio" }, { label: "Mitologia", value: "mitologia" }, { label: "Psicol\xF3gico", value: "psicologico" }, { label: "Punk", value: "punk" }, { label: "Realidade Virtual", value: "realidade-virtual" }, { label: "Romance", value: "romance" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Sistema de Jogo", value: "sistema-de-jogo" }, { label: "Sobrenatural", value: "sobrenatural" }, { label: "Super-Her\xF3i", value: "super-heroi" }, { label: "Suspense", value: "suspense" }, { label: "Terror", value: "terror" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }], type: r.FilterTypes.Picker }, status: { label: "Status", value: "", options: [{ label: "Todos", value: "" }, { label: "Ativo", value: "Ativo" }, { label: "Completo", value: "Completo" }, { label: "Pausado", value: "Pausado" }, { label: "Parado", value: "Parado" }], type: r.FilterTypes.Picker }, type: { label: "Tipo / Nacionalidade", value: "", options: [{ label: "Todas", value: "" }, { label: "Americana", value: "Americana" }, { label: "Angolana", value: "Angolana" }, { label: "Brasileira", value: "Brasileira" }, { label: "Chinesa", value: "Chinesa" }, { label: "Coreana", value: "Coreana" }, { label: "Japonesa", value: "Japonesa" }], type: r.FilterTypes.Picker } };
     }
-    __name(n2, "n");
-    return n2.prototype.popularNovels = function(e2, r2) {
+    __name(c2, "c");
+    return c2.prototype.popularNovels = function(e2, r2) {
       return a(this, arguments, void 0, function(e3, a2) {
-        var r3, n3, o2, s2, f2, p2, b2 = a2.filters;
+        var r3, c3, n2, u2, d2, f2, p2 = a2.filters;
         return l(this, function(a3) {
           switch (a3.label) {
             case 0:
-              return (r3 = new URLSearchParams()).set("page", String(e3)), (n3 = null == b2 ? void 0 : b2.genres.value) && d[n3] && r3.append("categories[]", d[n3]), (o2 = null == b2 ? void 0 : b2.status.value) && r3.append("statuses[]", o2), (s2 = null == b2 ? void 0 : b2.type.value) && r3.append("nationalities[]", s2), [4, (0, t.fetchApi)("".concat(i, "/novels?").concat(r3), { headers: u }).then(function(e4) {
+              return (r3 = new URLSearchParams()).set("page", String(e3)), (c3 = null == p2 ? void 0 : p2.genres.value) && s[c3] && r3.append("categories[]", s[c3]), (n2 = null == p2 ? void 0 : p2.status.value) && r3.append("statuses[]", n2), (u2 = null == p2 ? void 0 : p2.type.value) && r3.append("nationalities[]", u2), [4, (0, t.fetchApi)("".concat(o, "/novels?").concat(r3), { headers: i }).then(function(e4) {
                 return e4.json();
               })];
             case 1:
-              return f2 = a3.sent(), [2, (null !== (p2 = f2.data) && void 0 !== p2 ? p2 : []).map(function(e4) {
-                var a4, l2;
-                return { name: e4.title, cover: null !== (l2 = null === (a4 = e4.cover) || void 0 === a4 ? void 0 : a4.large) && void 0 !== l2 ? l2 : c.defaultCover, path: "/novels/".concat(e4.slug) };
+              return d2 = a3.sent(), [2, (null !== (f2 = d2.data) && void 0 !== f2 ? f2 : []).map(function(e4) {
+                var a4;
+                return { name: e4.title, cover: null === (a4 = e4.cover) || void 0 === a4 ? void 0 : a4.large, path: "/novels/".concat(e4.slug) };
               })];
           }
         });
       });
-    }, n2.prototype.parseNovel = function(e2) {
+    }, c2.prototype.parseNovel = function(e2) {
       return a(this, void 0, void 0, function() {
-        var a2, r2, n3, o2, s2, d2, p2, v2, g, h, m, x, y, M, A, w, C;
+        var a2, r2, c3, n2, u2, s2, f2, b2, v, g, h, m, x, y, M, A;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return a2 = e2.split("/").filter(Boolean).pop(), [4, (0, t.fetchApi)("".concat(i, "/novels/").concat(a2), { headers: u }).then(function(e3) {
+              return a2 = e2.split("/").filter(Boolean).pop(), [4, (0, t.fetchApi)("".concat(o, "/novels/").concat(a2), { headers: i }).then(function(e3) {
                 return e3.json();
               })];
             case 1:
-              r2 = l2.sent(), n3 = r2.data, o2 = [], s2 = 1, d2 = true, l2.label = 2;
+              r2 = l2.sent(), c3 = r2.data, n2 = [], u2 = 1, s2 = true, l2.label = 2;
             case 2:
-              return d2 ? [4, (0, t.fetchApi)("".concat(i, "/novels/").concat(a2, "/chapters?page=").concat(s2), { headers: u }).then(function(e3) {
+              return s2 ? [4, (0, t.fetchApi)("".concat(o, "/novels/").concat(a2, "/chapters?page=").concat(u2), { headers: i }).then(function(e3) {
                 return e3.json();
               })] : [3, 4];
             case 3:
-              if (p2 = l2.sent(), (v2 = null !== (x = p2.data) && void 0 !== x ? x : []).length) {
-                for (g = 0, h = v2; g < h.length; g++) m = h[g], o2.push({ name: m.longTitle || m.title || m.slug, path: "/novels/".concat(a2, "/capitulos/").concat(m.slug) });
-                v2.length < 20 ? d2 = false : s2++;
-              } else d2 = false;
+              if (f2 = l2.sent(), (b2 = null !== (m = f2.data) && void 0 !== m ? m : []).length) {
+                for (v = 0, g = b2; v < g.length; v++) h = g[v], n2.push({ name: h.longTitle || h.title || h.slug, path: "/novels/".concat(a2, "/capitulos/").concat(h.slug) });
+                b2.length < 20 ? s2 = false : u2++;
+              } else s2 = false;
               return [3, 2];
             case 4:
-              return [2, { path: e2, name: n3.title, cover: null !== (M = null === (y = n3.cover) || void 0 === y ? void 0 : y.large) && void 0 !== M ? M : c.defaultCover, summary: b(null !== (A = n3.synopsis) && void 0 !== A ? A : ""), author: null !== (w = n3.author) && void 0 !== w ? w : "", genres: (null !== (C = n3.categories) && void 0 !== C ? C : []).map(function(e3) {
+              return [2, { path: e2, name: c3.title, cover: null === (x = c3.cover) || void 0 === x ? void 0 : x.large, summary: p(null !== (y = c3.synopsis) && void 0 !== y ? y : ""), author: null !== (M = c3.author) && void 0 !== M ? M : "", genres: (null !== (A = c3.categories) && void 0 !== A ? A : []).map(function(e3) {
                 return e3.name;
-              }).join(","), status: f(n3.status), chapters: o2 }];
+              }).join(","), status: d(c3.status), chapters: n2 }];
           }
         });
       });
-    }, n2.prototype.parseChapter = function(r2) {
+    }, c2.prototype.parseChapter = function(r2) {
       return a(this, void 0, void 0, function() {
-        var a2, c2, n3, i2, u2, d2, f2, b2, v2, g, h, m, x, y, M, A, w, C, T, N, j, S, k, P, q, E, O, D, I, z, R, _, U, F, B, L, Q;
+        var a2, c3, o2, i2, s2, d2, p2, b2, v, g, h, m, x, y, M, A, w, T, C, N, j, S, k, P, E, q, O, D, I, z, R, _, U, F, B, L, Q;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              a2 = "".concat(o).concat(r2), c2 = null !== (R = r2.split("/")[2]) && void 0 !== R ? R : "", n3 = "", i2 = 0, u2 = [{ buffer: false }, { buffer: true }, { encoding: "identity", buffer: false }, { encoding: "identity", buffer: true }, { encoding: "gzip", buffer: true }], l2.label = 1;
+              a2 = "".concat(n).concat(r2), c3 = null !== (R = r2.split("/")[2]) && void 0 !== R ? R : "", o2 = "", i2 = 0, s2 = [{ buffer: false }, { buffer: true }, { encoding: "identity", buffer: false }, { encoding: "identity", buffer: true }, { encoding: "gzip", buffer: true }], l2.label = 1;
             case 1:
-              if (!(i2 < u2.length)) return [3, 10];
-              d2 = u2[i2], l2.label = 2;
+              if (!(i2 < s2.length)) return [3, 10];
+              d2 = s2[i2], l2.label = 2;
             case 2:
-              return l2.trys.push([2, 8, , 9]), f2 = e(e({}, s), { Referer: "".concat(o, "/novels/").concat(c2) }), d2.encoding && (f2["Accept-Encoding"] = d2.encoding), [4, (0, t.fetchApi)(a2, { headers: f2 })];
+              return l2.trys.push([2, 8, , 9]), p2 = e(e({}, u), { Referer: "".concat(n, "/novels/").concat(c3) }), d2.encoding && (p2["Accept-Encoding"] = d2.encoding), [4, (0, t.fetchApi)(a2, { headers: p2 })];
             case 3:
               return b2 = l2.sent(), d2.buffer ? (m = (h = new TextDecoder("utf-8")).decode, [4, b2.arrayBuffer()]) : [3, 5];
             case 4:
@@ -9684,38 +9692,38 @@ var LNReaderPlugin = (() => {
             case 6:
               g = l2.sent(), l2.label = 7;
             case 7:
-              return (v2 = g).includes("$_TSR.e()") ? (n3 = v2, [3, 10]) : (v2.length > n3.length && (n3 = v2), [3, 9]);
+              return (v = g).includes("$_TSR.e()") ? (o2 = v, [3, 10]) : (v.length > o2.length && (o2 = v), [3, 9]);
             case 8:
               return l2.sent(), [3, 9];
             case 9:
               return i2++, [3, 1];
             case 10:
-              if (x = n3.match(/[,{]"?content"?\s*:\s*"((?:[^"\\]|\\.)*)"/), !(y = (null == x ? void 0 : x[1]) ? p(x[1]) : "").trim()) throw new Error("N\xE3o foi poss\xEDvel carregar o texto do cap\xEDtulo. Tente novamente.");
-              if (M = n3.match(/updatedAt:"[^"]+",title:"((?:[^"\\]|\\.)*)",slug:/), A = (null == M ? void 0 : M[1]) ? p(M[1]) : "", w = n3.match(/longTitle:"((?:[^"\\]|\\.)*)"/), C = (null == w ? void 0 : w[1]) ? p(w[1]) : "", T = null !== (U = null === (_ = C.split(/\s*[\u2013-]\s*/)[0]) || void 0 === _ ? void 0 : _.trim()) && void 0 !== U ? U : "", N = "", C || (null == (j = n3.match(/og:title[^>]*content="([^"]+)"/)) ? void 0 : j[1]) && (S = j[1].split(/\s*[\u2013-]\s*/)).length >= 2 && (T = null !== (B = null === (F = S[0]) || void 0 === F ? void 0 : F.trim()) && void 0 !== B ? B : "", N = null !== (Q = null === (L = S[1]) || void 0 === L ? void 0 : L.trim()) && void 0 !== Q ? Q : ""), k = A || N, P = [], -1 !== (q = n3.indexOf("translators:$R["))) for (E = n3.slice(q, q + 500), O = /username:"((?:[^"\\]|\\.)*)"/g, D = void 0; null !== (D = O.exec(E)); ) (I = p(D[1])) && !P.includes(I) && P.push(I);
-              return z = [], T && z.push('<p style="text-transform:uppercase;font-weight:bold;font-size:0.8em;letter-spacing:0.08em;margin:0 0 6px 0;opacity:0.7">' + T + "</p>"), k && z.push('<h2 style="margin:0 0 10px 0;font-size:1.25em">' + k + "</h2>"), P.length > 0 && z.push('<p style="font-size:0.85em;margin:0">Tradu\xE7\xE3o: ' + P.join(", ") + "</p>"), [2, (z.length > 0 ? '<div style="margin-bottom:20px">' + z.join("") + '</div><hr style="margin-bottom:20px"/>' : "") + y];
+              if (x = o2.match(/[,{]"?content"?\s*:\s*"((?:[^"\\]|\\.)*)"/), !(y = (null == x ? void 0 : x[1]) ? f(x[1]) : "").trim()) throw new Error("N\xE3o foi poss\xEDvel carregar o texto do cap\xEDtulo. Tente novamente.");
+              if (M = o2.match(/updatedAt:"[^"]+",title:"((?:[^"\\]|\\.)*)",slug:/), A = (null == M ? void 0 : M[1]) ? f(M[1]) : "", w = o2.match(/longTitle:"((?:[^"\\]|\\.)*)"/), T = (null == w ? void 0 : w[1]) ? f(w[1]) : "", C = null !== (U = null === (_ = T.split(/\s*[\u2013-]\s*/)[0]) || void 0 === _ ? void 0 : _.trim()) && void 0 !== U ? U : "", N = "", T || (null == (j = o2.match(/og:title[^>]*content="([^"]+)"/)) ? void 0 : j[1]) && (S = j[1].split(/\s*[\u2013-]\s*/)).length >= 2 && (C = null !== (B = null === (F = S[0]) || void 0 === F ? void 0 : F.trim()) && void 0 !== B ? B : "", N = null !== (Q = null === (L = S[1]) || void 0 === L ? void 0 : L.trim()) && void 0 !== Q ? Q : ""), k = A || N, P = [], -1 !== (E = o2.indexOf("translators:$R["))) for (q = o2.slice(E, E + 500), O = /username:"((?:[^"\\]|\\.)*)"/g, D = void 0; null !== (D = O.exec(q)); ) (I = f(D[1])) && !P.includes(I) && P.push(I);
+              return z = [], C && z.push('<p style="text-transform:uppercase;font-weight:bold;font-size:0.8em;letter-spacing:0.08em;margin:0 0 6px 0;opacity:0.7">' + C + "</p>"), k && z.push('<h2 style="margin:0 0 10px 0;font-size:1.25em">' + k + "</h2>"), P.length > 0 && z.push('<p style="font-size:0.85em;margin:0">Tradu\xE7\xE3o: ' + P.join(", ") + "</p>"), [2, (z.length > 0 ? '<div style="margin-bottom:20px">' + z.join("") + '</div><hr style="margin-bottom:20px"/>' : "") + y];
           }
         });
       });
-    }, n2.prototype.searchNovels = function(e2, r2) {
+    }, c2.prototype.searchNovels = function(e2, r2) {
       return a(this, void 0, void 0, function() {
-        var a2, n3, o2;
+        var a2, c3, n2;
         return l(this, function(l2) {
           switch (l2.label) {
             case 0:
-              return (a2 = new URLSearchParams()).set("q", e2), a2.set("page", String(r2)), [4, (0, t.fetchApi)("".concat(i, "/novels?").concat(a2), { headers: u }).then(function(e3) {
+              return (a2 = new URLSearchParams()).set("q", e2), a2.set("page", String(r2)), [4, (0, t.fetchApi)("".concat(o, "/novels?").concat(a2), { headers: i }).then(function(e3) {
                 return e3.json();
               })];
             case 1:
-              return n3 = l2.sent(), [2, (null !== (o2 = n3.data) && void 0 !== o2 ? o2 : []).map(function(e3) {
-                var a3, l3;
-                return { name: e3.title, cover: null !== (l3 = null === (a3 = e3.cover) || void 0 === a3 ? void 0 : a3.large) && void 0 !== l3 ? l3 : c.defaultCover, path: "/novels/".concat(e3.slug) };
+              return c3 = l2.sent(), [2, (null !== (n2 = c3.data) && void 0 !== n2 ? n2 : []).map(function(e3) {
+                var a3;
+                return { name: e3.title, cover: null === (a3 = e3.cover) || void 0 === a3 ? void 0 : a3.large, path: "/novels/".concat(e3.slug) };
               })];
           }
         });
       });
-    }, n2;
+    }, c2;
   }();
-  exports.default = new v();
+  exports.default = new b();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

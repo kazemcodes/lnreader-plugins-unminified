@@ -831,10 +831,10 @@ var LNReaderPlugin = (() => {
       var nBits = -7;
       var i2 = isLE ? nBytes - 1 : 0;
       var d = isLE ? -1 : 1;
-      var s2 = buffer[offset + i2];
+      var s = buffer[offset + i2];
       i2 += d;
-      e2 = s2 & (1 << -nBits) - 1;
-      s2 >>= -nBits;
+      e2 = s & (1 << -nBits) - 1;
+      s >>= -nBits;
       nBits += eLen;
       for (; nBits > 0; e2 = e2 * 256 + buffer[offset + i2], i2 += d, nBits -= 8) {
       }
@@ -846,12 +846,12 @@ var LNReaderPlugin = (() => {
       if (e2 === 0) {
         e2 = 1 - eBias;
       } else if (e2 === eMax) {
-        return m ? NaN : (s2 ? -1 : 1) * Infinity;
+        return m ? NaN : (s ? -1 : 1) * Infinity;
       } else {
         m = m + Math.pow(2, mLen);
         e2 = e2 - eBias;
       }
-      return (s2 ? -1 : 1) * m * Math.pow(2, e2 - mLen);
+      return (s ? -1 : 1) * m * Math.pow(2, e2 - mLen);
     };
     exports$1.write = function(buffer, value, offset, isLE, mLen, nBytes) {
       var e2, m, c;
@@ -861,7 +861,7 @@ var LNReaderPlugin = (() => {
       var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
       var i2 = isLE ? 0 : nBytes - 1;
       var d = isLE ? 1 : -1;
-      var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+      var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
       value = Math.abs(value);
       if (isNaN(value) || value === Infinity) {
         m = isNaN(value) ? 1 : 0;
@@ -898,7 +898,7 @@ var LNReaderPlugin = (() => {
       eLen += mLen;
       for (; eLen > 0; buffer[offset + i2] = e2 & 255, i2 += d, e2 /= 256, eLen -= 8) {
       }
-      buffer[offset + i2 - d] |= s2 * 128;
+      buffer[offset + i2 - d] |= s * 128;
     };
     return exports$1;
   }
@@ -6983,7 +6983,7 @@ var LNReaderPlugin = (() => {
       init_process2();
       var types = exports4;
       var util = require_util();
-      var s2 = [
+      var s = [
         "double",
         // 0
         "float",
@@ -7018,7 +7018,7 @@ var LNReaderPlugin = (() => {
       function bake(values, offset) {
         var i2 = 0, o2 = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i2 < values.length) o2[s2[i2 + offset]] = values[i2++];
+        while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
         return o2;
       }
       __name(bake, "bake");
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9459,10 +9483,10 @@ var LNReaderPlugin = (() => {
       }();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -10944,10 +10968,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -13949,8 +13973,8 @@ var LNReaderPlugin = (() => {
           var adapter2 = options.adapter;
           var opts = copyOptions(options);
           opts.relativeSelector = true;
-          var context = subselect.some(function(s2) {
-            return s2.some(sort_js_1.isTraversal);
+          var context = subselect.some(function(s) {
+            return s.some(sort_js_1.isTraversal);
           }) ? (
             // Used as a placeholder. Will be replaced with the actual element.
             [exports4.PLACEHOLDER_ELEMENT]
@@ -14481,14 +14505,14 @@ var LNReaderPlugin = (() => {
         "even",
         "odd"
       ]);
-      function isFilter(s2) {
-        if (s2.type !== "pseudo")
+      function isFilter(s) {
+        if (s.type !== "pseudo")
           return false;
-        if (exports4.filterNames.has(s2.name))
+        if (exports4.filterNames.has(s.name))
           return true;
-        if (s2.name === "not" && Array.isArray(s2.data)) {
-          return s2.data.some(function(s3) {
-            return s3.some(isFilter);
+        if (s.name === "not" && Array.isArray(s.data)) {
+          return s.data.some(function(s2) {
+            return s2.some(isFilter);
           });
         }
         return false;
@@ -14565,10 +14589,10 @@ var LNReaderPlugin = (() => {
       init_process2();
       var __assign = exports4 && exports4.__assign || function() {
         __assign = Object.assign || function(t2) {
-          for (var s2, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
-            s2 = arguments[i2];
-            for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p))
-              t2[p] = s2[p];
+          for (var s, i2 = 1, n2 = arguments.length; i2 < n2; i2++) {
+            s = arguments[i2];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+              t2[p] = s[p];
           }
           return t2;
         };
@@ -25341,44 +25365,6 @@ var LNReaderPlugin = (() => {
     }
   });
 
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
   // .js/plugins/english/impatientmtlreader.js
   init_dirname();
   init_buffer2();
@@ -25393,19 +25379,19 @@ var LNReaderPlugin = (() => {
         }
       }
       __name(a2, "a");
-      function s2(t3) {
+      function s(t3) {
         try {
           c(n2.throw(t3));
         } catch (t4) {
           o2(t4);
         }
       }
-      __name(s2, "s");
+      __name(s, "s");
       function c(t3) {
         var e3;
         t3.done ? i2(t3.value) : (e3 = t3.value, e3 instanceof r2 ? e3 : new r2(function(t4) {
           t4(e3);
-        })).then(a2, s2);
+        })).then(a2, s);
       }
       __name(c, "c");
       c((n2 = n2.apply(t2, e2 || [])).next());
@@ -25415,185 +25401,185 @@ var LNReaderPlugin = (() => {
       if (1 & i2[0]) throw i2[1];
       return i2[1];
     }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return a2.next = s2(0), a2.throw = s2(1), a2.return = s2(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
+    return a2.next = s(0), a2.throw = s(1), a2.return = s(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
       return this;
     }), a2;
-    function s2(s3) {
+    function s(s2) {
       return function(c) {
-        return function(s4) {
+        return function(s3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; a2 && (a2 = 0, s4[0] && (o2 = 0)), o2; ) try {
-            if (r2 = 1, n2 && (i2 = 2 & s4[0] ? n2.return : s4[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, s4[1])).done) return i2;
-            switch (n2 = 0, i2 && (s4 = [2 & s4[0], i2.value]), s4[0]) {
+          for (; a2 && (a2 = 0, s3[0] && (o2 = 0)), o2; ) try {
+            if (r2 = 1, n2 && (i2 = 2 & s3[0] ? n2.return : s3[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, s3[1])).done) return i2;
+            switch (n2 = 0, i2 && (s3 = [2 & s3[0], i2.value]), s3[0]) {
               case 0:
               case 1:
-                i2 = s4;
+                i2 = s3;
                 break;
               case 4:
-                return o2.label++, { value: s4[1], done: false };
+                return o2.label++, { value: s3[1], done: false };
               case 5:
-                o2.label++, n2 = s4[1], s4 = [0];
+                o2.label++, n2 = s3[1], s3 = [0];
                 continue;
               case 7:
-                s4 = o2.ops.pop(), o2.trys.pop();
+                s3 = o2.ops.pop(), o2.trys.pop();
                 continue;
               default:
-                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
                   o2 = 0;
                   continue;
                 }
-                if (3 === s4[0] && (!i2 || s4[1] > i2[0] && s4[1] < i2[3])) {
-                  o2.label = s4[1];
+                if (3 === s3[0] && (!i2 || s3[1] > i2[0] && s3[1] < i2[3])) {
+                  o2.label = s3[1];
                   break;
                 }
-                if (6 === s4[0] && o2.label < i2[1]) {
-                  o2.label = i2[1], i2 = s4;
+                if (6 === s3[0] && o2.label < i2[1]) {
+                  o2.label = i2[1], i2 = s3;
                   break;
                 }
                 if (i2 && o2.label < i2[2]) {
-                  o2.label = i2[2], o2.ops.push(s4);
+                  o2.label = i2[2], o2.ops.push(s3);
                   break;
                 }
                 i2[2] && o2.ops.pop(), o2.trys.pop();
                 continue;
             }
-            s4 = e2.call(t2, o2);
+            s3 = e2.call(t2, o2);
           } catch (t3) {
-            s4 = [6, t3], n2 = 0;
+            s3 = [6, t3], n2 = 0;
           } finally {
             r2 = i2 = 0;
           }
-          if (5 & s4[0]) throw s4[1];
-          return { value: s4[0] ? s4[1] : void 0, done: true };
-        }([s3, c]);
+          if (5 & s3[0]) throw s3[1];
+          return { value: s3[0] ? s3[1] : void 0, done: true };
+        }([s2, c]);
       };
     }
-    __name(s2, "s");
+    __name(s, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = 100, a = { fiancee: { category: "omiai-shitakunakattanode", strayChapters: ["fiancee-ep-17", "fiancee-v5-ep-30"] }, "preaching-classmate": { category: "tanin-wo-yosetsukenai-buaisouna-joshi", strayChapters: ["preaching-v2-ep-24"] }, "idol-girl-classmate": { category: "idol-girl" }, "mawaru-gakuen-to-senpai-to-boku-simple-life": { category: "mawaru-gakuen-senpai-to-boku-simple-life", strayChapters: ["v4c1p2"] }, "nekura-and-hiria": { category: "nekura-and-hiria" }, "500-yen-imouto": { category: "500-yen" } }, s = function() {
-    function s2() {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), i = 100, o = { fiancee: { category: "omiai-shitakunakattanode", strayChapters: ["fiancee-ep-17", "fiancee-v5-ep-30"] }, "preaching-classmate": { category: "tanin-wo-yosetsukenai-buaisouna-joshi", strayChapters: ["preaching-v2-ep-24"] }, "idol-girl-classmate": { category: "idol-girl" }, "mawaru-gakuen-to-senpai-to-boku-simple-life": { category: "mawaru-gakuen-senpai-to-boku-simple-life", strayChapters: ["v4c1p2"] }, "nekura-and-hiria": { category: "nekura-and-hiria" }, "500-yen-imouto": { category: "500-yen" } }, a = function() {
+    function a2() {
       var t2 = this;
-      this.id = "impatientmtlreader", this.name = "Impatient MTL Reader", this.icon = "src/en/impatientmtlreader/icon.png", this.site = "https://impatientmtlreader533234643.wordpress.com", this.version = "1.0.0", this.filters = void 0, this.api = "https://public-api.wordpress.com/wp/v2/sites/impatientmtlreader533234643.wordpress.com", this.resolveUrl = function(e2) {
+      this.id = "impatientmtlreader", this.name = "Impatient MTL Reader", this.icon = "src/en/impatientmtlreader/icon.png", this.site = "https://impatientmtlreader533234643.wordpress.com", this.version = "1.0.1", this.filters = void 0, this.api = "https://public-api.wordpress.com/wp/v2/sites/impatientmtlreader533234643.wordpress.com", this.resolveUrl = function(e2) {
         return t2.site + t2.toPath(e2);
       };
     }
-    __name(s2, "s");
-    return s2.prototype.popularNovels = function(r2) {
+    __name(a2, "a");
+    return a2.prototype.popularNovels = function(r2) {
       return t(this, void 0, void 0, function() {
         return e(this, function(t2) {
           return [2, this.listNovels(r2, "")];
         });
       });
-    }, s2.prototype.searchNovels = function(r2, n2) {
+    }, a2.prototype.searchNovels = function(r2, n2) {
       return t(this, void 0, void 0, function() {
         return e(this, function(t2) {
           return [2, this.listNovels(n2, r2)];
         });
       });
-    }, s2.prototype.parseNovel = function(r2) {
+    }, a2.prototype.parseNovel = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, i2, o2, s3, c, u, l;
+        var t2, n2, i2, a3, s, c, u, l;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = this.lastSegment(r2), n2 = a[t2], [4, this.fetchList("/pages?slug=".concat(t2, "&_fields=id,slug,link,parent,title,content"))];
+              return t2 = this.lastSegment(r2), n2 = o[t2], [4, this.fetchList("/pages?slug=".concat(t2, "&_fields=id,slug,link,parent,title,content"))];
             case 1:
-              if (i2 = e2.sent(), !(o2 = i2[0]) || !n2) throw new Error("Impatient MTL Reader: novel not found at ".concat(r2));
+              if (i2 = e2.sent(), !(a3 = i2[0]) || !n2) throw new Error("Impatient MTL Reader: novel not found at ".concat(r2));
               return [4, this.fetchList("/categories?slug=".concat(n2.category, "&_fields=id,slug"))];
             case 2:
-              if (!(s3 = e2.sent())[0]) throw new Error("Impatient MTL Reader: no chapters for ".concat(r2));
-              return l = { path: this.toPath(o2.link), name: this.decode(o2.title.rendered), cover: this.pageCover(o2) }, [4, this.fetchChapters(s3[0].id, n2.strayChapters || [])];
+              if (!(s = e2.sent())[0]) throw new Error("Impatient MTL Reader: no chapters for ".concat(r2));
+              return l = { path: this.toPath(a3.link), name: this.decode(a3.title.rendered), cover: this.pageCover(a3) }, [4, this.fetchChapters(s[0].id, n2.strayChapters || [])];
             case 3:
-              return l.chapters = e2.sent(), c = l, (u = this.pageSummary(o2)) && (c.summary = u), [2, c];
+              return l.chapters = e2.sent(), c = l, (u = this.pageSummary(a3)) && (c.summary = u), [2, c];
           }
         });
       });
-    }, s2.prototype.parseChapter = function(r2) {
+    }, a2.prototype.parseChapter = function(r2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, o2, a2, s3, c, u, l = this;
+        var t2, i2, o2, a3, s, c, u, l = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return t2 = this.lastSegment(r2), [4, this.fetchList("/posts?slug=".concat(t2, "&_fields=id,slug,link,title,content"))];
             case 1:
               if (i2 = e2.sent(), !(o2 = (null === (u = null === (c = i2[0]) || void 0 === c ? void 0 : c.content) || void 0 === u ? void 0 : u.rendered) || "").trim()) throw new Error("Impatient MTL Reader: no chapter text at ".concat(r2));
-              return a2 = (0, n.load)('<div id="chapter">'.concat(o2, "</div>")), (s3 = a2("#chapter")).find("script, style, .sharedaddy, .jp-relatedposts, .wp-block-spacer").remove(), s3.find("hr").remove(), s3.find('table:has(img[src*="ko-fi"])').remove(), s3.find('figure:has(img[src*="discord"])').remove(), s3.find("p").each(function(t3, e3) {
-                var r3 = l.normalizeText(a2(e3).text());
-                (/^TOC\s*\|/i.test(r3) || /^Join\s+us on Discord/i.test(r3)) && a2(e3).remove();
-              }), s3.find("div").each(function(t3, e3) {
-                a2(e3).text().trim() || a2(e3).find("img").length || a2(e3).remove();
-              }), [2, s3.html() || ""];
+              return a3 = (0, n.load)('<div id="chapter">'.concat(o2, "</div>")), (s = a3("#chapter")).find("script, style, .sharedaddy, .jp-relatedposts, .wp-block-spacer").remove(), s.find("hr").remove(), s.find('table:has(img[src*="ko-fi"])').remove(), s.find('figure:has(img[src*="discord"])').remove(), s.find("p").each(function(t3, e3) {
+                var r3 = l.normalizeText(a3(e3).text());
+                (/^TOC\s*\|/i.test(r3) || /^Join\s+us on Discord/i.test(r3)) && a3(e3).remove();
+              }), s.find("div").each(function(t3, e3) {
+                a3(e3).text().trim() || a3(e3).find("img").length || a3(e3).remove();
+              }), [2, s.html() || ""];
           }
         });
       });
-    }, s2.prototype.listNovels = function(r2, n2) {
+    }, a2.prototype.listNovels = function(r2, n2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, s3 = this;
+        var t2, a3, s = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return r2 > 1 ? [2, []] : [4, this.fetchList("/pages?per_page=".concat(o, "&_fields=id,slug,link,parent,title,content"))];
+              return r2 > 1 ? [2, []] : [4, this.fetchList("/pages?per_page=".concat(i, "&_fields=id,slug,link,parent,title,content"))];
             case 1:
-              return t2 = e2.sent(), i2 = this.searchKey(n2), [2, t2.filter(function(t3) {
-                return void 0 !== a[t3.slug];
+              return t2 = e2.sent(), a3 = this.searchKey(n2), [2, t2.filter(function(t3) {
+                return void 0 !== o[t3.slug];
               }).map(function(t3) {
-                return { name: s3.decode(t3.title.rendered), path: s3.toPath(t3.link), cover: s3.pageCover(t3) };
+                return { name: s.decode(t3.title.rendered), path: s.toPath(t3.link), cover: s.pageCover(t3) };
               }).filter(function(t3) {
-                return -1 !== s3.searchKey(t3.name).indexOf(i2);
+                return -1 !== s.searchKey(t3.name).indexOf(a3);
               })];
           }
         });
       });
-    }, s2.prototype.fetchChapters = function(r2, n2) {
+    }, a2.prototype.fetchChapters = function(r2, n2) {
       return t(this, void 0, void 0, function() {
-        var t2, i2, a2, s3, c, u, l, p, h = this;
+        var t2, o2, a3, s, c, u, l, p, h = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              t2 = "&_fields=id,slug,link,title,date", i2 = [], a2 = 1, e2.label = 1;
+              t2 = "&_fields=id,slug,link,title,date", o2 = [], a3 = 1, e2.label = 1;
             case 1:
-              return [4, this.fetchList("/posts?categories=".concat(r2, "&per_page=").concat(o, "&page=").concat(a2) + t2)];
+              return [4, this.fetchList("/posts?categories=".concat(r2, "&per_page=").concat(i, "&page=").concat(a3) + t2)];
             case 2:
-              if (s3 = e2.sent(), i2.push.apply(i2, s3), s3.length < o) return [3, 4];
+              if (s = e2.sent(), o2.push.apply(o2, s), s.length < i) return [3, 4];
               e2.label = 3;
             case 3:
-              return a2++, [3, 1];
+              return a3++, [3, 1];
             case 4:
               return n2.length > 0 ? (c = n2.map(function(t3) {
                 return "slug[]=".concat(t3);
-              }).join("&"), l = (u = i2.push).apply, p = [i2], [4, this.fetchList("/posts?".concat(c, "&per_page=").concat(o).concat(t2))]) : [3, 6];
+              }).join("&"), l = (u = o2.push).apply, p = [o2], [4, this.fetchList("/posts?".concat(c, "&per_page=").concat(i).concat(t2))]) : [3, 6];
             case 5:
               l.apply(u, p.concat([e2.sent()])), e2.label = 6;
             case 6:
-              return i2.sort(function(t3, e3) {
+              return o2.sort(function(t3, e3) {
                 return t3.date < e3.date ? -1 : t3.date > e3.date ? 1 : 0;
-              }), [2, i2.map(function(t3, e3) {
+              }), [2, o2.map(function(t3, e3) {
                 return { name: h.decode(t3.title.rendered), path: h.toPath(t3.link), releaseTime: t3.date, chapterNumber: e3 + 1 };
               })];
           }
         });
       });
-    }, s2.prototype.pageCover = function(t2) {
-      var e2, r2 = (0, n.load)("<div>".concat((null === (e2 = t2.content) || void 0 === e2 ? void 0 : e2.rendered) || "", "</div>")), o2 = [];
+    }, a2.prototype.pageCover = function(t2) {
+      var e2, r2 = (0, n.load)("<div>".concat((null === (e2 = t2.content) || void 0 === e2 ? void 0 : e2.rendered) || "", "</div>")), i2 = [];
       r2("img").each(function(t3, e3) {
         var n2 = r2(e3).attr("src") || "";
-        n2 && !/kofi|discord|noimagefound/i.test(n2) && o2.push(n2);
+        n2 && !/kofi|discord|noimagefound/i.test(n2) && i2.push(n2);
       });
-      var a2 = o2.filter(function(t3) {
+      var o2 = i2.filter(function(t3) {
         return /\/cove/i.test(t3);
-      })[0] || o2[0];
-      return a2 ? a2.split("?")[0] : i.defaultCover;
-    }, s2.prototype.pageSummary = function(t2) {
-      var e2, r2 = this, i2 = (0, n.load)("<div>".concat((null === (e2 = t2.content) || void 0 === e2 ? void 0 : e2.rendered) || "", "</div>")), o2 = [], a2 = false;
+      })[0] || i2[0];
+      return o2 ? o2.split("?")[0] : void 0;
+    }, a2.prototype.pageSummary = function(t2) {
+      var e2, r2 = this, i2 = (0, n.load)("<div>".concat((null === (e2 = t2.content) || void 0 === e2 ? void 0 : e2.rendered) || "", "</div>")), o2 = [], a3 = false;
       return i2("p").each(function(t3, e3) {
         var n2 = r2.normalizeText(i2(e3).text());
-        if (a2) return !/^(Source|Novel Updates|Support Author|Raw)\b/i.test(n2) && void (n2 && o2.push(n2));
-        a2 = /^Description:?$/i.test(n2);
+        if (a3) return !/^(Source|Novel Updates|Support Author|Raw)\b/i.test(n2) && void (n2 && o2.push(n2));
+        a3 = /^Description:?$/i.test(n2);
       }), o2.join("\n\n");
-    }, s2.prototype.searchKey = function(t2) {
+    }, a2.prototype.searchKey = function(t2) {
       return this.normalizeText(t2).toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
-    }, s2.prototype.fetchList = function(n2) {
+    }, a2.prototype.fetchList = function(n2) {
       return t(this, void 0, void 0, function() {
         var t2, i2;
         return e(this, function(e2) {
@@ -25607,19 +25593,19 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, s2.prototype.toPath = function(t2) {
+    }, a2.prototype.toPath = function(t2) {
       var e2 = t2.trim(), r2 = e2.match(/^https?:\/\/impatientmtlreader533234643\.wordpress\.com(\/.*)?$/i), n2 = (r2 ? r2[1] || "/" : e2).split(/[?#]/)[0], i2 = "/" === n2.charAt(0) ? n2 : "/" + n2;
       return "/" === i2.charAt(i2.length - 1) ? i2 : i2 + "/";
-    }, s2.prototype.lastSegment = function(t2) {
+    }, a2.prototype.lastSegment = function(t2) {
       var e2 = this.toPath(t2).split("/").filter(Boolean);
       return e2[e2.length - 1] || "";
-    }, s2.prototype.decode = function(t2) {
+    }, a2.prototype.decode = function(t2) {
       return this.normalizeText((0, n.load)("<p>".concat(t2, "</p>"))("p").text());
-    }, s2.prototype.normalizeText = function(t2) {
+    }, a2.prototype.normalizeText = function(t2) {
       return t2.replace(/\s+/g, " ").trim();
-    }, s2;
+    }, a2;
   }();
-  exports.default = new s();
+  exports.default = new a();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

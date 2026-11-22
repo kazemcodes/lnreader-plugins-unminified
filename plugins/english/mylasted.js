@@ -7016,10 +7016,10 @@ var LNReaderPlugin = (() => {
         // 14
       ];
       function bake(values, offset) {
-        var i2 = 0, o2 = /* @__PURE__ */ Object.create(null);
+        var i2 = 0, o = /* @__PURE__ */ Object.create(null);
         offset |= 0;
-        while (i2 < values.length) o2[s[i2 + offset]] = values[i2++];
-        return o2;
+        while (i2 < values.length) o[s[i2 + offset]] = values[i2++];
+        return o;
       }
       __name(bake, "bake");
       types.basic = bake([
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9389,44 +9413,6 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       init_fetch();
-    }
-  });
-
-  // src/types/constants.ts
-  var NovelStatus, defaultCover;
-  var init_constants = __esm({
-    "src/types/constants.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      NovelStatus = {
-        Unknown: "Unknown",
-        Ongoing: "Ongoing",
-        Completed: "Completed",
-        Licensed: "Licensed",
-        PublishingFinished: "Publishing Finished",
-        Cancelled: "Cancelled",
-        OnHiatus: "On Hiatus",
-        STUB: "STUB",
-        Inactive: "Inactive"
-      };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -9931,7 +9917,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -9939,10 +9925,10 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
         for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
@@ -10197,7 +10183,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -10205,15 +10191,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v });
-      } : function(o2, v) {
-        o2["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -10991,7 +10977,7 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -10999,15 +10985,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v });
-      } : function(o2, v) {
-        o2["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -11926,7 +11912,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -11934,10 +11920,10 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
       var __exportStar = exports4 && exports4.__exportStar || function(m, exports5) {
         for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports5, p)) __createBinding(exports5, m, p);
@@ -14239,7 +14225,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -14247,15 +14233,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v });
-      } : function(o2, v) {
-        o2["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -14381,7 +14367,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -14389,15 +14375,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v });
-      } : function(o2, v) {
-        o2["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -14612,7 +14598,7 @@ var LNReaderPlugin = (() => {
         };
         return __assign.apply(this, arguments);
       };
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -14620,15 +14606,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v });
-      } : function(o2, v) {
-        o2["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -24809,7 +24795,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -24817,15 +24803,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v });
-      } : function(o2, v) {
-        o2["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -25248,7 +25234,7 @@ var LNReaderPlugin = (() => {
       init_dirname();
       init_buffer2();
       init_process2();
-      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o2, m, k, k2) {
+      var __createBinding = exports4 && exports4.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -25256,15 +25242,15 @@ var LNReaderPlugin = (() => {
             return m[k];
           }, "get") };
         }
-        Object.defineProperty(o2, k2, desc);
-      } : function(o2, m, k, k2) {
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        o2[k2] = m[k];
+        o[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v });
-      } : function(o2, v) {
-        o2["default"] = v;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -25384,12 +25370,12 @@ var LNReaderPlugin = (() => {
   init_buffer2();
   init_process2();
   var e = function(e2, t2, r2, n2) {
-    return new (r2 || (r2 = Promise))(function(i2, o2) {
+    return new (r2 || (r2 = Promise))(function(i2, o) {
       function a(e3) {
         try {
           c(n2.next(e3));
         } catch (e4) {
-          o2(e4);
+          o(e4);
         }
       }
       __name(a, "a");
@@ -25397,7 +25383,7 @@ var LNReaderPlugin = (() => {
         try {
           c(n2.throw(e3));
         } catch (e4) {
-          o2(e4);
+          o(e4);
         }
       }
       __name(s, "s");
@@ -25411,7 +25397,7 @@ var LNReaderPlugin = (() => {
       c((n2 = n2.apply(e2, t2 || [])).next());
     });
   }, t = function(e2, t2) {
-    var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+    var r2, n2, i2, o = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & i2[0]) throw i2[1];
       return i2[1];
     }, "sent"), trys: [], ops: [] }, a = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
@@ -25422,7 +25408,7 @@ var LNReaderPlugin = (() => {
       return function(c) {
         return function(s3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; a && (a = 0, s3[0] && (o2 = 0)), o2; ) try {
+          for (; a && (a = 0, s3[0] && (o = 0)), o; ) try {
             if (r2 = 1, n2 && (i2 = 2 & s3[0] ? n2.return : s3[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, s3[1])).done) return i2;
             switch (n2 = 0, i2 && (s3 = [2 & s3[0], i2.value]), s3[0]) {
               case 0:
@@ -25430,34 +25416,34 @@ var LNReaderPlugin = (() => {
                 i2 = s3;
                 break;
               case 4:
-                return o2.label++, { value: s3[1], done: false };
+                return o.label++, { value: s3[1], done: false };
               case 5:
-                o2.label++, n2 = s3[1], s3 = [0];
+                o.label++, n2 = s3[1], s3 = [0];
                 continue;
               case 7:
-                s3 = o2.ops.pop(), o2.trys.pop();
+                s3 = o.ops.pop(), o.trys.pop();
                 continue;
               default:
-                if (!(i2 = o2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
-                  o2 = 0;
+                if (!(i2 = o.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s3[0] && 2 !== s3[0])) {
+                  o = 0;
                   continue;
                 }
                 if (3 === s3[0] && (!i2 || s3[1] > i2[0] && s3[1] < i2[3])) {
-                  o2.label = s3[1];
+                  o.label = s3[1];
                   break;
                 }
-                if (6 === s3[0] && o2.label < i2[1]) {
-                  o2.label = i2[1], i2 = s3;
+                if (6 === s3[0] && o.label < i2[1]) {
+                  o.label = i2[1], i2 = s3;
                   break;
                 }
-                if (i2 && o2.label < i2[2]) {
-                  o2.label = i2[2], o2.ops.push(s3);
+                if (i2 && o.label < i2[2]) {
+                  o.label = i2[2], o.ops.push(s3);
                   break;
                 }
-                i2[2] && o2.ops.pop(), o2.trys.pop();
+                i2[2] && o.ops.pop(), o.trys.pop();
                 continue;
             }
-            s3 = t2.call(e2, o2);
+            s3 = t2.call(e2, o);
           } catch (e3) {
             s3 = [6, e3], n2 = 0;
           } finally {
@@ -25471,13 +25457,13 @@ var LNReaderPlugin = (() => {
     __name(s, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_browser(), __toCommonJS(browser_exports));
-  var o = function() {
-    function o2() {
-      this.id = "mylasted", this.name = "Machine Editing (MyLasted)", this.site = "https://mylasted.blogspot.com", this.icon = "src/en/mylasted/icon.png", this.version = "1.0.1";
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports));
+  var i = function() {
+    function i2() {
+      this.id = "mylasted", this.name = "Machine Editing (MyLasted)", this.site = "https://mylasted.blogspot.com", this.icon = "src/en/mylasted/icon.png", this.version = "1.0.2";
     }
-    __name(o2, "o");
-    return o2.prototype.request = function(n2) {
+    __name(i2, "i");
+    return i2.prototype.request = function(n2) {
       return e(this, void 0, void 0, function() {
         var e2;
         return t(this, function(t2) {
@@ -25490,31 +25476,31 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.feed = function(r2) {
+    }, i2.prototype.feed = function(r2) {
       return e(this, arguments, void 0, function(e2, r3, n2) {
-        var i2, o3, a, s;
+        var i3, o, a, s;
         return void 0 === r3 && (r3 = 1), void 0 === n2 && (n2 = false), t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return i2 = "".concat(this.site, "/feeds/posts/").concat(n2 ? "summary" : "default", "/-/").concat(encodeURIComponent(e2), "?alt=json&max-results=150&start-index=").concat(r3), [4, this.request(i2)];
+              return i3 = "".concat(this.site, "/feeds/posts/").concat(n2 ? "summary" : "default", "/-/").concat(encodeURIComponent(e2), "?alt=json&max-results=150&start-index=").concat(r3), [4, this.request(i3)];
             case 1:
               return [4, t2.sent().json()];
             case 2:
-              if (o3 = t2.sent(), !(a = o3.feed) || !Number.isInteger(Number(null === (s = a.openSearch$totalResults) || void 0 === s ? void 0 : s.$t))) throw new Error("Machine Editing: the public feed could not be read.");
+              if (o = t2.sent(), !(a = o.feed) || !Number.isInteger(Number(null === (s = a.openSearch$totalResults) || void 0 === s ? void 0 : s.$t))) throw new Error("Machine Editing: the public feed could not be read.");
               return [2, a];
           }
         });
       });
-    }, o2.prototype.project = function(e2) {
-      var t2, r2, o3 = null === (t2 = e2.link.find(function(e3) {
+    }, i2.prototype.project = function(e2) {
+      var t2, r2, i3 = null === (t2 = e2.link.find(function(e3) {
         return "alternate" === e3.rel;
       })) || void 0 === t2 ? void 0 : t2.href;
-      if (!o3) throw new Error("Machine Editing: a series address is missing.");
-      var a = (0, i.load)((null === (r2 = e2.content) || void 0 === r2 ? void 0 : r2.$t) || "");
-      return { name: e2.title.$t, path: new URL(this.resolveUrl(o3)).pathname, cover: a("img").first().attr("src") || n.defaultCover };
-    }, o2.prototype.popularNovels = function(r2) {
+      if (!i3) throw new Error("Machine Editing: a series address is missing.");
+      var o = (0, n.load)((null === (r2 = e2.content) || void 0 === r2 ? void 0 : r2.$t) || "");
+      return { name: e2.title.$t, path: new URL(this.resolveUrl(i3)).pathname, cover: o("img").first().attr("src") };
+    }, i2.prototype.popularNovels = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2, i2 = this;
+        var e2, n2, i3 = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
@@ -25522,98 +25508,98 @@ var LNReaderPlugin = (() => {
             case 1:
               if (e2 = t2.sent(), (n2 = e2.entry || []).length !== Number(e2.openSearch$totalResults.$t)) throw new Error("Machine Editing: the series list is incomplete.");
               return [2, n2.map(function(e3) {
-                return i2.project(e3);
+                return i3.project(e3);
               })];
           }
         });
       });
-    }, o2.prototype.parseNovel = function(r2) {
+    }, i2.prototype.parseNovel = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, o3, a, s, c, l, u, h, d, p, f, v, m, b, g, w, y, E, x, M, N;
+        var e2, i3, o, a, s, c, l, u, h, p, d, f, v, m, b, g, w, y, E, x, M;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return o3 = i.load, [4, this.request(this.resolveUrl(r2))];
+              return i3 = n.load, [4, this.request(this.resolveUrl(r2))];
             case 1:
               return [4, t2.sent().text()];
             case 2:
-              if (e2 = o3.apply(void 0, [t2.sent()]), !(a = null === (M = /clwd\.run\(\s*['"]([^'"]+)['"]\s*\)/.exec(e2("#clwd").html() || "")) || void 0 === M ? void 0 : M[1])) throw new Error("Machine Editing: the novel chapter label could not be read.");
-              return [4, this.feed(a, 1, true)];
+              if (e2 = i3.apply(void 0, [t2.sent()]), !(o = null === (x = /clwd\.run\(\s*['"]([^'"]+)['"]\s*\)/.exec(e2("#clwd").html() || "")) || void 0 === x ? void 0 : x[1])) throw new Error("Machine Editing: the novel chapter label could not be read.");
+              return [4, this.feed(o, 1, true)];
             case 3:
-              if (s = t2.sent(), (c = Number(s.openSearch$totalResults.$t)) < 1 || c > 15e3) throw new Error("Machine Editing: invalid chapter count.");
-              l = 1, u = [], h = {}, t2.label = 4;
+              if (a = t2.sent(), (s = Number(a.openSearch$totalResults.$t)) < 1 || s > 15e3) throw new Error("Machine Editing: invalid chapter count.");
+              c = 1, l = [], u = {}, t2.label = 4;
             case 4:
-              return l <= c ? 1 !== l ? [3, 5] : (p = s, [3, 7]) : [3, 8];
+              return c <= s ? 1 !== c ? [3, 5] : (p = a, [3, 7]) : [3, 8];
             case 5:
-              return [4, this.feed(a, l, true)];
+              return [4, this.feed(o, c, true)];
             case 6:
               p = t2.sent(), t2.label = 7;
             case 7:
-              if (f = (d = p).entry || [], Number(d.openSearch$totalResults.$t) !== c || !f.length) throw new Error("Machine Editing: the chapter feed changed. Refresh to retry.");
-              for (v = 0, m = f; v < m.length; v++) {
-                if (b = m[v], !(g = null === (N = b.link.find(function(e3) {
+              if (d = (h = p).entry || [], Number(h.openSearch$totalResults.$t) !== s || !d.length) throw new Error("Machine Editing: the chapter feed changed. Refresh to retry.");
+              for (f = 0, v = d; f < v.length; f++) {
+                if (m = v[f], !(b = null === (M = m.link.find(function(e3) {
                   return "alternate" === e3.rel;
-                })) || void 0 === N ? void 0 : N.href)) throw new Error("Machine Editing: a chapter address is missing.");
-                if (w = new URL(this.resolveUrl(g)).pathname, h[w]) throw new Error("Machine Editing: repeated feed page.");
-                h[w] = true, ((y = /(?:chapter|episode)\s+(\d+(?:\.\d+)?)/i.exec(b.title.$t)) || /prologue|epilogue|side story/i.test(b.title.$t)) && u.push({ name: b.title.$t, path: w, chapterNumber: y ? Number(y[1]) : void 0, releaseTime: b.published.$t });
+                })) || void 0 === M ? void 0 : M.href)) throw new Error("Machine Editing: a chapter address is missing.");
+                if (g = new URL(this.resolveUrl(b)).pathname, u[g]) throw new Error("Machine Editing: repeated feed page.");
+                u[g] = true, ((w = /(?:chapter|episode)\s+(\d+(?:\.\d+)?)/i.exec(m.title.$t)) || /prologue|epilogue|side story/i.test(m.title.$t)) && l.push({ name: m.title.$t, path: g, chapterNumber: w ? Number(w[1]) : void 0, releaseTime: m.published.$t });
               }
-              return l += f.length, [3, 4];
+              return c += d.length, [3, 4];
             case 8:
-              if (!u.length) throw new Error("Machine Editing: no chapter entries were found.");
-              return E = /* @__PURE__ */ __name(function(e3) {
+              if (!l.length) throw new Error("Machine Editing: no chapter entries were found.");
+              return y = /* @__PURE__ */ __name(function(e3) {
                 return void 0 !== e3.chapterNumber ? 1 : /prologue/i.test(e3.name) ? 0 : /epilogue/i.test(e3.name) ? 3 : 2;
-              }, "E"), u.sort(function(e3, t3) {
+              }, "y"), l.sort(function(e3, t3) {
                 var r3, n2;
-                return E(e3) - E(t3) || (null !== (r3 = e3.chapterNumber) && void 0 !== r3 ? r3 : 0) - (null !== (n2 = t3.chapterNumber) && void 0 !== n2 ? n2 : 0) || (e3.releaseTime || "").localeCompare(t3.releaseTime || "") || e3.path.localeCompare(t3.path);
-              }), x = /* @__PURE__ */ __name(function(t3) {
+                return y(e3) - y(t3) || (null !== (r3 = e3.chapterNumber) && void 0 !== r3 ? r3 : 0) - (null !== (n2 = t3.chapterNumber) && void 0 !== n2 ? n2 : 0) || (e3.releaseTime || "").localeCompare(t3.releaseTime || "") || e3.path.localeCompare(t3.path);
+              }), E = /* @__PURE__ */ __name(function(t3) {
                 return e2("#extra-info dt").filter(function(r3, n2) {
                   return e2(n2).text().trim() === t3;
                 }).first().next("dd").text().trim() || void 0;
-              }, "x"), [2, { name: e2('meta[property="og:title"]').attr("content") || e2("h1").first().text().trim(), path: r2, cover: e2("article img").first().attr("src") || n.defaultCover, summary: e2("#synopsis").text().trim(), author: x("Author"), genres: x("Tags"), status: x("Chapter"), chapters: u }];
+              }, "E"), [2, { name: e2('meta[property="og:title"]').attr("content") || e2("h1").first().text().trim(), path: r2, cover: e2("article img").first().attr("src"), summary: e2("#synopsis").text().trim(), author: E("Author"), genres: E("Tags"), status: E("Chapter"), chapters: l }];
           }
         });
       });
-    }, o2.prototype.parseChapter = function(r2) {
+    }, i2.prototype.parseChapter = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2, o3, a;
+        var e2, i3, o, a;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return n2 = i.load, [4, this.request(this.resolveUrl(r2))];
+              return i3 = n.load, [4, this.request(this.resolveUrl(r2))];
             case 1:
               return [4, t2.sent().text()];
             case 2:
-              if (e2 = n2.apply(void 0, [t2.sent()]), o3 = e2("article.txt").first(), e2("#clwd", o3).length) throw new Error("Machine Editing: this is a series page, not a chapter.");
-              if (o3.find("script,style,iframe,form,.adsbygoogle,.separator").remove(), o3.find("[style]").removeAttr("style"), o3.find("div,p").each(function(t3, r3) {
+              if (e2 = i3.apply(void 0, [t2.sent()]), o = e2("article.txt").first(), e2("#clwd", o).length) throw new Error("Machine Editing: this is a series page, not a chapter.");
+              if (o.find("script,style,iframe,form,.adsbygoogle,.separator").remove(), o.find("[style]").removeAttr("style"), o.find("div,p").each(function(t3, r3) {
                 /^Consider supporting me by subscribing/i.test(e2(r3).text().trim()) && e2(r3).remove();
               }), a = function(e3, t3) {
-                var r3 = (0, i.load)(e3, null, false);
+                var r3 = (0, n.load)(e3, null, false);
                 r3("script,style,iframe,object,embed,svg,math,form,template,noscript").remove();
-                var n3 = "p,div,span,h1,h2,h3,h4,h5,h6,br,hr,strong,em,b,i,u,s,del,small,sub,sup,blockquote,pre,code,ul,ol,li,table,thead,tbody,tfoot,tr,th,td,a,img,ruby,rt,rp".split(",");
-                return r3("*").each(function(e4, i2) {
-                  var o4, a2 = r3(i2), s = (null === (o4 = a2.prop("tagName")) || void 0 === o4 ? void 0 : o4.toLowerCase()) || "";
-                  if (n3.includes(s)) {
+                var i4 = "p,div,span,h1,h2,h3,h4,h5,h6,br,hr,strong,em,b,i,u,s,del,small,sub,sup,blockquote,pre,code,ul,ol,li,table,thead,tbody,tfoot,tr,th,td,a,img,ruby,rt,rp".split(",");
+                return r3("*").each(function(e4, n2) {
+                  var o2, a2 = r3(n2), s = (null === (o2 = a2.prop("tagName")) || void 0 === o2 ? void 0 : o2.toLowerCase()) || "";
+                  if (i4.includes(s)) {
                     var c = ["title"];
                     "a" === s && c.push("href"), "img" === s && c.push("src", "alt");
                     for (var l = 0, u = Object.keys(a2.attr() || {}); l < u.length; l++) {
                       var h = u[l];
                       c.includes(h) || a2.removeAttr(h);
                     }
-                    var d = "a" === s ? "href" : "img" === s ? "src" : void 0;
-                    if (d && a2.attr(d)) try {
-                      var p = new URL(a2.attr(d), t3);
-                      "https:" !== p.protocol && "http:" !== p.protocol ? a2.removeAttr(d) : a2.attr(d, p.href);
+                    var p = "a" === s ? "href" : "img" === s ? "src" : void 0;
+                    if (p && a2.attr(p)) try {
+                      var d = new URL(a2.attr(p), t3);
+                      "https:" !== d.protocol && "http:" !== d.protocol ? a2.removeAttr(p) : a2.attr(p, d.href);
                     } catch (e5) {
-                      a2.removeAttr(d);
+                      a2.removeAttr(p);
                     }
                   } else a2.replaceWith(a2.contents());
                 }), r3.root().html() || "";
-              }(o3.html() || "", this.resolveUrl(r2)), (0, i.load)(a).text().trim().length < 200) throw new Error("Machine Editing: no readable public chapter was found.");
+              }(o.html() || "", this.resolveUrl(r2)), (0, n.load)(a).text().trim().length < 200) throw new Error("Machine Editing: no readable public chapter was found.");
               return [2, a];
           }
         });
       });
-    }, o2.prototype.searchNovels = function(r2, n2) {
+    }, i2.prototype.searchNovels = function(r2, n2) {
       return e(this, void 0, void 0, function() {
         var e2;
         return t(this, function(t2) {
@@ -25627,13 +25613,13 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, o2.prototype.resolveUrl = function(e2) {
+    }, i2.prototype.resolveUrl = function(e2) {
       var t2 = new URL(e2, this.site);
       if (t2.origin !== this.site) throw new Error("Machine Editing: invalid page address.");
       return t2.href;
-    }, o2;
+    }, i2;
   }();
-  exports.default = new o();
+  exports.default = new i();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

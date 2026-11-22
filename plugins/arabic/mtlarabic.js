@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data = await res.json();
+      return {
+        ok: Boolean(data.ok && data.html),
+        html: data.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9427,7 +9451,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9445,7 +9469,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
@@ -9456,21 +9479,6 @@ var LNReaderPlugin = (() => {
   });
   var init_novelStatus = __esm({
     "src/libs/novelStatus.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
       "use strict";
       init_dirname();
       init_buffer2();
@@ -12717,17 +12725,17 @@ var LNReaderPlugin = (() => {
     return t2.concat(r3 || Array.prototype.slice.call(e2));
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r2 = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), c = (init_isAbsoluteUrl(), __toCommonJS(isAbsoluteUrl_exports)), s = "https://mtlarabic.com", l = /* @__PURE__ */ __name(function(t2) {
-    return t2 ? "".concat(s, "/images/novels/").concat(t2) : i.defaultCover;
-  }, "l"), u = function() {
-    function i2() {
+  var r2 = (init_fetch2(), __toCommonJS(fetch_exports)), o = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_isAbsoluteUrl(), __toCommonJS(isAbsoluteUrl_exports)), c = "https://mtlarabic.com", s = /* @__PURE__ */ __name(function(t2) {
+    return t2 ? "".concat(c, "/images/novels/").concat(t2) : void 0;
+  }, "s"), l = function() {
+    function l2() {
       var t2 = this;
-      this.id = "mtlarabic", this.name = "\u0645\u0643\u062A\u0628\u0629 \u0627\u0644\u062E\u064A\u0627\u0644", this.version = "1.0.0", this.icon = "src/ar/mtlarabic/icon.png", this.site = "https://mtlarabic.com", this.baseUrl = s, this.categories = [{ label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "\u062A\u0627\u0631\u064A\u062E\u064A" }, { label: "\u062D\u0636\u0631\u064A", value: "\u062D\u0636\u0631\u064A" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A" }, { label: "\u0631\u064A\u0627\u0636\u064A", value: "\u0631\u064A\u0627\u0636\u064A" }], this.filters = { sort: { label: "\u0627\u0644\u062A\u0631\u062A\u064A\u0628 \u062D\u0633\u0628", type: o.FilterTypes.Picker, value: "latest_update", options: [{ label: "\u0622\u062E\u0631 \u062A\u062D\u062F\u064A\u062B", value: "latest_update" }, { label: "\u0639\u062F\u062F \u0627\u0644\u0641\u0635\u0648\u0644 - \u0645\u0646 \u0623\u0639\u0644\u0649 \u0644\u0623\u0642\u0644", value: "-num_chapters" }] }, category: { label: "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A", type: o.FilterTypes.Picker, value: "", options: n([{ label: "\u0627\u0644\u0643\u0644", value: "" }], this.categories, true) } }, this.resolveUrl = function(e2) {
-        return (0, c.isUrlAbsolute)(e2) ? e2 : t2.site + e2;
+      this.id = "mtlarabic", this.name = "\u0645\u0643\u062A\u0628\u0629 \u0627\u0644\u062E\u064A\u0627\u0644", this.version = "1.0.1", this.icon = "src/ar/mtlarabic/icon.png", this.site = "https://mtlarabic.com", this.baseUrl = c, this.categories = [{ label: "\u062A\u0627\u0631\u064A\u062E\u064A", value: "\u062A\u0627\u0631\u064A\u062E\u064A" }, { label: "\u062D\u0636\u0631\u064A", value: "\u062D\u0636\u0631\u064A" }, { label: "\u062E\u064A\u0627\u0644", value: "\u062E\u064A\u0627\u0644" }, { label: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A", value: "\u062E\u064A\u0627\u0644 \u0639\u0644\u0645\u064A" }, { label: "\u0631\u064A\u0627\u0636\u064A", value: "\u0631\u064A\u0627\u0636\u064A" }], this.filters = { sort: { label: "\u0627\u0644\u062A\u0631\u062A\u064A\u0628 \u062D\u0633\u0628", type: o.FilterTypes.Picker, value: "latest_update", options: [{ label: "\u0622\u062E\u0631 \u062A\u062D\u062F\u064A\u062B", value: "latest_update" }, { label: "\u0639\u062F\u062F \u0627\u0644\u0641\u0635\u0648\u0644 - \u0645\u0646 \u0623\u0639\u0644\u0649 \u0644\u0623\u0642\u0644", value: "-num_chapters" }] }, category: { label: "\u0627\u0644\u062A\u0635\u0646\u064A\u0641\u0627\u062A", type: o.FilterTypes.Picker, value: "", options: n([{ label: "\u0627\u0644\u0643\u0644", value: "" }], this.categories, true) } }, this.resolveUrl = function(e2) {
+        return (0, i.isUrlAbsolute)(e2) ? e2 : t2.site + e2;
       };
     }
-    __name(i2, "i");
-    return i2.prototype.fetchText = function(n2) {
+    __name(l2, "l");
+    return l2.prototype.fetchText = function(n2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -12740,43 +12748,43 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, i2.prototype.parseIsland = function(t2, e2) {
+    }, l2.prototype.parseIsland = function(t2, e2) {
       var n2 = t2.match(function(t3) {
         return new RegExp('<script id="'.concat(t3, '" type="application/json">([\\s\\S]*?)<\/script>'));
       }(e2));
       if (!n2) throw new Error('Could not find "'.concat(e2, '" data on the page'));
       return JSON.parse(n2[1]);
-    }, i2.prototype.toNovelItem = function(t2) {
-      return { name: t2.name, path: "/".concat(t2.slug), cover: l(t2.image) };
-    }, i2.prototype.popularNovels = function(n2, r3) {
+    }, l2.prototype.toNovelItem = function(t2) {
+      return { name: t2.name, path: "/".concat(t2.slug), cover: s(t2.image) };
+    }, l2.prototype.popularNovels = function(n2, r3) {
       return t(this, arguments, void 0, function(t2, n3) {
-        var r4, o2, a2, i3, c2, s2 = this, l2 = n3.filters;
+        var r4, o2, a2, i2, c2, s2 = this, l3 = n3.filters;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return r4 = (null == l2 ? void 0 : l2.sort.value) || "latest_update", o2 = (null == l2 ? void 0 : l2.category.value) || "", a2 = "?sort=".concat(encodeURIComponent(r4)) + (o2 ? "&category=".concat(encodeURIComponent(o2)) : "") + "&page=".concat(t2), [4, this.fetchText("".concat(this.baseUrl, "/novels").concat(a2))];
+              return r4 = (null == l3 ? void 0 : l3.sort.value) || "latest_update", o2 = (null == l3 ? void 0 : l3.category.value) || "", a2 = "?sort=".concat(encodeURIComponent(r4)) + (o2 ? "&category=".concat(encodeURIComponent(o2)) : "") + "&page=".concat(t2), [4, this.fetchText("".concat(this.baseUrl, "/novels").concat(a2))];
             case 1:
-              return i3 = e2.sent(), c2 = this.parseIsland(i3, "__NOVELS__"), t2 > c2.pagination.totalPages ? [2, []] : [2, c2.items.map(function(t3) {
+              return i2 = e2.sent(), c2 = this.parseIsland(i2, "__NOVELS__"), t2 > c2.pagination.totalPages ? [2, []] : [2, c2.items.map(function(t3) {
                 return s2.toNovelItem(t3);
               })];
           }
         });
       });
-    }, i2.prototype.searchNovels = function(n2, r3) {
+    }, l2.prototype.searchNovels = function(n2, r3) {
       return t(this, void 0, void 0, function() {
-        var t2, o2, a2, i3 = this;
+        var t2, o2, a2, i2 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return (t2 = n2.trim()) ? [4, this.fetchText("".concat(this.baseUrl, "/novels?q=").concat(encodeURIComponent(t2), "&page=").concat(r3))] : [2, []];
             case 1:
               return o2 = e2.sent(), a2 = this.parseIsland(o2, "__NOVELS__"), r3 > a2.pagination.totalPages ? [2, []] : [2, a2.items.map(function(t3) {
-                return i3.toNovelItem(t3);
+                return i2.toNovelItem(t3);
               })];
           }
         });
       });
-    }, i2.prototype.fetchChapterList = function(n2) {
+    }, l2.prototype.fetchChapterList = function(n2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -12788,9 +12796,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, i2.prototype.parseNovel = function(n2) {
+    }, l2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r3, o2, i3;
+        var t2, r3, o2, i2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
@@ -12798,14 +12806,14 @@ var LNReaderPlugin = (() => {
             case 1:
               return r3 = e2.sent(), o2 = this.parseIsland(r3, "__NOVEL__"), [4, this.fetchChapterList(t2)];
             case 2:
-              return i3 = e2.sent(), [2, { path: n2, name: o2.name, cover: l(o2.image), genres: o2.type || void 0, status: (c2 = o2.status, c2.includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? a.NovelStatus.Ongoing : c2.includes("\u0645\u0643\u062A\u0645\u0644") ? a.NovelStatus.Completed : a.NovelStatus.Unknown), summary: o2.description || void 0, chapters: i3.map(function(e3) {
+              return i2 = e2.sent(), [2, { path: n2, name: o2.name, cover: s(o2.image), genres: o2.type || void 0, status: (c2 = o2.status, c2.includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? a.NovelStatus.Ongoing : c2.includes("\u0645\u0643\u062A\u0645\u0644") ? a.NovelStatus.Completed : a.NovelStatus.Unknown), summary: o2.description || void 0, chapters: i2.map(function(e3) {
                 return { name: e3.title || "\u0627\u0644\u0641\u0635\u0644 ".concat(e3.number), path: "/".concat(encodeURIComponent(t2), "/").concat(e3.number), releaseTime: e3.approvalDate || void 0, chapterNumber: e3.number };
               }) }];
           }
           var c2;
         });
       });
-    }, i2.prototype.parseChapter = function(n2) {
+    }, l2.prototype.parseChapter = function(n2) {
       return t(this, void 0, void 0, function() {
         var t2;
         return e(this, function(e2) {
@@ -12824,9 +12832,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, i2;
+    }, l2;
   }();
-  exports.default = new u();
+  exports.default = new l();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

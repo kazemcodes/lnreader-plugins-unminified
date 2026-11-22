@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,22 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25423,13 +25431,13 @@ var LNReaderPlugin = (() => {
           return { M: c2, y: h2, w: o2, d: a2, D: d2, h: u2, m: s2, s: i2, ms: r2, Q: f2 }[t3] || String(t3 || "").toLowerCase().replace(/s$/, "");
         }, "p"), u: /* @__PURE__ */ __name(function(t3) {
           return void 0 === t3;
-        }, "u") }, g2 = "en", D = {};
-        D[g2] = M;
+        }, "u") }, g = "en", D = {};
+        D[g] = M;
         var p2 = "$isDayjsObject", S = /* @__PURE__ */ __name(function(t3) {
           return t3 instanceof _ || !(!t3 || !t3[p2]);
         }, "S"), w = /* @__PURE__ */ __name(function t3(e3, n3, r3) {
           var i3;
-          if (!e3) return g2;
+          if (!e3) return g;
           if ("string" == typeof e3) {
             var s3 = e3.toLowerCase();
             D[s3] && (i3 = s3), n3 && (D[s3] = n3, i3 = s3);
@@ -25439,7 +25447,7 @@ var LNReaderPlugin = (() => {
             var a3 = e3.name;
             D[a3] = e3, i3 = a3;
           }
-          return !r3 && i3 && (g2 = i3), i3 || !r3 && g2;
+          return !r3 && i3 && (g = i3), i3 || !r3 && g;
         }, "t"), O = /* @__PURE__ */ __name(function(t3, e3) {
           if (S(t3)) return t3.clone();
           var n3 = "object" == typeof e3 ? e3 : {};
@@ -25502,7 +25510,7 @@ var LNReaderPlugin = (() => {
               case c2:
                 return r3 ? l3(1, M3) : l3(0, M3 + 1);
               case o2:
-                var g3 = this.$locale().weekStart || 0, D2 = (y2 < g3 ? y2 + 7 : y2) - g3;
+                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
                 return l3(r3 ? m4 - D2 : m4 + (6 - D2), M3);
               case a2:
               case d2:
@@ -25613,7 +25621,7 @@ var LNReaderPlugin = (() => {
           }, m3.utcOffset = function() {
             return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
           }, m3.diff = function(r3, d3, l3) {
-            var $3, y2 = this, M3 = b2.p(d3), m4 = O(r3), v3 = (m4.utcOffset() - this.utcOffset()) * e2, g3 = this - m4, D2 = /* @__PURE__ */ __name(function() {
+            var $3, y2 = this, M3 = b2.p(d3), m4 = O(r3), v3 = (m4.utcOffset() - this.utcOffset()) * e2, g2 = this - m4, D2 = /* @__PURE__ */ __name(function() {
               return b2.m(y2, m4);
             }, "D");
             switch (M3) {
@@ -25627,22 +25635,22 @@ var LNReaderPlugin = (() => {
                 $3 = D2() / 3;
                 break;
               case o2:
-                $3 = (g3 - v3) / 6048e5;
+                $3 = (g2 - v3) / 6048e5;
                 break;
               case a2:
-                $3 = (g3 - v3) / 864e5;
+                $3 = (g2 - v3) / 864e5;
                 break;
               case u2:
-                $3 = g3 / n2;
+                $3 = g2 / n2;
                 break;
               case s2:
-                $3 = g3 / e2;
+                $3 = g2 / e2;
                 break;
               case i2:
-                $3 = g3 / t2;
+                $3 = g2 / t2;
                 break;
               default:
-                $3 = g3;
+                $3 = g2;
             }
             return l3 ? $3 : b2.a($3);
           }, m3.daysInMonth = function() {
@@ -25673,7 +25681,7 @@ var LNReaderPlugin = (() => {
           return t3.$i || (t3(e3, _, O), t3.$i = true), O;
         }, O.locale = w, O.isDayjs = S, O.unix = function(t3) {
           return O(1e3 * t3);
-        }, O.en = D[g2], O.Ls = D, O.p = {}, O;
+        }, O.en = D[g], O.Ls = D, O.p = {}, O;
       });
     }
   });
@@ -25872,30 +25880,30 @@ var LNReaderPlugin = (() => {
     return e2 && e2.__esModule ? e2 : { default: e2 };
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.MadaraPlugin = void 0;
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = l(require_dayjs_min()), u = (init_storage2(), __toCommonJS(storage_exports)), c = /detik|segundo|second|วินาที/i, v = /menit|dakika|min|minute|minuto|นาที|دقائق/i, h = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, p = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, d = /week|semana/i, b = /month|mes/i, m = /year|año/i, f = function() {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_browser(), __toCommonJS(browser_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = l(require_dayjs_min()), s = (init_storage2(), __toCommonJS(storage_exports)), u = /detik|segundo|second|วินาที/i, c = /menit|dakika|min|minute|minuto|นาที|دقائق/i, v = /jam|saat|heure|hora|hour|ชั่วโมง|giờ|ore|ساعة|小时/i, h = /hari|gün|jour|día|dia|day|วัน|ngày|giorni|أيام|天/i, p = /week|semana/i, d = /month|mes/i, b = /year|año/i, m = function() {
     function l2(e2) {
       var a2, t2, l3 = this;
-      this.hideLocked = u.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
+      this.hideLocked = s.storage.get("hideLocked"), this.dateCache = /* @__PURE__ */ new Map(), this.parseData = function(e3) {
         var a3, t3 = l3.dateCache.get(e3);
         if (void 0 !== t3) return t3;
         l3.dateCache.size > 2e3 && l3.dateCache.clear();
-        var r3, n2 = (0, s.default)(), i2 = (null === (a3 = e3.match(/\d+/)) || void 0 === a3 ? void 0 : a3[0]) || "", o2 = parseInt(i2, 10);
+        var r3, n2 = (0, o.default)(), i2 = (null === (a3 = e3.match(/\d+/)) || void 0 === a3 ? void 0 : a3[0]) || "", s2 = parseInt(i2, 10);
         if (!i2) return l3.dateCache.set(e3, e3), e3;
-        if (c.test(e3)) r3 = n2.subtract(o2, "second").format("LL");
-        else if (v.test(e3)) r3 = n2.subtract(o2, "minute").format("LL");
-        else if (h.test(e3)) r3 = n2.subtract(o2, "hours").format("LL");
-        else if (p.test(e3)) r3 = n2.subtract(o2, "days").format("LL");
-        else if (d.test(e3)) r3 = n2.subtract(o2, "week").format("LL");
-        else if (b.test(e3)) r3 = n2.subtract(o2, "month").format("LL");
-        else if (m.test(e3)) r3 = n2.subtract(o2, "year").format("LL");
+        if (u.test(e3)) r3 = n2.subtract(s2, "second").format("LL");
+        else if (c.test(e3)) r3 = n2.subtract(s2, "minute").format("LL");
+        else if (v.test(e3)) r3 = n2.subtract(s2, "hours").format("LL");
+        else if (h.test(e3)) r3 = n2.subtract(s2, "days").format("LL");
+        else if (p.test(e3)) r3 = n2.subtract(s2, "week").format("LL");
+        else if (d.test(e3)) r3 = n2.subtract(s2, "month").format("LL");
+        else if (b.test(e3)) r3 = n2.subtract(s2, "year").format("LL");
         else {
-          var u2 = (0, s.default)(e3).format("LL");
-          r3 = "Invalid Date" !== u2 ? u2 : e3;
+          var m2 = (0, o.default)(e3).format("LL");
+          r3 = "Invalid Date" !== m2 ? m2 : e3;
         }
         return l3.dateCache.set(e3, r3), r3;
       }, this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/madara/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
       var r2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
-      this.version = "2.4.".concat(r2), this.options = e2.options, this.filters = e2.filters, (null === (t2 = this.options) || void 0 === t2 ? void 0 : t2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.version = "2.4.".concat(1 + r2), this.options = e2.options, this.filters = e2.filters, (null === (t2 = this.options) || void 0 === t2 ? void 0 : t2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
     __name(l2, "l");
     return Object.defineProperty(l2.prototype, "requestHeaders", { get: /* @__PURE__ */ __name(function() {
@@ -25935,10 +25943,9 @@ var LNReaderPlugin = (() => {
       });
     }, l2.prototype.extractCover = function(e2) {
       for (var a2, t2, l3, r2 = 0, n2 = [e2.attr("data-lazy-src"), e2.attr("data-src"), e2.attr("data-cfsrc"), null === (a2 = e2.attr("data-srcset")) || void 0 === a2 ? void 0 : a2.split(" ")[0], null === (t2 = e2.attr("data-lazy-srcset")) || void 0 === t2 ? void 0 : t2.split(" ")[0], null === (l3 = e2.attr("srcset")) || void 0 === l3 ? void 0 : l3.split(" ")[0], e2.attr("src")]; r2 < n2.length; r2++) {
-        var o2 = n2[r2];
-        if (o2 && !o2.includes("dflazy")) return o2;
+        var i2 = n2[r2];
+        if (i2 && !i2.includes("dflazy")) return i2;
       }
-      return i.defaultCover;
     }, l2.prototype.parseNovels = function(e2) {
       var a2 = this, t2 = [];
       return e2(".manga-title-badges").remove(), e2(".page-item-detail, .c-tabs-item__content").each(function(l3, r2) {
@@ -26028,19 +26035,19 @@ var LNReaderPlugin = (() => {
       });
     }, l2.prototype.parseNovel = function(e2) {
       return a(this, void 0, void 0, function() {
-        var a2, l3, i2, u2, c2, v2, h2, p2, d2, b2, m2, f2, g2, y, w, x, C, S, A, k, L, j, T, _, N, O, M, P, D, R, H, q, F, G, E = this;
+        var a2, l3, s2, u2, c2, v2, h2, p2, d2, b2, m2, f2, g, y, w, x, C, S, A, k, L, j, T, _, N, O, M, P, D, R, H, F, q, G, E = this;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
-              return a2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), i2 = e2.startsWith("http") ? e2 : "".concat(a2, "/").concat(l3), c2 = null, v2 = "".concat(i2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (F = this.options) || void 0 === F ? void 0 : F.useNewChapterEndpoint) ? (c2 = (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: i2 }).then(function(e3) {
+              return a2 = this.site.replace(/\/+$/, ""), l3 = e2.replace(/^\/+/, ""), s2 = e2.startsWith("http") ? e2 : "".concat(a2, "/").concat(l3), c2 = null, v2 = "".concat(s2.replace(/\/+$/, ""), "/ajax/chapters/"), (null === (q = this.options) || void 0 === q ? void 0 : q.useNewChapterEndpoint) ? (c2 = (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: s2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
-              }), [4, Promise.all([this.getCheerio(i2, false), c2])]) : [3, 2];
+              }), [4, Promise.all([this.getCheerio(s2, false), c2])]) : [3, 2];
             case 1:
               return u2 = t2.sent()[0], [3, 4];
             case 2:
-              return [4, this.getCheerio(i2, false)];
+              return [4, this.getCheerio(s2, false)];
             case 3:
               u2 = t2.sent(), t2.label = 4;
             case 4:
@@ -26077,12 +26084,12 @@ var LNReaderPlugin = (() => {
                   case "Novel":
                   case "Estado":
                   case "Durum":
-                    h2.status = a3.text().trim().includes("OnGoing") || a3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed;
+                    h2.status = a3.text().trim().includes("OnGoing") || a3.text().trim().includes("\u0645\u0633\u062A\u0645\u0631\u0629") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed;
                     break;
                   case "Artist(s)":
                     h2.artist = a3.text().trim();
                 }
-              }), h2.genres || (h2.genres = u2(".genres-content").text().trim()), h2.status || (h2.status = u2(".manga-status").text().trim().includes("OnGoing") ? o.NovelStatus.Ongoing : o.NovelStatus.Completed), h2.author || (h2.author = u2(".manga-author a").text().trim()), h2.rating || (h2.rating = parseFloat(u2(".post-rating span").text().trim())), h2.author || (h2.author = u2(".manga-authors").text().trim()), u2("div.summary__content .code-block,script,noscript").remove(), h2.summary = this.translateDragontea(u2("div.summary__content")).text().trim() || u2("#tab-manga-about").text().trim() || u2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, a3) {
+              }), h2.genres || (h2.genres = u2(".genres-content").text().trim()), h2.status || (h2.status = u2(".manga-status").text().trim().includes("OnGoing") ? i.NovelStatus.Ongoing : i.NovelStatus.Completed), h2.author || (h2.author = u2(".manga-author a").text().trim()), h2.rating || (h2.rating = parseFloat(u2(".post-rating span").text().trim())), h2.author || (h2.author = u2(".manga-authors").text().trim()), u2("div.summary__content .code-block,script,noscript").remove(), h2.summary = this.translateDragontea(u2("div.summary__content")).text().trim() || u2("#tab-manga-about").text().trim() || u2('.post-content_item h5:contains("Summary")').next().find("span").map(function(e3, a3) {
                 return u2(a3).text();
               }).get().join("\n\n").trim() || u2('.post-content_item h5:contains("Summary")').next().find("p").map(function(e3, a3) {
                 return u2(a3).text();
@@ -26096,7 +26103,7 @@ var LNReaderPlugin = (() => {
             case 6:
               b2 = "", t2.label = 7;
             case 7:
-              return (d2 = b2 || "") ? [3, 9] : [4, (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: i2 }).then(function(e3) {
+              return (d2 = b2 || "") ? [3, 9] : [4, (0, r.fetchApi)(v2, { method: "POST", headers: this.requestHeaders, referrer: s2 }).then(function(e3) {
                 return e3.text();
               }).catch(function() {
                 return "";
@@ -26105,14 +26112,14 @@ var LNReaderPlugin = (() => {
               d2 = t2.sent(), t2.label = 9;
             case 9:
               if (m2 = (0, n.load)(d2), !((f2 = m2(".pagination a[data-page]")).length > 0)) return [3, 13];
-              if (g2 = Math.max.apply(Math, f2.map(function(e3, a3) {
+              if (g = Math.max.apply(Math, f2.map(function(e3, a3) {
                 return parseInt(m2(a3).attr("data-page") || "1", 10);
               }).get()), y = f2.last().attr("href") || "", -1 === (w = y.indexOf("?"))) return [3, 13];
-              for (x = y.slice(w).replace(/\d+$/, ""), C = [], S = 2; S <= g2; S++) C.push("".concat(v2).concat(x).concat(S));
+              for (x = y.slice(w).replace(/\d+$/, ""), C = [], S = 2; S <= g; S++) C.push("".concat(v2).concat(x).concat(S));
               A = 6, k = 0, t2.label = 10;
             case 10:
               return k < C.length ? (L = C.slice(k, k + A), [4, Promise.all(L.map(function(e3) {
-                return (0, r.fetchApi)(e3, { method: "POST", headers: E.requestHeaders, referrer: i2 }).then(function(e4) {
+                return (0, r.fetchApi)(e3, { method: "POST", headers: E.requestHeaders, referrer: s2 }).then(function(e4) {
                   return e4.text();
                 }).catch(function() {
                   return "";
@@ -26132,15 +26139,15 @@ var LNReaderPlugin = (() => {
             case 15:
               d2 = t2.sent(), t2.label = 16;
             case 16:
-              return "0" !== d2 && d2 && (u2 = (0, n.load)(d2)), P = (0, s.default)().format("LL"), D = /* @__PURE__ */ __name(function(e3) {
+              return "0" !== d2 && d2 && (u2 = (0, n.load)(d2)), P = (0, o.default)().format("LL"), D = /* @__PURE__ */ __name(function(e3) {
                 var a3, t3 = u2(e3), l4 = t3.find("a"), r2 = l4.attr("href") || "";
                 if (!r2 || "#" === r2) return null;
                 var n2 = ((null === (a3 = e3.attribs) || void 0 === a3 ? void 0 : a3.class) || "").includes("premium-block");
                 if (n2 && E.hideLocked) return null;
-                var i3 = l4.text().trim();
-                n2 && (i3 = "\u{1F512} " + i3);
-                var o2 = t3.find("span.chapter-release-date").text().trim(), s2 = o2 ? E.parseData(o2) : P;
-                return { name: i3, path: r2.replace(/https?:\/\/.*?\//, ""), releaseTime: s2 || null };
+                var i2 = l4.text().trim();
+                n2 && (i2 = "\u{1F512} " + i2);
+                var o2 = t3.find("span.chapter-release-date").text().trim(), s3 = o2 ? E.parseData(o2) : P;
+                return { name: i2, path: r2.replace(/https?:\/\/.*?\//, ""), releaseTime: s3 || null };
               }, "D"), (R = u2("li.parent.has-child")).length > 0 ? (R.each(function(e3, a3) {
                 var t3 = [];
                 u2(a3).find(".wp-manga-chapter").each(function(e4, a4) {
@@ -26152,10 +26159,10 @@ var LNReaderPlugin = (() => {
                   var t3 = D(a3);
                   t3 && H.push(t3);
                 }
-              }), H.length > 0 && p2.push.apply(p2, H.reverse())) : (q = [], u2(".wp-manga-chapter").each(function(e3, a3) {
+              }), H.length > 0 && p2.push.apply(p2, H.reverse())) : (F = [], u2(".wp-manga-chapter").each(function(e3, a3) {
                 var t3 = D(a3);
-                t3 && q.push(t3);
-              }), p2.push.apply(p2, q.reverse())), p2.forEach(function(e3, a3) {
+                t3 && F.push(t3);
+              }), p2.push.apply(p2, F.reverse())), p2.forEach(function(e3, a3) {
                 e3.chapterNumber = a3 + 1;
               }), h2.chapters = p2, [2, h2];
           }
@@ -26189,9 +26196,9 @@ var LNReaderPlugin = (() => {
       });
     }, l2;
   }();
-  exports.MadaraPlugin = f;
-  var g = new f({ id: "fortuneeternal", sourceSite: "https://www.fortuneeternal.com", sourceName: "Fortune Eternal", options: { lang: "Korean", useNewChapterEndpoint: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Abandoned Children", value: "abandoned-children" }, { label: "Academy", value: "academy" }, { label: "Action", value: "action" }, { label: "Adopted Protagonist", value: "adopted-protagonist" }, { label: "Adult", value: "adult" }, { label: "Adventure", value: "adventure" }, { label: "Age progression", value: "age-progression" }, { label: "Alternate World", value: "alternate-world" }, { label: "Animated", value: "animated" }, { label: "Anime", value: "anime" }, { label: "Apocalypse", value: "apocalypse" }, { label: "Aristocracy", value: "aristocracy" }, { label: "Arts", value: "arts" }, { label: "Award Winning", value: "award-winning" }, { label: "Betrayal", value: "betrayal" }, { label: "Body Swap", value: "body-swap" }, { label: "Business", value: "business" }, { label: "Card Game", value: "card-game" }, { label: "Cartoon", value: "cartoon" }, { label: "Chaebol", value: "chaebol" }, { label: "Cheat", value: "cheat" }, { label: "Childcare", value: "childcare" }, { label: "Chinese", value: "chinese" }, { label: "Civilization", value: "civilization" }, { label: "Clan Building", value: "clan-building-2" }, { label: "Clan Building]", value: "clan-building" }, { label: "Clever protagonist", value: "clever-protagonist" }, { label: "Comedy", value: "comedy" }, { label: "Comic", value: "comic" }, { label: "Cooking", value: "cooking" }, { label: "Dark", value: "dark" }, { label: "Detective", value: "detective" }, { label: "Disabilities", value: "disabilities" }, { label: "Doujinshi", value: "doujinshi" }, { label: "Drama", value: "drama" }, { label: "Dying", value: "dying" }, { label: "Eastern Fantasy", value: "eastern-fantasy" }, { label: "Ecchi", value: "ecchi" }, { label: "Evil organization", value: "evil-organization" }, { label: "evil protagonist", value: "evil-protagonist" }, { label: "Exorcism", value: "exorcism" }, { label: "Extra character", value: "extra-character" }, { label: "Fanfiction", value: "fanfiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Farming", value: "farming" }, { label: "Fashion", value: "fashion" }, { label: "Female MC", value: "female-mc" }, { label: "Firearms", value: "firearms" }, { label: "Futuristic", value: "futuristic" }, { label: "Game", value: "game" }, { label: "Game character", value: "game-character" }, { label: "Game element", value: "game-element" }, { label: "Gate to another world", value: "gate-to-another-world" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Genius", value: "genius" }, { label: "Ghost posessed", value: "ghost-posessed" }, { label: "Harem", value: "harem" }, { label: "Healthcare", value: "healthcare" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "human to animal", value: "human-to-animal" }, { label: "Japanese", value: "japanese" }, { label: "Josei", value: "josei" }, { label: "Judicial", value: "judicial" }, { label: "Korean", value: "korean" }, { label: "Level system", value: "level-system" }, { label: "Live action", value: "live-action" }, { label: "Manga", value: "manga" }, { label: "Manhua", value: "manhua" }, { label: "Manhwa", value: "manhwa" }, { label: "Married life", value: "married-life" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Medical", value: "medical" }, { label: "Military", value: "military" }, { label: "misunderstanding", value: "misunderstanding" }, { label: "Modern", value: "modern" }, { label: "Monster Life", value: "monster-life" }, { label: "Monster tamer", value: "monster-tamer" }, { label: "MTL", value: "mtl" }, { label: "Music", value: "music" }, { label: "Mystery", value: "mystery" }, { label: "Novel Character", value: "novel-character" }, { label: "One shot", value: "one-shot" }, { label: "Original", value: "original" }, { label: "Outer Space", value: "outer-space" }, { label: "Overpowered", value: "overpowered" }, { label: "Political", value: "political" }, { label: "Polygamy", value: "polygamy" }, { label: "Possesion", value: "possesion" }, { label: "Post-Apocalypse", value: "post-apocalypse" }, { label: "Premium", value: "premium" }, { label: "Psychological", value: "psychological" }, { label: "RAW", value: "raw" }, { label: "Regression", value: "regression" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Request", value: "request" }, { label: "Returnee", value: "returnee" }, { label: "Revenge", value: "revenge" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Romance", value: "romance" }, { label: "Romance Fantasy", value: "romance-fantasy" }, { label: "Royal family", value: "royal-family" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Science Fiction", value: "science-fiction" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Showbiz", value: "showbiz" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Soft Yaoi", value: "soft-yaoi" }, { label: "Soft Yuri", value: "soft-yuri" }, { label: "Sports", value: "sports" }, { label: "Strong to stronger", value: "strong-to-stronger" }, { label: "Sudden Rich", value: "sudden-rich" }, { label: "Superhero theme", value: "superhero-theme" }, { label: "Supernatural", value: "supernatural" }, { label: "Survival", value: "survival" }, { label: "System", value: "system" }, { label: "Teacher Protagonist", value: "teacher-protagonist" }, { label: "Time", value: "time" }, { label: "Tragedy", value: "tragedy" }, { label: "Tragic past", value: "tragic-past" }, { label: "Transmigration", value: "transmigration" }, { label: "Tycoon", value: "tycoon" }, { label: "Villain", value: "villain" }, { label: "Warring period", value: "warring-period" }, { label: "Weak to Strong", value: "weak-to-strong" }, { label: "Webtoon", value: "webtoon" }, { label: "World Hopping", value: "world-hopping" }, { label: "Writer", value: "writer" }, { label: "Yandere", value: "yandere" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
-  exports.default = g;
+  exports.MadaraPlugin = m;
+  var f = new m({ id: "fortuneeternal", sourceSite: "https://www.fortuneeternal.com", sourceName: "Fortune Eternal", options: { lang: "Korean", useNewChapterEndpoint: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "Abandoned Children", value: "abandoned-children" }, { label: "Academy", value: "academy" }, { label: "Action", value: "action" }, { label: "Adopted Protagonist", value: "adopted-protagonist" }, { label: "Adult", value: "adult" }, { label: "Adventure", value: "adventure" }, { label: "Age progression", value: "age-progression" }, { label: "Alternate World", value: "alternate-world" }, { label: "Animated", value: "animated" }, { label: "Anime", value: "anime" }, { label: "Apocalypse", value: "apocalypse" }, { label: "Aristocracy", value: "aristocracy" }, { label: "Arts", value: "arts" }, { label: "Award Winning", value: "award-winning" }, { label: "Betrayal", value: "betrayal" }, { label: "Body Swap", value: "body-swap" }, { label: "Business", value: "business" }, { label: "Card Game", value: "card-game" }, { label: "Cartoon", value: "cartoon" }, { label: "Chaebol", value: "chaebol" }, { label: "Cheat", value: "cheat" }, { label: "Childcare", value: "childcare" }, { label: "Chinese", value: "chinese" }, { label: "Civilization", value: "civilization" }, { label: "Clan Building", value: "clan-building-2" }, { label: "Clan Building]", value: "clan-building" }, { label: "Clever protagonist", value: "clever-protagonist" }, { label: "Comedy", value: "comedy" }, { label: "Comic", value: "comic" }, { label: "Cooking", value: "cooking" }, { label: "Dark", value: "dark" }, { label: "Detective", value: "detective" }, { label: "Disabilities", value: "disabilities" }, { label: "Doujinshi", value: "doujinshi" }, { label: "Drama", value: "drama" }, { label: "Dying", value: "dying" }, { label: "Eastern Fantasy", value: "eastern-fantasy" }, { label: "Ecchi", value: "ecchi" }, { label: "Evil organization", value: "evil-organization" }, { label: "evil protagonist", value: "evil-protagonist" }, { label: "Exorcism", value: "exorcism" }, { label: "Extra character", value: "extra-character" }, { label: "Fanfiction", value: "fanfiction" }, { label: "Fantasy", value: "fantasy" }, { label: "Farming", value: "farming" }, { label: "Fashion", value: "fashion" }, { label: "Female MC", value: "female-mc" }, { label: "Firearms", value: "firearms" }, { label: "Futuristic", value: "futuristic" }, { label: "Game", value: "game" }, { label: "Game character", value: "game-character" }, { label: "Game element", value: "game-element" }, { label: "Gate to another world", value: "gate-to-another-world" }, { label: "Gender Bender", value: "gender-bender" }, { label: "Genius", value: "genius" }, { label: "Ghost posessed", value: "ghost-posessed" }, { label: "Harem", value: "harem" }, { label: "Healthcare", value: "healthcare" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "human to animal", value: "human-to-animal" }, { label: "Japanese", value: "japanese" }, { label: "Josei", value: "josei" }, { label: "Judicial", value: "judicial" }, { label: "Korean", value: "korean" }, { label: "Level system", value: "level-system" }, { label: "Live action", value: "live-action" }, { label: "Manga", value: "manga" }, { label: "Manhua", value: "manhua" }, { label: "Manhwa", value: "manhwa" }, { label: "Married life", value: "married-life" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Medical", value: "medical" }, { label: "Military", value: "military" }, { label: "misunderstanding", value: "misunderstanding" }, { label: "Modern", value: "modern" }, { label: "Monster Life", value: "monster-life" }, { label: "Monster tamer", value: "monster-tamer" }, { label: "MTL", value: "mtl" }, { label: "Music", value: "music" }, { label: "Mystery", value: "mystery" }, { label: "Novel Character", value: "novel-character" }, { label: "One shot", value: "one-shot" }, { label: "Original", value: "original" }, { label: "Outer Space", value: "outer-space" }, { label: "Overpowered", value: "overpowered" }, { label: "Political", value: "political" }, { label: "Polygamy", value: "polygamy" }, { label: "Possesion", value: "possesion" }, { label: "Post-Apocalypse", value: "post-apocalypse" }, { label: "Premium", value: "premium" }, { label: "Psychological", value: "psychological" }, { label: "RAW", value: "raw" }, { label: "Regression", value: "regression" }, { label: "Reincarnation", value: "reincarnation" }, { label: "Request", value: "request" }, { label: "Returnee", value: "returnee" }, { label: "Revenge", value: "revenge" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Romance", value: "romance" }, { label: "Romance Fantasy", value: "romance-fantasy" }, { label: "Royal family", value: "royal-family" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "Science Fiction", value: "science-fiction" }, { label: "Seinen", value: "seinen" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo Ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen Ai", value: "shounen-ai" }, { label: "Showbiz", value: "showbiz" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Smut", value: "smut" }, { label: "Soft Yaoi", value: "soft-yaoi" }, { label: "Soft Yuri", value: "soft-yuri" }, { label: "Sports", value: "sports" }, { label: "Strong to stronger", value: "strong-to-stronger" }, { label: "Sudden Rich", value: "sudden-rich" }, { label: "Superhero theme", value: "superhero-theme" }, { label: "Supernatural", value: "supernatural" }, { label: "Survival", value: "survival" }, { label: "System", value: "system" }, { label: "Teacher Protagonist", value: "teacher-protagonist" }, { label: "Time", value: "time" }, { label: "Tragedy", value: "tragedy" }, { label: "Tragic past", value: "tragic-past" }, { label: "Transmigration", value: "transmigration" }, { label: "Tycoon", value: "tycoon" }, { label: "Villain", value: "villain" }, { label: "Warring period", value: "warring-period" }, { label: "Weak to Strong", value: "weak-to-strong" }, { label: "Webtoon", value: "webtoon" }, { label: "World Hopping", value: "world-hopping" }, { label: "Writer", value: "writer" }, { label: "Yandere", value: "yandere" }, { label: "Yaoi", value: "yaoi" }, { label: "Yuri", value: "yuri" }] }, op: { type: "Switch", label: "having all selected genres", value: false }, author: { type: "Text", label: "Author", value: "" }, artist: { type: "Text", label: "Artist", value: "" }, release: { type: "Text", label: "Year of Released", value: "" }, adult: { type: "Picker", label: "Adult content", value: "", options: [{ label: "All", value: "" }, { label: "None adult content", value: "0" }, { label: "Only adult content", value: "1" }] }, "status[]": { type: "Checkbox", label: "Status", value: [], options: [{ label: "OnGoing", value: "on-going" }, { label: "Completed", value: "end" }, { label: "Canceled", value: "canceled" }, { label: "On Hold", value: "on-hold" }, { label: "Upcoming", value: "upcoming" }] }, m_orderby: { type: "Picker", label: "Order by", value: "", options: [{ label: "Relevance", value: "" }, { label: "Latest", value: "latest" }, { label: "A-Z", value: "alphabet" }, { label: "Rating", value: "rating" }, { label: "Trending", value: "trending" }, { label: "Most Views", value: "views" }, { label: "New", value: "new-manga" }] } } });
+  exports.default = f;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

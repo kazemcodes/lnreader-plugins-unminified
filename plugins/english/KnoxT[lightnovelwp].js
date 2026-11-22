@@ -3312,10 +3312,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -4106,10 +4106,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7354,10 +7354,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7496,10 +7496,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -7727,10 +7727,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -17924,10 +17924,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -18363,10 +18363,10 @@ var LNReaderPlugin = (() => {
         if (k2 === void 0) k2 = k;
         o2[k2] = m[k];
       });
-      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v2) {
-        Object.defineProperty(o2, "default", { enumerable: true, value: v2 });
-      } : function(o2, v2) {
-        o2["default"] = v2;
+      var __setModuleDefault = exports4 && exports4.__setModuleDefault || (Object.create ? function(o2, v) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v });
+      } : function(o2, v) {
+        o2["default"] = v;
       });
       var __importStar = exports4 && exports4.__importStar || function(mod) {
         if (mod && mod.__esModule) return mod;
@@ -25217,6 +25217,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -25230,6 +25252,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -25298,7 +25321,7 @@ var LNReaderPlugin = (() => {
         ).finish();
         const requestLength = BigInt(encodedrequest.length);
         const headers = new Uint8Array(
-          Array(5).fill(0).map((v2, idx) => {
+          Array(5).fill(0).map((v, idx) => {
             if (idx === 0) return 0;
             return Number(requestLength >> BigInt(8 * (5 - idx - 1)) & BYTE_MARK);
           })
@@ -25329,7 +25352,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25342,7 +25366,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25360,7 +25384,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
@@ -25371,21 +25394,6 @@ var LNReaderPlugin = (() => {
   });
   var init_novelStatus = __esm({
     "src/libs/novelStatus.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
       "use strict";
       init_dirname();
       init_buffer2();
@@ -25494,12 +25502,12 @@ var LNReaderPlugin = (() => {
   init_buffer2();
   init_process2();
   var e = function(e2, a2, l2, t2) {
-    return new (l2 || (l2 = Promise))(function(r2, i2) {
+    return new (l2 || (l2 = Promise))(function(i2, r2) {
       function o2(e3) {
         try {
           n2(t2.next(e3));
         } catch (e4) {
-          i2(e4);
+          r2(e4);
         }
       }
       __name(o2, "o");
@@ -25507,13 +25515,13 @@ var LNReaderPlugin = (() => {
         try {
           n2(t2.throw(e3));
         } catch (e4) {
-          i2(e4);
+          r2(e4);
         }
       }
       __name(s2, "s");
       function n2(e3) {
         var a3;
-        e3.done ? r2(e3.value) : (a3 = e3.value, a3 instanceof l2 ? a3 : new l2(function(e4) {
+        e3.done ? i2(e3.value) : (a3 = e3.value, a3 instanceof l2 ? a3 : new l2(function(e4) {
           e4(a3);
         })).then(o2, s2);
       }
@@ -25521,9 +25529,9 @@ var LNReaderPlugin = (() => {
       n2((t2 = t2.apply(e2, a2 || [])).next());
     });
   }, a = function(e2, a2) {
-    var l2, t2, r2, i2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
-      if (1 & r2[0]) throw r2[1];
-      return r2[1];
+    var l2, t2, i2, r2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
+      if (1 & i2[0]) throw i2[1];
+      return i2[1];
     }, "sent"), trys: [], ops: [] }, o2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
     return o2.next = s2(0), o2.throw = s2(1), o2.return = s2(2), "function" == typeof Symbol && (o2[Symbol.iterator] = function() {
       return this;
@@ -25532,46 +25540,46 @@ var LNReaderPlugin = (() => {
       return function(n2) {
         return function(s4) {
           if (l2) throw new TypeError("Generator is already executing.");
-          for (; o2 && (o2 = 0, s4[0] && (i2 = 0)), i2; ) try {
-            if (l2 = 1, t2 && (r2 = 2 & s4[0] ? t2.return : s4[0] ? t2.throw || ((r2 = t2.return) && r2.call(t2), 0) : t2.next) && !(r2 = r2.call(t2, s4[1])).done) return r2;
-            switch (t2 = 0, r2 && (s4 = [2 & s4[0], r2.value]), s4[0]) {
+          for (; o2 && (o2 = 0, s4[0] && (r2 = 0)), r2; ) try {
+            if (l2 = 1, t2 && (i2 = 2 & s4[0] ? t2.return : s4[0] ? t2.throw || ((i2 = t2.return) && i2.call(t2), 0) : t2.next) && !(i2 = i2.call(t2, s4[1])).done) return i2;
+            switch (t2 = 0, i2 && (s4 = [2 & s4[0], i2.value]), s4[0]) {
               case 0:
               case 1:
-                r2 = s4;
+                i2 = s4;
                 break;
               case 4:
-                return i2.label++, { value: s4[1], done: false };
+                return r2.label++, { value: s4[1], done: false };
               case 5:
-                i2.label++, t2 = s4[1], s4 = [0];
+                r2.label++, t2 = s4[1], s4 = [0];
                 continue;
               case 7:
-                s4 = i2.ops.pop(), i2.trys.pop();
+                s4 = r2.ops.pop(), r2.trys.pop();
                 continue;
               default:
-                if (!(r2 = i2.trys, (r2 = r2.length > 0 && r2[r2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
-                  i2 = 0;
+                if (!(i2 = r2.trys, (i2 = i2.length > 0 && i2[i2.length - 1]) || 6 !== s4[0] && 2 !== s4[0])) {
+                  r2 = 0;
                   continue;
                 }
-                if (3 === s4[0] && (!r2 || s4[1] > r2[0] && s4[1] < r2[3])) {
-                  i2.label = s4[1];
+                if (3 === s4[0] && (!i2 || s4[1] > i2[0] && s4[1] < i2[3])) {
+                  r2.label = s4[1];
                   break;
                 }
-                if (6 === s4[0] && i2.label < r2[1]) {
-                  i2.label = r2[1], r2 = s4;
+                if (6 === s4[0] && r2.label < i2[1]) {
+                  r2.label = i2[1], i2 = s4;
                   break;
                 }
-                if (r2 && i2.label < r2[2]) {
-                  i2.label = r2[2], i2.ops.push(s4);
+                if (i2 && r2.label < i2[2]) {
+                  r2.label = i2[2], r2.ops.push(s4);
                   break;
                 }
-                r2[2] && i2.ops.pop(), i2.trys.pop();
+                i2[2] && r2.ops.pop(), r2.trys.pop();
                 continue;
             }
-            s4 = a2.call(e2, i2);
+            s4 = a2.call(e2, r2);
           } catch (e3) {
             s4 = [6, e3], t2 = 0;
           } finally {
-            l2 = r2 = 0;
+            l2 = i2 = 0;
           }
           if (5 & s4[0]) throw s4[1];
           return { value: s4[0] ? s4[1] : void 0, done: true };
@@ -25581,91 +25589,91 @@ var LNReaderPlugin = (() => {
     __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true }), exports.LightNovelWPPlugin = void 0;
-  var l = (init_browser(), __toCommonJS(browser_exports)), t = require_lib9(), r = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_storage2(), __toCommonJS(storage_exports)), n = function() {
-    function n2(e2) {
+  var l = (init_browser(), __toCommonJS(browser_exports)), t = require_lib9(), i = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), s = function() {
+    function s2(e2) {
       var a2, l2, t2;
-      this.hideLocked = s.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
-      var r2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
-      this.version = "1.1.".concat(12 + r2), this.options = null !== (l2 = e2.options) && void 0 !== l2 ? l2 : {}, this.filters = e2.filters, (null === (t2 = this.options) || void 0 === t2 ? void 0 : t2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
+      this.hideLocked = o.storage.get("hideLocked"), this.id = e2.id, this.name = e2.sourceName, this.icon = "multisrc/lightnovelwp/".concat(e2.id.toLowerCase(), "/icon.png"), this.site = e2.sourceSite;
+      var i2 = (null === (a2 = e2.options) || void 0 === a2 ? void 0 : a2.versionIncrements) || 0;
+      this.version = "1.1.".concat(13 + i2), this.options = null !== (l2 = e2.options) && void 0 !== l2 ? l2 : {}, this.filters = e2.filters, (null === (t2 = this.options) || void 0 === t2 ? void 0 : t2.hasLocked) && (this.pluginSettings = { hideLocked: { value: "", label: "Hide locked chapters", type: "Switch" } });
     }
-    __name(n2, "n");
-    return n2.prototype.getHostname = function(e2) {
+    __name(s2, "s");
+    return s2.prototype.getHostname = function(e2) {
       var a2 = (e2 = e2.split("/")[2]).split(".");
       return a2.pop(), a2.join(".");
-    }, n2.prototype.safeFecth = function(l2, t2) {
+    }, s2.prototype.safeFecth = function(l2, t2) {
       return e(this, void 0, void 0, function() {
-        var e2, i2, o2, s2, n3, u2, v2, c;
+        var e2, r2, o2, s3, n2, u2, v, c;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              return e2 = l2.split("://"), i2 = e2.shift(), o2 = e2[0].replace(/\/\//g, "/"), [4, (0, r.fetchApi)(i2 + "://" + o2)];
+              return e2 = l2.split("://"), r2 = e2.shift(), o2 = e2[0].replace(/\/\//g, "/"), [4, (0, i.fetchApi)(r2 + "://" + o2)];
             case 1:
-              if (!(s2 = a2.sent()).ok && 1 != t2) throw new Error("Could not reach site (" + s2.status + ") try to open in webview.");
-              return [4, s2.text()];
+              if (!(s3 = a2.sent()).ok && 1 != t2) throw new Error("Could not reach site (" + s3.status + ") try to open in webview.");
+              return [4, s3.text()];
             case 2:
-              if (n3 = a2.sent(), u2 = null === (c = null === (v2 = n3.match(/<title>(.*?)<\/title>/)) || void 0 === v2 ? void 0 : v2[1]) || void 0 === c ? void 0 : c.trim(), this.getHostname(l2) != this.getHostname(s2.url) || u2 && ("Bot Verification" == u2 || "You are being redirected..." == u2 || "Un instant..." == u2 || "Just a moment..." == u2 || "Redirecting..." == u2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
-              return [2, n3];
+              if (n2 = a2.sent(), u2 = null === (c = null === (v = n2.match(/<title>(.*?)<\/title>/)) || void 0 === v ? void 0 : v[1]) || void 0 === c ? void 0 : c.trim(), this.getHostname(l2) != this.getHostname(s3.url) || u2 && ("Bot Verification" == u2 || "You are being redirected..." == u2 || "Un instant..." == u2 || "Just a moment..." == u2 || "Redirecting..." == u2)) throw new Error("Captcha error, please open in webview (or the website has changed url)");
+              return [2, n2];
           }
         });
       });
-    }, n2.prototype.parseNovels = function(e2) {
+    }, s2.prototype.parseNovels = function(e2) {
       var a2 = this;
       e2 = (0, l.load)(e2).html();
       var t2 = [];
       return (e2.match(/<article([^]*?)<\/article>/g) || []).forEach(function(e3) {
-        var l2 = e3.match(/<a href="([^"]*)".*? title="([^"]*)"/) || [], r2 = l2[1], i2 = l2[2];
-        if (i2 && r2) {
-          var s2 = e3.match(/<img [^>]*?src="([^"]*)"[^>]*?(?: data-src="([^"]*)")?[^>]*>/) || [], n3 = void 0;
-          if (r2.includes(a2.site)) n3 = r2.replace(a2.site, "");
+        var l2 = e3.match(/<a href="([^"]*)".*? title="([^"]*)"/) || [], i2 = l2[1], r2 = l2[2];
+        if (r2 && i2) {
+          var o2 = e3.match(/<img [^>]*?src="([^"]*)"[^>]*?(?: data-src="([^"]*)")?[^>]*>/) || [], s3 = void 0;
+          if (i2.includes(a2.site)) s3 = i2.replace(a2.site, "");
           else {
-            var u2 = r2.split("/");
-            u2.shift(), u2.shift(), u2.shift(), n3 = u2.join("/");
+            var n2 = i2.split("/");
+            n2.shift(), n2.shift(), n2.shift(), s3 = n2.join("/");
           }
-          t2.push({ name: i2, cover: s2[2] || s2[1] || o.defaultCover, path: n3 });
+          t2.push({ name: r2, cover: o2[2] || o2[1], path: s3 });
         }
       }), t2;
-    }, n2.prototype.popularNovels = function(l2, t2) {
+    }, s2.prototype.popularNovels = function(l2, t2) {
       return e(this, arguments, void 0, function(e2, l3) {
-        var t3, r2, i2, o2, s2, n3, u2, v2, c, b = l3.filters, h = l3.showLatestNovels;
+        var t3, i2, r2, o2, s3, n2, u2, v, c, b = l3.filters, h = l3.showLatestNovels;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
-              for (i2 in t3 = null !== (c = null === (v2 = this.options) || void 0 === v2 ? void 0 : v2.seriesPath) && void 0 !== c ? c : "/series/", r2 = this.site + t3 + "?page=" + e2, b || (b = this.filters || {}), h && (r2 += "&order=latest"), b) if ("object" == typeof b[i2].value) for (o2 = 0, s2 = b[i2].value; o2 < s2.length; o2++) n3 = s2[o2], r2 += "&".concat(i2, "=").concat(n3);
-              else b[i2].value && (r2 += "&".concat(i2, "=").concat(b[i2].value));
-              return [4, this.safeFecth(r2, false)];
+              for (r2 in t3 = null !== (c = null === (v = this.options) || void 0 === v ? void 0 : v.seriesPath) && void 0 !== c ? c : "/series/", i2 = this.site + t3 + "?page=" + e2, b || (b = this.filters || {}), h && (i2 += "&order=latest"), b) if ("object" == typeof b[r2].value) for (o2 = 0, s3 = b[r2].value; o2 < s3.length; o2++) n2 = s3[o2], i2 += "&".concat(r2, "=").concat(n2);
+              else b[r2].value && (i2 += "&".concat(r2, "=").concat(b[r2].value));
+              return [4, this.safeFecth(i2, false)];
             case 1:
               return u2 = a2.sent(), [2, this.parseNovels(u2)];
           }
         });
       });
-    }, n2.prototype.parseNovel = function(l2) {
+    }, s2.prototype.parseNovel = function(l2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, s2, n3, v2, c, b, h, d, p, g, m, f, y, w, C, k, L, S, P, x;
+        var e2, i2, o2, s3, u2, v, c, b, h, d, p, g, m, f, y, w, C, k, L, S, P;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return e2 = this.site, [4, this.safeFecth(e2 + l2, false)];
             case 1:
-              return r2 = a2.sent(), s2 = { path: l2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, n3 = false, v2 = false, c = 0, b = false, h = false, d = false, p = false, g = false, m = false, f = false, y = 0, w = false, C = false, k = [], L = {}, S = this.hideLocked, P = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, l3) {
+              return i2 = a2.sent(), o2 = { path: l2, name: "", genres: "", summary: "", author: "", artist: "", status: "", chapters: [] }, s3 = false, u2 = false, v = 0, c = false, b = false, h = false, d = false, p = false, g = false, m = false, f = 0, y = false, w = false, C = [], k = {}, L = this.hideLocked, S = new t.Parser({ onopentag: /* @__PURE__ */ __name(function(a3, l3) {
                 var t2;
-                !s2.cover && (null === (t2 = l3.class) || void 0 === t2 ? void 0 : t2.includes("ts-post-image")) ? (s2.name = l3.title, s2.cover = l3["data-src"] || l3.src || o.defaultCover) : "genxed" === l3.class || "sertogenre" === l3.class ? n3 = true : n3 && "a" === a3 ? v2 = true : "div" !== a3 || "entry-content" !== l3.class && "description" !== l3.itemprop ? "spe" === l3.class || "serl" === l3.class ? b = true : b && "span" === a3 ? h = true : "div" === a3 && "sertostat" === l3.class ? (b = true, h = true, g = true) : l3.class && l3.class.includes("eplister") ? m = true : m && "li" === a3 ? f = true : f ? "a" === a3 && void 0 === L.path ? L.path = l3.href.replace(e2, "").trim() : "epl-num" === l3.class ? y = 1 : "epl-title" === l3.class ? y = 2 : "epl-date" === l3.class ? y = 3 : "epl-price" === l3.class && (y = 4) : !c || "div" !== a3 && "script" !== a3 || c++ : c++;
+                !o2.cover && (null === (t2 = l3.class) || void 0 === t2 ? void 0 : t2.includes("ts-post-image")) ? (o2.name = l3.title, o2.cover = l3["data-src"] || l3.src) : "genxed" === l3.class || "sertogenre" === l3.class ? s3 = true : s3 && "a" === a3 ? u2 = true : "div" !== a3 || "entry-content" !== l3.class && "description" !== l3.itemprop ? "spe" === l3.class || "serl" === l3.class ? c = true : c && "span" === a3 ? b = true : "div" === a3 && "sertostat" === l3.class ? (c = true, b = true, p = true) : l3.class && l3.class.includes("eplister") ? g = true : g && "li" === a3 ? m = true : m ? "a" === a3 && void 0 === k.path ? k.path = l3.href.replace(e2, "").trim() : "epl-num" === l3.class ? f = 1 : "epl-title" === l3.class ? f = 2 : "epl-date" === l3.class ? f = 3 : "epl-price" === l3.class && (f = 4) : !v || "div" !== a3 && "script" !== a3 || v++ : v++;
               }, "onopentag"), ontext: /* @__PURE__ */ __name(function(e3) {
                 var a3, l3;
-                if (n3) v2 && (s2.genres += e3 + ", ");
-                else if (1 === c && e3.trim()) s2.summary += e3;
-                else if (b) {
-                  if (h) {
+                if (s3) u2 && (o2.genres += e3 + ", ");
+                else if (1 === v && e3.trim()) o2.summary += e3;
+                else if (c) {
+                  if (b) {
                     var t2 = e3.toLowerCase().replace(":", "").trim();
-                    if (d) s2.author += e3 || "Unknown";
-                    else if (p) s2.artist += e3 || "Unknown";
-                    else if (g) switch (t2) {
+                    if (h) o2.author += e3 || "Unknown";
+                    else if (d) o2.artist += e3 || "Unknown";
+                    else if (p) switch (t2) {
                       case "\u0645\u0643\u062A\u0645\u0644\u0629":
                       case "completed":
                       case "compl\xE9t\xE9":
                       case "completo":
                       case "completado":
                       case "tamamland\u0131":
-                        s2.status = i.NovelStatus.Completed;
+                        o2.status = r.NovelStatus.Completed;
                         break;
                       case "\u0645\u0633\u062A\u0645\u0631\u0629":
                       case "ongoing":
@@ -25673,7 +25681,7 @@ var LNReaderPlugin = (() => {
                       case "em andamento":
                       case "en progreso":
                       case "devam ediyor":
-                        s2.status = i.NovelStatus.Ongoing;
+                        o2.status = r.NovelStatus.Ongoing;
                         break;
                       case "\u0645\u062A\u0648\u0642\u0641\u0629":
                       case "hiatus":
@@ -25682,10 +25690,10 @@ var LNReaderPlugin = (() => {
                       case "pausa":
                       case "pausado":
                       case "duraklat\u0131ld\u0131":
-                        s2.status = i.NovelStatus.OnHiatus;
+                        o2.status = r.NovelStatus.OnHiatus;
                         break;
                       default:
-                        s2.status = i.NovelStatus.Unknown;
+                        o2.status = r.NovelStatus.Unknown;
                     }
                     switch (t2) {
                       case "\u0627\u0644\u0643\u0627\u062A\u0628":
@@ -25693,111 +25701,111 @@ var LNReaderPlugin = (() => {
                       case "auteur":
                       case "autor":
                       case "yazar":
-                        d = true;
+                        h = true;
                         break;
                       case "\u0627\u0644\u062D\u0627\u0644\u0629":
                       case "status":
                       case "statut":
                       case "estado":
                       case "durum":
-                        g = true;
+                        p = true;
                         break;
                       case "\u0627\u0644\u0641\u0646\u0627\u0646":
                       case "artist":
                       case "artiste":
                       case "artista":
                       case "\xE7izer":
-                        p = true;
+                        d = true;
                     }
                   }
-                } else if (m && f) {
-                  if (1 === y) e3.includes("\u{1F512}") ? (w = true, C = true) : C && (w = false), u(e3, L);
-                  else if (2 === y) L.name = (null === (l3 = null === (a3 = e3.match(RegExp("^".concat(s2.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "\\s*(.+)")))) || void 0 === a3 ? void 0 : a3[1]) || void 0 === l3 ? void 0 : l3.trim()) || e3.trim(), L.chapterNumber || u(e3, L);
-                  else if (3 === y) L.releaseTime = e3;
-                  else if (4 === y) {
+                } else if (g && m) {
+                  if (1 === f) e3.includes("\u{1F512}") ? (y = true, w = true) : w && (y = false), n(e3, k);
+                  else if (2 === f) k.name = (null === (l3 = null === (a3 = e3.match(RegExp("^".concat(o2.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "\\s*(.+)")))) || void 0 === a3 ? void 0 : a3[1]) || void 0 === l3 ? void 0 : l3.trim()) || e3.trim(), k.chapterNumber || n(e3, k);
+                  else if (3 === f) k.releaseTime = e3;
+                  else if (4 === f) {
                     switch (t2 = e3.toLowerCase().trim()) {
                       case "free":
                       case "gratuit":
                       case "\u0645\u062C\u0627\u0646\u064A":
                       case "livre":
                       case "":
-                        w = false;
+                        y = false;
                         break;
                       default:
-                        w = true;
+                        y = true;
                     }
                   }
                 }
               }, "ontext"), onclosetag: /* @__PURE__ */ __name(function(e3) {
                 var a3, l3, t2;
-                n3 ? v2 ? v2 = false : (n3 = false, s2.genres = null === (a3 = s2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : c ? "p" === e3 ? s2.summary += "\n\n" : "br" === e3 ? s2.summary += "\n" : "div" !== e3 && "script" !== e3 || c-- : b ? h ? "span" === e3 && (h = false, d && s2.author ? d = false : p && s2.artist ? p = false : g && "" !== s2.status && (g = false)) : "div" === e3 && (b = false, s2.author = null === (l3 = s2.author) || void 0 === l3 ? void 0 : l3.trim(), s2.artist = null === (t2 = s2.artist) || void 0 === t2 ? void 0 : t2.trim()) : m && (f ? 1 === y || 2 === y || 3 === y || 4 === y ? y = 0 : "li" === e3 && (f = false, L.chapterNumber || (L.chapterNumber = 0), w && (L.name = "\u{1F512} " + L.name), S && w || k.push(L), L = {}) : "ul" === e3 && (m = false));
-              }, "onclosetag") }), P.write(r2), P.end(), k.length && ((null === (x = this.options) || void 0 === x ? void 0 : x.reverseChapters) && k.reverse(), s2.chapters = k), s2.summary = s2.summary.trim(), [2, s2];
+                s3 ? u2 ? u2 = false : (s3 = false, o2.genres = null === (a3 = o2.genres) || void 0 === a3 ? void 0 : a3.slice(0, -2)) : v ? "p" === e3 ? o2.summary += "\n\n" : "br" === e3 ? o2.summary += "\n" : "div" !== e3 && "script" !== e3 || v-- : c ? b ? "span" === e3 && (b = false, h && o2.author ? h = false : d && o2.artist ? d = false : p && "" !== o2.status && (p = false)) : "div" === e3 && (c = false, o2.author = null === (l3 = o2.author) || void 0 === l3 ? void 0 : l3.trim(), o2.artist = null === (t2 = o2.artist) || void 0 === t2 ? void 0 : t2.trim()) : g && (m ? 1 === f || 2 === f || 3 === f || 4 === f ? f = 0 : "li" === e3 && (m = false, k.chapterNumber || (k.chapterNumber = 0), y && (k.name = "\u{1F512} " + k.name), L && y || C.push(k), k = {}) : "ul" === e3 && (g = false));
+              }, "onclosetag") }), S.write(i2), S.end(), C.length && ((null === (P = this.options) || void 0 === P ? void 0 : P.reverseChapters) && C.reverse(), o2.chapters = C), o2.summary = o2.summary.trim(), [2, o2];
           }
         });
       });
-    }, n2.prototype.parseChapter = function(t2) {
+    }, s2.prototype.parseChapter = function(t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2, i2, o2, s2, n3, u2;
+        var e2, i2, r2, o2, s3, n2, u2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return [4, this.safeFecth(this.site + t2, false)];
             case 1:
               if (e2 = a2.sent(), null === (u2 = this.options) || void 0 === u2 ? void 0 : u2.customJs) try {
-                r2 = (0, l.load)(e2), e2 = r2.html();
+                i2 = (0, l.load)(e2), e2 = i2.html();
               } catch (e3) {
                 throw console.error("Error executing customJs:", e3), e3;
               }
-              return i2 = (0, l.load)(e2), (o2 = i2(".epcontent").first()).length ? (o2.find("script, style, noscript").remove(), s2 = this.site + t2, o2.find("img").each(function(e3, a3) {
-                var l2 = i2(a3), t3 = l2.attr("src");
+              return r2 = (0, l.load)(e2), (o2 = r2(".epcontent").first()).length ? (o2.find("script, style, noscript").remove(), s3 = this.site + t2, o2.find("img").each(function(e3, a3) {
+                var l2 = r2(a3), t3 = l2.attr("src");
                 if (t3 && !t3.startsWith("data:") || (t3 = l2.attr("data-lazy-src") || l2.attr("data-src") || t3), t3) {
                   if (!/^[a-z][a-z\d+.-]*:/i.test(t3)) try {
-                    t3 = new URL(t3, s2).href;
+                    t3 = new URL(t3, s3).href;
                   } catch (e4) {
                     return;
                   }
                   l2.attr("src", t3);
                 }
               }), o2.find("*").each(function(e3, a3) {
-                for (var l2 = i2(a3), t3 = 0, r3 = Object.keys(a3.attribs); t3 < r3.length; t3++) {
-                  var o3 = r3[t3];
+                for (var l2 = r2(a3), t3 = 0, i3 = Object.keys(a3.attribs); t3 < i3.length; t3++) {
+                  var o3 = i3[t3];
                   if (/^on/i.test(o3)) l2.removeAttr(o3);
                   else if ("href" === o3 || "src" === o3) {
-                    var s3 = a3.attribs[o3].split("").filter(function(e4) {
+                    var s4 = a3.attribs[o3].split("").filter(function(e4) {
                       return e4.charCodeAt(0) > 32;
                     }).join("").toLowerCase();
-                    (/^(javascript|vbscript):/.test(s3) || s3.startsWith("data:") && !s3.startsWith("data:image/")) && l2.removeAttr(o3);
+                    (/^(javascript|vbscript):/.test(s4) || s4.startsWith("data:") && !s4.startsWith("data:image/")) && l2.removeAttr(o3);
                   }
                 }
-              }), n3 = [], o2.find("p, img").each(function(e3, a3) {
-                var l2 = i2(a3);
-                l2.is("img") ? l2.parents("p").length || n3.push(i2.html(l2)) : (l2.text().trim() || l2.find("img").length) && n3.push(i2.html(l2));
-              }), [2, n3.join("\n")]) : [2, ""];
+              }), n2 = [], o2.find("p, img").each(function(e3, a3) {
+                var l2 = r2(a3);
+                l2.is("img") ? l2.parents("p").length || n2.push(r2.html(l2)) : (l2.text().trim() || l2.find("img").length) && n2.push(r2.html(l2));
+              }), [2, n2.join("\n")]) : [2, ""];
           }
         });
       });
-    }, n2.prototype.searchNovels = function(l2, t2) {
+    }, s2.prototype.searchNovels = function(l2, t2) {
       return e(this, void 0, void 0, function() {
-        var e2, r2;
+        var e2, i2;
         return a(this, function(a2) {
           switch (a2.label) {
             case 0:
               return e2 = this.site.replace(/\/?$/, "/") + "page/" + t2 + "/?s=" + encodeURIComponent(l2), [4, this.safeFecth(e2, true)];
             case 1:
-              return r2 = a2.sent(), [2, this.parseNovels(r2)];
+              return i2 = a2.sent(), [2, this.parseNovels(i2)];
           }
         });
       });
-    }, n2;
+    }, s2;
   }();
-  function u(e2, a2) {
+  function n(e2, a2) {
     var l2 = e2.match(/(\d+)$/);
     l2 && l2[0] && (a2.chapterNumber = parseInt(l2[0]));
   }
-  __name(u, "u");
-  exports.LightNovelWPPlugin = n;
-  var v = new n({ id: "knoxt", sourceSite: "https://knoxt.space/", sourceName: "KnoxT", options: { lang: "English", reverseChapters: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "1v1", value: "1v1" }, { label: "ABO", value: "abo" }, { label: "Absent Parents", value: "absent-parents" }, { label: "Action", value: "action" }, { label: "Adapted to Drama CD", value: "adapted-to-drama-cd" }, { label: "Adult", value: "adult" }, { label: "Adults", value: "adults" }, { label: "Adventure", value: "adventure" }, { label: "Adventurers", value: "adventurers" }, { label: "Age gap", value: "age-gap" }, { label: "Age Regression", value: "age-regression" }, { label: "Aggressive Characters", value: "aggressive-characters" }, { label: "Amnesia", value: "amnesia" }, { label: "Ancient times", value: "ancient-times" }, { label: "Anti-social Protagonist", value: "anti-social-protagonist" }, { label: "Appearance Changes", value: "appearance-changes" }, { label: "Arranged Marriage", value: "arranged-marriage" }, { label: "Arrogant Characters", value: "arrogant-characters" }, { label: "Artificial Intelligence", value: "artificial-intelligence" }, { label: "Artists", value: "artists" }, { label: "Beautiful bottom", value: "beautiful-bottom" }, { label: "Betrayal", value: "betrayal" }, { label: "Bickering Couple", value: "bickering-couple" }, { label: "BL", value: "bl" }, { label: "BL (Boys' Love)", value: "bl-boys-love" }, { label: "Blind Dates", value: "blind-dates" }, { label: "Blind Protagonist", value: "blind-protagonist" }, { label: "book wearing", value: "book-wearing" }, { label: "Boys love", value: "boys-love" }, { label: "Business Management", value: "business-management" }, { label: "Businessmen", value: "businessmen" }, { label: "Calm Protagonist", value: "calm-protagonist" }, { label: "Campus", value: "campus" }, { label: "carefree protagonist", value: "carefree-protagonist" }, { label: "Caring Protagonist", value: "caring-protagonist" }, { label: "celebrity", value: "celebrity" }, { label: "CEO", value: "ceo" }, { label: "Character Growth", value: "character-growth" }, { label: "Charismatic Protagonist", value: "charismatic-protagonist" }, { label: "Charming Protagonist", value: "charming-protagonist" }, { label: "Child Abuse", value: "child-abuse" }, { label: "Childcare", value: "childcare" }, { label: "Childhood Friends", value: "childhood-friends" }, { label: "Childhood Love", value: "childhood-love" }, { label: "Childish Protagonist", value: "childish-protagonist" }, { label: "Chinese novel", value: "chinese-novel" }, { label: "Clever Protagonist", value: "clever-protagonist" }, { label: "Clingy Lover", value: "clingy-lover" }, { label: "Clumsy Love Interests", value: "clumsy-love-interests" }, { label: "Cohabitation", value: "cohabitation" }, { label: "Cold Love Interests", value: "cold-love-interests" }, { label: "Cold Protagonist", value: "cold-protagonist" }, { label: "Comdey", value: "comdey" }, { label: "comedic undertone", value: "comedic-undertone" }, { label: "Comedy", value: "comedy" }, { label: "Complex Family Relationships", value: "complex-family-relationships" }, { label: "Confident Protagonist", value: "confident-protagonist" }, { label: "Conflicting Loyalties", value: "conflicting-loyalties" }, { label: "Cooking", value: "cooking" }, { label: "Couple Growth", value: "couple-growth" }, { label: "Crime", value: "crime" }, { label: "Cross-dressing", value: "cross-dressing" }, { label: "Cryostasis", value: "cryostasis" }, { label: "Cute Children", value: "cute-children" }, { label: "Cute Protagonist", value: "cute-protagonist" }, { label: "Cute Story", value: "cute-story" }, { label: "Death of Loved Ones", value: "death-of-loved-ones" }, { label: "Determined Protagonist", value: "determined-protagonist" }, { label: "Devoted Love Interests", value: "devoted-love-interests" }, { label: "Different Social Status", value: "different-social-status" }, { label: "Divorce", value: "divorce" }, { label: "Doctors", value: "doctors" }, { label: "Doting love interest", value: "doting-love-interest" }, { label: "Doting Love Interests", value: "doting-love-interests" }, { label: "Doting Older Siblings", value: "doting-older-siblings" }, { label: "Doting Parents", value: "doting-parents" }, { label: "Double AA", value: "double-aa" }, { label: "Drama", value: "drama" }, { label: "Dystopia", value: "dystopia" }, { label: "empowerment fiction", value: "empowerment-fiction" }, { label: "Enemies Become Lovers", value: "enemies-become-lovers" }, { label: "Entertaiment circle", value: "entertaiment-circle" }, { label: "Entertainment circle", value: "entertainment-circle" }, { label: "Evolution", value: "evolution" }, { label: "F*llatio", value: "fllatio" }, { label: "Family Conflict", value: "family-conflict" }, { label: "Fantasy", value: "fantasy" }, { label: "Farming", value: "farming" }, { label: "Fated Lovers", value: "fated-lovers" }, { label: "Fearless Protagonist", value: "fearless-protagonist" }, { label: "Fiction", value: "fiction" }, { label: "Fictional", value: "fictional" }, { label: "First Love", value: "first-love" }, { label: "First-time Interc**rse", value: "first-time-intercrse" }, { label: "futuristic setting", value: "futuristic-setting" }, { label: "Gaming", value: "gaming" }, { label: "Gender Bender", value: "gender-bender" }, { label: "General", value: "general" }, { label: "Genetic Modifications", value: "genetic-modifications" }, { label: "GL", value: "gl" }, { label: "Gore", value: "gore" }, { label: "Handsome Male Lead", value: "handsome-male-lead" }, { label: "Hard-Working Protagonist", value: "hard-working-protagonist" }, { label: "Harem", value: "harem" }, { label: "HE", value: "he" }, { label: "Heartwarming", value: "heartwarming" }, { label: "Hiding True Abilities", value: "hiding-true-abilities" }, { label: "Hiding True Identity", value: "hiding-true-identity" }, { label: "historic love", value: "historic-love" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Human-Nonhuman Relationship", value: "human-nonhuman-relationship" }, { label: "humor", value: "humor" }, { label: "Idol", value: "idol" }, { label: "Inferiority Complex", value: "inferiority-complex" }, { label: "infrastructure", value: "infrastructure" }, { label: "interstellar", value: "interstellar" }, { label: "Isekai", value: "isekai" }, { label: "Jealousy", value: "jealousy" }, { label: "Josei", value: "josei" }, { label: "Kind love interest", value: "kind-love-interest" }, { label: "Kind Love Interests", value: "kind-love-interests" }, { label: "Lawyers", value: "lawyers" }, { label: "lighthearted drama", value: "lighthearted-drama" }, { label: "Loner Protagonist", value: "loner-protagonist" }, { label: "Long Separations", value: "long-separations" }, { label: "Love Affair", value: "love-affair" }, { label: "Love and hate", value: "love-and-hate" }, { label: "love at first sight", value: "love-at-first-sight" }, { label: "Love Interest Falls in Love First", value: "love-interest-falls-in-love-first" }, { label: "love romance", value: "love-romance" }, { label: "Lovers Reunited", value: "lovers-reunited" }, { label: "Male protagonist", value: "male-protagonist" }, { label: "Male Yandere", value: "male-yandere" }, { label: "Manipulative Characters", value: "manipulative-characters" }, { label: "Manly Gay Couple", value: "manly-gay-couple" }, { label: "Marriage", value: "marriage" }, { label: "Marriage of Convenience", value: "marriage-of-convenience" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mary Sue", value: "mary-sue" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Medical Knowledge", value: "medical-knowledge" }, { label: "Military", value: "military" }, { label: "Misunderstandings", value: "misunderstandings" }, { label: "Modern", value: "modern" }, { label: "Modern day", value: "modern-day" }, { label: "Mpreg", value: "mpreg" }, { label: "Multiple Reincarnated Individuals", value: "multiple-reincarnated-individuals" }, { label: "Multiple worlds", value: "multiple-worlds" }, { label: "Music", value: "music" }, { label: "Mute Character", value: "mute-character" }, { label: "mutual crush", value: "mutual-crush" }, { label: "mutual salvation", value: "mutual-salvation" }, { label: "Mystery", value: "mystery" }, { label: "Mystery Solving", value: "mystery-solving" }, { label: "Naive Protagonist", value: "naive-protagonist" }, { label: "Near-Death Experience", value: "near-death-experience" }, { label: "Obsessive Love", value: "obsessive-love" }, { label: "Older Love Interests", value: "older-love-interests" }, { label: "Omegaverse", value: "omegaverse" }, { label: "Orphans", value: "orphans" }, { label: "Otherworld fantasy", value: "otherworld-fantasy" }, { label: "Overpowered protagonist", value: "overpowered-protagonist" }, { label: "Past Plays a Big Role", value: "past-plays-a-big-role" }, { label: "Past Trauma", value: "past-trauma" }, { label: "Persistent Love Interests", value: "persistent-love-interests" }, { label: "police", value: "police" }, { label: "Poor Protagonist", value: "poor-protagonist" }, { label: "Possessive Characters", value: "possessive-characters" }, { label: "post apocalypse", value: "post-apocalypse" }, { label: "Post-apocalyptic", value: "post-apocalyptic" }, { label: "Post-apocalyptic background", value: "post-apocalyptic-background" }, { label: "Power Couple", value: "power-couple" }, { label: "Pretend Lovers", value: "pretend-lovers" }, { label: "Professional", value: "professional" }, { label: "Prosecutor", value: "prosecutor" }, { label: "Protagonist Falls in Love First", value: "protagonist-falls-in-love-first" }, { label: "Protagonist Strong from the Start", value: "protagonist-strong-from-the-start" }, { label: "Psychological", value: "psychological" }, { label: "Quick transmigration", value: "quick-transmigration" }, { label: "R-18", value: "r-18" }, { label: "REBIRTH", value: "rebirth" }, { label: "Reconciliation", value: "reconciliation" }, { label: "Redemption", value: "redemption" }, { label: "Regression", value: "regression" }, { label: "Reincarnation", value: "reincarnation" }, { label: "reunion", value: "reunion" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Rich to Poor", value: "rich-to-poor" }, { label: "Romance", value: "romance" }, { label: "S*x Friends", value: "sx-friends" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "sci-fi elements", value: "sci-fi-elements" }, { label: "science fiction", value: "science-fiction" }, { label: "Second Chance", value: "second-chance" }, { label: "Secret Crush", value: "secret-crush" }, { label: "Secret Identity", value: "secret-identity" }, { label: "Secret Relationship", value: "secret-relationship" }, { label: "Seinen", value: "seinen" }, { label: "seme protagonist", value: "seme-protagonist" }, { label: "shonen ai", value: "shonen-ai" }, { label: "Short Story", value: "short-story" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen ai", value: "shounen-ai" }, { label: "Showbi", value: "showbi" }, { label: "showbiz", value: "showbiz" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Slow Romance", value: "slow-romance" }, { label: "Smut", value: "smut" }, { label: "soul-swapping", value: "soul-swapping" }, { label: "Sports", value: "sports" }, { label: "Stoic Characters", value: "stoic-characters" }, { label: "Straight Seme", value: "straight-seme" }, { label: "Straight uke", value: "straight-uke" }, { label: "Straight- Gay", value: "straight-gay" }, { label: "Stubborn Protagonist", value: "stubborn-protagonist" }, { label: "Sugar daddy", value: "sugar-daddy" }, { label: "Supernatural", value: "supernatural" }, { label: "suspense", value: "suspense" }, { label: "System Administrator", value: "system-administrator" }, { label: "Thriller", value: "thriller" }, { label: "Time Skip", value: "time-skip" }, { label: "Time Travel", value: "time-travel" }, { label: "Tragedy", value: "tragedy" }, { label: "Tragic Past", value: "tragic-past" }, { label: "Transmigration", value: "transmigration" }, { label: "Transplanted Memories", value: "transplanted-memories" }, { label: "Tsundere", value: "tsundere" }, { label: "Unconditional Love", value: "unconditional-love" }, { label: "Unlimited flow", value: "unlimited-flow" }, { label: "Unrequited Love", value: "unrequited-love" }, { label: "Urban Life", value: "urban-life" }, { label: "weak to strong", value: "weak-to-strong" }, { label: "wealthy characters", value: "wealthy-characters" }, { label: "Western", value: "western" }, { label: "work", value: "work" }, { label: "workplace", value: "workplace" }, { label: "Writers", value: "writers" }, { label: "Wu xia", value: "wu-xia" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }, { label: "Younger love interest", value: "younger-love-interest" }, { label: "Younger Love Interests", value: "younger-love-interests" }, { label: "Yuri", value: "yuri" }] }, "type[]": { type: "Checkbox", label: "Type", value: [], options: [{ label: "\u2078", value: "\u2078" }, { label: "chinese", value: "chinese" }, { label: "Chinese Novel", value: "chinese-novel" }, { label: "Cthulhu", value: "cthulhu" }, { label: "Double AA", value: "double-aa" }, { label: "historic love", value: "historic-love" }, { label: "Japanese Novel", value: "japanese-novel" }, { label: "K\u014D Rand\u014D (\u85CD\u9285 \u7D05)", value: "ko-rando-\u85CD\u9285-\u7D05" }, { label: "Korean Novel", value: "korean-novel" }, { label: "Light Novel (CN)", value: "light-novel-cn" }, { label: "Light Novel (JP)", value: "light-novel-jp" }, { label: "Original Novel", value: "original-novel" }, { label: "Published Novel", value: "published-novel" }, { label: "Published Novel (KR)", value: "published-novel-kr" }, { label: "Quick Transmigration", value: "quick-transmigration" }, { label: "Remove term: Chinese Novel Chinese NovelRemove term: Web Novel Web Novel", value: "remove-term-chinese-novel-chinese-novelremove-term-web-novel-web-novel" }, { label: "romance", value: "romance" }, { label: "Short Story", value: "short-story" }, { label: "Web Novel", value: "web-novel" }] }, status: { type: "Picker", label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }, { label: "Completed", value: "completed" }] }, order: { type: "Picker", label: "Order by", value: "", options: [{ label: "Default", value: "" }, { label: "A-Z", value: "title" }, { label: "Z-A", value: "titlereverse" }, { label: "Latest Update", value: "update" }, { label: "Latest Added", value: "latest" }, { label: "Popular", value: "popular" }] } } });
-  exports.default = v;
+  __name(n, "n");
+  exports.LightNovelWPPlugin = s;
+  var u = new s({ id: "knoxt", sourceSite: "https://knoxt.space/", sourceName: "KnoxT", options: { lang: "English", reverseChapters: true }, filters: { "genre[]": { type: "Checkbox", label: "Genre", value: [], options: [{ label: "1v1", value: "1v1" }, { label: "ABO", value: "abo" }, { label: "Absent Parents", value: "absent-parents" }, { label: "Action", value: "action" }, { label: "Adapted to Drama CD", value: "adapted-to-drama-cd" }, { label: "Adult", value: "adult" }, { label: "Adults", value: "adults" }, { label: "Adventure", value: "adventure" }, { label: "Adventurers", value: "adventurers" }, { label: "Age gap", value: "age-gap" }, { label: "Age Regression", value: "age-regression" }, { label: "Aggressive Characters", value: "aggressive-characters" }, { label: "Amnesia", value: "amnesia" }, { label: "Ancient times", value: "ancient-times" }, { label: "Anti-social Protagonist", value: "anti-social-protagonist" }, { label: "Appearance Changes", value: "appearance-changes" }, { label: "Arranged Marriage", value: "arranged-marriage" }, { label: "Arrogant Characters", value: "arrogant-characters" }, { label: "Artificial Intelligence", value: "artificial-intelligence" }, { label: "Artists", value: "artists" }, { label: "Beautiful bottom", value: "beautiful-bottom" }, { label: "Betrayal", value: "betrayal" }, { label: "Bickering Couple", value: "bickering-couple" }, { label: "BL", value: "bl" }, { label: "BL (Boys' Love)", value: "bl-boys-love" }, { label: "Blind Dates", value: "blind-dates" }, { label: "Blind Protagonist", value: "blind-protagonist" }, { label: "book wearing", value: "book-wearing" }, { label: "Boys love", value: "boys-love" }, { label: "Business Management", value: "business-management" }, { label: "Businessmen", value: "businessmen" }, { label: "Calm Protagonist", value: "calm-protagonist" }, { label: "Campus", value: "campus" }, { label: "carefree protagonist", value: "carefree-protagonist" }, { label: "Caring Protagonist", value: "caring-protagonist" }, { label: "celebrity", value: "celebrity" }, { label: "CEO", value: "ceo" }, { label: "Character Growth", value: "character-growth" }, { label: "Charismatic Protagonist", value: "charismatic-protagonist" }, { label: "Charming Protagonist", value: "charming-protagonist" }, { label: "Child Abuse", value: "child-abuse" }, { label: "Childcare", value: "childcare" }, { label: "Childhood Friends", value: "childhood-friends" }, { label: "Childhood Love", value: "childhood-love" }, { label: "Childish Protagonist", value: "childish-protagonist" }, { label: "Chinese novel", value: "chinese-novel" }, { label: "Clever Protagonist", value: "clever-protagonist" }, { label: "Clingy Lover", value: "clingy-lover" }, { label: "Clumsy Love Interests", value: "clumsy-love-interests" }, { label: "Cohabitation", value: "cohabitation" }, { label: "Cold Love Interests", value: "cold-love-interests" }, { label: "Cold Protagonist", value: "cold-protagonist" }, { label: "Comdey", value: "comdey" }, { label: "comedic undertone", value: "comedic-undertone" }, { label: "Comedy", value: "comedy" }, { label: "Complex Family Relationships", value: "complex-family-relationships" }, { label: "Confident Protagonist", value: "confident-protagonist" }, { label: "Conflicting Loyalties", value: "conflicting-loyalties" }, { label: "Cooking", value: "cooking" }, { label: "Couple Growth", value: "couple-growth" }, { label: "Crime", value: "crime" }, { label: "Cross-dressing", value: "cross-dressing" }, { label: "Cryostasis", value: "cryostasis" }, { label: "Cute Children", value: "cute-children" }, { label: "Cute Protagonist", value: "cute-protagonist" }, { label: "Cute Story", value: "cute-story" }, { label: "Death of Loved Ones", value: "death-of-loved-ones" }, { label: "Determined Protagonist", value: "determined-protagonist" }, { label: "Devoted Love Interests", value: "devoted-love-interests" }, { label: "Different Social Status", value: "different-social-status" }, { label: "Divorce", value: "divorce" }, { label: "Doctors", value: "doctors" }, { label: "Doting love interest", value: "doting-love-interest" }, { label: "Doting Love Interests", value: "doting-love-interests" }, { label: "Doting Older Siblings", value: "doting-older-siblings" }, { label: "Doting Parents", value: "doting-parents" }, { label: "Double AA", value: "double-aa" }, { label: "Drama", value: "drama" }, { label: "Dystopia", value: "dystopia" }, { label: "empowerment fiction", value: "empowerment-fiction" }, { label: "Enemies Become Lovers", value: "enemies-become-lovers" }, { label: "Entertaiment circle", value: "entertaiment-circle" }, { label: "Entertainment circle", value: "entertainment-circle" }, { label: "Evolution", value: "evolution" }, { label: "F*llatio", value: "fllatio" }, { label: "Family Conflict", value: "family-conflict" }, { label: "Fantasy", value: "fantasy" }, { label: "Farming", value: "farming" }, { label: "Fated Lovers", value: "fated-lovers" }, { label: "Fearless Protagonist", value: "fearless-protagonist" }, { label: "Fiction", value: "fiction" }, { label: "Fictional", value: "fictional" }, { label: "First Love", value: "first-love" }, { label: "First-time Interc**rse", value: "first-time-intercrse" }, { label: "futuristic setting", value: "futuristic-setting" }, { label: "Gaming", value: "gaming" }, { label: "Gender Bender", value: "gender-bender" }, { label: "General", value: "general" }, { label: "Genetic Modifications", value: "genetic-modifications" }, { label: "GL", value: "gl" }, { label: "Gore", value: "gore" }, { label: "Handsome Male Lead", value: "handsome-male-lead" }, { label: "Hard-Working Protagonist", value: "hard-working-protagonist" }, { label: "Harem", value: "harem" }, { label: "HE", value: "he" }, { label: "Heartwarming", value: "heartwarming" }, { label: "Hiding True Abilities", value: "hiding-true-abilities" }, { label: "Hiding True Identity", value: "hiding-true-identity" }, { label: "historic love", value: "historic-love" }, { label: "Historical", value: "historical" }, { label: "Horror", value: "horror" }, { label: "Human-Nonhuman Relationship", value: "human-nonhuman-relationship" }, { label: "humor", value: "humor" }, { label: "Idol", value: "idol" }, { label: "Inferiority Complex", value: "inferiority-complex" }, { label: "infrastructure", value: "infrastructure" }, { label: "interstellar", value: "interstellar" }, { label: "Isekai", value: "isekai" }, { label: "Jealousy", value: "jealousy" }, { label: "Josei", value: "josei" }, { label: "Kind love interest", value: "kind-love-interest" }, { label: "Kind Love Interests", value: "kind-love-interests" }, { label: "Lawyers", value: "lawyers" }, { label: "lighthearted drama", value: "lighthearted-drama" }, { label: "Loner Protagonist", value: "loner-protagonist" }, { label: "Long Separations", value: "long-separations" }, { label: "Love Affair", value: "love-affair" }, { label: "Love and hate", value: "love-and-hate" }, { label: "love at first sight", value: "love-at-first-sight" }, { label: "Love Interest Falls in Love First", value: "love-interest-falls-in-love-first" }, { label: "love romance", value: "love-romance" }, { label: "Lovers Reunited", value: "lovers-reunited" }, { label: "Male protagonist", value: "male-protagonist" }, { label: "Male Yandere", value: "male-yandere" }, { label: "Manipulative Characters", value: "manipulative-characters" }, { label: "Manly Gay Couple", value: "manly-gay-couple" }, { label: "Marriage", value: "marriage" }, { label: "Marriage of Convenience", value: "marriage-of-convenience" }, { label: "Martial Arts", value: "martial-arts" }, { label: "Mary Sue", value: "mary-sue" }, { label: "Mature", value: "mature" }, { label: "Mecha", value: "mecha" }, { label: "Medical Knowledge", value: "medical-knowledge" }, { label: "Military", value: "military" }, { label: "Misunderstandings", value: "misunderstandings" }, { label: "Modern", value: "modern" }, { label: "Modern day", value: "modern-day" }, { label: "Mpreg", value: "mpreg" }, { label: "Multiple Reincarnated Individuals", value: "multiple-reincarnated-individuals" }, { label: "Multiple worlds", value: "multiple-worlds" }, { label: "Music", value: "music" }, { label: "Mute Character", value: "mute-character" }, { label: "mutual crush", value: "mutual-crush" }, { label: "mutual salvation", value: "mutual-salvation" }, { label: "Mystery", value: "mystery" }, { label: "Mystery Solving", value: "mystery-solving" }, { label: "Naive Protagonist", value: "naive-protagonist" }, { label: "Near-Death Experience", value: "near-death-experience" }, { label: "Obsessive Love", value: "obsessive-love" }, { label: "Older Love Interests", value: "older-love-interests" }, { label: "Omegaverse", value: "omegaverse" }, { label: "Orphans", value: "orphans" }, { label: "Otherworld fantasy", value: "otherworld-fantasy" }, { label: "Overpowered protagonist", value: "overpowered-protagonist" }, { label: "Past Plays a Big Role", value: "past-plays-a-big-role" }, { label: "Past Trauma", value: "past-trauma" }, { label: "Persistent Love Interests", value: "persistent-love-interests" }, { label: "police", value: "police" }, { label: "Poor Protagonist", value: "poor-protagonist" }, { label: "Possessive Characters", value: "possessive-characters" }, { label: "post apocalypse", value: "post-apocalypse" }, { label: "Post-apocalyptic", value: "post-apocalyptic" }, { label: "Post-apocalyptic background", value: "post-apocalyptic-background" }, { label: "Power Couple", value: "power-couple" }, { label: "Pretend Lovers", value: "pretend-lovers" }, { label: "Professional", value: "professional" }, { label: "Prosecutor", value: "prosecutor" }, { label: "Protagonist Falls in Love First", value: "protagonist-falls-in-love-first" }, { label: "Protagonist Strong from the Start", value: "protagonist-strong-from-the-start" }, { label: "Psychological", value: "psychological" }, { label: "Quick transmigration", value: "quick-transmigration" }, { label: "R-18", value: "r-18" }, { label: "REBIRTH", value: "rebirth" }, { label: "Reconciliation", value: "reconciliation" }, { label: "Redemption", value: "redemption" }, { label: "Regression", value: "regression" }, { label: "Reincarnation", value: "reincarnation" }, { label: "reunion", value: "reunion" }, { label: "Reverse Harem", value: "reverse-harem" }, { label: "Rich to Poor", value: "rich-to-poor" }, { label: "Romance", value: "romance" }, { label: "S*x Friends", value: "sx-friends" }, { label: "School Life", value: "school-life" }, { label: "Sci-fi", value: "sci-fi" }, { label: "sci-fi elements", value: "sci-fi-elements" }, { label: "science fiction", value: "science-fiction" }, { label: "Second Chance", value: "second-chance" }, { label: "Secret Crush", value: "secret-crush" }, { label: "Secret Identity", value: "secret-identity" }, { label: "Secret Relationship", value: "secret-relationship" }, { label: "Seinen", value: "seinen" }, { label: "seme protagonist", value: "seme-protagonist" }, { label: "shonen ai", value: "shonen-ai" }, { label: "Short Story", value: "short-story" }, { label: "Shoujo", value: "shoujo" }, { label: "Shoujo ai", value: "shoujo-ai" }, { label: "Shounen", value: "shounen" }, { label: "Shounen ai", value: "shounen-ai" }, { label: "Showbi", value: "showbi" }, { label: "showbiz", value: "showbiz" }, { label: "Slice of Life", value: "slice-of-life" }, { label: "Slow Romance", value: "slow-romance" }, { label: "Smut", value: "smut" }, { label: "soul-swapping", value: "soul-swapping" }, { label: "Sports", value: "sports" }, { label: "Stoic Characters", value: "stoic-characters" }, { label: "Straight Seme", value: "straight-seme" }, { label: "Straight uke", value: "straight-uke" }, { label: "Straight- Gay", value: "straight-gay" }, { label: "Stubborn Protagonist", value: "stubborn-protagonist" }, { label: "Sugar daddy", value: "sugar-daddy" }, { label: "Supernatural", value: "supernatural" }, { label: "suspense", value: "suspense" }, { label: "System Administrator", value: "system-administrator" }, { label: "Thriller", value: "thriller" }, { label: "Time Skip", value: "time-skip" }, { label: "Time Travel", value: "time-travel" }, { label: "Tragedy", value: "tragedy" }, { label: "Tragic Past", value: "tragic-past" }, { label: "Transmigration", value: "transmigration" }, { label: "Transplanted Memories", value: "transplanted-memories" }, { label: "Tsundere", value: "tsundere" }, { label: "Unconditional Love", value: "unconditional-love" }, { label: "Unlimited flow", value: "unlimited-flow" }, { label: "Unrequited Love", value: "unrequited-love" }, { label: "Urban Life", value: "urban-life" }, { label: "weak to strong", value: "weak-to-strong" }, { label: "wealthy characters", value: "wealthy-characters" }, { label: "Western", value: "western" }, { label: "work", value: "work" }, { label: "workplace", value: "workplace" }, { label: "Writers", value: "writers" }, { label: "Wu xia", value: "wu-xia" }, { label: "Wuxia", value: "wuxia" }, { label: "Xianxia", value: "xianxia" }, { label: "Xuanhuan", value: "xuanhuan" }, { label: "Yaoi", value: "yaoi" }, { label: "Younger love interest", value: "younger-love-interest" }, { label: "Younger Love Interests", value: "younger-love-interests" }, { label: "Yuri", value: "yuri" }] }, "type[]": { type: "Checkbox", label: "Type", value: [], options: [{ label: "\u2078", value: "\u2078" }, { label: "chinese", value: "chinese" }, { label: "Chinese Novel", value: "chinese-novel" }, { label: "Cthulhu", value: "cthulhu" }, { label: "Double AA", value: "double-aa" }, { label: "historic love", value: "historic-love" }, { label: "Japanese Novel", value: "japanese-novel" }, { label: "K\u014D Rand\u014D (\u85CD\u9285 \u7D05)", value: "ko-rando-\u85CD\u9285-\u7D05" }, { label: "Korean Novel", value: "korean-novel" }, { label: "Light Novel (CN)", value: "light-novel-cn" }, { label: "Light Novel (JP)", value: "light-novel-jp" }, { label: "Original Novel", value: "original-novel" }, { label: "Published Novel", value: "published-novel" }, { label: "Published Novel (KR)", value: "published-novel-kr" }, { label: "Quick Transmigration", value: "quick-transmigration" }, { label: "Remove term: Chinese Novel Chinese NovelRemove term: Web Novel Web Novel", value: "remove-term-chinese-novel-chinese-novelremove-term-web-novel-web-novel" }, { label: "romance", value: "romance" }, { label: "Short Story", value: "short-story" }, { label: "Web Novel", value: "web-novel" }] }, status: { type: "Picker", label: "Status", value: "", options: [{ label: "All", value: "" }, { label: "Ongoing", value: "ongoing" }, { label: "Hiatus", value: "hiatus" }, { label: "Completed", value: "completed" }] }, order: { type: "Picker", label: "Order by", value: "", options: [{ label: "Default", value: "" }, { label: "A-Z", value: "title" }, { label: "Z-A", value: "titlereverse" }, { label: "Latest Update", value: "update" }, { label: "Latest Added", value: "latest" }, { label: "Popular", value: "popular" }] } } });
+  exports.default = u;
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

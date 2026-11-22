@@ -1126,18 +1126,18 @@ var LNReaderPlugin = (() => {
     Buffer3.isBuffer = /* @__PURE__ */ __name(function isBuffer(b) {
       return b != null && b._isBuffer === true && b !== Buffer3.prototype;
     }, "isBuffer");
-    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a2, b) {
-      if (isInstance(a2, Uint8Array)) a2 = Buffer3.from(a2, a2.offset, a2.byteLength);
+    Buffer3.compare = /* @__PURE__ */ __name(function compare2(a, b) {
+      if (isInstance(a, Uint8Array)) a = Buffer3.from(a, a.offset, a.byteLength);
       if (isInstance(b, Uint8Array)) b = Buffer3.from(b, b.offset, b.byteLength);
-      if (!Buffer3.isBuffer(a2) || !Buffer3.isBuffer(b)) {
+      if (!Buffer3.isBuffer(a) || !Buffer3.isBuffer(b)) {
         throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
       }
-      if (a2 === b) return 0;
-      let x = a2.length;
+      if (a === b) return 0;
+      let x = a.length;
       let y = b.length;
       for (let i2 = 0, len = Math.min(x, y); i2 < len; ++i2) {
-        if (a2[i2] !== b[i2]) {
-          x = a2[i2];
+        if (a[i2] !== b[i2]) {
+          x = a[i2];
           y = b[i2];
           break;
         }
@@ -4219,8 +4219,8 @@ var LNReaderPlugin = (() => {
       function merge(dst) {
         var ifNotSet = typeof arguments[arguments.length - 1] === "boolean", limit = ifNotSet ? arguments.length - 1 : arguments.length;
         ifNotSet = ifNotSet && arguments[arguments.length - 1];
-        for (var a2 = 1; a2 < limit; ++a2) {
-          var src = arguments[a2];
+        for (var a = 1; a < limit; ++a) {
+          var src = arguments[a];
           if (!src)
             continue;
           for (var keys = Object.keys(src), i2 = 0; i2 < keys.length; ++i2)
@@ -6907,8 +6907,8 @@ var LNReaderPlugin = (() => {
           return $1.toUpperCase();
         });
       }, "camelCase");
-      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a2, b) {
-        return a2.id - b.id;
+      util.compareFieldsById = /* @__PURE__ */ __name(function compareFieldsById(a, b) {
+        return a.id - b.id;
       }, "compareFieldsById");
       util.decorateType = /* @__PURE__ */ __name(function decorateType(ctor, typeName) {
         if (ctor.$type) {
@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data = await res.json();
+      return {
+        ok: Boolean(data.ok && data.html),
+        html: data.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9393,7 +9417,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9411,22 +9435,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -9546,14 +9554,14 @@ var LNReaderPlugin = (() => {
   init_process2();
   var e = function(e2, t2, r2, n2) {
     return new (r2 || (r2 = Promise))(function(i2, o2) {
-      function a2(e3) {
+      function a(e3) {
         try {
           s(n2.next(e3));
         } catch (e4) {
           o2(e4);
         }
       }
-      __name(a2, "a");
+      __name(a, "a");
       function c(e3) {
         try {
           s(n2.throw(e3));
@@ -9566,7 +9574,7 @@ var LNReaderPlugin = (() => {
         var t3;
         e3.done ? i2(e3.value) : (t3 = e3.value, t3 instanceof r2 ? t3 : new r2(function(e4) {
           e4(t3);
-        })).then(a2, c);
+        })).then(a, c);
       }
       __name(s, "s");
       s((n2 = n2.apply(e2, t2 || [])).next());
@@ -9575,15 +9583,15 @@ var LNReaderPlugin = (() => {
     var r2, n2, i2, o2 = { label: 0, sent: /* @__PURE__ */ __name(function() {
       if (1 & i2[0]) throw i2[1];
       return i2[1];
-    }, "sent"), trys: [], ops: [] }, a2 = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
-    return a2.next = c(0), a2.throw = c(1), a2.return = c(2), "function" == typeof Symbol && (a2[Symbol.iterator] = function() {
+    }, "sent"), trys: [], ops: [] }, a = Object.create(("function" == typeof Iterator ? Iterator : Object).prototype);
+    return a.next = c(0), a.throw = c(1), a.return = c(2), "function" == typeof Symbol && (a[Symbol.iterator] = function() {
       return this;
-    }), a2;
+    }), a;
     function c(c2) {
       return function(s) {
         return function(c3) {
           if (r2) throw new TypeError("Generator is already executing.");
-          for (; a2 && (a2 = 0, c3[0] && (o2 = 0)), o2; ) try {
+          for (; a && (a = 0, c3[0] && (o2 = 0)), o2; ) try {
             if (r2 = 1, n2 && (i2 = 2 & c3[0] ? n2.return : c3[0] ? n2.throw || ((i2 = n2.return) && i2.call(n2), 0) : n2.next) && !(i2 = i2.call(n2, c3[1])).done) return i2;
             switch (n2 = 0, i2 && (c3 = [2 & c3[0], i2.value]), c3[0]) {
               case 0:
@@ -9632,15 +9640,15 @@ var LNReaderPlugin = (() => {
     __name(c, "c");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_defaultCover(), __toCommonJS(defaultCover_exports)), i = (init_novelStatus(), __toCommonJS(novelStatus_exports)), o = (init_storage2(), __toCommonJS(storage_exports)), a = function() {
-    function a2() {
+  var r = (init_fetch2(), __toCommonJS(fetch_exports)), n = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_storage2(), __toCommonJS(storage_exports)), o = function() {
+    function o2() {
       var e2 = this;
-      this.id = "dreamyTranslations", this.name = "Dreamy Translations", this.icon = "src/en/dreamyTranslations/icon.png", this.site = "https://dreamy-translations.com", this.version = "1.1.1", this.filters = void 0, this.imageRequestInit = void 0, this.pluginSettings = { hideLocked: { value: false, label: "Hide locked chapters", type: "Switch" } }, this.headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36", Referer: this.site, Accept: "*/*", "Accept-Language": "en-US,en;q=0.9", "Cache-Control": "no-cache", Pragma: "no-cache", RSC: "1" }, this.resolveUrl = function(t2) {
+      this.id = "dreamyTranslations", this.name = "Dreamy Translations", this.icon = "src/en/dreamyTranslations/icon.png", this.site = "https://dreamy-translations.com", this.version = "1.1.2", this.filters = void 0, this.imageRequestInit = void 0, this.pluginSettings = { hideLocked: { value: false, label: "Hide locked chapters", type: "Switch" } }, this.headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36", Referer: this.site, Accept: "*/*", "Accept-Language": "en-US,en;q=0.9", "Cache-Control": "no-cache", Pragma: "no-cache", RSC: "1" }, this.resolveUrl = function(t2) {
         return e2.site + t2;
       };
     }
-    __name(a2, "a");
-    return a2.prototype.fetchRsc = function(n2) {
+    __name(o2, "o");
+    return o2.prototype.fetchRsc = function(n2) {
       return e(this, void 0, void 0, function() {
         return t(this, function(e2) {
           switch (e2.label) {
@@ -9653,27 +9661,27 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, a2.prototype.extractRscObject = function(e2, t2) {
+    }, o2.prototype.extractRscObject = function(e2, t2) {
       var r2 = e2.split("\n").find(function(e3) {
         return e3.includes(t2);
       });
       if (!r2) throw new Error('Could not find "'.concat(t2, '" in Dreamy Translations RSC response'));
       var n2 = r2.indexOf(":");
       if (-1 === n2) throw new Error("Invalid Dreamy Translations RSC record");
-      var i2 = r2.slice(n2 + 1), o2 = JSON.parse(i2);
-      return Array.isArray(o2) && o2.length > 3 ? o2[3] : o2;
-    }, a2.prototype.extractDeferredText = function(e2, t2) {
+      var i2 = r2.slice(n2 + 1), o3 = JSON.parse(i2);
+      return Array.isArray(o3) && o3.length > 3 ? o3[3] : o3;
+    }, o2.prototype.extractDeferredText = function(e2, t2) {
       var r2 = t2.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), n2 = new RegExp("(?:^|\\n)".concat(r2, ":T([0-9a-fA-F]+),")).exec(e2);
       if (!n2) throw new Error("Could not locate chapter content in server response");
-      var i2 = n2.index + n2[0].length, o2 = parseInt(n2[1], 16), a3 = e2.slice(i2), c = new TextEncoder().encode(a3);
-      return new TextDecoder().decode(c.slice(0, o2));
-    }, a2.prototype.findDeferredText = function(e2, t2) {
+      var i2 = n2.index + n2[0].length, o3 = parseInt(n2[1], 16), a = e2.slice(i2), c = new TextEncoder().encode(a);
+      return new TextDecoder().decode(c.slice(0, o3));
+    }, o2.prototype.findDeferredText = function(e2, t2) {
       var r2 = t2.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), n2 = new RegExp("(?:^|\\n)".concat(r2, ":T([0-9a-fA-F]+),")).exec(e2);
       if (n2) {
-        var i2 = n2.index + n2[0].length, o2 = parseInt(n2[1], 16), a3 = new TextEncoder().encode(e2.slice(i2));
-        return new TextDecoder().decode(a3.slice(0, o2));
+        var i2 = n2.index + n2[0].length, o3 = parseInt(n2[1], 16), a = new TextEncoder().encode(e2.slice(i2));
+        return new TextDecoder().decode(a.slice(0, o3));
       }
-    }, a2.prototype.extractChapterObject = function(e2) {
+    }, o2.prototype.extractChapterObject = function(e2) {
       var t2 = e2.split("\n"), r2 = t2.find(function(e3) {
         return e3.includes('"chapter"') && e3.includes('"hasAccess"');
       });
@@ -9682,14 +9690,14 @@ var LNReaderPlugin = (() => {
         if (-1 !== n2) {
           var i2 = r2.slice(n2 + 1);
           try {
-            var o2 = JSON.parse(i2);
-            if (Array.isArray(o2) && o2.length > 3 && o2[3]) return o2[3];
-            if (o2 && "object" == typeof o2 && !Array.isArray(o2)) return o2;
+            var o3 = JSON.parse(i2);
+            if (Array.isArray(o3) && o3.length > 3 && o3[3]) return o3[3];
+            if (o3 && "object" == typeof o3 && !Array.isArray(o3)) return o3;
           } catch (e3) {
           }
         }
       }
-      var a3 = '"chapter":{', c = e2.indexOf(a3);
+      var a = '"chapter":{', c = e2.indexOf(a);
       if (-1 === c) throw new Error("Could not locate chapter data in server response");
       for (var s = -1, l = c; l >= 0; l--) if ("{" === e2[l]) {
         var u = e2.slice(l, c + 11);
@@ -9719,18 +9727,18 @@ var LNReaderPlugin = (() => {
         var w = b[y], g = w.indexOf(":");
         if (-1 !== g) {
           if ((i2 = w.slice(g + 1)).startsWith("[") || i2.startsWith("{")) try {
-            o2 = JSON.parse(i2);
-            if (Array.isArray(o2)) for (var m = 0, x = o2; m < x.length; m++) {
+            o3 = JSON.parse(i2);
+            if (Array.isArray(o3)) for (var m = 0, x = o3; m < x.length; m++) {
               var A = x[m];
               if (A && "object" == typeof A && !Array.isArray(A) && "chapter" in A) return A;
             }
-            if (o2 && "object" == typeof o2 && !Array.isArray(o2) && "chapter" in o2) return o2;
+            if (o3 && "object" == typeof o3 && !Array.isArray(o3) && "chapter" in o3) return o3;
           } catch (e3) {
           }
         }
       }
       throw new Error("Could not parse chapter data from Dreamy Translations response");
-    }, a2.prototype.fetchAllNovels = function() {
+    }, o2.prototype.fetchAllNovels = function() {
       return e(this, void 0, void 0, function() {
         var e2, r2;
         return t(this, function(t2) {
@@ -9739,43 +9747,43 @@ var LNReaderPlugin = (() => {
               return [4, this.fetchRsc("".concat(this.site, "/series"))];
             case 1:
               return e2 = t2.sent(), [2, (r2 = this.extractRscObject(e2, '"projects"')).projects.map(function(e3) {
-                return { name: e3.title, path: "/novel/".concat(e3.slug), cover: r2.squareImageUrls[String(e3.id)] || n.defaultCover };
+                return { name: e3.title, path: "/novel/".concat(e3.slug), cover: r2.squareImageUrls[String(e3.id)] };
               })];
           }
         });
       });
-    }, a2.prototype.popularNovels = function(r2) {
+    }, o2.prototype.popularNovels = function(r2) {
       return e(this, void 0, void 0, function() {
         return t(this, function(e2) {
           return 1 !== r2 ? [2, []] : [2, this.fetchAllNovels()];
         });
       });
-    }, a2.prototype.parseNovel = function(r2) {
+    }, o2.prototype.parseNovel = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, a3, c, s, l;
+        var e2, o3, a, c, s;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return [4, this.fetchRsc("".concat(this.site).concat(r2))];
             case 1:
-              return e2 = t2.sent(), a3 = this.extractRscObject(e2, '"chapters":['), c = { path: r2, name: a3.project.title || "Untitled", cover: a3.coverUrl || n.defaultCover, author: a3.project.author, genres: (a3.project.genres || []).join(", "), summary: a3.project.synopsis || a3.project.short_synopsis, status: a3.project.completed ? i.NovelStatus.Completed : i.NovelStatus.Ongoing }, s = o.storage.get("hideLocked"), l = true === s || "true" === s ? a3.chapters.filter(function(e3) {
+              return e2 = t2.sent(), o3 = this.extractRscObject(e2, '"chapters":['), a = { path: r2, name: o3.project.title || "Untitled", cover: o3.coverUrl, author: o3.project.author, genres: (o3.project.genres || []).join(", "), summary: o3.project.synopsis || o3.project.short_synopsis, status: o3.project.completed ? n.NovelStatus.Completed : n.NovelStatus.Ongoing }, c = i.storage.get("hideLocked"), s = true === c || "true" === c ? o3.chapters.filter(function(e3) {
                 return e3.free;
-              }) : a3.chapters, c.chapters = l.map(function(e3) {
+              }) : o3.chapters, a.chapters = s.map(function(e3) {
                 return { name: e3.free ? e3.title : "\u{1F512} ".concat(e3.title), path: "".concat(r2, "/chapter/").concat(e3.index), chapterNumber: e3.index };
-              }), [2, c];
+              }), [2, a];
           }
         });
       });
-    }, a2.prototype.parseChapter = function(r2) {
+    }, o2.prototype.parseChapter = function(r2) {
       return e(this, void 0, void 0, function() {
-        var e2, n2, i2, o2, a3;
+        var e2, n2, i2, o3, a;
         return t(this, function(t2) {
           switch (t2.label) {
             case 0:
               return [4, this.fetchRsc("".concat(this.site).concat(r2))];
             case 1:
               if (e2 = t2.sent(), !(n2 = this.extractChapterObject(e2)).hasAccess) throw new Error('This chapter requires premium access and cannot be read here. You can enable "Hide locked chapters" in the plugin settings to filter out locked chapters.');
-              if (i2 = n2.chapter.content, (o2 = "string" == typeof i2 ? /^\$([0-9a-zA-Z]+)$/.exec(i2) : null) && void 0 !== (a3 = this.findDeferredText(e2, o2[1])) && (i2 = a3), !i2 || !i2.trim()) throw new Error("Dreamy Translations returned an empty chapter");
+              if (i2 = n2.chapter.content, (o3 = "string" == typeof i2 ? /^\$([0-9a-zA-Z]+)$/.exec(i2) : null) && void 0 !== (a = this.findDeferredText(e2, o3[1])) && (i2 = a), !i2 || !i2.trim()) throw new Error("Dreamy Translations returned an empty chapter");
               return [2, i2.replace(/\r\n/g, "\n").replace(/\r/g, "\n").replace(/(\bsrc\s*=\s*["'])\[([^\]]+)\]\(\2\)(["'])/gi, "$1$2$3").split(/\n{2,}/).map(function(e3) {
                 return e3.trim();
               }).filter(Boolean).map(function(e3) {
@@ -9784,7 +9792,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, a2.prototype.searchNovels = function(r2, n2) {
+    }, o2.prototype.searchNovels = function(r2, n2) {
       return e(this, void 0, void 0, function() {
         var e2, i2;
         return t(this, function(t2) {
@@ -9798,9 +9806,9 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, a2;
+    }, o2;
   }();
-  exports.default = new a();
+  exports.default = new o();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

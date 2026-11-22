@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -9427,7 +9451,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -9445,7 +9469,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
     }
   });
 
@@ -9456,21 +9479,6 @@ var LNReaderPlugin = (() => {
   });
   var init_novelStatus = __esm({
     "src/libs/novelStatus.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
       "use strict";
       init_dirname();
       init_buffer2();
@@ -25520,15 +25528,15 @@ var LNReaderPlugin = (() => {
     __name(s2, "s");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_defaultCover(), __toCommonJS(defaultCover_exports)), o = (init_browser(), __toCommonJS(browser_exports)), s = 100, c = ["manga", "drama-cds", "teasers", "short-stories"], l = { current: a.NovelStatus.Ongoing, complete: a.NovelStatus.Completed, dropped: a.NovelStatus.Cancelled }, u = /^https?:\/\/wwaraitai\.co(\/\d{4}\/\d{2}\/\d{2}\/[^?#]+)/i, h = function() {
-    function h2() {
+  var n = (init_fetch2(), __toCommonJS(fetch_exports)), r = (init_filterInputs(), __toCommonJS(filterInputs_exports)), a = (init_novelStatus(), __toCommonJS(novelStatus_exports)), i = (init_browser(), __toCommonJS(browser_exports)), o = 100, s = ["manga", "drama-cds", "teasers", "short-stories"], c = { current: a.NovelStatus.Ongoing, complete: a.NovelStatus.Completed, dropped: a.NovelStatus.Cancelled }, l = /^https?:\/\/wwaraitai\.co(\/\d{4}\/\d{2}\/\d{2}\/[^?#]+)/i, u = function() {
+    function u2() {
       var t2 = this;
-      this.id = "wwaraitai", this.name = "Nani Mo Wakaranai Kedo", this.icon = "src/en/wwaraitai/icon.png", this.site = "https://wwaraitai.co", this.version = "1.0.0", this.api = this.site + "/wp-json/wp/v2", this.filters = { status: { label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Current", value: a.NovelStatus.Ongoing }, { label: "Complete", value: a.NovelStatus.Completed }, { label: "Dropped", value: a.NovelStatus.Cancelled }], type: r.FilterTypes.Picker } }, this.resolveUrl = function(e2) {
+      this.id = "wwaraitai", this.name = "Nani Mo Wakaranai Kedo", this.icon = "src/en/wwaraitai/icon.png", this.site = "https://wwaraitai.co", this.version = "1.0.1", this.api = this.site + "/wp-json/wp/v2", this.filters = { status: { label: "Status", value: "all", options: [{ label: "All", value: "all" }, { label: "Current", value: a.NovelStatus.Ongoing }, { label: "Complete", value: a.NovelStatus.Completed }, { label: "Dropped", value: a.NovelStatus.Cancelled }], type: r.FilterTypes.Picker } }, this.resolveUrl = function(e2) {
         return t2.site + t2.toPath(e2);
       };
     }
-    __name(h2, "h");
-    return h2.prototype.popularNovels = function(n2, r2) {
+    __name(u2, "u");
+    return u2.prototype.popularNovels = function(n2, r2) {
       return t(this, arguments, void 0, function(t2, n3) {
         var r3, a2, i2 = this, o2 = n3.filters;
         return e(this, function(e2) {
@@ -25544,7 +25552,7 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.searchNovels = function(n2, r2) {
+    }, u2.prototype.searchNovels = function(n2, r2) {
       return t(this, void 0, void 0, function() {
         var t2, a2 = this;
         return e(this, function(e2) {
@@ -25560,61 +25568,61 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.parseNovel = function(n2) {
+    }, u2.prototype.parseNovel = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, s2, c2, l2, u2, h3, p, f;
+        var t2, r2, o2, s2, c2, l2, u3, h, p;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return t2 = this.lastSegment(n2), [4, this.fetchList("/pages?slug=".concat(t2, "&_fields=id,slug,link,title,content"))];
             case 1:
               if (!(r2 = e2.sent()[0])) throw new Error("Nani Mo Wakaranai Kedo: novel not found at ".concat(n2));
-              return s2 = this.decode(r2.title.rendered), c2 = (0, o.load)('<div id="page">'.concat(r2.content.rendered, "</div>")), l2 = { path: this.toPath(r2.link), name: s2, cover: this.coverOf(c2) || i.defaultCover, chapters: [] }, (u2 = this.field(c2, "Author")) && (l2.author = u2), (h3 = this.summaryOf(c2)) && (l2.summary = h3), [4, this.statusMap()];
+              return o2 = this.decode(r2.title.rendered), s2 = (0, i.load)('<div id="page">'.concat(r2.content.rendered, "</div>")), c2 = { path: this.toPath(r2.link), name: o2, cover: this.coverOf(s2), chapters: [] }, (l2 = this.field(s2, "Author")) && (c2.author = l2), (u3 = this.summaryOf(s2)) && (c2.summary = u3), [4, this.statusMap()];
             case 2:
-              return p = e2.sent(), l2.status = p[l2.path] || a.NovelStatus.Unknown, f = l2, [4, this.fetchChapters(c2, s2)];
+              return h = e2.sent(), c2.status = h[c2.path] || a.NovelStatus.Unknown, p = c2, [4, this.fetchChapters(s2, o2)];
             case 3:
-              return f.chapters = e2.sent(), [2, l2];
+              return p.chapters = e2.sent(), [2, c2];
           }
         });
       });
-    }, h2.prototype.parseChapter = function(n2) {
+    }, u2.prototype.parseChapter = function(n2) {
       return t(this, void 0, void 0, function() {
-        var t2, r2, a2, i2, s2, c2, l2, u2 = this;
+        var t2, r2, a2, o2, s2, c2, l2, u3 = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               return t2 = this.lastSegment(n2), [4, this.fetchList("/posts?slug=".concat(t2, "&_fields=id,slug,content"))];
             case 1:
               if (r2 = e2.sent()[0], a2 = (null === (l2 = null == r2 ? void 0 : r2.content) || void 0 === l2 ? void 0 : l2.rendered) || "", !r2 || !a2.trim()) throw new Error("Nani Mo Wakaranai Kedo: no chapter text at ".concat(n2));
-              return i2 = (0, o.load)('<div id="chapter">'.concat(a2, "</div>")), (s2 = i2("#chapter")).find("script, style, .sharedaddy, .jp-relatedposts").remove(), (c2 = s2.children("p").filter(function(t3, e3) {
-                return /Table of Contents/i.test(i2(e3).text());
+              return o2 = (0, i.load)('<div id="chapter">'.concat(a2, "</div>")), (s2 = o2("#chapter")).find("script, style, .sharedaddy, .jp-relatedposts").remove(), (c2 = s2.children("p").filter(function(t3, e3) {
+                return /Table of Contents/i.test(o2(e3).text());
               }).last()).length > 0 && (c2.nextAll().remove(), c2.remove()), s2.children("p").each(function(t3, e3) {
-                var n3 = i2(e3), r3 = u2.normalizeText(n3.text());
+                var n3 = o2(e3), r3 = u3.normalizeText(n3.text());
                 (n3.find('a[href*="ko-fi.com"], a[href*="fiverr.com"]').length > 0 || /^Please also consider donating to my ko-fi/i.test(r3) || /^Have a Japanese story/i.test(r3)) && n3.remove();
               }), [2, s2.html() || ""];
           }
         });
       });
-    }, h2.prototype.catalogue = function() {
+    }, u2.prototype.catalogue = function() {
       return t(this, void 0, void 0, function() {
-        var t2, n2, r2, l2, u2, h3, p, f;
+        var t2, n2, r2, c2, l2, u3, h, p;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return [4, this.fetchList("/pages?per_page=".concat(s, "&_fields=id,slug,link,title,content"))];
+              return [4, this.fetchList("/pages?per_page=".concat(o, "&_fields=id,slug,link,title,content"))];
             case 1:
-              for (t2 = e2.sent(), n2 = this.statusesFrom(t2), r2 = [], l2 = 0, u2 = t2; l2 < u2.length; l2++) h3 = u2[l2], -1 === c.indexOf(h3.slug) && (p = (0, o.load)('<div id="page">'.concat(h3.content.rendered, "</div>")), 0 !== this.chapterLinks(p).length && (f = this.toPath(h3.link), r2.push({ slug: h3.slug, name: this.decode(h3.title.rendered), path: f, cover: this.coverOf(p) || i.defaultCover, status: n2[f] || a.NovelStatus.Unknown })));
+              for (t2 = e2.sent(), n2 = this.statusesFrom(t2), r2 = [], c2 = 0, l2 = t2; c2 < l2.length; c2++) u3 = l2[c2], -1 === s.indexOf(u3.slug) && (h = (0, i.load)('<div id="page">'.concat(u3.content.rendered, "</div>")), 0 !== this.chapterLinks(h).length && (p = this.toPath(u3.link), r2.push({ slug: u3.slug, name: this.decode(u3.title.rendered), path: p, cover: this.coverOf(h), status: n2[p] || a.NovelStatus.Unknown })));
               return [2, r2];
           }
         });
       });
-    }, h2.prototype.statusMap = function() {
+    }, u2.prototype.statusMap = function() {
       return t(this, void 0, void 0, function() {
         var t2, n2;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
-              return t2 = Object.keys(l).map(function(t3) {
+              return t2 = Object.keys(c).map(function(t3) {
                 return "slug[]=".concat(t3);
               }).join("&"), [4, this.fetchList("/pages?".concat(t2, "&_fields=id,slug,link,title,content"))];
             case 1:
@@ -25622,55 +25630,55 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.statusesFrom = function(t2) {
+    }, u2.prototype.statusesFrom = function(t2) {
       for (var e2 = this, n2 = {}, r2 = function(t3) {
-        var r3 = l[t3.slug];
+        var r3 = c[t3.slug];
         if (!r3) return "continue";
-        var a3 = (0, o.load)('<div id="page">'.concat(t3.content.rendered, "</div>"));
-        a3("a[href]").each(function(t4, i3) {
-          var o2 = a3(i3).attr("href") || "";
-          /^https?:\/\/wwaraitai\.co\/[^/?#]+\/?$/i.test(o2) && (n2[e2.toPath(o2)] = r3);
+        var a3 = (0, i.load)('<div id="page">'.concat(t3.content.rendered, "</div>"));
+        a3("a[href]").each(function(t4, i2) {
+          var o3 = a3(i2).attr("href") || "";
+          /^https?:\/\/wwaraitai\.co\/[^/?#]+\/?$/i.test(o3) && (n2[e2.toPath(o3)] = r3);
         });
-      }, a2 = 0, i2 = t2; a2 < i2.length; a2++) {
-        r2(i2[a2]);
+      }, a2 = 0, o2 = t2; a2 < o2.length; a2++) {
+        r2(o2[a2]);
       }
       return n2;
-    }, h2.prototype.toItem = function(t2) {
+    }, u2.prototype.toItem = function(t2) {
       return { name: t2.name, path: t2.path, cover: t2.cover };
-    }, h2.prototype.chapterLinks = function(t2) {
+    }, u2.prototype.chapterLinks = function(t2) {
       var e2 = this, n2 = [], r2 = /* @__PURE__ */ new Set();
       return t2("a[href]").each(function(a2, i2) {
-        var o2 = (t2(i2).attr("href") || "").match(u);
+        var o2 = (t2(i2).attr("href") || "").match(l);
         if (o2) {
           var s2 = e2.toPath(o2[1]);
           r2.has(s2) || (r2.add(s2), n2.push({ path: s2, label: e2.normalizeText(t2(i2).text()) }));
         }
       }), n2;
-    }, h2.prototype.fetchChapters = function(n2, r2) {
+    }, u2.prototype.fetchChapters = function(n2, r2) {
       return t(this, void 0, void 0, function() {
-        var t2, a2, i2, o2, c2, l2, u2, h3, p, f, d, v, g, m, w, y, b, x, k = this;
+        var t2, a2, i2, s2, c2, l2, u3, h, p, f, d, v, g, m, w, y, b, x, k = this;
         return e(this, function(e2) {
           switch (e2.label) {
             case 0:
               t2 = this.chapterLinks(n2), a2 = new Map(t2.map(function(t3) {
                 return [t3.path, t3.label];
-              })), i2 = /* @__PURE__ */ new Map(), o2 = 0, e2.label = 1;
+              })), i2 = /* @__PURE__ */ new Map(), s2 = 0, e2.label = 1;
             case 1:
-              return o2 < t2.length ? (c2 = t2.slice(o2, o2 + 40).map(function(t3) {
+              return s2 < t2.length ? (c2 = t2.slice(s2, s2 + 40).map(function(t3) {
                 return "slug[]=".concat(k.lastSegment(t3.path));
-              }).join("&"), [4, this.fetchList("/posts?".concat(c2, "&per_page=").concat(s, "&_fields=id,slug,link,date,title"))]) : [3, 4];
+              }).join("&"), [4, this.fetchList("/posts?".concat(c2, "&per_page=").concat(o, "&_fields=id,slug,link,date,title"))]) : [3, 4];
             case 2:
-              for (v = e2.sent(), l2 = 0, u2 = v; l2 < u2.length; l2++) w = u2[l2], i2.set(this.toPath(w.link), w);
+              for (v = e2.sent(), l2 = 0, u3 = v; l2 < u3.length; l2++) w = u3[l2], i2.set(this.toPath(w.link), w);
               e2.label = 3;
             case 3:
-              return o2 += 40, [3, 1];
+              return s2 += 40, [3, 1];
             case 4:
-              h3 = t2.length > 0 ? i2.get(t2[0].path) : void 0, p = this.stripTags(h3 ? this.decode(h3.title.rendered) : r2), f = /* @__PURE__ */ new Map(), d = 1, e2.label = 5;
+              h = t2.length > 0 ? i2.get(t2[0].path) : void 0, p = this.stripTags(h ? this.decode(h.title.rendered) : r2), f = /* @__PURE__ */ new Map(), d = 1, e2.label = 5;
             case 5:
-              return d <= 5 ? [4, this.fetchList("/posts?search=".concat(encodeURIComponent(p), "&per_page=").concat(s) + "&page=".concat(d, "&_fields=id,slug,link,date,title"))] : [3, 8];
+              return d <= 5 ? [4, this.fetchList("/posts?search=".concat(encodeURIComponent(p), "&per_page=").concat(o) + "&page=".concat(d, "&_fields=id,slug,link,date,title"))] : [3, 8];
             case 6:
               for (v = e2.sent(), g = 0, m = v; g < m.length; g++) w = m[g], y = this.toPath(w.link), b = this.decode(w.title.rendered), !i2.has(y) && 0 === b.indexOf(p) && /^(\s|$)/.test(b.slice(p.length)) && f.set(y, w);
-              if (v.length < s) return [3, 8];
+              if (v.length < o) return [3, 8];
               e2.label = 7;
             case 7:
               return d++, [3, 5];
@@ -25687,15 +25695,15 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.stripTags = function(t2) {
+    }, u2.prototype.stripTags = function(t2) {
       return t2.replace(/(?:\s*\[[^\]]*\])+\s*$/, "");
-    }, h2.prototype.extraLabel = function(t2, e2) {
+    }, u2.prototype.extraLabel = function(t2, e2) {
       var n2 = this.decode(t2.title.rendered), r2 = 0 === n2.indexOf(e2) ? n2.slice(e2.length) : n2;
       return this.normalizeText(r2.replace(/[[\]]/g, " "));
-    }, h2.prototype.coverOf = function(t2) {
+    }, u2.prototype.coverOf = function(t2) {
       var e2 = t2("img").first().attr("src");
       return e2 ? e2.replace(/&#038;/g, "&") : void 0;
-    }, h2.prototype.field = function(t2, e2) {
+    }, u2.prototype.field = function(t2, e2) {
       var n2, r2 = this;
       return t2("p").each(function(a2, i2) {
         if (void 0 === n2) {
@@ -25703,7 +25711,7 @@ var LNReaderPlugin = (() => {
           o2 && (n2 = o2[1]);
         }
       }), n2;
-    }, h2.prototype.summaryOf = function(t2) {
+    }, u2.prototype.summaryOf = function(t2) {
       var e2 = this, n2 = [], r2 = false;
       return t2("#page").children().each(function(a2, i2) {
         var o2 = t2(i2);
@@ -25714,7 +25722,7 @@ var LNReaderPlugin = (() => {
           r2 && /^[A-Z][A-Za-z ]{2,20}:/.test(s2) ? r2 = false : r2 && s2 && n2.push(s2);
         }
       }), n2.length > 0 ? n2.join("\n\n") : void 0;
-    }, h2.prototype.fetchList = function(r2) {
+    }, u2.prototype.fetchList = function(r2) {
       return t(this, void 0, void 0, function() {
         var t2, a2;
         return e(this, function(e2) {
@@ -25728,21 +25736,21 @@ var LNReaderPlugin = (() => {
           }
         });
       });
-    }, h2.prototype.searchKey = function(t2) {
+    }, u2.prototype.searchKey = function(t2) {
       return this.normalizeText(t2).toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
-    }, h2.prototype.toPath = function(t2) {
+    }, u2.prototype.toPath = function(t2) {
       var e2 = t2.trim(), n2 = e2.match(/^https?:\/\/(?:www\.)?wwaraitai\.co(\/.*)?$/i), r2 = (n2 ? n2[1] || "/" : e2).split(/[?#]/)[0], a2 = "/" === r2.charAt(0) ? r2 : "/" + r2;
       return "/" === a2.charAt(a2.length - 1) ? a2 : a2 + "/";
-    }, h2.prototype.lastSegment = function(t2) {
+    }, u2.prototype.lastSegment = function(t2) {
       var e2 = this.toPath(t2).split("/").filter(Boolean);
       return e2[e2.length - 1] || "";
-    }, h2.prototype.decode = function(t2) {
-      return this.normalizeText((0, o.load)("<p>".concat(t2, "</p>"))("p").text());
-    }, h2.prototype.normalizeText = function(t2) {
+    }, u2.prototype.decode = function(t2) {
+      return this.normalizeText((0, i.load)("<p>".concat(t2, "</p>"))("p").text());
+    }, u2.prototype.normalizeText = function(t2) {
       return t2.replace(/\s+/g, " ").trim();
-    }, h2;
+    }, u2;
   }();
-  exports.default = new h();
+  exports.default = new u();
 })();
 
 if (typeof module !== "undefined" && module.exports) { module.exports = this; }

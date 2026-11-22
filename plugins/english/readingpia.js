@@ -9268,6 +9268,28 @@ var LNReaderPlugin = (() => {
   });
 
   // src/lib/fetch.ts
+  async function fetchViaWebview(url, options) {
+    if (typeof window === "undefined") {
+      return { ok: false, html: "" };
+    }
+    try {
+      const res = await fetch(`${window.location.origin}/webview-fetch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...options })
+      });
+      if (!res.ok) {
+        return { ok: false, html: "" };
+      }
+      const data2 = await res.json();
+      return {
+        ok: Boolean(data2.ok && data2.html),
+        html: data2.html || ""
+      };
+    } catch {
+      return { ok: false, html: "" };
+    }
+  }
   async function fetchApi(url, init) {
     init = await makeInit(init);
     console.log(url, init);
@@ -9281,6 +9303,7 @@ var LNReaderPlugin = (() => {
       init_buffer2();
       init_process2();
       import_protobufjs = __toESM(require_protobufjs(), 1);
+      __name(fetchViaWebview, "fetchViaWebview");
       makeInit = /* @__PURE__ */ __name(async (init) => {
         const defaultHeaders = {
           "Connection": "keep-alive",
@@ -9380,7 +9403,8 @@ var LNReaderPlugin = (() => {
     fetchApi: () => fetchApi,
     fetchFile: () => fetchFile,
     fetchProto: () => fetchProto,
-    fetchText: () => fetchText
+    fetchText: () => fetchText,
+    fetchViaWebview: () => fetchViaWebview
   });
   var init_fetch2 = __esm({
     "src/libs/fetch.ts"() {
@@ -25376,7 +25400,7 @@ var LNReaderPlugin = (() => {
   });
 
   // src/types/constants.ts
-  var NovelStatus, defaultCover;
+  var NovelStatus;
   var init_constants = __esm({
     "src/types/constants.ts"() {
       "use strict";
@@ -25394,22 +25418,6 @@ var LNReaderPlugin = (() => {
         STUB: "STUB",
         Inactive: "Inactive"
       };
-      defaultCover = "https://github.com/LNReader/lnreader-plugins/blob/main/icons/src/coverNotAvailable.jpg?raw=true";
-    }
-  });
-
-  // src/libs/defaultCover.ts
-  var defaultCover_exports = {};
-  __export(defaultCover_exports, {
-    defaultCover: () => defaultCover
-  });
-  var init_defaultCover = __esm({
-    "src/libs/defaultCover.ts"() {
-      "use strict";
-      init_dirname();
-      init_buffer2();
-      init_process2();
-      init_constants();
     }
   });
 
@@ -25528,10 +25536,10 @@ var LNReaderPlugin = (() => {
     return e2.concat(n2 || Array.prototype.slice.call(t2));
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var a = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_browser(), __toCommonJS(browser_exports)), l = (init_defaultCover(), __toCommonJS(defaultCover_exports)), s = (init_novelStatus(), __toCommonJS(novelStatus_exports)), u = "/series/", c = function() {
+  var a = (init_fetch2(), __toCommonJS(fetch_exports)), i = (init_filterInputs(), __toCommonJS(filterInputs_exports)), o = (init_browser(), __toCommonJS(browser_exports)), l = (init_novelStatus(), __toCommonJS(novelStatus_exports)), s = "/series/", c = function() {
     function c2() {
       var e2 = this;
-      this.id = "readingpia", this.name = "ReadingPia", this.icon = "src/en/readingpia/icon.png", this.site = "https://www.readingpia.me", this.version = "1.0.0", this.filters = { sort: { label: "Sort by", type: i.FilterTypes.Picker, value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Recent", value: "recent" }, { label: "Chapters", value: "chaptes" }, { label: "Views", value: "views" }] }, order: { label: "Order", type: i.FilterTypes.Picker, value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }] }, status: { label: "Status", type: i.FilterTypes.Picker, value: "all", options: [{ label: "All", value: "all" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }] }, genres: { label: "Genres", type: i.FilterTypes.CheckboxGroup, value: [], options: [{ label: "Academy", value: "1" }, { label: "Harem", value: "2" }, { label: "Fantasy", value: "3" }, { label: "Romance", value: "4" }, { label: "Transmigration", value: "5" }, { label: "Reincarnation", value: "6" }, { label: "Action", value: "7" }, { label: "Comedy", value: "8" }, { label: "Drama", value: "9" }, { label: "Regression", value: "10" }, { label: "Revenge", value: "11" }, { label: "Mystery", value: "12" }, { label: "Sci-fi", value: "13" }, { label: "Slice of Life", value: "14" }, { label: "Supernatural", value: "15" }, { label: "Martial Arts", value: "16" }, { label: "Wuxia", value: "17" }, { label: "Shounen", value: "18" }] } }, this.fullNames = /* @__PURE__ */ new Map(), this.resolveUrl = function(t2) {
+      this.id = "readingpia", this.name = "ReadingPia", this.icon = "src/en/readingpia/icon.png", this.site = "https://www.readingpia.me", this.version = "1.0.1", this.filters = { sort: { label: "Sort by", type: i.FilterTypes.Picker, value: "popular", options: [{ label: "Popular", value: "popular" }, { label: "Recent", value: "recent" }, { label: "Chapters", value: "chaptes" }, { label: "Views", value: "views" }] }, order: { label: "Order", type: i.FilterTypes.Picker, value: "desc", options: [{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }] }, status: { label: "Status", type: i.FilterTypes.Picker, value: "all", options: [{ label: "All", value: "all" }, { label: "Ongoing", value: "ongoing" }, { label: "Completed", value: "completed" }] }, genres: { label: "Genres", type: i.FilterTypes.CheckboxGroup, value: [], options: [{ label: "Academy", value: "1" }, { label: "Harem", value: "2" }, { label: "Fantasy", value: "3" }, { label: "Romance", value: "4" }, { label: "Transmigration", value: "5" }, { label: "Reincarnation", value: "6" }, { label: "Action", value: "7" }, { label: "Comedy", value: "8" }, { label: "Drama", value: "9" }, { label: "Regression", value: "10" }, { label: "Revenge", value: "11" }, { label: "Mystery", value: "12" }, { label: "Sci-fi", value: "13" }, { label: "Slice of Life", value: "14" }, { label: "Supernatural", value: "15" }, { label: "Martial Arts", value: "16" }, { label: "Wuxia", value: "17" }, { label: "Shounen", value: "18" }] } }, this.fullNames = /* @__PURE__ */ new Map(), this.resolveUrl = function(t2) {
         return e2.site + t2;
       };
     }
@@ -25572,20 +25580,20 @@ var LNReaderPlugin = (() => {
         });
       });
     }, c2.prototype.absolute = function(e2) {
-      return e2 ? new URL(e2, this.site).href : l.defaultCover;
+      return e2 ? new URL(e2, this.site).href : void 0;
     }, c2.prototype.listNovels = function(a2, i2) {
       return t(this, void 0, void 0, function() {
-        var l2, s2, c3, p, h, f = this;
+        var l2, c3, u, p, h, f = this;
         return r(this, function(v) {
           switch (v.label) {
             case 0:
               return l2 = n(n(["search=".concat(encodeURIComponent(i2.search)), "sort=".concat(i2.sort), "order_by=".concat(i2.order), "status=".concat(i2.status)], i2.genres.map(function(e2) {
                 return "genres[]=".concat(encodeURIComponent(e2));
-              }), true), ["page=".concat(a2)], false).join("&"), c3 = o.load, [4, this.getHtml("".concat(this.site, "/series?").concat(l2))];
+              }), true), ["page=".concat(a2)], false).join("&"), u = o.load, [4, this.getHtml("".concat(this.site, "/series?").concat(l2))];
             case 1:
-              return s2 = c3.apply(void 0, [v.sent()]), p = [], h = /* @__PURE__ */ new Set(), s2(".chapter-collection a[href]").each(function(e2, t2) {
-                var r2 = s2(t2), n2 = new URL(r2.attr("href") || "", f.site).pathname;
-                if (n2.startsWith(u) && !h.has(n2)) {
+              return c3 = u.apply(void 0, [v.sent()]), p = [], h = /* @__PURE__ */ new Set(), c3(".chapter-collection a[href]").each(function(e2, t2) {
+                var r2 = c3(t2), n2 = new URL(r2.attr("href") || "", f.site).pathname;
+                if (n2.startsWith(s) && !h.has(n2)) {
                   var a3 = f.clean(r2.find(".chapter-novel-title").text());
                   a3 && (h.add(n2), p.push({ name: a3, path: n2, cover: f.absolute(r2.find("img").attr("src")) }));
                 }
@@ -25628,19 +25636,19 @@ var LNReaderPlugin = (() => {
       }
     }, c2.prototype.parseNovel = function(e2) {
       return t(this, void 0, void 0, function() {
-        var t2, n2, a2, i2, l2, u2, c3, p, h, f, v = this;
+        var t2, n2, a2, i2, s2, c3, u, p, h, f, v = this;
         return r(this, function(r2) {
           switch (r2.label) {
             case 0:
               return [4, this.getHtml(this.site + e2)];
             case 1:
-              return t2 = r2.sent(), n2 = (0, o.load)(t2), a2 = e2.slice(8).replace(/\/+$/, ""), i2 = { path: e2, name: this.clean(n2(".novel-title").first().text()) || "Untitled", cover: this.absolute(n2(".novel-cover img").first().attr("src")) }, (l2 = this.clean(n2(".novel-info .text-secondary").first().text()).replace(/^by\s+/i, "").trim()) && (i2.author = l2), u2 = this.clean(n2(".novel-info .badge").first().text()).toLowerCase(), i2.status = "ongoing" === u2 ? s.NovelStatus.Ongoing : "completed" === u2 ? s.NovelStatus.Completed : "hiatus" === u2 ? s.NovelStatus.OnHiatus : s.NovelStatus.Unknown, (c3 = n2(".novel-tags a[href]").toArray().map(function(e3) {
+              return t2 = r2.sent(), n2 = (0, o.load)(t2), a2 = e2.slice(8).replace(/\/+$/, ""), i2 = { path: e2, name: this.clean(n2(".novel-title").first().text()) || "Untitled", cover: this.absolute(n2(".novel-cover img").first().attr("src")) }, (s2 = this.clean(n2(".novel-info .text-secondary").first().text()).replace(/^by\s+/i, "").trim()) && (i2.author = s2), c3 = this.clean(n2(".novel-info .badge").first().text()).toLowerCase(), i2.status = "ongoing" === c3 ? l.NovelStatus.Ongoing : "completed" === c3 ? l.NovelStatus.Completed : "hiatus" === c3 ? l.NovelStatus.OnHiatus : l.NovelStatus.Unknown, (u = n2(".novel-tags a[href]").toArray().map(function(e3) {
                 return v.clean(n2(e3).text());
-              }).filter(Boolean)).length && (i2.genres = Array.from(new Set(c3)).join(", ")), (p = this.parseSynopsis(t2)) && (i2.summary = p), h = new RegExp("^/".concat(a2, "-chapter-(\\d+)$")), f = /* @__PURE__ */ new Map(), n2("a[href]").each(function(e3, t3) {
+              }).filter(Boolean)).length && (i2.genres = Array.from(new Set(u)).join(", ")), (p = this.parseSynopsis(t2)) && (i2.summary = p), h = new RegExp("^/".concat(a2, "-chapter-(\\d+)$")), f = /* @__PURE__ */ new Map(), n2("a[href]").each(function(e3, t3) {
                 var r3 = n2(t3), a3 = new URL(r3.attr("href") || "", v.site).pathname, i3 = h.exec(a3);
                 if (i3 && !f.has(a3)) {
-                  var o2 = Number(i3[1]), l3 = v.clean(r3.find("span").first().text());
-                  /^chapter\s+\d+/i.test(l3) && f.set(a3, { name: l3, path: a3, chapterNumber: o2 });
+                  var o2 = Number(i3[1]), l2 = v.clean(r3.find("span").first().text());
+                  /^chapter\s+\d+/i.test(l2) && f.set(a3, { name: l2, path: a3, chapterNumber: o2 });
                 }
               }), i2.chapters = Array.from(f.values()).sort(function(e3, t3) {
                 return (e3.chapterNumber || 0) - (t3.chapterNumber || 0);
